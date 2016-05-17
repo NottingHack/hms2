@@ -1,0 +1,34 @@
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server ipv6only=on;
+
+	root /srv/www/public;
+
+	index index.php index.html index.htm index.nginx-debian.html;
+
+	server_name _;
+
+	location / {
+		try_files $uri $uri/ =404;
+		# Uncomment to enable naxsi on this location
+		# include /etc/nginx/naxsi.rules;
+	}
+
+	# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+	#
+	location ~ \.php$ {
+		include snippets/fastcgi-php.conf;
+	
+		# With php5-cgi alone:
+		#fastcgi_pass 127.0.0.1:9000;
+		# With php5-fpm:
+		fastcgi_pass unix:/var/run/php5-fpm.sock;
+	}
+
+	# deny access to .htaccess files, if Apache's document root
+	# concurs with nginx's one
+	#
+	#location ~ /\.ht {
+	#	deny all;
+	#}
+}

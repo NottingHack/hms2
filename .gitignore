@@ -1,0 +1,22 @@
+### Vagrant ###
+.vagrant/
+
+
+### Laravel ###
+vendor/
+node_modules/
+bootstrap/cache/
+storage/
+.env.*.php
+.env.php
+.env
+
+### OS generated files ###
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db

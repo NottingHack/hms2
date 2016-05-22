@@ -3,12 +3,11 @@
 
 
 ### Laravel ###
-vendor/
-node_modules/
-bootstrap/cache/
-storage/
-.env.*.php
-.env.php
+/vendor
+/node_modules
+/public/storage
+Homestead.yaml
+Homestead.json
 .env
 
 ### OS generated files ###

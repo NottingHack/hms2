@@ -15,5 +15,5 @@ debconf-set-selections <<< 'phpmyadmin phpmyadmin/reconfigure-webserver multisel
 apt-get install -y mysql-server phpmyadmin
 
 # Need to setup the DB, etc here - set appropriate privledges
-mysql -uroot -proot -e "GRANT ALL ON *.* TO 'altruismo'@'localhost' IDENTIFIED BY '' WITH GRANT OPTION"
+mysql -uroot -proot -e "GRANT ALL ON *.* TO 'hms'@'localhost' IDENTIFIED BY 'secret' WITH GRANT OPTION"
 mysql -uroot -proot -e "FLUSH PRIVILEGES"

@@ -6,8 +6,9 @@ echo " "
 
 debconf-set-selections <<< 'libssl1.0.0:amd64 libssl1.0.0/restart-services string ntp'
 
-apt-get install -y php5-mysql haveged php-pear php5-dev php5-fpm
+# removing php-pear php-dev as they rely on PHP5
+apt-get install -y haveged php7.0-fpm php7.0-mysql php7.0-apcu php7.0-json php7.0-curl
 
 # set php-fpm to run as "vagrant" user
-sed -i 's/user = www-data/user = vagrant/g' /etc/php5/fpm/pool.d/www.conf
-sed -i 's/group = www-data/group = vagrant/g' /etc/php5/fpm/pool.d/www.conf
+sed -i 's/user = www-data/user = vagrant/g' /etc/php/7.0/fpm/pool.d/www.conf
+sed -i 's/group = www-data/group = vagrant/g' /etc/php/7.0/fpm/pool.d/www.conf

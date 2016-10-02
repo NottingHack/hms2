@@ -4,7 +4,7 @@ echo " "
 echo "LARAVEL"
 echo " "
 
-apt-get install -y git
+apt-get install -y git curl
 
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
@@ -22,4 +22,12 @@ cp /vagrant/dev/vagrant-config/laravel/.env /vagrant/.env
 # php artisan migrate -vv --seed
 
 # need to install node
-# # set gulp to watch, etc
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+apt-get install -y nodejs
+npm install --global gulp-cli
+
+# set up for gulp install
+cp -rf /vagrant/ /srv/vagrant/
+chown -R vagrant:vagrant /srv/vagrant/
+
+chmod ugo+x /vagrant/dev/vagrant-config/laravel/dogulp

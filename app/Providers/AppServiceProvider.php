@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use HMS\Auth\FileBasedIdentityManager;
+use HMS\Auth\IdentityManager;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,5 +26,8 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
+        $this->app->singleton(IdentityManager::class, function($app) {
+            return $app->make(FileBasedIdentityManager::class);
+        });
     }
 }

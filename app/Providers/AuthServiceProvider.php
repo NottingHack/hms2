@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Gate;
+use Doctrine\ORM\EntityManagerInterface;
+use HMS\Auth\HmsUserProvider;
+use HMS\Auth\IdentityManager;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -21,10 +24,13 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(EntityManagerInterface $em, IdentityManager $identityManager)
     {
         $this->registerPolicies();
 
-        //
+        Auth::provider('hms', function($app, array $config) use ($em, $identityManager) {
+
+            return new HmsUserProvider($app['hash'], $em, $config['model'], $identityManager);
+        });
     }
 }

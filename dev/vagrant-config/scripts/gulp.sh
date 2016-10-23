@@ -9,8 +9,12 @@ echo "running as user $_user ($_uid)"
 echo " "
 
 # move to the share folder and use yarn to install deps
-cd /vagrant
+mkdir ~/hms2/
+cp /vagrant/package.json ~/hms2/
+cp /vagrant/yarn.lock ~/hms2/
+cd ~/hms2/
 /usr/bin/yarn
+cp -R node_modules /vagrant/
 
 # create gulp watch script
 cat <<\EOF > /home/vagrant/gulpwatch.sh
@@ -33,4 +37,5 @@ chmod +x /home/vagrant/gulpwatch.sh
 chmod +x /home/vagrant/restartwatch.sh
 
 # run gulp once
+cd /vagrant
 /usr/bin/gulp

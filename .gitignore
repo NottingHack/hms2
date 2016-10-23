@@ -5,6 +5,7 @@
 ### Laravel ###
 /node_modules
 /public/storage
+/public/build
 /vendor
 /.idea
 Homestead.json

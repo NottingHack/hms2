@@ -1,9 +1,7 @@
+@charset 'utf-8';
 
-// Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@import '_settings';
+@import 'foundation';
+@import 'motion-ui';
 
-// Variables
-@import "variables";
-
-// Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@include foundation-everything($flex: true);

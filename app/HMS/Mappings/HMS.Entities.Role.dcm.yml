@@ -1,0 +1,21 @@
+# HMS.Entities.User.dcm.yml
+HMS\Entities\Role:
+  type: entity
+  table: roles
+  indexes:
+    name_index:
+      columns: [ name ]
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+      unique: true
+  oneToMany:
+    permissions:
+      targetEntity: LaravelDoctrine\ACL\Permissions\Permission
+      mappedBy: role
+

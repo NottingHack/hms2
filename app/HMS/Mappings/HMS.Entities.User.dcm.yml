@@ -1,0 +1,30 @@
+# HMS.Entities.User.dcm.yml
+HMS\Entities\User:
+  type: entity
+  table: user
+  indexes:
+    email_index:
+      columns: [ email ]
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+    username:
+      type: string
+      unique: true
+    email:
+      type: string
+      unique: true
+    rememberToken:
+      column: remember_token
+      type: string
+      nullable: true
+  oneToMany:
+    roles:
+      targetEntity: Role
+      mappedBy: user
+

@@ -1,0 +1,17 @@
+# LaravelDoctrine.ACL.Permissions.Permission.dcm.yml
+LaravelDoctrine\ACL\Permissions\Permission:
+  type: entity
+  table: permissions
+  indexes:
+    name_index:
+      columns: [ name ]
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+      unique: true
+

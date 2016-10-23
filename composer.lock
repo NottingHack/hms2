@@ -4,9 +4,49 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "65941b2af983d42c269faf9a30a40263",
-    "content-hash": "d8e8e88ca342b41f5d59c8d9ece42c27",
+    "hash": "eb3fb6f03ba38b9b4a791e3bcf44d672",
+    "content-hash": "0d970471fd9e946657733e9991a03fea",
     "packages": [
+        {
+            "name": "behat/transliterator",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Behat/Transliterator.git",
+                "reference": "868e05be3a9f25ba6424c2dd4849567f50715003"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Behat/Transliterator/zipball/868e05be3a9f25ba6424c2dd4849567f50715003",
+                "reference": "868e05be3a9f25ba6424c2dd4849567f50715003",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Behat\\Transliterator": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Artistic-1.0"
+            ],
+            "description": "String transliterator",
+            "keywords": [
+                "i18n",
+                "slug",
+                "transliterator"
+            ],
+            "time": "2015-09-28 16:26:35"
+        },
         {
             "name": "classpreloader/classpreloader",
             "version": "3.0.0",
@@ -767,6 +807,85 @@
             "time": "2016-09-10 18:51:13"
         },
         {
+            "name": "gedmo/doctrine-extensions",
+            "version": "v2.4.24",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
+                "reference": "a7f7243a19f79a99ac83a3570444d8795f665eef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/a7f7243a19f79a99ac83a3570444d8795f665eef",
+                "reference": "a7f7243a19f79a99ac83a3570444d8795f665eef",
+                "shasum": ""
+            },
+            "require": {
+                "behat/transliterator": "~1.0",
+                "doctrine/common": "~2.4",
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "doctrine/common": ">=2.5.0",
+                "doctrine/mongodb-odm": ">=1.0.2",
+                "doctrine/orm": ">=2.5.0",
+                "phpunit/phpunit": "~4.4",
+                "phpunit/phpunit-mock-objects": "~2.3",
+                "symfony/yaml": "~2.6"
+            },
+            "suggest": {
+                "doctrine/mongodb-odm": "to use the extensions with the MongoDB ODM",
+                "doctrine/orm": "to use the extensions with the ORM"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Gedmo\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Buchmann",
+                    "email": "david@liip.ch"
+                },
+                {
+                    "name": "Gediminas Morkevicius",
+                    "email": "gediminas.morkevicius@gmail.com"
+                },
+                {
+                    "name": "Gustavo Falco",
+                    "email": "comfortablynumb84@gmail.com"
+                }
+            ],
+            "description": "Doctrine2 behavioral extensions",
+            "homepage": "http://gediminasm.org/",
+            "keywords": [
+                "Blameable",
+                "behaviors",
+                "doctrine2",
+                "extensions",
+                "gedmo",
+                "loggable",
+                "nestedset",
+                "sluggable",
+                "sortable",
+                "timestampable",
+                "translatable",
+                "tree",
+                "uploadable"
+            ],
+            "time": "2016-10-11 18:03:37"
+        },
+        {
             "name": "ircmaxell/password-compat",
             "version": "v1.0.4",
             "source": {
@@ -1010,6 +1129,67 @@
                 "roles"
             ],
             "time": "2016-09-01 16:35:10"
+        },
+        {
+            "name": "laravel-doctrine/extensions",
+            "version": "1.0.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel-doctrine/extensions.git",
+                "reference": "dc11146308b14da194106fda1641bb3bc282d317"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel-doctrine/extensions/zipball/dc11146308b14da194106fda1641bb3bc282d317",
+                "reference": "dc11146308b14da194106fda1641bb3bc282d317",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/auth": "~5.1",
+                "illuminate/config": "~5.1",
+                "illuminate/contracts": "~5.1",
+                "illuminate/http": "~5.1",
+                "illuminate/support": "~5.1",
+                "laravel-doctrine/orm": "1.0.*|1.1.*|1.2.*",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "beberlei/doctrineextensions": "^1.0",
+                "gedmo/doctrine-extensions": "^2.4",
+                "mockery/mockery": "~0.9",
+                "phpunit/phpunit": "~4.0"
+            },
+            "suggest": {
+                "beberlei/DoctrineExtensions": "Query/Type Doctrine2 extensions (^1.0)",
+                "gedmo/doctrine-extensions": "Behavioral Doctrine2 extensions (^2.4)"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "LaravelDoctrine\\Extensions\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Patrick Brouwers",
+                    "email": "patrick@maatwebsite.nl"
+                }
+            ],
+            "description": "Doctrine extensions for Doctrine 2 and Laravel 5",
+            "keywords": [
+                "beberlei",
+                "data mapper",
+                "database",
+                "doctrine",
+                "gedmo",
+                "laravel",
+                "orm"
+            ],
+            "time": "2016-09-01 16:38:57"
         },
         {
             "name": "laravel-doctrine/migrations",
@@ -3399,46 +3579,6 @@
                 "web"
             ],
             "time": "2016-02-15 07:55:18"
-        },
-        {
-            "name": "behat/transliterator",
-            "version": "v1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Behat/Transliterator.git",
-                "reference": "868e05be3a9f25ba6424c2dd4849567f50715003"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Behat/Transliterator/zipball/868e05be3a9f25ba6424c2dd4849567f50715003",
-                "reference": "868e05be3a9f25ba6424c2dd4849567f50715003",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Behat\\Transliterator": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Artistic-1.0"
-            ],
-            "description": "String transliterator",
-            "keywords": [
-                "i18n",
-                "slug",
-                "transliterator"
-            ],
-            "time": "2015-09-28 16:26:35"
         },
         {
             "name": "fzaninotto/faker",

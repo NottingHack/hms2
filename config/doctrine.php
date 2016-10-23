@@ -26,10 +26,10 @@ return [
             'meta'       => env('DOCTRINE_METADATA', 'annotations'),
             'connection' => env('DB_CONNECTION', 'mysql'),
             'namespaces' => [
-                'App'
+                'HMS'
             ],
             'paths'      => [
-                base_path('app/HMS/Entities')
+                base_path('app/HMS/Mappings')
             ],
             'repository' => Doctrine\ORM\EntityRepository::class,
             'proxies'    => [
@@ -92,8 +92,8 @@ return [
     'extensions'                => [
         //LaravelDoctrine\ORM\Extensions\TablePrefix\TablePrefixExtension::class,
         //LaravelDoctrine\Extensions\Timestamps\TimestampableExtension::class,
-        //LaravelDoctrine\Extensions\SoftDeletes\SoftDeleteableExtension::class,
-        //LaravelDoctrine\Extensions\Sluggable\SluggableExtension::class,
+        LaravelDoctrine\Extensions\SoftDeletes\SoftDeleteableExtension::class,
+        LaravelDoctrine\Extensions\Sluggable\SluggableExtension::class,
         //LaravelDoctrine\Extensions\Sortable\SortableExtension::class,
         //LaravelDoctrine\Extensions\Tree\TreeExtension::class,
         //LaravelDoctrine\Extensions\Loggable\LoggableExtension::class,

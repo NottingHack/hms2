@@ -8,14 +8,26 @@ HMS\Entities\Role:
   id:
     id:
       type: integer
+      options:
+        unsigned: true
       generator:
         strategy: AUTO
   fields:
     name:
       type: string
       unique: true
-  oneToMany:
+  manyToMany:
     permissions:
       targetEntity: LaravelDoctrine\ACL\Permissions\Permission
-      mappedBy: role
+      joinTable:
+        name: permission_role
+        joinColumns:
+          role_id:
+            referencedColumnName: id
+            onDelete: CASCADE
+        inverseJoinColumns:
+          permission_id:
+            referencedColumnName: id
+            onDelete: CASCADE
+
 

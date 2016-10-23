@@ -8,6 +8,8 @@ HMS\Entities\User:
   id:
     id:
       type: integer
+      options:
+        unsigned: true
       generator:
         strategy: AUTO
   fields:
@@ -22,9 +24,19 @@ HMS\Entities\User:
     rememberToken:
       column: remember_token
       type: string
+      length: 100
       nullable: true
-  oneToMany:
+  manyToMany:
     roles:
       targetEntity: Role
-      mappedBy: user
+      joinTable:
+        name: role_user
+        joinColumns:
+          user_id:
+            referencedColumnName: id
+            onDelete: CASCADE
+        inverseJoinColumns:
+          role_id:
+            referencedColumnName: id
+            onDelete: CASCADE
 

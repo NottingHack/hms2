@@ -23,11 +23,5 @@ cp /vagrant/dev/vagrant-config/laravel/.env /vagrant/.env
 
 # need to install node
 curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-apt-get install -y nodejs
-npm install --global gulp-cli
-
-# set up for gulp install
-cp -rf /vagrant/ /srv/vagrant/
-chown -R vagrant:vagrant /srv/vagrant/
-
-chmod ugo+x /vagrant/dev/vagrant-config/laravel/dogulp
+apt-get install -y nodejs > /dev/null 2>&1
+npm install --global gulp-cli yarn

@@ -1,1 +1,0 @@
-vagrant ssh -c 'cd /vagrant/dev/vagrant-config/laravel; ./dogulp'

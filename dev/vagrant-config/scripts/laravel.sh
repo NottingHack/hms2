@@ -19,7 +19,6 @@ composer install
 cp /vagrant/dev/vagrant-config/laravel/.env /vagrant/.env
 
 # Set up DB
-# php artisan migrate -vv --seed
+php artisan doctrine:migration:refresh
+php artisan db:seed
 
-# need to install node
-# # set gulp to watch, etc

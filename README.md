@@ -15,3 +15,13 @@ You can find your file in the following location:
 * Windows: C:\Windows\System32\Drivers\etc\hosts
 * Mac: /private/etc/hosts
 * Linux: /etc/hosts
+
+## Running commands on the Virtual Machine
+
+### Artisan
+
+To run an artisan command on the VM, (for example if you don't have PHP installed on your local machine) use the ```php-artisan``` script that you can find in the dev/ folder.
+
+Simply pass it the artisan command you want to run, e.g:
+
+```./dev/php-artisan make:controller```

@@ -5,3 +5,48 @@
 @import 'motion-ui';
 
 @include foundation-everything($flex: true);
+
+.with-footer {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch !important;
+}
+
+.content {
+  flex: 1;
+}
+
+ul.nomarkers {
+    list-style-type: none;
+    margin-left: 0;
+}
+
+.footer {
+    background-color: $footer-background-colour;
+    color: $footer-text-colour;
+    padding-top: rem-calc(20);
+    margin-top: rem-calc(20);
+
+    a {
+        color: $footer-link-colour;
+    }
+}
+
+.header {
+    background-color: $header-background-colour;
+    color: $header-text-colour;
+    padding-top: rem-calc(20);
+    padding-bottom: rem-calc(20);
+}
+
+.userbar {
+    margin-bottom: rem-calc(10);
+    background-color: $userbar-background-colour;
+    color: $userbar-text-colour;
+}
+
+// Foundation docs say it provides this class, but it doesn't seem to work
+.align-middle {
+    align-items: center;
+}

@@ -39,7 +39,6 @@
 //  34. Title Bar
 //  35. Tooltip
 //  36. Top Bar
-//  37. HMS Classes
 
 @import 'util/util';
 
@@ -584,42 +583,3 @@ $topbar-submenu-background: $topbar-background;
 $topbar-title-spacing: 1rem;
 $topbar-input-width: 200px;
 $topbar-unstack-breakpoint: medium;
-
-
-// 37. HMS classes
-// ---------------
-
-ul.nomarkers {
-    list-style-type: none;
-    margin-left: 0;
-}
-
-
-.footer {
-    background-color: $footer-background-colour;
-    color: $footer-text-colour;
-    padding-top: rem-calc(20);
-    margin-top: rem-calc(20);
-
-    a {
-        color: $footer-link-colour;
-    }
-}
-
-.header {
-    background-color: $header-background-colour;
-    color: $header-text-colour;
-    padding-top: rem-calc(20);
-    padding-bottom: rem-calc(20);
-}
-
-.userbar {
-    margin-bottom: rem-calc(10);
-    background-color: $userbar-background-colour;
-    color: $userbar-text-colour;
-}
-
-// Foundation docs say it provides this class, but it doesn't seem to work
-.align-middle {
-    align-items: center;
-}

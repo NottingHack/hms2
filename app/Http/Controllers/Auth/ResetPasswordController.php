@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use HMS\Auth\IdentityManager;
+use HMS\Entities\User;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Password;
 
 class ResetPasswordController extends Controller
 {
@@ -20,13 +24,58 @@ class ResetPasswordController extends Controller
 
     use ResetsPasswords;
 
+    /** @var  IdentityManager */
+    protected $identityManager;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(IdentityManager $identityManager)
     {
         $this->middleware('guest');
+        $this->identityManager = $identityManager;
+    }
+
+    /**
+     * Reset the given user's password.
+     * Note: this is overridden from the ResetPasswords trait as no mechanism is provided to customise the validation
+     * rules, see: https://github.com/laravel/framework/issues/15086
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function reset(Request $request)
+    {
+        $this->validate($request, [
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|confirmed|min:' . User::MIN_PASSWORD_LENGTH,
+        ]);
+
+        // Here we will attempt to reset the user's password. If it is successful we
+        // will update the password on an actual user model and persist it to the
+        // database. Otherwise we will parse the error and return the response.
+        $response = $this->broker()->reset(
+            $this->credentials($request), function ($user, $password) {
+            $this->resetPassword($user, $password);
+        }
+        );
+
+        // If the password was successfully reset, we will redirect the user back to
+        // the application's home authenticated view. If there is an error we can
+        // redirect them back to where they came from with their error message.
+        return $response == Password::PASSWORD_RESET
+            ? $this->sendResetResponse($response)
+            : $this->sendResetFailedResponse($request, $response);
+    }
+
+    protected function resetPassword($user, $password)
+    {
+        $this->identityManager->setPassword($user->getAuthIdentifier(), $password);
+        // TODO: reset the user's remember token here to ensure someone with an old cookie isn't automatically logged in
+
+        $this->guard()->login($user);
     }
 }

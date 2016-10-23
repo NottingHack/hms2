@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use HMS\Auth\IdentityManager;
+use HMS\Entities\User;
+
+use HMS\Repositories\RoleRepository;
+use HMS\Repositories\UserRepository;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -29,13 +33,20 @@ class RegisterController extends Controller
      */
     protected $redirectTo = '/home';
 
+    protected $userRepository;
+    protected $roleRepository;
+    protected $identityManager;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserRepository $userRepository, RoleRepository $roleRepository, IdentityManager $identityManager)
     {
+        $this->userRepository = $userRepository;
+        $this->roleRepository = $roleRepository;
+        $this->identityManager = $identityManager;
         $this->middleware('guest');
     }
 
@@ -49,8 +60,9 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'username' => 'required|max:255|unique:HMS\Entities\User',
+            'email' => 'required|email|max:255|unique:HMS\Entities\User',
+            'password' => 'required|min:' . User::MIN_PASSWORD_LENGTH . '|confirmed',
         ]);
     }
 
@@ -62,10 +74,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        $user = new User(
+            $data['name'],
+            $data['username'],
+            $data['email']
+        );
+
+        $user->getRoles()->add($this->roleRepository->getMember());
+
+        // TODO: maybe consolidate these into a single call via a service?
+        $this->userRepository->create($user);
+        $this->identityManager->add($user->getUsername(), $data['password']);
+
+        return $user;
     }
 }

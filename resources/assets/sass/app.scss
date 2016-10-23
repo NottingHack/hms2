@@ -50,3 +50,25 @@ ul.nomarkers {
 .align-middle {
     align-items: center;
 }
+
+// Form classes
+// ------------
+
+.form-label {
+  @extend .columns;
+  @extend .small-12;
+  @extend .medium-2;
+}
+
+.form-control {
+  @extend .columns;
+  @extend .small-12;
+  @extend .medium-10;
+}
+
+.form-buttons {
+  @extend .columns;
+  @extend .small-12;
+  @extend .medium-10;
+  @extend .medium-offset-2;
+}

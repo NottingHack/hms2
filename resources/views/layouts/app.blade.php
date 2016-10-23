@@ -34,7 +34,7 @@
     <div class="row expanded userbar">
       <ul class="menu align-right">
         @if (Auth::guest())
-        <li><a href="{{ url('/login') }}">Login</a></li>
+        <li><a href="{{ url('/login') }}">Log In</a></li>
         <li><a href="{{ url('/register') }}">Register</a></li>
         @else
         <li>Logged in as {{ Auth::user()->getName() }} @if (Auth::viaRemember()) (via Remember Me) @endif</li>
@@ -66,13 +66,19 @@
       </div>
       @endif
 
+      @if (Auth::guest())
+      <div class="columns">
+      @else
       <div class="columns small-12 small-order-0 medium-10 medium-order-1 large-7">
+      @endif
         @yield('content')
       </div>
 
+      @if (!Auth::guest())
       <div class="columns small-12 small-order-3 medium-12 medium-order-2 large-3">
         <!-- this is where upcoming tool bookings might go -->
       </div>
+      @endif
 
     </div>
   </div>

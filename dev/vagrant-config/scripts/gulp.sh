@@ -10,7 +10,7 @@ echo " "
 
 # move to the share folder and use yarn to install deps
 cd /vagrant
-yarn 
+/usr/bin/yarn
 
 # create gulp watch script
 cat <<\EOF > /home/vagrant/gulpwatch.sh
@@ -33,4 +33,4 @@ chmod +x /home/vagrant/gulpwatch.sh
 chmod +x /home/vagrant/restartwatch.sh
 
 # run gulp once
-gulp
+/usr/bin/gulp

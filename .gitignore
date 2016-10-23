@@ -21,3 +21,7 @@ database/database.sqlite
 Icon?
 ehthumbs.db
 Thumbs.db
+
+/public/css
+/public/js
+gulpwatch.log

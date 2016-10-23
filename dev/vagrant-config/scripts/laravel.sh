@@ -19,7 +19,8 @@ composer install
 cp /vagrant/dev/vagrant-config/laravel/.env /vagrant/.env
 
 # Set up DB
-# php artisan migrate -vv --seed
+php artisan doctrine:migration:refresh
+php artisan db:seed
 
 # need to install node
 curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -

@@ -14,11 +14,6 @@ use LaravelDoctrine\ACL\Permissions\HasPermissions;
 use LaravelDoctrine\ACL\Roles\HasRoles;
 use LaravelDoctrine\ORM\Notifications\Notifiable;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="user")
- */
-
 class User implements AuthenticatableContract, CanResetPasswordContract, HasRoleContract, HasPermissionsContract
 {
     use CanResetPassword, Notifiable, HasRoles, HasPermissions;
@@ -26,36 +21,32 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     const MIN_PASSWORD_LENGTH = 3;
 
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @var int
      */
     protected $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @var string Users name
      */
     protected $name;
 
     /**
-     * @ORM\Column(type="string")
+     * @var string Users username for login
      */
     protected $username;
 
     /**
-     * @ORM\Column(type="string")
+     * @var string Users email address
      */
     protected $email;
 
     /**
-     * @ORM\Column(name="remember_token", type="string", nullable=true)
+     * @var string Users remember me token for persisting login sessions
      */
     protected $rememberToken;
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection|\LaravelDoctrine\ACL\Contracts\Role[]
-     *
-     * @ACL\HasRoles()
      */
     protected $roles;
 

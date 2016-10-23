@@ -9,32 +9,22 @@ use LaravelDoctrine\ACL\Contracts\Role as RoleContract;
 use LaravelDoctrine\ACL\Mappings as ACL;
 use LaravelDoctrine\ACL\Permissions\HasPermissions;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="roles")
- */
 class Role implements RoleContract
 {
     use HasPermissions;
 
     /**
-     * @var
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="integer")
+     * @var int
      */
     protected $id;
 
     /**
-     * @var
-     * @ORM\Column(type="string")
+     * @var string Name of Permission
      */
     protected $name;
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
-     *
-     * @ACL\HasPermissions()
      */
     protected $permissions;
 

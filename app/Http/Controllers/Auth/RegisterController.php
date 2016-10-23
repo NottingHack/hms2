@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use HMS\Auth\IdentityManager;
 use HMS\Entities\User;
+
+use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
 use Validator;
 use App\Http\Controllers\Controller;
@@ -32,6 +34,7 @@ class RegisterController extends Controller
     protected $redirectTo = '/home';
 
     protected $userRepository;
+    protected $roleRepository;
     protected $identityManager;
 
     /**
@@ -39,9 +42,10 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct(UserRepository $userRepository, IdentityManager $identityManager)
+    public function __construct(UserRepository $userRepository, RoleRepository $roleRepository, IdentityManager $identityManager)
     {
         $this->userRepository = $userRepository;
+        $this->roleRepository = $roleRepository;
         $this->identityManager = $identityManager;
         $this->middleware('guest');
     }
@@ -75,6 +79,8 @@ class RegisterController extends Controller
             $data['username'],
             $data['email']
         );
+
+        $user->getRoles()->add($this->roleRepository->getMember());
 
         // TODO: maybe consolidate these into a single call via a service?
         $this->userRepository->create($user);

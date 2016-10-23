@@ -10,6 +10,19 @@
                 <div class="panel-body">
                     You are logged in!
                 </div>
+
+                @can('view')
+                <div class="panel-body">
+                    You have the 'view' permission.
+                </div>
+                @endcan
+
+                @can('view.other')
+                <div class="panel-body">
+                    You have the 'view other' permission.
+                </div>
+                @endcan
+
             </div>
         </div>
     </div>

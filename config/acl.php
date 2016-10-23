@@ -8,7 +8,7 @@ return [
     |--------------------------------------------------------------------------
     */
     'roles'         => [
-        'entity' => App\Role::class,
+        'entity' => Hms\Entities\Role::class,
     ],
     /*
     |--------------------------------------------------------------------------
@@ -20,7 +20,7 @@ return [
     |
     */
     'permissions'   => [
-        'driver' => 'config',
+        'driver' => 'doctrine',
         'entity' => LaravelDoctrine\ACL\Permissions\Permission::class,
         'list'   => [],
     ],

@@ -2,21 +2,28 @@
 
 namespace HMS\Entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping AS ORM;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use LaravelDoctrine\ACL\Contracts\HasPermissions as HasPermissionsContract;
+use LaravelDoctrine\ACL\Contracts\HasRoles as HasRoleContract;
 use Illuminate\Auth\Passwords\CanResetPassword;
+use LaravelDoctrine\ACL\Mappings as ACL;
+use LaravelDoctrine\ACL\Permissions\HasPermissions;
+use LaravelDoctrine\ACL\Roles\HasRoles;
 use LaravelDoctrine\ORM\Notifications\Notifiable;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="user")
  */
-class User implements AuthenticatableContract, CanResetPasswordContract
-{
-    use CanResetPassword, Notifiable;
 
-    const MIN_PASSWORD_LENGTH = 9;
+class User implements AuthenticatableContract, CanResetPasswordContract, HasRoleContract, HasPermissionsContract
+{
+    use CanResetPassword, Notifiable, HasRoles, HasPermissions;
+
+    const MIN_PASSWORD_LENGTH = 3;
 
     /**
      * @ORM\Id
@@ -46,6 +53,13 @@ class User implements AuthenticatableContract, CanResetPasswordContract
     protected $rememberToken;
 
     /**
+     * @var \Doctrine\Common\Collections\ArrayCollection|\LaravelDoctrine\ACL\Contracts\Role[]
+     *
+     * @ACL\HasRoles()
+     */
+    protected $roles;
+
+    /**
      * User constructor.
      * @param $name
      * @param $username
@@ -56,6 +70,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract
         $this->name = $name;
         $this->username = $username;
         $this->email = $email;
+        $this->roles = new ArrayCollection();
     }
 
     /**
@@ -147,5 +162,22 @@ class User implements AuthenticatableContract, CanResetPasswordContract
     public function getRememberTokenName()
     {
         return 'rememberToken';
+    }
+
+    /**
+     * @return ArrayCollection|Role[]
+     */
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+
+    /**
+     * @return ArrayCollection|Permission[]
+     */
+    public function getPermissions()
+    {
+        // user's don't directly have permissions, only via their roles
+        return [];
     }
 }

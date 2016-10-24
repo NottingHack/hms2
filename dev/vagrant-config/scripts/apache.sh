@@ -4,7 +4,7 @@ echo " "
 echo "APACHE"
 echo " "
 
-apt-get install -y apache2
+apt-get install -y apache2 > /dev/null 2>&1
 
 # Enable mod rewrite
 ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/

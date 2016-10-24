@@ -6,16 +6,16 @@ echo " "
 
 export DEBIAN_FRONTEND=noninteractive
 
-apt-get update
+apt-get update  > /dev/null 2>&1
 
-apt-get install -y software-properties-common
+apt-get install -y software-properties-common  vim > /dev/null 2>&1
 
 # dotDeb
 add-apt-repository -y "deb http://packages.dotdeb.org jessie all"
-wget https://www.dotdeb.org/dotdeb.gpg
+wget --progress=bar:force https://www.dotdeb.org/dotdeb.gpg 
 apt-key add dotdeb.gpg
 
-apt-get update
+apt-get update  > /dev/null 2>&1
 
 if ! [ -L /srv/www ]; then
   rm -rf /srv/www

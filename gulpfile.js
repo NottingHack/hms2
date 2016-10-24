@@ -14,6 +14,24 @@ require('laravel-elixir-vue-2');
  */
 
 elixir(mix => {
-    mix.sass('app.scss')
-       .webpack('app.js');
+    var options = {
+        includePaths: [
+            'node_modules/foundation-sites/scss',
+            'node_modules/motion-ui/src'
+        ]
+    };
+
+    mix.sass('app.scss', null, null, options);
+
+    mix.version('css/app.css');
+
+    var jQuery = '../../../node_modules/jquery/dist/jquery.js';
+    var foundationJsFolder = '../../../node_modules/foundation-sites/js/';
+
+    mix.scripts([
+        jQuery,
+        foundationJsFolder + 'foundation.core.js'
+    ]);
+
+    mix.webpack('app.js');
 });

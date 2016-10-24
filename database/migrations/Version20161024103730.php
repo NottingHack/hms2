@@ -12,9 +12,13 @@ class Version20161024103730 extends AbstractMigration
      */
     public function up(Schema $schema)
     {
-        $this->addSql('INSERT INTO roles VALUES (1, \'member\')');
-        $this->addSql('INSERT INTO permissions VALUES (1, \'view\'), (2, \'view.other\')');
-        $this->addSql('INSERT INTO permission_role VALUES (1, 1), (1, 2)');
+        $this->addSql('INSERT INTO roles VALUES (1, \'member.approval\')');
+        $this->addSql('INSERT INTO roles VALUES (2, \'member.payment\')');
+        $this->addSql('INSERT INTO roles VALUES (3, \'member.young\')');
+        $this->addSql('INSERT INTO roles VALUES (4, \'member.current\')');
+        $this->addSql('INSERT INTO roles VALUES (5, \'member.ex\')');
+        $this->addSql('INSERT INTO permissions VALUES (1, \'view.self\')');
+        $this->addSql('INSERT INTO permission_role VALUES (1, 1), (2, 1), (3, 1), (4, 1), (5, 1)');
     }
 
     /**
@@ -22,8 +26,8 @@ class Version20161024103730 extends AbstractMigration
      */
     public function down(Schema $schema)
     {
-        $this->addSql('DELETE FROM permissions_role WHERE id IN (1,2)');
-        $this->addSql('DELETE FROM permissions WHERE id IN (1,2)');
-        $this->addSql('DELETE FROM roles WHERE id = 1');
+        // don't need to delete from permission_role table as this is taken care of by the cascade
+        $this->addSql('DELETE FROM permissions WHERE id IN (1)');
+        $this->addSql('DELETE FROM roles WHERE id IN (1,2,3,4,5)');
     }
 }

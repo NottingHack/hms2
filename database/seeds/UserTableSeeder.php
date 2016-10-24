@@ -38,7 +38,7 @@ class UserTableSeeder extends Seeder
 
         // split the others equally
 
-        $roles = array('awaitingApproval', 'awaitingPayment', 'youngMember', 'exMember');
+        $roles = array('member.approval', 'member.payment', 'member.young', 'member.ex');
 
         $createOtherUsers = floor($numLeftToCreate / count($roles));
 
@@ -51,7 +51,7 @@ class UserTableSeeder extends Seeder
         entity(User::class, $createCurrentMembers)
             ->make()
             ->each(function ($u) {
-                $u->getRoles()->add($this->roleRepository->findByName('currentMember'));
+                $u->getRoles()->add($this->roleRepository->findByName('member.current'));
                 EntityManager::persist($u);
             });
 

@@ -14,7 +14,7 @@ class Version20161024164731 extends AbstractMigration
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE user ADD deleted_at DATE DEFAULT NULL');
+        $this->addSql('ALTER TABLE user ADD deleted_at DATETIME DEFAULT NULL');
     }
 
     /**

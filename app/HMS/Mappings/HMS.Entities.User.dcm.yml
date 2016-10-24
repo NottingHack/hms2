@@ -31,7 +31,7 @@ HMS\Entities\User:
       length: 100
       nullable: true
     deletedAt:
-      type: date
+      type: datetime
       nullable: true
   manyToMany:
     roles:

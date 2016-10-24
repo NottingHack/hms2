@@ -1,0 +1,33 @@
+# HMS.Entities.User.dcm.yml
+HMS\Entities\Role:
+  type: entity
+  table: roles
+  indexes:
+    name_index:
+      columns: [ name ]
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+      unique: true
+  manyToMany:
+    permissions:
+      targetEntity: LaravelDoctrine\ACL\Permissions\Permission
+      joinTable:
+        name: permission_role
+        joinColumns:
+          role_id:
+            referencedColumnName: id
+            onDelete: CASCADE
+        inverseJoinColumns:
+          permission_id:
+            referencedColumnName: id
+            onDelete: CASCADE
+
+

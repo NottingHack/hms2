@@ -9,7 +9,9 @@
         "laravel/framework": "5.3.*",
         "laravel-doctrine/orm": "1.2.*",
         "laravel-doctrine/acl": "1.0.*",
-        "laravel-doctrine/migrations": "1.0.*"
+        "laravel-doctrine/migrations": "1.0.*",
+        "laravel-doctrine/extensions": "^1.0",
+        "gedmo/doctrine-extensions": "^2.4"
     },
     "require-dev": {
         "behat/behat": "^3.0",

@@ -1,0 +1,42 @@
+# HMS.Entities.User.dcm.yml
+HMS\Entities\User:
+  type: entity
+  table: user
+  indexes:
+    email_index:
+      columns: [ email ]
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+    username:
+      type: string
+      unique: true
+    email:
+      type: string
+      unique: true
+    rememberToken:
+      column: remember_token
+      type: string
+      length: 100
+      nullable: true
+  manyToMany:
+    roles:
+      targetEntity: Role
+      joinTable:
+        name: role_user
+        joinColumns:
+          user_id:
+            referencedColumnName: id
+            onDelete: CASCADE
+        inverseJoinColumns:
+          role_id:
+            referencedColumnName: id
+            onDelete: CASCADE
+

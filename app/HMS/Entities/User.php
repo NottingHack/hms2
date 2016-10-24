@@ -51,17 +51,24 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     protected $roles;
 
     /**
-     * User constructor.
-     * @param $name
-     * @param $username
-     * @param $email
+     * @var Profile The users profile
      */
-    public function __construct($name, $username, $email)
+    protected $profile;
+
+    /**
+     * User constructor.
+     * @param string $name
+     * @param string $username
+     * @param string $email
+     * @param Profile $profile
+     */
+    public function __construct(string $name, string $username, string $email, Profile $profile)
     {
         $this->name = $name;
         $this->username = $username;
         $this->email = $email;
         $this->roles = new ArrayCollection();
+        $this->profile = $profile;
     }
 
     /**
@@ -170,5 +177,13 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     {
         // user's don't directly have permissions, only via their roles
         return [];
+    }
+
+    /**
+     * @return Profile The users profile
+     */
+    public function getProfile() : Profile
+    {
+        return $this->profile;
     }
 }

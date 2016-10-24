@@ -26,6 +26,10 @@ HMS\Entities\User:
       type: string
       length: 100
       nullable: true
+  oneToOne:
+    profile:
+      targetEntity: Profile
+      mappedBy: user
   manyToMany:
     roles:
       targetEntity: Role

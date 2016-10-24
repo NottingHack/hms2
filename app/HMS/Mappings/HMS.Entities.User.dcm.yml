@@ -5,6 +5,10 @@ HMS\Entities\User:
   indexes:
     email_index:
       columns: [ email ]
+  gedmo:
+    soft_deleteable:
+      field_name: deletedAt
+      time_aware: false
   id:
     id:
       type: integer
@@ -26,6 +30,9 @@ HMS\Entities\User:
       type: string
       length: 100
       nullable: true
+    deletedAt:
+      type: date
+      nullable: true
   manyToMany:
     roles:
       targetEntity: Role
@@ -39,4 +46,3 @@ HMS\Entities\User:
           role_id:
             referencedColumnName: id
             onDelete: CASCADE
-

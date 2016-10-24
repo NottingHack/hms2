@@ -2,6 +2,7 @@
 
 namespace HMS\Entities;
 
+use HMS\Traits\Entities\SoftDeletable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping AS ORM;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -16,7 +17,7 @@ use LaravelDoctrine\ORM\Notifications\Notifiable;
 
 class User implements AuthenticatableContract, CanResetPasswordContract, HasRoleContract, HasPermissionsContract
 {
-    use CanResetPassword, Notifiable, HasRoles, HasPermissions;
+    use CanResetPassword, Notifiable, HasRoles, HasPermissions, SoftDeletable;
 
     const MIN_PASSWORD_LENGTH = 3;
 

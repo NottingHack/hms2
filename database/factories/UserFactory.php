@@ -19,6 +19,6 @@ $factory->define(HMS\Entities\User::class, function(Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail,
         'username' => $faker->unique()->userName,
         'rememberToken' => str_random(10),
-        'roles' => new ArrayCollection,
+        'roles' => new ArrayCollection(),
     ];
 });

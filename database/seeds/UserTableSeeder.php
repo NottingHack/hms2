@@ -1,5 +1,6 @@
 <?php
 
+use HMS\Entities\Role;
 use HMS\Entities\User;
 use Illuminate\Database\Seeder;
 use HMS\Repositories\RoleRepository;
@@ -38,7 +39,7 @@ class UserTableSeeder extends Seeder
 
         // split the others equally
 
-        $roles = array('member.approval', 'member.payment', 'member.young', 'member.ex');
+        $roles = array(Role::MEMBER_APPROVAL, Role::MEMBER_PAYMENT, Role::MEMBER_YOUNG, Role::MEMBER_EX);
 
         $createOtherUsers = floor($numLeftToCreate / count($roles));
 
@@ -51,7 +52,7 @@ class UserTableSeeder extends Seeder
         entity(User::class, $createCurrentMembers)
             ->make()
             ->each(function ($u) {
-                $u->getRoles()->add($this->roleRepository->findByName('member.current'));
+                $u->getRoles()->add($this->roleRepository->findByName(Role::MEMBER_CURRENT));
                 EntityManager::persist($u);
             });
 

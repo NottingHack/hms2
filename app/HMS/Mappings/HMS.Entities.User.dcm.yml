@@ -26,6 +26,16 @@ HMS\Entities\User:
       type: string
       length: 100
       nullable: true
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
   manyToMany:
     roles:
       targetEntity: Role

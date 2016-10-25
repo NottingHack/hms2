@@ -5,7 +5,7 @@ namespace Database\Migrations;
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema as Schema;
 
-class Version20161024103730 extends AbstractMigration
+class Version20161024103730_add_initial_member_role_and_viewing_permission extends AbstractMigration
 {
     /**
      * @param Schema $schema

@@ -24,6 +24,17 @@ class RoleRepository extends EntityRepository
     }
 
     /**
+     * Finds a role based on the role name
+     *
+     * @param  string $roleName name of the role we want
+     * @return Role|object
+     */
+    public function findByName(string $roleName)
+    {
+        return parent::findOneBy(['name' => $roleName]);
+    }
+
+    /**
      * @return Role|object
      */
     public function getMember()

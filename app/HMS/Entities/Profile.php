@@ -4,9 +4,6 @@ namespace HMS\Entities;
 
 class Profile
 {
-    /** @var int The profiles unique id. */
-    protected $id;
-
     /** @var User The user to which this profile belongs. */
     protected $user;
 

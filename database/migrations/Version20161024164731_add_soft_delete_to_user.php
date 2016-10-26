@@ -5,7 +5,7 @@ namespace Database\Migrations;
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema as Schema;
 
-class Version20161024164731 extends AbstractMigration
+class Version20161024164731_add_soft_delete_to_user extends AbstractMigration
 {
     /**
      * @param Schema $schema

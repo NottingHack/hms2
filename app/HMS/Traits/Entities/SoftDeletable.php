@@ -2,21 +2,23 @@
 
 namespace HMS\Traits\Entities;
 
+use Carbon\Carbon;
+
 trait SoftDeletable
 {
     /**
-     * @var \DateTime
+     * @var Carbon
      */
     protected $deletedAt;
 
     /**
      * Sets deletedAt.
      *
-     * @param \DateTime|null $deletedAt
+     * @param Carbon|null $deletedAt
      *
      * @return $this
      */
-    public function setDeletedAt(\DateTime $deletedAt = null)
+    public function setDeletedAt(Carbon $deletedAt = null)
     {
         $this->deletedAt = $deletedAt;
 
@@ -26,7 +28,7 @@ trait SoftDeletable
     /**
      * Returns deletedAt.
      *
-     * @return \DateTime
+     * @return Carbon
      */
     public function getDeletedAt()
     {

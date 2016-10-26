@@ -33,6 +33,16 @@ HMS\Entities\User:
     deletedAt:
       type: datetime
       nullable: true
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
   manyToMany:
     roles:
       targetEntity: Role
@@ -46,3 +56,4 @@ HMS\Entities\User:
           role_id:
             referencedColumnName: id
             onDelete: CASCADE
+

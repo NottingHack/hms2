@@ -33,12 +33,4 @@ class RoleRepository extends EntityRepository
     {
         return parent::findOneBy(['name' => $roleName]);
     }
-
-    /**
-     * @return Role|object
-     */
-    public function getMember()
-    {
-        return parent::findOneBy(['name' => 'member']);
-    }
 }

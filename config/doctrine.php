@@ -97,7 +97,7 @@ return [
         //LaravelDoctrine\Extensions\Sortable\SortableExtension::class,
         //LaravelDoctrine\Extensions\Tree\TreeExtension::class,
         //LaravelDoctrine\Extensions\Loggable\LoggableExtension::class,
-        //LaravelDoctrine\Extensions\Blameable\BlameableExtension::class,
+        LaravelDoctrine\Extensions\Blameable\BlameableExtension::class,
         //LaravelDoctrine\Extensions\IpTraceable\IpTraceableExtension::class,
         //LaravelDoctrine\Extensions\Translatable\TranslatableExtension::class
     ],

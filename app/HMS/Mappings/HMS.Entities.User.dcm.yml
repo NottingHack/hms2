@@ -5,6 +5,10 @@ HMS\Entities\User:
   indexes:
     email_index:
       columns: [ email ]
+  gedmo:
+    soft_deleteable:
+      field_name: deletedAt
+      time_aware: false
   id:
     id:
       type: integer
@@ -26,6 +30,19 @@ HMS\Entities\User:
       type: string
       length: 100
       nullable: true
+    deletedAt:
+      type: datetime
+      nullable: true
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
   manyToMany:
     roles:
       targetEntity: Role

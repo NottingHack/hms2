@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use HMS\Auth\IdentityManager;
+use HMS\Entities\Role;
 use HMS\Entities\User;
 
 use HMS\Repositories\RoleRepository;
@@ -80,7 +81,7 @@ class RegisterController extends Controller
             $data['email']
         );
 
-        $user->getRoles()->add($this->roleRepository->getMember());
+        $user->getRoles()->add($this->roleRepository->findByName(Role::MEMBER_CURRENT));
 
         // TODO: maybe consolidate these into a single call via a service?
         $this->userRepository->create($user);

@@ -5,6 +5,10 @@ HMS\Entities\User:
   indexes:
     email_index:
       columns: [ email ]
+  gedmo:
+    soft_deleteable:
+      field_name: deletedAt
+      time_aware: false
   id:
     id:
       type: integer
@@ -26,6 +30,19 @@ HMS\Entities\User:
       type: string
       length: 100
       nullable: true
+    deletedAt:
+      type: datetime
+      nullable: true
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
   oneToOne:
     profile:
       targetEntity: Profile
@@ -43,4 +60,16 @@ HMS\Entities\User:
           role_id:
             referencedColumnName: id
             onDelete: CASCADE
+  manyToOne:
+    createdBy:
+      targetEntity: User
+      gedmo:
+        blameable:
+          on: create
+    updatedBy:
+      targetEntity: User
+      gedmo:
+        blameable:
+          on: update
+
 

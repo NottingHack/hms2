@@ -13,6 +13,12 @@ class Role implements RoleContract
 {
     use HasPermissions;
 
+    const MEMBER_CURRENT = 'member.current';
+    const MEMBER_APPROVAL = 'member.approval';
+    const MEMBER_PAYMENT = 'member.payment';
+    const MEMBER_YOUNG = 'member.young';
+    const MEMBER_EX = 'member.ex';
+
     /**
      * @var int
      */

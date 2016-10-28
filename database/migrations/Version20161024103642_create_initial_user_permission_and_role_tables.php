@@ -5,7 +5,7 @@ namespace Database\Migrations;
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema as Schema;
 
-class Version20161024103642 extends AbstractMigration
+class Version20161024103642_create_initial_user_permission_and_role_tables extends AbstractMigration
 {
     /**
      * @param Schema $schema

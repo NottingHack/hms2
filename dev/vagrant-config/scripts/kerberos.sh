@@ -40,7 +40,7 @@ chmod a+r /vagrant/storage/app/hms.keytab
 # pecl install krb5 - this (still 2016) doesn't have kadm support.
 mkdir /root/php-krb
 cd /root/php-krb
-wget http://pecl.php.net/get/krb5-1.1.0.tgz
+wget --progress=bar:force http://pecl.php.net/get/krb5-1.1.0.tgz
 tar zxf krb5-1.1.0.tgz
 cd /root/php-krb/krb5-1.1.0
 phpize

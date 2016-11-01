@@ -8,6 +8,9 @@ server {
 
 	server_name _;
 
+	access_log /vagrant/storage/logs/nginx-access.log;
+    error_log /vagrant/storage/logs/nginx-error.log;
+
 	location / {
 		try_files $uri $uri/ /index.php$is_args$args;
 		# Uncomment to enable naxsi on this location
@@ -29,4 +32,28 @@ server {
 	#location ~ /\.ht {
 	#	deny all;
 	#}
+
+    location /phpmyadmin {
+        root /srv/;
+        index index.php;
+            
+        location ~ ^/phpmyadmin/(.+\.php)$ {
+            try_files $uri =404;
+            root /srv/;
+            include /etc/nginx/fastcgi_params;
+            fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+            fastcgi_index index.php;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            fastcgi_read_timeout 300;
+        }
+        
+        location ~* ^/phpmyadmin/(.+\.(jpg|jpeg|gif|css|png|js|ico|html|xml|txt))$ {
+            root /srv/;
+        }
+    }
+
+    location /phpMyAdmin {
+        rewrite ^/* /phpmyadmin last;
+    }
+
 }

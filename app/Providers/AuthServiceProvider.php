@@ -24,12 +24,13 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(IdentityManager $identityManager)
+    public function boot(EntityManagerInterface $em, IdentityManager $identityManager)
     {
         $this->registerPolicies();
 
-        Auth::provider('hms', function($app, array $config) use ($identityManager) {
-            return new HmsUserProvider($app['hash'], $app->make(EntityManagerInterface::class), $config['model'], $identityManager);
+        Auth::provider('hms', function($app, array $config) use ($em, $identityManager) {
+
+            return new HmsUserProvider($app['hash'], $em, $config['model'], $identityManager);
         });
     }
 }

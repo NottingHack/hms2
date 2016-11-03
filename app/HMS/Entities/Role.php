@@ -19,6 +19,8 @@ class Role implements RoleContract
     const MEMBER_YOUNG = 'member.young';
     const MEMBER_EX = 'member.ex';
 
+    const SUPERUSER = 'user.super';
+
     /**
      * @var int
      */

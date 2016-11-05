@@ -2,16 +2,18 @@
 
 namespace HMS\Entities;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use LaravelDoctrine\ACL\Contracts\Permission;
-use LaravelDoctrine\ACL\Contracts\Role as RoleContract;
+use HMS\Traits\Entities\SoftDeletable;
+use HMS\Traits\Entities\Timestampable;
 use LaravelDoctrine\ACL\Mappings as ACL;
+use LaravelDoctrine\ACL\Contracts\Permission;
+use Doctrine\Common\Collections\ArrayCollection;
 use LaravelDoctrine\ACL\Permissions\HasPermissions;
+use LaravelDoctrine\ACL\Contracts\Role as RoleContract;
 
 class Role implements RoleContract
 {
-    use HasPermissions;
+    use HasPermissions, SoftDeletable, Timestampable;
 
     const MEMBER_CURRENT = 'member.current';
     const MEMBER_APPROVAL = 'member.approval';
@@ -27,9 +29,19 @@ class Role implements RoleContract
     protected $id;
 
     /**
-     * @var string Name of Permission
+     * @var string Name of Role
      */
     protected $name;
+
+    /**
+     * @var string Display Name of the Role
+     */
+    protected $displayName;
+
+    /**
+     * @var string Description of the Role
+     */
+    protected $description;
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection
@@ -40,9 +52,11 @@ class Role implements RoleContract
      * Role constructor.
      * @param $name
      */
-    public function __construct($name)
+    public function __construct($name, $displayName, $description)
     {
         $this->name = $name;
+        $this->displayName = $displayName;
+        $this->description = $description;
         $this->permissions = new ArrayCollection();
     }
 
@@ -78,4 +92,6 @@ class Role implements RoleContract
     {
         $this->permissions->clear();
     }
+
+
 }

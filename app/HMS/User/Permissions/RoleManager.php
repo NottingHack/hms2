@@ -19,6 +19,10 @@ class RoleManager
     {
         $roles = $this->roleRepository->findAll();
 
+        $formattedRoles = array();
+
+
+        return $roles;
     }
 }
 

@@ -23,6 +23,7 @@ mkdir /var/log/kerberos
 touch /var/log/kerberos/{krb5kdc,kadmin,krb5lib}.log
 chmod -R 750  /var/log/kerberos
 echo "vagrant/admin@NOTTINGTEST.ORG.UK * " > /etc/krb5kdc/kadm5.acl
+echo "hms/web@NOTTINGTEST.ORG.UK * " >> /etc/krb5kdc/kadm5.acl
 /etc/init.d/krb5-kdc start 
 /etc/init.d/krb5-admin-server start 
 

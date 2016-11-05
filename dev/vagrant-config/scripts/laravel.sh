@@ -26,3 +26,7 @@ php artisan db:seed
 curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 apt-get install -y nodejs > /dev/null 2>&1
 npm install --global gulp-cli yarn
+
+# Setup task scheduler cron
+line="* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1"
+(crontab -u vagrant -l 2>/dev/null; echo "$line" ) | crontab -u vagrant -

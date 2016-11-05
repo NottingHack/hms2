@@ -21,3 +21,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+// ROLE
+
+Route::get('/roles', 'RoleController@index');

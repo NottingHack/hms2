@@ -2,11 +2,10 @@
 
 namespace HMS\Entities;
 
-use Doctrine\ORM\Mapping as ORM;
 use HMS\Traits\Entities\SoftDeletable;
 use HMS\Traits\Entities\Timestampable;
 use LaravelDoctrine\ACL\Mappings as ACL;
-use LaravelDoctrine\ACL\Contracts\Permission;
+use LaravelDoctrine\ACL\Permissions\Permission;
 use Doctrine\Common\Collections\ArrayCollection;
 use LaravelDoctrine\ACL\Permissions\HasPermissions;
 use LaravelDoctrine\ACL\Contracts\Role as RoleContract;
@@ -51,6 +50,8 @@ class Role implements RoleContract
     /**
      * Role constructor.
      * @param $name
+     * @param $displayName
+     * @param $description
      */
     public function __construct($name, $displayName, $description)
     {

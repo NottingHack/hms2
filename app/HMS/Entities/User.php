@@ -4,7 +4,6 @@ namespace HMS\Entities;
 
 use HMS\Traits\Entities\SoftDeletable;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping AS ORM;
 use HMS\Traits\Entities\Timestampable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;

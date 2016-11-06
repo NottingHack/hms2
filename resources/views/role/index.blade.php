@@ -7,8 +7,11 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Roles</div>
 
-                @foreach ($roles as $role)
-                    <p>{{ $role->getName() }}</p>
+                @foreach ($roles as $category => $categoryRoles)
+                    <h2>{{ $category }}</h2>
+                    @foreach ($categoryRoles as $role)
+                    <p>{{ $role['name'] }}</p>
+                    @endforeach
                 @endforeach
 
 

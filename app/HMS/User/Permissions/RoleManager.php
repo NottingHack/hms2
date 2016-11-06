@@ -15,14 +15,39 @@ class RoleManager
         $this->roleRepository = $roleRepository;
     }
 
-    public function getFormattedRoleList()
+    public function getFormattedRoleList($sort = true)
     {
         $roles = $this->roleRepository->findAll();
 
         $formattedRoles = array();
 
+        foreach ($roles as $role) {
+            list($category, $name) = explode('.', $role->getName());
 
-        return $roles;
+            if (!isset($formattedRoles[$category])) {
+                $formattedRoles[$category] = [];
+            }
+
+            $formattedRoles[$category][] = [
+                'id'            =>  $role->getId(),
+                'name'          =>  $role->getName(),
+                'displayName'   =>  $role->getDisplayName(),
+                'description'   =>  $role->getDescription(),
+                ];
+        }
+
+        if ($sort) {
+            $categories = array_keys($formattedRoles);
+            foreach ($categories as $category) {
+                usort($formattedRoles[$category], function ($a, $b) {
+                    return strcmp($a["name"], $b["name"]);
+                });
+            }
+
+            ksort($formattedRoles);
+        }
+
+        return $formattedRoles;
     }
 }
 

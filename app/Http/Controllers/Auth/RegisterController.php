@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use HMS\Auth\IdentityManager;
+use HMS\Auth\PasswordStore;
 use HMS\Entities\Role;
 use HMS\Entities\User;
 
@@ -36,18 +36,18 @@ class RegisterController extends Controller
 
     protected $userRepository;
     protected $roleRepository;
-    protected $identityManager;
+    protected $passwordStore;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(UserRepository $userRepository, RoleRepository $roleRepository, IdentityManager $identityManager)
+    public function __construct(UserRepository $userRepository, RoleRepository $roleRepository, PasswordStore $passwordStore)
     {
         $this->userRepository = $userRepository;
         $this->roleRepository = $roleRepository;
-        $this->identityManager = $identityManager;
+        $this->passwordStore = $passwordStore;
         $this->middleware('guest');
     }
 
@@ -85,7 +85,7 @@ class RegisterController extends Controller
 
         // TODO: maybe consolidate these into a single call via a service?
         $this->userRepository->create($user);
-        $this->identityManager->add($user->getUsername(), $data['password']);
+        $this->passwordStore->add($user->getUsername(), $data['password']);
 
         return $user;
     }

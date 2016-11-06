@@ -12,15 +12,15 @@ use LaravelDoctrine\ORM\Auth\DoctrineUserProvider;
  */
 class HmsUserProvider extends DoctrineUserProvider
 {
-    /** @var IdentityManager  */
-    protected $identityManager;
+    /** @var PasswordStore  */
+    protected $passwordStore;
 
-    public function __construct(Hasher $hasher, EntityManagerInterface $em, $entity, IdentityManager $identityManager)
+    public function __construct(Hasher $hasher, EntityManagerInterface $em, $entity, PasswordStore $passwordStore)
     {
         // Note: $hasher is never used but required to construct DoctrineUserProvider (parent)
         parent::__construct($hasher, $em, $entity);
 
-        $this->identityManager = $identityManager;
+        $this->passwordStore = $passwordStore;
     }
 
     // overridden because getAuthIdentifier() on our User returns username rather than id
@@ -29,9 +29,9 @@ class HmsUserProvider extends DoctrineUserProvider
         return $this->getRepository()->findOneBy(['username' => $identifier]);
     }
 
-    // overridden because we don't store the password on the user, we use an IdentityManager to check it instead
+    // overridden because we don't store the password on the user, we use an PasswordStore to check it instead
     public function validateCredentials(IlluminateAuthenticatable $user, array $credentials)
     {
-        return $this->identityManager->checkPassword($user->getAuthIdentifier(), $credentials['password']);
+        return $this->passwordStore->checkPassword($user->getAuthIdentifier(), $credentials['password']);
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use HMS\Auth\IdentityManager;
+use HMS\Auth\PasswordStore;
 use HMS\Entities\User;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
@@ -24,18 +24,18 @@ class ResetPasswordController extends Controller
 
     use ResetsPasswords;
 
-    /** @var  IdentityManager */
-    protected $identityManager;
+    /** @var  PasswordStore */
+    protected $passwordStore;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(IdentityManager $identityManager)
+    public function __construct(PasswordStore $passwordStore)
     {
         $this->middleware('guest');
-        $this->identityManager = $identityManager;
+        $this->passwordStore = $passwordStore;
     }
 
     /**
@@ -73,7 +73,7 @@ class ResetPasswordController extends Controller
 
     protected function resetPassword($user, $password)
     {
-        $this->identityManager->setPassword($user->getAuthIdentifier(), $password);
+        $this->passwordStore->setPassword($user->getAuthIdentifier(), $password);
         // TODO: reset the user's remember token here to ensure someone with an old cookie isn't automatically logged in
 
         $this->guard()->login($user);

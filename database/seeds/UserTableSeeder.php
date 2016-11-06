@@ -2,7 +2,7 @@
 
 use HMS\Entities\Role;
 use HMS\Entities\User;
-use HMS\Auth\IdentityManager;
+use HMS\Auth\PasswordStore;
 use Illuminate\Database\Seeder;
 use HMS\Repositories\RoleRepository;
 use LaravelDoctrine\ORM\Facades\EntityManager;
@@ -17,16 +17,17 @@ class UserTableSeeder extends Seeder
     private $createAdmin = true;
 
     protected $roleRepository;
+    protected $passwordStore;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(RoleRepository $roleRepository, IdentityManager $identityManager)
+    public function __construct(RoleRepository $roleRepository, PasswordStore $passwordStore)
     {
         $this->roleRepository = $roleRepository;
-        $this->identityManager = $identityManager;
+        $this->passwordStore = $passwordStore;
     }
 
     /**
@@ -74,7 +75,7 @@ class UserTableSeeder extends Seeder
         if ($this->createAdmin === true) {
             $admin = new User('Admin', 'admin', 'hmsadmin@nottinghack.org.uk');
             $admin->getRoles()->add($this->roleRepository->findByName(Role::SUPERUSER));
-            $this->identityManager->add($admin->getUsername(), 'admin');
+            $this->passwordStore->add($admin->getUsername(), 'admin');
             EntityManager::persist($admin);
         }
 

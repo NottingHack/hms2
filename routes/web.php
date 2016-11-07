@@ -21,3 +21,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+// routes in the following group can only be access from inside the hackspace (as defined by the ip range in .env)
+Route::group(['middleware' => 'ipcheck'], function() {
+});

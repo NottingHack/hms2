@@ -12,7 +12,7 @@ use LaravelDoctrine\ORM\Auth\DoctrineUserProvider;
  */
 class HmsUserProvider extends DoctrineUserProvider
 {
-    /** @var PasswordStore  */
+    /** @var PasswordStore */
     protected $passwordStore;
 
     public function __construct(Hasher $hasher, EntityManagerInterface $em, $entity, PasswordStore $passwordStore)

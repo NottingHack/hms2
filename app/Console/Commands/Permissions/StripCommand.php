@@ -26,15 +26,15 @@ class StripCommand extends BaseCommand
      */
     public function handle()
     {
-        if (!$role = $this->getRole($this->argument('role'))) {
+        if (! $role = $this->getRole($this->argument('role'))) {
             return;
-        };
+        }
 
-        if ($this->confirm('Remove all permissions from the '. $role->getName() .' role? [y|N]')) {
+        if ($this->confirm('Remove all permissions from the '.$role->getName().' role? [y|N]')) {
             $role->stripPermissions();
             $this->entityManager->persist($role);
             $this->entityManager->flush();
-            $this->info('All permissions removed from ' . $role->getName());
+            $this->info('All permissions removed from '.$role->getName());
         }
     }
 }

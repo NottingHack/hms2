@@ -18,9 +18,8 @@ namespace HMS\Behat\Context;
  */
 trait DatabaseMigrations
 {
-
     /**
-     * Migrate the database
+     * Migrate the database.
      *
      * @BeforeScenario
      */
@@ -30,7 +29,6 @@ trait DatabaseMigrations
     }
 
     /**
-     *
      * Roll it back after the scenario.
      *
      * @AfterScenario
@@ -39,5 +37,4 @@ trait DatabaseMigrations
     {
         \Artisan::call('migrate:rollback');
     }
-
 }

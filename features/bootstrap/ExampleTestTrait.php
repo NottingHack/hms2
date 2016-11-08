@@ -1,7 +1,6 @@
 <?php
 
 use Behat\Behat\Tester\Exception\PendingException;
-use PHPUnit_Framework_Assert as PHPUnit;
 
 trait ExampleTestTrait
 {

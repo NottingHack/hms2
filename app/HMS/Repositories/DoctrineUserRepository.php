@@ -40,6 +40,4 @@ class DoctrineUserRepository implements UserRepository
         $this->em->persist($user);
         $this->em->flush();
     }
-
-
 }

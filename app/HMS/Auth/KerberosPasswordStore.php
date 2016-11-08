@@ -118,7 +118,7 @@ class KerberosPasswordStore implements PasswordStore
     {
         try {
             $princ = $this->__krbConn->getPrincipal(strtolower($username));
-            $princ->changePassword($newpassword);
+            $princ->changePassword($password);
         } catch (\Exception $e) {
             if ($this->__debug) {
                 echo "$e\n";

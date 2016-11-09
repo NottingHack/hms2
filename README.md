@@ -1,6 +1,7 @@
 # hms2
 Version 2 of our Hackspace Management System
 
+[![Build Status](https://travis-ci.org/NottingHack/hms2.svg?branch=master)](https://travis-ci.org/NottingHack/hms2)
 
 ## Hosts File
 

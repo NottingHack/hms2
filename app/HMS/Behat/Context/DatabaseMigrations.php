@@ -26,7 +26,7 @@ trait DatabaseMigrations
      */
     public static function migrate()
     {
-        \Artisan::call('migrate');
+        \Artisan::call('doctrine:migrations:migrate');
     }
 
     /**
@@ -37,7 +37,7 @@ trait DatabaseMigrations
      */
     public static function refresh()
     {
-        \Artisan::call('migrate:rollback');
+        \Artisan::call('doctrine:migrations:rollback');
     }
 
 }

@@ -19,8 +19,6 @@ class RoleController extends Controller
      */
     public function __construct(RoleManager $roleManager, PermissionManager $permissionManager)
     {
-        $this->middleware('auth');
-
         $this->roleManager = $roleManager;
         $this->permissionManager = $permissionManager;
     }

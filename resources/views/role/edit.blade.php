@@ -56,7 +56,7 @@
 @endforeach
     <div class="row">
         <div class="form-control">
-            <input type="submit" name="save" value="Save">
+            <input type="submit" class="button" name="save" value="Save">
         </div>
     </div>
 

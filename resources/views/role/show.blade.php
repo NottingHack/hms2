@@ -25,7 +25,7 @@
 </ul>
 
 @can('role.edit.all')
-<a href="{{ route('roles.edit', $role['id']) }}">edit</a>
+<a href="{{ route('roles.edit', $role['id']) }}" class="button">edit</a>
 @endcan
 
 @endsection

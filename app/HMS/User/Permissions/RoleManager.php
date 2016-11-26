@@ -117,6 +117,7 @@ class RoleManager
                 'displayName'   =>  $role->getDisplayName(),
                 'description'   =>  $role->getDescription(),
                 'permissions'   =>  $this->formatPermissions($role->getPermissions()),
+                'users'         =>  $this->formatUsers($role->getUsers()),
                 ];
 
         return $formattedRole;
@@ -140,6 +141,26 @@ class RoleManager
         }
 
         return $formattedPerms;
+    }
+
+    /**
+     * Format the users to send to the view
+     *
+     * @param \Doctrine\Common\Collections\ArrayCollection $users The users of the role
+     * @return Array
+     */
+    private function formatUsers($users)
+    {
+        $formattedUsers = [];
+
+        foreach ($users as $user) {
+            $formattedUsers[] = [
+                'id'    =>  $users->getId(),
+                'name'  =>  $users->getName(),
+                ];
+        }
+
+        return $formattedUsers;
     }
 }
 

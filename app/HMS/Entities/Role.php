@@ -48,6 +48,11 @@ class Role implements RoleContract
     protected $permissions;
 
     /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     */
+    protected $users;
+
+    /**
      * Role constructor.
      * @param $name
      * @param $displayName
@@ -134,5 +139,11 @@ class Role implements RoleContract
         $this->permissions->clear();
     }
 
-
+    /**
+     * @return ArrayCollection|User[]
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
 }

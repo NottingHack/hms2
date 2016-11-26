@@ -24,6 +24,14 @@
 @endforeach
 </ul>
 
+<h2>Users</h2>
+
+<ul>
+@foreach ($role['users'] as $user)
+    <li>{{ $user['name'] }}</li>
+@endforeach
+</ul>
+
 @can('role.edit.all')
 <a href="{{ route('roles.edit', $role['id']) }}" class="button">edit</a>
 @endcan

@@ -50,5 +50,17 @@ HMS\Entities\Role:
           permission_id:
             referencedColumnName: id
             onDelete: CASCADE
+    users:
+      targetEntity: User
+      joinTable:
+        name: role_user
+        joinColumns:
+          role_id:
+            referencedColumnName: id
+            onDelete: CASCADE
+        inverseJoinColumns:
+          user_id:
+            referencedColumnName: id
+            onDelete: CASCADE
 
 

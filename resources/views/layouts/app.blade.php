@@ -62,6 +62,9 @@
           <li><a href="#">Account</a></li>
           <li><a href="#">Links</a></li>
           <li><a href="#">Admin</a></li>
+          <ul>
+            <li><a href="{{ route('roles.index') }}">Roles</a></li>
+          </ul>
         </ul>
       </div>
       @endif

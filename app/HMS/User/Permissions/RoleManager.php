@@ -155,8 +155,8 @@ class RoleManager
 
         foreach ($users as $user) {
             $formattedUsers[] = [
-                'id'    =>  $users->getId(),
-                'name'  =>  $users->getName(),
+                'id'    =>  $user->getId(),
+                'name'  =>  $user->getName(),
                 ];
         }
 

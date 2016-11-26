@@ -28,3 +28,7 @@ Route::get('/roles', 'RoleController@index')->name('roles.index')->middleware('a
 Route::get('/roles/{id}', 'RoleController@show')->name('roles.show')->middleware('auth');
 Route::get('/roles/{id}/edit', 'RoleController@edit')->name('roles.edit')->middleware('auth');
 Route::put('/roles/{id}', 'RoleController@update')->name('roles.update')->middleware('auth');
+
+// USER
+Route::get('/users/{id}', 'UserController@show')->name('users.show')->middleware('auth');
+

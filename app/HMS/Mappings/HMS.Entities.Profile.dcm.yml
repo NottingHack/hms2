@@ -5,6 +5,68 @@ HMS\Entities\Profile:
   id:
     user:
       associationKey: true
+  fields:
+    joinDate:
+      type: datetime
+      column: join_date
+      nullable: true
+    unlockText:
+      type: string
+      column: unlock_text
+      length: 95
+      nullable: true
+    creditLimit:
+      type: integer
+      column: credit_limit
+      nullable: false
+      options:
+        unsigned: true
+        default: 0
+    address1:
+      type: string
+      column: address_1
+      length: 100
+      nullable: true
+    address2:
+      type: string
+      column: address_2
+      length: 100
+      nullable: true
+    address3:
+      type: string
+      column: address_3
+      length: 100
+      nullable: true
+    addressCity:
+      type: string
+      column: address_city
+      length: 100
+      nullable: true
+    addressCounty:
+      type: string
+      column: address_county
+      length: 100
+      nullable: true
+    addressPostcode:
+      type: string
+      column: address_postcode
+      length: 10
+      nullable: true
+    contactNumber:
+      type: string
+      column: contact_number
+      length: 50
+      nullable: true
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
   oneToOne:
     user:
       targetEntity: User

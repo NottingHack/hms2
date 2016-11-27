@@ -2,17 +2,15 @@
 
 namespace HMS\User;
 
-
 use HMS\Repositories\UserRepository;
 use LaravelDoctrine\ORM\Facades\EntityManager;
 
 class UserManager
 {
-
     private $userRepository;
 
     /**
-     * Create a new RoleManager instance
+     * Create a new RoleManager instance.
      *
      * @param HMS\Repositories\UserRepository $userRepository An instance of a user repository
      */
@@ -33,10 +31,10 @@ class UserManager
     }
 
     /**
-     * Find a user and format it to send to a view
+     * Find a user and format it to send to a view.
      *
-     * @param Integer $id The id of the user we want
-     * @return Array
+     * @param int $id The id of the user we want
+     * @return array
      */
     public function getFormattedUser($id)
     {
@@ -46,10 +44,10 @@ class UserManager
     }
 
     /**
-     * Format the user to send to the view
+     * Format the user to send to the view.
      *
      * @param \HMS\Entities\User $user The user to format
-     * @return Array
+     * @return array
      */
     private function formatUser($user)
     {
@@ -60,5 +58,4 @@ class UserManager
 
         return $formattedUser;
     }
-
 }

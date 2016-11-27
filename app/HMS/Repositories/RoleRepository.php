@@ -36,7 +36,7 @@ class RoleRepository extends EntityRepository
     }
 
     /**
-     * Finds a role based on the role id
+     * Finds a role based on the role id.
      *
      * @param  int $id ID of the role we want
      * @return Role|object

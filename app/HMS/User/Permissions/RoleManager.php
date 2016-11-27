@@ -8,12 +8,11 @@ use LaravelDoctrine\ACL\Permissions\Permission;
 
 class RoleManager
 {
-
     private $roleRepository;
     private $permissionRepository;
 
     /**
-     * Create a new RoleManager instance
+     * Create a new RoleManager instance.
      *
      * @param HMS\Repositories\RoleRepository $roleRepository An instance of a role repository
      */
@@ -24,21 +23,21 @@ class RoleManager
     }
 
     /**
-     * Get all roles and format them to send to a view
+     * Get all roles and format them to send to a view.
      *
-     * @param Boolean $sort Whether to sort the returned list of roles or not
-     * @return Array
+     * @param bool $sort Whether to sort the returned list of roles or not
+     * @return array
      */
     public function getFormattedRoleList($sort = true)
     {
         $roles = $this->roleRepository->findAll();
 
-        $formattedRoles = array();
+        $formattedRoles = [];
 
         foreach ($roles as $role) {
             list($category, $name) = explode('.', $role->getName());
 
-            if (!isset($formattedRoles[$category])) {
+            if ( ! isset($formattedRoles[$category])) {
                 $formattedRoles[$category] = [];
             }
 
@@ -49,7 +48,7 @@ class RoleManager
             $categories = array_keys($formattedRoles);
             foreach ($categories as $category) {
                 usort($formattedRoles[$category], function ($a, $b) {
-                    return strcmp($a["name"], $b["name"]);
+                    return strcmp($a['name'], $b['name']);
                 });
             }
 
@@ -60,10 +59,10 @@ class RoleManager
     }
 
     /**
-     * Find a specific role
+     * Find a specific role.
      *
-     * @param Integer $id The id of the role we want
-     * @return Array
+     * @param int $id The id of the role we want
+     * @return array
      */
     public function getRole($id)
     {
@@ -73,10 +72,10 @@ class RoleManager
     }
 
     /**
-     * Find a role and format it to send to a view
+     * Find a role and format it to send to a view.
      *
-     * @param Integer $id The id of the role we want
-     * @return Array
+     * @param int $id The id of the role we want
+     * @return array
      */
     public function getFormattedRole($id)
     {
@@ -86,10 +85,10 @@ class RoleManager
     }
 
     /**
-     * Update a specific role
+     * Update a specific role.
      *
-     * @param Integer $id The id of the role we want to update
-     * @param Array $details fields that need updating
+     * @param int $id The id of the role we want to update
+     * @param array $details fields that need updating
      */
     public function updateRole($id, $details)
     {
@@ -117,10 +116,10 @@ class RoleManager
     }
 
     /**
-     * Format the role to send to the view
+     * Format the role to send to the view.
      *
      * @param \HMS\Entities\Role $role The role to format
-     * @return Array
+     * @return array
      */
     private function formatRole($role)
     {
@@ -137,10 +136,10 @@ class RoleManager
     }
 
     /**
-     * Format the permissions to send to the view
+     * Format the permissions to send to the view.
      *
      * @param \Doctrine\Common\Collections\ArrayCollection $permissions The permissions of the role
-     * @return Array
+     * @return array
      */
     private function formatPermissions($permissions)
     {
@@ -157,10 +156,10 @@ class RoleManager
     }
 
     /**
-     * Format the users to send to the view
+     * Format the users to send to the view.
      *
      * @param \Doctrine\Common\Collections\ArrayCollection $users The users of the role
-     * @return Array
+     * @return array
      */
     private function formatUsers($users)
     {
@@ -176,5 +175,3 @@ class RoleManager
         return $formattedUsers;
     }
 }
-
-?>

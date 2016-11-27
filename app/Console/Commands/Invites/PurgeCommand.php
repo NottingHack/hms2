@@ -52,7 +52,5 @@ class PurgeCommand extends Command
             $date = Carbon::createFromFormat('Y-m-d', $this->argument('date'));
         }
         $this->inviteRepository->removeAllOlderThan($date);
-
-        // \EntityManager::remove($invites);
     }
 }

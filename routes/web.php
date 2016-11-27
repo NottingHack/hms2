@@ -12,7 +12,6 @@
 */
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 
 Route::get('/', function () {
     return view('welcome');

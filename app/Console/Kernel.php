@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
         Commands\Permissions\ListCommand::class,
         Commands\Permissions\AddCommand::class,
         Commands\Permissions\RemoveCommand::class,
-        Commands\Permissions\StripCommand::class
+        Commands\Permissions\StripCommand::class,
     ];
 
     /**

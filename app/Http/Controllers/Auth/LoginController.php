@@ -40,8 +40,8 @@ class LoginController extends Controller
 
     /**
      * Get the login username to be used by the controller.
-     * Overirden as you allow both username and email during login
-     * 
+     * Overirden as you allow both username and email during login.
+     *
      * @return string
      */
     public function username()
@@ -51,7 +51,7 @@ class LoginController extends Controller
 
     /**
      * Get the needed authorization credentials from the request.
-     * Overirden as you allow both username and email during login
+     * Overirden as you allow both username and email during login.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array
@@ -66,5 +66,4 @@ class LoginController extends Controller
             'password' => $request->get('password'),
         ];
     }
-
 }

@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
-        $this->app->singleton(PasswordStore::class, function($app) {
+        $this->app->singleton(PasswordStore::class, function ($app) {
             $passwordStoreManager = new PasswordStoreManager($app);
 
             return $passwordStoreManager->driver();

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use HMS\Auth\PasswordStore;
 use HMS\Entities\Role;
 use HMS\Entities\User;
-
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
 use Validator;

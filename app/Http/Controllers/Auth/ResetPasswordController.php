@@ -24,7 +24,7 @@ class ResetPasswordController extends Controller
 
     use ResetsPasswords;
 
-    /** @var  PasswordStore */
+    /** @var PasswordStore */
     protected $passwordStore;
 
     /**
@@ -41,7 +41,7 @@ class ResetPasswordController extends Controller
     /**
      * Reset the given user's password.
      * Note: this is overridden from the ResetPasswords trait as no mechanism is provided to customise the validation
-     * rules, see: https://github.com/laravel/framework/issues/15086
+     * rules, see: https://github.com/laravel/framework/issues/15086.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -59,8 +59,8 @@ class ResetPasswordController extends Controller
         // database. Otherwise we will parse the error and return the response.
         $response = $this->broker()->reset(
             $this->credentials($request), function ($user, $password) {
-            $this->resetPassword($user, $password);
-        }
+                $this->resetPassword($user, $password);
+            }
         );
 
         // If the password was successfully reset, we will redirect the user back to

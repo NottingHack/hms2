@@ -29,16 +29,17 @@ class AddCommand extends BaseCommand
      */
     public function handle()
     {
-        if (!$role = $this->getRole($this->argument('role'))) {
+        if ( ! $role = $this->getRole($this->argument('role'))) {
             return;
-        };
+        }
 
-        if (!$permission = $this->getPermission($this->argument('permission'), false)) {
+        if ( ! $permission = $this->getPermission($this->argument('permission'), false)) {
             $permission = new Permission($this->argument('permission'));
         }
 
         if ($role->hasPermissionTo($permission->getName())) {
             $this->info($role->getName() . ' already has the ' . $permission->getName() . ' permission.');
+
             return;
         }
 
@@ -49,8 +50,7 @@ class AddCommand extends BaseCommand
         $this->entityManager->flush();
 
         $this->call('permissions:list', [
-            'roles' => [$role->getName()]
+            'roles' => [$role->getName()],
         ]);
-
     }
 }

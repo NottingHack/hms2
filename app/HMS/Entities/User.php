@@ -4,14 +4,12 @@ namespace HMS\Entities;
 
 use HMS\Traits\Entities\SoftDeletable;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping AS ORM;
 use HMS\Traits\Entities\Timestampable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use LaravelDoctrine\ACL\Contracts\HasPermissions as HasPermissionsContract;
 use LaravelDoctrine\ACL\Contracts\HasRoles as HasRoleContract;
 use Illuminate\Auth\Passwords\CanResetPassword;
-use LaravelDoctrine\ACL\Mappings as ACL;
 use LaravelDoctrine\ACL\Permissions\HasPermissions;
 use LaravelDoctrine\ACL\Roles\HasRoles;
 use LaravelDoctrine\ORM\Notifications\Notifiable;

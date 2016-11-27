@@ -60,7 +60,6 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
      * @param string $name
      * @param string $username
      * @param string $email
-     * @param Profile $profile
      */
     public function __construct(string $name, string $username, string $email)
     {
@@ -71,7 +70,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getId()
     {
@@ -79,7 +78,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getName()
     {
@@ -87,7 +86,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getUsername()
     {
@@ -95,7 +94,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getEmail()
     {

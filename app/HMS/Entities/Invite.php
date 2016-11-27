@@ -21,14 +21,14 @@ class Invite
      */
     protected $email;
 
-    /** 
+    /**
      * @var string invite token
      */
     protected $inviteToken;
 
     /**
      * Invite constructor.
-     * Invite Token is auto generated
+     * Invite Token is auto generated.
      * @param $email
      */
     public function create($email)
@@ -41,11 +41,11 @@ class Invite
 
         return $this;
     }
-    
+
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -61,12 +61,11 @@ class Invite
     }
 
     /**
-     * Get the token value
+     * Get the token value.
      * @return string
      */
     public function getInviteToken()
     {
         return $this->inviteToken;
     }
-
 }

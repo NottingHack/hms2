@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
-use HMS\Entities\Invite;
 use Illuminate\Http\Request;
 use App\Mail\InterestRegistered;
 use HMS\Repositories\InviteRepository;
-
 
 class RegisterInterestController extends Controller
 {
@@ -23,7 +20,7 @@ class RegisterInterestController extends Controller
 
     public function registerInterest(Request $request, InviteRepository $inviteRepository)
     {
-        # validate the request to make sure we have a valid email and don't already have a user for that email
+        // validate the request to make sure we have a valid email and don't already have a user for that email
         $this->validate($request, [
             'email' => 'required|email|unique:HMS\Entities\User',
         ], [
@@ -32,7 +29,7 @@ class RegisterInterestController extends Controller
 
         $invite = $inviteRepository->findOrCreateByEmail($request->email);
 
-        # fire off email
+        // fire off email
         \Mail::to($request->email)
             ->queue(new InterestRegistered($invite));
 

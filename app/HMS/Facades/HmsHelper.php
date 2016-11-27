@@ -5,8 +5,8 @@ namespace HMS\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
-* @see \HMS\Helpers\HmsHelper
-*/
+ * @see \HMS\Helpers\HmsHelper
+ */
 class HmsHelper extends Facade
 {
     /**

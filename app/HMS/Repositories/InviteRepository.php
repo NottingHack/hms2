@@ -6,12 +6,11 @@ use Carbon\Carbon;
 use Hms\Entities\Invite;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\Common\Collections\Criteria;
-use Doctrine\Common\Collections\ArrayCollection;
 
 class InviteRepository extends EntityRepository
 {
     /**
-     * Create a new invite if not found
+     * Create a new invite if not found.
      *
      * @param  string $email
      * @return HMS\Entities\Invite
@@ -19,18 +18,19 @@ class InviteRepository extends EntityRepository
     public function findOrCreateByEmail($email)
     {
         $invite = $this->findOneByEmail($email);
-        if (!$invite) {
+        if ( ! $invite) {
             // dont have a previous invite so create one
             $invite = new Invite();
             $invite->create($email);
             $this->_em->persist($invite);
             $this->_em->flush();
         }
+
         return $invite;
     }
 
     /**
-     * remove all invites older than a given date
+     * remove all invites older than a given date.
      * @param  Carbon $date
      * @return array
      */
@@ -46,5 +46,4 @@ class InviteRepository extends EntityRepository
         }
         $this->_em->flush();
     }
-
 }

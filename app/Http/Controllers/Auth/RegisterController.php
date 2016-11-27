@@ -105,7 +105,7 @@ class RegisterController extends Controller
 
     /**
      * Show the application registration form.
-     * Overidden, we need to have a valid invite token
+     * Overidden, we need to have a valid invite token.
      *
      * @return \Illuminate\Http\Response
      */

@@ -25,8 +25,7 @@ class HmsHelperServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        App::bind('HmsHelper', function()
-        {
+        App::bind('HmsHelper', function () {
             return new HmsHelper;
         });
     }

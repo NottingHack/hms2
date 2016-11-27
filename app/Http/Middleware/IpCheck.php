@@ -15,7 +15,7 @@ class IpCheck
      */
     public function handle($request, Closure $next)
     {
-        if (!\HmsHelper::inTheSpace($request)) {
+        if ( ! \HmsHelper::inTheSpace($request)) {
             return redirect('home');
         }
 

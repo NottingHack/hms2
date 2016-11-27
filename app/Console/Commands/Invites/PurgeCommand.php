@@ -5,7 +5,6 @@ namespace App\Console\Commands\Invites;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use HMS\Repositories\InviteRepository;
-use Doctrine\Common\Collections\Criteria;
 
 class PurgeCommand extends Command
 {

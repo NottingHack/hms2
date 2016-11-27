@@ -4,8 +4,6 @@ namespace App\Listeners;
 
 use HMS\Repositories\InviteRepository;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class RevokeInviteOnUserRegistered
 {

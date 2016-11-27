@@ -5,15 +5,12 @@ namespace HMS\User\Permissions;
 use LaravelDoctrine\ORM\Facades\EntityManager;
 use LaravelDoctrine\ACL\Permissions\Permission;
 
-
-
 class PermissionManager
 {
-
     private $permissionRepository;
 
     /**
-     * Create a new PermissionManager instance
+     * Create a new PermissionManager instance.
      */
     public function __construct()
     {
@@ -21,21 +18,21 @@ class PermissionManager
     }
 
     /**
-     * Get all permissions and format them to send to a view
+     * Get all permissions and format them to send to a view.
      *
-     * @param Boolean $sort Whether to sort the returned list of permissions or not
-     * @return Array
+     * @param bool $sort Whether to sort the returned list of permissions or not
+     * @return array
      */
     public function getformattedPermissionList($sort = true)
     {
         $permissions = $this->permissionRepository->findAll();
 
-        $formattedPermissions = array();
+        $formattedPermissions = [];
 
         foreach ($permissions as $permission) {
             list($category, $name) = explode('.', $permission->getName());
 
-            if (!isset($formattedPermissions[$category])) {
+            if ( ! isset($formattedPermissions[$category])) {
                 $formattedPermissions[$category] = [];
             }
 
@@ -46,7 +43,7 @@ class PermissionManager
             $categories = array_keys($formattedPermissions);
             foreach ($categories as $category) {
                 usort($formattedPermissions[$category], function ($a, $b) {
-                    return strcmp($a["name"], $b["name"]);
+                    return strcmp($a['name'], $b['name']);
                 });
             }
 
@@ -54,14 +51,13 @@ class PermissionManager
         }
 
         return $formattedPermissions;
-
     }
 
     /**
-     * Format the permission to send to the view
+     * Format the permission to send to the view.
      *
      * @param \LaravelDoctrine\ACL\Permissions\Permission $permission The permission to format
-     * @return Array
+     * @return array
      */
     private function formatPermission($permission)
     {
@@ -72,5 +68,4 @@ class PermissionManager
 
         return $formattedPermissions;
     }
-
 }

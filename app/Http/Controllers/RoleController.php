@@ -9,10 +9,8 @@ use HMS\User\Permissions\RoleManager;
 use Illuminate\Support\Facades\Route;
 use HMS\User\Permissions\PermissionManager;
 
-
 class RoleController extends Controller
 {
-
     private $roleManager;
     private $permissionManager;
     private $userManager;
@@ -35,7 +33,7 @@ class RoleController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if (!$user->hasPermissionTo('role.view.all')) {
+        if ( ! $user->hasPermissionTo('role.view.all')) {
             return redirect()->route('home');
         }
         $roles = $this->roleManager->getFormattedRoleList();
@@ -46,13 +44,13 @@ class RoleController extends Controller
     /**
      * Show a specific role.
      *
-     * @param integer $id ID of the role
+     * @param int $id ID of the role
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $user = Auth::user();
-        if (!$user->hasPermissionTo('role.view.all')) {
+        if ( ! $user->hasPermissionTo('role.view.all')) {
             return redirect()->route('home');
         }
 
@@ -61,18 +59,17 @@ class RoleController extends Controller
         return view('role.show')->with('role', $role);
     }
 
-
     /**
      * Show the edit form for a role.
      *
-     * @param integer $id ID of the role
+     * @param int $id ID of the role
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         $user = Auth::user();
-        if (!$user->hasPermissionTo('role.edit.all')) {
-            return redirect()->route('roles.show', [ 'id' => $id ]);
+        if ( ! $user->hasPermissionTo('role.edit.all')) {
+            return redirect()->route('roles.show', ['id' => $id]);
         }
 
         $permissions = $this->permissionManager->getFormattedPermissionList();
@@ -85,15 +82,15 @@ class RoleController extends Controller
     /**
      * Update a specific role.
      *
-     * @param integer $id ID of the role
+     * @param int $id ID of the role
      * @param Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function update($id, Request $request)
     {
         $user = Auth::user();
-        if (!$user->hasPermissionTo('role.edit.all')) {
-            return redirect()->route('roles.show', [ 'id' => $id ]);
+        if ( ! $user->hasPermissionTo('role.edit.all')) {
+            return redirect()->route('roles.show', ['id' => $id]);
         }
 
         $this->validate($request, [
@@ -104,14 +101,14 @@ class RoleController extends Controller
 
         $this->roleManager->updateRole($id, $request->all());
 
-        return redirect()->route('roles.show', [ 'id' => $id ]);
+        return redirect()->route('roles.show', ['id' => $id]);
     }
 
     /**
      * Remove a specific user from a specific role.
      *
-     * @param integer $roleId ID of the role
-     * @param integer $userId ID of the user
+     * @param int $roleId ID of the role
+     * @param int $userId ID of the user
      * @param Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
@@ -122,7 +119,7 @@ class RoleController extends Controller
         $userId = $request->userId;
 
         $user = Auth::user();
-        if (!$user->hasPermissionTo('role.edit.all') or !$user->hasPermissionTo('profile.edit.all')) {
+        if ( ! $user->hasPermissionTo('role.edit.all') or ! $user->hasPermissionTo('profile.edit.all')) {
             return $this->chooseRedirect($roleId);
         }
 
@@ -134,9 +131,9 @@ class RoleController extends Controller
     private function chooseRedirect($roleId)
     {
         if (strpos(Route::current()->getName(), 'role') !== false) {
-            return redirect()->route('roles.show', [ 'id' => $roleId ]);
+            return redirect()->route('roles.show', ['id' => $roleId]);
         } else {
-            return redirect()->route('users.show', [ 'id' => $userId ]);
+            return redirect()->route('users.show', ['id' => $userId]);
         }
     }
 }

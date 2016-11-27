@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-
     private $userManager;
 
     /**
@@ -21,13 +20,13 @@ class UserController extends Controller
     /**
      * Show a specific user.
      *
-     * @param integer $id ID of the user
+     * @param int $id ID of the user
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $user = Auth::user();
-        if (!$user->hasPermissionTo('profile.view.all')) {
+        if ( ! $user->hasPermissionTo('profile.view.all')) {
             return redirect()->route('home');
         }
 
@@ -35,5 +34,4 @@ class UserController extends Controller
 
         return view('user.show')->with('user', $user);
     }
-
 }

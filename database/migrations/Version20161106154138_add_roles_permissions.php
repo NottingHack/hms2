@@ -10,7 +10,6 @@ use LaravelDoctrine\ACL\Permissions\Permission;
 
 class Version20161106154138_add_roles_permissions extends AbstractMigration
 {
-
     private $permEntities = [];
 
     private $permStrings = [
@@ -19,7 +18,7 @@ class Version20161106154138_add_roles_permissions extends AbstractMigration
             'viewroles'         =>  'role.view.all',
             'editroles'         =>  'role.edit.all',
             'editprofile'       =>  'profile.edit.self',
-            'editprofileall'    =>  'profile.edit.all'
+            'editprofileall'    =>  'profile.edit.all',
         ];
 
     /**

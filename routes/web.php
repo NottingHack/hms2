@@ -32,4 +32,3 @@ Route::delete('/roles/{roleId}/users/{userId}', 'RoleController@removeUser')->na
 // USER
 Route::get('/users/{id}', 'UserController@show')->name('users.show')->middleware('auth');
 Route::delete('/users/{userId}/roles/{roleId}', 'RoleController@removeUser')->name('users.removeRole')->middleware('auth');
-

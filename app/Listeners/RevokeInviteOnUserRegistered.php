@@ -9,6 +9,9 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class RevokeInviteOnUserRegistered
 {
+    /**
+     * @var HMS\Repositories\InviteRepository
+     */
     protected $inviteRepository;
 
     /**

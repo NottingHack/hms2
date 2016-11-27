@@ -10,9 +10,12 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class InterestRegistered extends Mailable
 {
-    protected $invite;
-
     use Queueable, SerializesModels;
+
+    /**
+     * @var HMS\Entities\Invite
+     */
+    protected $invite;
 
     /**
      * Create a new message instance.

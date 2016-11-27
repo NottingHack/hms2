@@ -35,8 +35,19 @@ class RegisterController extends Controller
      */
     protected $redirectTo = '/home';
 
+    /**
+     * @var HMS\Repositories\UserRepository
+     */
     protected $userRepository;
+
+    /**
+     * @var HMS\Repositories\RoleRepository
+     */
     protected $roleRepository;
+
+    /**
+     * @var HMS\Auth\PasswordStore
+     */
     protected $passwordStore;
 
     /**

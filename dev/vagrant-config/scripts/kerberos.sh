@@ -17,12 +17,13 @@ debconf-set-selections <<< 'krb5-config krb5-config/admin_server string hmsdev.n
 
 
 # Install krb, create passord database, and set the master password to "krbMasterPassword"
-apt-get install php-pear php7.0-dev libkrb5-dev haveged krb5-{admin-server,kdc} -y
+apt-get install php-pear php7.0-dev libkrb5-dev haveged krb5-{admin-server,kdc} -y > /dev/null 2>&1
 kdb5_util create -s -P krbMasterPassword
 mkdir /var/log/kerberos
 touch /var/log/kerberos/{krb5kdc,kadmin,krb5lib}.log
 chmod -R 750  /var/log/kerberos
 echo "vagrant/admin@NOTTINGTEST.ORG.UK * " > /etc/krb5kdc/kadm5.acl
+echo "hms/web@NOTTINGTEST.ORG.UK * " >> /etc/krb5kdc/kadm5.acl
 /etc/init.d/krb5-kdc start 
 /etc/init.d/krb5-admin-server start 
 
@@ -40,7 +41,7 @@ chmod a+r /vagrant/storage/app/hms.keytab
 # pecl install krb5 - this (still 2016) doesn't have kadm support.
 mkdir /root/php-krb
 cd /root/php-krb
-wget http://pecl.php.net/get/krb5-1.1.0.tgz
+wget --progress=bar:force http://pecl.php.net/get/krb5-1.1.0.tgz
 tar zxf krb5-1.1.0.tgz
 cd /root/php-krb/krb5-1.1.0
 phpize

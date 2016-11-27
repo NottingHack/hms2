@@ -7,7 +7,9 @@ The context files as implemented run a migration reset and refresh before **ever
 
 This does mean that your code will need the relevant factories created so that the database can be seeded to a level to run your tests.
 
-To run the tests:
+To run the tests you need to be inside the vagrant box:
 
 `$ cd ${PROJECT_DIR}`
+`vagrant ssh`
+`cd /vagrant'
 `$ vendor/bin/behat`

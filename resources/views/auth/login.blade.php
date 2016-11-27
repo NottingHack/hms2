@@ -4,19 +4,19 @@
 
 <h2>Log In</h2>
 
-<p>Enter your email address and password to log in.</p>
+<p>Enter your email address or username and password to log in.</p>
 
 <form role="form" method="POST" action="{{ url('/login') }}">
   {{ csrf_field() }}
 
   <div class="row">
-    <label for="email" class="form-label">E-Mail</label>
+    <label for="login" class="form-label">E-Mail or Username</label>
     <div class="form-control">
-      <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus>
+      <input id="login" type="text" name="login" value="{{ old('login') }}" required autofocus>
 
-      @if ($errors->has('email'))
+      @if ($errors->has('login'))
       <p class="help-text">
-        <strong>{{ $errors->first('email') }}</strong>
+        <strong>{{ $errors->first('login') }}</strong>
       </p>
       @endif
     </div>

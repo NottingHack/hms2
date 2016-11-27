@@ -4,17 +4,18 @@ namespace HMS\Auth;
 
 use Illuminate\Support\Facades\Storage;
 
-class FileBasedIdentityManager implements IdentityManager
+class FileBasedPasswordStore implements PasswordStore
 {
     protected $usersFile;
     protected $users;
 
     /**
-     * FileBasedUserManager constructor.
+     * FileBasedPasswordStore constructor.
      */
-    public function __construct($usersFile = 'users.json')
+    public function __construct($app)
     {
-        $this->usersFile = $usersFile;
+        $config = $app['config']->get('passwordstore.filebased', []);
+        $this->usersFile = $config['name'];
 
         if (Storage::has($this->usersFile)) {
             $this->users = json_decode(Storage::get($this->usersFile), true);

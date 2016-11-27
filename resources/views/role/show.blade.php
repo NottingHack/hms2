@@ -28,7 +28,7 @@
 
 <ul>
 @foreach ($role['users'] as $user)
-    <li>{{ $user['name'] }}</li>
+    <li><a href="#" class="alert" aria-label="delete"><i class="fa fa-minus-circle" aria-hidden="true"></i></a> {{ $user['name'] }}</li>
 @endforeach
 </ul>
 

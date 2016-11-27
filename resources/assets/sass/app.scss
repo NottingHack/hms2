@@ -72,3 +72,29 @@ ul.nomarkers {
   @extend .medium-10;
   @extend .medium-offset-2;
 }
+
+// Cookie consent dialog
+// ---------------------
+
+.cookie-consent {
+  @extend .row;
+}
+
+.cookie-consent__container {
+  @extend .small-12;
+  @extend .callout;
+  @extend .secondary;
+
+  margin-bottom: 0;
+}
+
+.cookie-consent__message {
+
+}
+
+.cookie-consent__agree {
+  @extend .button;
+  @extend .primary;
+
+  margin-left: rem-calc(10);
+}

@@ -83,6 +83,8 @@
     </div>
   </div>
 
+  @include('cookieConsent::index')
+
   <!-- footer -->
   <footer>
     <div class="row expanded footer">

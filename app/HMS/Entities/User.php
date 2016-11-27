@@ -189,8 +189,8 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     /**
      * @param Profile $profile
      */
-    public function setProfile(Profile $profile) {
+    public function setProfile(Profile $profile)
+    {
         $this->profile = $profile;
     }
-
 }

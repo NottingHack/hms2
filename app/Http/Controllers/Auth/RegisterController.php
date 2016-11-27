@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use HMS\Auth\PasswordStore;
+use Validator;
 use HMS\Entities\Role;
 use HMS\Entities\User;
-
+use HMS\Entities\Invite;
+use HMS\Auth\PasswordStore;
+use App\Http\Controllers\Controller;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
-use Validator;
-use App\Http\Controllers\Controller;
+use HMS\Repositories\InviteRepository;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
@@ -60,6 +61,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            'invite' => 'required|exists:HMS\Entities\Invite,inviteToken',
             'name' => 'required|max:255',
             'username' => 'required|max:255|unique:HMS\Entities\User',
             'email' => 'required|email|max:255|unique:HMS\Entities\User',
@@ -88,5 +90,25 @@ class RegisterController extends Controller
         $this->passwordStore->add($user->getUsername(), $data['password']);
 
         return $user;
+    }
+
+    /**
+     * Show the application registration form.
+     * Overidden, we need to have a valid invite token
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm(InviteRepository $inviteRepository, $token)
+    {
+        $invite = $inviteRepository->findOneByInviteToken($token);
+
+        if (is_null($invite)) {
+            return redirect('/');
+        }
+
+        return view('auth.register', [
+            'invite' => $invite->getInviteToken(),
+            'email' => $invite->getEmail(),
+            ]);
     }
 }

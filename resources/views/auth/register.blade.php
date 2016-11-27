@@ -5,6 +5,14 @@
 
 <form role="form" method="POST" action="{{ url('/register') }}">
   {{ csrf_field() }}
+  <input type="hidden" name="invite" value="{{ old('invite', $invite) }}" >
+  @if ($errors->has('invite'))
+  <div>
+      <span class="help-block">
+        <strong>{{ $errors->first('invite') }}</strong>
+      </span>
+  </div>
+  @endif
 
   <div class="row">
     <label for="name" class="form-label">Name</label>
@@ -33,7 +41,7 @@
   <div class="row">
     <label for="email" class="form-label">E-Mail Address</label>
     <div class="form-control">
-      <input id="email" type="email" name="email" value="{{ old('email') }}" required>
+      <input id="email" type="email" name="email" value="{{ old('email', $email) }}" required>
       @if ($errors->has('email'))
       <p class="help-text">
         <strong>{{ $errors->first('email') }}</strong>

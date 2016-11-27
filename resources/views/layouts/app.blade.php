@@ -51,7 +51,14 @@
 
   <!-- main body -->
   <div class="content">
-    <div class="row align-top">
+
+    @if (session('status'))
+    <div class="alert alert-success">
+      {{ session('status') }}
+    </div>
+    @endif
+
+  <div class="row align-top">
       @if (!Auth::guest())
       <div class="columns small-12 small-order-1 medium-2 medium-order-0 large-2">
         <ul class="menu vertical">

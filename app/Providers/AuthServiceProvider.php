@@ -28,8 +28,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Auth::provider('hms', function($app, array $config) use ($em, $passwordStore) {
-
+        Auth::provider('hms', function ($app, array $config) use ($em, $passwordStore) {
             return new HmsUserProvider($app['hash'], $em, $config['model'], $passwordStore);
         });
     }

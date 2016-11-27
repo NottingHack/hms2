@@ -19,6 +19,9 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
+
+    <!-- Font Awesome -->
+    <script src="https://use.fontawesome.com/5fd8ad5172.js"></script>
 </head>
 <body class="with-footer">
   <header>
@@ -97,11 +100,11 @@
       </div>
       <div class="columns small-12 medium-3">
         <ul class="nomarkers">
-          <li><a href="#"><i class="fa fa-twitter"></i>&nbsp;Twitter</a></li>
-          <li><a href="#"><i class="fa fa-email"></i>&nbsp;Google Group</a></li>
-          <li><a href="#"><i class="fa fa-flickr"></i>&nbsp;Flickr</a></li>
-          <li><a href="#"><i class="fa fa-youtube"></i>&nbsp;YouTube</a></li>
-          <li><a href="#"><i class="fa fa-facebook"></i>&nbsp;Facebook</a></li>
+          <li><a href="#"><i class="fa fa-fw fa-twitter"></i>&nbsp;Twitter</a></li>
+          <li><a href="#"><i class="fa fa-fw fa-envelope"></i>&nbsp;Google Group</a></li>
+          <li><a href="#"><i class="fa fa-fw fa-flickr"></i>&nbsp;Flickr</a></li>
+          <li><a href="#"><i class="fa fa-fw fa-youtube"></i>&nbsp;YouTube</a></li>
+          <li><a href="#"><i class="fa fa-fw fa-facebook"></i>&nbsp;Facebook</a></li>
         </ul>
       </div>
       <div class="columns small-12 medium-3">

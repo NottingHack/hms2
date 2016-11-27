@@ -53,7 +53,7 @@ class FileBasedPasswordStore implements PasswordStore
      * Check if a user with the given username exists.
      *
      * @param  string $username
-     * @return boolean
+     * @return bool
      */
     public function exists($username)
     {
@@ -78,7 +78,7 @@ class FileBasedPasswordStore implements PasswordStore
      *
      * @param  string $username
      * @param  string $password
-     * @return boolean
+     * @return bool
      */
     public function checkPassword($username, $password)
     {

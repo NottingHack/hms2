@@ -1,4 +1,5 @@
 <?php
+
 return [
     'driver' => env('PASSWORDSTORE', 'FileBased'),
     'filebased' => [

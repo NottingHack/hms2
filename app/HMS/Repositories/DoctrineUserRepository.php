@@ -71,6 +71,4 @@ class DoctrineUserRepository implements UserRepository
         $user->setProfile($profile);
         $this->em->persist($user);
     }
-
-
 }

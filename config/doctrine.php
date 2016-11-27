@@ -26,16 +26,16 @@ return [
             'meta'       => env('DOCTRINE_METADATA', 'annotations'),
             'connection' => env('DB_CONNECTION', 'mysql'),
             'namespaces' => [
-                'HMS'
+                'HMS',
             ],
             'paths'      => [
-                base_path('app/HMS/Mappings')
+                base_path('app/HMS/Mappings'),
             ],
             'repository' => Doctrine\ORM\EntityRepository::class,
             'proxies'    => [
                 'namespace'     => false,
                 'path'          => storage_path('proxies'),
-                'auto_generate' => env('DOCTRINE_PROXY_AUTOGENERATE', false)
+                'auto_generate' => env('DOCTRINE_PROXY_AUTOGENERATE', false),
             ],
             /*
             |--------------------------------------------------------------------------
@@ -48,7 +48,7 @@ return [
             */
             'events'     => [
                 'listeners'   => [],
-                'subscribers' => []
+                'subscribers' => [],
             ],
             'filters'    => [],
             /*
@@ -75,8 +75,8 @@ return [
             */
             'mapping_types'              => [
                 //'enum' => 'string'
-            ]
-        ]
+            ],
+        ],
     ],
     /*
     |--------------------------------------------------------------------------
@@ -110,7 +110,7 @@ return [
     |--------------------------------------------------------------------------
     */
     'custom_types'              => [
-        'json' => LaravelDoctrine\ORM\Types\Json::class
+        'json' => LaravelDoctrine\ORM\Types\Json::class,
     ],
     /*
     |--------------------------------------------------------------------------
@@ -170,7 +170,7 @@ return [
     |
     */
     'gedmo'                     => [
-        'all_mappings' => false
+        'all_mappings' => false,
     ],
     /*
      |--------------------------------------------------------------------------

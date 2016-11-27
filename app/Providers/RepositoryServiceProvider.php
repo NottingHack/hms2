@@ -37,7 +37,7 @@ class RepositoryServiceProvider extends ServiceProvider
             return new RoleRepository($app['em'], $app['em']->getClassMetaData(Role::class));
         });
 
-        $this->app->singleton(UserRepository::class, function($app) {
+        $this->app->singleton(UserRepository::class, function ($app) {
             return $app->make(DoctrineUserRepository::class);
         });
     }

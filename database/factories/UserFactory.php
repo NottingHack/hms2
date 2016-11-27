@@ -13,7 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 |
 */
 
-$factory->define(HMS\Entities\User::class, function(Faker\Generator $faker) {
+$factory->define(HMS\Entities\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,

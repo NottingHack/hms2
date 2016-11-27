@@ -21,7 +21,6 @@ class ListCommand extends BaseCommand
      */
     protected $description = 'View permissions structure';
 
-
     /**
      * Execute the console command.
      *
@@ -36,9 +35,9 @@ class ListCommand extends BaseCommand
             $roles = $this->roleRepository->findAll()->toArray();
         } else {
             foreach ($requestedRoles as $requestedRole) {
-                if (!$role = $this->getRole($requestedRole)) {
+                if (! $role = $this->getRole($requestedRole)) {
                     return;
-                };
+                }
                 $roles[] = $role;
             }
         }
@@ -50,10 +49,10 @@ class ListCommand extends BaseCommand
 
     protected function printPermissions(Role $role)
     {
-        $this->info('Permissions for ' . $role->getName() . ':');
+        $this->info('Permissions for '.$role->getName().':');
         $rolePermissions = $role->getPermissions()->getIterator();
         foreach ($rolePermissions as $permission) {
-            $this->line("\t" . $permission->getName());
+            $this->line("\t".$permission->getName());
         }
         $this->line('');
     }

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use HMS\Auth\PasswordStore;
 use HMS\Entities\Role;
 use HMS\Entities\User;
-
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
 use Validator;
@@ -63,7 +62,7 @@ class RegisterController extends Controller
             'name' => 'required|max:255',
             'username' => 'required|max:255|unique:HMS\Entities\User',
             'email' => 'required|email|max:255|unique:HMS\Entities\User',
-            'password' => 'required|min:' . User::MIN_PASSWORD_LENGTH . '|confirmed',
+            'password' => 'required|min:'.User::MIN_PASSWORD_LENGTH.'|confirmed',
         ]);
     }
 

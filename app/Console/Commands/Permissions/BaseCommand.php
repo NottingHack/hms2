@@ -3,7 +3,6 @@
 namespace App\Console\Commands\Permissions;
 
 use Hms\Entities\Role;
-
 use Doctrine\ORM\EntityManagerInterface;
 use HMS\Repositories\RoleRepository;
 use Illuminate\Console\Command;
@@ -72,12 +71,13 @@ abstract class BaseCommand extends Command
     protected function getRole($name, $error = true)
     {
         $role = $this->roleRepository->findOneBy(['name' => $name]);
-        if (!is_null($role)) {
+        if (! is_null($role)) {
             return $role;
         } else {
             if ($error) {
-                $this->printError('The role ' . $name . ' was not found within the system.', 'Incorrect Role');
+                $this->printError('The role '.$name.' was not found within the system.', 'Incorrect Role');
             }
+
             return false;
         }
     }
@@ -90,12 +90,13 @@ abstract class BaseCommand extends Command
     protected function getPermission($name, $error = true)
     {
         $permission = $this->permissionsRepository->findOneBy(['name' => $name]);
-        if (!is_null($permission)) {
+        if (! is_null($permission)) {
             return $permission;
         } else {
             if ($error) {
-                $this->printError('The permission ' . $permission . ' was not found within the system.', 'Incorrect Permission');
+                $this->printError('The permission '.$permission.' was not found within the system.', 'Incorrect Permission');
             }
+
             return false;
         }
     }

@@ -30,7 +30,7 @@ interface PasswordStore
      * Check if a specified identity exists.
      *
      * @param  string  $username
-     * @return boolean
+     * @return bool
      */
     public function exists($username);
 
@@ -48,7 +48,7 @@ interface PasswordStore
      *
      * @param  string  $username
      * @param  string  $password
-     * @return boolean
+     * @return bool
      */
     public function checkPassword($username, $password);
 }

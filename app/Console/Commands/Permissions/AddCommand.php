@@ -29,28 +29,28 @@ class AddCommand extends BaseCommand
      */
     public function handle()
     {
-        if (!$role = $this->getRole($this->argument('role'))) {
+        if (! $role = $this->getRole($this->argument('role'))) {
             return;
-        };
+        }
 
-        if (!$permission = $this->getPermission($this->argument('permission'), false)) {
+        if (! $permission = $this->getPermission($this->argument('permission'), false)) {
             $permission = new Permission($this->argument('permission'));
         }
 
         if ($role->hasPermissionTo($permission->getName())) {
-            $this->info($role->getName() . ' already has the ' . $permission->getName() . ' permission.');
+            $this->info($role->getName().' already has the '.$permission->getName().' permission.');
+
             return;
         }
 
-        $this->info('Adding ' . $permission->getName() . ' permission to the ' . $role->getName() . ' role:');
+        $this->info('Adding '.$permission->getName().' permission to the '.$role->getName().' role:');
         $role->addPermission($permission);
         $this->entityManager->persist($permission);
         $this->entityManager->persist($role);
         $this->entityManager->flush();
 
         $this->call('permissions:list', [
-            'roles' => [$role->getName()]
+            'roles' => [$role->getName()],
         ]);
-
     }
 }

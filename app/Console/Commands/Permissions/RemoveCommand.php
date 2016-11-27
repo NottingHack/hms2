@@ -27,25 +27,26 @@ class RemoveCommand extends BaseCommand
      */
     public function handle()
     {
-        if (!$role = $this->getRole($this->argument('role'))) {
-            return;
-        };
-
-        if (!$permission = $this->getPermission($this->argument('permission'), true)) {
+        if (! $role = $this->getRole($this->argument('role'))) {
             return;
         }
 
-        if (!$role->hasPermissionTo($permission->getName())) {
-            $this->info($role->getName() . " doesn't have the " . $permission->getName() . ' permission.');
+        if (! $permission = $this->getPermission($this->argument('permission'), true)) {
             return;
         }
-        $this->info('Removing ' . $permission->getName() . ' permission from the ' . $role->getName() . ' role:');
+
+        if (! $role->hasPermissionTo($permission->getName())) {
+            $this->info($role->getName()." doesn't have the ".$permission->getName().' permission.');
+
+            return;
+        }
+        $this->info('Removing '.$permission->getName().' permission from the '.$role->getName().' role:');
         $role->removePermission($permission);
         $this->entityManager->persist($role);
         $this->entityManager->flush();
 
         $this->call('permissions:list', [
-            'roles' => [$role->getName()]
+            'roles' => [$role->getName()],
         ]);
     }
 }

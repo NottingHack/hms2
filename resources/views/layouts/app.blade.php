@@ -39,7 +39,7 @@
         @if (Auth::guest())
         <li><a href="{{ url('/login') }}">Log In</a></li>
         @if (\HmsHelper::inTheSpace())
-        <li><a href="{{ url('/register') }}">Register Interest</a></li>
+        <li><a href="{{ url('/registerInterest') }}">Register Interest</a></li>
         @endif
         @else
         <li>Logged in as {{ Auth::user()->getName() }} @if (Auth::viaRemember()) (via Remember Me) @endif</li>

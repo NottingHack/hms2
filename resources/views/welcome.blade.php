@@ -69,7 +69,9 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     <a href="{{ url('/login') }}">Login</a>
-                    <a href="{{ url('/register') }}">Register</a>
+                    @if (\HmsHelper::inTheSpace())
+                    <a href="{{ url('/registerInterest') }}">Register Interest</a>
+                    @endif
                 </div>
             @endif
 

@@ -2,7 +2,9 @@
 
 namespace HMS\User;
 
+
 use HMS\Repositories\UserRepository;
+use LaravelDoctrine\ORM\Facades\EntityManager;
 
 class UserManager
 {
@@ -17,6 +19,17 @@ class UserManager
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
+    }
+
+    public function removeRoleFromUser($userId, $role)
+    {
+        $user = $this->userRepository->find($userId);
+
+
+        $user->getRoles()->removeElement($role);
+
+        EntityManager::persist($user);
+        EntityManager::flush();
     }
 
     /**

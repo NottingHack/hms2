@@ -60,6 +60,19 @@ class RoleManager
     }
 
     /**
+     * Find a specific role
+     *
+     * @param Integer $id The id of the role we want
+     * @return Array
+     */
+    public function getRole($id)
+    {
+        $role = $this->roleRepository->findbyId($id);
+
+        return $role;
+    }
+
+    /**
      * Find a role and format it to send to a view
      *
      * @param Integer $id The id of the role we want
@@ -67,7 +80,7 @@ class RoleManager
      */
     public function getFormattedRole($id)
     {
-        $role = $this->roleRepository->findbyId($id);
+        $role = $this->getRole($id);
 
         return $this->formatRole($role);
     }
@@ -80,7 +93,7 @@ class RoleManager
      */
     public function updateRole($id, $details)
     {
-        $role = $this->roleRepository->findbyId($id);
+        $role = $this->getRole($id);
 
         //dd($details);
 

@@ -14,10 +14,12 @@ class Version20161106154138_add_roles_permissions extends AbstractMigration
     private $permEntities = [];
 
     private $permStrings = [
-            'view'      =>  'profile.view.self',
-            'viewall'   =>  'profile.view.all',
-            'viewroles' =>  'role.view.all',
-            'editroles' =>  'role.edit.all',
+            'view'              =>  'profile.view.self',
+            'viewall'           =>  'profile.view.all',
+            'viewroles'         =>  'role.view.all',
+            'editroles'         =>  'role.edit.all',
+            'editprofile'       =>  'profile.edit.self',
+            'editprofileall'    =>  'profile.edit.all'
         ];
 
     /**
@@ -27,6 +29,7 @@ class Version20161106154138_add_roles_permissions extends AbstractMigration
     {
         $this->addViewPermissions();
         $this->addRolePermissions();
+        $this->addEditPermissions();
 
         $this->addMemberRoles();
         $this->AddSuperUserRole();
@@ -64,6 +67,14 @@ class Version20161106154138_add_roles_permissions extends AbstractMigration
         EntityManager::persist($this->permEntities[$this->permStrings['editroles']]);
     }
 
+    private function addEditPermissions()
+    {
+        $this->permEntities[$this->permStrings['editprofile']] = new Permission($this->permStrings['editprofile']);
+        $this->permEntities[$this->permStrings['editprofileall']] = new Permission($this->permStrings['editprofileall']);
+        EntityManager::persist($this->permEntities[$this->permStrings['editprofile']]);
+        EntityManager::persist($this->permEntities[$this->permStrings['editprofileall']]);
+    }
+
     private function addMemberRoles()
     {
         $roles = [
@@ -77,6 +88,7 @@ class Version20161106154138_add_roles_permissions extends AbstractMigration
         foreach ($roles as $role) {
             $roleEntity = new Role($role[0], $role[1], $role[2]);
             $roleEntity->addPermission($this->permEntities[$this->permStrings['view']]);
+            $roleEntity->addPermission($this->permEntities[$this->permStrings['editprofile']]);
             EntityManager::persist($roleEntity);
         }
     }
@@ -88,6 +100,8 @@ class Version20161106154138_add_roles_permissions extends AbstractMigration
         $role->addPermission($this->permEntities[$this->permStrings['viewall']]);
         $role->addPermission($this->permEntities[$this->permStrings['viewroles']]);
         $role->addPermission($this->permEntities[$this->permStrings['editroles']]);
+        $role->addPermission($this->permEntities[$this->permStrings['editprofile']]);
+        $role->addPermission($this->permEntities[$this->permStrings['editprofileall']]);
         EntityManager::persist($role);
     }
 }

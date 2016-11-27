@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+
+
 @section('content')
 <h1>{{ $role['displayName'] }}</h1>
 
@@ -28,7 +30,15 @@
 
 <ul>
 @foreach ($role['users'] as $user)
-    <li><a href="#" class="alert" aria-label="delete"><i class="fa fa-minus-circle" aria-hidden="true"></i></a> {{ $user['name'] }}</li>
+    <li>
+        <form action="{{ route('roles.removeUser', ['roleId' => $role['id'], 'userId' =>$user['id']]) }}" method="POST">
+            {{ csrf_field() }}
+            {{ method_field('DELETE') }}
+
+            <a href="#" class="alert form-submit-link" aria-label="delete"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>
+            {{ $user['name'] }}
+        </form>
+    </li>
 @endforeach
 </ul>
 

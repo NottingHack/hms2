@@ -47,7 +47,7 @@ HMS\Entities\User:
     profile:
       targetEntity: Profile
       mappedBy: user
-      cascade: ["persist"]
+      cascade: ["all"]
   manyToMany:
     roles:
       targetEntity: Role
@@ -56,9 +56,7 @@ HMS\Entities\User:
         joinColumns:
           user_id:
             referencedColumnName: id
-            onDelete: CASCADE
         inverseJoinColumns:
           role_id:
             referencedColumnName: id
-            onDelete: CASCADE
 

@@ -47,6 +47,7 @@ HMS\Entities\User:
     profile:
       targetEntity: Profile
       mappedBy: user
+      cascade: ["persist"]
   manyToMany:
     roles:
       targetEntity: Role

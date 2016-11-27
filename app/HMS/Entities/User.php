@@ -64,13 +64,12 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
      * @param string $email
      * @param Profile $profile
      */
-    public function __construct(string $name, string $username, string $email, Profile $profile)
+    public function __construct(string $name, string $username, string $email)
     {
         $this->name = $name;
         $this->username = $username;
         $this->email = $email;
         $this->roles = new ArrayCollection();
-        $this->profile = $profile;
     }
 
     /**
@@ -188,4 +187,12 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     {
         return $this->profile;
     }
+
+    /**
+     * @param Profile $profile
+     */
+    public function setProfile(Profile $profile) {
+        $this->profile = $profile;
+    }
+
 }

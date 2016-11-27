@@ -124,7 +124,7 @@ class Role implements RoleContract
 
     public function addPermission(Permission $permission)
     {
-        if (!$this->permissions->contains($permission)) {
+        if ( ! $this->permissions->contains($permission)) {
             $this->permissions->add($permission);
         }
     }

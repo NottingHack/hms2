@@ -20,11 +20,12 @@ class RoleRepository extends EntityRepository
         foreach ($entities as $entity) {
             $roles[$entity->getName()] = $entity;
         }
+
         return new ArrayCollection($roles);
     }
 
     /**
-     * Finds a role based on the role name
+     * Finds a role based on the role name.
      *
      * @param  string $roleName name of the role we want
      * @return Role|object

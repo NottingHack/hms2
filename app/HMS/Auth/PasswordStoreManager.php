@@ -2,15 +2,12 @@
 
 namespace HMS\Auth;
 
-use HMS\Auth\FileBassedPasswordStore;
-use HMS\Auth\KerberosPasswordStore;
 use Illuminate\Support\Manager;
 
 class PasswordStoreManager extends Manager
 {
-    
     /**
-     * Create an instance of the Kerberos driver
+     * Create an instance of the Kerberos driver.
      *
      * @return KerberosPasswordStore
      */
@@ -20,7 +17,7 @@ class PasswordStoreManager extends Manager
     }
 
     /**
-     * Create an instance of the FileBased driver
+     * Create an instance of the FileBased driver.
      *
      * @return FileBasedPasswordStore
      */
@@ -30,7 +27,7 @@ class PasswordStoreManager extends Manager
     }
 
     /**
-     * Get the default driver
+     * Get the default driver.
      *
      * @return string
      */

@@ -2,33 +2,30 @@
 
 namespace HMS\Auth;
 
-
-class KerberosPasswordStore implements PasswordStore  
+class KerberosPasswordStore implements PasswordStore
 {
-
     /**
-    * The KADM5 connection to use.
-    * @var KADM5.
-    */
+     * The KADM5 connection to use.
+     * @var KADM5.
+     */
     private $__krbConn;
 
     /**
-    * The relm to use.
-    * @var string
-    */
+     * The relm to use.
+     * @var string
+     */
     private $__realm;
 
     /**
-    * If true, we're in debug mode and shouldn't actually take any action.
-    * @var bool
-    */
+     * If true, we're in debug mode and shouldn't actually take any action.
+     * @var bool
+     */
     private $__debug;
 
     /**
      * Constructor.
-     *
      */
-    public function __construct($app) 
+    public function __construct($app)
     {
         $config = $app['config']->get('passwordstore.kerberos', []);
 
@@ -56,13 +53,16 @@ class KerberosPasswordStore implements PasswordStore
                 if ($this->__debug) {
                     echo "$e\n";
                 }
+
                 return false;
             }
+
             return true;
         } else {
             if ($this->__debug) {
-                echo "Attempt to create admin user stopped.";
+                echo 'Attempt to create admin user stopped.';
             }
+
             return false;
         }
     }
@@ -82,8 +82,10 @@ class KerberosPasswordStore implements PasswordStore
             if ($this->__debug) {
                 echo "$e\n";
             }
+
             return false;
         }
+
         return true;
     }
 
@@ -91,19 +93,20 @@ class KerberosPasswordStore implements PasswordStore
      * Check if a specified identity exists.
      *
      * @param  string $username
-     * @return boolean
+     * @return bool
      */
     public function exists($username)
     {
         try {
             $this->__krbConn->getPrincipal(strtolower($username));
         } catch (\Exception $e) {
-            if ($e->getMessage() == "Principal does not exist") {
+            if ($e->getMessage() == 'Principal does not exist') {
                 return false;
             } else {
                 return null;
             }
         }
+
         return true;
     }
 
@@ -118,13 +121,15 @@ class KerberosPasswordStore implements PasswordStore
     {
         try {
             $princ = $this->__krbConn->getPrincipal(strtolower($username));
-            $princ->changePassword($newpassword);
+            $princ->changePassword($password);
         } catch (\Exception $e) {
             if ($this->__debug) {
                 echo "$e\n";
             }
+
             return false;
         }
+
         return true;
     }
 
@@ -133,19 +138,21 @@ class KerberosPasswordStore implements PasswordStore
      *
      * @param  string $username
      * @param  string $password
-     * @return boolean
+     * @return bool
      */
     public function checkPassword($username, $password)
     {
         $ticket = new \KRB5CCache();
         try {
-            $ticket->initPassword(strtolower($username) . "@" . $this->__realm, $password);
+            $ticket->initPassword(strtolower($username) . '@' . $this->__realm, $password);
         } catch (\Exception $e) {
             if ($this->__debug) {
                 echo "$e\n";
             }
+
             return false;
         }
+
         return true;
     }
 }

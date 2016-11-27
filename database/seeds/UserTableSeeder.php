@@ -9,7 +9,6 @@ use LaravelDoctrine\ORM\Facades\EntityManager;
 
 class UserTableSeeder extends Seeder
 {
-
     private $numUsersToCreate = 200;
 
     private $proportionCurrentMembers = 2;
@@ -44,7 +43,7 @@ class UserTableSeeder extends Seeder
 
         // split the others equally
 
-        $roles = array(Role::MEMBER_APPROVAL, Role::MEMBER_PAYMENT, Role::MEMBER_YOUNG, Role::MEMBER_EX);
+        $roles = [Role::MEMBER_APPROVAL, Role::MEMBER_PAYMENT, Role::MEMBER_YOUNG, Role::MEMBER_EX];
 
         $createOtherUsers = floor($numLeftToCreate / count($roles));
 

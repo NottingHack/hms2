@@ -72,3 +72,13 @@ ul.nomarkers {
   @extend .medium-10;
   @extend .medium-offset-2;
 }
+
+// Link colouring
+// --------------
+
+// create an a-specific class for each colour in the palette
+@each $name, $color in $foundation-palette {
+  a.#{$name} {
+    color: $color;
+  }
+}

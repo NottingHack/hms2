@@ -137,6 +137,9 @@
 
 
   <!-- Scripts -->
-  <script src="/js/app.js"></script>
+  <script src="{{ elixir('js/app-base.js')}}"></script>
+  <script src="{{ elixir('js/app.js') }}"></script>
+
+  @stack('scripts')
 </body>
 </html>

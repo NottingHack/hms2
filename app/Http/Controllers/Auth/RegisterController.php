@@ -36,24 +36,26 @@ class RegisterController extends Controller
     protected $redirectTo = '/home';
 
     /**
-     * @var HMS\Repositories\UserRepository
+     * @var UserRepository
      */
     protected $userRepository;
 
     /**
-     * @var HMS\Repositories\RoleRepository
+     * @var RoleRepository
      */
     protected $roleRepository;
 
     /**
-     * @var HMS\Auth\PasswordStore
+     * @var PasswordStore
      */
     protected $passwordStore;
 
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * @param UserRepository $userRepository
+     * @param RoleRepository $roleRepository
+     * @param PasswordStore  $passwordStore
      */
     public function __construct(UserRepository $userRepository, RoleRepository $roleRepository, PasswordStore $passwordStore)
     {

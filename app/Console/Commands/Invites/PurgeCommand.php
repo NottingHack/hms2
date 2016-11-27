@@ -9,7 +9,7 @@ use HMS\Repositories\InviteRepository;
 class PurgeCommand extends Command
 {
     /**
-     * @var HMS\Repositories\InviteRepository
+     * @var InviteRepository
      */
     protected $inviteRepository;
 
@@ -31,7 +31,7 @@ class PurgeCommand extends Command
     /**
      * Create a new command instance.
      *
-     * @return void
+     * @param  InviteRepository $inviteRepository
      */
     public function __construct(InviteRepository $inviteRepository)
     {

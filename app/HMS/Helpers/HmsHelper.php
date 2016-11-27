@@ -5,12 +5,12 @@ namespace HMS\Helpers;
 use Symfony\Component\HttpFoundation\IpUtils;
 
 /**
- * Place to keep general helper that will be avalible via the HmsHelper:: facade.
+ * Place to keep general helper that will be available via the HmsHelper:: facade.
  */
 class HmsHelper
 {
     /**
-     * Check if the current request is comming from inside the hackspace networks.
+     * Check if the current request is coming from inside the hackspace networks.
      *
      * @return bool
      */

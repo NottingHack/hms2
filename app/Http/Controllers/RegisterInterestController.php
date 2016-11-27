@@ -18,6 +18,13 @@ class RegisterInterestController extends Controller
         return view('registerInterest');
     }
 
+    /**
+     * Register a persons interest, creating an invite token and emailing them.
+     *
+     * @param  Request          $request
+     * @param  InviteRepository $inviteRepository
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     */
     public function registerInterest(Request $request, InviteRepository $inviteRepository)
     {
         // validate the request to make sure we have a valid email and don't already have a user for that email

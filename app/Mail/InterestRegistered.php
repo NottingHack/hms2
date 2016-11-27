@@ -12,14 +12,14 @@ class InterestRegistered extends Mailable
     use Queueable, SerializesModels;
 
     /**
-     * @var HMS\Entities\Invite
+     * @var Invite
      */
     protected $invite;
 
     /**
      * Create a new message instance.
      *
-     * @return void
+     * @param Invite $invite
      */
     public function __construct(Invite $invite)
     {

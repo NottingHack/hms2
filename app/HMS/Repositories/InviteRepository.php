@@ -13,13 +13,13 @@ class InviteRepository extends EntityRepository
      * Create a new invite if not found.
      *
      * @param  string $email
-     * @return HMS\Entities\Invite
+     * @return Invite
      */
     public function findOrCreateByEmail($email)
     {
         $invite = $this->findOneByEmail($email);
         if ( ! $invite) {
-            // dont have a previous invite so create one
+            // Don't have a previous invite so create one
             $invite = new Invite();
             $invite->create($email);
             $this->_em->persist($invite);
@@ -38,7 +38,7 @@ class InviteRepository extends EntityRepository
     {
         $criteria = new Criteria();
         $criteria->where($criteria->expr()->lt('createdAt', $date));
-        // var_dump($criteria);
+
         $invites = $this->matching($criteria)->toArray();
 
         foreach ($invites as $invite) {

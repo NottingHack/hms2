@@ -9,19 +9,20 @@ use Doctrine\ORM\EntityManagerInterface;
 class RevokeInviteOnUserRegistered
 {
     /**
-     * @var HMS\Repositories\InviteRepository
+     * @var InviteRepository
      */
     protected $inviteRepository;
 
     /**
-     * @var Doctrine\ORM\EntityManagerInterface
+     * @var EntityManagerInterface
      */
     protected $em;
 
     /**
      * Create the event listener.
      *
-     * @return void
+     * @param  InviteRepository $inviteRepository
+     * @param  EntityManagerInterface $em
      */
     public function __construct(InviteRepository $inviteRepository, EntityManagerInterface $em)
     {

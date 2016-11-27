@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use HMS\Auth\PasswordStore;
-use HMS\Entities\Role;
+use HMS\Accounts\AccountManager;
 use HMS\Entities\User;
-
-use HMS\Repositories\RoleRepository;
-use HMS\Repositories\UserRepository;
-use Validator;
+use Illuminate\Contracts\Validation\Factory as Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -34,21 +30,27 @@ class RegisterController extends Controller
      */
     protected $redirectTo = '/home';
 
-    protected $userRepository;
-    protected $roleRepository;
-    protected $passwordStore;
+    /**
+     * @var AccountManager
+     */
+    private $accountManager;
+    /**
+     * @var Validator
+     */
+    private $validator;
 
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * @param Validator $validator
+     * @param AccountManager $accountManager
      */
-    public function __construct(UserRepository $userRepository, RoleRepository $roleRepository, PasswordStore $passwordStore)
+    public function __construct(Validator $validator,
+        AccountManager $accountManager)
     {
-        $this->userRepository = $userRepository;
-        $this->roleRepository = $roleRepository;
-        $this->passwordStore = $passwordStore;
         $this->middleware('guest');
+        $this->validator = $validator;
+        $this->accountManager = $accountManager;
     }
 
     /**
@@ -59,7 +61,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+        return $this->validator->make($data, [
             'name' => 'required|max:255',
             'username' => 'required|max:255|unique:HMS\Entities\User',
             'email' => 'required|email|max:255|unique:HMS\Entities\User',
@@ -75,18 +77,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user = new User(
+        return $this->accountManager->create(
             $data['name'],
             $data['username'],
-            $data['email']
+            $data['email'],
+            $data['password']
         );
-
-        $user->getRoles()->add($this->roleRepository->findByName(Role::MEMBER_CURRENT));
-
-        // TODO: maybe consolidate these into a single call via a service?
-        $this->userRepository->create($user);
-        $this->passwordStore->add($user->getUsername(), $data['password']);
-
-        return $user;
     }
 }

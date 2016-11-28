@@ -15,7 +15,6 @@ sed -i 's/group = www-data/group = vagrant/g' /etc/php/7.0/fpm/pool.d/www.conf
 echo 'error_log = /vagrant/storage/logs/php_errors.log' >> /etc/php/7.0/fpm/php.ini
 echo 'xdebug.remote_enable = on' >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini
 echo 'xdebug.remote_connect_back = on' >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini
-echo 'xdebug.remote_host = 192.168.25.1' >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini
 
 #phpmyadmin
 cd /srv/

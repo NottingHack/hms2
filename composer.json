@@ -12,7 +12,8 @@
         "laravel-doctrine/migrations": "1.0.*",
         "laravel-doctrine/extensions": "^1.0",
         "gedmo/doctrine-extensions": "^2.4",
-        "guzzlehttp/guzzle": "^6.2"
+        "guzzlehttp/guzzle": "^6.2",
+        "laracasts/flash": "^2.0"
     },
     "require-dev": {
         "behat/behat": "^3.0",

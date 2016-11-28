@@ -40,6 +40,8 @@ class RegisterInterestController extends Controller
         \Mail::to($request->email)
             ->queue(new InterestRegistered($invite));
 
-        return redirect('registerInterest')->with('status', 'Thank you for Registering your interest. Please check your email.');
+        flash('Thank you for Registering your interest. Please check your email.');
+
+        return redirect('registerInterest');
     }
 }

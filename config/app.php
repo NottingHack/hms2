@@ -183,6 +183,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
         App\Providers\HmsHelperServiceProvider::class,
+        Laracasts\Flash\FlashServiceProvider::class,
 
     ],
 

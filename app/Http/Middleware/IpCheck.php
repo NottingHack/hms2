@@ -6,7 +6,7 @@ use Closure;
 
 /**
  * Middleware to check that the incoming request has a source IP form the hacksapce network,
- * bounce the request back to the index page if not
+ * bounce the request back to the index page if not.
  */
 class IpCheck
 {

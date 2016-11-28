@@ -56,12 +56,8 @@
 
   <!-- main body -->
   <div class="content">
-
-    @if (session('status'))
-    <div class="alert alert-success">
-      {{ session('status') }}
-    </div>
-    @endif
+  
+  @include('partials.flash')
 
   <div class="row align-top">
       @if (!Auth::guest())

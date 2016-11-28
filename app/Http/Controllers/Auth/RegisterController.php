@@ -107,7 +107,7 @@ class RegisterController extends Controller
 
     /**
      * Show the application registration form.
-     * Overidden, we need to have a valid invite token.
+     * Overridden, we need to have a valid invite token.
      *
      * @return \Illuminate\Http\Response
      */
@@ -116,6 +116,8 @@ class RegisterController extends Controller
         $invite = $inviteRepository->findOneByInviteToken($token);
 
         if (is_null($invite)) {
+            flash('Token not found. Please visit the space to register you interest in becoming a member.', 'warning');
+
             return redirect('/');
         }
 

@@ -36,8 +36,8 @@ class Invite
     public function create($email)
     {
         $this->email = $email;
-        $this->inviteToken = hash_hmac('sha256', str_random(40), config('app.key'));
         $now = Carbon::now();
+        $this->inviteToken = hash_hmac('sha256', str_random(40) . (string) $now, config('app.key'));
         $this->setCreatedAt($now);
         $this->setUpdatedAt($now);
 

@@ -16,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
         'Illuminate\Auth\Events\Registered' => [
             'App\Listeners\RevokeInviteOnUserRegistered',
         ],
+        'App\Events\MembershipInterestRegistered' => [
+            'App\Listeners\MailInvite',
+        ],
     ];
 
     /**

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Mail\InterestRegistered;
 use HMS\Repositories\InviteRepository;
+use App\Events\MembershipInterestRegistered;
 
 class RegisterInterestController extends Controller
 {
@@ -36,9 +36,7 @@ class RegisterInterestController extends Controller
 
         $invite = $inviteRepository->findOrCreateByEmail($request->email);
 
-        // fire off email
-        \Mail::to($request->email)
-            ->queue(new InterestRegistered($invite));
+        event(new MembershipInterestRegistered($invite));
 
         flash('Thank you for Registering your interest. Please check your email.');
 

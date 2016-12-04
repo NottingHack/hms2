@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use HMS\Helpers\HmsHelper;
+use HMS\Helpers\SiteVisitor;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,8 +25,8 @@ class HmsHelperServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        App::bind('HmsHelper', function () {
-            return new HmsHelper;
+        App::bind('SiteVisitor', function () {
+            return new SiteVisitor;
         });
     }
 }

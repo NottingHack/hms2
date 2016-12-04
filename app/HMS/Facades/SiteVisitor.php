@@ -5,9 +5,9 @@ namespace HMS\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \HMS\Helpers\HmsHelper
+ * @see \HMS\Helpers\SiteVisitor
  */
-class HmsHelper extends Facade
+class SiteVisitor extends Facade
 {
     /**
      * Get the registered name of the component.
@@ -16,6 +16,6 @@ class HmsHelper extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'HmsHelper';
+        return 'SiteVisitor';
     }
 }

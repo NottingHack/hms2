@@ -237,7 +237,7 @@ return [
         'Registry'      => LaravelDoctrine\ORM\Facades\Registry::class,
         'Doctrine'      => LaravelDoctrine\ORM\Facades\Doctrine::class,
 
-        'HmsHelper'     => HMS\Facades\HmsHelper::class,
+        'SiteVisitor'     => HMS\Facades\SiteVisitor::class,
 
     ],
 

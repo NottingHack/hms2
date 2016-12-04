@@ -38,7 +38,7 @@
       <ul class="menu align-right">
         @if (Auth::guest())
         <li><a href="{{ url('/login') }}">Log In</a></li>
-        @if (\HmsHelper::inTheSpace())
+        @if (\SiteVisitor::inTheSpace())
         <li><a href="{{ url('/registerInterest') }}">Register Interest</a></li>
         @endif
         @else
@@ -56,7 +56,7 @@
 
   <!-- main body -->
   <div class="content">
-  
+
   @include('partials.flash')
 
   <div class="row align-top">

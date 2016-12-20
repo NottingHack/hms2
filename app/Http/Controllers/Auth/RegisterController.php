@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use HMS\Accounts\AccountManager;
 use HMS\Entities\User;
-use Illuminate\Contracts\Validation\Factory as Validator;
+use HMS\User\UserManager;
 use App\Http\Controllers\Controller;
 use HMS\Repositories\InviteRepository;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Contracts\Validation\Factory as Validator;
 
 class RegisterController extends Controller
 {
@@ -32,9 +32,9 @@ class RegisterController extends Controller
     protected $redirectTo = '/home';
 
     /**
-     * @var AccountManager
+     * @var UserManager
      */
-    private $accountManager;
+    private $userManager;
     /**
      * @var Validator
      */
@@ -44,14 +44,14 @@ class RegisterController extends Controller
      * Create a new controller instance.
      *
      * @param Validator $validator
-     * @param AccountManager $accountManager
+     * @param UserManager $userManager
      */
     public function __construct(Validator $validator,
-        AccountManager $accountManager)
+        UserManager $userManager)
     {
         $this->middleware('guest');
         $this->validator = $validator;
-        $this->accountManager = $accountManager;
+        $this->userManager = $userManager;
     }
 
     /**
@@ -79,7 +79,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return $this->accountManager->create(
+        return $this->userManager->create(
             $data['name'],
             $data['username'],
             $data['email'],

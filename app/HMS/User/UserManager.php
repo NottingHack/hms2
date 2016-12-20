@@ -1,14 +1,14 @@
 <?php
 
-namespace HMS\Accounts;
+namespace HMS\User;
 
-use HMS\Auth\PasswordStore;
 use HMS\Entities\Role;
 use HMS\Entities\User;
+use HMS\Auth\PasswordStore;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
 
-class AccountManager
+class UserManager
 {
     /**
      * @var UserRepository
@@ -24,7 +24,7 @@ class AccountManager
     private $passwordStore;
 
     /**
-     * AccountManager constructor.
+     * UserManager constructor.
      * @param UserRepository $userRepository
      * @param RoleRepository $roleRepository
      * @param PasswordStore $passwordStore

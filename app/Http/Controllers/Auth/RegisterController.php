@@ -6,6 +6,7 @@ use HMS\Accounts\AccountManager;
 use HMS\Entities\User;
 use Illuminate\Contracts\Validation\Factory as Validator;
 use App\Http\Controllers\Controller;
+use HMS\Repositories\InviteRepository;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
@@ -62,6 +63,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return $this->validator->make($data, [
+            'invite' => 'required|exists:HMS\Entities\Invite,inviteToken',
             'name' => 'required|max:255',
             'username' => 'required|max:255|unique:HMS\Entities\User',
             'email' => 'required|email|max:255|unique:HMS\Entities\User',
@@ -83,5 +85,27 @@ class RegisterController extends Controller
             $data['email'],
             $data['password']
         );
+    }
+
+    /**
+     * Show the application registration form.
+     * Overridden, we need to have a valid invite token.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm(InviteRepository $inviteRepository, $token)
+    {
+        $invite = $inviteRepository->findOneByInviteToken($token);
+
+        if (is_null($invite)) {
+            flash('Token not found. Please visit the space to register you interest in becoming a member.', 'warning');
+
+            return redirect('/');
+        }
+
+        return view('auth.register', [
+            'invite' => $invite->getInviteToken(),
+            'email' => $invite->getEmail(),
+            ]);
     }
 }

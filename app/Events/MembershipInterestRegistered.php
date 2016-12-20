@@ -15,7 +15,7 @@ class MembershipInterestRegistered
     /**
      * @var Invite
      */
-    protected $invite;
+    public $invite;
 
     /**
      * Create a new event instance.

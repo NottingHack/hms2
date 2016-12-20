@@ -2,10 +2,10 @@
 
 namespace HMS\Repositories;
 
-use Doctrine\Common\Persistence\ObjectRepository;
-use Doctrine\ORM\EntityManagerInterface;
-use HMS\Entities\Profile;
 use HMS\Entities\User;
+use HMS\Entities\Profile;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Common\Persistence\ObjectRepository;
 
 class DoctrineUserRepository implements UserRepository
 {

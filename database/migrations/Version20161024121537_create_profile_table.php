@@ -2,8 +2,8 @@
 
 namespace Database\Migrations;
 
-use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema as Schema;
+use Doctrine\DBAL\Migrations\AbstractMigration;
 
 class Version20161024121537_create_profile_table extends AbstractMigration
 {

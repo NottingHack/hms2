@@ -5,10 +5,10 @@ namespace App\Providers;
 use HMS\Entities\Role;
 use HMS\Entities\Invite;
 use HMS\Repositories\RoleRepository;
-use HMS\Repositories\DoctrineUserRepository;
 use HMS\Repositories\UserRepository;
 use HMS\Repositories\InviteRepository;
 use Illuminate\Support\ServiceProvider;
+use HMS\Repositories\DoctrineUserRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {

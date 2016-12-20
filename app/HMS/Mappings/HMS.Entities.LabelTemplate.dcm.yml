@@ -1,0 +1,30 @@
+# HMS.Entities.LabelTemplate.dcm.yml
+HMS\Entities\LabelTemplate:
+  type: entity
+  table: label_templates
+  gedmo:
+    soft_deleteable:
+      field_name: deletedAt
+      time_aware: false
+  id:
+    template_name:
+      type: string
+      length: 200
+      generator:
+        strategy: NONE
+  fields:
+    template:
+      type: text
+    deletedAt:
+      type: datetime
+      nullable: true
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update

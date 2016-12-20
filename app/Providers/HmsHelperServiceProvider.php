@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use HMS\Helpers\SiteVisitor;
+use HMS\Helpers\LabelPrinter;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 
@@ -27,6 +28,10 @@ class HmsHelperServiceProvider extends ServiceProvider
     {
         App::bind('SiteVisitor', function () {
             return new SiteVisitor;
+        });
+
+        App::bind('LabelPrinter', function () {
+            return new LabelPrinter;
         });
     }
 }

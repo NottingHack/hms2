@@ -38,15 +38,16 @@ class UserManager
     }
 
     /**
-     * @param string $name
+     * @param string $firstname
+     * @param string $lastname
      * @param string $username
      * @param string $email
      * @param string $password
      * @return User
      */
-    public function create(string $name, string $username, string $email, string $password)
+    public function create(string $firstname, string $lastname, string $username, string $email, string $password)
     {
-        $user = new User($name, $username, $email);
+        $user = new User($firstname, $lastname, $username, $email);
 
         $user->getRoles()->add($this->roleRepository->findByName(Role::MEMBER_CURRENT));
 

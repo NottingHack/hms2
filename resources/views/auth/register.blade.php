@@ -15,12 +15,24 @@
   @endif
 
   <div class="row">
-    <label for="name" class="form-label">Name</label>
+    <label for="firstname" class="form-label">First name</label>
     <div class="form-control">
-      <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus>
-      @if ($errors->has('name'))
+      <input id="firstname" type="text" name="firstname" value="{{ old('firstname') }}" required autofocus>
+      @if ($errors->has('firstname'))
       <span class="help-block">
-        <strong>{{ $errors->first('name') }}</strong>
+        <strong>{{ $errors->first('firstname') }}</strong>
+      </span>
+      @endif
+    </div>
+  </div>
+
+  <div class="row">
+    <label for="lastname" class="form-label">Last name</label>
+    <div class="form-control">
+      <input id="lastname" type="text" name="lastname" value="{{ old('lastname') }}" required>
+      @if ($errors->has('lastname'))
+      <span class="help-block">
+        <strong>{{ $errors->first('lastname') }}</strong>
       </span>
       @endif
     </div>

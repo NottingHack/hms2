@@ -26,9 +26,14 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     protected $id;
 
     /**
-     * @var string Users name
+     * @var string Users first name
      */
-    protected $name;
+    protected $firstname;
+
+    /**
+     * @var string Users last name
+     */
+    protected $lastname;
 
     /**
      * @var string Users username for login
@@ -57,13 +62,15 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
 
     /**
      * User constructor.
-     * @param string $name
+     * @param string $firstname
+     * @param string $lastname
      * @param string $username
      * @param string $email
      */
-    public function __construct(string $name, string $username, string $email)
+    public function __construct(string $firstname, string $lastname, string $username, string $email)
     {
-        $this->name = $name;
+        $this->firstname = $firstname;
+        $this->lastname = $lastname;
         $this->username = $username;
         $this->email = $email;
         $this->roles = new ArrayCollection();
@@ -80,9 +87,25 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     /**
      * @return string
      */
-    public function getName()
+    public function getFirstName()
     {
-        return $this->name;
+        return $this->firstname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getlastName()
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->firstname . ' ' . $this->lastname;
     }
 
     /**

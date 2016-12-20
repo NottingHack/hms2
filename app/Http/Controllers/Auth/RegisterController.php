@@ -64,7 +64,8 @@ class RegisterController extends Controller
     {
         return $this->validator->make($data, [
             'invite' => 'required|exists:HMS\Entities\Invite,inviteToken',
-            'name' => 'required|max:255',
+            'firstname' => 'required|max:255',
+            'lastname' => 'required|max:255',
             'username' => 'required|max:255|unique:HMS\Entities\User',
             'email' => 'required|email|max:255|unique:HMS\Entities\User',
             'password' => 'required|min:' . User::MIN_PASSWORD_LENGTH . '|confirmed',
@@ -80,7 +81,8 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return $this->userManager->create(
-            $data['name'],
+            $data['firstname'],
+            $data['lastname'],
             $data['username'],
             $data['email'],
             $data['password']

@@ -17,7 +17,9 @@ HMS\Entities\User:
       generator:
         strategy: AUTO
   fields:
-    name:
+    firstname:
+      type: string
+    lastname:
       type: string
     username:
       type: string

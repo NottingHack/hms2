@@ -38,7 +38,9 @@
       <ul class="menu align-right">
         @if (Auth::guest())
         <li><a href="{{ url('/login') }}">Log In</a></li>
-        <li><a href="{{ url('/register') }}">Register</a></li>
+        @if (\SiteVisitor::inTheSpace())
+        <li><a href="{{ url('/registerInterest') }}">Register Interest</a></li>
+        @endif
         @else
         <li>Logged in as {{ Auth::user()->getName() }} @if (Auth::viaRemember()) (via Remember Me) @endif</li>
         <li>
@@ -54,7 +56,10 @@
 
   <!-- main body -->
   <div class="content">
-    <div class="row align-top">
+
+  @include('partials.flash')
+
+  <div class="row align-top">
       @if (!Auth::guest())
       <div class="columns small-12 small-order-1 medium-2 medium-order-0 large-2">
         <ul class="menu vertical">

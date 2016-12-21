@@ -3,7 +3,6 @@
 namespace HMS\Repositories;
 
 use HMS\Entities\User;
-use HMS\Entities\Profile;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Common\Persistence\ObjectRepository;
 
@@ -57,12 +56,7 @@ class DoctrineUserRepository implements UserRepository
      */
     public function create(User $user)
     {
-        // In order to get the profile to be attached to the User correctly
-        // we have to do a bit of a jiggle with the doctrine entity manager.
-        // This only needs doing on initial creation, after that stuff should
-        // cascade persist.
         $this->em->persist($user);
         $this->em->flush();
-
     }
 }

@@ -6,7 +6,8 @@ use HMS\Entities\User;
 use HMS\Entities\Profile;
 use Doctrine\ORM\EntityManagerInterface;
 
-class ProfileManager {
+class ProfileManager
+{
     /**
      * @var EntityManagerInterface
      */
@@ -35,17 +36,17 @@ class ProfileManager {
      */
     public function create(User $user, string $address1, string $address2, string $address3, string $addressCity, string $addressCounty, string $addressPostcode, string $contactNumber)
     {
-
         $profile = new Profile($user);
 
-        // $profile = $user->getProfile();
         $profile->setAddress1($address1);
 
-        if (!empty($address2))
+        if ( ! empty($address2)) {
             $profile->setAddress2($address2);
+        }
 
-        if (!empty($address3))
+        if ( ! empty($address3)) {
             $profile->setAddress3($address3);
+        }
 
         $profile->setAddressCity($addressCity);
         $profile->setAddressCounty($addressCounty);
@@ -62,7 +63,7 @@ class ProfileManager {
 
         $user->setProfile($profile);
         $this->em->persist($user);
+
         return $user;
     }
-
 }

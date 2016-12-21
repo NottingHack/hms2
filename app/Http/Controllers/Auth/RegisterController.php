@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use HMS\Entities\User;
 use HMS\User\UserManager;
+use HMS\User\ProfileManager;
 use App\Http\Controllers\Controller;
 use HMS\Repositories\InviteRepository;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -35,10 +36,16 @@ class RegisterController extends Controller
      * @var UserManager
      */
     private $userManager;
+
     /**
      * @var Validator
      */
     private $validator;
+
+    /**
+     * @var ProfileManager
+     */
+    protected $profileManager;
 
     /**
      * Create a new controller instance.
@@ -47,11 +54,12 @@ class RegisterController extends Controller
      * @param UserManager $userManager
      */
     public function __construct(Validator $validator,
-        UserManager $userManager)
+        UserManager $userManager, ProfileManager $profileManager)
     {
         $this->middleware('guest');
         $this->validator = $validator;
         $this->userManager = $userManager;
+        $this->profileManager = $profileManager;
     }
 
     /**
@@ -69,6 +77,11 @@ class RegisterController extends Controller
             'username' => 'required|max:255|unique:HMS\Entities\User',
             'email' => 'required|email|max:255|unique:HMS\Entities\User',
             'password' => 'required|min:' . User::MIN_PASSWORD_LENGTH . '|confirmed',
+            'address1' => 'required|max:100',
+            'addressCity' => 'required|max:100',
+            'addressCounty' => 'required|max:100',
+            'addressPostcode' => 'required|max:10',
+            'contactNumber' => 'required|max:50',
         ]);
     }
 
@@ -80,13 +93,26 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return $this->userManager->create(
+        $user = $this->userManager->create(
             $data['firstname'],
             $data['lastname'],
             $data['username'],
             $data['email'],
             $data['password']
         );
+
+        $user = $this->profileManager->create(
+            $user,
+            $data['address1'],
+            $data['address2'],
+            $data['address3'],
+            $data['addressCity'],
+            $data['addressCounty'],
+            $data['addressPostcode'],
+            $data['contactNumber']
+        );
+
+        return $user;
     }
 
     /**

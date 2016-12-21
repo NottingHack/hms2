@@ -64,11 +64,5 @@ class DoctrineUserRepository implements UserRepository
         $this->em->persist($user);
         $this->em->flush();
 
-        $profile = new Profile($user);
-        $this->em->persist($profile);
-        $this->em->flush();
-
-        $user->setProfile($profile);
-        $this->em->persist($user);
     }
 }

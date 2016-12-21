@@ -26,7 +26,6 @@ class RevokeInviteOnUserRegistered
      */
     public function __construct(InviteRepository $inviteRepository, EntityManagerInterface $em)
     {
-        //
         $this->inviteRepository = $inviteRepository;
         $this->em = $em;
     }
@@ -40,6 +39,10 @@ class RevokeInviteOnUserRegistered
     public function handle(Registered $event)
     {
         $invite = $this->inviteRepository->findOneByEmail($event->user->getEmail());
+
+        if (is_null($invite)) {
+            return;
+        }
 
         $this->em->remove($invite);
         $this->em->flush();

@@ -5,6 +5,7 @@ namespace HMS\Helpers;
 use HMS\Entities\LabelTemplate;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Common\Persistence\ObjectRepository;
+use Symfony\Component\Debug\Exception\FatalThrowableError;
 
 class LabelPrinter
 {
@@ -51,14 +52,12 @@ class LabelPrinter
      */
     public function printLabel($templateName, $substitutions = array()) {
 
-        $template = $labelTemplateGenericRepository->find($templateName);
+        $template = $this->labelTemplateGenericRepository->find($templateName)->getTemplate();
         if ($template == null) {
             return false;
         }
 
-        // TODO: find a replacemnet for CakeText
-        // $label = CakeText::insert($template, $substitutions);
-        $label = $template;
+        $label = $this->renderTemplate($template, $substitutions);
 
         $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
         if ($socket === false) {
@@ -74,5 +73,30 @@ class LabelPrinter
         socket_close($socket);
 
         return true;
+    }
+
+    /**
+     * Render Blade template with given substitutions
+     * borrowed from https://laracasts.com/index.php/discuss/channels/general-discussion/render-template-from-blade-template-in-database
+     * @param  string $template blade template to render
+     * @param  [type] $substitutions [description]
+     * @return string
+     */
+    private function renderTemplate($template, $substitutions)
+    {
+        $__php = \Blade::compileString($template);
+        $obLevel = ob_get_level();
+        ob_start();
+        extract($substitutions, EXTR_SKIP);
+        try {
+            eval('?' . '>' . $__php);
+        } catch (Exception $e) {
+            while (ob_get_level() > $obLevel) ob_end_clean();
+            throw $e;
+        } catch (Throwable $e) {
+            while (ob_get_level() > $obLevel) ob_end_clean();
+            throw new FatalThrowableError($e);
+        }
+        return ob_get_clean();
     }
 }

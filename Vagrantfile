@@ -19,6 +19,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/kerberos.sh"
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/laravel.sh"
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/gulp.sh", privileged: false
+  config.vm.provision :shell, path: "dev/vagrant-config/scripts/labelprinter.sh"
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/finish.sh"
 
   config.vm.network "private_network", ip: "192.168.25.35"

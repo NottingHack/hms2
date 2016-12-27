@@ -33,3 +33,13 @@ Route::group(['middleware' => 'ipcheck'], function () {
     Route::get('/registerInterest', 'RegisterInterestController@index');
     Route::post('/registerInterest', 'RegisterInterestController@registerInterest');
 });
+
+// Routes in the following group can only be access once logged-in)
+Route::group(['middleware' => 'auth'], function () {
+    // Meta area covers various setting for HMS
+    Route::resource('metas', 'MetaController',
+        [
+            'except' => ['show', 'store', 'create', 'destroy'],
+        ]
+    );
+});

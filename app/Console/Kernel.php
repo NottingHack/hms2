@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use Carbon\Carbon;
+use HMS\Facades\Meta;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -28,8 +30,20 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // TODO: get cutoff date from meta table and pass as argument
-        $schedule->command('invites:purge')
+        // get cutoff date from meta table and pass as argument if set
+        $arguments = [];
+        try {
+            if (Meta::has('purge_cuttoff_interval')) {
+                $interval = Meta::get('purge_cuttoff_interval');
+                $cutoff_date = Carbon::now()
+                    ->sub(new \DateInterval($interval))
+                    ->format('Y-m-d');
+                $arguments = ['date' => $cutoff_date];
+            }
+        } catch (\Exception $e) {
+            //
+        }
+        $schedule->command('invites:purge', $arguments)
                  ->daily();
     }
 

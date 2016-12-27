@@ -38,7 +38,7 @@
       <ul class="menu align-right">
         @if (Auth::guest())
         <li><a href="{{ url('/login') }}">Log In</a></li>
-        @if (\SiteVisitor::inTheSpace())
+        @if (SiteVisitor::inTheSpace())
         <li><a href="{{ url('/registerInterest') }}">Register Interest</a></li>
         @endif
         @else

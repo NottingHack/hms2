@@ -3,6 +3,7 @@
 namespace HMS\Helpers;
 
 use HMS\Entities\LabelTemplate;
+use HMS\Repositories\MetaRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
@@ -27,19 +28,26 @@ class LabelPrinter
     protected $em;
 
     /**
+     * @var MetaRepository
+     */
+    protected $metaRepository;
+
+    /**
      * generic LabelTemplate Reposistry
      * @var ObjectRepository
      */
     protected $labelTemplateGenericRepository;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, MetaRepository $metaRepository)
     {
         $this->em = $em;
+        $this->metaRepository = $metaRepository;
         $this->labelTemplateGenericRepository = $em->getRepository(LabelTemplate::class);
 
         // Get the IP address for the printer.
         // TODO: we need meta to get this ip from
-        // $this->host = $meta->getValueFor('label_printer_ip');
+        $this->host = $this->metaRepository->get('label_printer_ip');
+
     }
 
     /**

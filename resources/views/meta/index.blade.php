@@ -11,7 +11,7 @@
         </tr>
     </thead>
     <tbody>
-    @foreach ($allMetas as $meta)
+    @foreach ($metas as $meta)
         <tr>
             <td>{{ $meta->getKey() }}</td>
             <td>{{ $meta->getValue() }}</td>
@@ -21,6 +21,6 @@
     </tbody>
 </table>
 <div classs="pagination-links">
-    {{ $allMetas }}
+    {{ $metas }}
 </div>
 @endsection

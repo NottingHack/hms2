@@ -28,10 +28,10 @@ class MetaController extends Controller
      */
     public function index()
     {
-        $allMetas = $this->metaRepository->paginateAll($perPage = 15, $pageName = 'page');
+        $metas = $this->metaRepository->paginateAll($perPage = 15, $pageName = 'page');
 
         return view('meta.index')
-            ->with(['allMetas' => $allMetas]);
+            ->with(['metas' => $metas]);
     }
 
     /**

@@ -4,7 +4,7 @@
 <h2>Key: {{ $key }}</h2>
 <form role="form" method="POST" action="{{ route('metas.update', $key) }}">
   {{ csrf_field() }}
-  {{ method_field('PUT') }}
+  {{ method_field('PATCH') }}
   <div class="row">
     <label for="value" class="form-label">Value</label>
     <div class="form-control">

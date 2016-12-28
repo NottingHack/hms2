@@ -10,7 +10,7 @@ class LabelTemplate
     use SoftDeletable, Timestampable;
 
     /**
-     * primary key
+     * primary key.
      * @var string
      */
     protected $template_name;

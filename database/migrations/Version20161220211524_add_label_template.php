@@ -2,8 +2,8 @@
 
 namespace Database\Migrations;
 
-use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema as Schema;
+use Doctrine\DBAL\Migrations\AbstractMigration;
 
 class Version20161220211524_add_label_template extends AbstractMigration
 {

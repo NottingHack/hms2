@@ -11,13 +11,13 @@ use Symfony\Component\Debug\Exception\FatalThrowableError;
 class LabelPrinter
 {
     /**
-     * printer port
+     * printer port.
      * @var  int
      */
     private $port = 9100;
 
     /**
-     * Ip for the printer
+     * Ip for the printer.
      * @var string
      */
     private $host;
@@ -33,7 +33,7 @@ class LabelPrinter
     protected $metaRepository;
 
     /**
-     * generic LabelTemplate Reposistry
+     * generic LabelTemplate Reposistry.
      * @var ObjectRepository
      */
     protected $labelTemplateGenericRepository;
@@ -45,21 +45,19 @@ class LabelPrinter
         $this->labelTemplateGenericRepository = $em->getRepository(LabelTemplate::class);
 
         // Get the IP address for the printer.
-        // TODO: we need meta to get this ip from
         $this->host = $this->metaRepository->get('label_printer_ip');
-
     }
 
     /**
-     * Print a label
-     * thanks to http://stackoverflow.com/a/15956807
+     * Print a label.
+     * thanks to http://stackoverflow.com/a/15956807 .
      *
      * @param string $templateName
      * @param array $substitutions
      * @return bool
      */
-    public function printLabel($templateName, $substitutions = array()) {
-
+    public function printLabel($templateName, $substitutions = [])
+    {
         $template = $this->labelTemplateGenericRepository->find($templateName)->getTemplate();
         if ($template == null) {
             return false;
@@ -85,7 +83,7 @@ class LabelPrinter
 
     /**
      * Render Blade template with given substitutions
-     * borrowed from https://laracasts.com/index.php/discuss/channels/general-discussion/render-template-from-blade-template-in-database
+     * borrowed from https://laracasts.com/index.php/discuss/channels/general-discussion/render-template-from-blade-template-in-database .
      * @param  string $template blade template to render
      * @param  [type] $substitutions [description]
      * @return string
@@ -99,12 +97,17 @@ class LabelPrinter
         try {
             eval('?' . '>' . $__php);
         } catch (Exception $e) {
-            while (ob_get_level() > $obLevel) ob_end_clean();
+            while (ob_get_level() > $obLevel) {
+                ob_end_clean();
+            }
             throw $e;
         } catch (Throwable $e) {
-            while (ob_get_level() > $obLevel) ob_end_clean();
+            while (ob_get_level() > $obLevel) {
+                ob_end_clean();
+            }
             throw new FatalThrowableError($e);
         }
+
         return ob_get_clean();
     }
 }

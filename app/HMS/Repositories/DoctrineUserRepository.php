@@ -2,42 +2,44 @@
 
 namespace HMS\Repositories;
 
-use Doctrine\Common\Persistence\ObjectRepository;
-use Doctrine\ORM\EntityManagerInterface;
-use HMS\Entities\User;
+use Doctrine\ORM\EntityRepository;
 
-class DoctrineUserRepository implements UserRepository
+class DoctrineUserRepository extends EntityRepository implements UserRepository
 {
-    /** @var ObjectRepository */
-    private $genericRepository;
-
-    /** @var EntityManagerInterface */
-    private $em;
-
-    public function __construct(EntityManagerInterface $em)
-    {
-        $this->em = $em;
-        $this->genericRepository = $em->getRepository(User::class);
-    }
-
+    /**
+     * @param  int $id
+     * @return array
+     */
     public function find($id)
     {
-        return $this->genericRepository->find($id);
+        return parent::find($id);
     }
 
+    /**
+     * @param  string $username
+     * @return array
+     */
     public function findByUsername($username)
     {
-        return $this->genericRepository->findBy(['username' => $username]);
+        return parent::findByUsername($username);
     }
 
+    /**
+     * @param  string $email
+     * @return array
+     */
     public function findByEmail($email)
     {
-        return $this->genericRepository->findBy(['email' => $email]);
+        return parent::findByEmail($email);
     }
 
+    /**
+     * store a new user in the DB
+     * @param  User $user
+     */
     public function create($user)
     {
-        $this->em->persist($user);
-        $this->em->flush();
+        $this->_em->persist($user);
+        $this->_em->flush();
     }
 }

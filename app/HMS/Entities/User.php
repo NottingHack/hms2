@@ -3,20 +3,22 @@
 namespace HMS\Entities;
 
 use HMS\Traits\Entities\SoftDeletable;
-use Doctrine\Common\Collections\ArrayCollection;
 use HMS\Traits\Entities\Timestampable;
+use LaravelDoctrine\ACL\Roles\HasRoles;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Doctrine\Common\Collections\ArrayCollection;
+use LaravelDoctrine\ORM\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\Access\Authorizable;
+use LaravelDoctrine\ACL\Permissions\HasPermissions;
+use LaravelDoctrine\ACL\Contracts\HasRoles as HasRoleContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use LaravelDoctrine\ACL\Contracts\HasPermissions as HasPermissionsContract;
-use LaravelDoctrine\ACL\Contracts\HasRoles as HasRoleContract;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use LaravelDoctrine\ACL\Permissions\HasPermissions;
-use LaravelDoctrine\ACL\Roles\HasRoles;
-use LaravelDoctrine\ORM\Notifications\Notifiable;
 
-class User implements AuthenticatableContract, CanResetPasswordContract, HasRoleContract, HasPermissionsContract
+class User implements AuthenticatableContract, CanResetPasswordContract, HasRoleContract, HasPermissionsContract, AuthorizableContract
 {
-    use CanResetPassword, Notifiable, HasRoles, HasPermissions, SoftDeletable, Timestampable;
+    use CanResetPassword, Notifiable, HasRoles, HasPermissions, SoftDeletable, Timestampable, Authorizable;
 
     const MIN_PASSWORD_LENGTH = 3;
 

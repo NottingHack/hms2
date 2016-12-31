@@ -21,6 +21,6 @@
     </tbody>
 </table>
 <div classs="pagination-links">
-    {{ $metas }}
+    {{ $metas->links() }}
 </div>
 @endsection

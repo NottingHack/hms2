@@ -28,7 +28,7 @@ class MetaController extends Controller
      */
     public function index()
     {
-        $metas = $this->metaRepository->paginateAll($perPage = 15, $pageName = 'page');
+        $metas = $this->metaRepository->paginateAll();
 
         return view('meta.index')
             ->with(['metas' => $metas]);

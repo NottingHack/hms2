@@ -3,9 +3,12 @@
 namespace HMS\Repositories;
 
 use Doctrine\ORM\EntityRepository;
+use LaravelDoctrine\ORM\Pagination\Paginatable;
 
 class DoctrineUserRepository extends EntityRepository implements UserRepository
 {
+    use Paginatable;
+
     /**
      * @param  int $id
      * @return array
@@ -34,7 +37,7 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     }
 
     /**
-     * store a new user in the DB
+     * store a new user in the DB.
      * @param  User $user
      */
     public function create($user)

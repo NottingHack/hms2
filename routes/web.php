@@ -32,6 +32,8 @@ Route::post('register', 'Auth\RegisterController@register');
 
 Route::get('home', 'HomeController@index')->name('home');
 
+Route::get('accessCodes', 'HomeController@accessCodes');
+
 // Routes in the following group can only be access from inside the hackspace (as defined by the ip range in .env)
 Route::group(['middleware' => 'ipcheck'], function () {
     Route::get('/register-interest', 'RegisterInterestController@index')->name('registerInterest');

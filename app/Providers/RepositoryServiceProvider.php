@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use HMS\Entities\Link;
 use HMS\Entities\Meta;
 use HMS\Entities\Role;
 use HMS\Entities\Invite;
+use HMS\Repositories\LinkRepository;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
@@ -31,6 +33,10 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->singleton(LinkRepository::class, function ($app) {
+            return new LinkRepository($app['em'], $app['em']->getClassMetaData(Link::class));
+        });
+
         $this->app->singleton(MetaRepository::class, function ($app) {
             return new MetaRepository($app['em'], $app['em']->getClassMetaData(Meta::class));
         });

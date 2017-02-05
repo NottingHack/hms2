@@ -2,6 +2,7 @@
 
 namespace HMS\Repositories;
 
+use HMS\Entities\User;
 use Doctrine\ORM\EntityRepository;
 use LaravelDoctrine\ORM\Pagination\Paginatable;
 
@@ -10,7 +11,7 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     use Paginatable;
 
     /**
-     * @param  int $id
+     * @param  $id
      * @return array
      */
     public function find($id)
@@ -22,7 +23,7 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
      * @param  string $username
      * @return array
      */
-    public function findByUsername($username)
+    public function findByUsername(string $username)
     {
         return parent::findByUsername($username);
     }
@@ -31,7 +32,7 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
      * @param  string $email
      * @return array
      */
-    public function findByEmail($email)
+    public function findByEmail(string $email)
     {
         return parent::findByEmail($email);
     }
@@ -40,7 +41,7 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
      * store a new user in the DB.
      * @param  User $user
      */
-    public function create($user)
+    public function create(User $user)
     {
         $this->_em->persist($user);
         $this->_em->flush();

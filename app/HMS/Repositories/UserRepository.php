@@ -6,7 +6,7 @@ use HMS\Entities\User;
 
 interface UserRepository
 {
-    public function find(int $id);
+    public function find($id);
 
     public function findByUsername(string $username);
 

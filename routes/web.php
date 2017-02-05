@@ -33,14 +33,13 @@ Route::post('register', 'Auth\RegisterController@register');
 Route::group(['middleware' => 'auth'], function() {
     // ROLE
     Route::get('/roles', 'RoleController@index')->name('roles.index')->middleware('auth');
-    Route::get('/roles/{id}', 'RoleController@show')->name('roles.show');
-    Route::get('/roles/{id}/edit', 'RoleController@edit')->name('roles.edit');
-    Route::put('/roles/{id}', 'RoleController@update')->name('roles.update');
-    Route::delete('/roles/{roleId}/users/{userId}', 'RoleController@removeUser')->name('roles.removeUser');
+    Route::get('/roles/{role}', 'RoleController@show')->name('roles.show');
+    Route::get('/roles/{role}/edit', 'RoleController@edit')->name('roles.edit');
+    Route::put('/roles/{role}', 'RoleController@update')->name('roles.update');
+    Route::delete('/roles/{role}/users/{user}', 'RoleController@removeUser')->name('roles.removeUser');
 
     // USER
-    Route::get('/users/{id}', 'UserController@show')->name('users.show');
-    Route::delete('/users/{userId}/roles/{roleId}', 'RoleController@removeUser')->name('users.removeRole');
+    Route::get('/users/{user}', 'UserController@show')->name('users.show');
 });
 
 Route::get('home', 'HomeController@index')->name('home');

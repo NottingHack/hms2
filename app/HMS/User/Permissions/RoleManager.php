@@ -25,13 +25,11 @@ class RoleManager
     /**
      * Update a specific role.
      *
-     * @param int $id The id of the role we want to update
+     * @param Role $role the Role we want to update
      * @param array $details fields that need updating
      */
-    public function updateRole($id, $details)
+    public function updateRole($role, $details)
     {
-        $role = $this->roleRepository->find($id);
-
         if (isset($details['displayName'])) {
             $role->setDisplayName($details['displayName']);
         }

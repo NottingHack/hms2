@@ -37,11 +37,8 @@ class UserManager
         $this->passwordStore = $passwordStore;
     }
 
-    public function removeRoleFromUser($userId, $role)
+    public function removeRoleFromUser($user, $role)
     {
-        $user = $this->userRepository->find($userId);
-
-
         $user->getRoles()->removeElement($role);
 
         // TODO: this should be ->save()

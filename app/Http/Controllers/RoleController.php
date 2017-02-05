@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use HMS\Entities\Role;
+use HMS\Entities\User;
 use HMS\User\UserManager;
 use Illuminate\Http\Request;
 use HMS\Repositories\RoleRepository;
@@ -54,28 +56,22 @@ class RoleController extends Controller
     /**
      * Show a specific role.
      *
-     * @param int $id ID of the role
+     * @param Role $role the Role
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Role $role)
     {
-
-        $role = $this->roleRepository->find($id);
-
         return view('role.show')->with('role', $role);
     }
 
     /**
      * Show the edit form for a role.
      *
-     * @param int $id ID of the role
+     * @param Role $role the Role
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Role $role)
     {
-
-        $role = $this->roleRepository->find($id);
-
         $permissions = $this->permissionRepository->findAll();
 
         $formattedPermissions = $this->formatDotNotationList($permissions);
@@ -86,11 +82,11 @@ class RoleController extends Controller
     /**
      * Update a specific role.
      *
-     * @param int $id ID of the role
+     * @param Role $role the Role
      * @param Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function update($id, Request $request)
+    public function update(Role $role, Request $request)
     {
 
         $this->validate($request, [
@@ -99,9 +95,9 @@ class RoleController extends Controller
             'permissions'   => 'required|array|nullable',
         ]);
 
-        $this->roleManager->updateRole($id, $request->all());
+        $this->roleManager->updateRole($role, $request->all());
 
-        return redirect()->route('roles.show', ['id' => $id]);
+        return redirect()->route('roles.show', ['role' => $role->getId()]);
     }
 
     /**
@@ -112,32 +108,14 @@ class RoleController extends Controller
      * @param Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function removeUser(Request $request)
+    public function removeUser(Role $role, User $user)
     {
-        // NOTE, this is overidden by the POST data, so we need to check that our auth'd user can edit roles AND edit user
-        $roleId = $request->roleId;
-        $userId = $request->userId;
+        $this->userManager->removeRoleFromUser($user, $role);
 
-        $user = Auth::user();
-        if ( ! $user->hasPermissionTo('role.edit.all') or ! $user->hasPermissionTo('profile.edit.all')) {
-            return $this->chooseRedirect($roleId);
-        }
-
-        $this->userManager->removeRoleFromUser($userId, $this->roleRepository->find($roleId));
-
-        return $this->chooseRedirect($roleId);
+        return redirect()->route('roles.show', ['role' => $role->getId()]);
     }
 
-    private function chooseRedirect($roleId)
-    {
-        if (strpos(Route::current()->getName(), 'role') !== false) {
-            return redirect()->route('roles.show', ['id' => $roleId]);
-        } else {
-            return redirect()->route('users.show', ['id' => $userId]);
-        }
-    }
-
-    public function formatDotNotationList($list) {
+    private function formatDotNotationList($list) {
         $formattedList = [];
 
         foreach ($list as $item) {

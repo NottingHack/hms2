@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('pageTitle')
+Key: {{ $key }}
+@endsection
+
 @section('content')
 <h2>Key: {{ $key }}</h2>
 <form role="form" method="POST" action="{{ route('metas.update', $key) }}">

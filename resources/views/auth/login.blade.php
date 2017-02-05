@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('content')
+@section('pageTitle', 'Log In')
 
-<h2>Log In</h2>
+@section('content')
 
 <p>Enter your email address or username and password to log in.</p>
 

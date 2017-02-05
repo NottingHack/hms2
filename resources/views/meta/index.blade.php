@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
+@section('pageTitle', 'Meta')
+
 @section('content')
-<h1>Meta</h1>
 <table>
     <thead>
         <tr>

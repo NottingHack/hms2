@@ -116,9 +116,8 @@ class RoleController extends Controller
     /**
      * Remove a specific user from a specific role.
      *
-     * @param int $roleId ID of the role
-     * @param int $userId ID of the user
-     * @param Illuminate\Http\Request $request
+     * @param Role $role the role
+     * @param User $user the user
      * @return \Illuminate\Http\Response
      */
     public function removeUser(Role $role, User $user)

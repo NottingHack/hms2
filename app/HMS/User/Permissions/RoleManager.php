@@ -2,6 +2,7 @@
 
 namespace HMS\User\Permissions;
 
+use HMS\Entities\Role;
 use HMS\Repositories\RoleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use LaravelDoctrine\ACL\Permissions\Permission;
@@ -35,7 +36,7 @@ class RoleManager
      * @param Role $role the Role we want to update
      * @param array $details fields that need updating
      */
-    public function updateRole($role, $details)
+    public function updateRole(Role $role, $details)
     {
         if (isset($details['displayName'])) {
             $role->setDisplayName($details['displayName']);

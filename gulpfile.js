@@ -25,9 +25,6 @@ elixir(mix => {
 
     mix.sass('app.scss', null, null, options);
 
-    // version CSS file
-    mix.version('css/app.css');
-
     // bundle up jQuery and Foundation JavaScript to app-base.js
     var jQuery = '../../../node_modules/jquery/dist/jquery.js';
     var foundation = '../../../node_modules/foundation-sites/dist/foundation.js';
@@ -35,8 +32,10 @@ elixir(mix => {
     mix.scripts([
       jQuery,
       foundation
-    ], 'public/js/app-base.js').version('js/app-base.js');
+    ], 'public/js/app-base.js');
 
     // compile application global JS
-    mix.webpack('app.js').version('js/app.js');
+    mix.webpack('app.js');
+
+    mix.version(['css/app.css', 'js/app-base.js', 'js/app.js']);
 });

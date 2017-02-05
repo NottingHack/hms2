@@ -38,11 +38,11 @@
       <ul class="menu align-right">
         @if (Auth::guest())
         <li><a href="{{ url('/login') }}">Log In</a></li>
-        @if (\SiteVisitor::inTheSpace())
-        <li><a href="{{ url('/registerInterest') }}">Register Interest</a></li>
+        @if (SiteVisitor::inTheSpace())
+        <li><a href="{{ route('registerInterest') }}">Register Interest</a></li>
         @endif
         @else
-        <li>Logged in as {{ Auth::user()->getName() }} @if (Auth::viaRemember()) (via Remember Me) @endif</li>
+        <li>Logged in as {{ Auth::user()->getFirstName() }} @if (Auth::viaRemember()) (via Remember Me) @endif</li>
         <li>
           <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
           <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
@@ -89,6 +89,11 @@
       @endif
 
     </div>
+
+    <div class="row">
+      @include('cookieConsent::index')
+    </div>
+
   </div>
 
   <!-- footer -->

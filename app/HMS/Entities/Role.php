@@ -2,10 +2,10 @@
 
 namespace HMS\Entities;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use LaravelDoctrine\ACL\Contracts\Permission;
-use LaravelDoctrine\ACL\Contracts\Role as RoleContract;
+use Doctrine\Common\Collections\ArrayCollection;
 use LaravelDoctrine\ACL\Permissions\HasPermissions;
+use LaravelDoctrine\ACL\Contracts\Role as RoleContract;
 
 class Role implements RoleContract
 {

@@ -7,7 +7,6 @@ use HMS\Entities\User;
 use HMS\User\UserManager;
 use Illuminate\Http\Request;
 use HMS\Repositories\RoleRepository;
-use Illuminate\Support\Facades\Auth;
 use HMS\User\Permissions\RoleManager;
 use Illuminate\Support\Facades\Route;
 use Doctrine\ORM\EntityManagerInterface;
@@ -45,7 +44,6 @@ class RoleController extends Controller
      */
     public function index()
     {
-
         $roles = $this->roleRepository->findAll();
 
         $formattedRoles = $this->formatDotNotationList($roles);
@@ -115,7 +113,8 @@ class RoleController extends Controller
         return redirect()->route('roles.show', ['role' => $role->getId()]);
     }
 
-    private function formatDotNotationList($list) {
+    private function formatDotNotationList($list)
+    {
         $formattedList = [];
 
         foreach ($list as $item) {

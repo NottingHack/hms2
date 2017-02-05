@@ -30,7 +30,7 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 Route::get('register/{token}', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
 
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => 'auth'], function () {
     // ROLE
     Route::get('/roles', 'RoleController@index')->name('roles.index')->middleware('auth');
     Route::get('/roles/{role}', 'RoleController@show')->name('roles.show');

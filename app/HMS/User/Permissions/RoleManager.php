@@ -47,5 +47,4 @@ class RoleManager
 
         $this->roleRepository->save($role);
     }
-
 }

@@ -39,7 +39,8 @@ class RoleRepository extends EntityRepository
      * store a new user in the DB.
      * @param  Role $role
      */
-    public function save($role) {
+    public function save($role)
+    {
         $this->_em->persist($role);
         $this->_em->flush();
     }

@@ -27,6 +27,7 @@ return [
             'connection' => env('DB_CONNECTION', 'mysql'),
             'namespaces' => [
                 'HMS',
+                'HMS\Entities',
             ],
             'paths'      => [
                 base_path('app/HMS/Mappings'),

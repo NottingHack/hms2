@@ -47,7 +47,7 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if ($exception instanceof EntityNotFoundException) {
-            throw  new NotFoundHttpException('Entity not found');
+            throw  new NotFoundHttpException('Entity not found', $exception);
         }
 
         return parent::render($request, $exception);

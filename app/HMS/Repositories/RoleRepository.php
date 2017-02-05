@@ -34,4 +34,13 @@ class RoleRepository extends EntityRepository
     {
         return parent::findOneBy(['name' => $roleName]);
     }
+
+    /**
+     * store a new user in the DB.
+     * @param  Role $role
+     */
+    public function save($role) {
+        $this->_em->persist($role);
+        $this->_em->flush();
+    }
 }

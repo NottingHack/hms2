@@ -30,7 +30,7 @@ class RoleManager
      */
     public function updateRole($id, $details)
     {
-        $role = $this->roleRepository->findbyId($id);
+        $role = $this->roleRepository->find($id);
 
         if (isset($details['displayName'])) {
             $role->setDisplayName($details['displayName']);
@@ -47,8 +47,7 @@ class RoleManager
             }
         }
 
-        EntityManager::persist($role);
-        EntityManager::flush();
+        $this->roleRepository->save($role);
     }
 
 }

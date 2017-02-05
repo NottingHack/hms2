@@ -28,6 +28,12 @@ class RoleController extends Controller
         $this->userManager = $userManager;
         // TODO: replace with actual repository
         $this->permissionRepository = $em->getRepository(Permission::class);
+
+        $this->middleware('can:role.view.all')->only(['index', 'show']);
+        $this->middleware('can:role.edit.all')->only(['edit', 'update']);
+
+        $this->middleware('can:role.edit.all')->only('removeUser');
+        $this->middleware('can:profile.edit.all')->only('removeUser');
     }
 
     /**
@@ -37,10 +43,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        if ( ! $user->hasPermissionTo('role.view.all')) {
-            return redirect()->route('home');
-        }
+
         $roles = $this->roleRepository->findAll();
 
         $formattedRoles = $this->formatDotNotationList($roles);
@@ -56,10 +59,6 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        $user = Auth::user();
-        if ( ! $user->hasPermissionTo('role.view.all')) {
-            return redirect()->route('home');
-        }
 
         $role = $this->roleRepository->find($id);
 
@@ -74,10 +73,6 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $user = Auth::user();
-        if ( ! $user->hasPermissionTo('role.edit.all')) {
-            return redirect()->route('roles.show', ['id' => $id]);
-        }
 
         $role = $this->roleRepository->find($id);
 
@@ -97,10 +92,6 @@ class RoleController extends Controller
      */
     public function update($id, Request $request)
     {
-        $user = Auth::user();
-        if ( ! $user->hasPermissionTo('role.edit.all')) {
-            return redirect()->route('roles.show', ['id' => $id]);
-        }
 
         $this->validate($request, [
             'displayName'   => 'required|string|max:255',

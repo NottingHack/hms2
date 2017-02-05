@@ -33,17 +33,24 @@ Route::post('register', 'Auth\RegisterController@register');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// ROLE
 
-Route::get('/roles', 'RoleController@index')->name('roles.index')->middleware('auth');
-Route::get('/roles/{id}', 'RoleController@show')->name('roles.show')->middleware('auth');
-Route::get('/roles/{id}/edit', 'RoleController@edit')->name('roles.edit')->middleware('auth');
-Route::put('/roles/{id}', 'RoleController@update')->name('roles.update')->middleware('auth');
-Route::delete('/roles/{roleId}/users/{userId}', 'RoleController@removeUser')->name('roles.removeUser')->middleware('auth');
 
-// USER
-Route::get('/users/{id}', 'UserController@show')->name('users.show')->middleware('auth');
-Route::delete('/users/{userId}/roles/{roleId}', 'RoleController@removeUser')->name('users.removeRole')->middleware('auth');
+Route::group(['middleware' => 'auth'], function() {
+    // ROLE
+    Route::get('/roles', 'RoleController@index')->name('roles.index')->middleware('auth');
+    Route::get('/roles/{id}', 'RoleController@show')->name('roles.show');
+    Route::get('/roles/{id}/edit', 'RoleController@edit')->name('roles.edit');
+    Route::put('/roles/{id}', 'RoleController@update')->name('roles.update');
+    Route::delete('/roles/{roleId}/users/{userId}', 'RoleController@removeUser')->name('roles.removeUser');
+
+    // USER
+    Route::get('/users/{id}', 'UserController@show')->name('users.show');
+    Route::delete('/users/{userId}/roles/{roleId}', 'RoleController@removeUser')->name('users.removeRole');
+});
+
+
+
+
 
 // Routes in the following group can only be access from inside the hackspace (as defined by the ip range in .env)
 Route::group(['middleware' => 'ipcheck'], function () {

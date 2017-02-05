@@ -42,7 +42,7 @@
         <li><a href="{{ url('/registerInterest') }}">Register Interest</a></li>
         @endif
         @else
-        <li>Logged in as {{ Auth::user()->getName() }} @if (Auth::viaRemember()) (via Remember Me) @endif</li>
+        <li>Logged in as {{ Auth::user()->getFirstName() }} @if (Auth::viaRemember()) (via Remember Me) @endif</li>
         <li>
           <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
           <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">

@@ -5,7 +5,7 @@ namespace Database\Migrations;
 use Doctrine\DBAL\Schema\Schema as Schema;
 use Doctrine\DBAL\Migrations\AbstractMigration;
 
-class Version20161025122151_add_timestampable_to_user extends AbstractMigration
+class Version20161220223143_split_name extends AbstractMigration
 {
     /**
      * @param Schema $schema
@@ -14,7 +14,7 @@ class Version20161025122151_add_timestampable_to_user extends AbstractMigration
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE user ADD created_at DATETIME NOT NULL, ADD updated_at DATETIME NOT NULL');
+        $this->addSql('ALTER TABLE user ADD lastname VARCHAR(255) NOT NULL AFTER firstname, CHANGE name firstname VARCHAR(255) NOT NULL');
     }
 
     /**
@@ -24,6 +24,6 @@ class Version20161025122151_add_timestampable_to_user extends AbstractMigration
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE user DROP created_at, DROP updated_at');
+        $this->addSql('ALTER TABLE user ADD name VARCHAR(255) NOT NULL COLLATE utf8_unicode_ci, DROP firstname, DROP lastname');
     }
 }

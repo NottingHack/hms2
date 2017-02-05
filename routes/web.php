@@ -32,7 +32,7 @@ Route::post('register', 'Auth\RegisterController@register');
 
 Route::group(['middleware' => 'auth'], function () {
     // ROLE
-    Route::get('/roles', 'RoleController@index')->name('roles.index')->middleware('auth');
+    Route::get('/roles', 'RoleController@index')->name('roles.index');
     Route::get('/roles/{role}', 'RoleController@show')->name('roles.show');
     Route::get('/roles/{role}/edit', 'RoleController@edit')->name('roles.edit');
     Route::put('/roles/{role}', 'RoleController@update')->name('roles.update');

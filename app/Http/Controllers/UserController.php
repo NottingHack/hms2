@@ -15,6 +15,8 @@ class UserController extends Controller
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
+
+        $this->middleware('can:profile.view.all')->only(['show']);
     }
 
     /**
@@ -25,11 +27,6 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = Auth::user();
-        if ( ! $user->hasPermissionTo('profile.view.all')) {
-            return redirect()->route('home');
-        }
-
         $user = $this->userRepository->find($id);
 
         return view('user.show')->with('user', $user);

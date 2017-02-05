@@ -86,7 +86,6 @@ class RoleController extends Controller
      */
     public function update(Role $role, Request $request)
     {
-
         $this->validate($request, [
             'displayName'   => 'required|string|max:255',
             'description'   => 'required',

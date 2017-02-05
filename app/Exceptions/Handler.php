@@ -3,9 +3,11 @@
 namespace App\Exceptions;
 
 use Exception;
+use Doctrine\ORM\EntityNotFoundException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -45,9 +47,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-
         if ($exception instanceof AuthorizationException) {
             return $this->unauthorized($request, $exception);
+        } elseif ($exception instanceof EntityNotFoundException) {
+            throw  new NotFoundHttpException('Entity not found', $exception);
         }
 
         return parent::render($request, $exception);

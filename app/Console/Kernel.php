@@ -28,7 +28,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // TODO: get cutoff date from meta table and pass as argument
         $schedule->command('invites:purge')
                  ->daily();
     }

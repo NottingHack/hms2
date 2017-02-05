@@ -30,11 +30,6 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 Route::get('register/{token}', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
 
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-
-
 Route::group(['middleware' => 'auth'], function() {
     // ROLE
     Route::get('/roles', 'RoleController@index')->name('roles.index')->middleware('auth');
@@ -48,12 +43,21 @@ Route::group(['middleware' => 'auth'], function() {
     Route::delete('/users/{userId}/roles/{roleId}', 'RoleController@removeUser')->name('users.removeRole');
 });
 
-
-
-
+Route::get('home', 'HomeController@index')->name('home');
+Route::get('access-codes', 'HomeController@accessCodes')->name('accessCodes');
 
 // Routes in the following group can only be access from inside the hackspace (as defined by the ip range in .env)
 Route::group(['middleware' => 'ipcheck'], function () {
     Route::get('/register-interest', 'RegisterInterestController@index')->name('registerInterest');
     Route::post('/register-interest', 'RegisterInterestController@registerInterest');
+});
+
+// Routes in the following group can only be access once logged-in)
+Route::group(['middleware' => 'auth'], function () {
+    // Meta area covers various setting for HMS
+    Route::resource('metas', 'MetaController',
+        [
+            'except' => ['show', 'store', 'create', 'destroy'],
+        ]
+    );
 });

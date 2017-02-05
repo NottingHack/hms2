@@ -15,7 +15,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class RoleController extends Controller
 {
-
     /**
      * @var RoleManager
      */

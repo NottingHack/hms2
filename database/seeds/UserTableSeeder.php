@@ -9,13 +9,29 @@ use LaravelDoctrine\ORM\Facades\EntityManager;
 
 class UserTableSeeder extends Seeder
 {
+    /**
+     * @var integer
+     */
     private $numUsersToCreate = 200;
 
+    /**
+     * @var integer
+     */
     private $proportionCurrentMembers = 2;
 
+    /**
+     * @var boolean
+     */
     private $createAdmin = true;
 
+    /**
+     * @var RoleRepository
+     */
     protected $roleRepository;
+
+    /**
+     * @var PasswordStore
+     */
     protected $passwordStore;
 
     /**

@@ -37,6 +37,10 @@ class UserManager
         $this->passwordStore = $passwordStore;
     }
 
+    /**
+     * @param User $user
+     * @param Role $role
+     */
     public function removeRoleFromUser($user, $role)
     {
         $user->getRoles()->removeElement($role);

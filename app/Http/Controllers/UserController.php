@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use HMS\Repositories\UserRepository;
-use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    /**
+     * @var UserRepository
+     */
     private $userRepository;
 
     /**

@@ -10,8 +10,14 @@ use LaravelDoctrine\ACL\Permissions\Permission;
 
 class Version20161106154138_add_roles_permissions extends AbstractMigration
 {
+    /**
+     * @var Array
+     */
     private $permEntities = [];
 
+    /**
+     * @var Array
+     */
     private $permStrings = [
             'view'              =>  'profile.view.self',
             'viewall'           =>  'profile.view.all',
@@ -50,6 +56,9 @@ class Version20161106154138_add_roles_permissions extends AbstractMigration
         $this->addSql('DELETE FROM roles WHERE name IN (' . $roles . ')');
     }
 
+    /**
+     * Adds view permissions to the database
+     */
     private function addViewPermissions()
     {
         $this->permEntities[$this->permStrings['view']] = new Permission($this->permStrings['view']);
@@ -58,6 +67,9 @@ class Version20161106154138_add_roles_permissions extends AbstractMigration
         EntityManager::persist($this->permEntities[$this->permStrings['viewall']]);
     }
 
+    /**
+     * Adds role permissions to the database
+     */
     private function addRolePermissions()
     {
         $this->permEntities[$this->permStrings['viewroles']] = new Permission($this->permStrings['viewroles']);
@@ -66,6 +78,9 @@ class Version20161106154138_add_roles_permissions extends AbstractMigration
         EntityManager::persist($this->permEntities[$this->permStrings['editroles']]);
     }
 
+    /**
+     * Adds edit permissions to the database
+     */
     private function addEditPermissions()
     {
         $this->permEntities[$this->permStrings['editprofile']] = new Permission($this->permStrings['editprofile']);
@@ -74,6 +89,9 @@ class Version20161106154138_add_roles_permissions extends AbstractMigration
         EntityManager::persist($this->permEntities[$this->permStrings['editprofileall']]);
     }
 
+    /**
+     * Adds member roles and attached permissions
+     */
     private function addMemberRoles()
     {
         $roles = [
@@ -92,6 +110,9 @@ class Version20161106154138_add_roles_permissions extends AbstractMigration
         }
     }
 
+    /**
+     * Adds super user role with permissions
+     */
     private function AddSuperUserRole()
     {
         $role = new Role(Role::SUPERUSER, 'Super User', 'Full access to all parts of the system');

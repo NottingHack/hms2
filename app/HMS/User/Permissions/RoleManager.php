@@ -8,7 +8,14 @@ use LaravelDoctrine\ACL\Permissions\Permission;
 
 class RoleManager
 {
+    /**
+     * @var RoleRepository
+     */
     private $roleRepository;
+
+    /**
+     * @var PermissionRepository
+     */
     private $permissionRepository;
 
     /**

@@ -11,12 +11,29 @@ use HMS\User\Permissions\RoleManager;
 use Illuminate\Support\Facades\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use LaravelDoctrine\ACL\Permissions\Permission;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class RoleController extends Controller
 {
+
+    /**
+     * @var RoleManager
+     */
     private $roleManager;
+
+    /**
+     * @var RoleRepository
+     */
     private $roleRepository;
+
+    /**
+     * @var PermissionRepository
+     */
     private $permissionRepository;
+
+    /**
+     * @var UserManager
+     */
     private $userManager;
 
     /**
@@ -112,7 +129,13 @@ class RoleController extends Controller
         return redirect()->route('roles.show', ['role' => $role->getId()]);
     }
 
-    private function formatDotNotationList($list)
+    /**
+     * Remove a specific user from a specific role.
+     *
+     * @param ArrayCollection $list
+     * @return Array
+     */
+    private function formatDotNotationList(ArrayCollection $list)
     {
         $formattedList = [];
 

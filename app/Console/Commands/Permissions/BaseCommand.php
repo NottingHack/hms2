@@ -3,9 +3,9 @@
 namespace App\Console\Commands\Permissions;
 
 use Hms\Entities\Role;
-use Doctrine\ORM\EntityManagerInterface;
-use HMS\Repositories\RoleRepository;
 use Illuminate\Console\Command;
+use HMS\Repositories\RoleRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use LaravelDoctrine\ACL\Permissions\Permission;
 use LaravelDoctrine\ACL\Permissions\PermissionManager;
 

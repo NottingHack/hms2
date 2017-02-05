@@ -46,7 +46,6 @@ class UserTableSeeder extends Seeder
         $numLeftToCreate = $numLeftToCreate - (count($roles) * $createOtherUsers);
         $createCurrentMembers += $numLeftToCreate;
 
-
         // actually create the current members
         entity(User::class, $createCurrentMembers)
             ->make()

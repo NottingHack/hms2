@@ -11,6 +11,10 @@
 |
 */
 
+/*
+ * All urls should be hyphenated
+ */
+
 Route::get('/', function () {
     return view('welcome');
 })->name('index');
@@ -30,6 +34,6 @@ Route::get('home', 'HomeController@index')->name('home');
 
 // Routes in the following group can only be access from inside the hackspace (as defined by the ip range in .env)
 Route::group(['middleware' => 'ipcheck'], function () {
-    Route::get('registerInterest', 'RegisterInterestController@index')->name('registerInterest');
-    Route::post('registerInterest', 'RegisterInterestController@registerInterest');
+    Route::get('/register-interest', 'RegisterInterestController@index');
+    Route::post('/register-interest', 'RegisterInterestController@registerInterest');
 });

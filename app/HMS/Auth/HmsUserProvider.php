@@ -3,9 +3,9 @@
 namespace HMS\Auth;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Illuminate\Contracts\Auth\Authenticatable as IlluminateAuthenticatable;
 use Illuminate\Contracts\Hashing\Hasher;
 use LaravelDoctrine\ORM\Auth\DoctrineUserProvider;
+use Illuminate\Contracts\Auth\Authenticatable as IlluminateAuthenticatable;
 
 /**
  * @author Rob Hunt <rob.hunt@nottinghack.org.uk>

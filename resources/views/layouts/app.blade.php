@@ -89,9 +89,12 @@
       @endif
 
     </div>
-  </div>
 
-  @include('cookieConsent::index')
+    <div class="row">
+      @include('cookieConsent::index')
+    </div>
+
+  </div>
 
   <!-- footer -->
   <footer>

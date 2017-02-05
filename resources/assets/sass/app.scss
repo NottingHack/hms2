@@ -73,30 +73,26 @@ ul.nomarkers {
   @extend .medium-offset-2;
 }
 
-// Cookie consent dialog
+
+// Cookie consent pop-up
 // ---------------------
 
 .cookie-consent {
-  @extend .row;
+  @extend .columns;
 }
 
 .cookie-consent__container {
-  @extend .small-12;
   @extend .callout;
   @extend .secondary;
-
-  margin-bottom: 0;
-}
-
-.cookie-consent__message {
-
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .cookie-consent__agree {
   @extend .button;
   @extend .primary;
-
-  margin-left: rem-calc(10);
 }
 
 // Link colouring

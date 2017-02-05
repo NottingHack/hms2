@@ -11,12 +11,12 @@ use LaravelDoctrine\ACL\Permissions\Permission;
 class Version20161106154138_add_roles_permissions extends AbstractMigration
 {
     /**
-     * @var Array
+     * @var array
      */
     private $permEntities = [];
 
     /**
-     * @var Array
+     * @var array
      */
     private $permStrings = [
             'view'              =>  'profile.view.self',
@@ -57,7 +57,7 @@ class Version20161106154138_add_roles_permissions extends AbstractMigration
     }
 
     /**
-     * Adds view permissions to the database
+     * Adds view permissions to the database.
      */
     private function addViewPermissions()
     {
@@ -68,7 +68,7 @@ class Version20161106154138_add_roles_permissions extends AbstractMigration
     }
 
     /**
-     * Adds role permissions to the database
+     * Adds role permissions to the database.
      */
     private function addRolePermissions()
     {
@@ -79,7 +79,7 @@ class Version20161106154138_add_roles_permissions extends AbstractMigration
     }
 
     /**
-     * Adds edit permissions to the database
+     * Adds edit permissions to the database.
      */
     private function addEditPermissions()
     {
@@ -90,7 +90,7 @@ class Version20161106154138_add_roles_permissions extends AbstractMigration
     }
 
     /**
-     * Adds member roles and attached permissions
+     * Adds member roles and attached permissions.
      */
     private function addMemberRoles()
     {
@@ -111,7 +111,7 @@ class Version20161106154138_add_roles_permissions extends AbstractMigration
     }
 
     /**
-     * Adds super user role with permissions
+     * Adds super user role with permissions.
      */
     private function AddSuperUserRole()
     {

@@ -133,7 +133,7 @@ class RoleController extends Controller
      * Remove a specific user from a specific role.
      *
      * @param ArrayCollection $list
-     * @return Array
+     * @return array
      */
     private function formatDotNotationList(ArrayCollection $list)
     {

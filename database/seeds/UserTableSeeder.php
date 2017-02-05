@@ -10,17 +10,17 @@ use LaravelDoctrine\ORM\Facades\EntityManager;
 class UserTableSeeder extends Seeder
 {
     /**
-     * @var integer
+     * @var int
      */
     private $numUsersToCreate = 200;
 
     /**
-     * @var integer
+     * @var int
      */
     private $proportionCurrentMembers = 2;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $createAdmin = true;
 

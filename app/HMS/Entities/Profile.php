@@ -64,10 +64,13 @@ class Profile
 
     /**
      * @param User $user
+     * @return self
      */
     public function setUser(User $user)
     {
         $this->user = $user;
+
+        return $this;
     }
 
     /**
@@ -80,10 +83,13 @@ class Profile
 
     /**
      * @param Carbon $joinDate
+     * @return self
      */
     public function setJoinDate(Carbon $joinDate)
     {
         $this->joinDate = $joinDate;
+
+        return $this;
     }
 
     /**
@@ -96,10 +102,13 @@ class Profile
 
     /**
      * @param string $unlockText
+     * @return self
      */
     public function setUnlockText(string $unlockText)
     {
         $this->unlockText = $unlockText;
+
+        return $this;
     }
 
     /**
@@ -112,10 +121,13 @@ class Profile
 
     /**
      * @param int $creditLimit
+     * @return self
      */
     public function setCreditLimit(int $creditLimit)
     {
         $this->creditLimit = $creditLimit;
+
+        return $this;
     }
 
     /**
@@ -128,10 +140,13 @@ class Profile
 
     /**
      * @param string $address1
+     * @return self
      */
     public function setAddress1(string $address1)
     {
         $this->address1 = $address1;
+
+        return $this;
     }
 
     /**
@@ -144,10 +159,13 @@ class Profile
 
     /**
      * @param string $address2
+     * @return self
      */
     public function setAddress2(string $address2)
     {
         $this->address2 = $address2;
+
+        return $this;
     }
 
     /**
@@ -160,10 +178,13 @@ class Profile
 
     /**
      * @param string $address3
+     * @return self
      */
     public function setAddress3(string $address3)
     {
         $this->address3 = $address3;
+
+        return $this;
     }
 
     /**
@@ -176,10 +197,13 @@ class Profile
 
     /**
      * @param string $addressCity
+     * @return self
      */
     public function setAddressCity(string $addressCity)
     {
         $this->addressCity = $addressCity;
+
+        return $this;
     }
 
     /**
@@ -192,10 +216,13 @@ class Profile
 
     /**
      * @param string $addressCounty
+     * @return self
      */
     public function setAddressCounty(string $addressCounty)
     {
         $this->addressCounty = $addressCounty;
+
+        return $this;
     }
 
     /**
@@ -208,10 +235,13 @@ class Profile
 
     /**
      * @param string $addressPostcode
+     * @return self
      */
     public function setAddressPostcode(string $addressPostcode)
     {
         $this->addressPostcode = $addressPostcode;
+
+        return $this;
     }
 
     /**
@@ -224,9 +254,12 @@ class Profile
 
     /**
      * @param string $contactNumber
+     * @return self
      */
     public function setContactNumber(string $contactNumber)
     {
         $this->contactNumber = $contactNumber;
+
+        return $this;
     }
 }

@@ -19,6 +19,9 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
+
+    <!-- Font Awesome -->
+    <script src="https://use.fontawesome.com/5fd8ad5172.js"></script>
 </head>
 <body class="with-footer">
   <header>
@@ -35,9 +38,11 @@
       <ul class="menu align-right">
         @if (Auth::guest())
         <li><a href="{{ url('/login') }}">Log In</a></li>
-        <li><a href="{{ url('/register') }}">Register</a></li>
+        @if (SiteVisitor::inTheSpace())
+        <li><a href="{{ url('/registerInterest') }}">Register Interest</a></li>
+        @endif
         @else
-        <li>Logged in as {{ Auth::user()->getName() }} @if (Auth::viaRemember()) (via Remember Me) @endif</li>
+        <li>Logged in as {{ Auth::user()->getFirstName() }} @if (Auth::viaRemember()) (via Remember Me) @endif</li>
         <li>
           <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
           <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
@@ -51,7 +56,10 @@
 
   <!-- main body -->
   <div class="content">
-    <div class="row align-top">
+
+  @include('partials.flash')
+
+  <div class="row align-top">
       @if (!Auth::guest())
       <div class="columns small-12 small-order-1 medium-2 medium-order-0 large-2">
         <ul class="menu vertical">
@@ -99,11 +107,11 @@
       </div>
       <div class="columns small-12 medium-3">
         <ul class="nomarkers">
-          <li><a href="#"><i class="fa fa-twitter"></i>&nbsp;Twitter</a></li>
-          <li><a href="#"><i class="fa fa-email"></i>&nbsp;Google Group</a></li>
-          <li><a href="#"><i class="fa fa-flickr"></i>&nbsp;Flickr</a></li>
-          <li><a href="#"><i class="fa fa-youtube"></i>&nbsp;YouTube</a></li>
-          <li><a href="#"><i class="fa fa-facebook"></i>&nbsp;Facebook</a></li>
+          <li><a href="#"><i class="fa fa-fw fa-twitter"></i>&nbsp;Twitter</a></li>
+          <li><a href="#"><i class="fa fa-fw fa-envelope"></i>&nbsp;Google Group</a></li>
+          <li><a href="#"><i class="fa fa-fw fa-flickr"></i>&nbsp;Flickr</a></li>
+          <li><a href="#"><i class="fa fa-fw fa-youtube"></i>&nbsp;YouTube</a></li>
+          <li><a href="#"><i class="fa fa-fw fa-facebook"></i>&nbsp;Facebook</a></li>
         </ul>
       </div>
       <div class="columns small-12 medium-3">
@@ -127,6 +135,9 @@
 
 
   <!-- Scripts -->
-  <script src="/js/app.js"></script>
+  <script src="{{ elixir('js/app-base.js')}}"></script>
+  <script src="{{ elixir('js/app.js') }}"></script>
+
+  @stack('scripts')
 </body>
 </html>

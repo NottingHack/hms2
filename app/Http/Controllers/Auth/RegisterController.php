@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use HMS\Auth\IdentityManager;
-use HMS\Entities\Role;
 use HMS\Entities\User;
-
-use HMS\Repositories\RoleRepository;
-use HMS\Repositories\UserRepository;
-use Validator;
+use HMS\User\UserManager;
+use HMS\User\ProfileManager;
 use App\Http\Controllers\Controller;
+use HMS\Repositories\InviteRepository;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Contracts\Validation\Factory as Validator;
 
 class RegisterController extends Controller
 {
@@ -34,21 +32,34 @@ class RegisterController extends Controller
      */
     protected $redirectTo = '/home';
 
-    protected $userRepository;
-    protected $roleRepository;
-    protected $identityManager;
+    /**
+     * @var UserManager
+     */
+    private $userManager;
+
+    /**
+     * @var Validator
+     */
+    private $validator;
+
+    /**
+     * @var ProfileManager
+     */
+    protected $profileManager;
 
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * @param Validator $validator
+     * @param UserManager $userManager
      */
-    public function __construct(UserRepository $userRepository, RoleRepository $roleRepository, IdentityManager $identityManager)
+    public function __construct(Validator $validator,
+        UserManager $userManager, ProfileManager $profileManager)
     {
-        $this->userRepository = $userRepository;
-        $this->roleRepository = $roleRepository;
-        $this->identityManager = $identityManager;
         $this->middleware('guest');
+        $this->validator = $validator;
+        $this->userManager = $userManager;
+        $this->profileManager = $profileManager;
     }
 
     /**
@@ -59,34 +70,70 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
+        return $this->validator->make($data, [
+            'invite' => 'required|exists:HMS\Entities\Invite,inviteToken',
+            'firstname' => 'required|max:255',
+            'lastname' => 'required|max:255',
             'username' => 'required|max:255|unique:HMS\Entities\User',
             'email' => 'required|email|max:255|unique:HMS\Entities\User',
             'password' => 'required|min:' . User::MIN_PASSWORD_LENGTH . '|confirmed',
+            'address1' => 'required|max:100',
+            'addressCity' => 'required|max:100',
+            'addressCounty' => 'required|max:100',
+            'addressPostcode' => 'required|max:10',
+            'contactNumber' => 'required|max:50',
         ]);
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param  array  $data called via RegistersUsers trait, passes in $request->all()
      * @return User
      */
     protected function create(array $data)
     {
-        $user = new User(
-            $data['name'],
+        $user = $this->userManager->create(
+            $data['firstname'],
+            $data['lastname'],
             $data['username'],
-            $data['email']
+            $data['email'],
+            $data['password']
         );
 
-        $user->getRoles()->add($this->roleRepository->findByName(Role::MEMBER_CURRENT));
-
-        // TODO: maybe consolidate these into a single call via a service?
-        $this->userRepository->create($user);
-        $this->identityManager->add($user->getUsername(), $data['password']);
+        $user = $this->profileManager->create(
+            $user,
+            $data['address1'],
+            $data['address2'],
+            $data['address3'],
+            $data['addressCity'],
+            $data['addressCounty'],
+            $data['addressPostcode'],
+            $data['contactNumber']
+        );
 
         return $user;
+    }
+
+    /**
+     * Show the application registration form.
+     * Overridden, we need to have a valid invite token.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm(InviteRepository $inviteRepository, $token)
+    {
+        $invite = $inviteRepository->findOneByInviteToken($token);
+
+        if (is_null($invite)) {
+            flash('Token not found. Please visit the space to register you interest in becoming a member.', 'warning');
+
+            return redirect('/');
+        }
+
+        return view('auth.register', [
+            'invite' => $invite->getInviteToken(),
+            'email' => $invite->getEmail(),
+            ]);
     }
 }

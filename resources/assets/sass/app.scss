@@ -97,4 +97,13 @@ ul.nomarkers {
   @extend .primary;
 
   margin-left: rem-calc(10);
+
+// Link colouring
+// --------------
+
+// create an a-specific class for each colour in the palette
+@each $name, $color in $foundation-palette {
+  a.#{$name} {
+    color: $color;
+  }
 }

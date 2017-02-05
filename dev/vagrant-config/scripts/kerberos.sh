@@ -17,12 +17,13 @@ debconf-set-selections <<< 'krb5-config krb5-config/admin_server string hmsdev.n
 
 
 # Install krb, create passord database, and set the master password to "krbMasterPassword"
-apt-get install php-pear php7.0-dev libkrb5-dev haveged krb5-{admin-server,kdc} -y
+apt-get install php-pear php7.0-dev libkrb5-dev haveged krb5-{admin-server,kdc} -y > /dev/null 2>&1
 kdb5_util create -s -P krbMasterPassword
 mkdir /var/log/kerberos
 touch /var/log/kerberos/{krb5kdc,kadmin,krb5lib}.log
 chmod -R 750  /var/log/kerberos
 echo "vagrant/admin@NOTTINGTEST.ORG.UK * " > /etc/krb5kdc/kadm5.acl
+echo "hms/web@NOTTINGTEST.ORG.UK * " >> /etc/krb5kdc/kadm5.acl
 /etc/init.d/krb5-kdc start 
 /etc/init.d/krb5-admin-server start 
 
@@ -32,9 +33,9 @@ kadmin.local -q "addprinc -pw vagrant vagrant/admin"
 kadmin.local -q "addprinc -pw vagrant vagrant"
 kadmin.local -q "addprinc -randkey hms/web"
 
-rm /vagrant/storage/app/hms.keytab
-kadmin.local -q "ktadd -k /vagrant/storage/app/hms.keytab hms/web"
-chmod a+r /vagrant/storage/app/hms.keytab
+rm /home/vagrant/hms.keytab
+kadmin.local -q "ktadd -k /home/vagrant/hms.keytab hms/web"
+chmod a+r /home/vagrant/hms.keytab
 
 
 # pecl install krb5 - this (still 2016) doesn't have kadm support.

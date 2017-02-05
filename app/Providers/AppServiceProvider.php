@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use HMS\Auth\FileBasedIdentityManager;
-use HMS\Auth\IdentityManager;
+use HMS\Auth\PasswordStore;
+use HMS\Auth\PasswordStoreManager;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,8 +26,10 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
-        $this->app->singleton(IdentityManager::class, function($app) {
-            return $app->make(FileBasedIdentityManager::class);
+        $this->app->singleton(PasswordStore::class, function ($app) {
+            $passwordStoreManager = new PasswordStoreManager($app);
+
+            return $passwordStoreManager->driver();
         });
     }
 }

@@ -2,12 +2,10 @@
 
 namespace HMS\Entities;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 use LaravelDoctrine\ACL\Contracts\Permission;
-use LaravelDoctrine\ACL\Contracts\Role as RoleContract;
-use LaravelDoctrine\ACL\Mappings as ACL;
+use Doctrine\Common\Collections\ArrayCollection;
 use LaravelDoctrine\ACL\Permissions\HasPermissions;
+use LaravelDoctrine\ACL\Contracts\Role as RoleContract;
 
 class Role implements RoleContract
 {
@@ -62,7 +60,7 @@ class Role implements RoleContract
 
     public function addPermission(Permission $permission)
     {
-        if (!$this->permissions->contains($permission)) {
+        if ( ! $this->permissions->contains($permission)) {
             $this->permissions->add($permission);
         }
     }

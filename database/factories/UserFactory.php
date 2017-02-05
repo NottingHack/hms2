@@ -13,9 +13,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 |
 */
 
-$factory->define(HMS\Entities\User::class, function(Faker\Generator $faker) {
+$factory->define(HMS\Entities\User::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->name,
+        'firstname' => $faker->firstName,
+        'lastname' => $faker->lastName,
         'email' => $faker->unique()->safeEmail,
         'username' => $faker->unique()->userName,
         'rememberToken' => str_random(10),

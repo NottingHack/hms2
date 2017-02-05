@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use HMS\Auth\IdentityManager;
 use HMS\Entities\User;
-use Illuminate\Foundation\Auth\ResetsPasswords;
+use HMS\Auth\PasswordStore;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ResetPasswordController extends Controller
 {
@@ -24,24 +24,24 @@ class ResetPasswordController extends Controller
 
     use ResetsPasswords;
 
-    /** @var  IdentityManager */
-    protected $identityManager;
+    /** @var PasswordStore */
+    protected $passwordStore;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(IdentityManager $identityManager)
+    public function __construct(PasswordStore $passwordStore)
     {
         $this->middleware('guest');
-        $this->identityManager = $identityManager;
+        $this->passwordStore = $passwordStore;
     }
 
     /**
      * Reset the given user's password.
      * Note: this is overridden from the ResetPasswords trait as no mechanism is provided to customise the validation
-     * rules, see: https://github.com/laravel/framework/issues/15086
+     * rules, see: https://github.com/laravel/framework/issues/15086.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -59,8 +59,8 @@ class ResetPasswordController extends Controller
         // database. Otherwise we will parse the error and return the response.
         $response = $this->broker()->reset(
             $this->credentials($request), function ($user, $password) {
-            $this->resetPassword($user, $password);
-        }
+                $this->resetPassword($user, $password);
+            }
         );
 
         // If the password was successfully reset, we will redirect the user back to
@@ -73,7 +73,7 @@ class ResetPasswordController extends Controller
 
     protected function resetPassword($user, $password)
     {
-        $this->identityManager->setPassword($user->getAuthIdentifier(), $password);
+        $this->passwordStore->setPassword($user->getAuthIdentifier(), $password);
         // TODO: reset the user's remember token here to ensure someone with an old cookie isn't automatically logged in
 
         $this->guard()->login($user);

@@ -3,11 +3,11 @@
 namespace HMS\Auth;
 
 /**
- * An IdentityManager specifies operations for adding, removing and checking the credentials of an identity.
+ * An PasswordStore specifies operations for adding, removing and checking the credentials of a users identity.
  *
  * @author Rob Hunt <rob.hunt@nottinghack.org.uk>
  */
-interface IdentityManager
+interface PasswordStore
 {
     /**
      * Add a new identity with the specified username and password.
@@ -30,7 +30,7 @@ interface IdentityManager
      * Check if a specified identity exists.
      *
      * @param  string  $username
-     * @return boolean
+     * @return bool
      */
     public function exists($username);
 
@@ -48,7 +48,7 @@ interface IdentityManager
      *
      * @param  string  $username
      * @param  string  $password
-     * @return boolean
+     * @return bool
      */
     public function checkPassword($username, $password);
 }

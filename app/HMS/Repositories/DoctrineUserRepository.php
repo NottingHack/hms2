@@ -2,61 +2,47 @@
 
 namespace HMS\Repositories;
 
-use HMS\Entities\User;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\ORM\EntityRepository;
+use LaravelDoctrine\ORM\Pagination\Paginatable;
 
-class DoctrineUserRepository implements UserRepository
+class DoctrineUserRepository extends EntityRepository implements UserRepository
 {
-    /** @var ObjectRepository */
-    private $genericRepository;
-
-    /** @var EntityManagerInterface */
-    private $em;
+    use Paginatable;
 
     /**
-     * DoctrineUserRepository constructor.
-     * @param EntityManagerInterface $em
+     * @param  int $id
+     * @return array
      */
-    public function __construct(EntityManagerInterface $em)
+    public function find($id)
     {
-        $this->em = $em;
-        $this->genericRepository = $em->getRepository(User::class);
+        return parent::find($id);
     }
 
     /**
-     * @param int $id
-     * @return User
+     * @param  string $username
+     * @return array
      */
-    public function find(int $id) : User
+    public function findByUsername($username)
     {
-        return $this->genericRepository->find($id);
+        return parent::findByUsername($username);
     }
 
     /**
-     * @param string $username
-     * @return User
+     * @param  string $email
+     * @return array
      */
-    public function findByUsername(string $username) : User
+    public function findByEmail($email)
     {
-        return $this->genericRepository->findBy(['username' => $username]);
+        return parent::findByEmail($email);
     }
 
     /**
-     * @param string $email
-     * @return User
+     * store a new user in the DB.
+     * @param  User $user
      */
-    public function findByEmail(string $email) : User
+    public function create($user)
     {
-        return $this->genericRepository->findBy(['email' => $email]);
-    }
-
-    /**
-     * @param User $user
-     */
-    public function create(User $user)
-    {
-        $this->em->persist($user);
-        $this->em->flush();
+        $this->_em->persist($user);
+        $this->_em->flush();
     }
 }

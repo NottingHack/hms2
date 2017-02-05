@@ -8,12 +8,17 @@ echo "GULP"
 echo "running as user $_user ($_uid)"
 echo " "
 
+# a bug in yarn and global permissions means we still need to install gulp with npm
+# https://github.com/yarnpkg/yarn/issues/1060
+#sudo yarn global add gulp-cli
+sudo npm install --global gulp-cli
+
 # move to the share folder and use yarn to install deps
 mkdir ~/hms2/
 cp /vagrant/package.json ~/hms2/
 cp /vagrant/yarn.lock ~/hms2/
 cd ~/hms2/
-/usr/bin/yarn
+yarn
 cp -R node_modules /vagrant/
 
 # create gulp watch script

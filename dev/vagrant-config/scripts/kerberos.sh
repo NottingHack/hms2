@@ -33,9 +33,9 @@ kadmin.local -q "addprinc -pw vagrant vagrant/admin"
 kadmin.local -q "addprinc -pw vagrant vagrant"
 kadmin.local -q "addprinc -randkey hms/web"
 
-rm /vagrant/storage/app/hms.keytab
-kadmin.local -q "ktadd -k /vagrant/storage/app/hms.keytab hms/web"
-chmod a+r /vagrant/storage/app/hms.keytab
+rm /home/vagrant/hms.keytab
+kadmin.local -q "ktadd -k /home/vagrant/hms.keytab hms/web"
+chmod a+r /home/vagrant/hms.keytab
 
 
 # pecl install krb5 - this (still 2016) doesn't have kadm support.

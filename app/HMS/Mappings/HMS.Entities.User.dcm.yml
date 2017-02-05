@@ -17,7 +17,9 @@ HMS\Entities\User:
       generator:
         strategy: AUTO
   fields:
-    name:
+    firstname:
+      type: string
+    lastname:
       type: string
     username:
       type: string
@@ -43,6 +45,11 @@ HMS\Entities\User:
       gedmo:
         timestampable:
           on: update
+  oneToOne:
+    profile:
+      targetEntity: Profile
+      mappedBy: user
+      cascade: ["all"]
   manyToMany:
     roles:
       targetEntity: Role
@@ -51,9 +58,7 @@ HMS\Entities\User:
         joinColumns:
           user_id:
             referencedColumnName: id
-            onDelete: CASCADE
         inverseJoinColumns:
           role_id:
             referencedColumnName: id
-            onDelete: CASCADE
 

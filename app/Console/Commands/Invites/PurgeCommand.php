@@ -3,6 +3,7 @@
 namespace App\Console\Commands\Invites;
 
 use Carbon\Carbon;
+use HMS\Entities\Meta;
 use Illuminate\Console\Command;
 use HMS\Repositories\InviteRepository;
 
@@ -47,7 +48,16 @@ class PurgeCommand extends Command
     public function handle()
     {
         if (is_null($this->argument('date'))) {
-            $date = Carbon::now()->subMonths(6);
+            try {
+                if (Meta::has('purge_cuttoff_interval')) {
+                    $interval = Meta::get('purge_cuttoff_interval');
+                    $date = Carbon::now()
+                        ->sub(new \DateInterval($interval))
+                        ->format('Y-m-d');
+                }
+            } catch (\Exception $e) {
+                $date = Carbon::now()->subMonths(6);
+            }
         } else {
             $date = Carbon::createFromFormat('Y-m-d', $this->argument('date'));
         }

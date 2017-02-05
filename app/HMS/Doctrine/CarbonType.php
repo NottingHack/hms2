@@ -3,8 +3,8 @@
 namespace HMS\Doctrine;
 
 use Carbon\Carbon;
-use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\DateTimeType;
+use Doctrine\DBAL\Platforms\AbstractPlatform;
 
 class CarbonType extends DateTimeType
 {

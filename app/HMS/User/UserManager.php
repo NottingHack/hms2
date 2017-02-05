@@ -38,6 +38,18 @@ class UserManager
     }
 
     /**
+     * @param User $user
+     * @param Role $role
+     */
+    public function removeRoleFromUser($user, $role)
+    {
+        $user->getRoles()->removeElement($role);
+
+        // TODO: this should be ->save()
+        $this->userRepository->create($user);
+    }
+
+    /**
      * @param string $firstname
      * @param string $lastname
      * @param string $username

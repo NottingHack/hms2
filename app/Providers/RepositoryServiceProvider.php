@@ -1,6 +1,6 @@
 <?php
 
-namespace Providers;
+namespace App\Providers;
 
 use HMS\Entities\Meta;
 use HMS\Entities\Role;

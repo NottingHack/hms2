@@ -4,9 +4,10 @@ namespace HMS\Repositories\Doctrine;
 
 use Hms\Entities\Role;
 use Doctrine\ORM\EntityRepository;
+use HMS\Repositories\RoleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 
-class DoctrineRoleRepository extends EntityRepository
+class DoctrineRoleRepository extends EntityRepository implements RoleRepository
 {
     /**
      * Finds all entities in the repository.

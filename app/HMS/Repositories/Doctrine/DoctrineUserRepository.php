@@ -4,6 +4,7 @@ namespace HMS\Repositories\Doctrine;
 
 use HMS\Entities\User;
 use Doctrine\ORM\EntityRepository;
+use HMS\Repositories\UserRepository;
 use LaravelDoctrine\ORM\Pagination\Paginatable;
 
 class DoctrineUserRepository extends EntityRepository implements UserRepository

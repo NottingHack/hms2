@@ -4,9 +4,10 @@ namespace HMS\Repositories\Doctrine;
 
 use HMS\Entities\Meta;
 use Doctrine\ORM\EntityRepository;
+use HMS\Repositories\MetaRepository;
 use LaravelDoctrine\ORM\Pagination\Paginatable;
 
-class DoctrineMetaRepository extends EntityRepository
+class DoctrineMetaRepository extends EntityRepository implements MetaRepository
 {
     use Paginatable;
 

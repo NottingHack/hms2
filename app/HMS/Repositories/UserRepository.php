@@ -25,10 +25,10 @@ interface UserRepository
     public function findByEmail(string $email);
 
     /**
-     * store a new user in the DB.
+     * save User to the DB.
      * @param  User $user
      */
-    public function create(User $user);
+    public function save(User $user);
 
     /**
      * @param int    $perPage

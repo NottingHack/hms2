@@ -2,7 +2,7 @@
 HMS\Entities\Invite:
   type: entity
   repositoryClass: HMS\Repositories\InviteRepository
-  table: invite
+  table: invites
   indexes:
     email_index:
       columns: [ email ]

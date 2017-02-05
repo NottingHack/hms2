@@ -17,11 +17,11 @@
         <tbody>
         @foreach ($categoryRoles as $role)
             <tr>
-                <td><a href="{{ route('roles.show', $role['id']) }}">{{ $role['displayName'] }}</a></td>
-                <td>{{ $role['name'] }}</td>
-                <td>{{ $role['description'] }}</td>
+                <td><a href="{{ route('roles.show', $role->getId()) }}">{{ $role->getDisplayName() }}</a></td>
+                <td>{{ $role->getName() }}</td>
+                <td>{{ $role->getDescription() }}</td>
                 <td>@can('role.edit.all')
-                <a href="{{ route('roles.edit', $role['id']) }}">edit</a>
+                <a href="{{ route('roles.edit', $role->getId()) }}">edit</a>
                 @endcan</td>
             </tr>
         @endforeach

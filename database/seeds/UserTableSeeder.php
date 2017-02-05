@@ -71,7 +71,7 @@ class UserTableSeeder extends Seeder
 
         // add in the admin user, this will be user $numUsersToCreate + 1;
         if ($this->createAdmin === true) {
-            $admin = new User('Admin', 'admin', 'hmsadmin@nottinghack.org.uk');
+            $admin = new User('Admin', 'Admin', 'admin', 'hmsadmin@nottinghack.org.uk');
             $admin->getRoles()->add($this->roleRepository->findByName(Role::SUPERUSER));
             $this->passwordStore->add($admin->getUsername(), 'admin');
             EntityManager::persist($admin);

@@ -4,25 +4,30 @@ namespace App\Http\Controllers;
 
 use HMS\User\UserManager;
 use Illuminate\Http\Request;
+use HMS\Repositories\RoleRepository;
 use Illuminate\Support\Facades\Auth;
 use HMS\User\Permissions\RoleManager;
 use Illuminate\Support\Facades\Route;
-use HMS\User\Permissions\PermissionManager;
+use Doctrine\ORM\EntityManagerInterface;
+use LaravelDoctrine\ACL\Permissions\Permission;
 
 class RoleController extends Controller
 {
     private $roleManager;
-    private $permissionManager;
+    private $roleRepository;
+    private $permissionRepository;
     private $userManager;
 
     /**
      * Create a new controller instance.
      */
-    public function __construct(RoleManager $roleManager, PermissionManager $permissionManager, UserManager $userManager)
+    public function __construct(RoleManager $roleManager, RoleRepository $roleRepository, UserManager $userManager, EntityManagerInterface $em)
     {
         $this->roleManager = $roleManager;
-        $this->permissionManager = $permissionManager;
+        $this->roleRepository = $roleRepository;
         $this->userManager = $userManager;
+        // TODO: replace with actual repository
+        $this->permissionRepository = $em->getRepository(Permission::class);
     }
 
     /**
@@ -36,9 +41,11 @@ class RoleController extends Controller
         if ( ! $user->hasPermissionTo('role.view.all')) {
             return redirect()->route('home');
         }
-        $roles = $this->roleManager->getFormattedRoleList();
+        $roles = $this->roleRepository->findAll();
 
-        return view('role.index')->with('roles', $roles);
+        $formattedRoles = $this->formatDotNotationList($roles);
+
+        return view('role.index')->with('roles', $formattedRoles);
     }
 
     /**
@@ -54,7 +61,7 @@ class RoleController extends Controller
             return redirect()->route('home');
         }
 
-        $role = $this->roleManager->getFormattedRole($id);
+        $role = $this->roleRepository->find($id);
 
         return view('role.show')->with('role', $role);
     }
@@ -72,11 +79,13 @@ class RoleController extends Controller
             return redirect()->route('roles.show', ['id' => $id]);
         }
 
-        $permissions = $this->permissionManager->getFormattedPermissionList();
+        $role = $this->roleRepository->find($id);
 
-        $role = $this->roleManager->getFormattedRole($id);
+        $permissions = $this->permissionRepository->findAll();
 
-        return view('role.edit')->with('role', $role)->with('allPermissions', $permissions);
+        $formattedPermissions = $this->formatDotNotationList($permissions);
+
+        return view('role.edit')->with('role', $role)->with('allPermissions', $formattedPermissions);
     }
 
     /**
@@ -123,7 +132,7 @@ class RoleController extends Controller
             return $this->chooseRedirect($roleId);
         }
 
-        $this->userManager->removeRoleFromUser($userId, $this->roleManager->getRole($roleId));
+        $this->userManager->removeRoleFromUser($userId, $this->roleRepository->find($roleId));
 
         return $this->chooseRedirect($roleId);
     }
@@ -135,5 +144,30 @@ class RoleController extends Controller
         } else {
             return redirect()->route('users.show', ['id' => $userId]);
         }
+    }
+
+    public function formatDotNotationList($list) {
+        $formattedList = [];
+
+        foreach ($list as $item) {
+            list($category, $name) = explode('.', $item->getName());
+
+            if ( ! isset($formattedList[$category])) {
+                $formattedList[$category] = [];
+            }
+
+            $formattedList[$category][] = $item;
+        }
+
+        $categories = array_keys($formattedList);
+        foreach ($categories as $category) {
+            usort($formattedList[$category], function ($a, $b) {
+                return strcmp($a->getName(), $b->getName());
+            });
+        }
+
+        ksort($formattedList);
+
+        return $formattedList;
     }
 }

@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>{{ $role['name'] }}</h1>
+<h1>{{ $role->getName() }}</h1>
 
-<form role="form" method="POST" action="{{ route('roles.update', $role['id']) }}">
+<form role="form" method="POST" action="{{ route('roles.update', $role->getId()) }}">
     {{ csrf_field() }}
     {{ method_field('PUT') }}
 
     <div class="row">
         <label for="displayName" class="form-label">Display Name</label>
         <div class="form-control">
-            <input id="displayName" type="text" name="displayName" value="{{ old('displayName', $role['displayName']) }}" required autofocus>
+            <input id="displayName" type="text" name="displayName" value="{{ old('displayName', $role->getDisplayName()) }}" required autofocus>
 
             @if ($errors->has('displayName'))
             <p class="help-text">
@@ -23,7 +23,7 @@
     <div class="row">
         <label for="description" class="form-label">Description</label>
         <div class="form-control">
-            <input id="description" type="text" name="description" value="{{ old('description', $role['description']) }}" required autofocus>
+            <input id="description" type="text" name="description" value="{{ old('description', $role->getDescription()) }}" required autofocus>
 
             @if ($errors->has('description'))
             <p class="help-text">
@@ -44,9 +44,9 @@
 @foreach ($permissions as $permission)
 
     <div class="row">
-        <label for="permissions[{{ $permission['name'] }}]" class="form-label">{{ $permission['name'] }}</label>
+        <label for="permissions[{{ $permission->getName() }}]" class="form-label">{{ $permission->getName() }}</label>
         <div class="form-control">
-            <input id="permissions" type="checkbox" name="permissions[{{ $permission['name'] }}]" {{ in_array($permission['name'], array_keys(old('permissions', $role['permissions']))) ? 'checked="checked"' : '' }} autofocus>
+            <input id="permissions" type="checkbox" name="permissions[{{ $permission->getName() }}]" {{ $role->getPermissions()->contains($permission) ? 'checked="checked"' : '' }} autofocus>
         </div>
     </div>
 

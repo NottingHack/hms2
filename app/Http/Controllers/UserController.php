@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use HMS\User\UserManager;
+use HMS\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    private $userManager;
+    private $userRepository;
 
     /**
      * Create a new controller instance.
      */
-    public function __construct(UserManager $userManager)
+    public function __construct(UserRepository $userRepository)
     {
-        $this->userManager = $userManager;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -30,7 +30,7 @@ class UserController extends Controller
             return redirect()->route('home');
         }
 
-        $user = $this->userManager->getFormattedUser($id);
+        $user = $this->userRepository->find($id);
 
         return view('user.show')->with('user', $user);
     }

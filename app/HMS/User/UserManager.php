@@ -68,33 +68,4 @@ class UserManager
 
         return $user;
     }
-
-    /**
-     * Find a user and format it to send to a view.
-     *
-     * @param int $id The id of the user we want
-     * @return array
-     */
-    public function getFormattedUser($id)
-    {
-        $user = $this->userRepository->find($id);
-
-        return $this->formatUser($user);
-    }
-
-    /**
-     * Format the user to send to the view.
-     *
-     * @param \HMS\Entities\User $user The user to format
-     * @return array
-     */
-    private function formatUser($user)
-    {
-        $formattedUser = [
-                'id'            =>  $user->getId(),
-                'name'          =>  $user->getName(),
-                ];
-
-        return $formattedUser;
-    }
 }

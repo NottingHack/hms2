@@ -5,6 +5,7 @@ namespace App\Providers;
 use HMS\Entities\Link;
 use HMS\Entities\Meta;
 use HMS\Entities\Role;
+use HMS\Entities\User;
 use HMS\Entities\Invite;
 use HMS\Repositories\LinkRepository;
 use HMS\Repositories\MetaRepository;
@@ -50,7 +51,7 @@ class RepositoryServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton(UserRepository::class, function ($app) {
-            return $app->make(DoctrineUserRepository::class);
+            return new DoctrineUserRepository($app['em'], $app['em']->getClassMetaData(User::class));
         });
     }
 }

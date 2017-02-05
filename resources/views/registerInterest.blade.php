@@ -5,7 +5,7 @@
 
 <p>Enter your email address to register your interest in becoming a Nottinghack member and start the sign up process.</p>
 
-<form role="form" method="POST" action="{{ url('/registerInterest') }}">
+<form role="form" method="POST" action="{{ route('registerInterest') }}">
   {{ csrf_field() }}
 
   <div class="row">

@@ -40,6 +40,6 @@ class RegisterInterestController extends Controller
 
         flash('Thank you for Registering your interest. Please check your email.');
 
-        return redirect('registerInterest');
+        return redirect()->route('registerInterest');
     }
 }

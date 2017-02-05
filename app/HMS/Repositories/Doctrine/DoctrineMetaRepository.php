@@ -1,12 +1,12 @@
 <?php
 
-namespace HMS\Repositories;
+namespace HMS\Repositories\Doctrine;
 
 use HMS\Entities\Meta;
 use Doctrine\ORM\EntityRepository;
 use LaravelDoctrine\ORM\Pagination\Paginatable;
 
-class MetaRepository extends EntityRepository
+class DoctrineMetaRepository extends EntityRepository
 {
     use Paginatable;
 

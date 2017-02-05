@@ -1,6 +1,6 @@
 <?php
 
-namespace HMS\Repositories;
+namespace HMS\Repositories\Doctrine;
 
 use HMS\Entities\User;
 use Doctrine\ORM\EntityRepository;

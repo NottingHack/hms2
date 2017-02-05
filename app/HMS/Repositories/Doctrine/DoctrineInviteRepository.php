@@ -1,13 +1,14 @@
 <?php
 
-namespace HMS\Repositories;
+namespace HMS\Repositories\Doctrine;
 
 use Carbon\Carbon;
 use Hms\Entities\Invite;
 use Doctrine\ORM\EntityRepository;
+use HMS\Repositories\InviteRepository;
 use Doctrine\Common\Collections\Criteria;
 
-class InviteRepository extends EntityRepository
+class DoctrineInviteRepository extends EntityRepository implements InviteRepository
 {
     /**
      * Create a new invite if not found.

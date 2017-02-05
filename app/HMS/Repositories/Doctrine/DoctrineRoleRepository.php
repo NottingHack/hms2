@@ -1,12 +1,12 @@
 <?php
 
-namespace HMS\Repositories;
+namespace HMS\Repositories\Doctrine;
 
 use Hms\Entities\Role;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 
-class RoleRepository extends EntityRepository
+class DoctrineRoleRepository extends EntityRepository
 {
     /**
      * Finds all entities in the repository.

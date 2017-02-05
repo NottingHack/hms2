@@ -6,6 +6,7 @@ use Exception;
 use Doctrine\ORM\EntityNotFoundException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -46,9 +47,7 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if ($exception instanceof EntityNotFoundException) {
-            flash('Entity not found', 'warning');
-
-            return redirect()->route('index');
+            throw  new NotFoundHttpException('Entity not found');
         }
 
         return parent::render($request, $exception);

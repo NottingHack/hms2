@@ -13,11 +13,14 @@ use HMS\Repositories\UserRepository;
 use HMS\Repositories\InviteRepository;
 use HMS\Repositories\ProfileRepository;
 use Illuminate\Support\ServiceProvider;
+use HMS\Repositories\PermissionRepository;
+use LaravelDoctrine\ACL\Permissions\Permission;
 use HMS\Repositories\Doctrine\DoctrineMetaRepository;
 use HMS\Repositories\Doctrine\DoctrineRoleRepository;
 use HMS\Repositories\Doctrine\DoctrineUserRepository;
 use HMS\Repositories\Doctrine\DoctrineInviteRepository;
 use HMS\Repositories\Doctrine\DoctrineProfileRepository;
+use HMS\Repositories\Doctrine\DoctrinePermissionRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -56,6 +59,10 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $this->app->singleton(ProfileRepository::class, function ($app) {
             return new DoctrineProfileRepository($app['em'], $app['em']->getClassMetaData(Profile::class));
+        });
+
+        $this->app->singleton(PermissionRepository::class, function ($app) {
+            return new DoctrinePermissionRepository($app['em'], $app['em']->getClassMetaData(Permission::class));
         });
     }
 }

@@ -4,9 +4,7 @@ namespace HMS\User\Permissions;
 
 use HMS\Entities\Role;
 use HMS\Repositories\RoleRepository;
-use Doctrine\ORM\EntityManagerInterface;
-use LaravelDoctrine\ACL\Permissions\Permission;
-
+use HMS\Repositories\PermissionRepository;
 class RoleManager
 {
     /**
@@ -24,10 +22,10 @@ class RoleManager
      *
      * @param HMS\Repositories\RoleRepository $roleRepository An instance of a role repository
      */
-    public function __construct(RoleRepository $roleRepository, EntityManagerInterface $em)
+    public function __construct(RoleRepository $roleRepository, PermissionRepository $permissionRepository)
     {
         $this->roleRepository = $roleRepository;
-        $this->permissionRepository = $em->getRepository(Permission::class);
+        $this->permissionRepository = $permissionRepository;
     }
 
     /**

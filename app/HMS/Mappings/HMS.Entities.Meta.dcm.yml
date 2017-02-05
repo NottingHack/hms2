@@ -1,0 +1,33 @@
+# HMS.Entities.Meta.dcm.yml
+HMS\Entities\Meta:
+  type: entity
+  repositoryClass: HMS\Repositories\MetaRepository
+  table: meta
+  gedmo:
+    soft_deleteable:
+      field_name: deletedAt
+      time_aware: false
+  id:
+    key:
+      type: string
+      column: "`key`"
+      unique: true
+      generator:
+        strategy: NONE
+  fields:
+    value:
+      type: string
+      column: "`value`"
+    deletedAt:
+      type: datetime
+      nullable: true
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update

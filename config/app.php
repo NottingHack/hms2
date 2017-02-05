@@ -234,10 +234,11 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'EntityManager' => LaravelDoctrine\ORM\Facades\EntityManager::class,
-        'Registry'      => LaravelDoctrine\ORM\Facades\Registry::class,
-        'Doctrine'      => LaravelDoctrine\ORM\Facades\Doctrine::class,
+        'Registry' => LaravelDoctrine\ORM\Facades\Registry::class,
+        'Doctrine' => LaravelDoctrine\ORM\Facades\Doctrine::class,
 
-        'SiteVisitor'     => HMS\Facades\SiteVisitor::class,
+        'SiteVisitor' => HMS\Facades\SiteVisitor::class,
+        'Meta' => HMS\Facades\Meta::class,
 
     ],
 

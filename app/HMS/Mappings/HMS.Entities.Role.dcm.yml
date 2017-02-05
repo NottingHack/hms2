@@ -1,6 +1,7 @@
 # HMS.Entities.Role.dcm.yml
 HMS\Entities\Role:
   type: entity
+  repositoryClass: HMS\Repositories\RoleRepository
   table: roles
   indexes:
     name_index:

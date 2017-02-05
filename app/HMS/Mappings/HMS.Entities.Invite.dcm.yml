@@ -1,0 +1,41 @@
+# HMS.Entities.Invite.dcm.yml
+HMS\Entities\Invite:
+  type: entity
+  repositoryClass: HMS\Repositories\InviteRepository
+  table: invites
+  indexes:
+    email_index:
+      columns: [ email ]
+  gedmo:
+    soft_deleteable:
+      field_name: deletedAt
+      time_aware: false
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    email:
+      type: string
+      unique: true
+    inviteToken:
+      column: invite_token
+      type: string
+      length: 100
+      nullable: true
+    deletedAt:
+      type: datetime
+      nullable: true
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update

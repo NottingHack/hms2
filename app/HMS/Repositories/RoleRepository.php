@@ -3,8 +3,8 @@
 namespace HMS\Repositories;
 
 use Hms\Entities\Role;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class RoleRepository extends EntityRepository
 {

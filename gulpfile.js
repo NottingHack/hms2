@@ -14,6 +14,8 @@ require('laravel-elixir-vue-2');
  */
 
 elixir(mix => {
+
+    // compile SCSS
     var options = {
         includePaths: [
             'node_modules/foundation-sites/scss',
@@ -23,15 +25,18 @@ elixir(mix => {
 
     mix.sass('app.scss', null, null, options);
 
+    // version CSS file
     mix.version('css/app.css');
 
+    // bundle up jQuery and Foundation JavaScript to app-base.js
     var jQuery = '../../../node_modules/jquery/dist/jquery.js';
-    var foundationJsFolder = '../../../node_modules/foundation-sites/js/';
+    var foundation = '../../../node_modules/foundation-sites/dist/foundation.js';
 
     mix.scripts([
-        jQuery,
-        foundationJsFolder + 'foundation.core.js'
-    ]);
+      jQuery,
+      foundation
+    ], 'public/js/app-base.js').version('js/app-base.js');
 
-    mix.webpack('app.js');
+    // compile application global JS
+    mix.webpack('app.js').version('js/app.js');
 });

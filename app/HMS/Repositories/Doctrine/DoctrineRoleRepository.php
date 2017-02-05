@@ -2,7 +2,7 @@
 
 namespace HMS\Repositories\Doctrine;
 
-use Hms\Entities\Role;
+use HMS\Entities\Role;
 use Doctrine\ORM\EntityRepository;
 use HMS\Repositories\RoleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -40,7 +40,7 @@ class DoctrineRoleRepository extends EntityRepository implements RoleRepository
      * store a new user in the DB.
      * @param  Role $role
      */
-    public function save($role)
+    public function save(Role $role)
     {
         $this->_em->persist($role);
         $this->_em->flush();

@@ -3,6 +3,7 @@
 namespace HMS\Repositories;
 
 use Carbon\Carbon;
+use HMS\Entities\Role;
 
 interface RoleRepository
 {
@@ -25,5 +26,5 @@ interface RoleRepository
      * store a new user in the DB.
      * @param  Role $role
      */
-    public function save($role);
+    public function save(Role $role);
 }

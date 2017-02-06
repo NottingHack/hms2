@@ -38,6 +38,10 @@ ul.nomarkers {
     color: $header-text-colour;
     padding-top: rem-calc(20);
     padding-bottom: rem-calc(20);
+
+    h1 {
+      margin: 0;
+    }
 }
 
 .userbar {
@@ -53,6 +57,11 @@ ul.nomarkers {
 
 // Form classes
 // ------------
+
+// a class for wrapping a form in when embedded in the middle of another page
+.form-container {
+  margin: 2rem;
+}
 
 .form-label {
   @extend .columns;
@@ -71,6 +80,28 @@ ul.nomarkers {
   @extend .small-12;
   @extend .medium-10;
   @extend .medium-offset-2;
+}
+
+
+// Cookie consent pop-up
+// ---------------------
+
+.cookie-consent {
+  @extend .columns;
+}
+
+.cookie-consent__container {
+  @extend .callout;
+  @extend .secondary;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.cookie-consent__agree {
+  @extend .button;
+  @extend .primary;
 }
 
 // Link colouring

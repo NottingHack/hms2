@@ -89,7 +89,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     /**
      * @return string
      */
-    public function getFirstName()
+    public function getFirstname()
     {
         return $this->firstname;
     }
@@ -97,7 +97,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     /**
      * @return string
      */
-    public function getlastName()
+    public function getLastname()
     {
         return $this->lastname;
     }

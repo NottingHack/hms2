@@ -1,4 +1,4 @@
-# HMS.Entities.User.dcm.yml
+# HMS.Entities.Role.dcm.yml
 HMS\Entities\Role:
   type: entity
   repositoryClass: HMS\Repositories\RoleRepository
@@ -6,6 +6,10 @@ HMS\Entities\Role:
   indexes:
     name_index:
       columns: [ name ]
+  gedmo:
+    soft_deleteable:
+      field_name: deletedAt
+      time_aware: false
   id:
     id:
       type: integer
@@ -17,6 +21,23 @@ HMS\Entities\Role:
     name:
       type: string
       unique: true
+    displayName:
+      type: string
+    description:
+      type: text
+    deletedAt:
+      type: datetime
+      nullable: true
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
   manyToMany:
     permissions:
       targetEntity: LaravelDoctrine\ACL\Permissions\Permission
@@ -28,6 +49,18 @@ HMS\Entities\Role:
             onDelete: CASCADE
         inverseJoinColumns:
           permission_id:
+            referencedColumnName: id
+            onDelete: CASCADE
+    users:
+      targetEntity: User
+      joinTable:
+        name: role_user
+        joinColumns:
+          role_id:
+            referencedColumnName: id
+            onDelete: CASCADE
+        inverseJoinColumns:
+          user_id:
             referencedColumnName: id
             onDelete: CASCADE
 

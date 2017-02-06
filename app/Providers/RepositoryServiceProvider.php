@@ -14,6 +14,7 @@ use HMS\Repositories\UserRepository;
 use HMS\Repositories\InviteRepository;
 use Illuminate\Support\ServiceProvider;
 use HMS\Repositories\DoctrineUserRepository;
+use HMS\Repositories\Doctrine\DoctrineLinkRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -35,7 +36,7 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(LinkRepository::class, function ($app) {
-            return new LinkRepository($app['em'], $app['em']->getClassMetaData(Link::class));
+            return new DoctrineLinkRepository($app['em'], $app['em']->getClassMetaData(Link::class));
         });
 
         $this->app->singleton(MetaRepository::class, function ($app) {

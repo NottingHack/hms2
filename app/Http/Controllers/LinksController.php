@@ -73,9 +73,8 @@ class LinksController extends Controller
      * @param  Link  $link
      * @return \Illuminate\Http\Response
      */
-    public function edit(Link $link, $id)
+    public function edit(Link $link)
     {
-        $link = $this->linkRepository->find($id);
         return view('links.edit')->with($link->toArray());
     }
 

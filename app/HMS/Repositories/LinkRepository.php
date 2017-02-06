@@ -2,16 +2,21 @@
 
 namespace HMS\Repositories;
 
-use Doctrine\ORM\EntityRepository;
-use LaravelDoctrine\ORM\Pagination\Paginatable;
+use HMS\Entities\Link;
 
-class LinkRepository extends EntityRepository
+interface LinkRepository
 {
-    use Paginatable;
+    /**
+     * save Link to the DB.
+     * @param  User $user
+     */
+    public function save(Link $link);
 
-    public function save(Link $link)
-    {
-        $this->_em->persist($link);
-        $this->_em->flush();
-    }
+    /**
+     * @param int    $perPage
+     * @param string $pageName
+     *
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function paginateAll($perPage = 15, $pageName = 'page');
 }

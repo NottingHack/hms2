@@ -20,6 +20,7 @@ interface MetaRepository
      * @return mixed
      */
     public function get($key, $default = null);
+
     /**
      * Set a given setting value.
      *

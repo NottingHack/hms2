@@ -5,6 +5,7 @@ namespace HMS\User\Permissions;
 use HMS\Entities\Role;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\PermissionRepository;
+
 class RoleManager
 {
     /**

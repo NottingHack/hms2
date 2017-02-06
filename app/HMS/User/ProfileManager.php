@@ -14,7 +14,6 @@ class ProfileManager
      */
     protected $profileRepository;
 
-
     /**
      * @var UserRepository
      */

@@ -2,7 +2,6 @@
 
 namespace HMS\Repositories;
 
-use Carbon\Carbon;
 use HMS\Entities\Role;
 
 interface RoleRepository

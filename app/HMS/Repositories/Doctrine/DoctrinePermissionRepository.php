@@ -3,6 +3,7 @@
 namespace HMS\Repositories\Doctrine;
 
 use Doctrine\ORM\EntityRepository;
+use HMS\Repositories\PermissionRepository;
 use LaravelDoctrine\ACL\Permissions\Permission;
 
 class DoctrinePermissionRepository extends EntityRepository implements PermissionRepository

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\Invites;
 
 use HMS\Repositories\InviteRepository;
 use Illuminate\Auth\Events\Registered;

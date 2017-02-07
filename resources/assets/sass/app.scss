@@ -76,6 +76,14 @@ header {
     }
 
     #logo {
+      transition: transform 0.4s;
+    }
+
+    #logo:hover {
+      transform: rotate(180deg);
+    }
+
+    #logo-path {
       fill: $hackspace-grey;
     }
 }

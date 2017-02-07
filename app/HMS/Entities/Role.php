@@ -91,10 +91,13 @@ class Role implements RoleContract
 
     /**
      * @param string $displayName
+     * @return self
      */
     public function setDisplayName($displayName)
     {
         $this->displayName = $displayName;
+
+        return $this;
     }
 
     /**
@@ -107,10 +110,13 @@ class Role implements RoleContract
 
     /**
      * @param string $description
+     * @return self
      */
     public function setDescription($description)
     {
         $this->description = $description;
+
+        return $this;
     }
 
     /**

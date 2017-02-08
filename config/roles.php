@@ -10,7 +10,7 @@ return [
     | The permission strings for HMS
     |
     */
-    $permissions = [
+    'permissions' => [
         'profile.view.self',
         'profile.view.all',
         'role.view.all',
@@ -30,7 +30,7 @@ return [
     | Default roles and the permissions to go with them
     |
     */
-    $roles = [
+    'roles' => [
         'member.approval'   => [
             'name'          => 'Awaiting Approval',
             'description'   => 'Member awaiting approval',

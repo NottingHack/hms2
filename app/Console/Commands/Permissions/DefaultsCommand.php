@@ -34,80 +34,22 @@ class DefaultsCommand extends BaseCommand
      * The permissions to set up
      * @var array
      */
-    private $permissions = [
-        'profile.view.self' =>  '',
-        'profile.view.all'  =>  '',
-        'role.view.all'     =>  '',
-        'role.edit.all'     =>  '',
-        'profile.edit.self' =>  '',
-        'profile.edit.all'  =>  '',
-        'accessCodes.view'  =>  '',
-        'meta.view'         =>  '',
-        'meta.edit'         =>  '',
-    ];
+    private $permissions = [];
 
-    private $roles = [
-        Role::MEMBER_APPROVAL   => [
-            'name'          => 'Awaiting Approval',
-            'description'   => 'Member awaiting approval',
-            'permissions'   => [
-                'profile.view.self',
-                'profile.edit.self',
-            ],
-        ],
-        Role::MEMBER_PAYMENT    => [
-            'name'          => 'Awaiting Payment',
-            'description'   => 'Awaiting standing order payment',
-            'permissions'   => [
-                'profile.view.self',
-                'profile.edit.self',
-            ],
-        ],
-        Role::MEMBER_YOUNG      => [
-            'name'          => 'Young Hacker',
-            'description'   => 'Member between 16 and 18',
-            'permissions'   => [
-                'profile.view.self',
-                'profile.edit.self',
-            ],
-        ],
-        Role::MEMBER_EX         => [
-            'name'          => 'Ex Member',
-            'description'   => 'Ex Member',
-            'permissions'   => [
-                'profile.view.self',
-                'profile.edit.self',
-            ],
-        ],
-        Role::MEMBER_CURRENT    => [
-            'name'          => 'Current Member',
-            'description'   => 'Current Member',
-            'permissions'   => [
-                'profile.view.self',
-                'profile.edit.self',
-            ],
-        ],
-        Role::SUPERUSER         => [
-            'name'          => 'Super User',
-            'description'   => 'Full access to all parts of the system',
-            'permissions'   =>  [
-                '*',
-            ],
-        ],
-    ];
+    private $roles = [];
 
-    /*public function __construct(EntityManagerInterface $entityManager, RoleRepository $roleRepository)
+    public function __construct(EntityManagerInterface $entityManager, RoleRepository $roleRepository)
     {
+        parent::__construct($entityManager, $roleRepository);
+
         $permissions = config('roles.permissions');
-        //dd($permissions);
+
         foreach ($permissions as $permission) {
-            $this->permissions[$permissions] = '';
+             $this->permissions[$permission] = '';
         }
 
         $this->roles = config('roles.roles');
-
-        parent::__construct($entityManager, $roleRepository);
-    }*/
+    }
 
     /**
      * Execute the console command.

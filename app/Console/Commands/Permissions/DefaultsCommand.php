@@ -5,7 +5,6 @@ namespace App\Console\Commands\Permissions;
 use HMS\Entities\Role;
 use Illuminate\Console\Command;
 use HMS\Repositories\RoleRepository;
-use Illuminate\Support\Facades\Artisan;
 use Doctrine\ORM\EntityManagerInterface;
 use LaravelDoctrine\ACL\Permissions\Permission;
 

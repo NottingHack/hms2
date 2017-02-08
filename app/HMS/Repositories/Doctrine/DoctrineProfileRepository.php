@@ -12,7 +12,7 @@ class DoctrineProfileRepository extends EntityRepository implements ProfileRepos
      * save Profile to the DB.
      * @param  User $user
      */
-    public function save(Profile $Profile)
+    public function save(Profile $profile)
     {
         $this->_em->persist($profile);
         $this->_em->flush();

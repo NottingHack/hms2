@@ -26,16 +26,13 @@ class DefaultsCommand extends BaseCommand
     protected $description = 'Restores roles and permissions to the default set. You should probably run migrations beforehand and the seeder afterwards';
 
     /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-
-    /**
-     * The permissions to set up
      * @var array
      */
     private $permissions = [];
 
+    /**
+     * @var array
+     */
     private $roles = [];
 
     public function __construct(EntityManagerInterface $entityManager, RoleRepository $roleRepository)
@@ -45,7 +42,7 @@ class DefaultsCommand extends BaseCommand
         $permissions = config('roles.permissions');
 
         foreach ($permissions as $permission) {
-             $this->permissions[$permission] = '';
+            $this->permissions[$permission] = '';
         }
 
         $this->roles = config('roles.roles');
@@ -58,9 +55,6 @@ class DefaultsCommand extends BaseCommand
      */
     public function handle()
     {
-        // Artisan::call('doctrine:migrations:refresh');
-        // $this->info('Database reset and migrations run');
-
         $this->createPermissionEntities();
         $this->info('Permissions created');
 
@@ -68,13 +62,10 @@ class DefaultsCommand extends BaseCommand
         $this->info('Roles created');
 
         $this->entityManager->flush();
-
-        // Artisan::call('db:seed');
-        // $this->info('Database seeded');
     }
 
     /**
-     * Creates permissions based on array
+     * Creates permissions based on array.
      * @return void
      */
     private function createPermissionEntities()
@@ -86,14 +77,14 @@ class DefaultsCommand extends BaseCommand
     }
 
     /**
-     * Creates roles and assigns permissions
+     * Creates roles and assigns permissions.
      * @return void
      */
     private function createRoles()
     {
         foreach ($this->roles as $roleName => $role) {
             $roleEntity = new Role($roleName, $role['name'], $role['description']);
-            if (count($role['permissions']) == 1 and $role['permissions'][0] == '*') {
+            if (count($role['permissions']) == 1 && $role['permissions'][0] == '*') {
                 foreach ($this->permissions as $permission) {
                     $roleEntity->addPermission($permission);
                 }

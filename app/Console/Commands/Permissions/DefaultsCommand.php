@@ -4,6 +4,7 @@ namespace App\Console\Commands\Permissions;
 
 use HMS\Entities\Role;
 use Illuminate\Console\Command;
+use HMS\Repositories\RoleRepository;
 use Illuminate\Support\Facades\Artisan;
 use Doctrine\ORM\EntityManagerInterface;
 use LaravelDoctrine\ACL\Permissions\Permission;
@@ -94,6 +95,19 @@ class DefaultsCommand extends BaseCommand
             ],
         ],
     ];
+
+    /*public function __construct(EntityManagerInterface $entityManager, RoleRepository $roleRepository)
+    {
+        $permissions = config('roles.permissions');
+        //dd($permissions);
+        foreach ($permissions as $permission) {
+            $this->permissions[$permissions] = '';
+        }
+
+        $this->roles = config('roles.roles');
+
+        parent::__construct($entityManager, $roleRepository);
+    }*/
 
     /**
      * Execute the console command.

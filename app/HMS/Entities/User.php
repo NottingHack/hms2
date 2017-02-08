@@ -169,11 +169,13 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
      *
      * @param string $value
      *
-     * @return void
+     * @return self
      */
     public function setRememberToken($value)
     {
         $this->{$this->getRememberTokenName()} = $value;
+
+        return $this;
     }
 
     /**
@@ -212,9 +214,12 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
 
     /**
      * @param Profile $profile
+     * @return self
      */
     public function setProfile(Profile $profile)
     {
         $this->profile = $profile;
+
+        return $this;
     }
 }

@@ -26,7 +26,7 @@ return [
         ],
         'admin' => [
             'text'          => 'Admin',
-            'route'         => 'home',
+            'route'         => 'admin',
             'permissions'   => [],
             'links'         => [
                 'roles'         => [

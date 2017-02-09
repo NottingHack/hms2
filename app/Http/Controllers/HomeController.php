@@ -47,4 +47,14 @@ class HomeController extends Controller
 
         return view('pages.access')->with($accessCodes);
     }
+
+    /**
+     * Show the Hacksapce access codes.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function admin()
+    {
+        return view('pages.admin');
+    }
 }

@@ -10,7 +10,7 @@
     @if ($link->getDescription())
         - {{ $link->getDescription() }}
     @endif
-    @can('links.edit')
+    @can('link.edit')
          - <a href="{{ route('links.edit', $link->getId()) }}">Edit</a>
          - <a href="javascript:void(0);" onclick="$(this).find('form').submit();">
             <form action="{{ route('links.destroy', $link->getId()) }}" method="POST">
@@ -23,7 +23,7 @@
    </li>
 @endforeach
 </ul>
-@can('links.create')
+@can('link.create')
 <div>
     <a href="{{ route('links.create') }}">Add new link</a>
 </div>

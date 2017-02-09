@@ -13,7 +13,7 @@ class LinkRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('links.edit');
+        return $this->user()->can('link.edit');
     }
 
     /**

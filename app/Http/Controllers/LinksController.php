@@ -20,6 +20,10 @@ class LinksController extends Controller
     public function __construct(LinkRepository $linkRepository)
     {
         $this->linkRepository = $linkRepository;
+
+        $this->middleware('can:link.view')->only(['index', 'show']);
+        $this->middleware('can:link.create')->only(['create', 'store']);
+        $this->middleware('can:link.edit')->only(['edit', 'update', 'destroy']);
     }
 
     /**

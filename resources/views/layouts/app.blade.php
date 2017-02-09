@@ -66,11 +66,11 @@
         @if ( isset($mainNav) )
             <ul class="menu vertical">
             @foreach ($mainNav as $link)
-                <li><a href="{{ $link['url'] }}">{{ $link['text'] }}</a></li>
+                <li{!! $link['active'] ? ' class="active"' : '' !!}><a href="{{ $link['url'] }}">{{ $link['text'] }}</a></li>
                 @if ( count($link['links']) > 0 )
                     <ul>
                     @foreach ($link['links'] as $subLink)
-                        <li><a href="{{ $subLink['url'] }}">{{ $subLink['text'] }}</a></li>
+                        <li{!! $subLink['active'] ? ' class="active"' : '' !!}><a href="{{ $subLink['url'] }}">{{ $subLink['text'] }}</a></li>
                     @endforeach
                     </ul>
                 @endif

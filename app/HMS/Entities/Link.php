@@ -2,7 +2,6 @@
 
 namespace HMS\Entities;
 
-use Carbon\Carbon;
 use App\Http\Requests\LinkRequest;
 use HMS\Traits\Entities\SoftDeletable;
 use LaravelDoctrine\ORM\Serializers\Arrayable;
@@ -33,62 +32,10 @@ class Link implements ArrayableContract
      */
     protected $description;
 
-    // /**
-    //  * @param string $name
-    //  * @param string $link
-    //  * @param string $description
-    //  */
-    // public function create($name, $link, $description = null)
-    // {
-    //     $this->name = $name;
-    //     $this->link = $link;
-    //     $this->description = $description;
-    //     $now = Carbon::now();
-    //     $this->setCreatedAt($now);
-    //     $this->setUpdatedAt($now);
-
-    //     return $this;
-    // }
-
-    /**
-     * Static function to instantiate a new Link from given params.
-     *
-     * @param string $name
-     * @param string $link
-     * @param string $description
-     */
-    public static function create($name, $link, $description = null)
-    {
-        $_link = new static();
-        $_link->name = $name;
-        $_link->link = $link;
-        $_link->description = $description;
-        $now = Carbon::now();
-        $_link->setCreatedAt($now);
-        $_link->setUpdatedAt(clone $now);
-        return $_link;
-    }
-
-    /**
-     * Static function to instantiate a new Link from a LinkRequest.
-     *
-     * @param LinkRequest $request
-     */
-    public static function createFromRequest(LinkRequest $request)
-    {
-        $_link = new static();
-        $_link->name = $request['name'];
-        $_link->link = $request['link'];
-        $_link->description = $request['description'];
-        $now = Carbon::now();
-        $_link->setCreatedAt($now);
-        $_link->setUpdatedAt(clone $now);
-        return $_link;
-    }
-
     /**
      * Update with detials from the LinkRequest.
      * @param LinkRequest $request
+     * @return self
      */
     public function updateWithRequest(LinkRequest $request)
     {
@@ -96,6 +43,7 @@ class Link implements ArrayableContract
         $this->link = $request['link'];
         $this->description = $request['description'];
 
+        return $this;
     }
 
     /**
@@ -125,7 +73,7 @@ class Link implements ArrayableContract
      *
      * @return self
      */
-    protected function setName($name)
+    public function setName($name)
     {
         $this->name = $name;
 
@@ -149,7 +97,7 @@ class Link implements ArrayableContract
      *
      * @return self
      */
-    protected function setLink($link)
+    public function setLink($link)
     {
         $this->link = $link;
 
@@ -173,7 +121,7 @@ class Link implements ArrayableContract
      *
      * @return self
      */
-    protected function setDescription($description)
+    public function setDescription($description)
     {
         $this->description = $description;
 

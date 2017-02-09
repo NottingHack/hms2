@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use HMS\Entities\Link;
+use HMS\Factories\LinkFactory;
 use App\Http\Requests\LinkRequest;
 use HMS\Repositories\LinkRepository;
 
@@ -53,7 +54,7 @@ class LinksController extends Controller
      */
     public function store(LinkRequest $request)
     {
-        $link = Link::createFromRequest($request);
+        $link = LinkFactory::createFromRequest($request);
         $this->linkRepository->save($link);
         flash()->success('Link \''.$link->getName().'\' created.');
 

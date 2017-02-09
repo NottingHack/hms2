@@ -13,11 +13,21 @@ class DoctrineLinkRepository extends EntityRepository implements LinkRepository
 
     /**
      * save Link to the DB.
-     * @param  User $user
+     * @param  Link $link
      */
     public function save(Link $link)
     {
         $this->_em->persist($link);
+        $this->_em->flush();
+    }
+
+    /**
+     * remove a Link from the DB.
+     * @param  Link $line
+     */
+    public function remove(Link $link)
+    {
+        $this->_em->remove($link);
         $this->_em->flush();
     }
 }

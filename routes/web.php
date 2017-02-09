@@ -51,6 +51,9 @@ Route::group(['middleware' => 'auth'], function () {
     // USER
     Route::get('/users/{user}', 'UserController@show')->name('users.show');
 
+    // Admin
+    Route::get('admin', 'HomeController@admin')->name('admin');
+
     // Meta area covers various setting for HMS
     Route::resource('metas', 'MetaController',
         [

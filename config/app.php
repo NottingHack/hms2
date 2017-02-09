@@ -185,6 +185,7 @@ return [
         Spatie\CookieConsent\CookieConsentServiceProvider::class,
         App\Providers\HmsHelperServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
+        App\Providers\ComposerServiceProvider::class,
     ],
 
     /*

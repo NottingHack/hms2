@@ -31,6 +31,17 @@ class DoctrineInviteRepository extends EntityRepository implements InviteReposit
     }
 
     /**
+     * find an invite by emial.
+     *
+     * @param  string $email
+     * @return Invite
+     */
+    public function findOneByEmail($email)
+    {
+        return parent::findOneByEmail($email);
+    }
+
+    /**
      * remove all invites older than a given date.
      * @param  Carbon $date
      * @return array
@@ -45,6 +56,16 @@ class DoctrineInviteRepository extends EntityRepository implements InviteReposit
         foreach ($invites as $invite) {
             $this->_em->remove($invite);
         }
+        $this->_em->flush();
+    }
+
+    /**
+     * remove a single invites.
+     * @param  Invite $invite
+     */
+    public function remove(Invite $invite)
+    {
+        $this->_em->remove($invite);
         $this->_em->flush();
     }
 }

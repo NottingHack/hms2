@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Route;
 
 class NavComposer
 {
-
     /**
      * @var array
      */

@@ -42,6 +42,17 @@ class DoctrineInviteRepository extends EntityRepository implements InviteReposit
     }
 
     /**
+     * find an invite by token.
+     *
+     * @param  string $token
+     * @return Invite
+     */
+    public function findOneByInviteToken($token)
+    {
+        return parent::findOneByInviteToken($token);
+    }
+
+    /**
      * remove all invites older than a given date.
      * @param  Carbon $date
      * @return array

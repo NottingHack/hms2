@@ -24,6 +24,14 @@ interface InviteRepository
     public function findOneByEmail($email);
 
     /**
+     * find an invite by token.
+     *
+     * @param  string $token
+     * @return Invite
+     */
+    public function findOneByInviteToken($token);
+
+    /**
      * remove all invites older than a given date.
      * @param  Carbon $date
      * @return array

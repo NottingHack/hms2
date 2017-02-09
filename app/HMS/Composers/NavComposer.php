@@ -23,6 +23,27 @@ class NavComposer
 
     private function getMainNav()
     {
-        return $this->navigation;
+        return $this->buildLinks($this->navigation);
+    }
+
+    private function buildLinks($navLinks)
+    {
+        $links = [];
+
+        foreach ($navLinks as $navItem) {
+            $link = [
+                'url'   =>  route($navItem['route']),
+                'text'  =>  $navItem['text'],
+                'links' =>  [],
+            ];
+
+            if (count($navItem['links']) > 0) {
+                $link['links'] = $this->buildLinks($navItem['links']);
+            }
+
+            $links[] = $link;
+        }
+
+        return $links;
     }
 }

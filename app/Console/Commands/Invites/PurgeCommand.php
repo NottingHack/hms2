@@ -3,8 +3,8 @@
 namespace App\Console\Commands\Invites;
 
 use Carbon\Carbon;
-use HMS\Entities\Meta;
 use Illuminate\Console\Command;
+use HMS\Repositories\MetaRepository;
 use HMS\Repositories\InviteRepository;
 
 class PurgeCommand extends Command
@@ -13,6 +13,11 @@ class PurgeCommand extends Command
      * @var InviteRepository
      */
     protected $inviteRepository;
+
+    /**
+     * @var MetaRepository
+     */
+    protected $metaRepository;
 
     /**
      * The name and signature of the console command.
@@ -33,11 +38,13 @@ class PurgeCommand extends Command
      * Create a new command instance.
      *
      * @param  InviteRepository $inviteRepository
+     * @param  MetaRepository $metaRepository
      */
-    public function __construct(InviteRepository $inviteRepository)
+    public function __construct(InviteRepository $inviteRepository, MetaRepository $metaRepository)
     {
         parent::__construct();
         $this->inviteRepository = $inviteRepository;
+        $this->metaRepository = $metaRepository;
     }
 
     /**
@@ -49,11 +56,12 @@ class PurgeCommand extends Command
     {
         if (is_null($this->argument('date'))) {
             try {
-                if (Meta::has('purge_cuttoff_interval')) {
-                    $interval = Meta::get('purge_cuttoff_interval');
+                if ($this->metaRepository->has('purge_cutoff_interval')) {
+                    $interval = $this->metaRepository->get('purge_cutoff_interval');
                     $date = Carbon::now()
-                        ->sub(new \DateInterval($interval))
-                        ->format('Y-m-d');
+                        ->sub(new \DateInterval($interval));
+                } else {
+                    $date = Carbon::now()->subMonths(6);
                 }
             } catch (\Exception $e) {
                 $date = Carbon::now()->subMonths(6);
@@ -61,6 +69,9 @@ class PurgeCommand extends Command
         } else {
             $date = Carbon::createFromFormat('Y-m-d', $this->argument('date'));
         }
+
         $this->inviteRepository->removeAllOlderThan($date);
+
+        $this->info('Invites older than '.$date->format('Y-m-d').' removed.');
     }
 }

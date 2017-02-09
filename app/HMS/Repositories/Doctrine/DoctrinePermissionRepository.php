@@ -26,7 +26,7 @@ class DoctrinePermissionRepository extends EntityRepository implements Permissio
      */
     public function findOneByName(string $permissionName)
     {
-        return parent::findOneByName($roleName);
+        return parent::findOneByName($permissionName);
     }
 
     /**

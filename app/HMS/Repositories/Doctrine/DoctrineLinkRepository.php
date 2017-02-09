@@ -23,7 +23,7 @@ class DoctrineLinkRepository extends EntityRepository implements LinkRepository
 
     /**
      * remove a Link from the DB.
-     * @param  Link $line
+     * @param  Link $link
      */
     public function remove(Link $link)
     {

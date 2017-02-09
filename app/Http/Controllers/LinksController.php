@@ -10,7 +10,7 @@ use HMS\Repositories\LinkRepository;
 class LinksController extends Controller
 {
     /**
-     * @var LinksRepository
+     * @var LinkRepository
      */
     protected $linkRepository;
 
@@ -64,17 +64,6 @@ class LinksController extends Controller
 
         return redirect()->route('links.index');
     }
-
-    // /**
-    //  * Display the specified resource.
-    //  *
-    //  * @param  Link  $link
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function show(Link $link)
-    // {
-    //     //
-    // }
 
     /**
      * Show the form for editing the specified resource.

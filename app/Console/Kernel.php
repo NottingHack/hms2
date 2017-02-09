@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
         Commands\Permissions\RemoveCommand::class,
         Commands\Permissions\StripCommand::class,
         Commands\Invites\PurgeCommand::class,
+        Commands\Permissions\DefaultsCommand::class,
     ];
 
     /**

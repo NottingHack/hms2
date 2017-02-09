@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\Invites;
 
 use App\Mail\InterestRegistered;
 use Illuminate\Contracts\Queue\ShouldQueue;

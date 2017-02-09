@@ -7,7 +7,6 @@ use Illuminate\Console\Command;
 use HMS\Repositories\RoleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use LaravelDoctrine\ACL\Permissions\Permission;
-use LaravelDoctrine\ACL\Permissions\PermissionManager;
 
 abstract class BaseCommand extends Command
 {
@@ -35,15 +34,13 @@ abstract class BaseCommand extends Command
      * Create a new command instance.
      * @param EntityManagerInterface $entityManager
      * @param RoleRepository $roleRepository
-     * @param PermissionManager $permissionManager
      */
-    public function __construct(EntityManagerInterface $entityManager, RoleRepository $roleRepository, PermissionManager $permissionManager)
+    public function __construct(EntityManagerInterface $entityManager, RoleRepository $roleRepository)
     {
         parent::__construct();
 
         $this->entityManager = $entityManager;
         $this->roleRepository = $roleRepository;
-        $this->permissionManager = $permissionManager;
         $this->permissionsRepository = $entityManager->getRepository(Permission::class);
     }
 

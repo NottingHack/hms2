@@ -4,22 +4,30 @@ namespace HMS\User;
 
 use HMS\Entities\User;
 use HMS\Entities\Profile;
-use Doctrine\ORM\EntityManagerInterface;
+use HMS\Repositories\UserRepository;
+use HMS\Repositories\ProfileRepository;
 
 class ProfileManager
 {
     /**
-     * @var EntityManagerInterface
+     * @var ProfileRepository
      */
-    protected $em;
+    protected $profileRepository;
+
+    /**
+     * @var UserRepository
+     */
+    protected $userRepository;
 
     /**
      * ProfileManager constructor.
-     * @param EntityManagerInterface $em
+     * @param ProfileRepository $profileRepository
+     * @param UserRepository    $userRepository
      */
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(ProfileRepository $profileRepository, UserRepository $userRepository)
     {
-        $this->em = $em;
+        $this->profileRepository = $profileRepository;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -58,11 +66,10 @@ class ProfileManager
 
         $profile->setUnlockText('Welcome ' . $user->getFirstName());
 
-        $this->em->persist($profile);
-        $this->em->flush();
+        $this->profileRepository->save($profile);
 
         $user->setProfile($profile);
-        $this->em->persist($user);
+        $this->userRepository->save($user);
 
         return $user;
     }

@@ -1,9 +1,10 @@
 <?php
 
-namespace HMS\Repositories;
+namespace HMS\Repositories\Doctrine;
 
 use HMS\Entities\User;
 use Doctrine\ORM\EntityRepository;
+use HMS\Repositories\UserRepository;
 use LaravelDoctrine\ORM\Pagination\Paginatable;
 
 class DoctrineUserRepository extends EntityRepository implements UserRepository
@@ -38,10 +39,10 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     }
 
     /**
-     * store a new user in the DB.
+     * save User to the DB.
      * @param  User $user
      */
-    public function create(User $user)
+    public function save(User $user)
     {
         $this->_em->persist($user);
         $this->_em->flush();

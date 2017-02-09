@@ -2,27 +2,16 @@
 
 namespace HMS\Repositories;
 
-use Hms\Entities\Role;
-use Doctrine\ORM\EntityRepository;
-use Doctrine\Common\Collections\ArrayCollection;
+use HMS\Entities\Role;
 
-class RoleRepository extends EntityRepository
+interface RoleRepository
 {
     /**
      * Finds all entities in the repository.
      *
      * @return ArrayCollection The entities.
      */
-    public function findAll()
-    {
-        $entities = parent::findAll();
-        $roles = [];
-        foreach ($entities as $entity) {
-            $roles[$entity->getName()] = $entity;
-        }
-
-        return new ArrayCollection($roles);
-    }
+    public function findAll();
 
     /**
      * Finds a role based on the role name.
@@ -30,18 +19,11 @@ class RoleRepository extends EntityRepository
      * @param  string $roleName name of the role we want
      * @return Role|object
      */
-    public function findByName(string $roleName)
-    {
-        return parent::findOneBy(['name' => $roleName]);
-    }
+    public function findByName(string $roleName);
 
     /**
      * store a new user in the DB.
      * @param  Role $role
      */
-    public function save($role)
-    {
-        $this->_em->persist($role);
-        $this->_em->flush();
-    }
+    public function save(Role $role);
 }

@@ -9,8 +9,7 @@ use Illuminate\Http\Request;
 use HMS\Repositories\RoleRepository;
 use HMS\User\Permissions\RoleManager;
 use Illuminate\Support\Facades\Route;
-use Doctrine\ORM\EntityManagerInterface;
-use LaravelDoctrine\ACL\Permissions\Permission;
+use HMS\Repositories\PermissionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class RoleController extends Controller
@@ -38,13 +37,12 @@ class RoleController extends Controller
     /**
      * Create a new controller instance.
      */
-    public function __construct(RoleManager $roleManager, RoleRepository $roleRepository, UserManager $userManager, EntityManagerInterface $em)
+    public function __construct(RoleManager $roleManager, RoleRepository $roleRepository, UserManager $userManager, PermissionRepository $permissionRepository)
     {
         $this->roleManager = $roleManager;
         $this->roleRepository = $roleRepository;
         $this->userManager = $userManager;
-        // TODO: replace with actual repository
-        $this->permissionRepository = $em->getRepository(Permission::class);
+        $this->permissionRepository = $permissionRepository;
 
         $this->middleware('can:role.view.all')->only(['index', 'show']);
         $this->middleware('can:role.edit.all')->only(['edit', 'update']);
@@ -130,10 +128,10 @@ class RoleController extends Controller
     /**
      * Remove a specific user from a specific role.
      *
-     * @param ArrayCollection $list
+     * @param ArrayCollection|array $list
      * @return array
      */
-    private function formatDotNotationList(ArrayCollection $list)
+    private function formatDotNotationList($list)
     {
         $formattedList = [];
 

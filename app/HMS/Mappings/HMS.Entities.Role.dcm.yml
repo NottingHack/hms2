@@ -53,15 +53,4 @@ HMS\Entities\Role:
             onDelete: CASCADE
     users:
       targetEntity: User
-      joinTable:
-        name: role_user
-        joinColumns:
-          role_id:
-            referencedColumnName: id
-            onDelete: CASCADE
-        inverseJoinColumns:
-          user_id:
-            referencedColumnName: id
-            onDelete: CASCADE
-
-
+      mappedBy: roles

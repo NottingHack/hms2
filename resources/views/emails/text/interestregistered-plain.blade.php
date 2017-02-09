@@ -4,7 +4,7 @@ Hello!
 Thank you for registering your interest in Nottingham Hackspace.
 
 If you'd like to become a Nottingham Hackspace member, the first step is is to create an HMS account by clicking the link below.
-{{ secure_url('register',  $token)}}
+{{ url('register',  $token)}}
 Also, please add "{{ $membershipEmail }}" and "{{ $trusteesEmail }}" to your address book to reduce the chances of hackspace email going into your spam.
 
 After creating login details, you'll be asked to fill in some more information about yourself, namely your address and a contact phone number . Don't worry, we won't share this information with anyone, unless legally obliged to do so.

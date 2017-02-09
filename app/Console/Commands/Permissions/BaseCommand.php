@@ -11,7 +11,7 @@ use LaravelDoctrine\ACL\Permissions\Permission;
 abstract class BaseCommand extends Command
 {
     /**
-     * @var roleRepository
+     * @var RoleRepository
      */
     protected $roleRepository;
 

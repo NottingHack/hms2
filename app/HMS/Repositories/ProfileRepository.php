@@ -8,7 +8,7 @@ interface ProfileRepository
 {
     /**
      * save Profile to the DB.
-     * @param  User $user
+     * @param  Profile $profile
      */
     public function save(Profile $Profile);
 }

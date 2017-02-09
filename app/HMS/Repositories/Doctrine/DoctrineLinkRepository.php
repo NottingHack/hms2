@@ -4,6 +4,7 @@ namespace HMS\Repositories\Doctrine;
 
 use HMS\Entities\Link;
 use Doctrine\ORM\EntityRepository;
+use HMS\Repositories\LinkRepository;
 use LaravelDoctrine\ORM\Pagination\Paginatable;
 
 class DoctrineLinkRepository extends EntityRepository implements LinkRepository

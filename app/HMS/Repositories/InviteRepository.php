@@ -16,6 +16,14 @@ interface InviteRepository
     public function findOrCreateByEmail($email);
 
     /**
+     * find an invite by emial.
+     *
+     * @param  string $email
+     * @return Invite
+     */
+    public function findOneByEmail($email);
+
+    /**
      * remove all invites older than a given date.
      * @param  Carbon $date
      * @return array

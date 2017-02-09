@@ -9,7 +9,7 @@ interface RoleRepository
     /**
      * Finds all entities in the repository.
      *
-     * @return ArrayCollection The entities.
+     * @return Doctrine\Common\Collections\ArrayCollection The entities.
      */
     public function findAll();
 

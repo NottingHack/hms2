@@ -38,6 +38,5 @@ class Version20170209091949_populate_starter_links extends AbstractMigration
      */
     public function down(Schema $schema)
     {
-
     }
 }

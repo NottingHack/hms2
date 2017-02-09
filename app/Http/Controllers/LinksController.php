@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use HMS\Entities\Link;
-use Illuminate\Http\Request;
 use App\Http\Requests\LinkRequest;
 use HMS\Repositories\LinkRepository;
 
@@ -30,6 +29,7 @@ class LinksController extends Controller
     public function index()
     {
         $links = $this->linkRepository->paginateAll();
+
         return view('links.index')->with(['links' => $links]);
     }
 
@@ -41,6 +41,7 @@ class LinksController extends Controller
     public function create()
     {
         $link = new Link();
+
         return view('links.create')->with($link->toArray());
     }
 
@@ -107,6 +108,7 @@ class LinksController extends Controller
     {
         $this->linkRepository->remove($link);
         flash()->success('Link \''.$link->getName().'\' removed.');
+
         return redirect()->route('links.index');
     }
 }

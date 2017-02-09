@@ -61,7 +61,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Usefull links
     Route::resource('links', 'LinksController',
         [
-            'except' => ['show']
+            'except' => ['show'],
         ]
     );
 });

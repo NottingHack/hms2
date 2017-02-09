@@ -57,7 +57,7 @@ class Link implements ArrayableContract
      * @param string $link
      * @param string $description
      */
-    static public function create($name, $link, $description = null)
+    public static function create($name, $link, $description = null)
     {
         $_link = new static();
         $_link->name = $name;
@@ -74,7 +74,7 @@ class Link implements ArrayableContract
      *
      * @param LinkRequest $request
      */
-    static public function createFromRequest(LinkRequest $request)
+    public static function createFromRequest(LinkRequest $request)
     {
         $_link = new static();
         $_link->name = $request['name'];

@@ -47,4 +47,15 @@ class DoctrineInviteRepository extends EntityRepository implements InviteReposit
         }
         $this->_em->flush();
     }
+
+    /**
+     * remove a single invites.
+     * @param  Invite $invite
+     */
+    public function remove(Invite $invite)
+    {
+        $this->_em->remove($invite);
+        $this->_em->flush();
+    }
+
 }

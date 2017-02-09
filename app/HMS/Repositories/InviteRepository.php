@@ -3,6 +3,7 @@
 namespace HMS\Repositories;
 
 use Carbon\Carbon;
+use HMS\Entities\Invite;
 
 interface InviteRepository
 {
@@ -20,4 +21,10 @@ interface InviteRepository
      * @return array
      */
     public function removeAllOlderThan(Carbon $date);
+
+    /**
+     * remove a single invites.
+     * @param  Invite $invite
+     */
+    public function remove(Invite $invite);
 }

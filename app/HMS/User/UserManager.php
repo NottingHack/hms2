@@ -45,8 +45,7 @@ class UserManager
     {
         $user->getRoles()->removeElement($role);
 
-        // TODO: this should be ->save()
-        $this->userRepository->create($user);
+        $this->userRepository->save($user);
     }
 
     /**
@@ -64,7 +63,7 @@ class UserManager
         $user->getRoles()->add($this->roleRepository->findByName(Role::MEMBER_CURRENT));
 
         // TODO: maybe consolidate these into a single call via a service?
-        $this->userRepository->create($user);
+        $this->userRepository->save($user);
         $this->passwordStore->add($user->getUsername(), $password);
 
         return $user;

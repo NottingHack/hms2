@@ -20,6 +20,8 @@ return [
         'accessCodes.view',
         'meta.view',
         'meta.edit',
+        'links.create',
+        'links.edit',
     ],
 
     /*

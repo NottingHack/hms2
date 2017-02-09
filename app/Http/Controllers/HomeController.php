@@ -49,7 +49,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the Hacksapce access codes.
+     * Admin home page.
      *
      * @return \Illuminate\Http\Response
      */

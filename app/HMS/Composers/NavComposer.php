@@ -2,6 +2,7 @@
 
 namespace App\HMS\Composers;
 
+use HMS\Entities\User;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -55,13 +56,13 @@ class NavComposer
     }
 
     /**
-     * Iterative function to buidl the links.
+     * Iterative function to build the links.
      *
      * @param  array $navLinks
      * @param  HMS\Entities\User $user
      * @return array   links
      */
-    private function buildLinks($navLinks, $user)
+    private function buildLinks($navLinks, User $user)
     {
         $links = [];
 

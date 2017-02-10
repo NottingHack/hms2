@@ -3,20 +3,22 @@
 namespace HMS\Entities;
 
 use HMS\Traits\Entities\SoftDeletable;
-use Doctrine\Common\Collections\ArrayCollection;
 use HMS\Traits\Entities\Timestampable;
+use LaravelDoctrine\ACL\Roles\HasRoles;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Doctrine\Common\Collections\ArrayCollection;
+use LaravelDoctrine\ORM\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\Access\Authorizable;
+use LaravelDoctrine\ACL\Permissions\HasPermissions;
+use LaravelDoctrine\ACL\Contracts\HasRoles as HasRoleContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use LaravelDoctrine\ACL\Contracts\HasPermissions as HasPermissionsContract;
-use LaravelDoctrine\ACL\Contracts\HasRoles as HasRoleContract;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use LaravelDoctrine\ACL\Permissions\HasPermissions;
-use LaravelDoctrine\ACL\Roles\HasRoles;
-use LaravelDoctrine\ORM\Notifications\Notifiable;
 
-class User implements AuthenticatableContract, CanResetPasswordContract, HasRoleContract, HasPermissionsContract
+class User implements AuthenticatableContract, CanResetPasswordContract, HasRoleContract, HasPermissionsContract, AuthorizableContract
 {
-    use CanResetPassword, Notifiable, HasRoles, HasPermissions, SoftDeletable, Timestampable;
+    use CanResetPassword, Notifiable, HasRoles, HasPermissions, SoftDeletable, Timestampable, Authorizable;
 
     const MIN_PASSWORD_LENGTH = 3;
 
@@ -26,9 +28,14 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     protected $id;
 
     /**
-     * @var string Users name
+     * @var string Users first name
      */
-    protected $name;
+    protected $firstname;
+
+    /**
+     * @var string Users last name
+     */
+    protected $lastname;
 
     /**
      * @var string Users username for login
@@ -51,21 +58,28 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     protected $roles;
 
     /**
-     * User constructor.
-     * @param $name
-     * @param $username
-     * @param $email
+     * @var Profile The users profile
      */
-    public function __construct($name, $username, $email)
+    protected $profile;
+
+    /**
+     * User constructor.
+     * @param string $firstname
+     * @param string $lastname
+     * @param string $username
+     * @param string $email
+     */
+    public function __construct(string $firstname, string $lastname, string $username, string $email)
     {
-        $this->name = $name;
+        $this->firstname = $firstname;
+        $this->lastname = $lastname;
         $this->username = $username;
         $this->email = $email;
         $this->roles = new ArrayCollection();
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getId()
     {
@@ -73,15 +87,31 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getName()
+    public function getFirstname()
     {
-        return $this->name;
+        return $this->firstname;
     }
 
     /**
-     * @return mixed
+     * @return string
+     */
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
+
+    /**
+     * @return string
      */
     public function getUsername()
     {
@@ -89,7 +119,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getEmail()
     {
@@ -139,11 +169,13 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
      *
      * @param string $value
      *
-     * @return void
+     * @return self
      */
     public function setRememberToken($value)
     {
         $this->{$this->getRememberTokenName()} = $value;
+
+        return $this;
     }
 
     /**
@@ -170,5 +202,24 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     {
         // user's don't directly have permissions, only via their roles
         return [];
+    }
+
+    /**
+     * @return Profile The users profile
+     */
+    public function getProfile() : Profile
+    {
+        return $this->profile;
+    }
+
+    /**
+     * @param Profile $profile
+     * @return self
+     */
+    public function setProfile(Profile $profile)
+    {
+        $this->profile = $profile;
+
+        return $this;
     }
 }

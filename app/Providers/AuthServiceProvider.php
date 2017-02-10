@@ -2,11 +2,11 @@
 
 namespace App\Providers;
 
-use Doctrine\ORM\EntityManagerInterface;
-use HMS\Auth\HmsUserProvider;
 use HMS\Auth\PasswordStore;
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use HMS\Auth\HmsUserProvider;
 use Illuminate\Support\Facades\Auth;
+use Doctrine\ORM\EntityManagerInterface;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {

@@ -2,26 +2,47 @@
 
 use HMS\Entities\Role;
 use HMS\Entities\User;
+use HMS\Auth\PasswordStore;
 use Illuminate\Database\Seeder;
 use HMS\Repositories\RoleRepository;
 use LaravelDoctrine\ORM\Facades\EntityManager;
 
 class UserTableSeeder extends Seeder
 {
+    /**
+     * @var int
+     */
     private $numUsersToCreate = 200;
 
+    /**
+     * @var int
+     */
     private $proportionCurrentMembers = 2;
 
+    /**
+     * @var bool
+     */
+    private $createAdmin = true;
+
+    /**
+     * @var RoleRepository
+     */
     protected $roleRepository;
+
+    /**
+     * @var PasswordStore
+     */
+    protected $passwordStore;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(RoleRepository $roleRepository)
+    public function __construct(RoleRepository $roleRepository, PasswordStore $passwordStore)
     {
         $this->roleRepository = $roleRepository;
+        $this->passwordStore = $passwordStore;
     }
 
     /**
@@ -46,7 +67,6 @@ class UserTableSeeder extends Seeder
         $numLeftToCreate = $numLeftToCreate - (count($roles) * $createOtherUsers);
         $createCurrentMembers += $numLeftToCreate;
 
-
         // actually create the current members
         entity(User::class, $createCurrentMembers)
             ->make()
@@ -63,6 +83,14 @@ class UserTableSeeder extends Seeder
                     $u->getRoles()->add($this->roleRepository->findByName($role));
                     EntityManager::persist($u);
                 });
+        }
+
+        // add in the admin user, this will be user $numUsersToCreate + 1;
+        if ($this->createAdmin === true) {
+            $admin = new User('Admin', 'Admin', 'admin', 'hmsadmin@nottinghack.org.uk');
+            $admin->getRoles()->add($this->roleRepository->findByName(Role::SUPERUSER));
+            $this->passwordStore->add($admin->getUsername(), 'admin');
+            EntityManager::persist($admin);
         }
 
         EntityManager::flush();

@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Validator;
-use HMS\Entities\Role;
 use HMS\Entities\User;
-use HMS\Entities\Invite;
-use HMS\Auth\PasswordStore;
+use HMS\User\UserManager;
+use HMS\User\ProfileManager;
 use App\Http\Controllers\Controller;
-use HMS\Repositories\RoleRepository;
-use HMS\Repositories\UserRepository;
 use HMS\Repositories\InviteRepository;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Contracts\Validation\Factory as Validator;
 
 class RegisterController extends Controller
 {
@@ -36,33 +33,33 @@ class RegisterController extends Controller
     protected $redirectTo = '/home';
 
     /**
-     * @var UserRepository
+     * @var UserManager
      */
-    protected $userRepository;
+    private $userManager;
 
     /**
-     * @var RoleRepository
+     * @var Validator
      */
-    protected $roleRepository;
+    private $validator;
 
     /**
-     * @var PasswordStore
+     * @var ProfileManager
      */
-    protected $passwordStore;
+    protected $profileManager;
 
     /**
      * Create a new controller instance.
      *
-     * @param UserRepository $userRepository
-     * @param RoleRepository $roleRepository
-     * @param PasswordStore  $passwordStore
+     * @param Validator $validator
+     * @param UserManager $userManager
      */
-    public function __construct(UserRepository $userRepository, RoleRepository $roleRepository, PasswordStore $passwordStore)
+    public function __construct(Validator $validator,
+        UserManager $userManager, ProfileManager $profileManager)
     {
-        $this->userRepository = $userRepository;
-        $this->roleRepository = $roleRepository;
-        $this->passwordStore = $passwordStore;
         $this->middleware('guest');
+        $this->validator = $validator;
+        $this->userManager = $userManager;
+        $this->profileManager = $profileManager;
     }
 
     /**
@@ -73,34 +70,47 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+        return $this->validator->make($data, [
             'invite' => 'required|exists:HMS\Entities\Invite,inviteToken',
-            'name' => 'required|max:255',
+            'firstname' => 'required|max:255',
+            'lastname' => 'required|max:255',
             'username' => 'required|max:255|unique:HMS\Entities\User',
             'email' => 'required|email|max:255|unique:HMS\Entities\User',
             'password' => 'required|min:' . User::MIN_PASSWORD_LENGTH . '|confirmed',
+            'address1' => 'required|max:100',
+            'addressCity' => 'required|max:100',
+            'addressCounty' => 'required|max:100',
+            'addressPostcode' => 'required|max:10',
+            'contactNumber' => 'required|max:50',
         ]);
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param  array  $data called via RegistersUsers trait, passes in $request->all()
      * @return User
      */
     protected function create(array $data)
     {
-        $user = new User(
-            $data['name'],
+        $user = $this->userManager->create(
+            $data['firstname'],
+            $data['lastname'],
             $data['username'],
-            $data['email']
+            $data['email'],
+            $data['password']
         );
 
-        $user->getRoles()->add($this->roleRepository->findByName(Role::MEMBER_CURRENT));
-
-        // TODO: maybe consolidate these into a single call via a service?
-        $this->userRepository->create($user);
-        $this->passwordStore->add($user->getUsername(), $data['password']);
+        $user = $this->profileManager->create(
+            $user,
+            $data['address1'],
+            $data['address2'],
+            $data['address3'],
+            $data['addressCity'],
+            $data['addressCounty'],
+            $data['addressPostcode'],
+            $data['contactNumber']
+        );
 
         return $user;
     }

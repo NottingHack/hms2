@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
         Commands\Permissions\RemoveCommand::class,
         Commands\Permissions\StripCommand::class,
         Commands\Invites\PurgeCommand::class,
+        Commands\Permissions\DefaultsCommand::class,
     ];
 
     /**
@@ -28,7 +29,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // TODO: get cutoff date from meta table and pass as argument
         $schedule->command('invites:purge')
                  ->daily();
     }

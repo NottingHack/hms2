@@ -2,13 +2,25 @@
 
 namespace App\Providers;
 
+use HMS\Entities\Meta;
 use HMS\Entities\Role;
+use HMS\Entities\User;
 use HMS\Entities\Invite;
+use HMS\Entities\Profile;
+use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
-use HMS\Repositories\DoctrineUserRepository;
 use HMS\Repositories\UserRepository;
 use HMS\Repositories\InviteRepository;
+use HMS\Repositories\ProfileRepository;
 use Illuminate\Support\ServiceProvider;
+use HMS\Repositories\PermissionRepository;
+use LaravelDoctrine\ACL\Permissions\Permission;
+use HMS\Repositories\Doctrine\DoctrineMetaRepository;
+use HMS\Repositories\Doctrine\DoctrineRoleRepository;
+use HMS\Repositories\Doctrine\DoctrineUserRepository;
+use HMS\Repositories\Doctrine\DoctrineInviteRepository;
+use HMS\Repositories\Doctrine\DoctrineProfileRepository;
+use HMS\Repositories\Doctrine\DoctrinePermissionRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -29,16 +41,28 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->singleton(MetaRepository::class, function ($app) {
+            return new DoctrineMetaRepository($app['em'], $app['em']->getClassMetaData(Meta::class));
+        });
+
         $this->app->singleton(InviteRepository::class, function ($app) {
-            return new InviteRepository($app['em'], $app['em']->getClassMetaData(Invite::class));
+            return new DoctrineInviteRepository($app['em'], $app['em']->getClassMetaData(Invite::class));
         });
 
         $this->app->singleton(RoleRepository::class, function ($app) {
-            return new RoleRepository($app['em'], $app['em']->getClassMetaData(Role::class));
+            return new DoctrineRoleRepository($app['em'], $app['em']->getClassMetaData(Role::class));
         });
 
         $this->app->singleton(UserRepository::class, function ($app) {
-            return $app->make(DoctrineUserRepository::class);
+            return new DoctrineUserRepository($app['em'], $app['em']->getClassMetaData(User::class));
+        });
+
+        $this->app->singleton(ProfileRepository::class, function ($app) {
+            return new DoctrineProfileRepository($app['em'], $app['em']->getClassMetaData(Profile::class));
+        });
+
+        $this->app->singleton(PermissionRepository::class, function ($app) {
+            return new DoctrinePermissionRepository($app['em'], $app['em']->getClassMetaData(Permission::class));
         });
     }
 }

@@ -38,11 +38,11 @@
       <ul class="menu align-right">
         @if (Auth::guest())
         <li><a href="{{ url('/login') }}">Log In</a></li>
-        @if (\SiteVisitor::inTheSpace())
-        <li><a href="{{ url('/registerInterest') }}">Register Interest</a></li>
+        @if (SiteVisitor::inTheSpace())
+        <li><a href="{{ route('registerInterest') }}">Register Interest</a></li>
         @endif
         @else
-        <li>Logged in as {{ Auth::user()->getName() }} @if (Auth::viaRemember()) (via Remember Me) @endif</li>
+        <li>Logged in as {{ Auth::user()->getFirstName() }} @if (Auth::viaRemember()) (via Remember Me) @endif</li>
         <li>
           <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
           <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
@@ -62,15 +62,21 @@
   <div class="row align-top">
       @if (!Auth::guest())
       <div class="columns small-12 small-order-1 medium-2 medium-order-0 large-2">
-        <ul class="menu vertical">
-          <li class="active"><a href="#">News</a></li>
-          <li><a href="#">Tools</a></li>
-          <li><a href="#">Projects</a></li>
-          <li><a href="#">Snackspace</a></li>
-          <li><a href="#">Account</a></li>
-          <li><a href="#">Links</a></li>
-          <li><a href="#">Admin</a></li>
-        </ul>
+
+        @if ( isset($mainNav) )
+            <ul class="menu vertical">
+            @foreach ($mainNav as $link)
+                <li{!! $link['active'] ? ' class="active"' : '' !!}><a href="{{ $link['url'] }}">{{ $link['text'] }}</a></li>
+                @if ( count($link['links']) > 0 )
+                    <ul>
+                    @foreach ($link['links'] as $subLink)
+                        <li{!! $subLink['active'] ? ' class="active"' : '' !!}><a href="{{ $subLink['url'] }}">{{ $subLink['text'] }}</a></li>
+                    @endforeach
+                    </ul>
+                @endif
+            @endforeach
+            </ul>
+        @endif
       </div>
       @endif
 
@@ -89,6 +95,11 @@
       @endif
 
     </div>
+
+    <div class="row">
+      @include('cookieConsent::index')
+    </div>
+
   </div>
 
   <!-- footer -->

@@ -4,6 +4,7 @@ namespace App\Console\Commands\Invites;
 
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use HMS\Repositories\MetaRepository;
 use HMS\Repositories\InviteRepository;
 
 class PurgeCommand extends Command
@@ -12,6 +13,11 @@ class PurgeCommand extends Command
      * @var InviteRepository
      */
     protected $inviteRepository;
+
+    /**
+     * @var MetaRepository
+     */
+    protected $metaRepository;
 
     /**
      * The name and signature of the console command.
@@ -32,11 +38,13 @@ class PurgeCommand extends Command
      * Create a new command instance.
      *
      * @param  InviteRepository $inviteRepository
+     * @param  MetaRepository $metaRepository
      */
-    public function __construct(InviteRepository $inviteRepository)
+    public function __construct(InviteRepository $inviteRepository, MetaRepository $metaRepository)
     {
         parent::__construct();
         $this->inviteRepository = $inviteRepository;
+        $this->metaRepository = $metaRepository;
     }
 
     /**
@@ -47,10 +55,23 @@ class PurgeCommand extends Command
     public function handle()
     {
         if (is_null($this->argument('date'))) {
-            $date = Carbon::now()->subMonths(6);
+            try {
+                if ($this->metaRepository->has('purge_cutoff_interval')) {
+                    $interval = $this->metaRepository->get('purge_cutoff_interval');
+                    $date = Carbon::now()
+                        ->sub(new \DateInterval($interval));
+                } else {
+                    $date = Carbon::now()->subMonths(6);
+                }
+            } catch (\Exception $e) {
+                $date = Carbon::now()->subMonths(6);
+            }
         } else {
             $date = Carbon::createFromFormat('Y-m-d', $this->argument('date'));
         }
+
         $this->inviteRepository->removeAllOlderThan($date);
+
+        $this->info('Invites older than '.$date->format('Y-m-d').' removed.');
     }
 }

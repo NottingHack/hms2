@@ -14,10 +14,10 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         'Illuminate\Auth\Events\Registered' => [
-            'App\Listeners\RevokeInviteOnUserRegistered',
+            'App\Listeners\Invites\RevokeInviteOnUserRegistered',
         ],
         'App\Events\MembershipInterestRegistered' => [
-            'App\Listeners\MailInvite',
+            'App\Listeners\Invites\MailInvite',
         ],
     ];
 

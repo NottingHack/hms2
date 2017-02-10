@@ -9,7 +9,7 @@
         </p>
 
         <p>
-            If you'd like to become a Nottingham Hackspace member, the first step is is to <a href="{{ secure_url('register',  $token)}}">create an HMS account</a>. Also, please add "{{ $membershipEmail }}" and "{{ $trusteesEmail }}" to your address book to reduce the chances of hackspace email going into your spam.
+            If you'd like to become a Nottingham Hackspace member, the first step is is to <a href="{{ url('register',  $token)}}">create an HMS account</a>. Also, please add "{{ $membershipEmail }}" and "{{ $trusteesEmail }}" to your address book to reduce the chances of hackspace email going into your spam.
         </p>
 
         <p>

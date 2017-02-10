@@ -11,15 +11,15 @@
                     You are logged in!
                 </div>
 
-                @can('view')
+                @can('profile.view.self')
                 <div class="panel-body">
-                    You have the 'view' permission.
+                    You have the 'profile.view.self' permission.
                 </div>
                 @endcan
 
-                @can('view.other')
+                @can('profile.view.all')
                 <div class="panel-body">
-                    You have the 'view other' permission.
+                    You have the 'profile.view.all' permission.
                 </div>
                 @endcan
 

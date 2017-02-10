@@ -69,8 +69,8 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     <a href="{{ url('/login') }}">Login</a>
-                    @if (\SiteVisitor::inTheSpace())
-                    <a href="{{ url('/registerInterest') }}">Register Interest</a>
+                    @if (SiteVisitor::inTheSpace())
+                    <a href="{{ route('registerInterest') }}">Register Interest</a>
                     @endif
                 </div>
             @endif

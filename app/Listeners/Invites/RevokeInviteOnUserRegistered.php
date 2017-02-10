@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\Invites;
 
 use HMS\Repositories\InviteRepository;
 use Illuminate\Auth\Events\Registered;
-use Doctrine\ORM\EntityManagerInterface;
 
 class RevokeInviteOnUserRegistered
 {
@@ -14,21 +13,13 @@ class RevokeInviteOnUserRegistered
     protected $inviteRepository;
 
     /**
-     * @var EntityManagerInterface
-     */
-    protected $em;
-
-    /**
      * Create the event listener.
      *
      * @param  InviteRepository $inviteRepository
-     * @param  EntityManagerInterface $em
      */
-    public function __construct(InviteRepository $inviteRepository, EntityManagerInterface $em)
+    public function __construct(InviteRepository $inviteRepository)
     {
-        //
         $this->inviteRepository = $inviteRepository;
-        $this->em = $em;
     }
 
     /**
@@ -41,7 +32,10 @@ class RevokeInviteOnUserRegistered
     {
         $invite = $this->inviteRepository->findOneByEmail($event->user->getEmail());
 
-        $this->em->remove($invite);
-        $this->em->flush();
+        if (is_null($invite)) {
+            return;
+        }
+
+        $this->inviteRepository->remove($invite);
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use Doctrine\DBAL\Types\Type;
 use HMS\Doctrine\CarbonType;
+use Doctrine\DBAL\Types\Type;
 use Illuminate\Support\ServiceProvider;
 
 class DoctrineTypeServiceProvider extends ServiceProvider

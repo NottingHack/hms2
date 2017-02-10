@@ -17,6 +17,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/database.sh"
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/php.sh"
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/kerberos.sh"
+  config.vm.provision :shell, path: "dev/vagrant-config/scripts/node.sh"
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/laravel.sh"
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/gulp.sh", privileged: false
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/labelprinter.sh"

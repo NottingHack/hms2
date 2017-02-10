@@ -85,7 +85,7 @@ class LabelPrinter
      * Render Blade template with given substitutions
      * borrowed from https://laracasts.com/index.php/discuss/channels/general-discussion/render-template-from-blade-template-in-database .
      * @param  string $template blade template to render
-     * @param  [type] $substitutions [description]
+     * @param  array $substitutions
      * @return string
      */
     private function renderTemplate($template, $substitutions)
@@ -96,12 +96,12 @@ class LabelPrinter
         extract($substitutions, EXTR_SKIP);
         try {
             eval('?' . '>' . $__php);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             while (ob_get_level() > $obLevel) {
                 ob_end_clean();
             }
             throw $e;
-        } catch (Throwable $e) {
+        } catch (\Throwable $e) {
             while (ob_get_level() > $obLevel) {
                 ob_end_clean();
             }

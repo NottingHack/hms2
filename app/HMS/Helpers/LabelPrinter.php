@@ -4,8 +4,7 @@ namespace HMS\Helpers;
 
 use HMS\Entities\LabelTemplate;
 use HMS\Repositories\MetaRepository;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Common\Persistence\ObjectRepository;
+use HMS\Repositories\LabelTemplateRepository;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 
 class LabelPrinter
@@ -33,16 +32,15 @@ class LabelPrinter
     protected $metaRepository;
 
     /**
-     * generic LabelTemplate Reposistry.
-     * @var ObjectRepository
+     * LabelTemplate Reposistry.
+     * @var LabelTemplateRepository
      */
-    protected $labelTemplateGenericRepository;
+    protected $labelTemplateRepository;
 
-    public function __construct(EntityManagerInterface $em, MetaRepository $metaRepository)
+    public function __construct(LabelTemplateRepository $labelTemplateRepository, MetaRepository $metaRepository)
     {
-        $this->em = $em;
         $this->metaRepository = $metaRepository;
-        $this->labelTemplateGenericRepository = $em->getRepository(LabelTemplate::class);
+        $this->labelTemplateRepository = $labelTemplateRepository;
 
         // Get the IP address for the printer.
         $this->host = $this->metaRepository->get('label_printer_ip');
@@ -50,7 +48,7 @@ class LabelPrinter
 
     /**
      * Print a label.
-     * thanks to http://stackoverflow.com/a/15956807 .
+     * thanks to http://stackoverflow.com/a/15956807o .
      *
      * @param string $templateName
      * @param array $substitutions
@@ -58,10 +56,11 @@ class LabelPrinter
      */
     public function printLabel($templateName, $substitutions = [])
     {
-        $template = $this->labelTemplateGenericRepository->find($templateName)->getTemplate();
+        $template = $this->labelTemplateRepository->find($templateName);
         if ($template == null) {
             return false;
         }
+        $template = $template->getTemplate();
 
         $label = $this->renderTemplate($template, $substitutions);
 

@@ -60,4 +60,7 @@ Route::group(['middleware' => 'auth'], function () {
             'except' => ['show', 'store', 'create', 'destroy'],
         ]
     );
+
+    // Label printer template admin
+    Route::resource('labels', 'LabelTemplateController');
 });

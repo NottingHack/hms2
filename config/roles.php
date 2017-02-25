@@ -20,6 +20,9 @@ return [
         'accessCodes.view',
         'meta.view',
         'meta.edit',
+        'labelTemplate.view',
+        'labelTemplate.create',
+        'labelTemplate.edit',
     ],
 
     /*

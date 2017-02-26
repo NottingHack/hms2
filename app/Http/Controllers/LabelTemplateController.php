@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use HMS\Entities\LabelTemplate;
+use App\Events\Labels\ManualPrint;
 use HMS\Factories\LabelTemplateFactory;
 use App\Http\Requests\LabelTemplateRequest;
 use HMS\Repositories\LabelTemplateRepository;
@@ -42,7 +44,7 @@ class LabelTemplateController extends Controller
     /**
      * Show a specific resource.
      *
-     * @param LabelTemplate $labelTemplate
+     * @param LabelTemplate $label
      * @return \Illuminate\Http\Response
      */
     public function show(LabelTemplate $label)
@@ -74,7 +76,7 @@ class LabelTemplateController extends Controller
         $this->labelTemplateRepository->save($label);
         flash()->success('Label Template \''.$label->getTemplateName().'\' created.');
 
-        return redirect()->route('labels.index');
+        return redirect()->route('labels.show', ['label' => $label->getTemplateName()]);
     }
 
     /**
@@ -101,7 +103,7 @@ class LabelTemplateController extends Controller
         $this->labelTemplateRepository->save($label);
         flash()->success('Label Template \''.$label->getTemplateName().'\' updated.');
 
-        return redirect()->route('labels.index');
+        return redirect()->route('labels.show', ['label' => $label->getTemplateName()]);
     }
 
     /**
@@ -116,5 +118,50 @@ class LabelTemplateController extends Controller
         flash()->success('Label Template \''.$label->getTemplateName().'\' removed.');
 
         return redirect()->route('labels.index');
+    }
+
+    /**
+     * Preper a label template for printing,
+     * A label template may require some user provided field.
+     *
+     * @param  LabelTemplate $label
+     * @return \Illuminate\Http\Response
+     */
+    public function showPrint(LabelTemplate $label)
+    {
+        // work out needed fields
+        preg_match_all('/{{ ?\$(\w+) ?}}/', $label->getTemplate(), $matches);
+
+        return view('labelTemplates.print')
+            ->with($label->toArray())
+            ->with(['fields' => $matches[1]]);
+    }
+
+    /**
+     * Send a label off for printing.
+     *
+     * @param  Request       $request
+     * @param  LabelTemplate $label
+     * @return \Illuminate\Http\Response
+     */
+    public function print(Request $request, LabelTemplate $label)
+    {
+        $this->validate($request, [
+            'copiesToPrint' => 'required|integer',
+        ]);
+
+        $input = $request->all();
+        unset($input['_token']);
+        unset($input['copiesToPrint']);
+        event(new ManualPrint(
+            $label->getTemplateName(),
+            $input,
+            (int) $request->input('copiesToPrint')
+            )
+        );
+
+        flash()->success('Label Template \''.$label->getTemplateName().'\' sent to printer.');
+
+        return redirect()->route('labels.show', ['label' => $label->getTemplateName()]);
     }
 }

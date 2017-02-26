@@ -21,6 +21,11 @@ Approx 780w x 600h</p>
             </form>
             </a>
     @endcan
+    @if (SiteVisitor::inTheSpace())
+        @can('labelTemplate.print')
+         - <a href="{{ route('labels.showPrint', $labelTemplate->getTemplateName()) }}">Print</a>
+        @endcan
+    @endif
    </li>
 @endforeach
 </ul>

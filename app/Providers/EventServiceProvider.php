@@ -19,6 +19,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\MembershipInterestRegistered' => [
             'App\Listeners\Invites\MailInvite',
         ],
+        'App\Events\Labels\ManualPrint' => [
+            'App\Listeners\Labels\PrintManualLabel',
+        ],
     ];
 
     /**

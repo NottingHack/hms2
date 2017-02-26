@@ -5,6 +5,7 @@
 <!-- TODO: shade this area -->
 <div>
     <pre>{{ $template}}</pre>
+    <p/>
 </div>
 <div>
 @can('labelTemplate.edit')
@@ -17,5 +18,10 @@
         </form>
         </a>
 @endcan
+@if (SiteVisitor::inTheSpace())
+    @can('labelTemplate.print')
+     - <a href="{{ route('labels.showPrint', $templateName) }}">Print</a>
+    @endcan
+@endif
 </div>
 @endsection

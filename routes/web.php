@@ -62,5 +62,7 @@ Route::group(['middleware' => 'auth'], function () {
     );
 
     // Label printer template admin
+    Route::get('labels/{label}/print', 'LabelTemplateController@showPrint')->name('labels.showPrint');
+    Route::post('labels/{label}/print', 'LabelTemplateController@print')->name('labels.print');
     Route::resource('labels', 'LabelTemplateController');
 });

@@ -23,6 +23,7 @@ return [
         'labelTemplate.view',
         'labelTemplate.create',
         'labelTemplate.edit',
+        'labelTemplate.print',
     ],
 
     /*

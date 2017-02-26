@@ -42,6 +42,9 @@ class Profile
     /** @var string */
     protected $contactNumber;
 
+    /** @var Carbon */
+    protected $dateOfBirth;
+
     /**
      * Profile constructor.
      * @param User $user
@@ -259,6 +262,25 @@ class Profile
     public function setContactNumber(string $contactNumber)
     {
         $this->contactNumber = $contactNumber;
+
+        return $this;
+    }
+
+    /**
+     * @return Carbon
+     */
+    public function getDateOfBirth(): Carbon
+    {
+        return $this->dateOfBirth;
+    }
+
+    /**
+     * @param Carbon $joinDate
+     * @return self
+     */
+    public function setDateOfBirth(Carbon $dateOfBirth)
+    {
+        $this->dateOfBirth = $dateOfBirth;
 
         return $this;
     }

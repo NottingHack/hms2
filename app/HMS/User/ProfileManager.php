@@ -2,6 +2,7 @@
 
 namespace HMS\User;
 
+use Carbon\Carbon;
 use HMS\Entities\User;
 use HMS\Entities\Profile;
 use HMS\Repositories\UserRepository;
@@ -40,9 +41,10 @@ class ProfileManager
      * @param string $addressCounty
      * @param string $addressPostcode
      * @param string $contactNumber
+     * @param string $dateOfBirth
      * @return User
      */
-    public function create(User $user, string $address1, string $address2, string $address3, string $addressCity, string $addressCounty, string $addressPostcode, string $contactNumber)
+    public function create(User $user, string $address1, string $address2, string $address3, string $addressCity, string $addressCounty, string $addressPostcode, string $contactNumber, string $dateOfBirth)
     {
         $profile = new Profile($user);
 
@@ -60,6 +62,10 @@ class ProfileManager
         $profile->setAddressCounty($addressCounty);
         $profile->setAddressPostcode($addressPostcode);
         $profile->setContactNumber($contactNumber);
+
+        if ( ! empty($dateOfBirth)) {
+            $profile->setDateOfBirth(new Carbon($dateOfBirth));
+        }
 
         // TODO: get this from meta at some point
         $profile->setCreditLimit(2000);

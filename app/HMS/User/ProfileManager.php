@@ -5,6 +5,7 @@ namespace HMS\User;
 use Carbon\Carbon;
 use HMS\Entities\User;
 use HMS\Entities\Profile;
+use HMS\Repositories\MetaRepository;
 use HMS\Repositories\UserRepository;
 use HMS\Repositories\ProfileRepository;
 
@@ -21,14 +22,21 @@ class ProfileManager
     protected $userRepository;
 
     /**
+     * @var MetsRepository
+     */
+    protected $metaRepository;
+
+    /**
      * ProfileManager constructor.
      * @param ProfileRepository $profileRepository
      * @param UserRepository    $userRepository
+     * @param MetaRepository    $metaRepository
      */
-    public function __construct(ProfileRepository $profileRepository, UserRepository $userRepository)
+    public function __construct(ProfileRepository $profileRepository, UserRepository $userRepository, MetaRepository $metaRepository)
     {
         $this->profileRepository = $profileRepository;
         $this->userRepository = $userRepository;
+        $this->metaRepository = $metaRepository;
     }
 
     /**
@@ -67,8 +75,7 @@ class ProfileManager
             $profile->setDateOfBirth(new Carbon($dateOfBirth));
         }
 
-        // TODO: get this from meta at some point
-        $profile->setCreditLimit(2000);
+        $profile->setCreditLimit($this->metaRepository->get('member_credit_limit'));
 
         $profile->setUnlockText('Welcome ' . $user->getFirstName());
 

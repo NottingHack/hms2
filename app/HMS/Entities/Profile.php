@@ -12,7 +12,7 @@ class Profile
     /** @var User The user to which this profile belongs. */
     protected $user;
 
-    /** @var Carbon */
+    /** @var Carbon|null */
     protected $joinDate;
 
     /** @var string */
@@ -42,7 +42,7 @@ class Profile
     /** @var string */
     protected $contactNumber;
 
-    /** @var Carbon */
+    /** @var Carbon|null */
     protected $dateOfBirth;
 
     /**
@@ -77,9 +77,9 @@ class Profile
     }
 
     /**
-     * @return Carbon
+     * @return Carbon|null
      */
-    public function getJoinDate(): Carbon
+    public function getJoinDate()
     {
         return $this->joinDate;
     }
@@ -267,9 +267,9 @@ class Profile
     }
 
     /**
-     * @return Carbon
+     * @return Carbon|null
      */
-    public function getDateOfBirth(): Carbon
+    public function getDateOfBirth()
     {
         return $this->dateOfBirth;
     }

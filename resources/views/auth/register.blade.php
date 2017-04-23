@@ -176,7 +176,22 @@
         @endif
       </div>
     </div>
+  </div>
 
+  <p>Date of birth is not required unless you are under 18.</p>
+
+  <div class="form-container">
+    <div class="row">
+      <label for="dateOfBirth" class="form-label">Date Of Birth (dd/mm/yyyy)</label>
+      <div class="form-control">
+        <input id="dateOfBirth" type="date" name="dateOfBirth" value="{{ old('dateOfBirth') }}">
+        @if ($errors->has('dateOfBirth'))
+        <p class="help-text">
+          <strong>{{ $errors->first('dateOfBirth') }}</strong>
+        </p>
+        @endif
+      </div>
+    </div>
     <div class="row">
       <div class="form-buttons">
         <button type="submit" class="button">

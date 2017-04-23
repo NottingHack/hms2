@@ -46,13 +46,13 @@
 <ul>
 @foreach ($role->getUsers() as $user)
     <li>
-        <form action="{{ route('roles.removeUser', ['roleId' => $role->getId(), 'userId' => $user->getId()]) }}" method="POST">
-            {{ csrf_field() }}
-            {{ method_field('DELETE') }}
-
-            <a href="#" class="alert form-submit-link" aria-label="delete"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>
-            {{ $user->getFullName() }}
+        <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="alert form-submit-link" aria-label="delete">
+        <form action="{{ route('roles.removeUser', ['roleId' => $role->getId(), 'userId' => $user->getId()]) }}" method="POST" style="display: inline">
+         {{ method_field('DELETE') }}
+         {{ csrf_field() }}
+         <i class="fa fa-minus-circle" aria-hidden="true"></i>
         </form>
+        </a>{{ $user->getFullName() }}
     </li>
 @endforeach
 </ul>

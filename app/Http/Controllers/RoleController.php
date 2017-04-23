@@ -8,7 +8,6 @@ use HMS\User\UserManager;
 use Illuminate\Http\Request;
 use HMS\Repositories\RoleRepository;
 use HMS\User\Permissions\RoleManager;
-use Illuminate\Support\Facades\Route;
 use HMS\Repositories\PermissionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 

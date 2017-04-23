@@ -53,6 +53,6 @@ $factory->defineAs(HMS\Entities\Profile::class, 'approval', function (Faker\Gene
         'addressCounty' => $faker->county,
         'addressPostcode' => $faker->postcode,
         'contactNumber' => $faker->phoneNumber,
-        'dateOfBirth' => Carbon::instance($faker->dateTimeBetween($startDate = '-18 years', $endDate = '-16 years')),
+        'dateOfBirth' => Carbon::instance($faker->dateTimeBetween($startDate = '-100 years', $endDate = '-16 years')),
     ];
 });

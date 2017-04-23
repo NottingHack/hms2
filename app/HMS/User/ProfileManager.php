@@ -22,7 +22,7 @@ class ProfileManager
     protected $userRepository;
 
     /**
-     * @var MetsRepository
+     * @var MetaRepository
      */
     protected $metaRepository;
 

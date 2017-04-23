@@ -275,7 +275,7 @@ class Profile
     }
 
     /**
-     * @param Carbon $joinDate
+     * @param Carbon $dateOfBirth
      * @return self
      */
     public function setDateOfBirth(Carbon $dateOfBirth)

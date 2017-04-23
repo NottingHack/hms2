@@ -7,9 +7,7 @@ use HMS\Entities\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class UserRemovedFromRole
 {
@@ -25,7 +23,7 @@ class UserRemovedFromRole
      */
     public $role;
 
-   /**
+    /**
      * Create a new event instance.
      *
      * @return void

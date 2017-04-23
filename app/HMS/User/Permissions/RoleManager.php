@@ -80,7 +80,7 @@ class RoleManager
     }
 
     /**
-     * add user to Role and fire of an event
+     * add user to Role and fire of an event.
      * @param User   $user
      * @param Role   $role
      */
@@ -88,11 +88,11 @@ class RoleManager
     {
         $user->getRoles()->add($role);
         $this->userRepository->save($user);
-        event( new UserAddedToRole($user, $role));
+        event(new UserAddedToRole($user, $role));
     }
 
     /**
-     * add user to Role and fire of an event
+     * add user to Role and fire of an event.
      * @param User   $user
      * @param string $roleName take a role name string rather than a role enitity
      */
@@ -101,11 +101,11 @@ class RoleManager
         $role = $this->roleRepository->findOneByName($roleName);
         $user->getRoles()->add($role);
         $this->userRepository->save($user);
-        event( new UserAddedToRole($user, $role));
+        event(new UserAddedToRole($user, $role));
     }
 
     /**
-     * remove a user from a role and fire of an update event
+     * remove a user from a role and fire of an update event.
      * @param  User   $user
      * @param  Role   $role
      */
@@ -113,6 +113,6 @@ class RoleManager
     {
         $user->getRoles()->removeElement($role);
         $this->userRepository->save($user);
-        event( new UserRemovedFromRole($user, $role));
+        event(new UserRemovedFromRole($user, $role));
     }
 }

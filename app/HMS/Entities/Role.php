@@ -63,7 +63,7 @@ class Role implements RoleContract
     protected $slackChannel;
 
     /**
-     * @var boolean Should this role be retained by ex members
+     * @var bool Should this role be retained by ex members
      */
     protected $retained;
 
@@ -220,7 +220,7 @@ class Role implements RoleContract
     /**
      * Gets the value of retained.
      *
-     * @return boolean Should this role be retained by ex members
+     * @return bool Should this role be retained by ex members
      */
     public function getRetained()
     {
@@ -230,7 +230,7 @@ class Role implements RoleContract
     /**
      * Sets the value of retained.
      *
-     * @param boolean Should this role be retained by ex members $retained the retained
+     * @param bool Should this role be retained by ex members $retained the retained
      *
      * @return self
      */

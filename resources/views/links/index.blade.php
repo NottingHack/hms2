@@ -13,7 +13,7 @@
     @can('link.edit')
          - <a href="{{ route('links.edit', $link->getId()) }}">Edit</a>
          - <a href="javascript:void(0);" onclick="$(this).find('form').submit();">
-            <form action="{{ route('links.destroy', $link->getId()) }}" method="POST">
+            <form action="{{ route('links.destroy', $link->getId()) }}" method="POST" style="display: inline">
              {{ method_field('DELETE') }}
              {{ csrf_field() }}
              Remove

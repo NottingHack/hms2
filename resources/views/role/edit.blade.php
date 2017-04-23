@@ -33,7 +33,46 @@
         </div>
     </div>
 
+    <div class="row">
+        <label for="email" class="form-label">Email</label>
+        <div class="form-control">
+            <input id="email" type="text" name="email" value="{{ old('email', $role->getEmail()) }}" required autofocus>
 
+            @if ($errors->has('email'))
+            <p class="help-text">
+                <strong>{{ $errors->first('email') }}</strong>
+            </p>
+            @endif
+        </div>
+    </div>
+
+    <div class="row">
+        <label for="slackChannel" class="form-label">Slack channel</label>
+        <div class="form-control">
+            <input id="slackChannel" type="text" name="slackChannel" value="{{ old('slackChannel', $role->getSlackChannel()) }}" required autofocus>
+
+            @if ($errors->has('slackChannel'))
+            <p class="help-text">
+                <strong>{{ $errors->first('slackChannel') }}</strong>
+            </p>
+            @endif
+        </div>
+    </div>
+
+    <div class="row">
+        <label for="retained" class="form-label">Retained</label>
+        <div class="form-control">
+            <input id="retained" type="checkbox" name="retained"
+            {{ old('retained', $role->getRetained()) ? 'checked="checked"' : '' }}
+            autofocus>
+
+            @if ($errors->has('retained'))
+            <p class="help-text">
+                <strong>{{ $errors->first('retained') }}</strong>
+            </p>
+            @endif
+        </div>
+    </div>
 
 <h2>Permissions</h2>
 

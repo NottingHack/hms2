@@ -3,14 +3,11 @@
 namespace App\Events\Roles;
 
 use HMS\Entities\Role;
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\InteractsWithSockets;
 
 class RoleCreated
 {
-    use InteractsWithSockets, SerializesModels;
+    use SerializesModels;
 
     /**
      * @var HMS\Entities\Role
@@ -26,15 +23,5 @@ class RoleCreated
     {
         //
         $this->role = $role;
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
     }
 }

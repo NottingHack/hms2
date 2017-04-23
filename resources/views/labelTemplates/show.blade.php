@@ -11,7 +11,7 @@
 @can('labelTemplate.edit')
      <a href="{{ route('labels.edit', $templateName) }}">Edit</a>
      - <a href="javascript:void(0);" onclick="$(this).find('form').submit();">
-        <form action="{{ route('labels.destroy', $templateName) }}" method="POST">
+        <form action="{{ route('labels.destroy', $templateName) }}" method="POST" style="display: inline">
          {{ method_field('DELETE') }}
          {{ csrf_field() }}
          Remove

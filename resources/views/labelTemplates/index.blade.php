@@ -14,7 +14,7 @@ Approx 780w x 600h</p>
          - <a href="{{ route('labels.show', $labelTemplate->getTemplateName()) }}">View</a>
          - <a href="{{ route('labels.edit', $labelTemplate->getTemplateName()) }}">Edit</a>
          - <a href="javascript:void(0);" onclick="$(this).find('form').submit();">
-            <form action="{{ route('labels.destroy', $labelTemplate->getTemplateName()) }}" method="POST">
+            <form action="{{ route('labels.destroy', $labelTemplate->getTemplateName()) }}" method="POST" style="display: inline">
              {{ method_field('DELETE') }}
              {{ csrf_field() }}
              Remove

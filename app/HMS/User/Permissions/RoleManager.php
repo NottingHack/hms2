@@ -45,6 +45,20 @@ class RoleManager
             $role->setDescription($details['description']);
         }
 
+        if (isset($details['email'])) {
+            $role->setEmail($details['email']);
+        }
+
+        if (isset($details['slackChannel'])) {
+            $role->setSlackChannel($details['slackChannel']);
+        }
+
+        if (isset($details['retained'])) {
+            $role->setRetained(true);
+        } else {
+            $role->setRetained(false);
+        }
+
         if (isset($details['permissions'])) {
             $role->stripPermissions();
             foreach (array_keys($details['permissions']) as $permissionName) {

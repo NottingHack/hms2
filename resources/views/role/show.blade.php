@@ -13,6 +13,23 @@
                 <th>Description:</th>
                 <td>{{ $role->getDescription() }}</td>
             </tr>
+            <tr>
+                <th>Email:</th>
+                <td>{{ $role->getEmail() }}</td>
+            </tr>
+            <tr>
+                <th>Slack Channel:</th>
+                <td>{{ $role->getSlackChannel() }}</td>
+            </tr>
+            <tr>
+                <th>Retained:</th>
+                <td>@if ($role->getRetained())
+                Yes
+                @else
+                No
+                @endif
+                </td>
+            </tr>
         </tbody>
     </table>
 

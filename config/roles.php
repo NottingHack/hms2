@@ -20,6 +20,7 @@ return [
         'accessCodes.view',
         'meta.view',
         'meta.edit',
+        'membership.approval',
     ],
 
     /*
@@ -76,6 +77,29 @@ return [
             'description'   => 'Full access to all parts of the system',
             'permissions'   =>  [
                 '*',
+            ],
+        ],
+        'team.membership'    => [
+            'name'          => 'Membership Team',
+            'description'   => 'Membership Team',
+            'email'         => 'membership@nottinghack.org.uk',
+            'slackChannel'  => '#membership',
+            'permissions'   => [
+                'profile.view.all',
+                'membership.approval',
+            ],
+        ],
+        'team.trustees'    => [
+            'name'          => 'Trustees',
+            'description'   => 'The Trustees',
+            'email'         => 'trustees@nottinghack.org.uk',
+            'slackChannel'  => '#general',
+            'permissions'   => [
+                'profile.view.all',
+                'profile.edit.all',
+                'meta.view',
+                'meta.edit',
+                'membership.approval',
             ],
         ],
     ],

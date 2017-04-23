@@ -83,6 +83,15 @@ class DefaultsCommand extends BaseCommand
     {
         foreach ($this->roles as $roleName => $role) {
             $roleEntity = new Role($roleName, $role['name'], $role['description']);
+            if (isset($role['email'])) {
+                $roleEntity->setEmail($role['email']);
+            }
+            if (isset($role['slackChannel'])) {
+                $roleEntity->setSlackChannel($role['slackChannel']);
+            }
+            if (isset($role['retained'])) {
+                $roleEntity->setRetained($role['retained']);
+            }
             if (count($role['permissions']) == 1 && $role['permissions'][0] == '*') {
                 foreach ($this->permissions as $permission) {
                     $roleEntity->addPermission($permission);

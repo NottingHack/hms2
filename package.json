@@ -15,6 +15,8 @@
     "vue": "^2.0.1",
     "vue-resource": "^1.0.3",
     "foundation-sites": "^6.2.4",
-    "motion-ui": "^1.2.2"
+    "motion-ui": "^1.2.2",
+    "select2" : "latest",
+    "select2-foundation" : "https://github.com/egemensarica/select2-foundation.git#v6"
   }
 }

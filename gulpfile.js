@@ -19,7 +19,9 @@ elixir(mix => {
     var options = {
         includePaths: [
             'node_modules/foundation-sites/scss',
-            'node_modules/motion-ui/src'
+            'node_modules/motion-ui/src',
+            'node_modules/select2/dist/css',
+            'node_modules/select2-foundation/dist'
         ]
     };
 
@@ -28,10 +30,12 @@ elixir(mix => {
     // bundle up jQuery and Foundation JavaScript to app-base.js
     var jQuery = '../../../node_modules/jquery/dist/jquery.js';
     var foundation = '../../../node_modules/foundation-sites/dist/foundation.js';
+    var select2 = '../../../node_modules/select2/dist/js/select2.js'
 
     mix.scripts([
       jQuery,
-      foundation
+      foundation,
+      select2
     ], 'public/js/app-base.js');
 
     // compile application global JS

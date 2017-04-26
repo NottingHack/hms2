@@ -12,7 +12,7 @@ class Profile
     /** @var User The user to which this profile belongs. */
     protected $user;
 
-    /** @var Carbon */
+    /** @var Carbon|null */
     protected $joinDate;
 
     /** @var string */
@@ -41,6 +41,9 @@ class Profile
 
     /** @var string */
     protected $contactNumber;
+
+    /** @var Carbon|null */
+    protected $dateOfBirth;
 
     /**
      * Profile constructor.
@@ -74,9 +77,9 @@ class Profile
     }
 
     /**
-     * @return Carbon
+     * @return Carbon|null
      */
-    public function getJoinDate(): Carbon
+    public function getJoinDate()
     {
         return $this->joinDate;
     }
@@ -259,6 +262,25 @@ class Profile
     public function setContactNumber(string $contactNumber)
     {
         $this->contactNumber = $contactNumber;
+
+        return $this;
+    }
+
+    /**
+     * @return Carbon|null
+     */
+    public function getDateOfBirth()
+    {
+        return $this->dateOfBirth;
+    }
+
+    /**
+     * @param Carbon $dateOfBirth
+     * @return self
+     */
+    public function setDateOfBirth(Carbon $dateOfBirth)
+    {
+        $this->dateOfBirth = $dateOfBirth;
 
         return $this;
     }

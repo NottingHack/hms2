@@ -59,10 +59,10 @@ class NavComposer
      * Iterative function to build the links.
      *
      * @param  array $navLinks
-     * @param  HMS\Entities\User $user
+     * @param  HMS\Entities\User|null $user
      * @return array   links
      */
-    private function buildLinks($navLinks, User $user)
+    private function buildLinks($navLinks, $user)
     {
         $links = [];
 
@@ -71,7 +71,7 @@ class NavComposer
             if (count($navItem['permissions']) > 0) {
                 $allowed = false;
                 foreach ($navItem['permissions'] as $permission) {
-                    if ($user->can($permission)) {
+                    if ( ! is_null($user) && $user->can($permission)) {
                         $allowed = true;
                     }
                 }

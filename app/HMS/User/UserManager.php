@@ -5,8 +5,8 @@ namespace HMS\User;
 use HMS\Entities\Role;
 use HMS\Entities\User;
 use HMS\Auth\PasswordStore;
-use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
+use HMS\User\Permissions\RoleManager;
 
 class UserManager
 {
@@ -14,10 +14,12 @@ class UserManager
      * @var UserRepository
      */
     private $userRepository;
+
     /**
-     * @var RoleRepository
+     * @var RoleManager
      */
-    private $roleRepository;
+    private $roleManager;
+
     /**
      * @var PasswordStore
      */
@@ -26,14 +28,14 @@ class UserManager
     /**
      * UserManager constructor.
      * @param UserRepository $userRepository
-     * @param RoleRepository $roleRepository
+     * @param RoleManager $roleManager
      * @param PasswordStore $passwordStore
      */
     public function __construct(UserRepository $userRepository,
-        RoleRepository $roleRepository, PasswordStore $passwordStore)
+        RoleManager $roleManager, PasswordStore $passwordStore)
     {
         $this->userRepository = $userRepository;
-        $this->roleRepository = $roleRepository;
+        $this->roleManager = $roleManager;
         $this->passwordStore = $passwordStore;
     }
 
@@ -43,9 +45,7 @@ class UserManager
      */
     public function removeRoleFromUser($user, $role)
     {
-        $user->getRoles()->removeElement($role);
-
-        $this->userRepository->save($user);
+        $this->roleManager->removeUserFromRole($user, $role);
     }
 
     /**
@@ -60,11 +60,11 @@ class UserManager
     {
         $user = new User($firstname, $lastname, $username, $email);
 
-        $user->getRoles()->add($this->roleRepository->findByName(Role::MEMBER_CURRENT));
-
         // TODO: maybe consolidate these into a single call via a service?
         $this->userRepository->save($user);
         $this->passwordStore->add($user->getUsername(), $password);
+
+        $this->roleManager->addUserToRoleByName($user, Role::MEMBER_CURRENT);
 
         return $user;
     }

@@ -25,6 +25,16 @@ HMS\Entities\Role:
       type: string
     description:
       type: text
+    email:
+      type: string
+      nullable: true
+    slackChannel:
+      type: string
+      nullable: true
+    retained:
+      type: boolean
+      options:
+        default: 0 
     deletedAt:
       type: datetime
       nullable: true

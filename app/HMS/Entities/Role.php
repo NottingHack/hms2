@@ -4,6 +4,7 @@ namespace HMS\Entities;
 
 use HMS\Traits\Entities\SoftDeletable;
 use HMS\Traits\Entities\Timestampable;
+use Illuminate\Notifications\Notifiable;
 use LaravelDoctrine\ACL\Contracts\Permission;
 use Doctrine\Common\Collections\ArrayCollection;
 use LaravelDoctrine\ACL\Permissions\HasPermissions;
@@ -11,7 +12,7 @@ use LaravelDoctrine\ACL\Contracts\Role as RoleContract;
 
 class Role implements RoleContract
 {
-    use HasPermissions, SoftDeletable, Timestampable;
+    use HasPermissions, SoftDeletable, Timestampable, Notifiable;
 
     const MEMBER_CURRENT = 'member.current';
     const MEMBER_APPROVAL = 'member.approval';
@@ -52,6 +53,21 @@ class Role implements RoleContract
     protected $users;
 
     /**
+     * @var string Team email address
+     */
+    protected $email;
+
+    /**
+     * @var string Team slack channel
+     */
+    protected $slackChannel;
+
+    /**
+     * @var bool Should this role be retained by ex members
+     */
+    protected $retained;
+
+    /**
      * Role constructor.
      * @param $name
      * @param $displayName
@@ -63,6 +79,7 @@ class Role implements RoleContract
         $this->displayName = $displayName;
         $this->description = $description;
         $this->permissions = new ArrayCollection();
+        $this->retained = false;
     }
 
     /**
@@ -150,5 +167,91 @@ class Role implements RoleContract
     public function getUsers()
     {
         return $this->users;
+    }
+
+    /**
+     * Gets the value of email.
+     *
+     * @return string Team email address
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Sets the value of email.
+     *
+     * @param string Team email address $email the email
+     *
+     * @return self
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of slackChannel.
+     *
+     * @return string team slack channel
+     */
+    public function getSlackChannel()
+    {
+        return $this->slackChannel;
+    }
+
+    /**
+     * Sets the value of slackChannel.
+     *
+     * @param string team slack channel $slackChannel the slack channel
+     *
+     * @return self
+     */
+    public function setSlackChannel($slackChannel)
+    {
+        $this->slackChannel = $slackChannel;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of retained.
+     *
+     * @return bool Should this role be retained by ex members
+     */
+    public function getRetained()
+    {
+        return $this->retained;
+    }
+
+    /**
+     * Sets the value of retained.
+     *
+     * @param bool Should this role be retained by ex members $retained the retained
+     *
+     * @return self
+     */
+    public function setRetained($retained)
+    {
+        $this->retained = $retained;
+
+        return $this;
+    }
+
+    /**
+     * Route notifications for the Slack channel.
+     *
+     * @return string
+     */
+    public function routeNotificationForSlack()
+    {
+        if ($this->name = 'team.Trustees') {
+            return Meta::get('trustee_slack_webhook');
+        } else {
+            return Meta::get('team_slack_webhook');
+        }
     }
 }

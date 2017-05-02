@@ -17,9 +17,14 @@ class LabelTemplateController extends Controller
     protected $labelTemplateRepository;
 
     /**
+     * @var LabelTemplateFactory
+     */
+    protected $labelTemplateFactory;
+
+    /**
      * @param LabelTemplateRepository $labelTemplateRepository
      */
-    public function __construct(LabelTemplateRepository $labelTemplateRepository)
+    public function __construct(LabelTemplateRepository $labelTemplateRepository, LabelTemplateFactory $labelTemplateFactory)
     {
         $this->labelTemplateRepository = $labelTemplateRepository;
 
@@ -27,6 +32,7 @@ class LabelTemplateController extends Controller
         $this->middleware('can:labelTemplate.create')->only(['create', 'store']);
         $this->middleware('can:labelTemplate.edit')->only(['edit', 'update', 'destroy']);
         $this->middleware('can:labelTemplate.print')->only(['showPrint', 'print']);
+        $this->labelTemplateFactory = $labelTemplateFactory;
     }
 
     /**
@@ -72,7 +78,7 @@ class LabelTemplateController extends Controller
      */
     public function store(LabelTemplateRequest $request)
     {
-        $label = LabelTemplateFactory::createFromRequest($request);
+        $label = $this->labelTemplateFactory->createFromRequest($request);
         $this->labelTemplateRepository->save($label);
         flash()->success('Label Template \''.$label->getTemplateName().'\' created.');
 

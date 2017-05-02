@@ -35,10 +35,11 @@ class AccountFactory
      *
      * @return string A unique (at the time of function-call) payment reference.
      */
-    protected static function generatePaymentRef() {
+    protected static function generatePaymentRef()
+    {
         // Payment ref is a randomly generates string of 'safechars'
         // Stolen from London Hackspace code
-        $safeChars = "2346789BCDFGHJKMPQRTVWXY";
+        $safeChars = '2346789BCDFGHJKMPQRTVWXY';
         // We prefix the ref with a string that lets people know it's us
         $prefix = 'HSNTSB';
         // Payment references can be up to 18 chars according to: http://www.bacs.co.uk/Bacs/Businesses/BacsDirectCredit/Receiving/Pages/PaymentReferenceInformation.aspx
@@ -47,6 +48,7 @@ class AccountFactory
         for ($i = strlen($prefix); $i < $maxRefLength; $i++) {
             $paymentRef .= $safeChars[rand(0, strlen($safeChars) - 1)];
         }
+
         return $paymentRef;
     }
 
@@ -56,12 +58,12 @@ class AccountFactory
      * @return string A unique (at the time of function-call) payment reference.
      * @link http://www.bacs.co.uk/Bacs/Businesses/BacsDirectCredit/Receiving/Pages/PaymentReferenceInformation.aspx
      */
-    protected function generateUniquePaymentRef() {
-
+    protected function generateUniquePaymentRef()
+    {
         $paymentRef = '';
         do {
             $paymentRef = $this->generatePaymentRef();
-        } while ( $this->accountRepository->findOneByPaymentRef($paymentRef) !== null);
+        } while ($this->accountRepository->findOneByPaymentRef($paymentRef) !== null);
 
         return $paymentRef;
     }

@@ -2,7 +2,6 @@
 
 namespace HMS\Repositories\Banking;
 
-use Carbon\Carbon;
 use HMS\Entities\Banking\Account;
 
 interface AccountRepository
@@ -30,5 +29,4 @@ interface AccountRepository
      * @param  Account $account
      */
     public function save(Account $account);
-
 }

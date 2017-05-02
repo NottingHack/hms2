@@ -39,7 +39,6 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     }
 
     /**
-     *
      * @param  string $searchQuery
      * @return array
      */
@@ -47,7 +46,7 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     {
         $q = parent::createQueryBuilder('user')
             ->leftJoin('user.profile', 'profile', \Doctrine\ORM\Query\Expr\Join::WITH, 'profile.user = user.id')
-            ->leftJoin('user.account', 'account',  \Doctrine\ORM\Query\Expr\Join::WITH, 'user.account = account.id')
+            ->leftJoin('user.account', 'account', \Doctrine\ORM\Query\Expr\Join::WITH, 'user.account = account.id')
             ->where('user.firstname LIKE :keyword')
             ->orWhere('user.lastname LIKE :keyword')
             ->orWhere('user.username LIKE :keyword')

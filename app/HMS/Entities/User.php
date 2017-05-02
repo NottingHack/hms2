@@ -247,5 +247,4 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
 
         return $this;
     }
-
 }

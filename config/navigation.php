@@ -24,6 +24,12 @@ return [
             'permissions'   => ['accessCodes.view'],
             'links'         => [],
         ],
+        'links' => [
+            'text'          => 'Links',
+            'route'         => 'links.index',
+            'permissions'   => ['link.view'],
+            'links'         => [],
+        ],
         'admin' => [
             'text'          => 'Admin',
             'route'         => 'admin',

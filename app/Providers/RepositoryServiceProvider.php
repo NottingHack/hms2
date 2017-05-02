@@ -2,12 +2,14 @@
 
 namespace App\Providers;
 
+use HMS\Entities\Link;
 use HMS\Entities\Meta;
 use HMS\Entities\Role;
 use HMS\Entities\User;
 use HMS\Entities\Invite;
 use HMS\Entities\Profile;
 use HMS\Entities\LabelTemplate;
+use HMS\Repositories\LinkRepository;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
@@ -17,6 +19,7 @@ use Illuminate\Support\ServiceProvider;
 use HMS\Repositories\PermissionRepository;
 use HMS\Repositories\LabelTemplateRepository;
 use LaravelDoctrine\ACL\Permissions\Permission;
+use HMS\Repositories\Doctrine\DoctrineLinkRepository;
 use HMS\Repositories\Doctrine\DoctrineMetaRepository;
 use HMS\Repositories\Doctrine\DoctrineRoleRepository;
 use HMS\Repositories\Doctrine\DoctrineUserRepository;
@@ -44,6 +47,10 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->singleton(LinkRepository::class, function ($app) {
+            return new DoctrineLinkRepository($app['em'], $app['em']->getClassMetaData(Link::class));
+        });
+
         $this->app->singleton(MetaRepository::class, function ($app) {
             return new DoctrineMetaRepository($app['em'], $app['em']->getClassMetaData(Meta::class));
         });

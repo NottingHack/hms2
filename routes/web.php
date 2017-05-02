@@ -61,6 +61,13 @@ Route::group(['middleware' => 'auth'], function () {
         ]
     );
 
+    // Usefull links
+    Route::resource('links', 'LinksController',
+        [
+            'except' => ['show'],
+        ]
+    );
+
     // Label printer template admin
     Route::get('labels/{label}/print', 'LabelTemplateController@showPrint')->name('labels.showPrint');
     Route::post('labels/{label}/print', 'LabelTemplateController@print')->name('labels.print');

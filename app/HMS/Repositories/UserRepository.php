@@ -25,6 +25,12 @@ interface UserRepository
     public function findByEmail(string $email);
 
     /**
+     * @param  string $searchQuery
+     * @return array
+     */
+    public function searchLike(string $searchQuery);
+
+    /**
      * save User to the DB.
      * @param  User $user
      */

@@ -21,6 +21,9 @@ return [
         'meta.view',
         'meta.edit',
         'membership.approval',
+        'link.view',
+        'link.create',
+        'link.edit',
     ],
 
     /*
@@ -38,6 +41,7 @@ return [
             'permissions'   => [
                 'profile.view.self',
                 'profile.edit.self',
+                'link.view',
             ],
         ],
         'member.payment'    => [
@@ -46,6 +50,7 @@ return [
             'permissions'   => [
                 'profile.view.self',
                 'profile.edit.self',
+                'link.view',
             ],
         ],
         'member.young'      => [
@@ -54,6 +59,7 @@ return [
             'permissions'   => [
                 'profile.view.self',
                 'profile.edit.self',
+                'link.view',
             ],
         ],
         'member.ex'         => [
@@ -62,6 +68,7 @@ return [
             'permissions'   => [
                 'profile.view.self',
                 'profile.edit.self',
+                'link.view',
             ],
         ],
         'member.current'    => [
@@ -70,6 +77,8 @@ return [
             'permissions'   => [
                 'profile.view.self',
                 'profile.edit.self',
+                'accessCodes.view',
+                'link.view',
             ],
         ],
         'user.super'         => [

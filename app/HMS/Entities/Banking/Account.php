@@ -20,11 +20,17 @@ class Account
     protected $natwestRef;
 
     /**
+     * @var \HMS\Entities\User
+     */
+    protected $users;
+
+    /**
      * @param string $paymentRef
      */
     public function __construct($paymentRef)
     {
         $this->paymentRef = $paymentRef;
+        $this->users = new ArrayCollection();
     }
 
     /**
@@ -69,5 +75,29 @@ class Account
     public function getNatwestRef()
     {
         return $this->natwestRef;
+    }
+
+    /**
+     * Gets the value of users.
+     *
+     * @return \HMS\Entities\User
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+
+    /**
+     * Sets the value of users.
+     *
+     * @param \HMS\Entities\User $users the users
+     *
+     * @return self
+     */
+    public function setUsers(\HMS\Entities\User $users)
+    {
+        $this->users = $users;
+
+        return $this;
     }
 }

@@ -22,3 +22,7 @@ HMS\Entities\Banking\Account:
       type: string
       length: 18
       nullable: true
+  oneToMany:
+    users:
+      targetEntity: \HMS\Entities\User
+      mappedBy: account

@@ -9,14 +9,14 @@ use App\Http\Requests\LinkRequest;
 class LinkFactory
 {
     /**
-     * Static function to instantiate a new Link from given params.
+     * Function to instantiate a new Link from given params.
      *
      * @param string $name
      * @param string $link
      * @param string $description
      * @return  Link
      */
-    public static function create($name, $link, $description = null)
+    public function create($name, $link, $description = null)
     {
         $_link = new Link();
         $_link->setName($name);
@@ -30,12 +30,12 @@ class LinkFactory
     }
 
     /**
-     * Static function to instantiate a new Link from a LinkRequest.
+     * Function to instantiate a new Link from a LinkRequest.
      *
      * @param LinkRequest $request
      * @return  Link
      */
-    public static function createFromRequest(LinkRequest $request)
+    public function createFromRequest(LinkRequest $request)
     {
         $_link = new Link();
         $_link->setName($request['name']);

@@ -15,15 +15,21 @@ class LinksController extends Controller
     protected $linkRepository;
 
     /**
+     * @var LinkFactory
+     */
+    protected $linkFactory;
+
+    /**
      * @param LinkRepository $linkRepository
      */
-    public function __construct(LinkRepository $linkRepository)
+    public function __construct(LinkRepository $linkRepository, LinkFactory $linkFactory)
     {
         $this->linkRepository = $linkRepository;
 
         $this->middleware('can:link.view')->only(['index', 'show']);
         $this->middleware('can:link.create')->only(['create', 'store']);
         $this->middleware('can:link.edit')->only(['edit', 'update', 'destroy']);
+        $this->linkFactory = $linkFactory;
     }
 
     /**
@@ -58,7 +64,7 @@ class LinksController extends Controller
      */
     public function store(LinkRequest $request)
     {
-        $link = LinkFactory::createFromRequest($request);
+        $link = $this->linkFactory->createFromRequest($request);
         $this->linkRepository->save($link);
         flash()->success('Link \''.$link->getName().'\' created.');
 

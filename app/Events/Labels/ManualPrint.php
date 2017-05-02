@@ -2,14 +2,11 @@
 
 namespace App\Events\Labels;
 
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\InteractsWithSockets;
 
-class ManualPrint
+class ManualPrint implements LabelPrintEventInterface
 {
-    use InteractsWithSockets, SerializesModels;
+    use SerializesModels;
 
     /**
      * @var string
@@ -42,12 +39,32 @@ class ManualPrint
     }
 
     /**
-     * Get the channels the event should broadcast on.
+     * Gets the value of templateName.
      *
-     * @return Channel|array
+     * @return string
      */
-    public function broadcastOn()
+    public function getTemplateName()
     {
-        return new PrivateChannel('channel-name');
+        return $this->templateName;
+    }
+
+    /**
+     * Gets the value of substitutions.
+     *
+     * @return array
+     */
+    public function getSubstitutions()
+    {
+        return $this->substitutions;
+    }
+
+    /**
+     * Gets the value of copiesToPrint.
+     *
+     * @return int
+     */
+    public function getCopiesToPrint()
+    {
+        return $this->copiesToPrint;
     }
 }

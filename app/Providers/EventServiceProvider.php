@@ -19,9 +19,15 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\MembershipInterestRegistered' => [
             'App\Listeners\Invites\MailInvite',
         ],
-        'App\Events\Labels\ManualPrint' => [
-            'App\Listeners\Labels\PrintManualLabel',
-        ],
+    ];
+
+    /**
+     * The subscriber classes to register.
+     *
+     * @var array
+     */
+    protected $subscribe = [
+        'App\Listeners\PrintLabelSubscriber',
     ];
 
     /**

@@ -1,25 +1,21 @@
 <?php
 
-namespace HMS\Helpers;
+namespace App\Listeners;
 
-use HMS\Entities\LabelTemplate;
 use HMS\Repositories\MetaRepository;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use HMS\Repositories\LabelTemplateRepository;
-use Symfony\Component\Debug\Exception\FatalThrowableError;
+use App\Events\Labels\LabelPrintEventInterface;
 
-class LabelPrinter
+class PrintLabelSubscriber implements ShouldQueue
 {
+    use InteractsWithQueue;
     /**
      * printer port.
      * @var  int
      */
     private $port = 9100;
-
-    /**
-     * Ip for the printer.
-     * @var string
-     */
-    private $host;
 
     /**
      * @var EntityManagerInterface
@@ -41,9 +37,36 @@ class LabelPrinter
     {
         $this->metaRepository = $metaRepository;
         $this->labelTemplateRepository = $labelTemplateRepository;
+    }
 
-        // Get the IP address for the printer.
-        $this->host = $this->metaRepository->get('label_printer_ip');
+    /**
+     * Handle the event.
+     *
+     * @param  LabelPrintEventInterface $event
+     * @return void
+     */
+    public function handlePrint(LabelPrintEventInterface $event)
+    {
+        for ($i = 0; $i < $event->getCopiesToPrint(); $i++) {
+            $this->printLabel(
+                $event->getTemplateName(),
+                $event->getSubstitutions()
+            );
+            sleep(1);
+        }
+    }
+
+    /**
+     * Register the listeners for the subscriber.
+     *
+     * @param  Illuminate\Events\Dispatcher  $events
+     */
+    public function subscribe($events)
+    {
+        $events->listen(
+            'App\Events\Labels\ManualPrint',
+            'App\Listeners\PrintLabelSubscriber@handlerPrint'
+        );
     }
 
     /**
@@ -54,7 +77,7 @@ class LabelPrinter
      * @param array $substitutions
      * @return bool
      */
-    public function printLabel($templateName, $substitutions = [])
+    private function printLabel($templateName, $substitutions = [])
     {
         $template = $this->labelTemplateRepository->find($templateName);
         if ($template == null) {
@@ -69,7 +92,7 @@ class LabelPrinter
             return false;
         }
 
-        $result = socket_connect($socket, $this->host, $this->port);
+        $result = socket_connect($socket, $this->getHost(), $this->port);
         if ($result === false) {
             return false;
         }
@@ -109,4 +132,15 @@ class LabelPrinter
 
         return ob_get_clean();
     }
+
+    /**
+     * Get the IP of the label printer.
+     * @return string
+     */
+    public function getHost()
+    {
+        // Get the IP address for the printer.
+        return $this->metaRepository->get('label_printer_ip');
+    }
+
 }

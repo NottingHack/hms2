@@ -15,3 +15,7 @@ cp /vagrant/yarn.lock ~/hms2/
 cd ~/hms2/
 yarn
 cp -R node_modules /vagrant/
+
+# run Laravel Mix once
+cd /vagrant
+yarn run dev

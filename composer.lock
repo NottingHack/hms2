@@ -1398,16 +1398,16 @@
         },
         {
             "name": "laravel-doctrine/orm",
-            "version": "1.3.4",
+            "version": "1.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel-doctrine/orm.git",
-                "reference": "5f7523cdd77fe751ab2a9a116a94132512a4ebf2"
+                "reference": "9eeab9d0120460edc14646bee4679db4ef6f0f05"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel-doctrine/orm/zipball/5f7523cdd77fe751ab2a9a116a94132512a4ebf2",
-                "reference": "5f7523cdd77fe751ab2a9a116a94132512a4ebf2",
+                "url": "https://api.github.com/repos/laravel-doctrine/orm/zipball/9eeab9d0120460edc14646bee4679db4ef6f0f05",
+                "reference": "9eeab9d0120460edc14646bee4679db4ef6f0f05",
                 "shasum": ""
             },
             "require": {
@@ -1468,7 +1468,7 @@
                 "laravel",
                 "orm"
             ],
-            "time": "2017-04-24T20:02:08+00:00"
+            "time": "2017-05-07T10:22:55+00:00"
         },
         {
             "name": "laravel/framework",

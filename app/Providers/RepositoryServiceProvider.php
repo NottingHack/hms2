@@ -8,6 +8,7 @@ use HMS\Entities\Role;
 use HMS\Entities\User;
 use HMS\Entities\Invite;
 use HMS\Entities\Profile;
+use HMS\Entities\Banking\Account;
 use HMS\Repositories\LinkRepository;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
@@ -16,6 +17,7 @@ use HMS\Repositories\InviteRepository;
 use HMS\Repositories\ProfileRepository;
 use Illuminate\Support\ServiceProvider;
 use HMS\Repositories\PermissionRepository;
+use HMS\Repositories\Banking\AccountRepository;
 use LaravelDoctrine\ACL\Permissions\Permission;
 use HMS\Repositories\Doctrine\DoctrineLinkRepository;
 use HMS\Repositories\Doctrine\DoctrineMetaRepository;
@@ -24,6 +26,7 @@ use HMS\Repositories\Doctrine\DoctrineUserRepository;
 use HMS\Repositories\Doctrine\DoctrineInviteRepository;
 use HMS\Repositories\Doctrine\DoctrineProfileRepository;
 use HMS\Repositories\Doctrine\DoctrinePermissionRepository;
+use HMS\Repositories\Banking\Doctrine\DoctrineAccountRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -70,6 +73,10 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $this->app->singleton(PermissionRepository::class, function ($app) {
             return new DoctrinePermissionRepository($app['em'], $app['em']->getClassMetaData(Permission::class));
+        });
+
+        $this->app->singleton(AccountRepository::class, function ($app) {
+            return new DoctrineAccountRepository($app['em'], $app['em']->getClassMetaData(Account::class));
         });
     }
 }

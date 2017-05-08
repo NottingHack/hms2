@@ -39,6 +39,27 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     }
 
     /**
+     * @param  string $searchQuery
+     * @return array
+     */
+    public function searchLike(string $searchQuery)
+    {
+        $q = parent::createQueryBuilder('user')
+            ->leftJoin('user.profile', 'profile', \Doctrine\ORM\Query\Expr\Join::WITH, 'profile.user = user.id')
+            ->leftJoin('user.account', 'account', \Doctrine\ORM\Query\Expr\Join::WITH, 'user.account = account.id')
+            ->where('user.firstname LIKE :keyword')
+            ->orWhere('user.lastname LIKE :keyword')
+            ->orWhere('user.username LIKE :keyword')
+            ->orWhere('user.email LIKE :keyword')
+            ->orWhere('profile.addressPostcode LIKE :keyword')
+            ->orWhere('account.paymentRef LIKE :keyword')
+            ->setParameter('keyword', '%'.$searchQuery.'%')
+            ->getQuery();
+        // dd($q);
+        return $q->getResult();
+    }
+
+    /**
      * save User to the DB.
      * @param  User $user
      */

@@ -2,6 +2,7 @@
 
 namespace HMS\Entities;
 
+use HMS\Entities\Banking\Account;
 use HMS\Traits\Entities\SoftDeletable;
 use HMS\Traits\Entities\Timestampable;
 use LaravelDoctrine\ACL\Roles\HasRoles;
@@ -61,6 +62,11 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
      * @var Profile The users profile
      */
     protected $profile;
+
+    /**
+     * @var Account|null
+     */
+    protected $account;
 
     /**
      * User constructor.
@@ -205,7 +211,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     }
 
     /**
-     * @return Profile The users profile
+     * @return Profile|null The users profile
      */
     public function getProfile() : Profile
     {
@@ -219,6 +225,25 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     public function setProfile(Profile $profile)
     {
         $this->profile = $profile;
+
+        return $this;
+    }
+
+    /**
+     * @return Account The users account
+     */
+    public function getAccount() : Account
+    {
+        return $this->account;
+    }
+
+    /**
+     * @param Account $account
+     * @return self
+     */
+    public function setAccount(Account $account)
+    {
+        $this->account = $account;
 
         return $this;
     }

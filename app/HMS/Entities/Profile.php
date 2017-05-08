@@ -98,7 +98,7 @@ class Profile
     /**
      * @return string
      */
-    public function getUnlockText(): string
+    public function getUnlockText()
     {
         return $this->unlockText;
     }
@@ -136,7 +136,7 @@ class Profile
     /**
      * @return string
      */
-    public function getAddress1(): string
+    public function getAddress1()
     {
         return $this->address1;
     }
@@ -155,7 +155,7 @@ class Profile
     /**
      * @return string
      */
-    public function getAddress2(): string
+    public function getAddress2()
     {
         return $this->address2;
     }
@@ -174,7 +174,7 @@ class Profile
     /**
      * @return string
      */
-    public function getAddress3(): string
+    public function getAddress3()
     {
         return $this->address3;
     }
@@ -193,7 +193,7 @@ class Profile
     /**
      * @return string
      */
-    public function getAddressCity(): string
+    public function getAddressCity()
     {
         return $this->addressCity;
     }
@@ -212,7 +212,7 @@ class Profile
     /**
      * @return string
      */
-    public function getAddressCounty(): string
+    public function getAddressCounty()
     {
         return $this->addressCounty;
     }
@@ -231,7 +231,7 @@ class Profile
     /**
      * @return string
      */
-    public function getAddressPostcode(): string
+    public function getAddressPostcode()
     {
         return $this->addressPostcode;
     }
@@ -250,7 +250,7 @@ class Profile
     /**
      * @return string
      */
-    public function getContactNumber(): string
+    public function getContactNumber()
     {
         return $this->contactNumber;
     }
@@ -271,7 +271,7 @@ class Profile
      */
     public function getDateOfBirth()
     {
-        return $this->dateOfBirth;
+        return Carbon::instance($this->dateOfBirth);
     }
 
     /**

@@ -172,7 +172,9 @@ return [
         LaravelDoctrine\ORM\Auth\Passwords\PasswordResetServiceProvider::class,
         LaravelDoctrine\Migrations\MigrationsServiceProvider::class,
         LaravelDoctrine\ACL\AclServiceProvider::class,
-        //
+        Spatie\CookieConsent\CookieConsentServiceProvider::class,
+        Laracasts\Flash\FlashServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -184,9 +186,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
-        Spatie\CookieConsent\CookieConsentServiceProvider::class,
         App\Providers\HmsHelperServiceProvider::class,
-        Laracasts\Flash\FlashServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
     ],
 

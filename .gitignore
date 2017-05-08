@@ -1,15 +1,15 @@
-### Vagrant ###
-.vagrant/
-
-
 ### Laravel ###
 /node_modules
+/public/hot
 /public/storage
+/storage/*.key
 /public/build
 /vendor
 /.idea
+/.vagrant
 Homestead.json
 Homestead.yaml
+npm-debug.log
 .env
 database/database.sqlite
 
@@ -25,4 +25,5 @@ Thumbs.db
 
 /public/css
 /public/js
-gulpwatch.log
+mixwatch.log
+/public/mix-manifest.json

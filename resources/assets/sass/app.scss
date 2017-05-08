@@ -1,10 +1,10 @@
 @charset 'utf-8';
 
 @import '_settings';
-@import 'foundation';
-@import 'motion-ui';
-@import 'select2';
-@import 'select2-foundation-theme';
+@import '~foundation-sites/scss/foundation';
+@import '~motion-ui/motion-ui';
+@import '~select2/dist/css/select2';
+@import '~select2-foundation/dist/select2-foundation-theme';
 
 @include foundation-everything($flex: true);
 

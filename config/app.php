@@ -166,7 +166,7 @@ return [
         /*
          * Package Service Providers...
          */
-		Laravel\Tinker\TinkerServiceProvider::class,
+        Laravel\Tinker\TinkerServiceProvider::class,
         LaravelDoctrine\ORM\DoctrineServiceProvider::class,
         LaravelDoctrine\ORM\Auth\Passwords\PasswordResetServiceProvider::class,
         LaravelDoctrine\Migrations\MigrationsServiceProvider::class,

@@ -25,4 +25,5 @@ Thumbs.db
 
 /public/css
 /public/js
-gulpwatch.log
+mixwatch.log
+/public/mix-manifest.json

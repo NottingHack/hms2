@@ -34,6 +34,7 @@ cp /vagrant/package.json ~/hms2/
 cp /vagrant/yarn.lock ~/hms2/
 cd ~/hms2/
 yarn
+rm -rf /vagrant/node_modules
 cp -R node_modules /vagrant/
 
 # run Laravel Mix once

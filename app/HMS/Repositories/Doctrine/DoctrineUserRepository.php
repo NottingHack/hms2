@@ -55,7 +55,6 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
             ->orWhere('account.paymentRef LIKE :keyword')
             ->setParameter('keyword', '%'.$searchQuery.'%')
             ->getQuery();
-        // dd($q);
         return $q->getResult();
     }
 

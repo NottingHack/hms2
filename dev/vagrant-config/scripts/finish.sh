@@ -5,7 +5,7 @@ echo "RESTART SERVICES"
 echo " "
 
 service nginx restart
-service php7.0-fpm restart
+service php7.1-fpm restart
 
 echo ""
 echo "------------------------------------------------------------------------"

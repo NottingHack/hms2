@@ -3,6 +3,7 @@
 namespace HMS\Entities;
 
 use HMS\Entities\Banking\Account;
+use Laravel\Passport\HasApiTokens;
 use HMS\Traits\Entities\SoftDeletable;
 use HMS\Traits\Entities\Timestampable;
 use LaravelDoctrine\ACL\Roles\HasRoles;
@@ -19,7 +20,7 @@ use LaravelDoctrine\ACL\Contracts\HasPermissions as HasPermissionsContract;
 
 class User implements AuthenticatableContract, CanResetPasswordContract, HasRoleContract, HasPermissionsContract, AuthorizableContract
 {
-    use CanResetPassword, Notifiable, HasRoles, HasPermissions, SoftDeletable, Timestampable, Authorizable;
+    use CanResetPassword, Notifiable, HasRoles, HasPermissions, SoftDeletable, Timestampable, Authorizable, HasApiTokens;
 
     const MIN_PASSWORD_LENGTH = 3;
 
@@ -247,4 +248,14 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
 
         return $this;
     }
+
+    /**
+     * use by passport
+     * @return int
+     */
+    public function getKey()
+    {
+        return $this->id;
+    }
+
 }

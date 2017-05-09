@@ -52,7 +52,7 @@ class ProfileManager
      * @param ?string $dateOfBirth
      * @return User
      */
-    public function create(User $user, string $address1, ?string $address2, ?string $address3, string $addressCity, string $addressCounty, string $addressPostcode, string $contactNumber, ?string $dateOfBirth)
+    public function create(User $user, string $address1, ?string $address2, ?string $address3, string $addressCity, string $addressCounty, string $addressPostcode, string $contactNumber, ?string $dateOfBirth): User
     {
         $profile = new Profile($user);
 

@@ -69,7 +69,7 @@ class Profile
      * @param User $user
      * @return self
      */
-    public function setUser(User $user)
+    public function setUser(User $user): Profile
     {
         $this->user = $user;
 
@@ -88,7 +88,7 @@ class Profile
      * @param ?Carbon $joinDate
      * @return self
      */
-    public function setJoinDate(?Carbon $joinDate)
+    public function setJoinDate(?Carbon $joinDate): Profile
     {
         $this->joinDate = $joinDate;
 
@@ -107,7 +107,7 @@ class Profile
      * @param ?string $unlockText
      * @return self
      */
-    public function setUnlockText(?string $unlockText)
+    public function setUnlockText(?string $unlockText): Profile
     {
         $this->unlockText = $unlockText;
 
@@ -126,7 +126,7 @@ class Profile
      * @param int $creditLimit
      * @return self
      */
-    public function setCreditLimit(int $creditLimit)
+    public function setCreditLimit(int $creditLimit): Profile
     {
         $this->creditLimit = $creditLimit;
 
@@ -145,7 +145,7 @@ class Profile
      * @param ?string $address1
      * @return self
      */
-    public function setAddress1(?string $address1)
+    public function setAddress1(?string $address1): Profile
     {
         $this->address1 = $address1;
 
@@ -164,7 +164,7 @@ class Profile
      * @param string $address2
      * @return self
      */
-    public function setAddress2(?string $address2)
+    public function setAddress2(?string $address2): Profile
     {
         $this->address2 = $address2;
 
@@ -183,7 +183,7 @@ class Profile
      * @param string $address3
      * @return self
      */
-    public function setAddress3(?string $address3)
+    public function setAddress3(?string $address3): Profile
     {
         $this->address3 = $address3;
 
@@ -202,7 +202,7 @@ class Profile
      * @param string $addressCity
      * @return self
      */
-    public function setAddressCity(?string $addressCity)
+    public function setAddressCity(?string $addressCity): Profile
     {
         $this->addressCity = $addressCity;
 
@@ -221,7 +221,7 @@ class Profile
      * @param string $addressCounty
      * @return self
      */
-    public function setAddressCounty(?string $addressCounty)
+    public function setAddressCounty(?string $addressCounty): Profile
     {
         $this->addressCounty = $addressCounty;
 
@@ -240,7 +240,7 @@ class Profile
      * @param string $addressPostcode
      * @return self
      */
-    public function setAddressPostcode(?string $addressPostcode)
+    public function setAddressPostcode(?string $addressPostcode): Profile
     {
         $this->addressPostcode = $addressPostcode;
 
@@ -259,7 +259,7 @@ class Profile
      * @param ?string $contactNumber
      * @return self
      */
-    public function setContactNumber(?string $contactNumber)
+    public function setContactNumber(?string $contactNumber): Profile
     {
         $this->contactNumber = $contactNumber;
 
@@ -278,7 +278,7 @@ class Profile
      * @param ?Carbon $dateOfBirth
      * @return self
      */
-    public function setDateOfBirth(?Carbon $dateOfBirth)
+    public function setDateOfBirth(?Carbon $dateOfBirth): Profile
     {
         $this->dateOfBirth = $dateOfBirth;
 

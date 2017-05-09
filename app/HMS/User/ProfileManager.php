@@ -43,16 +43,16 @@ class ProfileManager
      * Bulk populate a user profile, used on registration.
      * @param User $user
      * @param string $address1
-     * @param string $address2
-     * @param string $address3
+     * @param ?string $address2
+     * @param ?string $address3
      * @param string $addressCity
      * @param string $addressCounty
      * @param string $addressPostcode
      * @param string $contactNumber
-     * @param string $dateOfBirth
+     * @param ?string $dateOfBirth
      * @return User
      */
-    public function create(User $user, string $address1, string $address2, string $address3, string $addressCity, string $addressCounty, string $addressPostcode, string $contactNumber, string $dateOfBirth)
+    public function create(User $user, string $address1, ?string $address2, ?string $address3, string $addressCity, string $addressCounty, string $addressPostcode, string $contactNumber, ?string $dateOfBirth): User
     {
         $profile = new Profile($user);
 

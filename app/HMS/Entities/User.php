@@ -250,12 +250,11 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     }
 
     /**
-     * use by passport
+     * use by passport.
      * @return int
      */
     public function getKey()
     {
         return $this->id;
     }
-
 }

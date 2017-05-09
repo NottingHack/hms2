@@ -255,6 +255,6 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
      */
     public function getKey()
     {
-        return $this->id;
+        return $this->getAuthIdentifier();
     }
 }

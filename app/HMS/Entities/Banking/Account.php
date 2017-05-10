@@ -2,6 +2,8 @@
 
 namespace HMS\Entities\Banking;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class Account
 {
     /**
@@ -15,7 +17,7 @@ class Account
     protected $paymentRef;
 
     /**
-     * @var string
+     * @var ?string
      */
     protected $natwestRef;
 
@@ -38,7 +40,7 @@ class Account
      *
      * @return mixed
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -48,7 +50,7 @@ class Account
      *
      * @return mixed
      */
-    public function getPaymentRef()
+    public function getPaymentRef(): string
     {
         return $this->paymentRef;
     }
@@ -60,7 +62,7 @@ class Account
      *
      * @return self
      */
-    protected function setPaymentRef($paymentRef)
+    protected function setPaymentRef(string $paymentRef): Account
     {
         $this->paymentRef = $paymentRef;
 
@@ -72,7 +74,7 @@ class Account
      *
      * @return mixed
      */
-    public function getNatwestRef()
+    public function getNatwestRef(): ?string
     {
         return $this->natwestRef;
     }

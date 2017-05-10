@@ -28,7 +28,7 @@ class Link implements ArrayableContract
     protected $link;
 
     /**
-     * @var string
+     * @var ?string
      */
     protected $description;
 

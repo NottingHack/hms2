@@ -271,7 +271,11 @@ class Profile
      */
     public function getDateOfBirth(): ?Carbon
     {
-        return Carbon::instance($this->dateOfBirth);
+        if ($this->dateOfBirth) {
+            return Carbon::instance($this->dateOfBirth);
+        }
+
+        return null;
     }
 
     /**

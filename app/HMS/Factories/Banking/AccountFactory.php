@@ -26,7 +26,6 @@ class AccountFactory
      */
     public function createNewAccount()
     {
-        // TODOL: generate new
         return new Account($this->generateUniquePaymentRef());
     }
 

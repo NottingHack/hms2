@@ -36,7 +36,7 @@
     <div class="row">
         <label for="email" class="form-label">Email</label>
         <div class="form-control">
-            <input id="email" type="text" name="email" value="{{ old('email', $role->getEmail()) }}" required autofocus>
+            <input id="email" type="text" name="email" value="{{ old('email', $role->getEmail()) }}" autofocus>
 
             @if ($errors->has('email'))
             <p class="help-text">
@@ -49,7 +49,7 @@
     <div class="row">
         <label for="slackChannel" class="form-label">Slack channel</label>
         <div class="form-control">
-            <input id="slackChannel" type="text" name="slackChannel" value="{{ old('slackChannel', $role->getSlackChannel()) }}" required autofocus>
+            <input id="slackChannel" type="text" name="slackChannel" value="{{ old('slackChannel', $role->getSlackChannel()) }}" autofocus>
 
             @if ($errors->has('slackChannel'))
             <p class="help-text">

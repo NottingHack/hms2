@@ -82,7 +82,7 @@ class RegisterController extends Controller
             'addressCounty' => 'required|max:100',
             'addressPostcode' => 'required|max:10',
             'contactNumber' => 'required|max:50',
-            'dateOfBirth' => 'date',
+            'dateOfBirth' => 'nullable|date',
         ]);
     }
 

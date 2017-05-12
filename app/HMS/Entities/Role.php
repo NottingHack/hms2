@@ -53,12 +53,12 @@ class Role implements RoleContract
     protected $users;
 
     /**
-     * @var string Team email address
+     * @var ?string Team email address
      */
     protected $email;
 
     /**
-     * @var string Team slack channel
+     * @var ?string Team slack channel
      */
     protected $slackChannel;
 
@@ -93,7 +93,7 @@ class Role implements RoleContract
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -101,7 +101,7 @@ class Role implements RoleContract
     /**
      * @return string
      */
-    public function getDisplayName()
+    public function getDisplayName(): string
     {
         return $this->displayName;
     }
@@ -110,7 +110,7 @@ class Role implements RoleContract
      * @param string $displayName
      * @return self
      */
-    public function setDisplayName($displayName)
+    public function setDisplayName($displayName): Role
     {
         $this->displayName = $displayName;
 
@@ -120,7 +120,7 @@ class Role implements RoleContract
     /**
      * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
@@ -129,7 +129,7 @@ class Role implements RoleContract
      * @param string $description
      * @return self
      */
-    public function setDescription($description)
+    public function setDescription($description): Role
     {
         $this->description = $description;
 
@@ -144,21 +144,43 @@ class Role implements RoleContract
         return $this->permissions;
     }
 
-    public function addPermission(Permission $permission)
+    /**
+     * Add a Permission to the Role.
+     *
+     * @param Permission $permission
+     * @return self
+     */
+    public function addPermission(Permission $permission): Role
     {
         if ( ! $this->permissions->contains($permission)) {
             $this->permissions->add($permission);
         }
+
+        return $this;
     }
 
-    public function removePermission(Permission $permission)
+    /**
+     * Remove a single permission from the Role.
+     * @param Permission $permission
+     * @return self
+     */
+    public function removePermission(Permission $permission): Role
     {
         $this->permissions->removeElement($permission);
+
+        return $this;
     }
 
-    public function stripPermissions()
+    /**
+     * Remove all permissions from the Role.
+     *
+     * @return self
+     */
+    public function stripPermissions(): Role
     {
         $this->permissions->clear();
+
+        return $this;
     }
 
     /**
@@ -174,7 +196,7 @@ class Role implements RoleContract
      *
      * @return string Team email address
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -186,7 +208,7 @@ class Role implements RoleContract
      *
      * @return self
      */
-    public function setEmail($email)
+    public function setEmail($email): Role
     {
         $this->email = $email;
 
@@ -198,7 +220,7 @@ class Role implements RoleContract
      *
      * @return string team slack channel
      */
-    public function getSlackChannel()
+    public function getSlackChannel(): ?string
     {
         return $this->slackChannel;
     }
@@ -210,7 +232,7 @@ class Role implements RoleContract
      *
      * @return self
      */
-    public function setSlackChannel($slackChannel)
+    public function setSlackChannel($slackChannel): Role
     {
         $this->slackChannel = $slackChannel;
 
@@ -222,7 +244,7 @@ class Role implements RoleContract
      *
      * @return bool Should this role be retained by ex members
      */
-    public function getRetained()
+    public function getRetained(): bool
     {
         return $this->retained;
     }
@@ -234,7 +256,7 @@ class Role implements RoleContract
      *
      * @return self
      */
-    public function setRetained($retained)
+    public function setRetained($retained): Role
     {
         $this->retained = $retained;
 
@@ -246,7 +268,7 @@ class Role implements RoleContract
      *
      * @return string
      */
-    public function routeNotificationForSlack()
+    public function routeNotificationForSlack(): string
     {
         if ($this->name = 'team.Trustees') {
             return Meta::get('trustee_slack_webhook');

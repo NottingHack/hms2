@@ -57,6 +57,7 @@ class NewMemberApprovalNeeded extends Notification implements ShouldQueue
                         ->line('A member has updated there detials and asked for another review')
                         ->action('Review and approve member', route('membership.approval', ['user' => $this->user->getId()]));
         }
+
         return (new MailMessage)
                     ->line('New member approval needed')
                     ->action('Review and approve member', route('membership.approval', ['user' => $this->user->getId()]))

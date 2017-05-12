@@ -34,7 +34,6 @@ class MembershipDetailsApproved extends Mailable implements ShouldQueue
     public $paymentRef;
 
     /**
-     *
      * Create a new notification instance.
      *
      * @param User $user
@@ -47,7 +46,6 @@ class MembershipDetailsApproved extends Mailable implements ShouldQueue
         $this->sortCode = $metaRepository->get('so_sortCode');
         $this->fullname = $user->getFullname();
         $this->paymentRef = $user->getAccount()->getPaymentRef();
-
     }
 
     /**

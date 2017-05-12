@@ -74,5 +74,4 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/membership/reject-details/{user}', 'MembershipController@rejectDetails')->name('membership.reject');
     Route::get('/membership/update-details/{user}', 'MembershipController@editDetails')->name('membership.edit');
     Route::put('/membership/update-details/{user}', 'MembershipController@updateDetails')->name('membership.update');
-
 });

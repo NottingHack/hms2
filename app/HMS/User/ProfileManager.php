@@ -89,7 +89,7 @@ class ProfileManager
     }
 
     /**
-     * update the user form a form request
+     * update the user form a form request.
      * @param  User    $user    user to update
      * @param  Illuminate\Http\Request $request
      * @return User
@@ -149,5 +149,4 @@ class ProfileManager
 
         return $user;
     }
-
 }

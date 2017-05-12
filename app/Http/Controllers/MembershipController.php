@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
 use HMS\Entities\Role;
 use HMS\Entities\User;
 use HMS\User\UserManager;
@@ -78,11 +77,11 @@ class MembershipController extends Controller
         $this->roleManager = $roleManager;
         $this->accountRepository = $accountRepository;
         $this->userManager = $userManager;
+        $this->profileManager = $profileManager;
+        $this->roleRepository = $roleRepository;
 
         $this->middleware('can:membership.approval')->only(['showDetailsForApproval', 'approveDetails', 'rejectDetails']);
         $this->middleware('can:membership.updateDetails')->only(['editDetails', 'updateDetails']);
-        $this->profileManager = $profileManager;
-        $this->roleRepository = $roleRepository;
     }
 
     /**
@@ -109,7 +108,7 @@ class MembershipController extends Controller
     /**
      * Approve new member details.
      * Now setup bank account ref, either new or linked, and email member with standing order setup details
-     * (possible deal with young hacker stuff here)
+     * (possible deal with young hacker stuff here).
      *
      * @param  User    $user
      * @param  Illuminate\Http\Request $request
@@ -126,7 +125,7 @@ class MembershipController extends Controller
             'existing-account' => 'required_if:new-account,false|exists:HMS\Entities\Banking\Account,id',
         ]);
 
-        if ($request['new-account']){
+        if ($request['new-account']) {
             $account = $this->accountFactory->createNewAccount();
         } else {
             $account = $this->accountRepository->find($request['existing-account']);
@@ -170,7 +169,6 @@ class MembershipController extends Controller
         flash('Member notified, thank you.')->success();
 
         return redirect()->route('home');
-
     }
 
     /**

@@ -21,6 +21,7 @@ return [
         'meta.view',
         'meta.edit',
         'membership.approval',
+        'membership.updateDetails',
         'link.view',
         'link.create',
         'link.edit',
@@ -43,6 +44,7 @@ return [
                 'profile.view.self',
                 'profile.edit.self',
                 'link.view',
+                'membership.updateDetails',
             ],
         ],
         'member.payment'    => [

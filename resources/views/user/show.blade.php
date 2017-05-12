@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>{{ $user->getFullName() }}</h1>
+<h1>{{ $user->getFullname() }}</h1>
 
 @endsection

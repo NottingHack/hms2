@@ -5,6 +5,7 @@ namespace HMS\User;
 use HMS\Entities\Role;
 use HMS\Entities\User;
 use HMS\Auth\PasswordStore;
+use Illuminate\Http\Request;
 use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
 
@@ -64,8 +65,34 @@ class UserManager
         $this->userRepository->save($user);
         $this->passwordStore->add($user->getUsername(), $password);
 
-        $this->roleManager->addUserToRoleByName($user, Role::MEMBER_CURRENT);
+        $this->roleManager->addUserToRoleByName($user, Role::MEMBER_APPROVAL);
 
         return $user;
     }
+
+    /**
+     * update the user form a form request
+     * @param  User    $user    user to update
+     * @param  Illuminate\Http\Request $request
+     * @return User
+     */
+    public function updateFromRequest(User $user, Request $request): User
+    {
+        if ($request['firstname']) {
+            $user->setFirstname($request['firstname']);
+        }
+
+        if ($request['lastname']) {
+            $user->setLastname($request['lastname']);
+        }
+
+        if ($request['email']) {
+            $user->setEmail($request['email']);
+        }
+
+        $this->userRepository->save($user);
+
+        return $user;
+    }
+
 }

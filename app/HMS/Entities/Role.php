@@ -22,6 +22,9 @@ class Role implements RoleContract
 
     const SUPERUSER = 'user.super';
 
+    const TEAM_MEMBERSHIP = 'team.membership';
+    const TEAM_TRUSTEES = 'team.trustees';
+
     /**
      * @var int
      */
@@ -270,7 +273,7 @@ class Role implements RoleContract
      */
     public function routeNotificationForSlack(): string
     {
-        if ($this->name = 'team.Trustees') {
+        if ($this->name = self::TEAM_TRUSTEES) {
             return Meta::get('trustee_slack_webhook');
         } else {
             return Meta::get('team_slack_webhook');

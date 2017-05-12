@@ -38,7 +38,7 @@ class Meta
      *
      * @return  string
      */
-    public function getKey()
+    public function getKey(): string
     {
         return $this->key;
     }
@@ -48,7 +48,7 @@ class Meta
      *
      * @return string
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->value;
     }
@@ -60,7 +60,7 @@ class Meta
      *
      * @return self
      */
-    public function setValue($value)
+    public function setValue($value): Meta
     {
         $this->value = $value;
 

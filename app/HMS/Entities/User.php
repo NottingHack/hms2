@@ -2,6 +2,7 @@
 
 namespace HMS\Entities;
 
+use HMS\Entities\Banking\Account;
 use HMS\Traits\Entities\SoftDeletable;
 use HMS\Traits\Entities\Timestampable;
 use LaravelDoctrine\ACL\Roles\HasRoles;
@@ -58,9 +59,14 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     protected $roles;
 
     /**
-     * @var Profile The users profile
+     * @var ?Profile The users profile
      */
     protected $profile;
+
+    /**
+     * @var ?Account
+     */
+    protected $account;
 
     /**
      * User constructor.
@@ -89,7 +95,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     /**
      * @return string
      */
-    public function getFirstname()
+    public function getFirstname(): string
     {
         return $this->firstname;
     }
@@ -97,7 +103,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     /**
      * @return string
      */
-    public function getLastname()
+    public function getLastname(): string
     {
         return $this->lastname;
     }
@@ -105,7 +111,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     /**
      * @return string
      */
-    public function getFullName()
+    public function getFullName(): string
     {
         return $this->firstname . ' ' . $this->lastname;
     }
@@ -113,7 +119,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     /**
      * @return string
      */
-    public function getUsername()
+    public function getUsername(): string
     {
         return $this->username;
     }
@@ -121,7 +127,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     /**
      * @return string
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -131,7 +137,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
      *
      * @return string
      */
-    public function getAuthIdentifierName()
+    public function getAuthIdentifierName(): string
     {
         return 'username';
     }
@@ -159,7 +165,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
      * Get the token value for the "remember me" session.
      * @return string
      */
-    public function getRememberToken()
+    public function getRememberToken(): string
     {
         return $this->{$this->getRememberTokenName()};
     }
@@ -171,7 +177,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
      *
      * @return self
      */
-    public function setRememberToken($value)
+    public function setRememberToken($value): User
     {
         $this->{$this->getRememberTokenName()} = $value;
 
@@ -182,7 +188,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
      * Get the column name for the "remember me" token.
      * @return string
      */
-    public function getRememberTokenName()
+    public function getRememberTokenName(): string
     {
         return 'rememberToken';
     }
@@ -205,20 +211,39 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     }
 
     /**
-     * @return Profile The users profile
+     * @return ?Profile The users profile
      */
-    public function getProfile() : Profile
+    public function getProfile() : ?Profile
     {
         return $this->profile;
     }
 
     /**
-     * @param Profile $profile
+     * @param ?Profile $profile
      * @return self
      */
-    public function setProfile(Profile $profile)
+    public function setProfile(?Profile $profile): User
     {
         $this->profile = $profile;
+
+        return $this;
+    }
+
+    /**
+     * @return ?Account The users account
+     */
+    public function getAccount() : ?Account
+    {
+        return $this->account;
+    }
+
+    /**
+     * @param ?Account $account
+     * @return self
+     */
+    public function setAccount(?Account $account): User
+    {
+        $this->account = $account;
 
         return $this;
     }

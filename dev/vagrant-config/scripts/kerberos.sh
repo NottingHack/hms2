@@ -17,7 +17,7 @@ debconf-set-selections <<< 'krb5-config krb5-config/admin_server string hmsdev.n
 
 
 # Install krb, create passord database, and set the master password to "krbMasterPassword"
-apt-get install php-pear php7.0-dev libkrb5-dev haveged krb5-{admin-server,kdc} -y > /dev/null 2>&1
+apt-get install php-pear php7.1-dev libkrb5-dev haveged krb5-{admin-server,kdc} -y > /dev/null 2>&1
 kdb5_util create -s -P krbMasterPassword
 mkdir /var/log/kerberos
 touch /var/log/kerberos/{krb5kdc,kadmin,krb5lib}.log
@@ -49,6 +49,6 @@ phpize
 make install
 ldconfig
 
-echo "extension=krb5.so" >> /etc/php/7.0/mods-available/krb5.ini
-ln -s /etc/php/7.0/mods-available/krb5.ini /etc/php/7.0/fpm/conf.d/20-krb5.ini 
-ln -s /etc/php/7.0/mods-available/krb5.ini /etc/php/7.0/cli/conf.d/20-krb5.ini 
+echo "extension=krb5.so" >> /etc/php/7.1/mods-available/krb5.ini
+ln -s /etc/php/7.1/mods-available/krb5.ini /etc/php/7.1/fpm/conf.d/20-krb5.ini 
+ln -s /etc/php/7.1/mods-available/krb5.ini /etc/php/7.1/cli/conf.d/20-krb5.ini 

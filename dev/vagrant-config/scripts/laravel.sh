@@ -10,7 +10,7 @@ php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 php -r "unlink('composer-setup.php');"
 
 cd /vagrant
-composer install
+composer install --no-progress --no-suggest
 
 # sort out Laravel environment
 

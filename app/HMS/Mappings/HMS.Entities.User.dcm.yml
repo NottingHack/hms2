@@ -50,6 +50,14 @@ HMS\Entities\User:
       targetEntity: Profile
       mappedBy: user
       cascade: ["all"]
+  manyToOne:
+    account:
+      targetEntity: \HMS\Entities\Banking\Account
+      inversedBy: users
+      cascade: ['persist']
+      joinColumns:
+        acccount_id:
+          referencedColumnName: id
   manyToMany:
     roles:
       targetEntity: Role

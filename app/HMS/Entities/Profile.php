@@ -12,37 +12,37 @@ class Profile
     /** @var User The user to which this profile belongs. */
     protected $user;
 
-    /** @var Carbon|null */
+    /** @var ?Carbon */
     protected $joinDate;
 
-    /** @var string */
+    /** @var ?string */
     protected $unlockText;
 
     /** @var int */
     protected $creditLimit;
 
-    /** @var string */
+    /** @var ?string */
     protected $address1;
 
-    /** @var string */
+    /** @var ?string */
     protected $address2;
 
-    /** @var string */
+    /** @var ?string */
     protected $address3;
 
-    /** @var string */
+    /** @var ?string */
     protected $addressCity;
 
-    /** @var string */
+    /** @var ?string */
     protected $addressCounty;
 
-    /** @var string */
+    /** @var ?string */
     protected $addressPostcode;
 
-    /** @var string */
+    /** @var ?string */
     protected $contactNumber;
 
-    /** @var Carbon|null */
+    /** @var ?Carbon */
     protected $dateOfBirth;
 
     /**
@@ -69,7 +69,7 @@ class Profile
      * @param User $user
      * @return self
      */
-    public function setUser(User $user)
+    public function setUser(User $user): Profile
     {
         $this->user = $user;
 
@@ -77,18 +77,18 @@ class Profile
     }
 
     /**
-     * @return Carbon|null
+     * @return ?Carbon
      */
-    public function getJoinDate()
+    public function getJoinDate(): ?Carbon
     {
         return $this->joinDate;
     }
 
     /**
-     * @param Carbon $joinDate
+     * @param ?Carbon $joinDate
      * @return self
      */
-    public function setJoinDate(Carbon $joinDate)
+    public function setJoinDate(?Carbon $joinDate): Profile
     {
         $this->joinDate = $joinDate;
 
@@ -96,18 +96,18 @@ class Profile
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getUnlockText(): string
+    public function getUnlockText(): ?string
     {
         return $this->unlockText;
     }
 
     /**
-     * @param string $unlockText
+     * @param ?string $unlockText
      * @return self
      */
-    public function setUnlockText(string $unlockText)
+    public function setUnlockText(?string $unlockText): Profile
     {
         $this->unlockText = $unlockText;
 
@@ -126,7 +126,7 @@ class Profile
      * @param int $creditLimit
      * @return self
      */
-    public function setCreditLimit(int $creditLimit)
+    public function setCreditLimit(int $creditLimit): Profile
     {
         $this->creditLimit = $creditLimit;
 
@@ -134,18 +134,18 @@ class Profile
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getAddress1(): string
+    public function getAddress1(): ?string
     {
         return $this->address1;
     }
 
     /**
-     * @param string $address1
+     * @param ?string $address1
      * @return self
      */
-    public function setAddress1(string $address1)
+    public function setAddress1(?string $address1): Profile
     {
         $this->address1 = $address1;
 
@@ -155,7 +155,7 @@ class Profile
     /**
      * @return string
      */
-    public function getAddress2(): string
+    public function getAddress2(): ?string
     {
         return $this->address2;
     }
@@ -164,7 +164,7 @@ class Profile
      * @param string $address2
      * @return self
      */
-    public function setAddress2(string $address2)
+    public function setAddress2(?string $address2): Profile
     {
         $this->address2 = $address2;
 
@@ -174,7 +174,7 @@ class Profile
     /**
      * @return string
      */
-    public function getAddress3(): string
+    public function getAddress3(): ?string
     {
         return $this->address3;
     }
@@ -183,7 +183,7 @@ class Profile
      * @param string $address3
      * @return self
      */
-    public function setAddress3(string $address3)
+    public function setAddress3(?string $address3): Profile
     {
         $this->address3 = $address3;
 
@@ -193,7 +193,7 @@ class Profile
     /**
      * @return string
      */
-    public function getAddressCity(): string
+    public function getAddressCity(): ?string
     {
         return $this->addressCity;
     }
@@ -202,7 +202,7 @@ class Profile
      * @param string $addressCity
      * @return self
      */
-    public function setAddressCity(string $addressCity)
+    public function setAddressCity(?string $addressCity): Profile
     {
         $this->addressCity = $addressCity;
 
@@ -212,7 +212,7 @@ class Profile
     /**
      * @return string
      */
-    public function getAddressCounty(): string
+    public function getAddressCounty(): ?string
     {
         return $this->addressCounty;
     }
@@ -221,7 +221,7 @@ class Profile
      * @param string $addressCounty
      * @return self
      */
-    public function setAddressCounty(string $addressCounty)
+    public function setAddressCounty(?string $addressCounty): Profile
     {
         $this->addressCounty = $addressCounty;
 
@@ -231,7 +231,7 @@ class Profile
     /**
      * @return string
      */
-    public function getAddressPostcode(): string
+    public function getAddressPostcode(): ?string
     {
         return $this->addressPostcode;
     }
@@ -240,7 +240,7 @@ class Profile
      * @param string $addressPostcode
      * @return self
      */
-    public function setAddressPostcode(string $addressPostcode)
+    public function setAddressPostcode(?string $addressPostcode): Profile
     {
         $this->addressPostcode = $addressPostcode;
 
@@ -250,16 +250,16 @@ class Profile
     /**
      * @return string
      */
-    public function getContactNumber(): string
+    public function getContactNumber(): ?string
     {
         return $this->contactNumber;
     }
 
     /**
-     * @param string $contactNumber
+     * @param ?string $contactNumber
      * @return self
      */
-    public function setContactNumber(string $contactNumber)
+    public function setContactNumber(?string $contactNumber): Profile
     {
         $this->contactNumber = $contactNumber;
 
@@ -267,18 +267,22 @@ class Profile
     }
 
     /**
-     * @return Carbon|null
+     * @return ?Carbon
      */
-    public function getDateOfBirth()
+    public function getDateOfBirth(): ?Carbon
     {
-        return $this->dateOfBirth;
+        if ($this->dateOfBirth) {
+            return Carbon::instance($this->dateOfBirth);
+        }
+
+        return null;
     }
 
     /**
-     * @param Carbon $dateOfBirth
+     * @param ?Carbon $dateOfBirth
      * @return self
      */
-    public function setDateOfBirth(Carbon $dateOfBirth)
+    public function setDateOfBirth(?Carbon $dateOfBirth): Profile
     {
         $this->dateOfBirth = $dateOfBirth;
 

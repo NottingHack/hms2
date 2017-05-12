@@ -11,7 +11,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -144,8 +144,9 @@
 
 
   <!-- Scripts -->
-  <script src="{{ elixir('js/app-base.js')}}"></script>
-  <script src="{{ elixir('js/app.js') }}"></script>
+  <script src="{{ mix('/js/manifest.js') }}"></script>
+  <script src="{{ mix('js/vendor.js') }}"></script>
+  <script src="{{ mix('js/app.js') }}"></script>
 
   @stack('scripts')
 </body>

@@ -1,0 +1,1 @@
+vagrant ssh -c '/home/vagrant/mixwatch.sh'

@@ -26,9 +26,10 @@ interface UserRepository
 
     /**
      * @param  string $searchQuery
+     * @param  bool $hasAccount limit to users with associated accounts
      * @return array
      */
-    public function searchLike(string $searchQuery);
+    public function searchLike(string $searchQuery, ?bool $hasAccount = false);
 
     /**
      * save User to the DB.

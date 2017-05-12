@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->group(function () {
+    // Search for members
+    // api/search/users/matt                    Search term as part of the
+    // api/search/users?q=matt                  Search term as a parametre
+    // api/search/users?q=matt&withAccount=true Only search for memebrs with Accounts
+    Route::name('search.users')->get('search/users/{searchQuery?}', 'Api\SearchController@users');
 });

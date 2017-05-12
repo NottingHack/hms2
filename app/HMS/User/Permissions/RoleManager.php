@@ -96,12 +96,10 @@ class RoleManager
      * @param User   $user
      * @param string $roleName take a role name string rather than a role enitity
      */
-    public function addUserToRoleByName(User $user, $roleName)
+    public function addUserToRoleByName(User $user, string $roleName)
     {
         $role = $this->roleRepository->findOneByName($roleName);
-        $user->getRoles()->add($role);
-        $this->userRepository->save($user);
-        event(new UserAddedToRole($user, $role));
+        $this->addUserToRole($user, $role);
     }
 
     /**
@@ -114,5 +112,16 @@ class RoleManager
         $user->getRoles()->removeElement($role);
         $this->userRepository->save($user);
         event(new UserRemovedFromRole($user, $role));
+    }
+
+    /**
+     * remove a user from a role and fire of an update event.
+     * @param  User   $user
+     * @param string $roleName take a role name string rather than a role enitity
+     */
+    public function removeUserFromRoleByName(User $user, string $roleName)
+    {
+        $role = $this->roleRepository->findOneByName($roleName);
+        $this->removeUserFromRole($user, $role);
     }
 }

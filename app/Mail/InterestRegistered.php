@@ -34,7 +34,8 @@ class InterestRegistered extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.interestregistered')
+        return $this->subject('Nottingham Hackspace: Interest registered')
+                    ->view('emails.interestregistered')
                     ->text('emails.text.interestregistered-plain')
                     ->with([
                         'token' => $this->invite->getInviteToken(),

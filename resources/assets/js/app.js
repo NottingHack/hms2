@@ -5,4 +5,7 @@ require('./bootstrap');
 // Initialise Foundation plugins
 $(() => {
   $(document).foundation();
+  if ($('#flash-overlay-modal').lenght) {
+    $('#flash-overlay-modal').foundation('open');
+  }
 });

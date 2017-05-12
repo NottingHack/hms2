@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use Carbon\Carbon;
 use HMS\Auth\PasswordStore;
 use HMS\Auth\HmsUserProvider;
+use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Auth;
 use Doctrine\ORM\EntityManagerInterface;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -31,5 +33,10 @@ class AuthServiceProvider extends ServiceProvider
         Auth::provider('hms', function ($app, array $config) use ($em, $passwordStore) {
             return new HmsUserProvider($app['hash'], $em, $config['model'], $passwordStore);
         });
+
+        // Passport bits.
+        Passport::routes();
+        Passport::tokensExpireIn(Carbon::now()->addDays(env('PASSPORT_TOKEN_EXPIRE_DAYS')));
+        Passport::refreshTokensExpireIn(Carbon::now()->addDays(env('PASSPORT_REFRESH_TOKEN_EXPIRE_DAYS')));
     }
 }

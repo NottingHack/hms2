@@ -20,6 +20,7 @@ cp /vagrant/dev/vagrant-config/laravel/.env /vagrant/.env
 php artisan doctrine:migration:refresh
 php artisan permission:defaults
 php artisan db:seed
+php artisan passport:install
 
 
 # Setup task scheduler cron

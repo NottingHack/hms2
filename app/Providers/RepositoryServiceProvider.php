@@ -6,6 +6,7 @@ use HMS\Entities\Link;
 use HMS\Entities\Meta;
 use HMS\Entities\Role;
 use HMS\Entities\User;
+use HMS\Entities\Email;
 use HMS\Entities\Invite;
 use HMS\Entities\Profile;
 use HMS\Entities\Banking\Account;
@@ -13,6 +14,7 @@ use HMS\Repositories\LinkRepository;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
+use HMS\Repositories\EmailRepository;
 use HMS\Repositories\InviteRepository;
 use HMS\Repositories\ProfileRepository;
 use Illuminate\Support\ServiceProvider;
@@ -23,6 +25,7 @@ use HMS\Repositories\Doctrine\DoctrineLinkRepository;
 use HMS\Repositories\Doctrine\DoctrineMetaRepository;
 use HMS\Repositories\Doctrine\DoctrineRoleRepository;
 use HMS\Repositories\Doctrine\DoctrineUserRepository;
+use HMS\Repositories\Doctrine\DoctrineEmailRepository;
 use HMS\Repositories\Doctrine\DoctrineInviteRepository;
 use HMS\Repositories\Doctrine\DoctrineProfileRepository;
 use HMS\Repositories\Doctrine\DoctrinePermissionRepository;
@@ -77,6 +80,10 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $this->app->singleton(AccountRepository::class, function ($app) {
             return new DoctrineAccountRepository($app['em'], $app['em']->getClassMetaData(Account::class));
+        });
+
+        $this->app->singleton(EmailRepository::class, function ($app) {
+            return new DoctrineEmailRepository($app['em'], $app['em']->getClassMetaData(Email::class));
         });
     }
 }

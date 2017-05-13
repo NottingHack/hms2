@@ -70,6 +70,11 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     protected $account;
 
     /**
+     * @var \Doctrine\Common\Collections\ArrayCollection|Email[]
+     */
+    protected $emails;
+
+    /**
      * User constructor.
      * @param string $firstname
      * @param string $lastname
@@ -83,6 +88,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
         $this->username = $username;
         $this->email = $email;
         $this->roles = new ArrayCollection();
+        $this->emails = new ArrayCollection();
     }
 
     /**
@@ -256,5 +262,13 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     public function getKey()
     {
         return $this->getAuthIdentifier();
+    }
+
+    /**
+     * @return ArrayCollection|Email[]
+     */
+    public function getEmails()
+    {
+        return $this->emails;
     }
 }

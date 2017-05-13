@@ -19,6 +19,10 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\MembershipInterestRegistered' => [
             'App\Listeners\Invites\MailInvite',
         ],
+
+        'Illuminate\Mail\Events\MessageSending' => [
+            'App\Listeners\LogSentMessage',
+        ],
     ];
 
     /**

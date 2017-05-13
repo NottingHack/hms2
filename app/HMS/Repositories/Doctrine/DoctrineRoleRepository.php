@@ -29,11 +29,20 @@ class DoctrineRoleRepository extends EntityRepository implements RoleRepository
      * Finds a role based on the role name.
      *
      * @param  string $roleName name of the role we want
-     * @return Role|object
+     * @return Role|nul
      */
     public function findByName(string $roleName)
     {
         return parent::findOneBy(['name' => $roleName]);
+    }
+
+    /**
+     * @param  string $email
+     * @return Role|null
+     */
+    public function findByOneEmail(string $email)
+    {
+        return parent::findByOneEmail($email);
     }
 
     /**

@@ -2087,16 +2087,16 @@
         },
         {
             "name": "lwk/vimbadmin-laravel-client",
-            "version": "1.0.0",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dpslwk/vimbadmin-laravel-client.git",
-                "reference": "2ebd282ddc8e721fbdfbc71c31ce3745bae78b6c"
+                "reference": "dd031a72fc51fc68c7f106ff92f68877df9682f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dpslwk/vimbadmin-laravel-client/zipball/2ebd282ddc8e721fbdfbc71c31ce3745bae78b6c",
-                "reference": "2ebd282ddc8e721fbdfbc71c31ce3745bae78b6c",
+                "url": "https://api.github.com/repos/dpslwk/vimbadmin-laravel-client/zipball/dd031a72fc51fc68c7f106ff92f68877df9682f6",
+                "reference": "dd031a72fc51fc68c7f106ff92f68877df9682f6",
                 "shasum": ""
             },
             "require": {
@@ -2133,7 +2133,7 @@
             "keywords": [
                 "vimbadmin"
             ],
-            "time": "2017-05-15T00:42:39+00:00"
+            "time": "2017-05-17T00:25:59+00:00"
         },
         {
             "name": "maximebf/debugbar",

@@ -22,6 +22,15 @@ class EventServiceProvider extends ServiceProvider
     ];
 
     /**
+     * The subscriber classes to register.
+     *
+     * @var array
+     */
+    protected $subscribe = [
+        'App\Listeners\ViMbAdminSubscriber',
+    ];
+
+    /**
      * Register any events for your application.
      *
      * @return void

@@ -182,19 +182,7 @@ class MembershipController extends Controller
             return redirect()->route('home');
         }
 
-        return view('membership.editDetails', [
-            'id' => $user->getId(),
-            'firstname' => $user->getFirstname(),
-            'lastname' => $user->getLastname(),
-            'address1' => $user->getProfile()->getAddress1(),
-            'address2' => $user->getProfile()->getAddress2(),
-            'address3' => $user->getProfile()->getAddress3(),
-            'addressCity' => $user->getProfile()->getAddressCity(),
-            'addressCounty' => $user->getProfile()->getAddressCounty(),
-            'addressPostcode' => $user->getProfile()->getAddressPostcode(),
-            'contactNumber' => $user->getProfile()->getContactNumber(),
-            'dateOfBirth' => $user->getProfile()->getDateOfBirth(),
-            ]);
+        return view('membership.editDetails')->with('user', $user);
     }
 
     /**

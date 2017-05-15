@@ -175,6 +175,7 @@ return [
         Spatie\CookieConsent\CookieConsentServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
+        LWK\ViMbAdmin\ViMbAdminServiceProvider::class,
 
         /*
          * Application Service Providers...

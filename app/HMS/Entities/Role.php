@@ -273,10 +273,10 @@ class Role implements RoleContract
      */
     public function routeNotificationForSlack(): string
     {
-        if ($this->name = self::TEAM_TRUSTEES) {
-            return Meta::get('trustee_slack_webhook');
+        if ($this->name == self::TEAM_TRUSTEES) {
+            return env('TRUSTEE_SLACK_WEBHOOK', '');
         } else {
-            return Meta::get('team_slack_webhook');
+            return env('TEAM_SLACK_WEBHOOK', '');
         }
     }
 }

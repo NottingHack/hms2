@@ -38,7 +38,7 @@ class InterestRegistered extends Mailable implements ShouldQueue
     /**
      * @var string
      */
-    public $rulesHTML;
+    public $rulesLink;
 
     /**
      * Create a new message instance.

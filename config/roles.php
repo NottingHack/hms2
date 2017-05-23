@@ -81,6 +81,24 @@ return [
                 'link.view',
             ],
         ],
+        'member.temporarybanned'    => [
+            'name'          => 'Temporary Banned Member',
+            'description'   => 'Temporary Banned Member',
+            'permissions'   => [
+                'profile.view.self',
+                'profile.edit.self',
+                'link.view',
+            ],
+        ],
+        'member.banned'    => [
+            'name'          => 'Banned Member',
+            'description'   => 'Banned Member',
+            'permissions'   => [
+                'profile.view.self',
+                'profile.edit.self',
+                'link.view',
+            ],
+        ],
         'user.super'         => [
             'name'          => 'Super User',
             'description'   => 'Full access to all parts of the system',

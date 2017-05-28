@@ -72,4 +72,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('labels/{label}/print', 'LabelTemplateController@showPrint')->name('labels.showPrint');
     Route::post('labels/{label}/print', 'LabelTemplateController@print')->name('labels.print');
     Route::resource('labels', 'LabelTemplateController');
+
+    // Membership
+    Route::get('/membership/approval/{user}', 'MembershipController@showDetailsForApproval')->name('membership.approval');
+    Route::post('/membership/approve-details/{user}', 'MembershipController@approveDetails')->name('membership.approve');
+    Route::post('/membership/reject-details/{user}', 'MembershipController@rejectDetails')->name('membership.reject');
+    Route::get('/membership/update-details/{user}', 'MembershipController@editDetails')->name('membership.edit');
+    Route::put('/membership/update-details/{user}', 'MembershipController@updateDetails')->name('membership.update');
 });

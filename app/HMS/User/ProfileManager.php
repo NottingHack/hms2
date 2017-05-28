@@ -5,6 +5,7 @@ namespace HMS\User;
 use Carbon\Carbon;
 use HMS\Entities\User;
 use HMS\Entities\Profile;
+use Illuminate\Http\Request;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\UserRepository;
 use HMS\Repositories\ProfileRepository;
@@ -82,6 +83,68 @@ class ProfileManager
         $this->profileRepository->save($profile);
 
         $user->setProfile($profile);
+        $this->userRepository->save($user);
+
+        return $user;
+    }
+
+    /**
+     * update the user form a form request.
+     * @param  User    $user    user to update
+     * @param  Illuminate\Http\Request $request
+     * @return User
+     */
+    public function updateUserProfileFromRequest(User $user, Request $request)
+    {
+        $profile = $user->getProfile();
+
+        if ($request['address1']) {
+            $profile->setAddress1($request['address1']);
+        }
+
+        // Nullable field
+        if ($request->exists('address2')) {
+            $profile->setAddress2($request['address2']);
+        }
+
+        // Nullable field
+        if ($request->exists('address3')) {
+            $profile->setAddress3($request['address3']);
+        }
+
+        if ($request['addressCity']) {
+            $profile->setAddressCity($request['addressCity']);
+        }
+
+        if ($request['addressCounty']) {
+            $profile->setAddressCounty($request['addressCounty']);
+        }
+
+        if ($request['addressPostcode']) {
+            $profile->setAddressPostcode($request['addressPostcode']);
+        }
+
+        if ($request['contactNumber']) {
+            $profile->setContactNumber($request['contactNumber']);
+        }
+
+        // Nullable field
+        if ($request->exists('dateOfBirth')) {
+            if (is_null($request['dataOfBirth'])) {
+                $profile->setDateOfBirth(null);
+            } else {
+                $profile->setDateOfBirth(new Carbon($request['dateOfBirth']));
+            }
+        }
+
+        if ($request['creditLimit']) {
+            $profile->setCreditLimit($request['creditLimit']);
+        }
+
+        if ($request['unlockText']) {
+            $profile->setUnlockText($request['unlockText']);
+        }
+
         $this->userRepository->save($user);
 
         return $user;

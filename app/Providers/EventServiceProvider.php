@@ -15,6 +15,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         'Illuminate\Auth\Events\Registered' => [
             'App\Listeners\Invites\RevokeInviteOnUserRegistered',
+            'App\Listeners\Membership\ApprovalEmailOnUserRegistered',
         ],
         'App\Events\MembershipInterestRegistered' => [
             'App\Listeners\Invites\MailInvite',

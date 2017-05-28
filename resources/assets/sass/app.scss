@@ -68,10 +68,10 @@ header {
       text-shadow: $black 2px 2px 2px;
 
       &.big-header {
-        @each $size, $headers in $header-sizes {
+        @each $size, $headers in $header-styles {
           @include breakpoint($size) {
             // this is being overridden by another rule elsewhere
-            font-size: rem-calc(map-get($headers, "h1"));
+            font-size: rem-calc(map-get(map-get($headers, "h1"), "font-size"));
           }
         }
       }

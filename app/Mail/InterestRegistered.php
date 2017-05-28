@@ -48,8 +48,8 @@ class InterestRegistered extends Mailable implements ShouldQueue
     public function __construct(Invite $invite, MetaRepository $metaRepository, RoleRepository $roleRepository)
     {
         $this->token = $invite->getInviteToken();
-        $this->membershipEmail = $roleRepository->findByName(Role::TEAM_MEMBERSHIP)->getEmail();
-        $this->trusteesEmail = $roleRepository->findByName(Role::TEAM_TRUSTEES)->getEmail();
+        $this->membershipEmail = $roleRepository->findOneByName(Role::TEAM_MEMBERSHIP)->getEmail();
+        $this->trusteesEmail = $roleRepository->findOneByName(Role::TEAM_TRUSTEES)->getEmail();
         $this->groupLink = $metaRepository->get('link_Google Group');
         $this->rulesLink = $metaRepository->get('link_Hackspace Rules');
     }

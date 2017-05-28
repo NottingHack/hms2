@@ -214,7 +214,7 @@ class MembershipController extends Controller
         $user = $this->userManager->updateFromRequest($user, $request);
         $user = $this->profileManager->updateUserProfileFromRequest($user, $request);
 
-        $membershipTeamRole = $this->roleRepository->findByName(Role::TEAM_MEMBERSHIP);
+        $membershipTeamRole = $this->roleRepository->findOneByName(Role::TEAM_MEMBERSHIP);
         $membershipTeamRole->notify(new NewMemberApprovalNeeded($user, true));
 
         flash('Your details have been updated and another review requested, thank you.')->success();

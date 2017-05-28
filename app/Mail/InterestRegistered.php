@@ -2,29 +2,56 @@
 
 namespace App\Mail;
 
+use HMS\Entities\Role;
 use HMS\Entities\Invite;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use HMS\Repositories\MetaRepository;
+use HMS\Repositories\RoleRepository;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class InterestRegistered extends Mailable
+class InterestRegistered extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
     /**
-     * @var Invite
+     * @var string
      */
-    protected $invite;
+    public $token;
+
+    /**
+     * @var string
+     */
+    public $membershipEmail;
+
+    /**
+     * @var string
+     */
+    public $trusteesEmail;
+
+    /**
+     * @var string
+     */
+    public $groupLink;
+
+    /**
+     * @var string
+     */
+    public $rulesLink;
 
     /**
      * Create a new message instance.
      *
      * @param Invite $invite
      */
-    public function __construct(Invite $invite)
+    public function __construct(Invite $invite, MetaRepository $metaRepository, RoleRepository $roleRepository)
     {
-        //
-        $this->invite = $invite;
+        $this->token = $invite->getInviteToken();
+        $this->membershipEmail = $roleRepository->findByName(Role::TEAM_MEMBERSHIP)->getEmail();
+        $this->trusteesEmail = $roleRepository->findByName(Role::TEAM_TRUSTEES)->getEmail();
+        $this->groupLink = $metaRepository->get('link_Google Group');
+        $this->rulesLink = $metaRepository->get('link_Hackspace Rules');
     }
 
     /**
@@ -34,14 +61,7 @@ class InterestRegistered extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.interestregistered')
-                    ->text('emails.text.interestregistered-plain')
-                    ->with([
-                        'token' => $this->invite->getInviteToken(),
-                        'membershipEmail' => 'membership@nottinghack.org.uk',
-                        'trusteesEmail' => 'trustees@notinghack.org.uk',
-                        'groupLink' => 'https://groups.google.com/group/nottinghack?hl=en',
-                        'rulesHTML' => 'http://rules.nottinghack.org.uk',
-                    ]);
+        return $this->subject('Nottingham Hackspace: Interest registered')
+                    ->markdown('emails.interestregistered');
     }
 }

@@ -15,7 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 $factory->define(HMS\Entities\User::class, function (Faker\Generator $faker) {
     return [
-        'firstname' => $faker->firstName,
+        'name' => $faker->firstName,
         'lastname' => $faker->lastName,
         'email' => $faker->unique()->safeEmail,
         'username' => $faker->unique()->userName,

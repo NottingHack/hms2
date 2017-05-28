@@ -1,0 +1,30 @@
+# HMS.Entities.RoleUpdate.dcm.yml
+HMS\Entities\RoleUpdate:
+  type: entity
+  repositoryClass: HMS\Repository\RoleUpdateRepository
+  table: role_updates
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+  manyToOne:
+    user:
+      targetEntity: User
+      nullable: false
+    roleAdded:
+      targetEntity: Role
+      joinColumn:
+        name: added_role_id
+    roleRemoved:
+      targetEntity: Role
+      joinColumn:
+        name: removed_role_id

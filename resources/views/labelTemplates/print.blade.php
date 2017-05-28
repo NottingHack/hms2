@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('pageTitle', 'Print Label')
+
 @section('content')
 <h1>{{ $templateName}}</h1>
 <!-- TODO: shade this area -->

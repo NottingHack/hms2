@@ -7,6 +7,7 @@ use HMS\Entities\User;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
 use App\Events\Roles\UserAddedToRole;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Events\Roles\UserRemovedFromRole;
 use HMS\Repositories\PermissionRepository;
 
@@ -28,15 +29,21 @@ class RoleManager
     protected $userRepository;
 
     /**
+     * @var EntityManagerInterface
+     */
+    protected $entityManager;
+
+    /**
      * Create a new RoleManager instance.
      *
      * @param HMS\Repositories\RoleRepository $roleRepository An instance of a role repository
      */
-    public function __construct(RoleRepository $roleRepository, PermissionRepository $permissionRepository, UserRepository $userRepository)
+    public function __construct(RoleRepository $roleRepository, PermissionRepository $permissionRepository, UserRepository $userRepository, EntityManagerInterface $entityManager)
     {
         $this->roleRepository = $roleRepository;
         $this->permissionRepository = $permissionRepository;
         $this->userRepository = $userRepository;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -89,6 +96,7 @@ class RoleManager
         $user->getRoles()->add($role);
         $this->userRepository->save($user);
         event(new UserAddedToRole($user, $role));
+        $this->entityManager->refresh($user);
     }
 
     /**
@@ -96,12 +104,10 @@ class RoleManager
      * @param User   $user
      * @param string $roleName take a role name string rather than a role enitity
      */
-    public function addUserToRoleByName(User $user, $roleName)
+    public function addUserToRoleByName(User $user, string $roleName)
     {
         $role = $this->roleRepository->findOneByName($roleName);
-        $user->getRoles()->add($role);
-        $this->userRepository->save($user);
-        event(new UserAddedToRole($user, $role));
+        $this->addUserToRole($user, $role);
     }
 
     /**
@@ -114,5 +120,17 @@ class RoleManager
         $user->getRoles()->removeElement($role);
         $this->userRepository->save($user);
         event(new UserRemovedFromRole($user, $role));
+        $this->entityManager->refresh($user);
+    }
+
+    /**
+     * remove a user from a role and fire of an update event.
+     * @param  User   $user
+     * @param string $roleName take a role name string rather than a role enitity
+     */
+    public function removeUserFromRoleByName(User $user, string $roleName)
+    {
+        $role = $this->roleRepository->findOneByName($roleName);
+        $this->removeUserFromRole($user, $role);
     }
 }

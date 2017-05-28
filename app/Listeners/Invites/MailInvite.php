@@ -3,19 +3,32 @@
 namespace App\Listeners\Invites;
 
 use App\Mail\InterestRegistered;
+use HMS\Repositories\MetaRepository;
+use HMS\Repositories\RoleRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Events\MembershipInterestRegistered;
 
 class MailInvite implements ShouldQueue
 {
     /**
+     * @var MetaRepository
+     */
+    protected $metaRepository;
+
+    /**
+     * @var RoleRepository
+     */
+    protected $roleRepository;
+
+    /**
      * Create the event listener.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(MetaRepository $metaRepository, RoleRepository $roleRepository)
     {
-        //
+        $this->metaRepository = $metaRepository;
+        $this->roleRepository = $roleRepository;
     }
 
     /**
@@ -27,6 +40,6 @@ class MailInvite implements ShouldQueue
     public function handle(MembershipInterestRegistered $event)
     {
         \Mail::to($event->invite->getEmail())
-            ->queue(new InterestRegistered($event->invite));
+            ->queue(new InterestRegistered($event->invite, $this->metaRepository, $this->roleRepository));
     }
 }

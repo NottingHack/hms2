@@ -78,6 +78,8 @@ class RegisterController extends Controller
             'email' => 'required|email|max:255|unique:HMS\Entities\User',
             'password' => 'required|min:' . User::MIN_PASSWORD_LENGTH . '|confirmed',
             'address1' => 'required|max:100',
+            'address2' => 'nullable|max:100',
+            'address3' => 'nullable|max:100',
             'addressCity' => 'required|max:100',
             'addressCounty' => 'required|max:100',
             'addressPostcode' => 'required|max:10',

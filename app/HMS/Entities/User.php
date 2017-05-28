@@ -32,7 +32,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     /**
      * @var string Users first name
      */
-    protected $firstname;
+    public $name;
 
     /**
      * @var string Users last name
@@ -47,7 +47,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     /**
      * @var string Users email address
      */
-    protected $email;
+    public $email;
 
     /**
      * @var string Users remember me token for persisting login sessions
@@ -55,7 +55,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     protected $rememberToken;
 
     /**
-     * @var \Doctrine\Common\Collections\ArrayCollection|\LaravelDoctrine\ACL\Contracts\Role[]
+     * @var \Doctrine\Common\Collections\Collection|\LaravelDoctrine\ACL\Contracts\Role[]
      */
     protected $roles;
 
@@ -70,6 +70,11 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     protected $account;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection|Email[]
+     */
+    protected $emails;
+
+    /**
      * User constructor.
      * @param string $firstname
      * @param string $lastname
@@ -78,11 +83,12 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
      */
     public function __construct(string $firstname, string $lastname, string $username, string $email)
     {
-        $this->firstname = $firstname;
+        $this->name = $firstname;
         $this->lastname = $lastname;
         $this->username = $username;
         $this->email = $email;
         $this->roles = new ArrayCollection();
+        $this->emails = new ArrayCollection();
     }
 
     /**
@@ -98,7 +104,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
      */
     public function getFirstname(): string
     {
-        return $this->firstname;
+        return $this->name;
     }
 
     /**
@@ -112,9 +118,9 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     /**
      * @return string
      */
-    public function getFullName(): string
+    public function getFullname(): string
     {
-        return $this->firstname . ' ' . $this->lastname;
+        return $this->name . ' ' . $this->lastname;
     }
 
     /**
@@ -256,5 +262,55 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     public function getKey()
     {
         return $this->getAuthIdentifier();
+    }
+
+    /**
+     * Sets the value of firstname.
+     *
+     * @param string $name the name
+     *
+     * @return self
+     */
+    public function setFirstname($firstname)
+    {
+        $this->name = $firstname;
+
+        return $this;
+    }
+
+    /**
+     * Sets the value of lastname.
+     *
+     * @param string $lastname the lastname
+     *
+     * @return self
+     */
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    /**
+     * Sets the value of email.
+     *
+     * @param string $email the email
+     *
+     * @return self
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection|Email[]
+     */
+    public function getEmails()
+    {
+        return $this->emails;
     }
 }

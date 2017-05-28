@@ -39,21 +39,36 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     }
 
     /**
+     * @param  string $email
+     * @return User|null
+     */
+    public function findOneByEmail(string $email)
+    {
+        return parent::findOneByEmail($email);
+    }
+
+    /**
      * @param  string $searchQuery
+     * @param  bool $hasAccount limit to users with associated accounts
      * @return array
      */
-    public function searchLike(string $searchQuery)
+    public function searchLike(string $searchQuery, ?bool $hasAccount = false)
     {
         $q = parent::createQueryBuilder('user')
             ->leftJoin('user.profile', 'profile')->addSelect('profile')
             ->leftJoin('user.account', 'account')->addSelect('account')
-            ->where('user.firstname LIKE :keyword')
+            ->where('user.name LIKE :keyword')
             ->orWhere('user.lastname LIKE :keyword')
             ->orWhere('user.username LIKE :keyword')
             ->orWhere('user.email LIKE :keyword')
             ->orWhere('profile.addressPostcode LIKE :keyword')
-            ->orWhere('account.paymentRef LIKE :keyword')
-            ->setParameter('keyword', '%'.$searchQuery.'%')
+            ->orWhere('account.paymentRef LIKE :keyword');
+
+        if ($hasAccount) {
+            $q = $q->andWhere('user.account IS NOT NULL');
+        }
+
+        $q = $q->setParameter('keyword', '%'.$searchQuery.'%')
             ->getQuery();
 
         return $q->getResult();

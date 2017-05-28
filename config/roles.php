@@ -21,9 +21,11 @@ return [
         'meta.view',
         'meta.edit',
         'membership.approval',
+        'membership.updateDetails',
         'link.view',
         'link.create',
         'link.edit',
+        'search.users',
     ],
 
     /*
@@ -42,6 +44,7 @@ return [
                 'profile.view.self',
                 'profile.edit.self',
                 'link.view',
+                'membership.updateDetails',
             ],
         ],
         'member.payment'    => [
@@ -81,6 +84,24 @@ return [
                 'link.view',
             ],
         ],
+        'member.temporarybanned'    => [
+            'name'          => 'Temporary Banned Member',
+            'description'   => 'Temporary Banned Member',
+            'permissions'   => [
+                'profile.view.self',
+                'profile.edit.self',
+                'link.view',
+            ],
+        ],
+        'member.banned'    => [
+            'name'          => 'Banned Member',
+            'description'   => 'Banned Member',
+            'permissions'   => [
+                'profile.view.self',
+                'profile.edit.self',
+                'link.view',
+            ],
+        ],
         'user.super'         => [
             'name'          => 'Super User',
             'description'   => 'Full access to all parts of the system',
@@ -96,6 +117,7 @@ return [
             'permissions'   => [
                 'profile.view.all',
                 'membership.approval',
+                'search.users',
             ],
         ],
         'team.trustees'    => [
@@ -109,6 +131,7 @@ return [
                 'meta.view',
                 'meta.edit',
                 'membership.approval',
+                'search.users',
             ],
         ],
     ],

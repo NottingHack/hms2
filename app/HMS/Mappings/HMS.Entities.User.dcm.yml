@@ -17,7 +17,8 @@ HMS\Entities\User:
       generator:
         strategy: AUTO
   fields:
-    firstname:
+    name:
+      column: firstname
       type: string
     lastname:
       type: string
@@ -69,4 +70,6 @@ HMS\Entities\User:
         inverseJoinColumns:
           role_id:
             referencedColumnName: id
-
+    emails:
+      targetEntity: Email
+      mappedBy: users

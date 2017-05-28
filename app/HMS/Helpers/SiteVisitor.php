@@ -18,7 +18,7 @@ class SiteVisitor
         }
 
         // Allowed IPs
-        $allowed = [env('RESTRICED_IP_RANGE', '10.0.0.0/8')];
+        $allowed = [config('hms.restriced_ip_range')];
 
         if (IpUtils::checkIp($request->ip(), $allowed)) {
             return true;

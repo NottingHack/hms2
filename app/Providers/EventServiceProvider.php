@@ -15,10 +15,24 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         'Illuminate\Auth\Events\Registered' => [
             'App\Listeners\Invites\RevokeInviteOnUserRegistered',
+            'App\Listeners\Membership\ApprovalEmailOnUserRegistered',
         ],
         'App\Events\MembershipInterestRegistered' => [
             'App\Listeners\Invites\MailInvite',
         ],
+
+        'Illuminate\Mail\Events\MessageSending' => [
+            'App\Listeners\LogSentMessage',
+        ],
+    ];
+
+    /**
+     * The subscriber classes to register.
+     *
+     * @var array
+     */
+    protected $subscribe = [
+        'App\Listeners\RoleUpdateLogger',
     ];
 
     /**

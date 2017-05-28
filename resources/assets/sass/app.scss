@@ -10,6 +10,10 @@
 
 @include foundation-everything($flex: true);
 
+button {
+  font-family: inherit;
+}
+
 h2 {
   color: $hackspace-green;
 }

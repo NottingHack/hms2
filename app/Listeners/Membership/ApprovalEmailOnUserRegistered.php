@@ -33,7 +33,7 @@ class ApprovalEmailOnUserRegistered implements ShouldQueue
      */
     public function handle(Registered $event)
     {
-        $membershipTeamRole = $this->roleRepository->findByName(Role::TEAM_MEMBERSHIP);
+        $membershipTeamRole = $this->roleRepository->findOneByName(Role::TEAM_MEMBERSHIP);
         $membershipTeamRole->notify(new NewMemberApprovalNeeded($event->user));
     }
 }

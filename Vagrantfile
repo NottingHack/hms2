@@ -10,14 +10,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "debian/contrib-jessie64"
+  config.vm.box = "NottingHack/hms2"
   config.vm.hostname = "hmsdev.nottingtest.org.uk"
-  config.vm.provision :shell, path: "dev/vagrant-config/scripts/bootstrap.sh"
+  
+  config.vm.provider :virtualbox do |vb|
+    vb.customize ['modifyvm', :id, '--memory', '2048']
+    vb.customize ['modifyvm', :id, '--natdnsproxy1', 'on']
+    vb.customize ['modifyvm', :id, '--natdnshostresolver1', 'on']
+  end
+
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/nginx.sh"
-  config.vm.provision :shell, path: "dev/vagrant-config/scripts/database.sh"
-  config.vm.provision :shell, path: "dev/vagrant-config/scripts/php.sh"
-  config.vm.provision :shell, path: "dev/vagrant-config/scripts/kerberos.sh"
-  config.vm.provision :shell, path: "dev/vagrant-config/scripts/node.sh"
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/laravel.sh"
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/mix.sh", privileged: false
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/finish.sh"

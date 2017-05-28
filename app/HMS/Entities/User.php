@@ -55,7 +55,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     protected $rememberToken;
 
     /**
-     * @var \Doctrine\Common\Collections\ArrayCollection|\LaravelDoctrine\ACL\Contracts\Role[]
+     * @var \Doctrine\Common\Collections\Collection|\LaravelDoctrine\ACL\Contracts\Role[]
      */
     protected $roles;
 
@@ -68,6 +68,11 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
      * @var ?Account
      */
     protected $account;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection|Email[]
+     */
+    protected $emails;
 
     /**
      * User constructor.
@@ -83,6 +88,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
         $this->username = $username;
         $this->email = $email;
         $this->roles = new ArrayCollection();
+        $this->emails = new ArrayCollection();
     }
 
     /**
@@ -298,5 +304,13 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
         $this->email = $email;
 
         return $this;
+    }
+
+    /**
+     * @return ArrayCollection|Email[]
+     */
+    public function getEmails()
+    {
+        return $this->emails;
     }
 }

@@ -25,6 +25,12 @@ interface UserRepository
     public function findByEmail(string $email);
 
     /**
+     * @param  string $email
+     * @return User|null
+     */
+    public function findOneByEmail(string $email);
+
+    /**
      * @param  string $searchQuery
      * @param  bool $hasAccount limit to users with associated accounts
      * @return array

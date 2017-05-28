@@ -107,13 +107,35 @@ header {
 .form-label {
   @extend .columns;
   @extend .small-12;
-  @extend .medium-2;
+  @extend .medium-3;
 }
 
 .form-control {
   @extend .columns;
   @extend .small-12;
-  @extend .medium-10;
+  @extend .medium-9;
+}
+
+/* Use form-tickbox-row when making rows of simple checkbox or radio toggles, like lists of permissions in roles.
+ * Markup is an input (checkbox or radio) and a label, inside a div.form-tickbox-row
+ */
+.form-tickbox-row {
+  display: flex;
+  align-items: center;
+
+  input {
+    margin: 0;
+    padding: 0;
+  }
+
+  label {
+    padding-left: 1rem;
+  }
+}
+
+.form-group {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .form-buttons {

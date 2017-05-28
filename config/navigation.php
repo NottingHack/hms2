@@ -49,6 +49,13 @@ return [
                     'permissions'   => ['meta.view'],
                     'links'         => [],
                 ],
+                'labels'          => [
+                    'text'          => 'Label Templates',
+                    'route'         => 'labels.index',
+                    'match'         => 'labels.index',
+                    'permissions'   => ['labelTemplate.view'],
+                    'links'         => [],
+                ],
             ],
         ],
     ],

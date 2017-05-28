@@ -25,6 +25,10 @@ return [
         'link.view',
         'link.create',
         'link.edit',
+        'labelTemplate.view',
+        'labelTemplate.create',
+        'labelTemplate.edit',
+        'labelTemplate.print',
         'search.users',
     ],
 

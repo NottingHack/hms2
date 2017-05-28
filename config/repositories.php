@@ -42,5 +42,6 @@ return [
         'Banking\Account',
         'Email',
         'RoleUpdate',
+        'LabelTemplate',
     ],
 ];

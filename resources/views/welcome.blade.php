@@ -1,93 +1,24 @@
-<!doctype html>
-<html lang="{{ config('app.locale') }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <title>Laravel</title>
+@section('content')
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+<h1>Welcome to HMS!</h1>
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
+<p class="lead">Already a member? <a href="{{ url('/login') }}">Log in!</a></p>
 
-            .full-height {
-                height: 100vh;
-            }
+<h2>What is Nottinghack?</h2>
+<p>Nottinghack is a Nottingham based group for hackers, makers and crafty creatives!</p>
+<p>Hacking is NOT to be confused with network hacking, identity theft and computer virus propagation, etc. Nottinghack does not condone anything illegal; hardware Hacking is a creative, educational hobby!</p>
+<p>Who is it for? If you like to build, make &amp; learn it’s for you. You’ll probably be interested in learning about and sharing knowledge of electronics, crafts, robotics, DIY, hardware hacking, photography, computing, reverse engineering, prototyping, film making, animation, building RC vehicles and other creative challenges and projects.</p>
+<p>You’ll be looking for a group who can share tools, techniques and time; pool resources for bigger projects, get funding, discounts on kits and components and start classes, all in a safe friendly environment!</p>
+<p><a href="http://nottinghack.org.uk/?page_id=10">Read more...</a></p>
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+<h2>What is HMS?</h2>
+<p>HMS (Hackspace Management System) is a program designed to help keep track of members, it's a bit basic at the moment, but we have big plans for it. It's current main goal is to make new member registration easier.</p>
 
-            .position-ref {
-                position: relative;
-            }
+<h2>Interested in Nottingham Hackspace?</h2>
+<p>Excellent! Have you had a tour yet? If not come down to one of our open hack-nights (every Wednesday from 6:30pm at the address below). Already in the building? Look for the human near <a href="http://www.flickr.com/photos/nottinghack/7048461835/">Ein the duck</a>, they'll be able to help you.</p>
+<p>You may also want to follow Nottingham Hackspace on your choice of social network: <a href="http://twitter.com/#!/hsnotts">Twitter</a>, <a href="http://groups.google.com/group/nottinghack">Google Group</a>, <a href="http://www.flickr.com/photos/nottinghack">Flickr</a>, <a href="http://www.youtube.com/user/nottinghack">YouTube</a>, or <a href="http://www.facebook.com/pages/NottingHack/106946729335123">Facebook</a>.</p>
+<p>We also have a <a href="http://nottinghack.org.uk/">Blog</a>.</p>
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    <a href="{{ url('/login') }}">Login</a>
-                    @if (SiteVisitor::inTheSpace())
-                    <a href="{{ route('registerInterest') }}">Register Interest</a>
-                    @endif
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
-        </div>
-    </body>
-</html>
+@endsection

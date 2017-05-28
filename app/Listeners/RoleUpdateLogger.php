@@ -4,6 +4,8 @@ namespace App\Listeners;
 
 use HMS\Entities\Role;
 use HMS\Entities\RoleUpdate;
+use HMS\Repositories\RoleRepository;
+use HMS\Repositories\UserRepository;
 use App\Events\Roles\UserAddedToRole;
 use Doctrine\ORM\EntityManagerInterface;
 use Illuminate\Queue\InteractsWithQueue;
@@ -26,14 +28,26 @@ class RoleUpdateLogger implements ShouldQueue
     protected $entityManager;
 
     /**
+     * @var UserRepository
+     */
+    protected $userRepository;
+
+    /**
+     * @var RoleRepository
+     */
+    protected $roleRepository;
+
+    /**
      * Create the event listener.
      *
      * @param RoleUpdateRepository $roleUpdateRepository
      */
-    public function __construct(RoleUpdateRepository $roleUpdateRepository, EntityManagerInterface $entityManager)
+    public function __construct(RoleUpdateRepository $roleUpdateRepository, EntityManagerInterface $entityManager, UserRepository $userRepository, RoleRepository $roleRepository)
     {
         $this->roleUpdateRepository = $roleUpdateRepository;
         $this->entityManager = $entityManager;
+        $this->userRepository = $userRepository;
+        $this->roleRepository = $roleRepository;
     }
 
     /**
@@ -47,8 +61,8 @@ class RoleUpdateLogger implements ShouldQueue
             return;
         }
 
-        $user = $this->entityManager->merge($event->user);
-        $role = $this->entityManager->merge($event->role);
+        $user = $this->userRepository->find($event->user->getId());
+        $role = $this->roleRepository->find($event->role->getId());
         $roleUpdate = new RoleUpdate($user, $role);
         $this->roleUpdateRepository->save($roleUpdate);
     }
@@ -60,8 +74,8 @@ class RoleUpdateLogger implements ShouldQueue
      */
     public function onUserRemovedFromRole(UserRemovedFromRole $event)
     {
-        $user = $this->entityManager->merge($event->user);
-        $role = $this->entityManager->merge($event->role);
+        $user = $this->userRepository->find($event->user->getId());
+        $role = $this->roleRepository->find($event->role->getId());
         $roleUpdate = new RoleUpdate($user, null, $role);
         $this->roleUpdateRepository->save($roleUpdate);
     }

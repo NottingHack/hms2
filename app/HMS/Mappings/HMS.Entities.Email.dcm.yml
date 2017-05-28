@@ -1,0 +1,37 @@
+#HMS.Entities.Email.dcm.yml
+HMS\Entities\Email:
+  type: entity
+  table: emails
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    toAddress:
+      type: array
+    subject:
+      type: string
+    body:
+      type: text
+    sentAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+  manyToOne:
+    role:
+      targetEntity: Role
+  manyToMany:
+    users:
+      targetEntity: User
+      joinTable:
+        name: email_users
+        joinColumns:
+          email_id:
+            referencedColumnName: id
+        inverseJoinColumns:
+          user_id:
+            referencedColumnName: id

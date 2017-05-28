@@ -40,5 +40,6 @@ return [
         'Invite',
         'Profile',
         'Banking\Account',
+        'Email',
     ],
 ];

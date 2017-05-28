@@ -39,6 +39,15 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     }
 
     /**
+     * @param  string $email
+     * @return User|null
+     */
+    public function findOneByEmail(string $email)
+    {
+        return parent::findOneByEmail($email);
+    }
+
+    /**
      * @param  string $searchQuery
      * @return array
      */

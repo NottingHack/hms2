@@ -2,7 +2,7 @@
 
 @section('content')
 <h1>New member detials review</h1>
-<p>Please review the details below and check they are all sane.</p>
+<p>Please review the details below and check they are all sensible.</p>
 <table>
   <tbody>
     <tr>

@@ -217,7 +217,7 @@ class MembershipController extends Controller
         $membershipTeamRole = $this->roleRepository->findByName(Role::TEAM_MEMBERSHIP);
         $membershipTeamRole->notify(new NewMemberApprovalNeeded($user, true));
 
-        flash('Your detials have been updated and another review requested, thank you.')->success();
+        flash('Your details have been updated and another review requested, thank you.')->success();
 
         return redirect()->route('home');
     }

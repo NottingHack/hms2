@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
+@section('pageTitle', 'Update Details')
+
 @section('content')
-<h1>Update detials</h1>
 <p>Please review the details below and update them as requested by the membership team.</p>
 
 <form role="form" method="POST" action="{{ route('membership.update', $user->getId()) }}">

@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
+@section('pageTitle', 'Roles')
+
 @section('content')
-<h1>Roles</h1>
 
 @foreach ($roles as $category => $categoryRoles)
     <h2>{{ $category }}</h2>

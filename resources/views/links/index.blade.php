@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
+@section('pageTitle', 'Links')
+
 @section('content')
-<h1>Links</h1>
 <p>Useful links for members</p>
 <ul>
 @foreach ($links as $link)

@@ -3,6 +3,7 @@
 namespace HMS\Entities;
 
 use HMS\Entities\Banking\Account;
+use Laravel\Passport\HasApiTokens;
 use HMS\Traits\Entities\SoftDeletable;
 use HMS\Traits\Entities\Timestampable;
 use LaravelDoctrine\ACL\Roles\HasRoles;
@@ -19,7 +20,7 @@ use LaravelDoctrine\ACL\Contracts\HasPermissions as HasPermissionsContract;
 
 class User implements AuthenticatableContract, CanResetPasswordContract, HasRoleContract, HasPermissionsContract, AuthorizableContract
 {
-    use CanResetPassword, Notifiable, HasRoles, HasPermissions, SoftDeletable, Timestampable, Authorizable;
+    use CanResetPassword, Notifiable, HasRoles, HasPermissions, SoftDeletable, Timestampable, Authorizable, HasApiTokens;
 
     const MIN_PASSWORD_LENGTH = 3;
 
@@ -54,7 +55,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     protected $rememberToken;
 
     /**
-     * @var \Doctrine\Common\Collections\ArrayCollection|\LaravelDoctrine\ACL\Contracts\Role[]
+     * @var \Doctrine\Common\Collections\Collection|\LaravelDoctrine\ACL\Contracts\Role[]
      */
     protected $roles;
 
@@ -67,6 +68,11 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
      * @var ?Account
      */
     protected $account;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection|Email[]
+     */
+    protected $emails;
 
     /**
      * User constructor.
@@ -82,6 +88,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
         $this->username = $username;
         $this->email = $email;
         $this->roles = new ArrayCollection();
+        $this->emails = new ArrayCollection();
     }
 
     /**
@@ -246,5 +253,22 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
         $this->account = $account;
 
         return $this;
+    }
+
+    /**
+     * use by passport.
+     * @return int
+     */
+    public function getKey()
+    {
+        return $this->getAuthIdentifier();
+    }
+
+    /**
+     * @return ArrayCollection|Email[]
+     */
+    public function getEmails()
+    {
+        return $this->emails;
     }
 }

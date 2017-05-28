@@ -69,4 +69,6 @@ HMS\Entities\User:
         inverseJoinColumns:
           role_id:
             referencedColumnName: id
-
+    emails:
+      targetEntity: Email
+      mappedBy: users

@@ -2,39 +2,57 @@
 
 namespace HMS\User;
 
+use Carbon\Carbon;
 use HMS\Entities\User;
 use HMS\Entities\Profile;
-use Doctrine\ORM\EntityManagerInterface;
+use HMS\Repositories\MetaRepository;
+use HMS\Repositories\UserRepository;
+use HMS\Repositories\ProfileRepository;
 
 class ProfileManager
 {
     /**
-     * @var EntityManagerInterface
+     * @var ProfileRepository
      */
-    protected $em;
+    protected $profileRepository;
+
+    /**
+     * @var UserRepository
+     */
+    protected $userRepository;
+
+    /**
+     * @var MetaRepository
+     */
+    protected $metaRepository;
 
     /**
      * ProfileManager constructor.
-     * @param EntityManagerInterface $em
+     * @param ProfileRepository $profileRepository
+     * @param UserRepository    $userRepository
+     * @param MetaRepository    $metaRepository
      */
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(ProfileRepository $profileRepository, UserRepository $userRepository, MetaRepository $metaRepository)
     {
-        $this->em = $em;
+        $this->profileRepository = $profileRepository;
+        $this->userRepository = $userRepository;
+        $this->metaRepository = $metaRepository;
     }
 
     /**
      * Bulk populate a user profile, used on registration.
      * @param User $user
      * @param string $address1
-     * @param string $address2
-     * @param string $address3
+     * @param ?string $address2
+     * @param ?string $address3
      * @param string $addressCity
      * @param string $addressCounty
      * @param string $addressPostcode
      * @param string $contactNumber
+     * @param ?string $dateOfBirth
      * @return User
      */
-    public function create(User $user, string $address1, string $address2, string $address3, string $addressCity, string $addressCounty, string $addressPostcode, string $contactNumber)
+    public function create(User $user, string $address1, ?string $address2, ?string $address3, string $addressCity, string $addressCounty, string $addressPostcode, string $contactNumber, ?string $dateOfBirth): User
     {
         $profile = new Profile($user);
 
@@ -53,16 +71,18 @@ class ProfileManager
         $profile->setAddressPostcode($addressPostcode);
         $profile->setContactNumber($contactNumber);
 
-        // TODO: get this from meta at some point
-        $profile->setCreditLimit(2000);
+        if ( ! empty($dateOfBirth)) {
+            $profile->setDateOfBirth(new Carbon($dateOfBirth));
+        }
+
+        $profile->setCreditLimit($this->metaRepository->get('member_credit_limit'));
 
         $profile->setUnlockText('Welcome ' . $user->getFirstName());
 
-        $this->em->persist($profile);
-        $this->em->flush();
+        $this->profileRepository->save($profile);
 
         $user->setProfile($profile);
-        $this->em->persist($user);
+        $this->userRepository->save($user);
 
         return $user;
     }

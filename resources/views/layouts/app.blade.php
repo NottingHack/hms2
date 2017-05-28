@@ -16,7 +16,7 @@
     </title>
 
     <!-- Styles -->
-    <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -76,15 +76,21 @@
   <div class="row align-top">
       @if (!Auth::guest())
       <div class="columns small-12 small-order-1 medium-2 medium-order-0 large-2">
-        <ul class="menu vertical">
-          <li class="active"><a href="#">News</a></li>
-          <li><a href="#">Tools</a></li>
-          <li><a href="#">Projects</a></li>
-          <li><a href="#">Snackspace</a></li>
-          <li><a href="#">Account</a></li>
-          <li><a href="#">Links</a></li>
-          <li><a href="#">Admin</a></li>
-        </ul>
+
+        @if ( isset($mainNav) )
+            <ul class="menu vertical">
+            @foreach ($mainNav as $link)
+                <li{!! $link['active'] ? ' class="active"' : '' !!}><a href="{{ $link['url'] }}">{{ $link['text'] }}</a></li>
+                @if ( count($link['links']) > 0 )
+                    <ul>
+                    @foreach ($link['links'] as $subLink)
+                        <li{!! $subLink['active'] ? ' class="active"' : '' !!}><a href="{{ $subLink['url'] }}">{{ $subLink['text'] }}</a></li>
+                    @endforeach
+                    </ul>
+                @endif
+            @endforeach
+            </ul>
+        @endif
       </div>
       @endif
 
@@ -152,8 +158,9 @@
 
 
   <!-- Scripts -->
-  <script src="{{ elixir('js/app-base.js')}}"></script>
-  <script src="{{ elixir('js/app.js') }}"></script>
+  <script src="{{ mix('/js/manifest.js') }}"></script>
+  <script src="{{ mix('js/vendor.js') }}"></script>
+  <script src="{{ mix('js/app.js') }}"></script>
 
   @stack('scripts')
 </body>

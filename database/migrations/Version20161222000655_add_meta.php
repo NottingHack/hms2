@@ -57,9 +57,6 @@ class Version20161222000655_add_meta extends AbstractMigration
                 'INSERT INTO meta (`key`, `value`, deleted_at, created_at, updated_at) VALUES (\''.$key.'\', \''.$value.'\', null, \''.$now.'\', \''.$now.'\')'
             );
         }
-
-        $this->addSql('INSERT INTO permissions (name) VALUES (\'meta.view\')');
-        $this->addSql('INSERT INTO permissions (name) VALUES (\'meta.edit\')');
     }
 
     /**
@@ -68,9 +65,6 @@ class Version20161222000655_add_meta extends AbstractMigration
     public function down(Schema $schema)
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
-
-        $this->addSql('DELETE FROM permissions WHERE name = \'meta.view\'');
-        $this->addSql('DELETE FROM permissions WHERE name = \'meta.edit\'');
 
         $this->addSql('DROP TABLE meta');
     }

@@ -82,6 +82,7 @@ class RegisterController extends Controller
             'addressCounty' => 'required|max:100',
             'addressPostcode' => 'required|max:10',
             'contactNumber' => 'required|max:50',
+            'dateOfBirth' => 'nullable|date',
         ]);
     }
 
@@ -109,7 +110,8 @@ class RegisterController extends Controller
             $data['addressCity'],
             $data['addressCounty'],
             $data['addressPostcode'],
-            $data['contactNumber']
+            $data['contactNumber'],
+            $data['dateOfBirth']
         );
 
         return $user;

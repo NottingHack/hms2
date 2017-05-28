@@ -1,0 +1,36 @@
+# HMS.Entities.Link.dcm.yml
+HMS\Entities\Link:
+  type: entity
+  table: links
+  gedmo:
+    soft_deleteable:
+      field_name: deletedAt
+      time_aware: false
+  id:
+    id:
+      type: integer
+      unique: true
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+      unique: true
+    link:
+      type: string
+    description:
+      type: string
+      nullable: true
+    deletedAt:
+      type: datetime
+      nullable: true
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update

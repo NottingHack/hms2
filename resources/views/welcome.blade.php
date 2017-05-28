@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="{{ config('app.locale') }}">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -70,7 +70,7 @@
                 <div class="top-right links">
                     <a href="{{ url('/login') }}">Login</a>
                     @if (SiteVisitor::inTheSpace())
-                    <a href="{{ url('/registerInterest') }}">Register Interest</a>
+                    <a href="{{ route('registerInterest') }}">Register Interest</a>
                     @endif
                 </div>
             @endif

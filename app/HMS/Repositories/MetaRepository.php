@@ -2,24 +2,15 @@
 
 namespace HMS\Repositories;
 
-use HMS\Entities\Meta;
-use Doctrine\ORM\EntityRepository;
-use LaravelDoctrine\ORM\Pagination\Paginatable;
-
-class MetaRepository extends EntityRepository
+interface MetaRepository
 {
-    use Paginatable;
-
     /**
      * Determine if the given setting value exists.
      *
      * @param string $key
      * @return bool
      */
-    public function has($key)
-    {
-        return $this->findOneByKey($key) ? true : false;
-    }
+    public function has($key);
 
     /**
      * Get the specified setting value.
@@ -28,12 +19,7 @@ class MetaRepository extends EntityRepository
      * @param mixed $default
      * @return mixed
      */
-    public function get($key, $default = null)
-    {
-        $meta = $this->findOneByKey($key);
-
-        return is_null($meta) ? $default : $meta->getValue();
-    }
+    public function get($key, $default = null);
 
     /**
      * Set a given setting value.
@@ -42,17 +28,7 @@ class MetaRepository extends EntityRepository
      * @param mixed $value
      * @return void
      */
-    public function set($key, $value = null)
-    {
-        $meta = $this->findOneByKey($key);
-        if ( ! $meta) {
-            $meta = new Meta;
-            $meta->create($key);
-        }
-        $meta->setValue($value);
-        $this->_em->persist($meta);
-        $this->_em->flush();
-    }
+    public function set($key, $value = null);
 
     /**
      * Forget current setting value.
@@ -60,12 +36,13 @@ class MetaRepository extends EntityRepository
      * @param string $key
      * @return void
      */
-    public function forget($key)
-    {
-        $meta = $this->findOneByKey($key);
-        if ($meta) {
-            $this->_em->remove($meta);
-            $this->_em->flush();
-        }
-    }
+    public function forget($key);
+
+    /**
+     * @param int    $perPage
+     * @param string $pageName
+     *
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function paginateAll($perPage = 15, $pageName = 'page');
 }

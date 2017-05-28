@@ -10,7 +10,7 @@ php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 php -r "unlink('composer-setup.php');"
 
 cd /vagrant
-composer install
+composer install --no-progress --no-suggest
 
 # sort out Laravel environment
 
@@ -18,7 +18,10 @@ cp /vagrant/dev/vagrant-config/laravel/.env /vagrant/.env
 
 # Set up DB
 php artisan doctrine:migration:refresh
+php artisan permission:defaults
 php artisan db:seed
+php artisan passport:install
+
 
 # Setup task scheduler cron
 line="* * * * * php /vagrant/artisan schedule:run >> /dev/null 2>&1"

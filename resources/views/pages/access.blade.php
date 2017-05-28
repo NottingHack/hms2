@@ -3,6 +3,7 @@
 @section('pageTitle', 'Access Codes')
 
 @section('content')
+<h2>Access Codes</h2>
 
 <p>The Hackspace door codes and WiFi passwords</p>
 <div>

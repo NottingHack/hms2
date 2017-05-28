@@ -1,0 +1,28 @@
+# HMS.Entities.Banking.Account.dcm.yml
+HMS\Entities\Banking\Account:
+  type: entity
+  repositoryClass: HMS\Repositories\Banking\AccountRepository
+  table: accounts
+  indexes:
+    payment_ref_index:
+      columns: [ payment_ref ]
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    paymentRef:
+      type: string
+      length: 18
+      unique: true
+    natwestRef:
+      type: string
+      length: 18
+      nullable: true
+  oneToMany:
+    users:
+      targetEntity: \HMS\Entities\User
+      mappedBy: account

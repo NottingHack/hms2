@@ -5,7 +5,7 @@ echo "RESTART SERVICES"
 echo " "
 
 service nginx restart
-service php7.0-fpm restart
+service php7.1-fpm restart
 
 echo ""
 echo "------------------------------------------------------------------------"
@@ -22,6 +22,7 @@ echo ""
 echo "phpMyAdmin: https://hsmdev/phpmyadmin/"
 echo "MySQL:  username = root,        password = root"
 echo "kadmin: username = vagrant      password = vagrant"
+echo "HMS:    username = admin        password = admin"
 #echo ""
 #echo "You can access the database at http://hmsdev/phpmyadmin/"
 echo "------------------------------------------------------------------------"

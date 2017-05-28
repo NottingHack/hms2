@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Doctrine\ORM\EntityNotFoundException;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -46,7 +47,9 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if ($exception instanceof EntityNotFoundException) {
+        if ($exception instanceof AuthorizationException) {
+            return $this->unauthorized($request, $exception);
+        } elseif ($exception instanceof EntityNotFoundException) {
             throw  new NotFoundHttpException('Entity not found', $exception);
         }
 
@@ -66,6 +69,24 @@ class Handler extends ExceptionHandler
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
 
-        return redirect()->guest('login');
+        return redirect()->guest(route('login'));
+    }
+
+    /**
+     * Convert an unauthorized exception into an unauthorized response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Auth\AuthorizationException  $exception
+     * @return \Illuminate\Http\Response
+     */
+    protected function unauthorized($request, AuthorizationException $exception)
+    {
+        if ($request->expectsJson()) {
+            return response()->json(['error' => 'Unauthorized.'], 403);
+        }
+
+        flash('Unauthorized', 'error');
+
+        return redirect()->route('home');
     }
 }

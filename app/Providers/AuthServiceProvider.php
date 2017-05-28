@@ -36,7 +36,7 @@ class AuthServiceProvider extends ServiceProvider
 
         // Passport bits.
         Passport::routes();
-        Passport::tokensExpireIn(Carbon::now()->addDays(env('PASSPORT_TOKEN_EXPIRE_DAYS', 15)));
-        Passport::refreshTokensExpireIn(Carbon::now()->addDays(env('PASSPORT_REFRESH_TOKEN_EXPIRE_DAYS', 30)));
+        Passport::tokensExpireIn(Carbon::now()->addDays(config('hms.passport_token_expire_days')));
+        Passport::refreshTokensExpireIn(Carbon::now()->addDays(config('hms.passport_refresh_token_expire_days')));
     }
 }

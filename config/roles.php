@@ -21,9 +21,11 @@ return [
         'meta.view',
         'meta.edit',
         'membership.approval',
+        'membership.updateDetails',
         'link.view',
         'link.create',
         'link.edit',
+        'search.users',
     ],
 
     /*
@@ -42,6 +44,7 @@ return [
                 'profile.view.self',
                 'profile.edit.self',
                 'link.view',
+                'membership.updateDetails',
             ],
         ],
         'member.payment'    => [
@@ -114,6 +117,7 @@ return [
             'permissions'   => [
                 'profile.view.all',
                 'membership.approval',
+                'search.users',
             ],
         ],
         'team.trustees'    => [
@@ -127,6 +131,7 @@ return [
                 'meta.view',
                 'meta.edit',
                 'membership.approval',
+                'search.users',
             ],
         ],
     ],

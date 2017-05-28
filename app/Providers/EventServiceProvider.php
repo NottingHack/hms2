@@ -32,14 +32,6 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $subscribe = [
         'App\Listeners\RoleUpdateLogger',
-    ];
-
-    /**
-     * The subscriber classes to register.
-     *
-     * @var array
-     */
-    protected $subscribe = [
         'App\Listeners\PrintLabelSubscriber',
     ];
 

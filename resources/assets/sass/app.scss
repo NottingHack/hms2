@@ -185,3 +185,11 @@ header {
     color: $color;
   }
 }
+
+.menu {
+  li:not(.active) {
+    a:hover {
+      background-color: $menu-item-background-hover;
+    }
+  }
+}

@@ -33,6 +33,7 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $subscribe = [
         'App\Listeners\RoleUpdateLogger',
+        'App\Listeners\PrintLabelSubscriber',
     ];
 
     /**

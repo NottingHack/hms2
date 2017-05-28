@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
+@section('pageTitle', 'Reset Password')
 <!-- Main Content -->
 @section('content')
-<h2>Reset Password</h2>
 
 @if (session('status'))
 <div class="callout primary">

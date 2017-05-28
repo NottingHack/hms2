@@ -19,13 +19,13 @@ interface RoleRepository
      * @param  string $roleName name of the role we want
      * @return Role|null
      */
-    public function findByName(string $roleName);
+    public function findOneByName(string $roleName);
 
     /**
      * @param  string $email
      * @return Role|null
      */
-    public function findByOneEmail(string $email);
+    public function findOneByEmail(string $email);
 
     /**
      * store a new user in the DB.

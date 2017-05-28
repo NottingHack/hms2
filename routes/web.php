@@ -68,6 +68,11 @@ Route::group(['middleware' => 'auth'], function () {
         ]
     );
 
+    // Label printer template admin
+    Route::get('labels/{label}/print', 'LabelTemplateController@showPrint')->name('labels.showPrint');
+    Route::post('labels/{label}/print', 'LabelTemplateController@print')->name('labels.print');
+    Route::resource('labels', 'LabelTemplateController');
+
     // Membership
     Route::get('/membership/approval/{user}', 'MembershipController@showDetailsForApproval')->name('membership.approval');
     Route::post('/membership/approve-details/{user}', 'MembershipController@approveDetails')->name('membership.approve');

@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
+@section('pageTitle', 'Edit Meta Value')
+
 @section('content')
-<h2>Key: {{ $key }}</h2>
+<p>Editing value for <strong>{{ $key }}</strong></p>
 <form role="form" method="POST" action="{{ route('metas.update', $key) }}">
   {{ csrf_field() }}
   {{ method_field('PATCH') }}

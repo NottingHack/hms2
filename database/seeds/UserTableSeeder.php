@@ -71,7 +71,7 @@ class UserTableSeeder extends Seeder
         entity(User::class, $createCurrentMembers)
             ->make()
             ->each(function ($u) {
-                $u->getRoles()->add($this->roleRepository->findByName(Role::MEMBER_CURRENT));
+                $u->getRoles()->add($this->roleRepository->findOneByName(Role::MEMBER_CURRENT));
                 EntityManager::persist($u);
             });
 
@@ -80,7 +80,7 @@ class UserTableSeeder extends Seeder
             entity(User::class, $createOtherUsers)
                 ->make()
                 ->each(function ($u) use ($role) {
-                    $u->getRoles()->add($this->roleRepository->findByName($role));
+                    $u->getRoles()->add($this->roleRepository->findOneByName($role));
                     EntityManager::persist($u);
                 });
         }
@@ -88,7 +88,7 @@ class UserTableSeeder extends Seeder
         // add in the admin user, this will be user $numUsersToCreate + 1;
         if ($this->createAdmin === true) {
             $admin = new User('Admin', 'Admin', 'admin', 'hmsadmin@nottinghack.org.uk');
-            $admin->getRoles()->add($this->roleRepository->findByName(Role::SUPERUSER));
+            $admin->getRoles()->add($this->roleRepository->findOneByName(Role::SUPERUSER));
             $this->passwordStore->add($admin->getUsername(), 'admin');
             EntityManager::persist($admin);
         }

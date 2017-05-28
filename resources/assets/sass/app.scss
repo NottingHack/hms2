@@ -1,5 +1,7 @@
 @charset 'utf-8';
 
+@import url('https://fonts.googleapis.com/css?family=Oxygen');
+
 @import '_settings';
 @import '~foundation-sites/scss/foundation';
 @import '~motion-ui/motion-ui';
@@ -7,6 +9,14 @@
 @import '~select2-foundation/dist/select2-foundation-theme';
 
 @include foundation-everything($flex: true);
+
+button {
+  font-family: inherit;
+}
+
+h2 {
+  color: $hackspace-green;
+}
 
 .with-footer {
   min-height: 100vh;
@@ -16,7 +26,8 @@
 }
 
 .content {
-  flex: 1;
+    flex: 1;
+    padding-bottom: rem-calc(20);
 }
 
 ul.nomarkers {
@@ -28,11 +39,15 @@ ul.nomarkers {
     background-color: $footer-background-colour;
     color: $footer-text-colour;
     padding-top: rem-calc(20);
-    margin-top: rem-calc(20);
 
     a {
         color: $footer-link-colour;
     }
+}
+
+header {
+    box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.5);
+    margin-bottom: 2rem;
 }
 
 .header {
@@ -43,11 +58,35 @@ ul.nomarkers {
 
     h1 {
       margin: 0;
+      text-shadow: $black 1px 1px 1px;
+
+      &.tiny-header {
+        font-weight: bold;
+        font-size: 1rem;
+      }
+    }
+
+    h2 {
+      color: $hackspace-grey;
+      margin: 0;
+      text-shadow: $black 2px 2px 2px;
+
+      &.big-header {
+        @each $size, $headers in $header-styles {
+          @include breakpoint($size) {
+            // this is being overridden by another rule elsewhere
+            font-size: rem-calc(map-get(map-get($headers, "h1"), "font-size"));
+          }
+        }
+      }
+    }
+
+    #logo-path {
+      fill: $hackspace-grey;
     }
 }
 
 .userbar {
-    margin-bottom: rem-calc(10);
     background-color: $userbar-background-colour;
     color: $userbar-text-colour;
 }
@@ -82,6 +121,33 @@ ul.nomarkers {
   @extend .small-12;
   @extend .medium-10;
   @extend .medium-offset-2;
+  margin-top: 1rem;
+
+  button {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  a {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
 }
 
 
@@ -113,5 +179,13 @@ ul.nomarkers {
 @each $name, $color in $foundation-palette {
   a.#{$name} {
     color: $color;
+  }
+}
+
+.menu {
+  li:not(.active) {
+    a:hover {
+      background-color: $menu-item-background-hover;
+    }
   }
 }

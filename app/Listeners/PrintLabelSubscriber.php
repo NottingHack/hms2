@@ -52,6 +52,7 @@ class PrintLabelSubscriber implements ShouldQueue
                 $event->getTemplateName(),
                 $event->getSubstitutions()
             );
+            // pause between print jobs so we don't swamp the connection.
             sleep(1);
         }
     }

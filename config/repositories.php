@@ -41,5 +41,6 @@ return [
         'Profile',
         'Banking\Account',
         'Email',
+        'RoleUpdate',
     ],
 ];

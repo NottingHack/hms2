@@ -60,14 +60,14 @@ class NewMemberApprovalNeeded extends Notification implements ShouldQueue
     {
         if ($this->rerequest) {
             return (new MailMessage)
-                        ->line('A member has updated there detials and asked for another review')
+                        ->line('A member has updated there details and asked for another review')
                         ->action('Review and approve member', route('membership.approval', ['user' => $this->user->getId()]));
         }
 
         return (new MailMessage)
                     ->line('New member approval needed')
                     ->action('Review and approve member', route('membership.approval', ['user' => $this->user->getId()]))
-                    ->line('Please review there detials');
+                    ->line('Please review there details');
     }
 
     /**
@@ -83,7 +83,7 @@ class NewMemberApprovalNeeded extends Notification implements ShouldQueue
             return (new SlackMessage)
                 ->to($notifiable->getSlackChannel())
                 ->attachment(function ($attachment) use ($userId) {
-                    $attachment->title('Review member detials', route('membership.approval', ['user' => $userId]))
+                    $attachment->title('Review member details', route('membership.approval', ['user' => $userId]))
                                 ->content('A member has updated there details and asked for another review.')
                                 ->fallback('A member has updated there details and asked for another review. <'.route('membership.approval', ['user' => $userId]).'|review>')
                                 ->timestamp(Carbon::now());

@@ -6,6 +6,7 @@
 
 <form role="form" method="POST" action="{{ route('membership.update', $user->getId()) }}">
   {{ csrf_field() }}
+  {{ method_field('PUT') }}
 
   <div class="form-container">
     <div class="row">

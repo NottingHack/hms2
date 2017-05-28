@@ -2,34 +2,10 @@
 
 namespace App\Providers;
 
-use HMS\Entities\Link;
-use HMS\Entities\Meta;
-use HMS\Entities\Role;
-use HMS\Entities\User;
-use HMS\Entities\Email;
-use HMS\Entities\Invite;
-use HMS\Entities\Profile;
-use HMS\Entities\Banking\Account;
-use HMS\Repositories\LinkRepository;
-use HMS\Repositories\MetaRepository;
-use HMS\Repositories\RoleRepository;
-use HMS\Repositories\UserRepository;
-use HMS\Repositories\EmailRepository;
-use HMS\Repositories\InviteRepository;
-use HMS\Repositories\ProfileRepository;
 use Illuminate\Support\ServiceProvider;
 use HMS\Repositories\PermissionRepository;
-use HMS\Repositories\Banking\AccountRepository;
 use LaravelDoctrine\ACL\Permissions\Permission;
-use HMS\Repositories\Doctrine\DoctrineLinkRepository;
-use HMS\Repositories\Doctrine\DoctrineMetaRepository;
-use HMS\Repositories\Doctrine\DoctrineRoleRepository;
-use HMS\Repositories\Doctrine\DoctrineUserRepository;
-use HMS\Repositories\Doctrine\DoctrineEmailRepository;
-use HMS\Repositories\Doctrine\DoctrineInviteRepository;
-use HMS\Repositories\Doctrine\DoctrineProfileRepository;
 use HMS\Repositories\Doctrine\DoctrinePermissionRepository;
-use HMS\Repositories\Banking\Doctrine\DoctrineAccountRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -50,40 +26,23 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(LinkRepository::class, function ($app) {
-            return new DoctrineLinkRepository($app['em'], $app['em']->getClassMetaData(Link::class));
-        });
+        foreach (config('repositories.repositories') as $repository) {
+            $entity = config('repositories.entity_namespace') . '\\' . $repository;
+            $interface = config('repositories.repositoriy_namespace') . '\\' . $repository . 'Repository';
+            $implmentation = config('repositories.repositoriy_namespace') . '\\' .
+                (strpos($repository, '\\') ? explode('\\', $repository)[0] . '\\' : '') .
+                'Doctrine\\Doctrine' .
+                (strpos($repository, '\\') ? explode('\\', $repository)[1] : $repository) .
+                'Repository';
 
-        $this->app->singleton(MetaRepository::class, function ($app) {
-            return new DoctrineMetaRepository($app['em'], $app['em']->getClassMetaData(Meta::class));
-        });
+            $this->app->singleton($interface, function ($app) use ($implmentation, $entity) {
+                return new $implmentation($app['em'], $app['em']->getClassMetaData($entity));
+            });
+        }
 
-        $this->app->singleton(InviteRepository::class, function ($app) {
-            return new DoctrineInviteRepository($app['em'], $app['em']->getClassMetaData(Invite::class));
-        });
-
-        $this->app->singleton(RoleRepository::class, function ($app) {
-            return new DoctrineRoleRepository($app['em'], $app['em']->getClassMetaData(Role::class));
-        });
-
-        $this->app->singleton(UserRepository::class, function ($app) {
-            return new DoctrineUserRepository($app['em'], $app['em']->getClassMetaData(User::class));
-        });
-
-        $this->app->singleton(ProfileRepository::class, function ($app) {
-            return new DoctrineProfileRepository($app['em'], $app['em']->getClassMetaData(Profile::class));
-        });
-
+        // Special case so do this one by hand
         $this->app->singleton(PermissionRepository::class, function ($app) {
             return new DoctrinePermissionRepository($app['em'], $app['em']->getClassMetaData(Permission::class));
-        });
-
-        $this->app->singleton(AccountRepository::class, function ($app) {
-            return new DoctrineAccountRepository($app['em'], $app['em']->getClassMetaData(Account::class));
-        });
-
-        $this->app->singleton(EmailRepository::class, function ($app) {
-            return new DoctrineEmailRepository($app['em'], $app['em']->getClassMetaData(Email::class));
         });
     }
 }

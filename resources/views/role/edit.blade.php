@@ -80,19 +80,18 @@
 
 @foreach ($allPermissions as $category => $permissions)
 
-<h3>{{ $category }}</h3>
+<div class="form-group">
+    <h3>{{ $category }}</h3>
 
 @foreach ($permissions as $permission)
 
-    <div class="row">
-        <label for="permissions[{{ $permission->getName() }}]" class="form-label">{{ $permission->getName() }}</label>
-        <div class="form-control">
-            <input id="permissions" type="checkbox" name="permissions[{{ $permission->getName() }}]" {{ $role->getPermissions()->contains($permission) ? 'checked="checked"' : '' }} autofocus>
-        </div>
+    <div class="form-tickbox-row">
+        <input id="permissions-{{ $permission->getName() }}" type="checkbox" name="permissions[{{ $permission->getName() }}]" {{ $role->getPermissions()->contains($permission) ? 'checked="checked"' : '' }} autofocus>
+        <label for="permissions-{{ $permission->getName() }}">{{ $permission->getName() }}</label>
     </div>
 
-
 @endforeach
+</div>
 
 @endforeach
     <div class="row">

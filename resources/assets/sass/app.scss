@@ -96,6 +96,14 @@ header {
     align-items: center;
 }
 
+// Spacing classes
+// ---------------
+// Utility classes for spacing things around in special circumstances
+
+.margin-top-small {
+  margin-top: 0.5rem;
+}
+
 // Form classes
 // ------------
 
@@ -107,20 +115,42 @@ header {
 .form-label {
   @extend .columns;
   @extend .small-12;
-  @extend .medium-2;
+  @extend .medium-3;
 }
 
 .form-control {
   @extend .columns;
   @extend .small-12;
-  @extend .medium-10;
+  @extend .medium-9;
+}
+
+/* Use form-tickbox-row when making rows of simple checkbox or radio toggles, like lists of permissions in roles.
+ * Markup is an input (checkbox or radio) and a label, inside a div.form-tickbox-row
+ */
+.form-tickbox-row {
+  display: flex;
+  align-items: center;
+
+  input {
+    margin: 0;
+    padding: 0;
+  }
+
+  label {
+    padding-left: 1rem;
+  }
+}
+
+.form-group {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .form-buttons {
   @extend .columns;
   @extend .small-12;
-  @extend .medium-10;
-  @extend .medium-offset-2;
+  @extend .medium-9;
+  @extend .medium-offset-3;
   margin-top: 1rem;
 
   button {
@@ -188,4 +218,15 @@ header {
       background-color: $menu-item-background-hover;
     }
   }
+}
+
+// Workaround for Foundation Reveal modal's tendency to make the scrollbar vanish and the backing page jump to the right when a model opens.
+@include breakpoint(medium) {
+	/* The following prevent page jump (left->right) when reveal opens on a centered page with right scrollbar */
+	body.is-reveal-open { 
+	    overflow: visible !important;
+	}
+	.reveal-overlay {
+		overflow: hidden;
+	}
 }

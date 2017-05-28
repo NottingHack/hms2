@@ -79,8 +79,8 @@
     </div>
 
     <div class="row">
-      <label for="password-confirm" class="columns small-12 medium-2">Confirm Password</label>
-      <div class="columns small-12 medium-10">
+      <label for="password-confirm" class="form-label">Confirm Password</label>
+      <div class="form-control">
         <input id="password-confirm" type="password" name="password_confirmation" required autocomplete="new-password">
         @if ($errors->has('password_confirmation'))
         <p class="help-text">

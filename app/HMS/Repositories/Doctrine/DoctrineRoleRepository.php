@@ -31,7 +31,7 @@ class DoctrineRoleRepository extends EntityRepository implements RoleRepository
      * @param  string $roleName name of the role we want
      * @return Role|nul
      */
-    public function findByName(string $roleName)
+    public function findOneByName(string $roleName)
     {
         return parent::findOneBy(['name' => $roleName]);
     }
@@ -40,9 +40,9 @@ class DoctrineRoleRepository extends EntityRepository implements RoleRepository
      * @param  string $email
      * @return Role|null
      */
-    public function findByOneEmail(string $email)
+    public function findOneByEmail(string $email)
     {
-        return parent::findByOneEmail($email);
+        return parent::findOneByEmail($email);
     }
 
     /**

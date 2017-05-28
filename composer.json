@@ -17,6 +17,7 @@
         "laravel/framework": "5.4.*",
         "laravel/passport": "^2.0",
         "laravel/tinker": "~1.0",
+        "lwk/vimbadmin-laravel-client": "^1.0",
         "spatie/laravel-cookie-consent": "^1.6"
     },
     "require-dev": {

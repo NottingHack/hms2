@@ -1,0 +1,25 @@
+# LWK.ViMbAdmin.Model.DoctrineToken.dcm.yml
+LWK\ViMbAdmin\Model\DoctrineToken:
+  type: entity
+  table: vimbadmin_tokens
+  indexes:
+    key_index:
+      columns: [ key ]
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    key:
+      type: string
+      unique: true
+      column: "`key`"
+    token:
+      type: text
+    expires:
+      type: datetime      
+    type:
+      type: string

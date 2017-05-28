@@ -4,6 +4,7 @@ namespace App\Console\Commands\Permissions;
 
 use HMS\Entities\Role;
 use Illuminate\Console\Command;
+use App\Events\Roles\RoleCreated;
 use HMS\Repositories\RoleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use LaravelDoctrine\ACL\Permissions\Permission;
@@ -102,6 +103,7 @@ class DefaultsCommand extends BaseCommand
                 }
             }
             $this->entityManager->persist($roleEntity);
+            event(new RoleCreated($roleEntity));
             unset($roleEntity);
         }
     }

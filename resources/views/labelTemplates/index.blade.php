@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
+@section('pageTitle', 'Label Templates')
+
 @section('content')
-<h1>Label Templates</h1>
 <p>Label templates printed via the thermal printer.<br/>
 Templates are written in EPL2<br/>
 Approx 780w x 600h</p>

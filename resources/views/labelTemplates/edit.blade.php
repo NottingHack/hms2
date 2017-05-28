@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
+@section('pageTitle', 'Edit Label Template')
+
 @section('content')
-<h2>Edit Label Template</h2>
 <form role="form" method="POST" action="{{ route('labels.update', $templateName) }}">
 {{ csrf_field() }}
 {{ method_field('PATCH') }}

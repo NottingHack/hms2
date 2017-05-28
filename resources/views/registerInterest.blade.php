@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
+@section('pageTitle', 'Register Interest')
+
 @section('content')
-<h2>Register Interest</h2>
 
 <p>Enter your email address to register your interest in becoming a Nottinghack member and start the sign up process.</p>
 

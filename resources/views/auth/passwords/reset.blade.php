@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
+@section('pageTitle', 'Reset Password')
 @section('content')
-<h2>Reset Password</h2>
 
 <p>Choose a new password for your HMS account.</p>
 

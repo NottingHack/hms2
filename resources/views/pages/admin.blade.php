@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
+@section('pageTitle', 'Admin')
+
 @section('content')
-<h2>Admin</h2>
 
 @endsection

@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('pageTitle', 'Edit Role')
+
 @section('content')
 <h1>{{ $role->getName() }}</h1>
 

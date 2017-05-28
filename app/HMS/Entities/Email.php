@@ -33,7 +33,7 @@ class Email
     protected $sentAt;
 
     /**
-     * @var \Doctrine\Common\Collections\ArrayCollection|Users[]
+     * @var \Doctrine\Common\Collections\Collection|Users[]
      */
     protected $users;
 
@@ -166,7 +166,7 @@ class Email
     /**
      * Gets the value of users.
      *
-     * @return \Doctrine\Common\Collections\ArrayCollection|Users[]
+     * @return \Doctrine\Common\Collections\Collection|Users[]
      */
     public function getUsers()
     {

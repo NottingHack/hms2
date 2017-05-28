@@ -28,7 +28,7 @@ HMS\Entities\Email:
     users:
       targetEntity: User
       joinTable:
-        name: emial_users
+        name: email_users
         joinColumns:
           email_id:
             referencedColumnName: id

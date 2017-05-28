@@ -77,7 +77,7 @@ $black: #0a0a0a;
 $white: #fefefe;
 $body-background: $white;
 $body-font-color: $very-dark-gray;
-$body-font-family: Nunito, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$body-font-family: Oxygen, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $body-antialiased: true;
 $global-margin: 1rem;
 $global-padding: 1rem;
@@ -87,8 +87,6 @@ $global-radius: 0;
 $global-text-direction: ltr;
 $global-flexbox: true;
 $print-transparent-backgrounds: true;
-// font family for the page header
-$heading-font-family: 'Special Elite', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
 @include add-foundation-colors;
 

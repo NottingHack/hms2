@@ -46,26 +46,26 @@ class ViMbAdminSubscriber implements ShouldQueue
     {
         if ($event->role->getEmail()) {
             // See if there is allrady an alias for this role
-            $alias = $this->getAliasForRole($event->role, ture);
+            $alias = $this->getAliasForRole($event->role, true);
             if ($alias instanceof Alias) {
                 return;
             }
 
-            $mailboxEmail = $role->getEmail();
+            $mailboxEmail = $event->role->getEmail();
             if ( ! filter_var($mailboxEmail, FILTER_VALIDATE_EMAIL)) {
                 // bugger this should not happen. throw an error??
                 throw new Exception('Role email address '.$mailboxEmail.' is not valid');
             }
 
             $domainName = explode('@', $mailboxEmail)[1];
-            $domain = $this->client->findDomain($domainName);
+            $domain = $this->client->findDomains($domainName)[0];
             if ( ! $domain instanceof Domain) {
                 throw new Exception('Domain for '.$domainName.' does not exist in ViMAdmin and we cant create it');
             }
 
             $mailbox = Mailbox::create($mailboxEmail, $event->role->getDisplayname(), $domain);
 
-            $response = $this->client->createMailbox($event->role);
+            $response = $this->client->createMailbox($mailbox);
             if ( ! $response instanceof Mailbox) {
                 throw new Exception('Failed to create Mailbox for Role: '.$event->role->getName());
             }

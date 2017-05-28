@@ -137,12 +137,12 @@ $header-styles: (
                 'h6': ('font-size': 16),
         ),
         medium: (
-                'h1': ('font-size': 48),
-                'h2': ('font-size': 40),
-                'h3': ('font-size': 31),
-                'h4': ('font-size': 25),
-                'h5': ('font-size': 20),
-                'h6': ('font-size': 16),
+                'h1': ('font-size': 48, 'margin-top': 1rem),
+                'h2': ('font-size': 40, 'margin-top': 1rem),
+                'h3': ('font-size': 31, 'margin-top': 1rem),
+                'h4': ('font-size': 25, 'margin-top': 1rem),
+                'h5': ('font-size': 20, 'margin-top': 1rem),
+                'h6': ('font-size': 16, 'margin-top': 1rem),
         ),
 );
 $header-text-rendering: optimizeLegibility;

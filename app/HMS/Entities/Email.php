@@ -152,7 +152,7 @@ class Email
     /**
      * Sets the value of sentAt.
      *
-     * @param string $sentAt the sent at
+     * @param Carbon $sentAt the sent at
      *
      * @return self
      */

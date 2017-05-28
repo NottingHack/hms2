@@ -267,7 +267,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     /**
      * Sets the value of firstname.
      *
-     * @param string $name the name
+     * @param string $firstname the name
      *
      * @return self
      */

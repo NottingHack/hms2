@@ -67,7 +67,7 @@ abstract class BaseCommand extends Command
      */
     protected function getRole($name, $error = true)
     {
-        $role = $this->roleRepository->findOneBy(['name' => $name]);
+        $role = $this->roleRepository->findOneByName($name);
         if ( ! is_null($role)) {
             return $role;
         } else {

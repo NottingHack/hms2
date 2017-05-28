@@ -85,7 +85,7 @@ class ViMbAdminSubscriber implements ShouldQueue
             $alias->addForwardAddress($event->user->getEmail());
 
             // save the updated alias back to the external API
-            $this->client->updateAlias($alias);
+            $response = $this->client->updateAlias($alias);
             if ( ! $response instanceof Link) {
                 throw new Exception('Alias update failed with Error: '.$response);
             }

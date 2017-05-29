@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use HMS\Entities\User;
 use HMS\Repositories\UserRepository;
 
 class UserController extends Controller
@@ -18,18 +19,20 @@ class UserController extends Controller
     {
         $this->userRepository = $userRepository;
 
-        $this->middleware('can:profile.view.all')->only(['show']);
+        $this->middleware('can:profile.view.self')->only(['show']);
     }
 
     /**
      * Show a specific user.
      *
-     * @param int $id ID of the user
+     * @param User $user
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        $user = $this->userRepository->find($id);
+        if ($user != \Auth::user() && \Gate::denies('profile.view.all') ) {
+            return redirect()->route('home');
+        }
 
         return view('user.show')->with('user', $user);
     }

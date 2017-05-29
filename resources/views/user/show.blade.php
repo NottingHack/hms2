@@ -65,5 +65,8 @@
     @endif
   </tbody>
 </table>
+@if (($user == Auth::user() && Auth::user()->can('profile.edit.self')) || ($user->getId() != Auth::user()->getId() && Auth::user()->can('profile.edit.all')))
+     <a href="{{ route('users.edit', $user->getID()) }}" class="button">Edit details</a>
+@endif
 
 @endsection

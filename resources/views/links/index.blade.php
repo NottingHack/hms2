@@ -13,7 +13,7 @@
     @endif
     @can('link.edit')
          - <a href="{{ route('links.edit', $link->getId()) }}">Edit</a>
-         - <a href="javascript:void(0);" onclick="$(this).find('form').submit();">
+         - <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="alert">
             <form action="{{ route('links.destroy', $link->getId()) }}" method="POST" style="display: inline">
              {{ method_field('DELETE') }}
              {{ csrf_field() }}
@@ -26,7 +26,7 @@
 </ul>
 @can('link.create')
 <div>
-    <a href="{{ route('links.create') }}">Add new link</a>
+    <a href="{{ route('links.create') }}" class="button">Add new link</a>
 </div>
 @endcan
 <div classs="pagination-links">

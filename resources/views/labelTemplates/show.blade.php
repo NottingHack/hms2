@@ -11,8 +11,8 @@
 </div>
 <div>
 @can('labelTemplate.edit')
-     <a href="{{ route('labels.edit', $templateName) }}">Edit</a>
-     - <a href="javascript:void(0);" onclick="$(this).find('form').submit();">
+     <a href="{{ route('labels.edit', $templateName) }}" class="button">Edit</a>
+      <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="alert button">
         <form action="{{ route('labels.destroy', $templateName) }}" method="POST" style="display: inline">
          {{ method_field('DELETE') }}
          {{ csrf_field() }}
@@ -22,7 +22,7 @@
 @endcan
 @if (SiteVisitor::inTheSpace())
     @can('labelTemplate.print')
-     - <a href="{{ route('labels.showPrint', $templateName) }}">Print</a>
+      <a href="{{ route('labels.showPrint', $templateName) }}" class="button">Print</a>
     @endcan
 @endif
 </div>

@@ -14,7 +14,7 @@ Approx 780w x 600h</p>
 
          - <a href="{{ route('labels.show', $labelTemplate->getTemplateName()) }}">View</a>
          - <a href="{{ route('labels.edit', $labelTemplate->getTemplateName()) }}">Edit</a>
-         - <a href="javascript:void(0);" onclick="$(this).find('form').submit();">
+         - <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="alert">
             <form action="{{ route('labels.destroy', $labelTemplate->getTemplateName()) }}" method="POST" style="display: inline">
              {{ method_field('DELETE') }}
              {{ csrf_field() }}
@@ -32,7 +32,7 @@ Approx 780w x 600h</p>
 </ul>
 @can('labelTemplate.create')
 <div>
-    <a href="{{ route('labels.create') }}">Add new template</a>
+    <a href="{{ route('labels.create') }}" class="button">Add new template</a>
 </div>
 @endcan
 <div classs="pagination-links">

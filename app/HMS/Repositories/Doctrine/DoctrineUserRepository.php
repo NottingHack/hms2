@@ -6,11 +6,11 @@ use HMS\Entities\Role;
 use HMS\Entities\User;
 use Doctrine\ORM\EntityRepository;
 use HMS\Repositories\UserRepository;
-use LaravelDoctrine\ORM\Pagination\Paginatable;
+use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 
 class DoctrineUserRepository extends EntityRepository implements UserRepository
 {
-    use Paginatable;
+    use PaginatesFromRequest;
 
     /**
      * @param  $id

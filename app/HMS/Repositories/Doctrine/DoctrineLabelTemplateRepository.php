@@ -5,11 +5,11 @@ namespace HMS\Repositories\Doctrine;
 use HMS\Entities\LabelTemplate;
 use Doctrine\ORM\EntityRepository;
 use HMS\Repositories\LabelTemplateRepository;
-use LaravelDoctrine\ORM\Pagination\Paginatable;
+use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 
 class DoctrineLabelTemplateRepository extends EntityRepository implements LabelTemplateRepository
 {
-    use Paginatable;
+    use PaginatesFromRequest;
 
     /**
      * find a temple in the DB.

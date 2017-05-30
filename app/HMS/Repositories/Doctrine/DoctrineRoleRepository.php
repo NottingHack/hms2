@@ -33,7 +33,7 @@ class DoctrineRoleRepository extends EntityRepository implements RoleRepository
      */
     public function findOneByName(string $roleName)
     {
-        return parent::findOneBy(['name' => $roleName]);
+        return parent::findOneByName($roleName);
     }
 
     /**

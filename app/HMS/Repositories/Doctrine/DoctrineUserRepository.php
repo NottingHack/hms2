@@ -2,6 +2,7 @@
 
 namespace HMS\Repositories\Doctrine;
 
+use HMS\Entities\Role;
 use HMS\Entities\User;
 use Doctrine\ORM\EntityRepository;
 use HMS\Repositories\UserRepository;
@@ -82,5 +83,23 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     {
         $this->_em->persist($user);
         $this->_em->flush();
+    }
+
+    /**
+     * @param Role $role
+     * @param int    $perPage
+     * @param string $pageName
+     *
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function paginateUsersWithRole(Role $role, $perPage = 15, $pageName = 'page')
+    {
+        $q = parent::createQueryBuilder('user')
+            ->leftJoin('user.roles', 'role')->addSelect('role')
+            ->where('role.id = :role_id');
+
+        $q = $q->setParameter('role_id', $role->getId())->getQuery();
+
+        return $this->paginate($q, $perPage, $pageName);
     }
 }

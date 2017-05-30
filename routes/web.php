@@ -49,12 +49,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/roles/{role}/users/{user}', 'RoleController@removeUser')->name('roles.removeUser');
 
     // USER
-    Route::resource('users', 'UserController', 
+    Route::get('users-by-role/{role}', 'UserController@listUsersByRole')->name('users.byRole');
+    Route::resource('users', 'UserController',
         [
-            'except' => ['index', 'store', 'create', 'destroy'],
+            'except' => ['store', 'create', 'destroy'],
         ]
     );
-
 
     // Admin
     Route::get('admin', 'HomeController@admin')->name('admin');

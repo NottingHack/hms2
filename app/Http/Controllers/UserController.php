@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use HMS\Entities\Role;
 use HMS\Entities\User;
 use HMS\User\UserManager;
 use HMS\User\ProfileManager;
@@ -36,9 +37,22 @@ class UserController extends Controller
         $this->userManager = $userManager;
         $this->profileManager = $profileManager;
 
+        $this->middleware('can:profile.view.all')->only(['index', 'listUsersByRole']);
         $this->middleware('can:profile.view.self')->only(['show']);
         $this->middleware('can:profile.edit.self')->only(['edit', 'update']);
     }
+
+    /**
+     * Display a listing of the users.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $users = $this->userRepository->paginateAll();
+
+        return view('user.index')
+            ->with(['users' => $users]);
     }
 
     /**
@@ -103,5 +117,22 @@ class UserController extends Controller
         $user = $this->profileManager->updateUserProfileFromRequest($user, $request);
 
         return redirect()->route('users.show', ['user' => $user->getId()]);
+    }
+
+    /**
+     * Display a listing of the users by role.
+     *
+     * @param Role $role
+     * @return \Illuminate\Http\Response
+     */
+    public function listUsersByRole(Role $role)
+    {
+        $users = $this->userRepository->paginateUsersWithRole($role);
+        
+        return view('user.index')
+            ->with([
+                'users' => $users,
+                'role' => $role
+            ]);
     }
 }

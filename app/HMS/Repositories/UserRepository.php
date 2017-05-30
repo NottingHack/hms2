@@ -2,6 +2,7 @@
 
 namespace HMS\Repositories;
 
+use HMS\Entities\Role;
 use HMS\Entities\User;
 
 interface UserRepository
@@ -50,4 +51,13 @@ interface UserRepository
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
     public function paginateAll($perPage = 15, $pageName = 'page');
+
+    /**
+     * @param Role $role
+     * @param int    $perPage
+     * @param string $pageName
+     *
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function paginateUsersWithRole(Role $role, $perPage = 15, $pageName = 'page');
 }

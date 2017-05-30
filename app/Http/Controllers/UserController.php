@@ -63,7 +63,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        if ($user != \Auth::user() && \Gate::denies('profile.view.all') ) {
+        if ($user != \Auth::user() && \Gate::denies('profile.view.all')) {
             return redirect()->route('home');
         }
 
@@ -78,7 +78,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        if ($user != \Auth::user() && \Gate::denies('profile.view.all') ) {
+        if ($user != \Auth::user() && \Gate::denies('profile.view.all')) {
             return redirect()->route('home');
         }
 
@@ -94,7 +94,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        if ($user != \Auth::user() && \Gate::denies('profile.edit.all') ) {
+        if ($user != \Auth::user() && \Gate::denies('profile.edit.all')) {
             return redirect()->route('home');
         }
 
@@ -128,11 +128,11 @@ class UserController extends Controller
     public function listUsersByRole(Role $role)
     {
         $users = $this->userRepository->paginateUsersWithRole($role);
-        
+
         return view('user.index')
             ->with([
                 'users' => $users,
-                'role' => $role
+                'role' => $role,
             ]);
     }
 }

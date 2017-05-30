@@ -47,6 +47,9 @@
         @else
           <h1><a href="/">Nottingham Hackspace</a></h1>
         @endif
+        @can('search.users')
+            @include('partials.memberSearch')
+        @endcan
       </div>
     </div>
 

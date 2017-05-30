@@ -24,6 +24,45 @@ $(".js-programmatic-disable").on("click", function () {
   $(".js-data-existing-account-ajax").prop("disabled", true);
 });
 
+$(".js-data-member-search-ajax").change(function(){
+  var user = $(this).val();
+  var action = $("#member-search").attr("action").replace("_ID_", user);
+  $("#member-search").attr("action", action);
+  $("#member-search").submit();
+});
+
+$(".js-data-member-search-ajax").select2({
+  theme: "foundation",
+  placeholder: "Search for a member...",
+  ajax: {
+    url: '/api/search/users',
+    dataType: 'json',
+    delay: 250,
+    data: function (params) {
+      return {
+        q: params.term, // search term
+        page: params.page
+      };
+    },
+    processResults: function (data, params) {
+      // indicate that infinite scrolling can be used
+      params.page = params.page || 1;
+
+      return {
+        results: data.data,
+        pagination: {
+          more: (params.page * data.per_page) < data.total
+        }
+      };
+    },
+    cache: true
+  },
+  escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+  minimumInputLength: 1,
+  templateResult: formatUser, // omitted for brevity, see the source of this page
+  templateSelection: formatUserSelection // omitted for brevity, see the source of this page
+});
+
 $(".js-data-existing-account-ajax").select2({
   theme: "foundation",
   placeholder: "Search for a member...",

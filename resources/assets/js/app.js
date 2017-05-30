@@ -45,6 +45,11 @@ $(".js-data-member-search-ajax").select2({
       };
     },
     processResults: function (data, params) {
+      // need to have a .text value for display
+      data.data = $.map(data.data, function (obj) {
+              obj.text = obj.fullname;
+              return obj;
+      });
       // indicate that infinite scrolling can be used
       params.page = params.page || 1;
 
@@ -78,9 +83,11 @@ $(".js-data-existing-account-ajax").select2({
       };
     },
     processResults: function (data, params) {
-      // need to use the account id as the select value
+      // need to need to have a .text value for display
+      // and use the account id as the select value
       data.data = $.map(data.data, function (obj) {
               obj.id = obj.accountId;
+              obj.text = obj.fullname;
               return obj;
       });
       
@@ -113,5 +120,5 @@ function formatUser (user) {
 }
 
 function formatUserSelection (user) {
-  return user.fullname;
+  return user.text;
 }

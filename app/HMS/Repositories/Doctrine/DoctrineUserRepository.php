@@ -51,9 +51,16 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     /**
      * @param  string $searchQuery
      * @param  bool $hasAccount limit to users with associated accounts
-     * @return array
+     * @param bool $paginate
+     * @param int    $perPage
+     * @param string $pageName
+     * @return User[]|array|\Illuminate\Pagination\LengthAwarePaginator
      */
-    public function searchLike(string $searchQuery, ?bool $hasAccount = false)
+    public function searchLike(string $searchQuery,
+        ?bool $hasAccount = false,
+        bool $paginate = false,
+        $perPage = 15,
+        $pageName = 'page')
     {
         $q = parent::createQueryBuilder('user')
             ->leftJoin('user.profile', 'profile')->addSelect('profile')
@@ -71,6 +78,10 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
 
         $q = $q->setParameter('keyword', '%'.$searchQuery.'%')
             ->getQuery();
+
+        if ($paginate) {
+            return $this->paginate($q, $perPage, $pageName);
+        }
 
         return $q->getResult();
     }

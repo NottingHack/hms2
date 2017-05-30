@@ -41,11 +41,10 @@ class SearchController extends Controller
         }
 
         // TODO: consider how to paginate response (posible fractal)
-        $users = $this->userRepository->searchLike($searchQuery, $request->input('withAccount', false));
-        $json = [];
+        $users = $this->userRepository->searchLike($searchQuery, $request->input('withAccount', false), true);
 
-        foreach ($users as $user) {
-            $json[] = [
+        $users->setCollection($users->getCollection()->map(function ($user) {
+            return [
                 'id' => $user->getId(),
                 'fullname' => $user->getFullname(),
                 'username' => $user->getUsername(),
@@ -55,8 +54,8 @@ class SearchController extends Controller
                 'accountId' => $user->getAccount() ? $user->getAccount()->getId() : null,
                 'paymentRef' => $user->getAccount() ? $user->getAccount()->getPaymentRef() : null,
             ];
-        }
+        }));
 
-        return response()->json($json);
+        return response()->json($users);
     }
 }

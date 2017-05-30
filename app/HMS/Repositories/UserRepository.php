@@ -34,9 +34,12 @@ interface UserRepository
     /**
      * @param  string $searchQuery
      * @param  bool $hasAccount limit to users with associated accounts
-     * @return array
+     * @param bool $paginate
+     * @param int    $perPage
+     * @param string $pageName
+     * @return User[]|array|\Illuminate\Pagination\LengthAwarePaginator
      */
-    public function searchLike(string $searchQuery, ?bool $hasAccount = false);
+    public function searchLike(string $searchQuery, ?bool $hasAccount = false, bool $paginate = false, $perPage = 15, $pageName = 'page');
 
     /**
      * save User to the DB.

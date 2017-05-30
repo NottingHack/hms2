@@ -39,8 +39,8 @@ $(".js-data-existing-account-ajax").select2({
       };
     },
     processResults: function (data, params) {
-      //where data._embedded.people is the array containing all my objects
-      data = $.map(data, function (obj) {
+      // need to use the account id as the select value
+      data.data = $.map(data.data, function (obj) {
               obj.id = obj.accountId;
               return obj;
       });
@@ -49,10 +49,10 @@ $(".js-data-existing-account-ajax").select2({
       params.page = params.page || 1;
 
       return {
-        results: data,
-        // pagination: {
-        //   more: (params.page * 30) < data.total_count
-        // }
+        results: data.data,
+        pagination: {
+          more: (params.page * data._per_page) < data.total
+        }
       };
     },
     cache: true

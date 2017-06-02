@@ -37,8 +37,5 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(FakerGenerator::class, function () {
             return FakerFactory::create('en_GB');
         });
-
-        // Don't need the passport migrations as we have custom laravel-doctrine ones.
-        Passport::ignoreMigrations();
     }
 }

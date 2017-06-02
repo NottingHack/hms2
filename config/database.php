@@ -91,7 +91,7 @@ return [
     |
     */
 
-    'migrations' => 'migrations',
+    'migrations' => 'migrations_eloquent',
 
     /*
     |--------------------------------------------------------------------------

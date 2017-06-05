@@ -176,6 +176,7 @@ return [
         Laracasts\Flash\FlashServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
         LWK\ViMbAdmin\ViMbAdminServiceProvider::class,
+        MaxBrokman\SafeQueue\DoctrineQueueProvider::class,
 
         /*
          * Application Service Providers...

@@ -11,7 +11,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "NottingHack/hms2"
-  config.vm.box_version = ">=0.1.0"
+  config.vm.box_version = ">=0.3.0"
   config.vm.hostname = "hmsdev.nottingtest.org.uk"
   
   config.vm.provider :virtualbox do |vb|
@@ -24,6 +24,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/laravel.sh"
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/mix.sh", privileged: false
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/labelprinter.sh"
+  config.vm.provision :shell, path: "dev/vagrant-config/scripts/laravel-queue.sh"
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/finish.sh"
 
   config.vm.network "private_network", ip: "192.168.25.35"

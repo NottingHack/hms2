@@ -12,8 +12,8 @@ composer install --no-progress --no-suggest
 cp /vagrant/dev/vagrant-config/laravel/.env /vagrant/.env
 
 # Set up DB
-php artisan migrate
 php artisan doctrine:migration:refresh
+php artisan migrate
 php artisan permission:defaults
 php artisan db:seed
 php artisan passport:install

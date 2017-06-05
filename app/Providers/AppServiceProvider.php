@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use HMS\Auth\PasswordStore;
-use Laravel\Passport\Passport;
 use Faker\Factory as FakerFactory;
 use HMS\Auth\PasswordStoreManager;
 use Faker\Generator as FakerGenerator;

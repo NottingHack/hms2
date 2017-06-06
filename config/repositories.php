@@ -43,5 +43,6 @@ return [
         'Email',
         'RoleUpdate',
         'LabelTemplate',
+        'GateKeeper\Pin',
     ],
 ];

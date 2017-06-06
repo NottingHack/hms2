@@ -1,0 +1,59 @@
+<?php
+
+namespace HMS\Factories\GateKeeper;
+
+use HMS\Entities\User;
+use HMS\Entities\GateKeeper\Pin;
+use HMS\Repositories\GateKeeper\PinRepository;
+
+class PinFactory
+{
+    /**
+     * @var PinRepository
+     */
+    protected $pinRepository;
+
+    /**
+     * @param PinRepository $pinRepository
+     */
+    public function __construct(PinRepository $pinRepository)
+    {
+        $this->pinRepository = $pinRepository;
+    }
+
+    /**
+     * Create a new Pin for rfid card enrollment
+     * @return Pin
+     */
+    public function createNewEnrollPinForUser(User $user)
+    {
+        $pin = new Pin((string) $this->generateUniquePin(), Pin::STATE_ENROLL);
+        $pin->setUser($user);
+        return $pin;
+    }
+
+    /**
+     * Generate a random pin.
+     *
+     * @return int A random pin.
+     */
+    protected function generatePin() {
+        # Currently a PIN is a 4 digit number between 1000 and 9999
+        return rand(1000, 9999);
+    }
+
+    /**
+     * Generate a unique (at the time this function was called) pin.
+     *
+     * @return int A random pin that was not in the database at the time this function was called.
+     */
+    protected function generateUniquePin() {
+        // A loop hiting the database? Why not...
+        $pin = 0;
+        do {
+            $pin = $this->generatePin();
+        } while ( $this->pinRepository->findOneByPin($pin) !== null);
+
+        return $pin;
+    }
+}

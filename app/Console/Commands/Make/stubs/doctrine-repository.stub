@@ -1,0 +1,20 @@
+<?php
+
+namespace DummyRepositoryImplementationNamespace;
+
+use DummyNamespace\DummyClass;
+use Doctrine\ORM\EntityRepository;
+use NamespacedDummyRepositoryInterface;
+
+class DoctrineDummyClassRepository extends EntityRepository implements DummyClassRepository
+{
+    /**
+     * save DummyClass to the DB. 
+     * @param  DummyClass $dummyClass
+     */
+    public function save(DummyClass $dummyClass)
+    {
+        $this->_em->persist($dummyClass);
+        $this->_em->flush();
+    }
+}

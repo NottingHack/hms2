@@ -1,0 +1,12 @@
+# NamspacedDummmyMapping.dcm.yml
+DummyNamespace\DummyClass:
+  type: entity
+  repositoryClass: NamespacedDummyRepositoryInterface
+  table: dummyTable
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO

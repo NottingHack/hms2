@@ -14,7 +14,7 @@ interface PinRepository
     public function findOneByPin(string $pin);
 
     /**
-     * @param  string $user
+     * @param  User $user
      * @return Pin[]
      */
     public function findByUser(User $user);

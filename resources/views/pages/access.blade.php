@@ -4,45 +4,48 @@
 
 @section('content')
 
-<p>The Hackspace door codes and WiFi passwords</p>
-<div>
-<dl>
-    <dt>
-        Street Door Code
-    </dt>
-    <dd>
-        {{ $outerDoorCode }}
-    </dd>
-    <dt>
-        Inner Door Code
-    </dt>
-    <dd>
-        {{ $innerDoorCode }}
-    </dd>
-    <dt>
-        WiFi SSID
-    </dt>
-    <dd>
-        {{ $wifiSsid }}
-    </dd>
-    <dt>
-        WiFi PSK
-    </dt>
-    <dd>
-        {{ $wifiPass }}
-    </dd>
-    <dt>
-        Guest WiFi SSID
-    </dt>
-    <dd>
-        {{ $guestWifiSsid }}
-    </dd>
-    <dt>
-        Guest WiFi PSK
-    </dt>
-    <dd>
-        {{ $guestWifiPass }}
-    </dd>
-</dl>
+<div class="row">
+    <div class="card small-12 medium-6 columns">
+        <div class="card-section">
+            <h4>
+                <i class="fa fa-key" aria-hidden="true"></i> Door Codes
+            </h4>
+            <dl>
+                <dt>Street Door</dt>
+                <dd>{{ $outerDoorCode }}</dd>
+                <dt>Inner Door</dt>
+                <dd>{{ $innerDoorCode }}</dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="card small-12 medium-6 columns">
+        <div class="card-section">
+            <h4>
+                <i class="fa fa-wifi" aria-hidden="true"></i> Members&apos; WiFi
+            </h4>
+            <dl>
+                <dt>SSID</dt>
+                <dd>{{ $wifiSsid }}</dd>
+                <dt>PSK</dt>
+                <dd>{{ $wifiPass }}</dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="card small-12 medium-6 columns">
+        <div class="card-section">
+            <h4>
+                <i class="fa fa-wifi" aria-hidden="true"></i> Guest WiFi
+            </h4>
+            <dl>
+                <dt>SSID</dt>
+                <dd>{{ $guestWifiSsid }}</dd>
+                <dt>PSK</dt>
+                <dd>{{ $guestWifiPass }}</dd>
+            </dl>
+        </div>
+    </div>
 </div>
+
 @endsection

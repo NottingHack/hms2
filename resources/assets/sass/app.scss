@@ -100,6 +100,25 @@ header {
     align-items: center;
 }
 
+
+
+/*
+ * Ensure the nav objects don't flash in before the JavaScript which controls their visibility executes
+ */
+@include breakpoint(small only) {
+  .main-menu {
+    display: none;
+  }
+}
+
+@include breakpoint(medium) {
+  .title-bar {
+    display: none;
+  }
+}
+
+
+
 // Spacing classes
 // ---------------
 // Utility classes for spacing things around in special circumstances

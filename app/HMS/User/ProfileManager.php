@@ -130,7 +130,7 @@ class ProfileManager
 
         // Nullable field
         if ($request->exists('dateOfBirth')) {
-            if (is_null($request['dataOfBirth'])) {
+            if (is_null($request['dateOfBirth'])) {
                 $profile->setDateOfBirth(null);
             } else {
                 $profile->setDateOfBirth(new Carbon($request['dateOfBirth']));

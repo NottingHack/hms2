@@ -52,8 +52,28 @@
 
     <div class="row expanded align-middle userbar">
       @if (!Auth::guest() and isset($mainNav) )
-        <div class="columns" data-responsive-toggle="main-menu" data-hide-for="medium">
-          <button data-toggle="main-menu" type="button"><i class="fa fa-bars" aria-hidden="true"></i> Menu</button>
+        {{-- build the menu toggle for small screens --}}
+        <div class="mobile-menu-button columns hide-for-medium">
+          <button data-toggle="mobile-menu" type="button"><i class="fa fa-bars" aria-hidden="true"></i> Menu</button>
+        </div>
+
+        {{-- build the menu for medium+ screens --}}
+        <div class="columns show-for-medium" id="main-menu">
+          <ul class="dropdown menu" data-dropdown-menu>
+            @foreach ($mainNav as $link)
+              <li{!! $link['active'] ? ' class="active"' : '' !!}><a href="{{ $link['url'] }}">{{ $link['text'] }}</a>
+                @if ( count($link['links']) > 0 )
+                  {{-- put hide-for-small on submenus so that before the JS comes in they won't flash up.
+                       Once the JS kicks in, it overrides visibility controls so the drop down will show perfectly --}}
+                  <ul class="menu hide-for-small">
+                    @foreach ($link['links'] as $subLink)
+                      <li{!! $subLink['active'] ? ' class="active"' : '' !!}><a href="{{ $subLink['url'] }}">{{ $subLink['text'] }}</a></li>
+                    @endforeach
+                  </ul>
+                @endif
+              </li>
+            @endforeach
+          </ul>
         </div>
       @endif
 
@@ -76,39 +96,38 @@
     </div>
   </header>
 
+{{-- build the menu for small screens --}}
+<div id="mobile-menu" data-toggler="show-mobile-menu">
+  <ul class="vertical menu" data-accordion-menu>
+    @foreach ($mainNav as $link)
+      <li{!! $link['active'] ? ' class="active"' : '' !!}><a href="{{ $link['url'] }}">{{ $link['text'] }}</a>
+        @if ( count($link['links']) > 0 )
+          <ul class="vertical nested menu">
+            @foreach ($link['links'] as $subLink)
+              <li{!! $subLink['active'] ? ' class="active"' : '' !!}><a href="{{ $subLink['url'] }}">{{ $subLink['text'] }}</a></li>
+            @endforeach
+          </ul>
+        @endif
+      </li>
+    @endforeach
+  </ul>
+</div>
+
   <!-- main body -->
   <div class="content">
+
 
   @include('partials.flash')
 
 
   <div class="row expanded align-top">
-      @if (!Auth::guest() and isset($mainNav))
-          <div class="small-12 medium-2 columns" id="main-menu">
-            <ul class="vertical menu">
-              @foreach ($mainNav as $link)
-                <li{!! $link['active'] ? ' class="active"' : '' !!}><a href="{{ $link['url'] }}">{{ $link['text'] }}</a></li>
-                @if ( count($link['links']) > 0 )
-                  <ul class="nested vertical menu">
-                    @foreach ($link['links'] as $subLink)
-                      <li{!! $subLink['active'] ? ' class="active"' : '' !!}><a href="{{ $subLink['url'] }}">{{ $subLink['text'] }}</a></li>
-                    @endforeach
-                  </ul>
-                @endif
-              @endforeach
-            </ul>
-          </div>
-      @endif
-
-      <div class="small-12 medium-expand columns">
-        @yield('content')
-      </div>
+    <div class="small-12 medium-expand columns">
+      @yield('content')
     </div>
 
     <div class="row">
       @include('cookieConsent::index')
     </div>
-
   </div>
 
   <!-- footer -->

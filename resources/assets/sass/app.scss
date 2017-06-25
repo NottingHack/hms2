@@ -285,17 +285,46 @@ header {
 }
 
 /*
+ * Member search result styles
+ */
+
+.membersearch {
+  .name {
+    .fullname {
+      font-weight: bold;
+    }
+
+    .username {
+      font-style: italic;
+
+      &::before {
+        content: '(';
+      }
+
+      &::after {
+        content: ')';
+      }
+    }
+  }
+
+  .email, .address, .paymentref {
+    font-size: 0.8rem;
+  }
+}
+
+/*
  * Definition Lists
  */
 
- // slightly modify the spacing on the Foundation default definition lists, so that there's more space on top of a <dt>
- dt {
-   margin-top: 0.6rem;
- }
+// slightly modify the spacing on the Foundation default definition lists, so that there's more space on top of a <dt>
+dt {
+ margin-top: 0.6rem;
+}
 
- /*
-  * Links page
-  */
+
+/*
+* Links page
+*/
 
 .link-name {
   font-size: 1.5rem;

@@ -35,12 +35,21 @@
         </a>
       </div>
       <div class="columns">
-        @hasSection('pageTitle')
-          <h1 class="tiny-header"><a href="/">Nottingham Hackspace</a></h1>
-          <h2 class="big-header">@yield('pageTitle')</h2>
-        @else
-          <h1><a href="/">Nottingham Hackspace</a></h1>
-        @endif
+        <div class="row expanded">
+          <div class="small-12 medium-expand columns">
+            @hasSection('pageTitle')
+              <h1 class="tiny-header"><a href="/">Nottingham Hackspace</a></h1>
+              <h2 class="big-header">@yield('pageTitle')</h2>
+            @else
+              <h1><a href="/">Nottingham Hackspace</a></h1>
+            @endif
+          </div>
+          @can('search.users')
+            <div class="small-12 medium-4 columns">
+                  @include('partials.memberSearch')
+            </div>
+          @endcan
+        </div>
       </div>
     </div>
 

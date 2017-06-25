@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -65,7 +65,7 @@
                 @if ( count($link['links']) > 0 )
                   {{-- put hide-for-small on submenus so that before the JS comes in they won't flash up.
                        Once the JS kicks in, it overrides visibility controls so the drop down will show perfectly --}}
-                  <ul class="menu hide">
+                  <ul class="menu submenu">
                     @foreach ($link['links'] as $subLink)
                       <li{!! $subLink['active'] ? ' class="active"' : '' !!}><a href="{{ $subLink['url'] }}">{{ $subLink['text'] }}</a></li>
                     @endforeach

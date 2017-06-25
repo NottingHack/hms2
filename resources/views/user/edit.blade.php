@@ -3,7 +3,7 @@
 @section('pageTitle', $user->getFullName())
 
 @section('content')
-<form role="form" method="POST" action="{{ route('users.update', $user->getId()) }}">
+<form id="user-edit-form" role="form" method="POST" action="{{ route('users.update', $user->getId()) }}">
   {{ csrf_field() }}
   {{ method_field('PUT') }}
 

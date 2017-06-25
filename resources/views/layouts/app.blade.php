@@ -42,7 +42,7 @@
       </div>
       <div class="columns">
         <div class="row expanded">
-          <div class="small-12 medium-8 columns">
+          <div class="small-12 medium-expand columns">
             @hasSection('pageTitle')
               <h1 class="tiny-header"><a href="/">Nottingham Hackspace</a></h1>
               <h2 class="big-header">@yield('pageTitle')</h2>
@@ -50,11 +50,11 @@
               <h1><a href="/">Nottingham Hackspace</a></h1>
             @endif
           </div>
-          <div class="small-12 medium-4 columns">
-            @can('search.users')
-                @include('partials.memberSearch')
-            @endcan
-          </div>
+          @can('search.users')
+            <div class="small-12 medium-4 columns">
+                  @include('partials.memberSearch')
+            </div>
+          @endcan
         </div>
       </div>
     </div>

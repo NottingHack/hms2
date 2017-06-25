@@ -84,6 +84,10 @@ header {
     #logo-path {
       fill: $hackspace-grey;
     }
+
+    a {
+      color: $header-text-colour;
+    }
 }
 
 .userbar {

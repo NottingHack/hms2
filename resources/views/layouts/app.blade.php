@@ -113,9 +113,8 @@
   </ul>
 </div>
 
-  <!-- main body -->
-  <div class="content">
-
+<!-- main body -->
+<div class="content">
 
   @include('partials.flash')
 
@@ -129,6 +128,7 @@
       @include('cookieConsent::index')
     </div>
   </div>
+</div>
 
   <!-- footer -->
   <footer>

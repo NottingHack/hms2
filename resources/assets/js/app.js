@@ -112,11 +112,17 @@ $(".js-data-existing-account-ajax").select2({
 
 function formatUser (user) {
   if (user.loading) return user.text;
-  var markup = "<div class='select2-name'>" + user.fullname + " (" + user.username + ")" +
-  "</div><div  class='select2-email'>" + user.email +
-  "</div><div  class='select2-address'>" + user.address1 + ", " + user.addressPostcode +
-  "</div><div  class='select2-payment-ref'>" + user.paymentRef +
-  "</div>";
+  var markup = '<div class="membersearch">' +
+    '<div class="name"><span class="fullname">' + user.fullname + '</span> <span class="username">' + user.username + '</span></div>' +
+    '<div class="email">' + user.email + '</div>' +
+    '<div class="address">' + user.address1 + ', ' + user.addressPostcode + '</div>' +
+    '<div class="paymentref">' + user.paymentRef + '</div>' +
+    '</div>';
+  // var markup = "<div class='select2-name'>" + user.fullname + " (" + user.username + ")" +
+  // "</div><div  class='select2-email'>" + user.email +
+  // "</div><div  class='select2-address'>" + user.address1 + ", " + user.addressPostcode +
+  // "</div><div  class='select2-payment-ref'>" + user.paymentRef +
+  // "</div>";
   return markup;
 }
 

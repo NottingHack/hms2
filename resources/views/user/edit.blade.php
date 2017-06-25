@@ -6,7 +6,7 @@
 <form role="form" method="POST" action="{{ route('users.update', $user->getId()) }}">
   {{ csrf_field() }}
   {{ method_field('PUT') }}
-  
+
   <p>Usernames can not be change</p>
 
   <div class="form-container">
@@ -154,7 +154,7 @@
       <div class="row">
         <label for="unlockText" class="form-label">Unlock Text</label>
         <div class="form-control">
-          <input id="unlockText" type="date" name="unlockText" value="{{ old('unlockText', $user->getProfile()->getUnlockText()) }}">
+          <input id="unlockText" type="text" name="unlockText" value="{{ old('unlockText', $user->getProfile()->getUnlockText()) }}">
           @if ($errors->has('unlockText'))
           <p class="help-text">
             <strong>{{ $errors->first('unlockText') }}</strong>

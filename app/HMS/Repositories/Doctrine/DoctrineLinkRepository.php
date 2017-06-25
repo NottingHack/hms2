@@ -5,11 +5,11 @@ namespace HMS\Repositories\Doctrine;
 use HMS\Entities\Link;
 use Doctrine\ORM\EntityRepository;
 use HMS\Repositories\LinkRepository;
-use LaravelDoctrine\ORM\Pagination\Paginatable;
+use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 
 class DoctrineLinkRepository extends EntityRepository implements LinkRepository
 {
-    use Paginatable;
+    use PaginatesFromRequest;
 
     /**
      * save Link to the DB.

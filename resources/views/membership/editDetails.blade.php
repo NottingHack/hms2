@@ -123,9 +123,9 @@
 
   <div class="form-container">
     <div class="row">
-      <label for="dateOfBirth" class="form-label">Date Of Birth (dd/mm/yyyy)</label>
+      <label for="dateOfBirth" class="form-label">Date Of Birth (yyyy-mm-dd)</label>
       <div class="form-control">
-        <input id="dateOfBirth" type="date" name="dateOfBirth" value="{{ old('dateOfBirth', $user->getProfile()->getDateOfBirth() ? $user->getProfile()->getDateOfBirth()->format('d/m/Y') : '' )}}">
+        <input id="dateOfBirth" type="date" name="dateOfBirth" value="{{ old('dateOfBirth', $user->getProfile()->getDateOfBirth() ? $user->getProfile()->getDateOfBirth()->toDateString() : '') }}">
         @if ($errors->has('dateOfBirth'))
         <p class="help-text">
           <strong>{{ $errors->first('dateOfBirth') }}</strong>

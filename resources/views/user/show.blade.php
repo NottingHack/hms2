@@ -52,7 +52,7 @@
     </tr>
     <tr>
       <th>Date of Birth:</th>
-      <td>@if($user->getProfile()->getDateOfBirth()){{ $user->getProfile()->getDateOfBirth()->format('d/m/Y') }}@endif</td>
+      <td>@if($user->getProfile()->getDateOfBirth()){{ $user->getProfile()->getDateOfBirth()->toDateString() }}@endif</td>
     </tr>
     <tr>
       <th>Unlock text:</th>
@@ -60,7 +60,7 @@
     </tr>
     <tr>
       <th>Join Date:</th>
-      <td>@if($user->getProfile()->getJoinDate()){{ $user->getProfile()->getJoinDate()->format('d/m/Y') }}@endif</td>
+      <td>@if($user->getProfile()->getJoinDate()){{ $user->getProfile()->getJoinDate()->toDateString() }}@endif</td>
     </tr>
     @endif
   </tbody>

@@ -183,7 +183,7 @@
 
   <div class="form-container">
     <div class="row">
-      <label for="dateOfBirth" class="form-label">Date Of Birth (dd/mm/yyyy)</label>
+      <label for="dateOfBirth" class="form-label">Date Of Birth (yyyy-mm-dd)</label>
       <div class="form-control">
         <input id="dateOfBirth" type="date" name="dateOfBirth" value="{{ old('dateOfBirth') }}">
         @if ($errors->has('dateOfBirth'))

@@ -52,7 +52,7 @@
     </tr>
     <tr>
       <th>Date of Birth:</th>
-      <td>@if($user->getProfile()->getDateOfBirth()){{ $user->getProfile()->getDateOfBirth()->format('d/m/Y') }}@endif</td>
+      <td>@if($user->getProfile()->getDateOfBirth()){{ $user->getProfile()->getDateOfBirth()->toDateString() }}@endif</td>
     </tr>
   </tbody>
 </table>

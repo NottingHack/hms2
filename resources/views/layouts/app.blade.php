@@ -41,15 +41,21 @@
         </a>
       </div>
       <div class="columns">
-        @hasSection('pageTitle')
-          <h1 class="tiny-header"><a href="/">Nottingham Hackspace</a></h1>
-          <h2 class="big-header">@yield('pageTitle')</h2>
-        @else
-          <h1><a href="/">Nottingham Hackspace</a></h1>
-        @endif
-        @can('search.users')
-            @include('partials.memberSearch')
-        @endcan
+        <div class="row expanded">
+          <div class="small-12 medium-8 columns">
+            @hasSection('pageTitle')
+              <h1 class="tiny-header"><a href="/">Nottingham Hackspace</a></h1>
+              <h2 class="big-header">@yield('pageTitle')</h2>
+            @else
+              <h1><a href="/">Nottingham Hackspace</a></h1>
+            @endif
+          </div>
+          <div class="small-12 medium-4 columns">
+            @can('search.users')
+                @include('partials.memberSearch')
+            @endcan
+          </div>
+        </div>
       </div>
     </div>
 

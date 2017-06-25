@@ -33,6 +33,7 @@ $(".js-data-member-search-ajax").change(function(){
 
 $(".js-data-member-search-ajax").select2({
   theme: "foundation",
+  width: '100%',
   placeholder: "Search for a member...",
   ajax: {
     url: '/api/search/users',

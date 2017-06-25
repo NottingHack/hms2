@@ -178,6 +178,30 @@ class Pin
     }
 
     /**
+     * Sets the value of state to cancled.
+     *
+     * @return self
+     */
+    public function setStateCancled()
+    {
+        $this->state = Pin::STATE_CANCELLED;
+
+        return $this;
+    }
+
+    /**
+     * Sets the value of state to enroll.
+     *
+     * @return self
+     */
+    public function setStateEnroll()
+    {
+        $this->state = Pin::STATE_ENROLL;
+
+        return $this;
+    }
+
+    /**
      * Gets the value of user.
      *
      * @return User

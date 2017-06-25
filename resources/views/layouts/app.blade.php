@@ -65,7 +65,7 @@
                 @if ( count($link['links']) > 0 )
                   {{-- put hide-for-small on submenus so that before the JS comes in they won't flash up.
                        Once the JS kicks in, it overrides visibility controls so the drop down will show perfectly --}}
-                  <ul class="menu hide-for-small">
+                  <ul class="menu hide">
                     @foreach ($link['links'] as $subLink)
                       <li{!! $subLink['active'] ? ' class="active"' : '' !!}><a href="{{ $subLink['url'] }}">{{ $subLink['text'] }}</a></li>
                     @endforeach

@@ -208,7 +208,7 @@ class MembershipController extends Controller
             'addressCounty' => 'required|max:100',
             'addressPostcode' => 'required|max:10',
             'contactNumber' => 'required|max:50',
-            'dateOfBirth' => 'nullable|date',
+            'dateOfBirth' => 'nullable|date_format:Y-m-d',
         ]);
 
         $user = $this->userManager->updateFromRequest($user, $request);

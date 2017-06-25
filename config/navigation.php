@@ -32,7 +32,6 @@ return [
         ],
         'admin' => [
             'text'          => 'Admin',
-            'route'         => 'admin',
             'permissions'   => [],
             'links'         => [
                 'roles'         => [

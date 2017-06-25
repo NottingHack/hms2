@@ -82,11 +82,15 @@ class NavComposer
             // populate the array if they can
             if ($allowed) {
                 $link = [
-                    'url'       =>  route($navItem['route']),
+                    'url'       => '#',
                     'text'      =>  $navItem['text'],
                     'active'    =>  false,
                     'links'     =>  [],
                 ];
+
+                if (isset($navItem['route'])) {
+                    $link['url'] = route($navItem['route']);
+                }
 
                 // is the current route part of this link?
                 // multiple routes can set a link as "active"
@@ -102,7 +106,11 @@ class NavComposer
                     $link['links'] = $this->buildLinks($navItem['links'], $user);
                 }
 
-                $links[] = $link;
+                if (count($navItem['links']) > 0 && count($link['links']) == 0) {
+                    continue;
+                } else {
+                    $links[] = $link;
+                }
             }
         }
 

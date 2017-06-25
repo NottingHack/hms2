@@ -72,6 +72,7 @@ class UserTableSeeder extends Seeder
             ->make()
             ->each(function ($u) {
                 $u->getRoles()->add($this->roleRepository->findOneByName(Role::MEMBER_CURRENT));
+                $this->passwordStore->add($u->getUsername(), 'password');
                 EntityManager::persist($u);
             });
 
@@ -81,6 +82,7 @@ class UserTableSeeder extends Seeder
                 ->make()
                 ->each(function ($u) use ($role) {
                     $u->getRoles()->add($this->roleRepository->findOneByName($role));
+                    $this->passwordStore->add($u->getUsername(), 'password');
                     EntityManager::persist($u);
                 });
         }

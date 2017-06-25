@@ -19,12 +19,6 @@
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
-    <script>
-        window.Laravel = <?php echo json_encode([
-            'csrfToken' => csrf_token(),
-        ]); ?>
-    </script>
-
     <!-- Font Awesome -->
     <script src="https://use.fontawesome.com/5fd8ad5172.js"></script>
 </head>

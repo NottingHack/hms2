@@ -27,7 +27,22 @@ h2 {
 
 .content {
     flex: 1;
+    margin-top: 2rem;
     padding-bottom: rem-calc(20);
+}
+
+@include breakpoint(small only) {
+  .content {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@include breakpoint(medium) {
+  .content {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 }
 
 ul.nomarkers {
@@ -47,7 +62,6 @@ ul.nomarkers {
 
 header {
     box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.5);
-    margin-bottom: 2rem;
 }
 
 .header {
@@ -99,6 +113,41 @@ header {
 .align-middle {
     align-items: center;
 }
+
+/*
+ * Navigation classes and objects need to show/hide in the right circumstances
+ */
+@include breakpoint(small only) {
+  // In small screens, the main menu is hidden and the mobile menu is showable
+  #main-menu {
+    display: none;
+  }
+
+  // This selector must be more specific than the ID selector which hides the menu
+  #mobile-menu.show-mobile-menu {
+    display: block;
+  }
+}
+
+@include breakpoint(medium) {
+  // In medium+, the mobile menu's toggle button is hidden
+  .mobile-menu-button {
+    display: none;
+  }
+}
+
+// The default visibility of the mobile menu is hidden
+#mobile-menu {
+  display: none;
+}
+
+.no-js {
+ .submenu {
+   display: none;
+  }
+}
+
+
 
 // Spacing classes
 // ---------------

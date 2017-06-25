@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -50,8 +50,32 @@
       </div>
     </div>
 
-    <div class="row expanded userbar">
-      <ul class="menu align-right">
+    <div class="row expanded align-middle userbar">
+      @if (!Auth::guest() and isset($mainNav) )
+        {{-- build the menu toggle for small screens --}}
+        <div class="mobile-menu-button columns hide-for-medium">
+          <button data-toggle="mobile-menu" type="button"><i class="fa fa-bars" aria-hidden="true"></i> Menu</button>
+        </div>
+
+        {{-- build the meu for medium+ screens --}}
+        <div class="columns show-for-medium" id="main-menu">
+          <ul class="dropdown menu" data-dropdown-menu>
+            @foreach ($mainNav as $link)
+              <li{!! $link['active'] ? ' class="active"' : '' !!}><a href="{{ $link['url'] }}">{{ $link['text'] }}</a>
+                @if ( count($link['links']) > 0 )
+                  <ul class="menu submenu">
+                    @foreach ($link['links'] as $subLink)
+                      <li{!! $subLink['active'] ? ' class="active"' : '' !!}><a href="{{ $subLink['url'] }}">{{ $subLink['text'] }}</a></li>
+                    @endforeach
+                  </ul>
+                @endif
+              </li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
+
+      <ul class="columns menu align-right">
         @if (Auth::guest())
         <li><a href="{{ url('/login') }}">Log In</a></li>
         @if (SiteVisitor::inTheSpace())
@@ -70,53 +94,39 @@
     </div>
   </header>
 
-  <!-- main body -->
-  <div class="content">
+{{-- build the menu for small screens --}}
+<div id="mobile-menu" data-toggler="show-mobile-menu">
+  <ul class="vertical menu" data-accordion-menu>
+    @foreach ($mainNav as $link)
+      <li{!! $link['active'] ? ' class="active"' : '' !!}><a href="{{ $link['url'] }}">{{ $link['text'] }}</a>
+        @if ( count($link['links']) > 0 )
+          <ul class="vertical nested menu">
+            @foreach ($link['links'] as $subLink)
+              <li{!! $subLink['active'] ? ' class="active"' : '' !!}><a href="{{ $subLink['url'] }}">{{ $subLink['text'] }}</a></li>
+            @endforeach
+          </ul>
+        @endif
+      </li>
+    @endforeach
+  </ul>
+</div>
+
+<!-- main body -->
+<div class="content">
 
   @include('partials.flash')
 
+
   <div class="row align-top">
-      @if (!Auth::guest())
-      <div class="columns small-12 small-order-1 medium-2 medium-order-0 large-2">
-
-        @if ( isset($mainNav) )
-            <ul class="vertical menu">
-            @foreach ($mainNav as $link)
-                <li{!! $link['active'] ? ' class="active"' : '' !!}><a href="{{ $link['url'] }}">{{ $link['text'] }}</a></li>
-                @if ( count($link['links']) > 0 )
-                    <ul class="nested vertical menu">
-                    @foreach ($link['links'] as $subLink)
-                        <li{!! $subLink['active'] ? ' class="active"' : '' !!}><a href="{{ $subLink['url'] }}">{{ $subLink['text'] }}</a></li>
-                    @endforeach
-                    </ul>
-                @endif
-            @endforeach
-            </ul>
-        @endif
-      </div>
-      @endif
-
-      @if (Auth::guest())
-      <div class="columns">
-      @else
-      <div class="columns small-12 small-order-0 medium-10 medium-order-1 large-7">
-      @endif
-        @yield('content')
-      </div>
-
-      @if (!Auth::guest())
-      <div class="columns small-12 small-order-3 medium-12 medium-order-2 large-3">
-        <!-- this is where upcoming tool bookings might go -->
-      </div>
-      @endif
-
+    <div class="small-12 medium-expand columns">
+      @yield('content')
     </div>
 
     <div class="row">
       @include('cookieConsent::index')
     </div>
-
   </div>
+</div>
 
   <!-- footer -->
   <footer>

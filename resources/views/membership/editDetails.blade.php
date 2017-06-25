@@ -5,7 +5,7 @@
 @section('content')
 <p>Please review the details below and update them as requested by the membership team.</p>
 
-<form role="form" method="POST" action="{{ route('membership.update', $user->getId()) }}">
+<form id="membership-edit-details-form" role="form" method="POST" action="{{ route('membership.update', $user->getId()) }}">
   {{ csrf_field() }}
   {{ method_field('PUT') }}
 

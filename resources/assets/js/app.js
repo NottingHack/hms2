@@ -76,3 +76,11 @@ function formatUser (user) {
 function formatUserSelection (user) {
   return user.fullname;
 }
+
+// Workaround to reformat sumbited date's into ISO if there in UK format
+$("#user-edit-form,#membership-edit-details-form,#register-form").submit(function() {
+  var date = $("input[type='date']");
+  if (date.val().includes('/')) {
+    date.val(date.val().split('/').reverse().join('-'));
+  }
+});

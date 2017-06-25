@@ -57,7 +57,7 @@
           <button data-toggle="mobile-menu" type="button"><i class="fa fa-bars" aria-hidden="true"></i> Menu</button>
         </div>
 
-        {{-- build the menu for medium+ screens --}}
+        {{-- build the meu for medium+ screens --}}
         <div class="columns show-for-medium" id="main-menu">
           <ul class="dropdown menu" data-dropdown-menu>
             @foreach ($mainNav as $link)
@@ -120,7 +120,7 @@
   @include('partials.flash')
 
 
-  <div class="row expanded align-top">
+  <div class="row align-top">
     <div class="small-12 medium-expand columns">
       @yield('content')
     </div>

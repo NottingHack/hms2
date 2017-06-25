@@ -230,3 +230,12 @@ header {
 		overflow: hidden;
 	}
 }
+
+/*
+ * Definition Lists
+ */
+
+ // slightly modify the spacing on the Foundation default definition lists, so that there's more space on top of a <dt>
+ dt {
+   margin-top: 0.6rem;
+ }

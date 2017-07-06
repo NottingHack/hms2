@@ -1,0 +1,36 @@
+# HMS.Entities.GateKeeper.RfidTag.dcm.yml
+HMS\Entities\GateKeeper\RfidTag:
+  type: entity
+  repositoryClass: HMS\Repositories\GateKeeper\RfidTagRepository
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    rfidSerial:
+      type: string
+      length: 50
+      unique: true
+      nullable: true
+    rfidSerialLegacy:
+      type: string
+      length: 50
+      unique: true
+      nullable: true
+    state:
+      type: integer
+      options:
+        default: 0
+    lastUsed:
+      type: datetime
+      nullable: true
+    friendlyName:
+      type: string
+      lenght: 128
+      nullable: true
+  manyToOne:
+    user:
+      targetEntity: \HMS\Entities\User

@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ProfileTableSeeder::class);
         $this->call(AccountTableSeeder::class);
         $this->call(PinTableSeeder::class);
+        $this->call(RfidTagTableSeeder::class);
     }
 }

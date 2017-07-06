@@ -44,5 +44,6 @@ return [
         'RoleUpdate',
         'LabelTemplate',
         'GateKeeper\Pin',
+        'GateKeeper\RfidTag',
     ],
 ];

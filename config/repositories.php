@@ -45,6 +45,7 @@ return [
         'LabelTemplate',
         'GateKeeper\Pin',
         'GateKeeper\RfidTag',
+        'GateKeeper\Door',
         'GateKeeper\Zone',
     ],
 ];

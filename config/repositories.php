@@ -47,5 +47,6 @@ return [
         'GateKeeper\RfidTag',
         'GateKeeper\Door',
         'GateKeeper\Zone',
+        'GateKeeper\AccessLog',
     ],
 ];

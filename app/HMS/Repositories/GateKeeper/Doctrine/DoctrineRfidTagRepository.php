@@ -13,6 +13,14 @@ class DoctrineRfidTagRepository extends EntityRepository implements RfidTagRepos
     use PaginatesFromRequest;
 
     /**
+     * @return RfidTag[]
+     */
+    public function findAll()
+    {
+        return parent::findAll();
+    }
+
+    /**
      * @param  User $user
      * @return RfidTag[]
      */

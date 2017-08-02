@@ -8,6 +8,11 @@ use HMS\Entities\GateKeeper\RfidTag;
 interface RfidTagRepository
 {
     /**
+     * @return RfidTag[]
+     */
+    public function findAll();
+
+    /**
      * @param  User $user
      * @return RfidTag[]
      */

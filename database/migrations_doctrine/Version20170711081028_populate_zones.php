@@ -36,7 +36,7 @@ class Version20170711081028_populate_zones extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql(
-            'DELETE FROM doors WHERE id IN (0, 1, 2)'
+            'DELETE FROM zones WHERE id IN (1, 2, 3)'
         );
     }
 }

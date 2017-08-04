@@ -27,14 +27,14 @@ class Pin
      */
     const STATE_ENROLL = 40;
     /**
-     * String representation of states for display
+     * String representation of states for display.
      */
-    public $statusStrings = array(
+    public $statusStrings = [
                                   10 => 'Active',
                                   20 => 'Expired',
                                   30 => 'Calcelled',
                                   40 => 'Enroll',
-                                  );
+                                  ];
 
     /**
      * @var int
@@ -65,7 +65,7 @@ class Pin
      * @param string $pin
      * @param int $state
      */
-    public function __construct(string $pin, int $state = Pin::STATE_ACTIVE)
+    public function __construct(string $pin, int $state = self::STATE_ACTIVE)
     {
         $this->pin = $pin;
         $this->state = $state;
@@ -184,7 +184,7 @@ class Pin
      */
     public function setStateCancled()
     {
-        $this->state = Pin::STATE_CANCELLED;
+        $this->state = self::STATE_CANCELLED;
 
         return $this;
     }
@@ -196,7 +196,7 @@ class Pin
      */
     public function setStateEnroll()
     {
-        $this->state = Pin::STATE_ENROLL;
+        $this->state = self::STATE_ENROLL;
 
         return $this;
     }

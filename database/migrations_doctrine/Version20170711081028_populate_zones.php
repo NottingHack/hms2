@@ -15,7 +15,7 @@ class Version20170711081028_populate_zones extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $zones = [
-            [1, 'Off-site', 'Off-site', NULL],
+            [1, 'Off-site', 'Off-site', null],
             [2, 'Metalworking, classroom & bike storage', 'Zone 1', 'ZONE1'],
             [3, 'Laser, CNC & blue room', 'Zone 2', 'ZONE2'],
         ];

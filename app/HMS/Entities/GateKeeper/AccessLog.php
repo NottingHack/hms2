@@ -4,17 +4,16 @@ namespace HMS\Entities\GateKeeper;
 
 use Carbon\Carbon;
 use HMS\Entities\User;
-use HMS\Entities\GateKeeper\Door;
 
 class AccessLog
 {
     /**
-     * Access was granted
+     * Access was granted.
      */
     const ACCESS_GRANTED = 20;
 
     /**
-     * Access was denied
+     * Access was denied.
      */
     const ACCESS_DENIED = 10;
 

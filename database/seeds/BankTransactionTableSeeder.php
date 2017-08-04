@@ -43,8 +43,11 @@ class BankTransactionTableSeeder extends Seeder
      */
     protected $csvTransactions;
 
-
-    public function __construct(AccountRepository $accountReposiotry, BankTransactionRepository $bankTransactionRepository, BankRepository $bankRepository, BankTransactionFactory $bankTransactionFactory, Generator $faker)
+    public function __construct(AccountRepository $accountReposiotry,
+        BankTransactionRepository $bankTransactionRepository,
+        BankRepository $bankRepository,
+        BankTransactionFactory $bankTransactionFactory,
+        Generator $faker)
     {
         $this->accountReposiotry = $accountReposiotry;
         $this->bankTransactionRepository = $bankTransactionRepository;
@@ -68,16 +71,16 @@ class BankTransactionTableSeeder extends Seeder
 
             if ($user->hasRoleByName(Role::MEMBER_PAYMENT)) {
                 // Gen a record that is less than 2 weeks old so if we run an audit we get some member movememnt
-                $ran = rand(1,3);
+                $ran = rand(1, 3);
                 // random number 1 gen bank, 4 gen csv, else none
-                if ($ran == 1 ) {
+                if ($ran == 1) {
                     $this->__generateBankTransaction($user, '-3 Weeks');
-                } else if ($ran == 3) {
+                } elseif ($ran == 3) {
                     $this->__generateBankCSV($user, '-1 weeks');
                 }
-            } else if ($user->hasRoleByName([Role::MEMBER_YOUNG, Role::MEMBER_CURRENT])) {
+            } elseif ($user->hasRoleByName([Role::MEMBER_YOUNG, Role::MEMBER_CURRENT])) {
                 // Gen 1-3 records that are over 1.5 months old (history)
-                for ($i = 1; $i <= rand(1,3); $i++) {
+                for ($i = 1; $i <= rand(1, 3); $i++) {
                     $this->__generateBankTransaction($user, '-6 months', '-2 months 1 day');
                 }
 
@@ -86,10 +89,10 @@ class BankTransactionTableSeeder extends Seeder
                 if ($user->getFirstname() == 'Admin') {
                     // make sure we cant make the make our admin an ex member
                     $this->__generateBankTransaction($user, '-1 week');
-                } else if ($ran == 5) {
+                } elseif ($ran == 5) {
                     // some ex just to csv less than 2 weeks (cause ex aproval)
                     $this->__generateBankCSV($user, '-1 weeks');
-                } else if ($ran == 4) {
+                } elseif ($ran == 4) {
                     // some warn (between 1.5 and 1 month)
                     $this->__generateBankTransaction($user, '-2 months', '-1 month 14 days');
                     // some also with a csv less that 1 weeks
@@ -99,17 +102,17 @@ class BankTransactionTableSeeder extends Seeder
                 } else {
                     $this->__generateBankTransaction($user, '-1 month');
                 }
-            } else if ($user->hasRoleByName(Role::MEMBER_EX)) {
+            } elseif ($user->hasRoleByName(Role::MEMBER_EX)) {
                 // Gen 1-3 records that are over 2 months old (history)
-                for ($i = 1; $i <= rand(1,3); $i++) {
+                for ($i = 1; $i <= rand(1, 3); $i++) {
                     $this->__generateBankTransaction($user, '-6 months', '-2 month 1 day');
                 }
                 // Gen a record that is less than 2 weeks old so if we run an audit we get some member movememnt
                 $ran = rand(1, 4);
                 // random number 1 gen bank, 4 gen csv, else none
-                if ($ran == 2 ) {
+                if ($ran == 2) {
                     $this->__generateBankTransaction($user, '-3 weeks');
-                } else if ($ran == 4) {
+                } elseif ($ran == 4) {
                     $this->__generateBankCSV($user, '-1 weeks');
                 }
             }
@@ -119,7 +122,7 @@ class BankTransactionTableSeeder extends Seeder
     }
 
     /**
-     * Generate a new BankTransaction
+     * Generate a new BankTransaction.
      * @param User   $user
      * @param string $startDate
      * @param string $endDate
@@ -130,14 +133,14 @@ class BankTransactionTableSeeder extends Seeder
             $this->bank,
             Carbon::instance($this->faker->dateTimeBetween($startDate, $endDate)),
             $user->getFullname() .' '. $user->getAccount()->getPaymentRef() . ' ' . $user->getAccount()->getId(),
-            rand(1, 7500)/100
+            rand(1, 7500) / 100
             );
 
         $this->bankTransactionRepository->save($bankTransaction);
     }
 
     /**
-     * Generate a new BankTransaction for CSV
+     * Generate a new BankTransaction for CSV.
      * @param User   $user
      * @param string $startDate
      * @param string $endDate
@@ -147,18 +150,19 @@ class BankTransactionTableSeeder extends Seeder
         $bankTransaction = [
             'transaction_date' => Carbon::instance($this->faker->dateTimeBetween($startDate, $endDate)),
             'description' => $user->getFullname() .' '. $user->getAccount()->getPaymentRef() . ' ' . $user->getAccount()->getId(),
-            'amount' => rand(1, 7500)/100
+            'amount' => rand(1, 7500) / 100,
             ];
 
         $this->csvTransactions[] = $bankTransaction;
     }
 
     /**
-     * Write out bank csv file
+     * Write out bank csv file.
      *
      * @param  array  $bankCSVRecords
      */
-    private function __writeDataCSV($bankCSVRecords) {
+    private function __writeDataCSV($bankCSVRecords)
+    {
         /* need to write out in the following format
          Transaction Date,Transaction Type,Sort Code,Account Number,Transaction Description,Debit Amount,Credit Amount,Balance,
          29/04/2016,PAY,'77-22-24,13007568,SERVICE CHARGES REF : 196704345 ,18.77,,33203.36
@@ -167,7 +171,7 @@ class BankTransactionTableSeeder extends Seeder
         $data = 'Transaction Date,Transaction Type,Sort Code,Account Number,Transaction Description,Debit Amount,Credit Amount,Balance,';
         $data = $data . "\n";
 
-        $balance = rand(1000, 10000)/100;
+        $balance = rand(1000, 10000) / 100;
 
         foreach ($bankCSVRecords as $record) {
             $balance += $record['amount'];

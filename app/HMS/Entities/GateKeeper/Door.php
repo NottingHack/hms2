@@ -3,7 +3,6 @@
 namespace HMS\Entities\GateKeeper;
 
 use Carbon\Carbon;
-use HMS\Entities\GateKeeper\Zone;
 
 class Door
 {

@@ -50,24 +50,24 @@ class RfidTagTableSeeder extends Seeder
                 }
 
                 // generate HEX serial
-                list ($rfidSerial, $rfidSerialLegacy) = $this->generateRfid();
+                list($rfidSerial, $rfidSerialLegacy) = $this->generateRfid();
 
                 // rand generate legacy version
                 if (random_int(1, 10) > 4) {
-                    $rfidSerialLegacy = Null; // throw away the legacy most fo the time
+                    $rfidSerialLegacy = null; // throw away the legacy most fo the time
                 } else {
                     // keep the legacy and sometimes dont have a hex version
-                    if (random_int(1, 10) == 1){
-                        $rfidSerial = Null;
+                    if (random_int(1, 10) == 1) {
+                        $rfidSerial = null;
                     }
                 }
 
                 $rfidTag = new RfidTag($rfidSerial, $rfidSerialLegacy);
-                $rfidTag->setState(random_int(1,3)*10);
+                $rfidTag->setState(random_int(1, 3) * 10);
                 $rfidTag->setUser($user);
                 $this->rfidTagRepository->save($rfidTag);
                 if ($rfidTag->getState() != RfidTag::STATE_ACTIVE and random_int(1, 3) >= 2) {
-                    list ($rfidSerial, $rfidSerialLegacy) = $this->generateRfid();
+                    list($rfidSerial, $rfidSerialLegacy) = $this->generateRfid();
                     $rfidTag = new RfidTag($rfidSerial);
                     $rfidTag->setState(RfidTag::STATE_ACTIVE);
                     $rfidTag->setUser($user);
@@ -86,10 +86,10 @@ class RfidTagTableSeeder extends Seeder
 
     private function generateRfid()
     {
-        $lengthOptions = [4,7,10];
+        $lengthOptions = [4, 7, 10];
         $rfidSerialBytes = random_bytes($lengthOptions[random_int(0, 2)]);
         $rfidSerial = bin2hex($rfidSerialBytes);
-        $rfidSerialLegacy = hexdec(substr($rfidSerial,-8));
+        $rfidSerialLegacy = hexdec(substr($rfidSerial, -8));
 
         return [$rfidSerial, $rfidSerialLegacy];
     }

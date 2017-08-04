@@ -7,7 +7,7 @@ use HMS\Entities\GateKeeper\Door;
 interface DoorRepository
 {
     /**
-     * find by short name
+     * find by short name.
      * @param  string $shortName
      * @return Door
      */

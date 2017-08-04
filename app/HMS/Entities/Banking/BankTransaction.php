@@ -3,8 +3,6 @@
 namespace HMS\Entities\Banking;
 
 use Carbon\Carbon;
-use HMS\Entities\Banking\Bank;
-use HMS\Entities\Banking\Account;
 
 class BankTransaction
 {

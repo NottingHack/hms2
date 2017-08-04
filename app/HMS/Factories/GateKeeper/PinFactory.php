@@ -22,13 +22,14 @@ class PinFactory
     }
 
     /**
-     * Create a new Pin for rfid card enrollment
+     * Create a new Pin for rfid card enrollment.
      * @return Pin
      */
     public function createNewEnrollPinForUser(User $user)
     {
         $pin = new Pin((string) $this->generateUniquePin(), Pin::STATE_ENROLL);
         $pin->setUser($user);
+
         return $pin;
     }
 
@@ -37,8 +38,9 @@ class PinFactory
      *
      * @return int A random pin.
      */
-    protected function generatePin() {
-        # Currently a PIN is a 4 digit number between 1000 and 9999
+    protected function generatePin()
+    {
+        // Currently a PIN is a 4 digit number between 1000 and 9999
         return rand(1000, 9999);
     }
 
@@ -47,12 +49,13 @@ class PinFactory
      *
      * @return int A random pin that was not in the database at the time this function was called.
      */
-    protected function generateUniquePin() {
+    protected function generateUniquePin()
+    {
         // A loop hiting the database? Why not...
         $pin = 0;
         do {
             $pin = $this->generatePin();
-        } while ( $this->pinRepository->findOneByPin($pin) !== null);
+        } while ($this->pinRepository->findOneByPin($pin) !== null);
 
         return $pin;
     }

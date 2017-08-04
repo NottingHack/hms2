@@ -1,7 +1,6 @@
 <?php
 
 use Carbon\Carbon;
-use HMS\Entities\Role;
 use Illuminate\Database\Seeder;
 use HMS\Repositories\RoleRepository;
 use HMS\Entities\GateKeeper\AccessLog;
@@ -53,7 +52,7 @@ class AccessLogTableSeeder extends Seeder
     public function run()
     {
         $tags = $this->rfidTagRepository->findAll();
-        $door = $this->doorRepository->findOnebyShortName("UP-INNER");
+        $door = $this->doorRepository->findOnebyShortName('UP-INNER');
         $now = Carbon::now();
         foreach ($tags as $tag) {
             $a = $this->accessLogFactory->create();
@@ -70,5 +69,4 @@ class AccessLogTableSeeder extends Seeder
             $this->accessLogRepository->save($a);
         }
     }
-
 }

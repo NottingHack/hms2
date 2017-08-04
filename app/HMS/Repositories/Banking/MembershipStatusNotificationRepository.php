@@ -7,7 +7,7 @@ use HMS\Entities\Banking\MembershipStatusNotification;
 interface MembershipStatusNotificationRepository
 {
     /**
-     * find outtanding notifications
+     * find outtanding notifications.
      * @return MembershipStatusNotification[]
      */
     public function findOutstandingNotifications();

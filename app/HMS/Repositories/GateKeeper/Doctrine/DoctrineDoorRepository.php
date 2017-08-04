@@ -9,7 +9,7 @@ use HMS\Repositories\GateKeeper\DoorRepository;
 class DoctrineDoorRepository extends EntityRepository implements DoorRepository
 {
     /**
-     * find by short name
+     * find by short name.
      * @param  string $shortName
      * @return Door
      */

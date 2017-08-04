@@ -4,22 +4,21 @@ namespace HMS\Entities\Banking;
 
 use Carbon\Carbon;
 use HMS\Entities\User;
-use HMS\Entities\Banking\Account;
 
 class MembershipStatusNotification
 {
     /**
-     * The Notification was clear due to a payment before membership was revoked
+     * The Notification was clear due to a payment before membership was revoked.
      */
     const PAYMENT = 'PAYMENT';
 
     /**
-     * The Notification was cleared when the membership was revoked
+     * The Notification was cleared when the membership was revoked.
      */
     const REVOKED = 'REVOKED';
 
     /**
-     * The Notification was cleared manually, likely due to audit issues
+     * The Notification was cleared manually, likely due to audit issues.
      */
     const MANUAL = 'MANUAL';
 
@@ -160,24 +159,24 @@ class MembershipStatusNotification
     }
 
     /**
-     * clear this notifiaction and set the reason as paid
+     * clear this notifiaction and set the reason as paid.
      * @return self
      */
     public function clearNotificationsByPayment()
     {
-        $this->clearedReason = MembershipStatusNotification::PAYMENT;
+        $this->clearedReason = self::PAYMENT;
         $this->timeCleared = Carbon::now();
 
         return $this;
     }
 
     /**
-     * clear this notifiaction and set the reason as revoked
+     * clear this notifiaction and set the reason as revoked.
      * @return self
      */
     public function clearNotificationsByRevoke()
     {
-        $this->clearedReason = MembershipStatusNotification::REVOKED;
+        $this->clearedReason = self::REVOKED;
         $this->timeCleared = Carbon::now();
 
         return $this;

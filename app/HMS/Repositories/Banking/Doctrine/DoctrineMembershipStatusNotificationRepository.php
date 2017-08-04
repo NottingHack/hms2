@@ -2,14 +2,14 @@
 
 namespace HMS\Repositories\Banking\Doctrine;
 
-use HMS\Entities\Banking\MembershipStatusNotification;
 use Doctrine\ORM\EntityRepository;
+use HMS\Entities\Banking\MembershipStatusNotification;
 use HMS\Repositories\Banking\MembershipStatusNotificationRepository;
 
 class DoctrineMembershipStatusNotificationRepository extends EntityRepository implements MembershipStatusNotificationRepository
 {
     /**
-     * find outtanding notifications
+     * find outtanding notifications.
      * @return MembershipStatusNotification[]
      */
     public function findOutstandingNotifications()

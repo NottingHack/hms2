@@ -22,13 +22,13 @@ class RfidTag
     const STATE_LOST = 30;
 
     /**
-     * String representation of states for display
+     * String representation of states for display.
      */
-    public $statusStrings = array(
+    public $statusStrings = [
                                   10 => 'Active',
                                   20 => 'Expired',
                                   30 => 'Lost',
-                                  );
+                                  ];
 
     /**
      * @var int
@@ -63,7 +63,7 @@ class RfidTag
      * @param ?string $rfidSerial
      * @param ?string $rfidSerialLegacy
      */
-    public function __construct(?string $rfidSerial = Null, ?string $rfidSerialLegacy = Null)
+    public function __construct(?string $rfidSerial = null, ?string $rfidSerialLegacy = null)
     {
         $this->rfidSerial = $rfidSerial;
         $this->rfidSerialLegacy = $rfidSerialLegacy;

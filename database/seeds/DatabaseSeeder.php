@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AccountTableSeeder::class);
         $this->call(PinTableSeeder::class);
         $this->call(RfidTagTableSeeder::class);
+        $this->call(AccessLogTableSeeder::class);
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use HMS\Auth\PasswordStore;
-use Laravel\Passport\Passport;
 use Faker\Factory as FakerFactory;
 use HMS\Auth\PasswordStoreManager;
 use Faker\Generator as FakerGenerator;
@@ -37,8 +36,5 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(FakerGenerator::class, function () {
             return FakerFactory::create('en_GB');
         });
-
-        // Don't need the passport migrations as we have custom laravel-doctrine ones.
-        Passport::ignoreMigrations();
     }
 }

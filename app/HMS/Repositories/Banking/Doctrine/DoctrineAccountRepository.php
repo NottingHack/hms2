@@ -10,7 +10,7 @@ class DoctrineAccountRepository extends EntityRepository implements AccountRepos
 {
     /**
      * @param  $id
-     * @return array
+     * @return Account[]
      */
     public function find($id)
     {
@@ -18,8 +18,16 @@ class DoctrineAccountRepository extends EntityRepository implements AccountRepos
     }
 
     /**
+     * @return Account[]
+     */
+    public function findAll()
+    {
+        return parent::findAll();
+    }
+
+    /**
      * @param  string $paymentRef
-     * @return array
+     * @return ?Account
      */
     public function findOneByPaymentRef(string $paymentRef)
     {
@@ -28,7 +36,7 @@ class DoctrineAccountRepository extends EntityRepository implements AccountRepos
 
     /**
      * @param  string $paymentRef
-     * @return array
+     * @return Account[]
      */
     public function findLikeByPaymentRef(string $paymentRef)
     {

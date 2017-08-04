@@ -49,5 +49,6 @@ return [
         'GateKeeper\Zone',
         'GateKeeper\AccessLog',
         'Banking\Bank',
+        'Banking\BankTransaction',
     ],
 ];

@@ -50,5 +50,6 @@ return [
         'GateKeeper\AccessLog',
         'Banking\Bank',
         'Banking\BankTransaction',
+        'Banking\MembershipStatusNotificationRepository',
     ],
 ];

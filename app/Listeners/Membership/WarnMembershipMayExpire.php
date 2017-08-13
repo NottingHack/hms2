@@ -47,8 +47,7 @@ class WarnMembershipMayExpire implements ShouldQueue
         RoleManager $roleManager,
         MembershipStatusNotificationFactory $membershipStatusNotificationFactory,
         MembershipStatusNotificationRepository $membershipStatusNotificationRepository,
-        MetaRepository $metaRepository
-        )
+        MetaRepository $metaRepository)
     {
         $this->userRepository = $userRepository;
         $this->roleManager = $roleManager;

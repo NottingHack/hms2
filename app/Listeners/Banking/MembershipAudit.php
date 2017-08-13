@@ -4,12 +4,10 @@ namespace App\Listeners\Banking;
 
 use Carbon\Carbon;
 use HMS\Entities\Role;
-use HMS\Entities\User;
 use Carbon\CarbonInterval;
 use App\Events\Banking\AuditRequest;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
-use HMS\User\Permissions\RoleManager;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Notifications\Banking\AuditIssues;
 use App\Notifications\Banking\AuditResult;
@@ -74,8 +72,7 @@ class MembershipAudit implements ShouldQueue
         RoleRepository $roleRepository,
         AccessLogRepository $accessLogRepository,
         RoleUpdateRepository $roleUpdateRepository,
-        PinRepository $pinRepository
-        )
+        PinRepository $pinRepository)
     {
         $this->bankTransactionRepository = $bankTransactionRepository;
         $this->membershipStatusNotificationRepository = $membershipStatusNotificationRepository;
@@ -132,7 +129,7 @@ class MembershipAudit implements ShouldQueue
         $notificationPaymentUsers = [];
 
         $dateNow = Carbon::now(); // this will be the server time the we run, might need to shift time portion to end of the day 23:59
-        $dateNow->setTime(0,0,0);
+        $dateNow->setTime(0, 0, 0);
         $warnDate = clone $dateNow;
         $warnDate->sub(CarbonInterval::instance(new \DateInterval($this->metaRepository->get('audit_warn_interval'))));
         $revokeDate = clone $dateNow;
@@ -174,7 +171,7 @@ class MembershipAudit implements ShouldQueue
                 $notificationRevokeUsers[] = $user;
             } elseif ($transactionDate < $warnDate) { // transaction date is older than warning date
                 // if not already warned
-                if (!in_array($user->getId(), $memberIdsForCurrentNotifications)) {
+                if ( ! in_array($user->getId(), $memberIdsForCurrentNotifications)) {
                     // warn membership may be terminated if we don't see one soon
                     $warnUsers[] = $user;
                 }
@@ -205,7 +202,7 @@ class MembershipAudit implements ShouldQueue
                 $notificationRevokeUsers[] = $user;
             } elseif ($transactionDate < $warnDate) { // transaction date is older than warning date
                 // if not already warned
-                if (!in_array($user->getId(), $memberIdsForCurrentNotifications)) {
+                if ( ! in_array($user->getId(), $memberIdsForCurrentNotifications)) {
                     // warn membership may be terminated if we don't see one soon
                     $warnUsers[] = $user;
                 }
@@ -225,7 +222,7 @@ class MembershipAudit implements ShouldQueue
                 $transactionDate = null;
             }
 
-            if ($transactionDate > $revokeDate){ // transaction date is newer than revoke date
+            if ($transactionDate > $revokeDate) { // transaction date is newer than revoke date
                 // reinstate member
                 $reinstateUsers[] = $user;
             }
@@ -263,11 +260,11 @@ class MembershipAudit implements ShouldQueue
 
         // before sending out team emails clean up the warnings for people that have now paid us
         foreach ($notificationPaymentUsers as $user) {
-                $userNotifications = $this->membershipStatusNotificationRepository->findOutstandingNotificationsByUser($user);
-                foreach ($userNotifications as $notification) {
-                    $notification->clearNotificationsByPayment();
-                    $this->membershipStatusNotificationRepository->save($notification);
-                }
+            $userNotifications = $this->membershipStatusNotificationRepository->findOutstandingNotificationsByUser($user);
+            foreach ($userNotifications as $notification) {
+                $notification->clearNotificationsByPayment();
+                $this->membershipStatusNotificationRepository->save($notification);
+            }
         }
 
         // now email the audit results

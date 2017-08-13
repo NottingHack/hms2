@@ -41,8 +41,7 @@ class RevokeMembership implements ShouldQueue
     public function __construct(UserRepository $userRepository,
         RoleManager $roleManager,
         MembershipStatusNotificationRepository $membershipStatusNotificationRepository,
-        MetaRepository $metaRepository
-        )
+        MetaRepository $metaRepository)
     {
         $this->userRepository = $userRepository;
         $this->roleManager = $roleManager;
@@ -64,7 +63,7 @@ class RevokeMembership implements ShouldQueue
         // remove current roles
         if ($user->hasRoleByName(Role::MEMBER_CURRENT)) {
             $this->roleManager->RemoveUserFromRoleByName($user, Role::MEMBER_CURRENT);
-        } else if ($user->hasRoleByName(Role::MEMBER_YOUNG)) {
+        } elseif ($user->hasRoleByName(Role::MEMBER_YOUNG)) {
             $this->roleManager->RemoveUserFromRoleByName($user, Role::MEMBER_YOUNG);
         } else {
             // should not be here

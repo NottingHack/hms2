@@ -91,6 +91,7 @@ class MembershipReinstated extends Mailable implements ShouldQueue
 
         $this->membershipTeamEmail = $roleRepository->findOneByName(Role::TEAM_MEMBERSHIP)->getEmail();
     }
+
     /**
      * Build the message.
      *
@@ -98,7 +99,7 @@ class MembershipReinstated extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->subject("Nottingham Hackspace: Your Membership Has Been Reinstated")
+        return $this->subject('Nottingham Hackspace: Your Membership Has Been Reinstated')
                     ->markdown('emails.membership.membershipReinstated');
     }
 }

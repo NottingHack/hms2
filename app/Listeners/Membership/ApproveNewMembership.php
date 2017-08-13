@@ -56,8 +56,7 @@ class ApproveNewMembership implements ShouldQueue
         PinFactory $pinFactory,
         PinRepository $pinRepository,
         MetaRepository $metaRepository,
-        RoleRepository $roleRepository
-        )
+        RoleRepository $roleRepository)
     {
         $this->userRepository = $userRepository;
         $this->roleManager = $roleManager;
@@ -79,7 +78,7 @@ class ApproveNewMembership implements ShouldQueue
         $user = $this->userRepository->find($event->user->getId());
 
         // update roles
-        if (! $user->hasRoleByName(Role::MEMBER_PAYMENT)) {
+        if ( ! $user->hasRoleByName(Role::MEMBER_PAYMENT)) {
             // we shouldn not be here get out
             // TODO: email some one about it
             return;

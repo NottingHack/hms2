@@ -32,6 +32,7 @@ class MembershipMayBeRevoked extends Mailable implements ShouldQueue
      * @var string
      */
     public $paymentRef;
+
     /**
      * Create a new message instance.
      *

@@ -3,7 +3,6 @@
 namespace App\Notifications\Banking;
 
 use HMS\Entities\Role;
-use HMS\Entities\User;
 use Illuminate\Bus\Queueable;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\RoleUpdateRepository;
@@ -57,8 +56,7 @@ class AuditResult extends Notification implements ShouldQueue
         BankTransactionRepository $bankTransactionRepository,
         PinRepository $pinRepository,
         RoleUpdateRepository $roleUpdateRepository,
-        RoleRepository $roleRepository
-        )
+        RoleRepository $roleRepository)
     {
         $this->paymentNotificationsClearCount = $paymentNotificationsClearCount;
 
@@ -73,11 +71,10 @@ class AuditResult extends Notification implements ShouldQueue
             ];
         }
 
-
         $this->formattedWarnUsers = [];
         foreach ($warnUsers as $user) {
             $accessLog = $accessLogRepository->findLatestByUser($user);
-            if (! is_null($accessLog)) {
+            if ( ! is_null($accessLog)) {
                 $lastAccess = $accessLog->getAccessTime()->toDateTimeString();
             } else {
                 $lastAccess = 'Never Visited';
@@ -97,7 +94,7 @@ class AuditResult extends Notification implements ShouldQueue
         $this->formattedRevokeUsers = [];
         foreach ($revokeUsers as $user) {
             $accessLog = $accessLogRepository->findLatestByUser($user);
-            if (! is_null($accessLog)) {
+            if ( ! is_null($accessLog)) {
                 $lastAccess = $accessLog->getAccessTime()->toDateTimeString();
             } else {
                 $lastAccess = 'Never Visited';
@@ -114,10 +111,10 @@ class AuditResult extends Notification implements ShouldQueue
             ];
         }
 
-        $this->formattedReinstateUsers = [] ;
+        $this->formattedReinstateUsers = [];
         foreach ($reinstateUsers as $user) {
             $accessLog = $accessLogRepository->findLatestByUser($user);
-            if (! is_null($accessLog)) {
+            if ( ! is_null($accessLog)) {
                 $lastAccess = $accessLog->getAccessTime()->toDateTimeString();
             } else {
                 $lastAccess = 'Never Visited';

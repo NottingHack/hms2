@@ -19,6 +19,15 @@ class DoctrineAccessLogRepository extends EntityRepository implements AccessLogR
     }
 
     /**
+     * @param  User $user
+     * @return AccessLog[]
+     */
+    public function findLatestByUser(User $user)
+    {
+        return parent::findOneByUser($user, ['accessTime' => 'DESC']);
+    }
+
+    /**
      * save AccessLog to the DB.
      * @param  AccessLog $accessLog
      */

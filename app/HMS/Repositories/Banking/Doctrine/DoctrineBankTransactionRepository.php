@@ -16,9 +16,8 @@ class DoctrineBankTransactionRepository extends EntityRepository implements Bank
     public function findLatestTransactionForAllAccounts()
     {
         $q = parent::createQueryBuilder('bankTransaction')
-            ->where('bankTransaction.account IS NOT NULL')
-            ->groupBy('bankTransaction.account')
-            ->orderBy('bankTransaction.transactionDate', 'DESC');
+            ->addSelect('MAX(bankTransaction.transactionDate) AS latestTransactionDate')
+            ->groupBy('bankTransaction.account');
 
         return $q->getQuery()->getResult();
     }

@@ -24,6 +24,7 @@ class Role implements RoleContract
 
     const TEAM_MEMBERSHIP = 'team.membership';
     const TEAM_TRUSTEES = 'team.trustees';
+    const TEAM_SOFTWARE = 'team.software';
 
     /**
      * @var int

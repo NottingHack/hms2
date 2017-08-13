@@ -120,7 +120,7 @@ class AuditResult extends Notification implements ShouldQueue
                 $lastAccess = 'Never Visited';
             }
 
-            $this->formattedReinstateUsers = [
+            $this->formattedReinstateUsers[] = [
                 'id' => $user->getId(),
                 'fullName' => $user->getFullname(),
                 'email' => $user->getEmail(),

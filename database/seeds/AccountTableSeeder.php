@@ -4,6 +4,7 @@ use HMS\Entities\Role;
 use Illuminate\Database\Seeder;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use HMS\Factories\Banking\AccountFactory;
 use HMS\Repositories\Banking\AccountRepository;
 
@@ -28,6 +29,7 @@ class AccountTableSeeder extends Seeder
      * @var AccountRepository
      */
     protected $accountRepository;
+    protected $entityManager;
 
     /**
      * Create a new TableSeeder instance.
@@ -37,12 +39,17 @@ class AccountTableSeeder extends Seeder
      * @param AccountFactory    $accountFactory
      * @param AccountRepository $accountRepository
      */
-    public function __construct(RoleRepository $roleRepository, UserRepository $userRepository, AccountFactory $accountFactory, AccountRepository $accountRepository)
+    public function __construct(RoleRepository $roleRepository,
+        UserRepository $userRepository,
+        AccountFactory $accountFactory,
+        AccountRepository $accountRepository,
+        EntityManagerInterface $entityManager)
     {
         $this->roleRepository = $roleRepository;
         $this->userRepository = $userRepository;
         $this->accountFactory = $accountFactory;
         $this->accountRepository = $accountRepository;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -53,8 +60,8 @@ class AccountTableSeeder extends Seeder
     public function run()
     {
         $roles = [Role::MEMBER_CURRENT, Role::MEMBER_YOUNG, Role::MEMBER_PAYMENT, Role::MEMBER_EX];
-        foreach ($roles as $role) {
-            $role = $this->roleRepository->findOneByName($role);
+        foreach ($roles as $roleName) {
+            $role = $this->roleRepository->findOneByName($roleName);
             $joint = 0;
             $a = null;
             foreach ($role->getUsers() as $user) {
@@ -71,6 +78,7 @@ class AccountTableSeeder extends Seeder
                 }
                 $user->setAccount($a);
                 $this->userRepository->save($user);
+                $this->entityManager->refresh($a);
             }
         }
     }

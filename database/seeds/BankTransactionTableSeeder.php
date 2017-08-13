@@ -16,7 +16,7 @@ class BankTransactionTableSeeder extends Seeder
     /**
      * @var AccountRepository
      */
-    protected $accountReposiotry;
+    protected $accountRepository;
 
     /**
      * @var BankTransactionRepository
@@ -46,19 +46,19 @@ class BankTransactionTableSeeder extends Seeder
     /**
      * Create a new TableSeeder instance.
      *
-     * @param AccountRepository         $accountReposiotry
+     * @param AccountRepository         $accountRepository
      * @param BankTransactionRepository $bankTransactionRepository
      * @param BankRepository            $bankRepository
      * @param BankTransactionFactory    $bankTransactionFactory
      * @param Generator                 $faker
      */
-    public function __construct(AccountRepository $accountReposiotry,
+    public function __construct(AccountRepository $accountRepository,
         BankTransactionRepository $bankTransactionRepository,
         BankRepository $bankRepository,
         BankTransactionFactory $bankTransactionFactory,
         Generator $faker)
     {
-        $this->accountReposiotry = $accountReposiotry;
+        $this->accountRepository = $accountRepository;
         $this->bankTransactionRepository = $bankTransactionRepository;
         $this->bank = $bankRepository->find(2);
         $this->bankTransactionFactory = $bankTransactionFactory;
@@ -73,7 +73,7 @@ class BankTransactionTableSeeder extends Seeder
      */
     public function run()
     {
-        $accounts = $this->accountReposiotry->findAll();
+        $accounts = $this->accountRepository->findAll();
 
         foreach ($accounts as $account) {
             $user = $account->getUsers()[0];

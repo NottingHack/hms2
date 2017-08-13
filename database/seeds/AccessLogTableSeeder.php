@@ -4,6 +4,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use HMS\Repositories\RoleRepository;
 use HMS\Entities\GateKeeper\AccessLog;
+use HMS\Factories\GateKeeper\AccessLogFactory;
 use HMS\Repositories\GateKeeper\DoorRepository;
 use HMS\Repositories\GateKeeper\RfidTagRepository;
 use HMS\Repositories\GateKeeper\AccessLogRepository;
@@ -44,7 +45,7 @@ class AccessLogTableSeeder extends Seeder
      * @param DoorRepository      $doorRepository
      * @param AccessLogFactroy    $accessLogFactory
      */
-    public function __construct(RoleRepository $roleRepository, RfidTagRepository $rfidTagRepository, AccessLogRepository $accessLogRepository, DoorRepository $doorRepository, AccessLogFactroy $accessLogFactory)
+    public function __construct(RoleRepository $roleRepository, RfidTagRepository $rfidTagRepository, AccessLogRepository $accessLogRepository, DoorRepository $doorRepository, AccessLogFactory $accessLogFactory)
     {
         $this->roleRepository = $roleRepository;
         $this->rfidTagRepository = $rfidTagRepository;

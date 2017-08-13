@@ -23,6 +23,13 @@ class PinTableSeeder extends Seeder
      */
     protected $pinRepository;
 
+    /**
+     * Create a new TableSeeder instance.
+     *
+     * @param RoleRepository $roleRepository
+     * @param PinFactory     $pinFactory
+     * @param PinRepository  $pinRepository
+     */
     public function __construct(RoleRepository $roleRepository, PinFactory $pinFactory, PinRepository $pinRepository)
     {
         $this->roleRepository = $roleRepository;

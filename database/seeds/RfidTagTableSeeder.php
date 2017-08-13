@@ -24,6 +24,13 @@ class RfidTagTableSeeder extends Seeder
      */
     protected $rfidTagRepository;
 
+    /**
+     * Create a new TableSeeder instance.
+     *
+     * @param RoleRepository    $roleRepository
+     * @param PinRepository     $pinRepository
+     * @param RfidTagRepository $rfidTagRepository
+     */
     public function __construct(RoleRepository $roleRepository, PinRepository $pinRepository, RfidTagRepository $rfidTagRepository)
     {
         $this->roleRepository = $roleRepository;

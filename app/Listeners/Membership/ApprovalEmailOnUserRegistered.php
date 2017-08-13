@@ -20,7 +20,7 @@ class ApprovalEmailOnUserRegistered implements ShouldQueue
      *
      * @param  RoleRepository $RoleRepository
      */
-    public function __construct(roleRepository $roleRepository)
+    public function __construct(RoleRepository $roleRepository)
     {
         $this->roleRepository = $roleRepository;
     }

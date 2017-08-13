@@ -35,6 +35,15 @@ class AccessLogTableSeeder extends Seeder
      */
     protected $accessLogFactory;
 
+    /**
+     * Create a new TableSeeder instance.
+     *
+     * @param RoleRepository      $roleRepository
+     * @param RfidTagRepository   $rfidTagRepository
+     * @param AccessLogRepository $accessLogRepository
+     * @param DoorRepository      $doorRepository
+     * @param AccessLogFactroy    $accessLogFactory
+     */
     public function __construct(RoleRepository $roleRepository, RfidTagRepository $rfidTagRepository, AccessLogRepository $accessLogRepository, DoorRepository $doorRepository, AccessLogFactroy $accessLogFactory)
     {
         $this->roleRepository = $roleRepository;

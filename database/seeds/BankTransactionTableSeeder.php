@@ -43,6 +43,15 @@ class BankTransactionTableSeeder extends Seeder
      */
     protected $csvTransactions;
 
+    /**
+     * Create a new TableSeeder instance.
+     *
+     * @param AccountRepository         $accountReposiotry
+     * @param BankTransactionRepository $bankTransactionRepository
+     * @param BankRepository            $bankRepository
+     * @param BankTransactionFactory    $bankTransactionFactory
+     * @param Generator                 $faker
+     */
     public function __construct(AccountRepository $accountReposiotry,
         BankTransactionRepository $bankTransactionRepository,
         BankRepository $bankRepository,

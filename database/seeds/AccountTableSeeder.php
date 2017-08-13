@@ -29,6 +29,14 @@ class AccountTableSeeder extends Seeder
      */
     protected $accountRepository;
 
+    /**
+     * Create a new TableSeeder instance.
+     *
+     * @param RoleRepository    $roleRepository
+     * @param UserRepository    $userRepository
+     * @param AccountFactory    $accountFactory
+     * @param AccountRepository $accountRepository
+     */
     public function __construct(RoleRepository $roleRepository, UserRepository $userRepository, AccountFactory $accountFactory, AccountRepository $accountRepository)
     {
         $this->roleRepository = $roleRepository;

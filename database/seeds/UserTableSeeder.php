@@ -35,9 +35,10 @@ class UserTableSeeder extends Seeder
     protected $passwordStore;
 
     /**
-     * Create a new controller instance.
+     * Create a new TableSeeder instance.
      *
-     * @return void
+     * @param RoleRepository $roleRepository
+     * @param PasswordStore  $passwordStore
      */
     public function __construct(RoleRepository $roleRepository, PasswordStore $passwordStore)
     {

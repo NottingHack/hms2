@@ -12,7 +12,7 @@ HMS\Entities\Banking\BankTransaction:
         strategy: AUTO
   fields:
     transactionDate:
-      type: datetime
+      type: date
     description:
       type: string
       length: 255

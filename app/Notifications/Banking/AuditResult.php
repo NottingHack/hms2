@@ -106,7 +106,7 @@ class AuditResult extends Notification implements ShouldQueue
                 'email' => $user->getEmail(),
                 'jointAccount' => count($user->getAccount()->getUsers()) > 1 ? 'yes' : 'no',
                 'balance' => 'TODO',
-                'lastPaymentDate' => $bankTransactionRepository->findLatestTransactionByAccount($user->getAccount())->getTransactionDate()->toDateTimeString(),
+                'lastPaymentDate' => $bankTransactionRepository->findLatestTransactionByAccount($user->getAccount())->getTransactionDate()->toDateString(),
                 'lastVisitDate' => $lastAccess,
             ];
         }
@@ -126,7 +126,7 @@ class AuditResult extends Notification implements ShouldQueue
                 // crap, should not get here.
                 $dateMadeExMember = 'Never, Tell the Software team';
             } else {
-                $dateMadeExMember = $madeExRoleUpdate->getCreatedAt()->toDateTimeString();
+                $dateMadeExMember = $madeExRoleUpdate->getCreatedAt()->toDateString();
             }
 
             $this->formattedReinstateUsers[] = [

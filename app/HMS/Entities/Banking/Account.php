@@ -17,7 +17,7 @@ class Account
     protected $paymentRef;
 
     /**
-     * @var ?string
+     * @var null|string
      */
     protected $natwestRef;
 

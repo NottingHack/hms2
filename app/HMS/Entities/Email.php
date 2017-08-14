@@ -38,7 +38,7 @@ class Email
     protected $users;
 
     /**
-     * @var ?Role
+     * @var null|Role
      */
     protected $role;
 
@@ -176,7 +176,7 @@ class Email
     /**
      * Gets the value of role.
      *
-     * @return ?Role
+     * @retrun null|Role
      */
     public function getRole()
     {
@@ -186,7 +186,7 @@ class Email
     /**
      * Sets the value of role.
      *
-     * @param ?Role $role the role
+     * @param null|Role $role the role
      *
      * @return self
      */

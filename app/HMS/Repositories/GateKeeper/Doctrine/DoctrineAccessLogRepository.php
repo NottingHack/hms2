@@ -20,7 +20,7 @@ class DoctrineAccessLogRepository extends EntityRepository implements AccessLogR
 
     /**
      * @param  User $user
-     * @return AccessLog[]
+     * @return null|AccessLog
      */
     public function findLatestByUser(User $user)
     {

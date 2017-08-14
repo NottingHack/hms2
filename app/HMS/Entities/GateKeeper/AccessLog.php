@@ -188,7 +188,7 @@ class AccessLog
     }
 
     /**
-     * @return Door
+     * @return null|string
      */
     public function getDeniedReason()
     {
@@ -196,11 +196,11 @@ class AccessLog
     }
 
     /**
-     * @param Door $deniedReason
+     * @param null|string $deniedReason
      *
      * @return self
      */
-    public function setDeniedReason(Door $deniedReason)
+    public function setDeniedReason(?string $deniedReason)
     {
         $this->deniedReason = $deniedReason;
 

@@ -32,7 +32,7 @@ class BankTransaction
     protected $bank;
 
     /**
-     * @var Account
+     * @var null|Account
      */
     protected $account;
 
@@ -127,7 +127,7 @@ class BankTransaction
     }
 
     /**
-     * @return Account
+     * @return null|Account
      */
     public function getAccount()
     {
@@ -135,11 +135,11 @@ class BankTransaction
     }
 
     /**
-     * @param Account $account
+     * @param null|Account $account
      *
      * @return self
      */
-    public function setAccount(Account $account)
+    public function setAccount(?Account $account)
     {
         $this->account = $account;
 

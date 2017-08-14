@@ -16,7 +16,7 @@ interface BankTransactionRepository
     /**
      * find the latest transaction for given account.
      * @param  Account $account
-     * @return array
+     * @return null|BankTransaction
      */
     public function findLatestTransactionByAccount(Account $account);
 

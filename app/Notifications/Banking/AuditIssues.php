@@ -48,7 +48,7 @@ class AuditIssues extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)->subject('Audit Issues')
-                                ->markdown('emails.banking.auditIssues', ['ohCrapUsers' => $ohCrapUsers]);
+                                ->markdown('emails.banking.auditIssues', ['ohCrapUsers' => $this->ohCrapUsers]);
     }
 
     /**
@@ -61,7 +61,7 @@ class AuditIssues extends Notification implements ShouldQueue
     {
         return (new SlackMessage)
             ->to($notifiable->getSlackChannel())
-            ->attachment(function ($attachment) use ($userId) {
+            ->attachment(function ($attachment) {
                 $attachment->title('Audit Issues')
                             ->content('There has been a issue during the membership audit.')
                             ->fallback('There has been a issue during the membership audit')

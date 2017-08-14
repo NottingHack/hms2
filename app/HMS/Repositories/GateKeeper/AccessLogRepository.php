@@ -15,7 +15,7 @@ interface AccessLogRepository
 
     /**
      * @param  User $user
-     * @return AccessLog[]
+     * @return null|AccessLog
      */
     public function findLatestByUser(User $user);
 

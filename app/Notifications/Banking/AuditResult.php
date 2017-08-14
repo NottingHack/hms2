@@ -4,6 +4,7 @@ namespace App\Notifications\Banking;
 
 use HMS\Entities\Role;
 use Illuminate\Bus\Queueable;
+use HMS\Repositories\RoleRepository;
 use HMS\Repositories\RoleUpdateRepository;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -54,7 +55,8 @@ class AuditResult extends Notification implements ShouldQueue
         AccessLogRepository $accessLogRepository,
         BankTransactionRepository $bankTransactionRepository,
         PinRepository $pinRepository,
-        RoleUpdateRepository $roleUpdateRepository)
+        RoleUpdateRepository $roleUpdateRepository,
+        RoleRepository $roleRepository)
     {
         $this->paymentNotificationsClearCount = $paymentNotificationsClearCount;
 
@@ -118,13 +120,22 @@ class AuditResult extends Notification implements ShouldQueue
                 $lastAccess = 'Never Visited';
             }
 
+            $exRole = $roleRepository->findOneByName(Role::MEMBER_EX);
+            $madeExRoleUpdate = $roleUpdateRepository->findLatestRoleAddedByUser($exRole, $user);
+            if (is_null($madeExRoleUpdate)) {
+                // crap, should not get here.
+                $dateMadeExMember = 'Never, Tell the Software team';
+            } else {
+                $dateMadeExMember = $madeExRoleUpdate->getCreatedAt()->toDateTimeString();
+            }
+
             $this->formattedReinstateUsers[] = [
                 'id' => $user->getId(),
                 'fullName' => $user->getFullname(),
                 'email' => $user->getEmail(),
                 'jointAccount' => count($user->getAccount()->getUsers()) > 1 ? 'yes' : 'no',
                 'balance' => 'TODO',
-                'dateMadeExMember' => $roleUpdateRepository->find($user)->getCreatedAt()->toDateTimeString(),
+                'dateMadeExMember' => $dateMadeExMember,
                 'lastVisitDate' => $lastAccess,
             ];
         }
@@ -170,15 +181,20 @@ class AuditResult extends Notification implements ShouldQueue
      */
     public function toSlack($notifiable)
     {
+        $approveCount = count($this->formattedApproveUsers);
+        $warnCount = count($this->formattedWarnUsers);
+        $revokeCount = count($this->formattedRevokeUsers);
+        $reinstateCount = count($this->formattedReinstateUsers);
+
         return (new SlackMessage)
             ->to($notifiable->getSlackChannel())
-            ->attachment(function ($attachment) use ($userId) {
+            ->attachment(function ($attachment) use ($approveCount, $warnCount, $revokeCount, $reinstateCount) {
                 $attachment->title('Membership Auidt Results')
                             ->fields([
-                                'New Members' => count($this->formattedApprovedUsers),
-                                'Notified Members' => count($this->formattedWarnUsers),
-                                'Revoked Members' => count($this->formattedRevokeUsers),
-                                'Reinstated Members' => count($this->formattedReinstateUsers),
+                                'New Members' => $approveCount,
+                                'Notified Members' => $warnCount,
+                                'Revoked Members' => $revokeCount,
+                                'Reinstated Members' => $reinstateCount,
                                 ])
                             ->timestamp(Carbon::now());
             });

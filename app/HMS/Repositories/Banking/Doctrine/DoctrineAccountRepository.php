@@ -10,7 +10,7 @@ class DoctrineAccountRepository extends EntityRepository implements AccountRepos
 {
     /**
      * @param  $id
-     * @return array
+     * @return null|Account
      */
     public function find($id)
     {

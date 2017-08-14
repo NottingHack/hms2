@@ -8,7 +8,7 @@ interface AccountRepository
 {
     /**
      * @param  $id
-     * @return array
+     * @return null|Account
      */
     public function find($id);
 

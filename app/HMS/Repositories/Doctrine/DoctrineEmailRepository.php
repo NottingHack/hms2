@@ -12,7 +12,7 @@ class DoctrineEmailRepository extends EntityRepository implements EmailRepositor
 {
     /**
      * @param  $id
-     * @return array
+     * @return null|Email
      */
     public function find($id)
     {

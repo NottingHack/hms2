@@ -22,14 +22,14 @@ class ViMbAdminSubscriber implements ShouldQueue
     /**
      * ViMAdmin client, used to talk to the external API.
      *
-     * @var LWK\ViMbAdmin\ViMbAdminClient
+     * @var ViMbAdminClient
      */
     protected $client;
 
     /**
      * Create the event listener.
      *
-     * @param LWK\ViMbAdmin\ViMbAdminClient $client
+     * @param ViMbAdminClient $client
      */
     public function __construct(ViMbAdminClient $client)
     {
@@ -41,6 +41,7 @@ class ViMbAdminSubscriber implements ShouldQueue
      * If the updateTeamEmail field is set we need to create a new mailbox.
      *
      * @param  RoleCreated $event
+     * @throws Exception
      */
     public function onRoleCreated(RoleCreated $event)
     {
@@ -77,6 +78,7 @@ class ViMbAdminSubscriber implements ShouldQueue
      * If the updateTeamEmail field is set we need to add the user to the alias.
      *
      * @param  UserAddedToRole $event
+     * @throws Exception
      */
     public function onUserAddedToRole(UserAddedToRole $event)
     {
@@ -97,6 +99,7 @@ class ViMbAdminSubscriber implements ShouldQueue
      * If the updateTeamEmail field is set we need to remove the user from the alias.
      *
      * @param  UserRemovedFromRole $event
+     * @throws Exception
      */
     public function onUserRemovedFromRole(UserRemovedFromRole $event)
     {
@@ -117,7 +120,9 @@ class ViMbAdminSubscriber implements ShouldQueue
      *
      * @param  Role   $role
      * @param  bool $skipException
-     * @return Alias|Error
+     * @throws Exception
+     * @return Alias
+     *
      */
     public function getAliasForRole(Role $role, $skipException = flase)
     {

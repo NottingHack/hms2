@@ -10,7 +10,7 @@ interface EmailRepository
 {
     /**
      * @param  $id
-     * @return array
+     * @return null|Email
      */
     public function find($id);
 

@@ -39,11 +39,11 @@ class RfidTag
      */
     protected $user;
     /**
-     * @var ?string
+     * @var null|string
      */
     protected $rfidSerial;
     /**
-     * @var ?string
+     * @var null|string
      */
     protected $rfidSerialLegacy;
     /**
@@ -60,8 +60,8 @@ class RfidTag
     protected $friendlyName;
 
     /**
-     * @param ?string $rfidSerial
-     * @param ?string $rfidSerialLegacy
+     * @param null|string $rfidSerial
+     * @param null|string $rfidSerialLegacy
      */
     public function __construct(?string $rfidSerial = null, ?string $rfidSerialLegacy = null)
     {
@@ -106,7 +106,7 @@ class RfidTag
     /**
      * Gets the value of rfidSerial.
      *
-     * @return ?string
+     * @return null|string
      */
     public function getRfidSerial()
     {
@@ -116,7 +116,7 @@ class RfidTag
     /**
      * Gets the value of rfidSerialLegacy.
      *
-     * @return ?string
+     * @return null|string
      */
     public function getRfidSerialLegacy()
     {

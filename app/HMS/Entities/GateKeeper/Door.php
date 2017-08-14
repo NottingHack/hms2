@@ -93,9 +93,9 @@ class Door
     /**
      * @return Zone
      */
-    public function getSideAZZone()
+    public function getSideAZone()
     {
-        return $this->sideAZZone;
+        return $this->sideAZone;
     }
 
     /**

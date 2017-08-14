@@ -30,7 +30,7 @@ class DoctrineRfidTagRepository extends EntityRepository implements RfidTagRepos
     }
 
     /**
-     * @param User.  $user
+     * @param User   $user
      * @param int    $perPage
      * @param string $pageName
      *

@@ -52,7 +52,6 @@ class PinFactory
     protected function generateUniquePin()
     {
         // A loop hiting the database? Why not...
-        $pin = 0;
         do {
             $pin = $this->generatePin();
         } while ($this->pinRepository->findOneByPin($pin) !== null);

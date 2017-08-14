@@ -19,7 +19,7 @@ interface RfidTagRepository
     public function findByUser(User $user);
 
     /**
-     * @param User.  $user
+     * @param User   $user
      * @param int    $perPage
      * @param string $pageName
      *

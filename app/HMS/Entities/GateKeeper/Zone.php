@@ -20,7 +20,7 @@ class Zone
     protected $shortName;
 
     /**
-     * @var ?string
+     * @var null|string
      */
     protected $permissionCode;
 
@@ -51,7 +51,7 @@ class Zone
     }
 
     /**
-     * @return ?string
+     * @return null|string
      */
     public function getPermissionCode()
     {

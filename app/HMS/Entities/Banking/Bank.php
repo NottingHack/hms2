@@ -83,7 +83,7 @@ class Bank
     }
 
     /**
-     * @param string $AccountNumber
+     * @param string $accountNumber
      *
      * @return self
      */

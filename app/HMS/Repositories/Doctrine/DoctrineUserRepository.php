@@ -14,7 +14,7 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
 
     /**
      * @param  $id
-     * @return array
+     * @return null|User
      */
     public function find($id)
     {

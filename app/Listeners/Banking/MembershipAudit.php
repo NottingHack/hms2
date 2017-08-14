@@ -276,8 +276,7 @@ class MembershipAudit implements ShouldQueue
             $this->accessLogRepository,
             $this->bankTransactionRepository,
             $this->pinRepository,
-            $this->roleUpdateRepository,
-            $this->roleRepository
+            $this->roleUpdateRepository
             );
 
         $membershipTeamRole = $this->roleRepository->findOneByName(Role::TEAM_MEMBERSHIP);

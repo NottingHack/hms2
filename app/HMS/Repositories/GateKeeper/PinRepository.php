@@ -9,7 +9,7 @@ interface PinRepository
 {
     /**
      * @param  string $pin
-     * @return ?Pin
+     * @return null|Pin
      */
     public function findOneByPin(string $pin);
 

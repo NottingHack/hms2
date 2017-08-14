@@ -19,7 +19,7 @@ interface AccountRepository
 
     /**
      * @param  string $paymentRef
-     * @return ?Account
+     * @return null|Account
      */
     public function findOneByPaymentRef(string $paymentRef);
 

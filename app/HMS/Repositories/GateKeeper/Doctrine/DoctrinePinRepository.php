@@ -11,7 +11,7 @@ class DoctrinePinRepository extends EntityRepository implements PinRepository
 {
     /**
      * @param  string $pin
-     * @return ?Pin
+     * @return null|Pin
      */
     public function findOneByPin(string $pin)
     {

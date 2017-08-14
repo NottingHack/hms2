@@ -4,7 +4,6 @@ namespace App\Notifications\Banking;
 
 use HMS\Entities\Role;
 use Illuminate\Bus\Queueable;
-use HMS\Repositories\RoleRepository;
 use HMS\Repositories\RoleUpdateRepository;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -18,22 +17,22 @@ class AuditResult extends Notification implements ShouldQueue
     use Queueable;
 
     /**
-     * @var arracy
+     * @var array
      */
     protected $formattedApproveUsers;
 
     /**
-     * @var arracy
+     * @var array
      */
     protected $formattedWarnUsers;
 
     /**
-     * @var arracy
+     * @var array
      */
     protected $formattedRevokeUsers;
 
     /**
-     * @var arracy
+     * @var array
      */
     protected $formattedReinstateUsers;
 
@@ -55,8 +54,7 @@ class AuditResult extends Notification implements ShouldQueue
         AccessLogRepository $accessLogRepository,
         BankTransactionRepository $bankTransactionRepository,
         PinRepository $pinRepository,
-        RoleUpdateRepository $roleUpdateRepository,
-        RoleRepository $roleRepository)
+        RoleUpdateRepository $roleUpdateRepository)
     {
         $this->paymentNotificationsClearCount = $paymentNotificationsClearCount;
 
@@ -140,7 +138,7 @@ class AuditResult extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', 'slack'];
     }
 
     /**

@@ -28,12 +28,12 @@ class AccessLog
     protected $accessTime;
 
     /**
-     * @var ?string
+     * @var null|string
      */
     protected $rfidSerial;
 
     /**
-     * @var ?string
+     * @var null|string
      */
     protected $pin;
 
@@ -53,7 +53,7 @@ class AccessLog
     protected $door;
 
     /*
-     * @var ?string
+     * @var null|string
      */
     protected $deniedReason;
 
@@ -88,7 +88,7 @@ class AccessLog
     }
 
     /**
-     * @return ?string
+     * @return null|string
      */
     public function getRfidSerial()
     {
@@ -96,7 +96,7 @@ class AccessLog
     }
 
     /**
-     * @param ?string $rfidSerial
+     * @param null|string $rfidSerial
      *
      * @return self
      */
@@ -108,7 +108,7 @@ class AccessLog
     }
 
     /**
-     * @return ?string
+     * @return null|string
      */
     public function getPin()
     {
@@ -116,7 +116,7 @@ class AccessLog
     }
 
     /**
-     * @param ?string $pin
+     * @param null|string $pin
      *
      * @return self
      */

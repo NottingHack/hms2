@@ -34,6 +34,27 @@ class DoctrineBankTransactionRepository extends EntityRepository implements Bank
     }
 
     /**
+     * find a matching tranaction in the db or save this one
+     * @param  BankTransaction $bankTransaction
+     * @return BankTransaction
+     */
+    public function findOrSave(BankTransaction $bankTransaction)
+    {
+        $bt = parent::findOneBy([
+            'transactionDate' => $bankTransaction->getTransactionDate(),
+            'description' => $bankTransaction->getDescription(),
+            'amount' => $bankTransaction->getAmount()
+        ]);
+
+        if ($bt) {
+            return $bt;
+        }
+
+        $this->save($bankTransaction);
+        return $bankTransaction;
+    }
+
+    /**
      * save BankTransaction to the DB.
      * @param  BankTransaction $bankTransaction
      */

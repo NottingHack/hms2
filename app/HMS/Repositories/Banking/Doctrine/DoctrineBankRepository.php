@@ -18,6 +18,14 @@ class DoctrineBankRepository extends EntityRepository implements BankRepository
     }
 
     /**
+     * @param  string $accountNumber
+     * @return null|Bank
+     */
+    public function findOneByAccountNumber(string $accountNumber) {
+        return parent::findOneByAccountNumber($accountNumber);
+    }
+
+    /**
      * save Bank to the DB.
      * @param  Bank $bank
      */

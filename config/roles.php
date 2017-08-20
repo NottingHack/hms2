@@ -30,6 +30,7 @@ return [
         'labelTemplate.edit',
         'labelTemplate.print',
         'search.users',
+        'bankTransation.upload',
     ],
 
     /*
@@ -138,7 +139,7 @@ return [
                 'search.users',
             ],
         ],
-        'team.software'    => [
+        'team.software'     => [
             'name'          => 'Software Team',
             'description'   => 'Software Team',
             'email'         => 'software@nottinghack.org.uk',
@@ -159,6 +160,13 @@ return [
                 'labelTemplate.create',
                 'labelTemplate.edit',
                 'labelTemplate.print',
+            ],
+        ],
+        'team.finance'     => [
+            'name'          => 'Finance Team',
+            'description'   => 'Finance Team',
+            'email'         => 'accounts@nottinghack.org.uk',
+            'permissions'   => [
             ],
         ],
     ],

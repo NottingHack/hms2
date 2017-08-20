@@ -160,17 +160,18 @@ class AuditResult extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)->subject('Audit results')
-                                ->markdown('emails.banking.auditresults',
-                                    [
-                                    'teamName' => ($notifiable instanceof Role) ? $notifiable->getDisplayName() : $notifiable->getName(),
-                                    'formattedApproveUsers' => $this->formattedApproveUsers,
-                                    'formattedWarnUsers' => $this->formattedWarnUsers,
-                                    'formattedRevokeUsers' => $this->formattedRevokeUsers,
-                                    'formattedReinstateUsers' => $this->formattedReinstateUsers,
-                                    'paymentNotificationsClearCount' => $this->paymentNotificationsClearCount,
-                                    ]
-                                );
+        return (new MailMessage)
+            ->subject('HMS Audit results')
+            ->markdown('emails.banking.auditresults',
+                [
+                'teamName' => ($notifiable instanceof Role) ? $notifiable->getDisplayName() : $notifiable->getName(),
+                'formattedApproveUsers' => $this->formattedApproveUsers,
+                'formattedWarnUsers' => $this->formattedWarnUsers,
+                'formattedRevokeUsers' => $this->formattedRevokeUsers,
+                'formattedReinstateUsers' => $this->formattedReinstateUsers,
+                'paymentNotificationsClearCount' => $this->paymentNotificationsClearCount,
+                ]
+            );
     }
 
     /**

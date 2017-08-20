@@ -47,8 +47,9 @@ class AuditIssues extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)->subject('Audit Issues')
-                                ->markdown('emails.banking.auditIssues', ['ohCrapUsers' => $this->ohCrapUsers]);
+        return (new MailMessage)
+            ->subject('HMS Audit Issues')
+            ->markdown('emails.banking.auditIssues', ['ohCrapUsers' => $this->ohCrapUsers]);
     }
 
     /**

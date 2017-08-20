@@ -18,4 +18,11 @@ Route::middleware('auth:api')->group(function () {
     // api/search/users?q=matt                  Search term as a parametre
     // api/search/users?q=matt&withAccount=true Only search for memebrs with Accounts
     Route::name('search.users')->get('search/users/{searchQuery?}', 'Api\SearchController@users');
+
+
+});
+
+Route::middleware('client')->group(function () {
+        // upload new bankTransactions/
+    Route::name('bankTransactions.upload')->post('bank_transactions/upload', 'Api\TransactionUploadController@upload');
 });

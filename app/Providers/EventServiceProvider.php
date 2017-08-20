@@ -44,6 +44,10 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Banking\ReinstatementOfMembershipPayment' => [
             'App\Listeners\Membership\ReinstateMembership',
         ],
+
+        'App\Events\Banking\TransactionsUploaded' => [
+            'App\Listeners\Banking\SaveNewTransactions'
+        ],
     ];
 
     /**

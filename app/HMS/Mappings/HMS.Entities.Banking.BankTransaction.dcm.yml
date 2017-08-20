@@ -3,6 +3,9 @@ HMS\Entities\Banking\BankTransaction:
   type: entity
   repositoryClass: HMS\Repositories\Banking\BankTransactionRepository
   table: bank_transactions
+  uniqueConstraints:
+    duplicate_idx:
+      columns: [ transaction_date, description, amount ]
   id:
     id:
       type: integer

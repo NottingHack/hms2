@@ -46,7 +46,7 @@ class RfidTagsController extends Controller
             return redirect()->route('home');
         }
 
-        $rfidTags = $this->rfidTagRepository->findByUser($_user);
+        $rfidTags = $this->rfidTagRepository->paginateByUser($_user, 10);
 
         return view('rfidTags.index')
             ->with(['user' => $_user, 'rfidTags' => $rfidTags]);

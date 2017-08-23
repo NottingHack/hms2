@@ -42,6 +42,6 @@ Rfid cards for {{ $user->getFirstname() }}
     </tbody>
 </table>
 <div classs="pagination-links">
-
+    {{ $rfidTags->links() }}
 </div>
 @endsection

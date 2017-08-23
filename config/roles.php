@@ -30,6 +30,11 @@ return [
         'labelTemplate.edit',
         'labelTemplate.print',
         'search.users',
+        'rfidTags.view.self',
+        'rfidTags.view.all',
+        'rfidTags.edit.self',
+        'rfidTags.edit.all',
+        'rfidTags.destroy',
     ],
 
     /*

@@ -77,6 +77,14 @@ Route::group(['middleware' => 'auth'], function () {
         ]
     );
 
+    // Rfid Tags
+    Route::get('rfid_tags/{user?}', 'RfidTagsController@index')->name('rfid_tags.index');
+    Route::resource('rfid_tags', 'RfidTagsController',
+        [
+            'except' => ['index', 'create', 'store', 'show'],
+        ]
+    );
+
     // Label printer template admin
     Route::get('labels/{label}/print', 'LabelTemplateController@showPrint')->name('labels.showPrint');
     Route::post('labels/{label}/print', 'LabelTemplateController@print')->name('labels.print');

@@ -55,4 +55,13 @@ class DoctrineRfidTagRepository extends EntityRepository implements RfidTagRepos
         $this->_em->persist($rfidTag);
         $this->_em->flush();
     }
+
+    /**
+     * remove a RfidTag from the DB.
+     * @param RfidTag $rfidTag
+     */
+    public function remove(RfidTag $rfidTag){
+        $this->_em->remove($rfidTag);
+        $this->_em->flush();
+    }
 }

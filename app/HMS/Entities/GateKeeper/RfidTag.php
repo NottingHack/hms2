@@ -124,6 +124,17 @@ class RfidTag
     }
 
     /**
+     * Gets the best serial.
+     *
+     * @return null|string
+     */
+    public function getBestRfidSerial()
+    {
+        return $this->rfidSerial ? $this->rfidSerial : $this->rfidSerialLegacy;
+    }
+
+
+    /**
      * Gets the value of state.
      *
      * @return int
@@ -147,6 +158,16 @@ class RfidTag
         }
 
         return $this;
+    }
+
+    /**
+     * Gets the value of state.
+     *
+     * @return string
+     */
+    public function getStateString()
+    {
+        return $this->statusStrings[$this->state];
     }
 
     /**

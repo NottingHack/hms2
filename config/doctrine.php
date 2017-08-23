@@ -28,6 +28,8 @@ return [
             'namespaces' => [
                 'HMS',
                 'HMS\Entities',
+                'HMS\Entities\GateKeeper',
+                'HMS\Entities\Banking',
             ],
             'paths'      => [
                 base_path('app/HMS/Mappings'),

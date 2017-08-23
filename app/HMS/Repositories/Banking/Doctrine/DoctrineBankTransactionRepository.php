@@ -6,9 +6,12 @@ use HMS\Entities\Banking\Account;
 use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Banking\BankTransaction;
 use HMS\Repositories\Banking\BankTransactionRepository;
+use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 
 class DoctrineBankTransactionRepository extends EntityRepository implements BankTransactionRepository
 {
+    use PaginatesFromRequest;
+
     /**
      * find the latest transaction for each account.
      * @return array
@@ -31,6 +34,26 @@ class DoctrineBankTransactionRepository extends EntityRepository implements Bank
     public function findLatestTransactionByAccount(Account $account)
     {
         return parent::findOneByAccount($account, ['transactionDate' => 'DESC']);
+    }
+
+    /**
+     * find all transactions for a fiven account and pagineate them.
+     * Ordered by transactionDate DESC.
+     *
+     * @param Account   $account
+     * @param int    $perPage
+     * @param string $pageName
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function paginateByAccount(Account $account, $perPage = 15, $pageName = 'page')
+    {
+        $q = parent::createQueryBuilder('bankTransaction')
+            ->where('bankTransaction.account = :account_id')
+            ->orderBy('bankTransaction.transactionDate', 'DESC');
+
+        $q = $q->setParameter('account_id', $account->getId())->getQuery();
+
+        return $this->paginate($q, $perPage, $pageName);
     }
 
     /**

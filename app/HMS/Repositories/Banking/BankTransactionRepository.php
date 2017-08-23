@@ -21,6 +21,17 @@ interface BankTransactionRepository
     public function findLatestTransactionByAccount(Account $account);
 
     /**
+     * find all transactions for a fiven account and pagineate them.
+     * Ordered by transactionDate DESC.
+     *
+     * @param Account   $account
+     * @param int    $perPage
+     * @param string $pageName
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function paginateByAccount(Account $account, $perPage = 15, $pageName = 'page');
+
+    /**
      * save BankTransaction to the DB.
      * @param  BankTransaction $bankTransaction
      */

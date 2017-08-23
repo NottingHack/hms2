@@ -111,4 +111,7 @@ Route::group(['middleware' => 'auth'], function () {
             'except' => ['destroy'],
         ]
     );
+
+    // Bank Transactions
+    Route::get('bank_transactions/{user?}', 'Banking\BankTransactionsController@index')->name('bankTransactions.index');
 });

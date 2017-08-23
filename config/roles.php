@@ -44,6 +44,8 @@ return [
         'rfidTags.destroy',
         'pins.view.all',
         'pins.reactivate',
+        'bankTransactions.view.self',
+        'bankTransactions.view.all',
     ],
 
     /*
@@ -85,6 +87,7 @@ return [
                 'project.view.self',
                 'project.edit.self',
                 'project.printLabel.self',
+                'bankTransactions.view.self',
             ],
         ],
         'member.ex'         => [
@@ -94,6 +97,7 @@ return [
                 'profile.view.self',
                 'profile.edit.self',
                 'link.view',
+                'bankTransactions.view.self',
             ],
         ],
         'member.current'    => [
@@ -108,6 +112,7 @@ return [
                 'project.view.self',
                 'project.edit.self',
                 'project.printLabel.self',
+                'bankTransactions.view.self',
             ],
         ],
         'member.temporarybanned'    => [
@@ -118,6 +123,7 @@ return [
                 'profile.view.self',
                 'profile.edit.self',
                 'link.view',
+                'bankTransactions.view.self',
             ],
         ],
         'member.banned'    => [
@@ -128,6 +134,7 @@ return [
                 'profile.view.self',
                 'profile.edit.self',
                 'link.view',
+                'bankTransactions.view.self',
             ],
         ],
         'user.super'         => [
@@ -155,6 +162,7 @@ return [
                 'rfidTags.edit.all',
                 'pins.view.all',
                 'pins.reactivate',
+                'bankTransactions.view.all',
             ],
         ],
         'team.trustees'    => [
@@ -179,6 +187,7 @@ return [
                 'rfidTags.destroy',
                 'pins.view.all',
                 'pins.reactivate',
+                'bankTransactions.view.all',
             ],
         ],
         'team.software'    => [

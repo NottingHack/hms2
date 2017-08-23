@@ -25,7 +25,7 @@ class Pin
     /**
      * This pin may be used to enrol an RFID card.
      */
-    const STATE_ENROLL = 40;
+    const STATE_ENROL = 40;
     /**
      * String representation of states for display.
      */
@@ -33,7 +33,7 @@ class Pin
                                   10 => 'Active',
                                   20 => 'Expired',
                                   30 => 'Cancelled',
-                                  40 => 'Enroll',
+                                  40 => 'Enrolment',
                                   ];
 
     /**
@@ -180,6 +180,16 @@ class Pin
     }
 
     /**
+     * Gets the value of state.
+     *
+     * @return string
+     */
+    public function getStateString()
+    {
+        return $this->statusStrings[$this->state];
+    }
+
+    /**
      * Sets the value of state to cancled.
      *
      * @return self
@@ -192,13 +202,13 @@ class Pin
     }
 
     /**
-     * Sets the value of state to enroll.
+     * Sets the value of state to enrol.
      *
      * @return self
      */
-    public function setStateEnroll()
+    public function setStateEnrol()
     {
-        $this->state = self::STATE_ENROLL;
+        $this->state = self::STATE_ENROL;
 
         return $this;
     }

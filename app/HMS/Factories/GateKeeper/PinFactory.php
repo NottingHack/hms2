@@ -29,7 +29,7 @@ class PinFactory
      */
     public function createNewEnrollPinForUser(User $user)
     {
-        $pin = new Pin((string) $this->generateUniquePin(), Pin::STATE_ENROLL);
+        $pin = new Pin((string) $this->generateUniquePin(), Pin::STATE_ENROL);
         $pin->setUser($user);
 
         return $pin;

@@ -133,7 +133,6 @@ class RfidTag
         return $this->rfidSerial ? $this->rfidSerial : $this->rfidSerialLegacy;
     }
 
-
     /**
      * Gets the value of state.
      *

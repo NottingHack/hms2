@@ -84,6 +84,7 @@ Route::group(['middleware' => 'auth'], function () {
             'except' => ['index', 'create', 'store', 'show'],
         ]
     );
+    Route::patch('pins/{pin}/reavtivate', 'RfidTagsController@reactivatePin')->name('pins.reactivate');
 
     // Label printer template admin
     Route::get('labels/{label}/print', 'LabelTemplateController@showPrint')->name('labels.showPrint');

@@ -37,21 +37,26 @@ class DoctrineBankTransactionRepository extends EntityRepository implements Bank
     }
 
     /**
-     * find all transactions for a fiven account and pagineate them.
+     * find all transactions for a given account and pagineate them.
      * Ordered by transactionDate DESC.
      *
-     * @param Account   $account
+     * @param null|Account   $account
      * @param int    $perPage
      * @param string $pageName
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
-    public function paginateByAccount(Account $account, $perPage = 15, $pageName = 'page')
+    public function paginateByAccount(?Account $account, $perPage = 15, $pageName = 'page')
     {
-        $q = parent::createQueryBuilder('bankTransaction')
-            ->where('bankTransaction.account = :account_id')
-            ->orderBy('bankTransaction.transactionDate', 'DESC');
+        $q = parent::createQueryBuilder('bankTransaction');
+        if (is_null($account)) {
+            $q = $q->where('bankTransaction.account IS NULL');
+        } else {
+            $q = $q->where('bankTransaction.account = :account_id');
+            $q = $q->setParameter('account_id', $account->getId());
+        }
+        $q = $q->orderBy('bankTransaction.transactionDate', 'DESC');
 
-        $q = $q->setParameter('account_id', $account->getId())->getQuery();
+        $q = $q->getQuery();
 
         return $this->paginate($q, $perPage, $pageName);
     }

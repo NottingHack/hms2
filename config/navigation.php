@@ -61,6 +61,13 @@ return [
                     'permissions'   => ['labelTemplate.view'],
                     'links'         => [],
                 ],
+                'bankTransactions' => [
+                    'text'          => 'Reconcile Bank Transaction',
+                    'route'         => 'bankTransactions.unmatched',
+                    'match'         => 'bankTransactions.unmatched',
+                    'permissions'   => ['bankTransactions.reconcile'],
+                    'links'         => [],
+                ],
             ],
         ],
     ],

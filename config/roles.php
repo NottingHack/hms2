@@ -46,6 +46,7 @@ return [
         'pins.reactivate',
         'bankTransactions.view.self',
         'bankTransactions.view.all',
+        'bankTransactions.reconcile',
     ],
 
     /*

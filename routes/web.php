@@ -84,4 +84,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/membership/reject-details/{user}', 'MembershipController@rejectDetails')->name('membership.reject');
     Route::get('/membership/update-details/{user}', 'MembershipController@editDetails')->name('membership.edit');
     Route::put('/membership/update-details/{user}', 'MembershipController@updateDetails')->name('membership.update');
+
+    // Members Projects and DNH labels
+    Route::get('projects/{project}/markActive', 'Members\ProjectController@markActive')->name('projects.markActive');
+    Route::get('projects/{project}/markAbandoned', 'Members\ProjectController@markAbandoned')->name('projects.markAbandoned');
+    Route::get('projects/{project}/markComplete', 'Members\ProjectController@markComplete')->name('projects.markComplete');
+    Route::get('projects/{project}/print', 'Members\ProjectController@printLabel')->name('projects.print');
+    Route::resource('projects', 'Members\ProjectController',
+        [
+            'except' => ['destroy'],
+        ]
+    );
 });

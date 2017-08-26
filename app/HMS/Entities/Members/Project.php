@@ -8,22 +8,22 @@ use HMS\Entities\User;
 class Project
 {
     /**
-     * This projcet is considered active and being worked on
+     * This projcet is considered active and being worked on.
      */
     const PROJCET_ACTIVE = 10;
 
     /**
-     * Project has been finished/removed from the hackspace
+     * Project has been finished/removed from the hackspace.
      */
     const PROJCET_COMPLETE = 20;
 
     /**
-     * Project has been identified as abandoned and not beeing worked on
+     * Project has been identified as abandoned and not beeing worked on.
      */
     const PROJCET_ABANDONED = 30;
 
     /**
-     * String representation of states for display
+     * String representation of states for display.
      */
     public $statusStrings = [
         10 => 'Active',
@@ -191,7 +191,7 @@ class Project
      */
     public function setStateActive()
     {
-        $this->state = Project::PROJCET_ACTIVE;
+        $this->state = self::PROJCET_ACTIVE;
         $this->completeDate = null;
 
         return $this;
@@ -202,7 +202,7 @@ class Project
      */
     public function setStateComplete()
     {
-        $this->state = Project::PROJCET_COMPLETE;
+        $this->state = self::PROJCET_COMPLETE;
         $this->completeDate = Carbon::now();
 
         return $this;
@@ -213,7 +213,7 @@ class Project
      */
     public function setStateAbandoned()
     {
-        $this->state = Project::PROJCET_ABANDONED;
+        $this->state = self::PROJCET_ABANDONED;
         $this->completeDate = Carbon::now();
 
         return $this;

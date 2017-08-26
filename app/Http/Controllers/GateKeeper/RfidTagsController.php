@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\GateKeeper;
 
 use HMS\Entities\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use HMS\Entities\GateKeeper\Pin;
+use App\Http\Controllers\Controller;
 use HMS\Entities\GateKeeper\RfidTag;
 use HMS\Repositories\UserRepository;
 use Doctrine\ORM\EntityNotFoundException;
@@ -72,7 +73,7 @@ class RfidTagsController extends Controller
         $rfidTags = $this->rfidTagRepository->paginateByUser($_user, 10);
         $pins = $this->pinRepository->findByUser($_user);
 
-        return view('rfidTags.index')
+        return view('gateKeeper.rfidTags.index')
             ->with(['user' => $_user, 'rfidTags' => $rfidTags, 'pins' => $pins]);
     }
 
@@ -90,7 +91,7 @@ class RfidTagsController extends Controller
             return redirect()->route('home');
         }
 
-        return view('rfidTags.edit')
+        return view('gateKeeper.rfidTags.edit')
             ->with('rfidTag', $rfid_tag);
     }
 

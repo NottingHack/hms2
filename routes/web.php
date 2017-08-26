@@ -78,13 +78,13 @@ Route::group(['middleware' => 'auth'], function () {
     );
 
     // Rfid Tags
-    Route::get('rfid_tags/{user?}', 'RfidTagsController@index')->name('rfid_tags.index');
-    Route::resource('rfid_tags', 'RfidTagsController',
+    Route::get('rfid_tags/{user?}', 'GateKeeper\RfidTagsController@index')->name('rfid_tags.index');
+    Route::resource('rfid_tags', 'GateKeeper\RfidTagsController',
         [
             'except' => ['index', 'create', 'store', 'show'],
         ]
     );
-    Route::patch('pins/{pin}/reavtivate', 'RfidTagsController@reactivatePin')->name('pins.reactivate');
+    Route::patch('pins/{pin}/reavtivate', 'GateKeeper\RfidTagsController@reactivatePin')->name('pins.reactivate');
 
     // Label printer template admin
     Route::get('labels/{label}/print', 'LabelTemplateController@showPrint')->name('labels.showPrint');

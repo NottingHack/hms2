@@ -45,6 +45,9 @@ class Profile
     /** @var ?Carbon */
     protected $dateOfBirth;
 
+    /** @var int */
+    protected $balance;
+
     /**
      * Profile constructor.
      * @param User $user
@@ -288,4 +291,24 @@ class Profile
 
         return $this;
     }
+
+    /**
+     * @return int
+     */
+    public function getBalance(): int
+    {
+        return $this->balance;
+    }
+
+    /**
+     * @param int $balance
+     * @return self
+     */
+    public function setBalance(int $balance): Profile
+    {
+        $this->balance = $balance;
+
+        return $this;
+    }
+
 }

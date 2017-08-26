@@ -21,7 +21,7 @@ interface BankTransactionRepository
     public function findLatestTransactionByAccount(Account $account);
 
     /**
-     * find a matching tranaction in the db or save this one
+     * find a matching tranaction in the db or save this one.
      * @param  BankTransaction $bankTransaction
      * @return BankTransaction
      */

@@ -46,7 +46,7 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         'App\Events\Banking\TransactionsUploaded' => [
-            'App\Listeners\Banking\SaveNewTransactions'
+            'App\Listeners\Banking\SaveNewTransactions',
         ],
     ];
 

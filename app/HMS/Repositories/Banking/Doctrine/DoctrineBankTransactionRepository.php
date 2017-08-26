@@ -34,7 +34,7 @@ class DoctrineBankTransactionRepository extends EntityRepository implements Bank
     }
 
     /**
-     * find a matching tranaction in the db or save this one
+     * find a matching tranaction in the db or save this one.
      * @param  BankTransaction $bankTransaction
      * @return BankTransaction
      */
@@ -43,7 +43,7 @@ class DoctrineBankTransactionRepository extends EntityRepository implements Bank
         $bt = parent::findOneBy([
             'transactionDate' => $bankTransaction->getTransactionDate(),
             'description' => $bankTransaction->getDescription(),
-            'amount' => $bankTransaction->getAmount()
+            'amount' => $bankTransaction->getAmount(),
         ]);
 
         if ($bt) {
@@ -51,6 +51,7 @@ class DoctrineBankTransactionRepository extends EntityRepository implements Bank
         }
 
         $this->save($bankTransaction);
+
         return $bankTransaction;
     }
 

@@ -70,7 +70,7 @@ class SaveNewTransactions implements ShouldQueue
          *     "date" : "2017-07-17",
          *     "description" : "Edward Murphy HSNTSBBPRK86CWPV 4",
          *     "amount" : 5.00
-         * }
+         * }.
          */
         $unmatchedBank = [];
         $unmatchedTransaction = [];

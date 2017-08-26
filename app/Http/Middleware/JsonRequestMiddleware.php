@@ -24,6 +24,7 @@ class JsonRequestMiddleware
             $data = $request->json()->all();
             $request->request->replace(is_array($data) ? $data : []);
         }
+
         return $next($request);
     }
 }

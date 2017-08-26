@@ -5,20 +5,18 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Events\Banking\TransactionsUploaded;
-use HMS\Factories\Banking\BankTransactionFactory;
 use Illuminate\Http\Response as IlluminateResponse;
-use HMS\Repositories\Banking\BankTransactionRepository;
 
 class TransactionUploadController extends Controller
 {
     /**
-     * upload new bank transacions via json
+     * upload new bank transacions via json.
      * @param  Request $request
      * @return \Illuminate\Http\Response
      */
     public function upload(Request $request)
     {
-        /**
+        /*
          * example JSON for request
          * [
          *     {
@@ -45,7 +43,7 @@ class TransactionUploadController extends Controller
          * ]
          */
 
-        if (count($request->input()) == 0 ) {
+        if (count($request->input()) == 0) {
             // nothing sent
             return response()->json([], IlluminateResponse::HTTP_BAD_REQUEST);
         }
@@ -59,6 +57,7 @@ class TransactionUploadController extends Controller
         ]);
 
         event(new TransactionsUploaded($request->input()));
+
         return response()->json([], IlluminateResponse::HTTP_ACCEPTED);
     }
 }

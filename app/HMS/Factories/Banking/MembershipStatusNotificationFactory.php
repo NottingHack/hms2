@@ -24,6 +24,9 @@ class MembershipStatusNotificationFactory
 
     /**
      * Function to instantiate a new MembershipStatusNotification from given params.
+     *
+     * @param Uaer $user
+     * @param Account $account
      */
     public function create(User $user, Account $account)
     {

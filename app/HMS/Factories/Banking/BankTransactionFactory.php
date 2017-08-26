@@ -29,6 +29,8 @@ class BankTransactionFactory
      * Function to instantiate a new BankTransaction from given params.
      * @param Bank $bank
      * @param Carbon $transactionDate
+     * @param string $description
+     * @param floacr $amount
      */
     public function create(Bank $bank, Carbon $transactionDate, string $description, float $amount)
     {

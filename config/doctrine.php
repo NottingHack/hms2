@@ -28,6 +28,7 @@ return [
             'namespaces' => [
                 'HMS',
                 'HMS\Entities',
+                'HMS\Entities\Snackspace',
             ],
             'paths'      => [
                 base_path('app/HMS/Mappings'),

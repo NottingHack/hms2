@@ -122,7 +122,6 @@ class ViMbAdminSubscriber implements ShouldQueue
      * @param  bool $skipException
      * @throws Exception
      * @return Alias
-     *
      */
     public function getAliasForRole(Role $role, $skipException = flase)
     {

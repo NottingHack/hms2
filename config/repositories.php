@@ -43,5 +43,6 @@ return [
         'Email',
         'RoleUpdate',
         'LabelTemplate',
+        'Members\Project',
     ],
 ];

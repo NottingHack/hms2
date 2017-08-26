@@ -27,6 +27,11 @@ class Email
      */
     protected $body;
 
+    /**
+     * @var string
+     */
+    protected $fullString;
+
     /*
      * @var Carbon
      */
@@ -47,12 +52,14 @@ class Email
      * @param array  $toAddress      Array of to adddress in format [ email => name]
      * @param string $subject
      * @param string $body
+     * @param string $fullString
      */
-    public function __construct(array $toAddress, string $subject, string $body)
+    public function __construct(array $toAddress, string $subject, string $body, string $fullString)
     {
         $this->toAddress = $toAddress;
         $this->subject = $subject;
         $this->body = $body;
+        $this->fullString = $fullString;
         $this->users = new ArrayCollection();
         $this->sentAt = Carbon::now();
     }
@@ -135,6 +142,30 @@ class Email
     public function setBody($body): Email
     {
         $this->body = $body;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of fullString.
+     *
+     * @return string
+     */
+    public function getFullString(): string
+    {
+        return $this->fullString;
+    }
+
+    /**
+     * Sets the value of fullString.
+     *
+     * @param string $fullString the fullString
+     *
+     * @return self
+     */
+    public function setFullString($fullString): Email
+    {
+        $this->fullString = $fullString;
 
         return $this;
     }

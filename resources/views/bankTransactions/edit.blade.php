@@ -23,7 +23,7 @@
 </table>
 
 <div>
-  <form role="form" method="POST" action="{{ route('bankTransactions.update', $bankTransaction->getId()) }}">
+  <form role="form" method="POST" action="{{ route('bank-transactions.update', $bankTransaction->getId()) }}">
     {{ csrf_field() }}
     {{ method_field('PATCH') }}
     <div>

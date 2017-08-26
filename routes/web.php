@@ -113,9 +113,14 @@ Route::group(['middleware' => 'auth'], function () {
     );
 
     // Bank Transactions
-    Route::get('bank_transactions/unmatched', 'Banking\BankTransactionsController@listUnmatched')->name('bankTransactions.unmatched');
-    Route::get('bank_transactions/{user?}', 'Banking\BankTransactionsController@index')->name('bankTransactions.index');
-
-    Route::get('bank_transactions/{bank_transaction}/edit', 'Banking\BankTransactionsController@edit')->name('bankTransactions.edit');
-    Route::match(['PUT', 'PATCH'], 'bank_transactions/{bank_transaction}', 'Banking\BankTransactionsController@update')->name('bankTransactions.update');
+    Route::get('bank-transactions/unmatched', 'Banking\BankTransactionsController@listUnmatched')->name('bank-transactions.unmatched');
+    Route::get('users/{user}/bank-transactions', 'Banking\BankTransactionsController@index')->name('users.bank-transactions');
+    Route::resource('bank-transactions', 'Banking\BankTransactionsController',
+        [
+            'except' => ['show', 'create', 'store' , 'destroy'],
+            'parameters' => [
+                'bank-transactions' => 'bankTransaction'
+            ],
+        ]
+    );
 });

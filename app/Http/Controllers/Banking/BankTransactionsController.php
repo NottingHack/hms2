@@ -46,65 +46,65 @@ class BankTransactionsController extends Controller
     /**
      * BankTransactions for a given users account.
      *
-     * @param  null|user $user
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index($user = null)
+    public function index(Request $request)
     {
-        if (is_null($user)) {
-            $_user = \Auth::user();
-        } else {
-            $_user = $this->userRepository->find($user);
-            if (is_null($_user)) {
-                throw EntityNotFoundException::fromClassNameAndIdentifier(User::class, ['id' => $user]);
+        if ($request->user) {
+            $user = $this->userRepository->find($request->user);
+            if (is_null($user)) {
+                throw EntityNotFoundException::fromClassNameAndIdentifier(User::class, ['id' => $request->user]);
             }
+
+            if ($user != \Auth::user() && \Gate::denies('bankTransactions.view.all')) {
+                flash('Unauthorized')->error();
+
+                return redirect()->route('home');
+            }
+        } else {
+            $user = \Auth::user();
         }
 
-        if ($_user != \Auth::user() && \Gate::denies('bankTransactions.view.all')) {
-            flash('Unauthorized')->error();
-
-            return redirect()->route('home');
-        }
-
-        if (is_null($_user->getAccount())) {
+        if (is_null($user->getAccount())) {
             flash('No Account for User')->error();
 
             return redirect()->route('home');
         }
 
-        $bankTransactions = $this->bankTransactionRepository->paginateByAccount($_user->getAccount(), 10);
+        $bankTransactions = $this->bankTransactionRepository->paginateByAccount($user->getAccount(), 10);
 
         return view('bankTransactions.index')
-            ->with(['user' => $_user, 'bankTransactions' => $bankTransactions]);
+            ->with(['user' => $user, 'bankTransactions' => $bankTransactions]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  BankTransaction  $bank_transaction
+     * @param  BankTransaction  $bankTransaction
      * @return \Illuminate\Http\Response
      */
-    public function edit(BankTransaction $bank_transaction)
+    public function edit(BankTransaction $bankTransaction)
     {
-        return view('bankTransactions.edit')->with(['bankTransaction' => $bank_transaction]);
+        return view('bankTransactions.edit')->with(['bankTransaction' => $bankTransaction]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  BankTransaction  $bank_transaction
+     * @param  BankTransaction  $bankTransaction
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BankTransaction $bank_transaction)
+    public function update(Request $request, BankTransaction $bankTransaction)
     {
         $account = $this->accountRepository->find($request['existing-account']);
-        $bank_transaction->setAccount($account);
-        $this->bankTransactionRepository->save($bank_transaction);
+        $bankTransaction->setAccount($account);
+        $this->bankTransactionRepository->save($bankTransaction);
 
         flash('Transaction updated')->success();
 
-        return redirect()->route('bankTransactions.unmatched');
+        return redirect()->route('bank-transactions.unmatched');
     }
 
     /**

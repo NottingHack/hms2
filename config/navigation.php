@@ -63,8 +63,8 @@ return [
                 ],
                 'bankTransactions' => [
                     'text'          => 'Reconcile Bank Transaction',
-                    'route'         => 'bankTransactions.unmatched',
-                    'match'         => 'bankTransactions.unmatched',
+                    'route'         => 'bank-transactions.unmatched',
+                    'match'         => 'bank-transactions.unmatched',
                     'permissions'   => ['bankTransactions.reconcile'],
                     'links'         => [],
                 ],

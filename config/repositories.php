@@ -44,5 +44,6 @@ return [
         'RoleUpdate',
         'LabelTemplate',
         'Snackspace\Product',
+        'Snackspace\Transaction',
     ],
 ];

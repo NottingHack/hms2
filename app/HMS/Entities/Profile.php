@@ -311,4 +311,14 @@ class Profile
         return $this;
     }
 
+    /**
+     * @param  int    $amount
+     * @return self
+     */
+    public function updateBalanceByAmount(int $amount): Profile
+    {
+        $this->balance += $amount;
+
+        return $this;
+    }
 }

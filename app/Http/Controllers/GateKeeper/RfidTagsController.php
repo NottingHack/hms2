@@ -51,30 +51,31 @@ class RfidTagsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index($user = null)
+    public function index(Request $request)
     {
-        if (is_null($user)) {
-            $_user = \Auth::user();
-        } else {
-            $_user = $this->userRepository->find($user);
-            if (is_null($_user)) {
-                throw EntityNotFoundException::fromClassNameAndIdentifier(User::class, ['id' => $user]);
+        if ($request->user) {
+            $user = $this->userRepository->find($request->user);
+            if (is_null($user)) {
+                throw EntityNotFoundException::fromClassNameAndIdentifier(User::class, ['id' => $request->user]);
             }
+
+            if ($user != \Auth::user() && \Gate::denies('rfidTags.view.all')) {
+                flash('Unauthorized')->error();
+
+                return redirect()->route('home');
+            }
+        } else {
+            $user = \Auth::user();
         }
 
-        if ($_user != \Auth::user() && \Gate::denies('rfidTags.view.all')) {
-            flash('Unauthorized', 'error');
-
-            return redirect()->route('home');
-        }
-
-        $rfidTags = $this->rfidTagRepository->paginateByUser($_user, 10);
-        $pins = $this->pinRepository->findByUser($_user);
+        $rfidTags = $this->rfidTagRepository->paginateByUser($user, 10);
+        $pins = $this->pinRepository->findByUser($user);
 
         return view('gateKeeper.rfidTags.index')
-            ->with(['user' => $_user, 'rfidTags' => $rfidTags, 'pins' => $pins]);
+            ->with(['user' => $user, 'rfidTags' => $rfidTags, 'pins' => $pins]);
     }
 
     /**
@@ -124,7 +125,7 @@ class RfidTagsController extends Controller
         $rfid_tag->setState($request->state);
         $this->rfidTagRepository->save($rfid_tag);
 
-        return redirect()->route('rfid_tags.index', [$rfid_tag->getUser()->getId()]);
+        return redirect()->route('rfid_tags.index', ['user' => $rfid_tag->getUser()->getId()]);
     }
 
     /**

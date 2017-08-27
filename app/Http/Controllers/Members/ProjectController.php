@@ -91,7 +91,7 @@ class ProjectController extends Controller
         $this->projectRepository->save($project);
         flash('Project \''.$project->getProjectName().'\' created.')->success();
 
-        return redirect()->route('projects.show', $project->getId());
+        return redirect()->route('projects.show', ['project' => $project->getId()]);
     }
 
     /**
@@ -156,7 +156,7 @@ class ProjectController extends Controller
 
         flash('Project \''.$project->getProjectName().'\' updated.')->success();
 
-        return redirect()->route('projects.show', $project->getId());
+        return redirect()->route('projects.show', ['project' => $project->getId()]);
     }
 
     /**

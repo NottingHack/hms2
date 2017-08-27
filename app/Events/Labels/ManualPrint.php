@@ -27,7 +27,7 @@ class ManualPrint implements LabelPrintEventInterface
      * Create a new event instance.
      *
      * @param string $templateName
-     * @param arrya $substitutions
+     * @param array $substitutions
      * @param int $copiesToPrint
      */
     public function __construct(

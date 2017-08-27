@@ -46,7 +46,7 @@ class ProjectPrint implements LabelPrintEventInterface
             'username' => $project->getUser()->getUsername(),
             'startDate' => $project->getStartDate()->toDateString(),
             'lastDate' => Carbon::now()->toDateString(),
-            'qrURL' => route('projects.show', $project->getId()),
+            'qrURL' => route('projects.show', ['project' => $project->getId()]),
             'idOffset' => $idOffset,
             'memberProjectId' => $project->getId(),
         ];

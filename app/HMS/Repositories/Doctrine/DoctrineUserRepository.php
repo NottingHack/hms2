@@ -14,7 +14,7 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
 
     /**
      * @param  $id
-     * @return array
+     * @return null|User
      */
     public function find($id)
     {
@@ -49,8 +49,8 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     }
 
     /**
-     * @param  string $searchQuery
-     * @param  bool $hasAccount limit to users with associated accounts
+     * @param string $searchQuery
+     * @param null|bool $hasAccount limit to users with associated accounts
      * @param bool $paginate
      * @param int    $perPage
      * @param string $pageName

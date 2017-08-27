@@ -172,10 +172,10 @@
       </div>
       <div class="columns small-12 medium-3">
         <address>
-          Unit F6 BizSpace<br>
-          Roden House<br>
-          Business Centre<br>
-          Nottingham<br>
+          Unit F6 BizSpace<br />
+          Roden House<br />
+          Business Centre<br />
+          Nottingham<br />
           NG3 1JH
         </address>
       </div>

@@ -9,7 +9,7 @@ interface UserRepository
 {
     /**
      * @param  $id
-     * @return array
+     * @return null|User
      */
     public function find($id);
 

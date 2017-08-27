@@ -11,7 +11,7 @@ class DoctrineRoleUpdateRepository extends EntityRepository implements RoleUpdat
 {
     /**
      * @param  $id
-     * @return array
+     * @return null|Role
      */
     public function find($id)
     {

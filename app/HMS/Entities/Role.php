@@ -56,12 +56,12 @@ class Role implements RoleContract
     protected $users;
 
     /**
-     * @var ?string Team email address
+     * @var null|string Team email address
      */
     protected $email;
 
     /**
-     * @var ?string Team slack channel
+     * @var null|string Team slack channel
      */
     protected $slackChannel;
 

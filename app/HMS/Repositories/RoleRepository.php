@@ -3,13 +3,14 @@
 namespace HMS\Repositories;
 
 use HMS\Entities\Role;
+use Doctrine\Common\Collections\ArrayCollection;
 
 interface RoleRepository
 {
     /**
      * Finds all entities in the repository.
      *
-     * @return Doctrine\Common\Collections\ArrayCollection The entities.
+     * @return ArrayCollection The entities.
      */
     public function findAll();
 

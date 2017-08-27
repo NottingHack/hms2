@@ -11,23 +11,23 @@ class UserRemovedFromRole
     use SerializesModels;
 
     /**
-     * @var HMS\Entities\User
+     * @var User
      */
     public $user;
 
     /**
-     * @var HMS\Entities\Role
+     * @var Role
      */
     public $role;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     *  @param User $user
+     *  @param Role $role
      */
     public function __construct(User $user, Role $role)
     {
-        //
         $this->user = $user;
         $this->role = $role;
     }

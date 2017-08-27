@@ -28,6 +28,10 @@ class UserController extends Controller
 
     /**
      * Create a new controller instance.
+     *
+     * @param UserRepository $userRepository
+     * @param UserManager $userManager
+     * @param ProfileManager $profileManager
      */
     public function __construct(UserRepository $userRepository,
         UserManager $userManager,

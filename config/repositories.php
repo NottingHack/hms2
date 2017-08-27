@@ -10,7 +10,7 @@ return [
     | below to generate the full interface and implementation class names.
     |
     */
-    'repositoriy_namespace' => 'HMS\Repositories',
+    'repository_namespace' => 'HMS\Repositories',
 
     /*
     |--------------------------------------------------------------------------
@@ -43,6 +43,14 @@ return [
         'Email',
         'RoleUpdate',
         'LabelTemplate',
+        'GateKeeper\Pin',
+        'GateKeeper\RfidTag',
+        'GateKeeper\Door',
+        'GateKeeper\Zone',
+        'GateKeeper\AccessLog',
+        'Banking\Bank',
+        'Banking\BankTransaction',
+        'Banking\MembershipStatusNotification',
         'Snackspace\Product',
         'Snackspace\Transaction',
     ],

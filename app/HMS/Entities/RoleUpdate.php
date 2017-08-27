@@ -17,12 +17,12 @@ class RoleUpdate
     protected $user;
 
     /**
-     * @var ?Role
+     * @var null|Role
      */
     protected $roleAdded;
 
     /**
-     * @var ?Role
+     * @var null|Role
      */
     protected $roleRemoved;
 
@@ -62,7 +62,7 @@ class RoleUpdate
     /**
      * Gets the value of roleAdded.
      *
-     * @return ?Role
+     * @return null|Role
      */
     public function getRoleAdded(): ?Role
     {
@@ -72,7 +72,7 @@ class RoleUpdate
     /**
      * Gets the value of roleRemoved.
      *
-     * @return ?Role
+     * @return null|Role
      */
     public function getRoleRemoved(): ?Role
     {

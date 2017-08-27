@@ -38,7 +38,6 @@ class MembershipDetailsApproved extends Mailable implements ShouldQueue
      *
      * @param User $user
      * @param MetaRepostiory $metaRepository
-     * @return void
      */
     public function __construct(User $user, MetaRepository $metaRepository)
     {

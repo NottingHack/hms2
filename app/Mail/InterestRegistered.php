@@ -43,7 +43,9 @@ class InterestRegistered extends Mailable implements ShouldQueue
     /**
      * Create a new message instance.
      *
-     * @param Invite $invite
+     * @param Invite         $invite
+     * @param MetaRepository $metaRepository
+     * @param RoleRepository $roleRepository
      */
     public function __construct(Invite $invite, MetaRepository $metaRepository, RoleRepository $roleRepository)
     {
@@ -62,6 +64,6 @@ class InterestRegistered extends Mailable implements ShouldQueue
     public function build()
     {
         return $this->subject('Nottingham Hackspace: Interest registered')
-                    ->markdown('emails.interestregistered');
+                    ->markdown('emails.interestRegistered');
     }
 }

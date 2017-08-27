@@ -59,7 +59,6 @@ class AccountFactory
      */
     protected function generateUniquePaymentRef()
     {
-        $paymentRef = '';
         do {
             $paymentRef = $this->generatePaymentRef();
         } while ($this->accountRepository->findOneByPaymentRef($paymentRef) !== null);

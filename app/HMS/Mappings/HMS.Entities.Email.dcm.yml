@@ -16,6 +16,8 @@ HMS\Entities\Email:
       type: string
     body:
       type: text
+    fullString:
+      type: text
     sentAt:
       type: datetime
       gedmo:

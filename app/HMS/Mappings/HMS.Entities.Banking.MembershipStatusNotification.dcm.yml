@@ -1,0 +1,30 @@
+# HMS.Entities.Banking.MembershipStatusNotification.dcm.yml
+HMS\Entities\Banking\MembershipStatusNotification:
+  type: entity
+  repositoryClass: HMS\Repositories\Banking\MembershipStatusNotificationRepository
+  table: membership_status_notifications
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    timeIssued:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    timeCleared:
+      type: datetime
+      nullable: true
+    clearedReason:
+      type: string
+      lenght: 7
+      nullable: true
+  manyToOne:
+    user:
+      targetEntity: \HMS\Entities\User
+    account:
+      targetEntity: \HMS\Entities\Banking\Account

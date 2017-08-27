@@ -12,37 +12,37 @@ class Profile
     /** @var User The user to which this profile belongs. */
     protected $user;
 
-    /** @var ?Carbon */
+    /** @var null|Carbon */
     protected $joinDate;
 
-    /** @var ?string */
+    /** @var null|string */
     protected $unlockText;
 
     /** @var int */
     protected $creditLimit;
 
-    /** @var ?string */
+    /** @var null|string */
     protected $address1;
 
-    /** @var ?string */
+    /** @var null|string */
     protected $address2;
 
-    /** @var ?string */
+    /** @var null|string */
     protected $address3;
 
-    /** @var ?string */
+    /** @var null|string */
     protected $addressCity;
 
-    /** @var ?string */
+    /** @var null|string */
     protected $addressCounty;
 
-    /** @var ?string */
+    /** @var null|string */
     protected $addressPostcode;
 
-    /** @var ?string */
+    /** @var null|string */
     protected $contactNumber;
 
-    /** @var ?Carbon */
+    /** @var null|Carbon */
     protected $dateOfBirth;
 
     /** @var int */
@@ -80,7 +80,7 @@ class Profile
     }
 
     /**
-     * @return ?Carbon
+     * @return null|Carbon
      */
     public function getJoinDate(): ?Carbon
     {
@@ -88,7 +88,7 @@ class Profile
     }
 
     /**
-     * @param ?Carbon $joinDate
+     * @param null|Carbon $joinDate
      * @return self
      */
     public function setJoinDate(?Carbon $joinDate): Profile
@@ -99,7 +99,7 @@ class Profile
     }
 
     /**
-     * @return ?string
+     * @return null|string
      */
     public function getUnlockText(): ?string
     {
@@ -107,7 +107,7 @@ class Profile
     }
 
     /**
-     * @param ?string $unlockText
+     * @param null|string $unlockText
      * @return self
      */
     public function setUnlockText(?string $unlockText): Profile
@@ -137,7 +137,7 @@ class Profile
     }
 
     /**
-     * @return ?string
+     * @return null|string
      */
     public function getAddress1(): ?string
     {
@@ -145,7 +145,7 @@ class Profile
     }
 
     /**
-     * @param ?string $address1
+     * @param null|string $address1
      * @return self
      */
     public function setAddress1(?string $address1): Profile
@@ -259,7 +259,7 @@ class Profile
     }
 
     /**
-     * @param ?string $contactNumber
+     * @param null|string $contactNumber
      * @return self
      */
     public function setContactNumber(?string $contactNumber): Profile
@@ -270,7 +270,7 @@ class Profile
     }
 
     /**
-     * @return ?Carbon
+     * @return null|Carbon
      */
     public function getDateOfBirth(): ?Carbon
     {
@@ -282,7 +282,7 @@ class Profile
     }
 
     /**
-     * @param ?Carbon $dateOfBirth
+     * @param null|Carbon $dateOfBirth
      * @return self
      */
     public function setDateOfBirth(?Carbon $dateOfBirth): Profile

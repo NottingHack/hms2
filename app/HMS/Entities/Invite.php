@@ -22,7 +22,7 @@ class Invite
     protected $email;
 
     /**
-     * @var ?string invite token
+     * @var null|string invite token
      */
     protected $inviteToken;
 
@@ -64,7 +64,7 @@ class Invite
 
     /**
      * Get the token value.
-     * @return ?string
+     * @return null|string
      */
     public function getInviteToken(): ?string
     {

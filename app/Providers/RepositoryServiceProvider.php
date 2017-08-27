@@ -28,8 +28,8 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         foreach (config('repositories.repositories') as $repository) {
             $entity = config('repositories.entity_namespace') . '\\' . $repository;
-            $interface = config('repositories.repositoriy_namespace') . '\\' . $repository . 'Repository';
-            $implmentation = config('repositories.repositoriy_namespace') . '\\' .
+            $interface = config('repositories.repository_namespace') . '\\' . $repository . 'Repository';
+            $implmentation = config('repositories.repository_namespace') . '\\' .
                 (strpos($repository, '\\') ? explode('\\', $repository)[0] . '\\' : '') .
                 'Doctrine\\Doctrine' .
                 (strpos($repository, '\\') ? explode('\\', $repository)[1] : $repository) .

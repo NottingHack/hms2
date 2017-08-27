@@ -1,0 +1,23 @@
+# HMS.Entities.GateKeeper.Zone.dcm.yml
+HMS\Entities\GateKeeper\Zone:
+  type: entity
+  repositoryClass: HMS\Repositories\GateKeeper\ZoneRepository
+  table: zones
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    description:
+      type: string
+      length: 100
+    shortName:
+      type: string
+      length: 10
+    permissionCode:
+      type: string
+      length: 16
+      nullable: true

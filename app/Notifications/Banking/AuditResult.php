@@ -173,7 +173,7 @@ class AuditResult extends Notification implements ShouldQueue
     {
         return (new MailMessage)
             ->subject('HMS Audit results')
-            ->markdown('emails.banking.auditresults',
+            ->markdown('emails.banking.auditResults',
                 [
                 'teamName' => ($notifiable instanceof Role) ? $notifiable->getDisplayName() : $notifiable->getName(),
                 'formattedApproveUsers' => $this->formattedApproveUsers,

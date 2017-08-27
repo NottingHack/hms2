@@ -43,11 +43,7 @@ class NewMemberApprovalNeeded extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        if ( ! empty($notifiable->routeNotificationForSlack())) {
-            return ['slack', 'mail'];
-        }
-
-        return ['mail'];
+        return ['slack', 'mail'];
     }
 
     /**

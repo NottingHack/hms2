@@ -10,7 +10,7 @@ return [
     | below to generate the full interface and implementation class names.
     |
     */
-    'repositoriy_namespace' => 'HMS\Repositories',
+    'repository_namespace' => 'HMS\Repositories',
 
     /*
     |--------------------------------------------------------------------------

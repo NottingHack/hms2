@@ -10,26 +10,32 @@ class Door
      * @var int
      */
     protected $id;
+
     /**
      * @var string
      */
     protected $description;
+
     /**
      * @var string
      */
     protected $shortName;
+
     /**
      * @var string
      */
     protected $state;
+
     /**
      * @var Carbon
      */
     protected $stateChange;
+
     /**
      * @var string
      */
     protected $permissionCode;
+
     /**
      * @var Zone
      */

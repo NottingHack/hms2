@@ -10,7 +10,7 @@ use HMS\Repositories\Banking\MembershipStatusNotificationRepository;
 class DoctrineMembershipStatusNotificationRepository extends EntityRepository implements MembershipStatusNotificationRepository
 {
     /**
-     * find outtanding notifications.
+     * find outstanding notifications.
      * @return MembershipStatusNotification[]
      */
     public function findOutstandingNotifications()
@@ -19,7 +19,8 @@ class DoctrineMembershipStatusNotificationRepository extends EntityRepository im
     }
 
     /**
-     * find outtanding notifications for a given user.
+     * find outstanding notifications for a given user.
+     * @param  User $user
      * @return MembershipStatusNotification[]
      */
     public function findOutstandingNotificationsByUser(User $user)

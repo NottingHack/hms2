@@ -55,7 +55,7 @@ class RfidTag
      */
     protected $lastUsed;
     /**
-     * @var Carbon
+     * @var string
      */
     protected $friendlyName;
 
@@ -142,7 +142,9 @@ class RfidTag
      */
     public function setState($state)
     {
-        $this->state = $state;
+        if (in_array($state, array_keys(self::statusStrings))) {
+            $this->state = $state;
+        }
 
         return $this;
     }
@@ -160,7 +162,7 @@ class RfidTag
     /**
      * Gets the value of friendlyName.
      *
-     * @return Carbon
+     * @return string
      */
     public function getFriendlyName()
     {
@@ -170,7 +172,7 @@ class RfidTag
     /**
      * Sets the value of friendlyName.
      *
-     * @param Carbon $friendlyName the friendly name
+     * @param string $friendlyName the friendly name
      *
      * @return self
      */

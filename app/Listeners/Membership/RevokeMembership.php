@@ -71,10 +71,10 @@ class RevokeMembership implements ShouldQueue
             return;
         }
 
-        // make ex emmebr
+        // make ex member
         $this->roleManager->addUserToRoleByName($user, Role::MEMBER_EX);
 
-        // clear there notifications
+        // clear their notifications
         $userNotifications = $this->membershipStatusNotificationRepository->findOutstandingNotificationsByUser($user);
         foreach ($userNotifications as $notification) {
             $notification->clearNotificationsByRevoke();

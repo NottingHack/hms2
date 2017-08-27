@@ -64,7 +64,13 @@ class MembershipAudit implements ShouldQueue
     /**
      * Create a new event listener.
      *
-     * @return void
+     * @param BankTransactionRepository              $bankTransactionRepository
+     * @param MembershipStatusNotificationRepository $membershipStatusNotificationRepository
+     * @param MetaRepository                         $metaRepository
+     * @param RoleRepository                         $roleRepository
+     * @param AccessLogRepository                    $accessLogRepository
+     * @param RoleUpdateRepository                   $roleUpdateRepository
+     * @param PinRepository                          $pinRepository
      */
     public function __construct(BankTransactionRepository $bankTransactionRepository,
         MembershipStatusNotificationRepository $membershipStatusNotificationRepository,
@@ -86,7 +92,7 @@ class MembershipAudit implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param   $[name] [<description>]
+     * @param  AuditRequest $event
      * @return mixed
      */
     public function handle(AuditRequest $event)
@@ -102,11 +108,11 @@ class MembershipAudit implements ShouldQueue
             $latestTransactionForAccounts[$bt[0]->getAccount()->getId()] = $bt['latestTransactionDate'];
         }
 
-        // need to garb a list of all members with current notifications
+        // need to grab a list of all members with current notifications
         $outstandingNotifications = $this->membershipStatusNotificationRepository->findOutstandingNotifications();
         /*
             Results data format
-            [member_id, ...]
+            [user_id, ...]
         */
         $memberIdsForCurrentNotifications = [];
         foreach ($outstandingNotifications as $membershipStatusNotification) {

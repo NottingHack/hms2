@@ -8,7 +8,7 @@ interface BankRepository
 {
     /**
      * @param  $id
-     * @return array
+     * @return Bank[]
      */
     public function find($id);
 

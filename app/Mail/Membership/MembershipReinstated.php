@@ -73,7 +73,9 @@ class MembershipReinstated extends Mailable implements ShouldQueue
     /**
      * Create a new message instance.
      *
-     * @return void
+     * @param User           $user
+     * @param MetaRepository $metaRepository
+     * @param RoleRepository $roleRepository
      */
     public function __construct(User $user, MetaRepository $metaRepository, RoleRepository $roleRepository)
     {

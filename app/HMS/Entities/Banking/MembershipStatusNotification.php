@@ -8,7 +8,7 @@ use HMS\Entities\User;
 class MembershipStatusNotification
 {
     /**
-     * The Notification was clear due to a payment before membership was revoked.
+     * The Notification was cleared due to a payment before membership was revoked.
      */
     const PAYMENT = 'PAYMENT';
 
@@ -31,18 +31,22 @@ class MembershipStatusNotification
      * @var User
      */
     protected $user;
+
     /**
      * @var Account
      */
     protected $account;
+
     /**
      * @var Carbon
      */
     protected $timeIssued;
+
     /**
      * @var Carbon
      */
     protected $timeCleared;
+
     /**
      * @var string
      */

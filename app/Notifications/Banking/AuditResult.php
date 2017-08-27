@@ -2,6 +2,7 @@
 
 namespace App\Notifications\Banking;
 
+use Carbon\Carbon;
 use HMS\Entities\Role;
 use Illuminate\Bus\Queueable;
 use HMS\Repositories\RoleRepository;
@@ -10,6 +11,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use HMS\Repositories\GateKeeper\PinRepository;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Messages\SlackMessage;
 use HMS\Repositories\GateKeeper\AccessLogRepository;
 use HMS\Repositories\Banking\BankTransactionRepository;
 
@@ -45,7 +47,16 @@ class AuditResult extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      *
-     * @return void
+     * @param User[]                    $approveUsers
+     * @param User[]                    $warnUsers
+     * @param User[]                    $revokeUsers
+     * @param User[]                    $reinstateUsers
+     * @param int                       $paymentNotificationsClearCount
+     * @param AccessLogRepository       $accessLogRepository
+     * @param BankTransactionRepository $bankTransactionRepository
+     * @param PinRepository             $pinRepository
+     * @param RoleUpdateRepository      $roleUpdateRepository
+     * @param RoleRepository            $roleRepository
      */
     public function __construct($approveUsers,
         $warnUsers,

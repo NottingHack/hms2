@@ -2,11 +2,13 @@
 
 namespace App\Notifications\Banking;
 
+use Carbon\Carbon;
 use HMS\Entities\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Messages\SlackMessage;
 
 class AuditIssues extends Notification implements ShouldQueue
 {
@@ -21,7 +23,6 @@ class AuditIssues extends Notification implements ShouldQueue
      * Create a new notification instance.
      *
      * @param  User[] $ohCrapUsers
-     * @return void
      */
     public function __construct($ohCrapUsers)
     {

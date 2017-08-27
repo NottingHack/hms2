@@ -70,7 +70,7 @@ class WarnMembershipMayExpire implements ShouldQueue
         $membershipStatusNotification = $this->membershipStatusNotificationFactory->create($user, $user->getAccount());
         $this->membershipStatusNotificationRepository->save($membershipStatusNotification);
 
-        // emial user
+        // email user
         \Mail::to($user)->send(new MembershipMayBeRevoked($user, $this->metaRepository));
     }
 }

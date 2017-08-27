@@ -32,7 +32,7 @@ class Pin
     public $statusStrings = [
                                   10 => 'Active',
                                   20 => 'Expired',
-                                  30 => 'Calcelled',
+                                  30 => 'Cancelled',
                                   40 => 'Enroll',
                                   ];
 
@@ -172,7 +172,9 @@ class Pin
      */
     public function setState($state)
     {
-        $this->state = $state;
+        if (in_array($state, array_keys(self::statusStrings))) {
+            $this->state = $state;
+        }
 
         return $this;
     }
@@ -182,7 +184,7 @@ class Pin
      *
      * @return self
      */
-    public function setStateCancled()
+    public function setStateCancelled()
     {
         $this->state = self::STATE_CANCELLED;
 

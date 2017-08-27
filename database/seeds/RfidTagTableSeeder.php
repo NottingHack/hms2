@@ -84,7 +84,7 @@ class RfidTagTableSeeder extends Seeder
                 // cancle this users pin
                 $pins = $this->pinRepository->findbyUser($user);
                 foreach ($pins as $pin) {
-                    $pin->setStateCancled();
+                    $pin->setStateCancelled();
                     $this->pinRepository->save($pin);
                 }
             }

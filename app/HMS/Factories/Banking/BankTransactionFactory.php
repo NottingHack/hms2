@@ -18,6 +18,7 @@ class BankTransactionFactory
 
     /**
      * @param BankTransactionRepository $bankTransactionRepository
+     * @param AccountRepository $accountRepository
      */
     public function __construct(BankTransactionRepository $bankTransactionRepository, AccountRepository $accountRepository)
     {
@@ -30,7 +31,7 @@ class BankTransactionFactory
      * @param Bank $bank
      * @param Carbon $transactionDate
      * @param string $description
-     * @param floacr $amount
+     * @param float $amount
      */
     public function create(Bank $bank, Carbon $transactionDate, string $description, float $amount)
     {

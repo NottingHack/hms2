@@ -36,7 +36,8 @@ class MembershipMayBeRevoked extends Mailable implements ShouldQueue
     /**
      * Create a new message instance.
      *
-     * @return void
+     * @param User           $user
+     * @param MetaRepository $metaRepository
      */
     public function __construct(User $user, MetaRepository $metaRepository)
     {

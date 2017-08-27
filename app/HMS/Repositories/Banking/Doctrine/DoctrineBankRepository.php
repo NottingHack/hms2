@@ -10,7 +10,7 @@ class DoctrineBankRepository extends EntityRepository implements BankRepository
 {
     /**
      * @param  $id
-     * @return array
+     * @return Bank[]
      */
     public function find($id)
     {

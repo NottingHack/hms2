@@ -176,7 +176,7 @@ class RfidTag
      *
      * @return self
      */
-    public function setFriendlyName(Carbon $friendlyName)
+    public function setFriendlyName(string $friendlyName)
     {
         $this->friendlyName = $friendlyName;
 

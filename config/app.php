@@ -177,6 +177,7 @@ return [
         Laravel\Passport\PassportServiceProvider::class,
         LWK\ViMbAdmin\ViMbAdminServiceProvider::class,
         MaxBrokman\SafeQueue\DoctrineQueueProvider::class,
+        PrettyRoutes\ServiceProvider::class,
 
         /*
          * Application Service Providers...

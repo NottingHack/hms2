@@ -172,7 +172,7 @@ class Pin
      */
     public function setState($state)
     {
-        if (in_array($state, array_keys(self::statusStrings))) {
+        if (in_array($state, array_keys($this->statusStrings))) {
             $this->state = $state;
         }
 

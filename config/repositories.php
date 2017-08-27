@@ -43,5 +43,13 @@ return [
         'Email',
         'RoleUpdate',
         'LabelTemplate',
+        'GateKeeper\Pin',
+        'GateKeeper\RfidTag',
+        'GateKeeper\Door',
+        'GateKeeper\Zone',
+        'GateKeeper\AccessLog',
+        'Banking\Bank',
+        'Banking\BankTransaction',
+        'Banking\MembershipStatusNotification',
     ],
 ];

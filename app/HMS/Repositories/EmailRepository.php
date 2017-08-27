@@ -15,7 +15,7 @@ interface EmailRepository
     public function find($id);
 
     /**
-     * @param  string $role
+     * @param  Role $role
      * @return array
      */
     public function findByRole(Role $role);

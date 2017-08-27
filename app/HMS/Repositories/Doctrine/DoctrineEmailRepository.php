@@ -20,7 +20,7 @@ class DoctrineEmailRepository extends EntityRepository implements EmailRepositor
     }
 
     /**
-     * @param  string $role
+     * @param  Role $role
      * @return array
      */
     public function findByRole(Role $role)

@@ -24,6 +24,26 @@ class EventServiceProvider extends ServiceProvider
         'Illuminate\Mail\Events\MessageSending' => [
             'App\Listeners\LogSentMessage',
         ],
+
+        'App\Events\Banking\AuditRequest' => [
+            'App\Listeners\Banking\MembershipAudit',
+        ],
+
+        'App\Events\Banking\NewMembershipPaidFor' => [
+            'App\Listeners\Membership\ApproveNewMembership',
+        ],
+
+        'App\Events\Banking\MembershipPaymentWarning' => [
+            'App\Listeners\Membership\WarnMembershipMayExpire',
+        ],
+
+        'App\Events\Banking\NonPaymentOfMembership' => [
+            'App\Listeners\Membership\RevokeMembership',
+        ],
+
+        'App\Events\Banking\ReinstatementOfMembershipPayment' => [
+            'App\Listeners\Membership\ReinstateMembership',
+        ],
     ];
 
     /**

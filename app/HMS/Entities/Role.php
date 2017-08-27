@@ -24,6 +24,7 @@ class Role implements RoleContract
 
     const TEAM_MEMBERSHIP = 'team.membership';
     const TEAM_TRUSTEES = 'team.trustees';
+    const TEAM_SOFTWARE = 'team.software';
 
     /**
      * @var int
@@ -269,9 +270,9 @@ class Role implements RoleContract
     /**
      * Route notifications for the Slack channel.
      *
-     * @return string
+     * @return null|string
      */
-    public function routeNotificationForSlack(): string
+    public function routeNotificationForSlack(): ?string
     {
         if ($this->name == self::TEAM_TRUSTEES) {
             return config('hms.trustee_slack_webhook');

@@ -77,7 +77,7 @@ class Profile
     }
 
     /**
-     * @retrun null|Carbon
+     * @return null|Carbon
      */
     public function getJoinDate(): ?Carbon
     {
@@ -96,7 +96,7 @@ class Profile
     }
 
     /**
-     * @retrun null|string
+     * @return null|string
      */
     public function getUnlockText(): ?string
     {
@@ -134,7 +134,7 @@ class Profile
     }
 
     /**
-     * @retrun null|string
+     * @return null|string
      */
     public function getAddress1(): ?string
     {
@@ -267,7 +267,7 @@ class Profile
     }
 
     /**
-     * @retrun null|Carbon
+     * @return null|Carbon
      */
     public function getDateOfBirth(): ?Carbon
     {

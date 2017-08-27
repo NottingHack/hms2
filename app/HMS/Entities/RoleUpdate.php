@@ -62,7 +62,7 @@ class RoleUpdate
     /**
      * Gets the value of roleAdded.
      *
-     * @retrun null|Role
+     * @return null|Role
      */
     public function getRoleAdded(): ?Role
     {
@@ -72,7 +72,7 @@ class RoleUpdate
     /**
      * Gets the value of roleRemoved.
      *
-     * @retrun null|Role
+     * @return null|Role
      */
     public function getRoleRemoved(): ?Role
     {

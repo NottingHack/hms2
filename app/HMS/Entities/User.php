@@ -218,7 +218,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     }
 
     /**
-     * @retrun null|Profile The users profile
+     * @return null|Profile The users profile
      */
     public function getProfile() : ?Profile
     {
@@ -237,7 +237,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     }
 
     /**
-     * @retrun null|Account The users account
+     * @return null|Account The users account
      */
     public function getAccount() : ?Account
     {

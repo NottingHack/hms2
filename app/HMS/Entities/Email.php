@@ -176,7 +176,7 @@ class Email
     /**
      * Gets the value of role.
      *
-     * @retrun null|Role
+     * @return null|Role
      */
     public function getRole()
     {

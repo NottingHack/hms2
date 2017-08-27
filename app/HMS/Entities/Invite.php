@@ -64,7 +64,7 @@ class Invite
 
     /**
      * Get the token value.
-     * @retrun null|string
+     * @return null|string
      */
     public function getInviteToken(): ?string
     {

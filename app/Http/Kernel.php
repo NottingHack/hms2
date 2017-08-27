@@ -33,7 +33,7 @@ class Kernel extends HttpKernel
             // \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
-            \App\Http\Middleware\SubstituteEntityBindings::class,
+            \LaravelDoctrine\ORM\Middleware\SubstituteBindings::class,
             \Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
         ],
 
@@ -58,6 +58,6 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'ipcheck' => \App\Http\Middleware\IpCheck::class,
-        'entity.bindings' => App\Http\Middleware\SubstituteEntityBindings::class,
+        'entity.bindings' => \LaravelDoctrine\ORM\Middleware\SubstituteBindings::class,
     ];
 }

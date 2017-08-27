@@ -16,7 +16,7 @@ class TransactionsUploaded
     /**
      * Create a new event instance.
      *
-     * @param array $trasactions
+     * @param array $transactions
      */
     public function __construct($transactions)
     {

@@ -30,15 +30,15 @@ class SaveNewTransactions implements ShouldQueue
     protected $bankTransactionRepository;
 
     /**
-     * @var RoleRepoistory
+     * @var RoleRepository
      */
-    protected $RoleRepository;
+    protected $roleRepository;
 
     /**
      * Create the event listener.
      *
      * @param BankRepository $bankRepository
-     * @param BankTransactionFactory $BankTransactionFactory
+     * @param BankTransactionFactory $bankTransactionFactory
      * @param BankTransactionRepository $bankTransactionRepository
      * @param RoleRepository $roleRepository
      */
@@ -47,7 +47,6 @@ class SaveNewTransactions implements ShouldQueue
         BankTransactionRepository $bankTransactionRepository,
         RoleRepository $roleRepository)
     {
-        //
         $this->bankRepository = $bankRepository;
         $this->bankTransactionFactory = $bankTransactionFactory;
         $this->bankTransactionRepository = $bankTransactionRepository;

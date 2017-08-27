@@ -10,12 +10,12 @@ interface EmailRepository
 {
     /**
      * @param  $id
-     * @return array
+     * @return null|Email
      */
     public function find($id);
 
     /**
-     * @param  string $role
+     * @param  Role $role
      * @return array
      */
     public function findByRole(Role $role);

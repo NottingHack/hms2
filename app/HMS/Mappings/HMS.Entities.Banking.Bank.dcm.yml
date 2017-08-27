@@ -1,0 +1,22 @@
+# HMS.Entities.Banking.Bank.dcm.yml
+HMS\Entities\Banking\Bank:
+  type: entity
+  repositoryClass: HMS\Repositories\Banking\BankRepository
+  table: banks
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+      length: 100
+    sortCode:
+      type: string
+      length: 8
+    accountNumber:
+      type: string
+      length: 8

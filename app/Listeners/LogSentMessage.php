@@ -50,8 +50,9 @@ class LogSentMessage implements ShouldQueue
         $toAddresses = $event->message->getHeaders()->get('to')->getNameAddresses();
         $subject = $event->message->getHeaders()->get('subject')->getValue();
         $body = $event->message->getBody();
+        $fullString = $event->message->toString();
 
-        $email = new Email($toAddresses, $subject, $body);
+        $email = new Email($toAddresses, $subject, $body, $fullString);
 
         // now work out the asscications for the users / roles
         foreach ($toAddresses as $address => $name) {

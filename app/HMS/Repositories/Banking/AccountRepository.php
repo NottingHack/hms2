@@ -8,19 +8,24 @@ interface AccountRepository
 {
     /**
      * @param  $id
-     * @return array
+     * @return null|Account
      */
     public function find($id);
 
     /**
+     * @return Account[]
+     */
+    public function findAll();
+
+    /**
      * @param  string $paymentRef
-     * @return array
+     * @return null|Account
      */
     public function findOneByPaymentRef(string $paymentRef);
 
     /**
      * @param  string $paymentRef
-     * @return array
+     * @return Account[]
      */
     public function findLikeByPaymentRef(string $paymentRef);
 

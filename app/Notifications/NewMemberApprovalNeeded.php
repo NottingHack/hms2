@@ -43,11 +43,7 @@ class NewMemberApprovalNeeded extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        if ( ! empty($notifiable->routeNotificationForSlack())) {
-            return ['slack', 'mail'];
-        }
-
-        return ['mail'];
+        return ['slack', 'mail'];
     }
 
     /**
@@ -98,18 +94,5 @@ class NewMemberApprovalNeeded extends Notification implements ShouldQueue
                             ->fallback('A new member needs approval. <'.route('membership.approval', ['user' => $userId]).'|review>')
                             ->timestamp(Carbon::now());
             });
-    }
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
-    {
-        return [
-            //
-        ];
     }
 }

@@ -1,0 +1,31 @@
+# HMS.Entities.Banking.BankTransaction.dcm.yml
+HMS\Entities\Banking\BankTransaction:
+  type: entity
+  repositoryClass: HMS\Repositories\Banking\BankTransactionRepository
+  table: bank_transactions
+  uniqueConstraints:
+    duplicate_idx:
+      columns: [ transaction_date, description, amount ]
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    transactionDate:
+      type: date
+    description:
+      type: string
+      length: 255
+    amount:
+      type: decimal
+      precision: 8
+      scale: 2
+      nullable: true
+  manyToOne:
+    bank:
+      targetEntity: \HMS\Entities\Banking\Bank
+    account:
+      targetEntity: \HMS\Entities\Banking\Account

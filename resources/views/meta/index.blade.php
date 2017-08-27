@@ -16,7 +16,11 @@
         <tr>
             <td>{{ $meta->getKey() }}</td>
             <td>{{ $meta->getValue() }}</td>
-            <td><a href="{{ route('metas.edit', $meta->getKey()) }}">Edit</a></td>
+            <td>
+            @can('meta.edit')
+                <a href="{{ route('metas.edit', $meta->getKey()) }}">Edit</a>
+            @endcan
+            </td>
         </tr>
     @endforeach
     </tbody>

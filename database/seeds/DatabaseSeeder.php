@@ -14,5 +14,10 @@ class DatabaseSeeder extends Seeder
         $this->call(UserTableSeeder::class);
         $this->call(ProfileTableSeeder::class);
         $this->call(AccountTableSeeder::class);
+        $this->call(PinTableSeeder::class);
+        $this->call(RfidTagTableSeeder::class);
+        $this->call(AccessLogTableSeeder::class);
+        $this->call(BankTransactionTableSeeder::class);
+        $this->call(RoleUpdateTableSeeder::class);
     }
 }

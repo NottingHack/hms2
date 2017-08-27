@@ -19,6 +19,9 @@ class MetaController extends Controller
     public function __construct(MetaRepository $metaRepository)
     {
         $this->metaRepository = $metaRepository;
+
+        $this->middleware('can:meta.view')->only(['index']);
+        $this->middleware('can:meta.edit')->only(['edit', 'update']);
     }
 
     /**

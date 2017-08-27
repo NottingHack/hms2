@@ -25,6 +25,7 @@ class Kernel extends ConsoleKernel
         Commands\Make\RepositoryInterfaceMakeCommand::class,
         Commands\Make\RepositoryImplementationMakeCommand::class,
         Commands\Make\FactoryMakeCommand::class,
+        Commands\Banking\AuditCommand::class,
     ];
 
     /**
@@ -37,6 +38,10 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('invites:purge')
                  ->daily();
+
+        $schedule->command('hms:members:audit')
+                 ->weekdays()
+                 ->dailyAt('23:55');
     }
 
     /**

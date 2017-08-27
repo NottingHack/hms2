@@ -30,7 +30,8 @@ class MembershipDetailsRejected extends Mailable implements ShouldQueue
     /**
      * Create a new message instance.
      *
-     * @return void
+     * @param User   $user
+     * @param string $reason
      */
     public function __construct(User $user, string $reason)
     {

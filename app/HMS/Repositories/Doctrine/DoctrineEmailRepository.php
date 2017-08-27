@@ -12,7 +12,7 @@ class DoctrineEmailRepository extends EntityRepository implements EmailRepositor
 {
     /**
      * @param  $id
-     * @return array
+     * @return null|Email
      */
     public function find($id)
     {
@@ -20,7 +20,7 @@ class DoctrineEmailRepository extends EntityRepository implements EmailRepositor
     }
 
     /**
-     * @param  string $role
+     * @param  Role $role
      * @return array
      */
     public function findByRole(Role $role)

@@ -17,6 +17,7 @@ class MembershipInterestRegistered
     /**
      * Create a new event instance.
      *
+     * @param Invite $invite
      * @return void
      */
     public function __construct(Invite $invite)

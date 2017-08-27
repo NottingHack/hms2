@@ -75,7 +75,7 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
     protected function getNamespacedRepositoryInterface($name)
     {
         $name = str_replace($this->getDefaultNamespace($name).'\\', '', $name);
-        $interface = config('repositories.repositoriy_namespace') . '\\' . $name . 'Repository';
+        $interface = config('repositories.repository_namespace') . '\\' . $name . 'Repository';
 
         return $interface;
     }
@@ -102,7 +102,7 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
     protected function getNamespacedRepositoryImplementation($name)
     {
         $name = str_replace($this->getDefaultNamespace($name).'\\', '', $name);
-        $implementation = config('repositories.repositoriy_namespace') . '\\' .
+        $implementation = config('repositories.repository_namespace') . '\\' .
                 (strpos($name, '\\') ? explode('\\', $name)[0] . '\\' : '') .
                 'Doctrine\\Doctrine' .
                 (strpos($name, '\\') ? explode('\\', $name)[1] : $name) .

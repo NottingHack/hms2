@@ -16,6 +16,10 @@
  */
 
 Route::get('/', function () {
+    if (Auth::check()) {
+        return redirect()->route('home');
+    }
+
     return view('welcome');
 })->name('index');
 

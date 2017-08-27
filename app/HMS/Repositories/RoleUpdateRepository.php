@@ -10,7 +10,7 @@ interface RoleUpdateRepository
 {
     /**
      * @param  $id
-     * @return array
+     * @return null|Role
      */
     public function find($id);
 

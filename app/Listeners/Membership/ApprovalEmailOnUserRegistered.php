@@ -18,7 +18,7 @@ class ApprovalEmailOnUserRegistered implements ShouldQueue
     /**
      * Create the event listener.
      *
-     * @param  RoleRepository $RoleRepository
+     * @param  RoleRepository $roleRepository
      */
     public function __construct(RoleRepository $roleRepository)
     {

@@ -11,12 +11,12 @@ class UserAddedToRole
     use SerializesModels;
 
     /**
-     * @var HMS\Entities\User
+     * @var User
      */
     public $user;
 
     /**
-     * @var HMS\Entities\Role
+     * @var Role
      */
     public $role;
 
@@ -27,7 +27,6 @@ class UserAddedToRole
      */
     public function __construct(User $user, Role $role)
     {
-        //
         $this->user = $user;
         $this->role = $role;
     }

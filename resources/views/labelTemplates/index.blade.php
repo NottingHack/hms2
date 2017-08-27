@@ -3,8 +3,8 @@
 @section('pageTitle', 'Label Templates')
 
 @section('content')
-<p>Label templates printed via the thermal printer.<br/>
-Templates are written in EPL2<br/>
+<p>Label templates printed via the thermal printer.<br />
+Templates are written in EPL2<br />
 Approx 780w x 600h</p>
 <ul>
 @foreach ($labelTemplates as $labelTemplate)

@@ -60,12 +60,12 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     protected $roles;
 
     /**
-     * @var ?Profile The users profile
+     * @var null|Profile The users profile
      */
     protected $profile;
 
     /**
-     * @var ?Account
+     * @var null|Account
      */
     protected $account;
 
@@ -218,7 +218,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     }
 
     /**
-     * @return ?Profile The users profile
+     * @return null|Profile The users profile
      */
     public function getProfile() : ?Profile
     {
@@ -226,7 +226,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     }
 
     /**
-     * @param ?Profile $profile
+     * @param null|Profile $profile
      * @return self
      */
     public function setProfile(?Profile $profile): User
@@ -237,7 +237,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     }
 
     /**
-     * @return ?Account The users account
+     * @return null|Account The users account
      */
     public function getAccount() : ?Account
     {
@@ -245,7 +245,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     }
 
     /**
-     * @param ?Account $account
+     * @param null|Account $account
      * @return self
      */
     public function setAccount(?Account $account): User

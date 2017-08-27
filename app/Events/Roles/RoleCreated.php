@@ -10,18 +10,17 @@ class RoleCreated
     use SerializesModels;
 
     /**
-     * @var HMS\Entities\Role
+     * @var Role
      */
     public $role;
 
     /**
      * Create a new event instance.
      *
-     * @param HMS\Entities\Role $role
+     * @param Role $role
      */
     public function __construct(Role $role)
     {
-        //
         $this->role = $role;
     }
 }

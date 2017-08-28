@@ -28,6 +28,7 @@ return [
             'namespaces' => [
                 'HMS',
                 'HMS\Entities',
+                'HMS\Entities\Members',
                 'HMS\Entities\Snackspace',
             ],
             'paths'      => [

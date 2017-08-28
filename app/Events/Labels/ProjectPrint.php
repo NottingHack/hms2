@@ -2,9 +2,11 @@
 
 namespace App\Events\Labels;
 
+use Carbon\Carbon;
+use HMS\Entities\Members\Project;
 use Illuminate\Queue\SerializesModels;
 
-class ManualPrint implements LabelPrintEventInterface
+class ProjectPrint implements LabelPrintEventInterface
 {
     use SerializesModels;
 
@@ -26,18 +28,28 @@ class ManualPrint implements LabelPrintEventInterface
     /**
      * Create a new event instance.
      *
-     * @param string $templateName
-     * @param array $substitutions
+     * @param Project $project
      * @param int $copiesToPrint
      */
-    public function __construct(
-        string $templateName,
-        $substitutions = [],
-        $copiesToPrint = 1
-    ) {
-        $this->templateName = $templateName;
-        $this->substitutions = $substitutions;
+    public function __construct(Project $project,
+        $copiesToPrint = 1)
+    {
+        $this->templateName = 'member_project';
         $this->copiesToPrint = $copiesToPrint;
+
+        // hack to offset the ID printing and give the look of right justification
+        $idOffset = (5 - strlen($project->getId())) * 35;
+
+        $this->substitutions = [
+            'projectName' => $project->getProjectName(),
+            'memberName' => $project->getUser()->getFullname(),
+            'username' => $project->getUser()->getUsername(),
+            'startDate' => $project->getStartDate()->toDateString(),
+            'lastDate' => Carbon::now()->toDateString(),
+            'qrURL' => route('projects.show', ['project' => $project->getId()]),
+            'idOffset' => $idOffset,
+            'memberProjectId' => $project->getId(),
+        ];
     }
 
     /**

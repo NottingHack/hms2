@@ -30,6 +30,13 @@ return [
         'labelTemplate.edit',
         'labelTemplate.print',
         'search.users',
+        'project.create.self',
+        'project.view.self',
+        'project.view.all',
+        'project.edit.self',
+        'project.edit.all',
+        'project.printLabel.self',
+        'project.printLabel.all',
     ],
 
     /*
@@ -67,6 +74,10 @@ return [
                 'profile.view.self',
                 'profile.edit.self',
                 'link.view',
+                'project.create.self',
+                'project.view.self',
+                'project.edit.self',
+                'project.printLabel.self',
             ],
         ],
         'member.ex'         => [
@@ -86,6 +97,10 @@ return [
                 'profile.edit.self',
                 'accessCodes.view',
                 'link.view',
+                'project.create.self',
+                'project.view.self',
+                'project.edit.self',
+                'project.printLabel.self',
             ],
         ],
         'member.temporarybanned'    => [
@@ -122,6 +137,9 @@ return [
                 'profile.view.all',
                 'membership.approval',
                 'search.users',
+                'project.view.all',
+                'project.edit.all',
+                'project.printLabel.all',
             ],
         ],
         'team.trustees'    => [
@@ -136,6 +154,9 @@ return [
                 'meta.edit',
                 'membership.approval',
                 'search.users',
+                'project.view.all',
+                'project.edit.all',
+                'project.printLabel.all',
             ],
         ],
         'team.software'    => [

@@ -1,0 +1,36 @@
+# HMS.Entities.Members.Project.dcm.yml
+HMS\Entities\Members\Project:
+  type: entity
+  repositoryClass: HMS\Repositories\Members\ProjectRepository
+  table: member_projects
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    projectName:
+      type: string
+      length: 100
+    description:
+      type: text
+    startDate:
+      type: date
+      gedmo:
+        timestampable:
+          on: create
+    completeDate:
+      type: date
+      nullable: true
+    state:
+      type: integer
+  manyToOne:
+    user:
+      targetEntity: \HMS\Entities\User
+      joinColumn:
+        name: user_id
+        referencedColumnName: id
+        nullable: false
+     

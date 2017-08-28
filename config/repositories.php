@@ -51,5 +51,6 @@ return [
         'Banking\Bank',
         'Banking\BankTransaction',
         'Banking\MembershipStatusNotification',
+        'Members\Project',
     ],
 ];

@@ -28,6 +28,7 @@ return [
             'namespaces' => [
                 'HMS',
                 'HMS\Entities',
+                'HMS\Entities\Members',
             ],
             'paths'      => [
                 base_path('app/HMS/Mappings'),

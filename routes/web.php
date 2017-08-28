@@ -99,4 +99,11 @@ Route::group(['middleware' => 'auth'], function () {
             'except' => ['destroy'],
         ]
     );
+
+    // Snackspace
+    Route::resource('snackspace/transactions', 'Snackspace\TransactionsController',
+        [
+            'except' => ['show', 'store', 'create', 'edit', 'update', 'destroy'],
+        ]
+    );
 });

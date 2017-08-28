@@ -18,6 +18,12 @@ return [
             'permissions'   => [],
             'links'         => [],
         ],
+        'projects' => [
+            'text'          => 'Projects',
+            'route'         => 'projects.index',
+            'permissions'   => ['project.view.self'],
+            'links'         => [],
+        ],
         'codes' => [
             'text'          => 'Access Codes',
             'route'         => 'accessCodes',

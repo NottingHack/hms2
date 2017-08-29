@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Snackspace;
 use HMS\Entities\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use HMS\Repositories\UserRepository;
 use Doctrine\ORM\EntityNotFoundException;
 use HMS\Repositories\Snackspace\TransactionRepository;
 
@@ -16,11 +17,18 @@ class TransactionsController extends Controller
     protected $transactionRepository;
 
     /**
-     * @param TransactionRepository $transactionRepository
+     * @var UserRepository
      */
-    public function __construct(TransactionRepository $transactionRepository)
+    protected $userRepository;
+
+    /**
+     * @param TransactionRepository $transactionRepository
+     * @param UserRepository $userRepository
+     */
+    public function __construct(TransactionRepository $transactionRepository, UserRepository $userRepository)
     {
         $this->transactionRepository = $transactionRepository;
+        $this->userRepository = $userRepository;
 
         $this->middleware('can:snackspaceTransaction.view.self')->only(['index']);
     }

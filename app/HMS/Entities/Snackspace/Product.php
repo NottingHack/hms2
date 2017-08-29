@@ -24,7 +24,7 @@ class Product
     protected $barcode;
 
     /**
-     * @var nul\|int
+     * @var null|int
      */
     protected $available;
 
@@ -89,7 +89,7 @@ class Product
     }
 
     /**
-     * @return nul\|int
+     * @return null|int
      */
     public function getAvailable()
     {
@@ -97,7 +97,7 @@ class Product
     }
 
     /**
-     * @param nul\|int $available
+     * @param null|int $available
      *
      * @return self
      */

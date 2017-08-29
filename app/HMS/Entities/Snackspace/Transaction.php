@@ -4,18 +4,16 @@ namespace HMS\Entities\Snackspace;
 
 use Carbon\Carbon;
 use HMS\Entities\User;
-use HMS\Entities\Snackspace\Product;
 
 class Transaction
 {
+    const TYPE_VEND = 'VEND';           // Transaction relates to either vending machine purchace, or a payment received by note acceptor
+    const TYPE_MANUAL = 'MANUAL';   // Transaction is a manually entered (via web interface) record of a payment or purchase
+    const TYPE_TOOL = 'TOOL';
+    const TYPE_MEMBERBOX = 'BOX';
 
-    const TYPE_VEND = "VEND";           // Transaction relates to either vending machine purchace, or a payment received by note acceptor
-    const TYPE_MANUAL = "MANUAL";   // Transaction is a manually entered (via web interface) record of a payment or purchase
-    const TYPE_TOOL = "TOOL";
-    const TYPE_MEMBERBOX = "BOX";
-
-    const STATE_COMPLETE = "COMPLETE";
-    const STATE_PENDING = "PENDING";
+    const STATE_COMPLETE = 'COMPLETE';
+    const STATE_PENDING = 'PENDING';
 
     /**
      * @var int
@@ -69,12 +67,13 @@ class Transaction
      * @param int    $amount
      * @param string $status
      */
-    function __construct(User $user, int $amount, string $status = Transaction::STATE_PENDING)
+    public function __construct(User $user, int $amount, string $status = self::STATE_PENDING)
     {
         $this->user = $user;
         $this->amount = $amount;
         $this->status = $status;
     }
+
     /**
      * Gets the value of id.
      *

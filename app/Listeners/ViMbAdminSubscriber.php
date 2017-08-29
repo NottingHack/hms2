@@ -10,7 +10,9 @@ use LWK\ViMbAdmin\Model\Domain;
 use LWK\ViMbAdmin\Model\Mailbox;
 use App\Events\Roles\RoleCreated;
 use LWK\ViMbAdmin\ViMbAdminClient;
+use HMS\Repositories\UserRepository;
 use App\Events\Roles\UserAddedToRole;
+use App\Events\Users\UserEmailChanged;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Events\Roles\UserRemovedFromRole;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -27,13 +29,20 @@ class ViMbAdminSubscriber implements ShouldQueue
     protected $client;
 
     /**
+     * @var UserRepository
+     */
+    protected $userRepository;
+
+    /**
      * Create the event listener.
      *
      * @param ViMbAdminClient $client
+     * @param UserRepository $userRepository
      */
-    public function __construct(ViMbAdminClient $client)
+    public function __construct(ViMbAdminClient $client, UserRepository $userRepository)
     {
         $this->client = $client;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -123,7 +132,7 @@ class ViMbAdminSubscriber implements ShouldQueue
      * @throws Exception
      * @return Alias
      */
-    public function getAliasForRole(Role $role, $skipException = flase)
+    public function getAliasForRole(Role $role, $skipException = false)
     {
         $aliasEmail = $role->getEmail();
         if ( ! filter_var($aliasEmail, FILTER_VALIDATE_EMAIL)) {
@@ -135,11 +144,39 @@ class ViMbAdminSubscriber implements ShouldQueue
 
         // now we have done our prep, time to grab the alias from the external API
         $alias = $this->client->findAliasesForDomain($domainName, $aliasEmail);
-        if ( ! $skipException && ! $alias instanceof Alias) {
+        if ( ! $skipException && $alias instanceof Error) {
             throw new Exception('Unable to get Alias for '.$aliasEmail);
         }
 
-        return $alias;
+        return $alias[0];
+    }
+
+    /**
+     * Update any email aliases when a user changes there email address.
+     *
+     * @param  UserEmailChanged $event
+     * @throws Exception
+     */
+    public function onUserEmailChanged(UserEmailChanged $event)
+    {
+        // get a fresh copy of the user as the roles object will not be hydrated
+        $user = $this->userRepository->find($event->user->getId());
+
+        $roles = $user->getRoles();
+
+        foreach ($roles as $role) {
+            if ($role->getEmail()) {
+                $alias = $this->getAliasForRole($role);
+                $alias->removeForwardAddress($event->oldEmail);
+                $alias->addForwardAddress($user->getEmail());
+
+                // save the updated alias back to the external API
+                $response = $this->client->updateAlias($alias);
+                if ( ! $response instanceof Link) {
+                    throw new Exception('Alias update failed with Error: '.$response);
+                }
+            }
+        }
     }
 
     /**
@@ -162,6 +199,11 @@ class ViMbAdminSubscriber implements ShouldQueue
         $events->listen(
             'App\Events\Roles\UserRemovedFromRole',
             'App\Listeners\ViMbAdminSubscriber@onUserRemovedFromRole'
+        );
+
+        $events->listen(
+            'App\Events\Users\UserEmailChanged',
+            'App\Listeners\ViMbAdminSubscriber@onUserEmailChanged'
         );
     }
 

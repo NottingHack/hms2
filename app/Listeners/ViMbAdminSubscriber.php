@@ -6,6 +6,7 @@ use Exception;
 use HMS\Entities\Role;
 use LWK\ViMbAdmin\Model\Link;
 use LWK\ViMbAdmin\Model\Alias;
+use LWK\ViMbAdmin\Model\Error;
 use LWK\ViMbAdmin\Model\Domain;
 use LWK\ViMbAdmin\Model\Mailbox;
 use App\Events\Roles\RoleCreated;

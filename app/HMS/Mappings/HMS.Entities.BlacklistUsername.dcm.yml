@@ -1,0 +1,10 @@
+# HMS.Entities.BlacklistUsername.dcm.yml
+HMS\Entities\BlacklistUsername:
+  type: entity
+  repositoryClass: HMS\Repositories\BlacklistUsernameRepository
+  table: blacklist_usernames
+  id:
+    username:
+      type: string
+      generator:
+        strategy: NONE

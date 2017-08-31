@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
         Commands\Permissions\AddCommand::class,
         Commands\Permissions\RemoveCommand::class,
         Commands\Permissions\StripCommand::class,
+        Commands\Permissions\SyncCommand::class,
         Commands\Invites\PurgeCommand::class,
         Commands\Permissions\DefaultsCommand::class,
         Commands\Make\MakeCommand::class,

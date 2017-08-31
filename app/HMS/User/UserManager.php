@@ -8,6 +8,7 @@ use HMS\Auth\PasswordStore;
 use Illuminate\Http\Request;
 use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
+use App\Events\Users\UserEmailChanged;
 
 class UserManager
 {
@@ -87,7 +88,9 @@ class UserManager
         }
 
         if ($request['email']) {
+            $oldEmail = $user->getEmail();
             $user->setEmail($request['email']);
+            event(new UserEmailChanged($user, $oldEmail));
         }
 
         $this->userRepository->save($user);

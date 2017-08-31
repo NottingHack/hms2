@@ -17,7 +17,7 @@ interface PermissionRepository
      * Finds a permission based on the permission name.
      *
      * @param  string $permissionName name of the permission we want
-     * @return permission|object
+     * @return null|Permission
      */
     public function findOneByName(string $permissionName);
 

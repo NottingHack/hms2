@@ -78,6 +78,7 @@ Route::group(['middleware' => 'auth'], function () {
     );
 
     // Rfid Tags
+    Route::get('users/{user}/rfid_tags', 'GateKeeper\RfidTagsController@index')->name('users.rfid_tags');
     Route::resource('rfid_tags', 'GateKeeper\RfidTagsController',
         [
             'except' => ['create', 'store', 'show'],

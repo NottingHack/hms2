@@ -28,6 +28,7 @@ $(".js-data-member-search-ajax").change(function(){
   var user = $(this).val();
   var action = $("#member-search").attr("action").replace("_ID_", user);
   $("#member-search").attr("action", action);
+  $("#member-search select[name=user]").attr("disabled", "disabled");
   $("#member-search").submit();
 });
 

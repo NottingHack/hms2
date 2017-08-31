@@ -41,12 +41,12 @@ class SyncCommand extends BaseCommand
     public function __construct(EntityManagerInterface $entityManager, RoleRepository $roleRepository, PermissionRepository $permissionRepository)
     {
         parent::__construct($entityManager, $roleRepository);
-
+        $this->permissionRepository = $permissionRepository;
+        
         $permissions = config('roles.permissions');
 
         foreach ($permissions as $permission) {
             $this->permissions[$permission] = '';
-            $this->permissionRepository = $permissionRepository;
         }
 
         $this->roles = config('roles.roles');
@@ -84,7 +84,7 @@ class SyncCommand extends BaseCommand
     }
 
     /**
-     * For existing role, strip and rebuild there permissions.
+     * For existing roles, strip and rebuild thier permissions.
      * Create any new roles.
      *
      * @return void

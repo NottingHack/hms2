@@ -106,6 +106,7 @@ return [
         'member.temporarybanned'    => [
             'name'          => 'Temporary Banned Member',
             'description'   => 'Temporary Banned Member',
+            'retained'      => true,
             'permissions'   => [
                 'profile.view.self',
                 'profile.edit.self',
@@ -115,6 +116,7 @@ return [
         'member.banned'    => [
             'name'          => 'Banned Member',
             'description'   => 'Banned Member',
+            'retained'      => true,
             'permissions'   => [
                 'profile.view.self',
                 'profile.edit.self',

@@ -81,31 +81,31 @@ class RfidTagsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  RfidTag  $rfid_tag
+     * @param  RfidTag  $rfidTag
      * @return \Illuminate\Http\Response
      */
-    public function edit(RfidTag $rfid_tag)
+    public function edit(RfidTag $rfidTag)
     {
-        if ($rfid_tag->getUser() != \Auth::user() && \Gate::denies('rfidTags.edit.all')) {
+        if ($rfidTag->getUser() != \Auth::user() && \Gate::denies('rfidTags.edit.all')) {
             flash('Unauthorized', 'error');
 
             return redirect()->route('home');
         }
 
         return view('gateKeeper.rfidTags.edit')
-            ->with('rfidTag', $rfid_tag);
+            ->with('rfidTag', $rfidTag);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  RfidTag  $rfid_tag
+     * @param  RfidTag  $rfidTag
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RfidTag $rfid_tag)
+    public function update(Request $request, RfidTag $rfidTag)
     {
-        if ($rfid_tag->getUser() != \Auth::user() && \Gate::denies('rfidTags.edit.all')) {
+        if ($rfidTag->getUser() != \Auth::user() && \Gate::denies('rfidTags.edit.all')) {
             flash('Unauthorized', 'error');
 
             return redirect()->route('home');
@@ -116,31 +116,31 @@ class RfidTagsController extends Controller
             'friendlyName' => 'nullable|string|max:128',
             'state' => [
                 'required',
-                Rule::in(array_keys($rfid_tag->statusStrings)),
+                Rule::in(array_keys($rfidTag->statusStrings)),
             ],
         ]);
 
         // save
-        $rfid_tag->setFriendlyName($request->friendlyName);
-        $rfid_tag->setState($request->state);
-        $this->rfidTagRepository->save($rfid_tag);
+        $rfidTag->setFriendlyName($request->friendlyName);
+        $rfidTag->setState($request->state);
+        $this->rfidTagRepository->save($rfidTag);
 
-        return redirect()->route('rfid_tags.index', ['user' => $rfid_tag->getUser()->getId()]);
+        return redirect()->route('rfid-tags.index', ['user' => $rfidTag->getUser()->getId()]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  RfidTag  $rfid_tag
+     * @param  RfidTag  $rfidTag
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RfidTag $rfid_tag)
+    public function destroy(RfidTag $rfidTag)
     {
-        $this->rfidTagRepository->remove($rfid_tag);
+        $this->rfidTagRepository->remove($rfidTag);
 
-        flash()->success('RfidTag \''.$rfid_tag->getBestRfidSerial().'\' removed.');
+        flash()->success('RfidTag \''.$rfidTag->getBestRfidSerial().'\' removed.');
 
-        return redirect()->route('rfid_tags.index', ['user' => $rfid_tag->getUser()->getId()]);
+        return redirect()->route('rfid-tags.index', ['user' => $rfidTag->getUser()->getId()]);
     }
 
     /**
@@ -154,7 +154,7 @@ class RfidTagsController extends Controller
         if ($pin->getState() != Pin::STATE_CANCELLED) {
             flash('Pin state can not be changed')->error();
 
-            return redirect()->route('rfid_tags.index', ['user' => $pin->getUser()->getId()]);
+            return redirect()->route('rfid-tags.index', ['user' => $pin->getUser()->getId()]);
         }
 
         $pin->setStateEnrol();
@@ -162,6 +162,6 @@ class RfidTagsController extends Controller
 
         flash()->success('Pin \''.$pin->getPin().'\' set to Enrol');
 
-        return redirect()->route('rfid_tags.index', ['user' => $pin->getUser()->getId()]);
+        return redirect()->route('rfid-tags.index', ['user' => $pin->getUser()->getId()]);
     }
 }

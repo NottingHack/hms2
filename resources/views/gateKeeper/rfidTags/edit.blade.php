@@ -5,7 +5,7 @@ Rfid card for {{ $rfidTag->getUser()->getFirstname() }}
 @endsection
 
 @section('content')
-<form role="form" method="POST" action="{{ route('rfid_tags.update', $rfidTag->getId()) }}">
+<form role="form" method="POST" action="{{ route('rfid-tags.update', $rfidTag->getId()) }}">
   {{ csrf_field() }}
   {{ method_field('PATCH') }}
   <div class="row">

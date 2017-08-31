@@ -66,12 +66,12 @@ Rfid cards for {{ $user->getFirstname() }}
             <td>
               <ul class="horizontal menu">
                 @can('rfidTags.edit.self')
-                <li> <a href="{{ route('rfid_tags.edit', $rfidTag->getId()) }}"><i class="fa fa-edit fa-lg" aria-hidden="true"></i> Edit</a></li>
+                <li> <a href="{{ route('rfid-tags.edit', $rfidTag->getId()) }}"><i class="fa fa-edit fa-lg" aria-hidden="true"></i> Edit</a></li>
                 @endcan
                 @can('rfidTags.destroy')
                 <li>
                   <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="alert">
-                    <form action="{{ route('rfid_tags.destroy', $rfidTag->getId()) }}" method="POST" style="display: none">
+                    <form action="{{ route('rfid-tags.destroy', $rfidTag->getId()) }}" method="POST" style="display: none">
                       {{ method_field('DELETE') }}
                       {{ csrf_field() }}
                     </form>

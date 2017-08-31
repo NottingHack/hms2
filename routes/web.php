@@ -78,10 +78,13 @@ Route::group(['middleware' => 'auth'], function () {
     );
 
     // Rfid Tags
-    Route::get('users/{user}/rfid_tags', 'GateKeeper\RfidTagsController@index')->name('users.rfid_tags');
-    Route::resource('rfid_tags', 'GateKeeper\RfidTagsController',
+    Route::get('users/{user}/rfid-tags', 'GateKeeper\RfidTagsController@index')->name('users.rfid-tags');
+    Route::resource('rfid-tags', 'GateKeeper\RfidTagsController',
         [
             'except' => ['create', 'store', 'show'],
+            'parameters' => [
+                'rfid-tags' => 'rfidTag'
+            ],
         ]
     );
     Route::patch('pins/{pin}/reavtivate', 'GateKeeper\RfidTagsController@reactivatePin')->name('pins.reactivate');

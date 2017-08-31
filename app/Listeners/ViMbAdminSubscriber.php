@@ -153,7 +153,7 @@ class ViMbAdminSubscriber implements ShouldQueue
     }
 
     /**
-     * Update any email aliases when a user changes there email address.
+     * Update any email aliases when a user changes thier email address.
      *
      * @param  UserEmailChanged $event
      * @throws Exception

@@ -101,6 +101,7 @@ Route::group(['middleware' => 'auth'], function () {
     );
 
     // Snackspace
+    Route::get('users/{user}/snackspace/transactions', 'Snackspace\TransactionsController@index')->name('users.snackspace.transactions');
     Route::resource('snackspace/transactions', 'Snackspace\TransactionsController',
         [
             'except' => ['show', 'store', 'create', 'edit', 'update', 'destroy'],

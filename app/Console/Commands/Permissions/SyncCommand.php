@@ -42,7 +42,7 @@ class SyncCommand extends BaseCommand
     {
         parent::__construct($entityManager, $roleRepository);
         $this->permissionRepository = $permissionRepository;
-        
+
         $permissions = config('roles.permissions');
 
         foreach ($permissions as $permission) {

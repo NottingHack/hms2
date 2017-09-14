@@ -9,6 +9,16 @@ use HMS\Repositories\Snackspace\ProductRepository;
 class DoctrineProductRepository extends EntityRepository implements ProductRepository
 {
     /**
+     * Finds all entities in the repository.
+     *
+     * @return Product[]
+     */
+    public function findAll()
+    {
+        return parent::findAll();
+    }
+
+    /**
      * save Product to the DB.
      * @param  Product $product
      */

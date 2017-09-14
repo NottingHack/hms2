@@ -8,7 +8,7 @@ $factory->defineAs(HMS\Entities\Snackspace\Transaction::class, 'vend', function 
 
     return [
         'user' => $attributes['user'],
-        'transactionDatetime' => Carbon::now(),
+        'transactionDatetime' => Carbon::instance($faker->dateTimeBetween($attributes['user']->getProfile()->getJoinDate())),
         'amount' => -$product->getPrice(),
         'type' => Transaction::TYPE_VEND,
         'status' => Transaction::STATE_COMPLETE,

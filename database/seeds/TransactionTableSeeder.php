@@ -67,7 +67,6 @@ class TransactionTableSeeder extends Seeder
             for ($i = 0; $i < $vends; $i++) {
                 $t = entity(Transaction::class, 'vend')->make(['user' => $user, 'products' => $this->products]);
                 $this->transactionRepository->saveAndUpdateBalance($t);
-                sleep(1);
             }
 
             if (rand(1, 5) == 2) {

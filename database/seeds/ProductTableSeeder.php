@@ -49,6 +49,5 @@ class ProductTableSeeder extends Seeder
 
             $this->productRepository->save($p);
         }
-
     }
 }

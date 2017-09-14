@@ -3,7 +3,6 @@
 namespace HMS\Repositories\Snackspace;
 
 use HMS\Entities\Snackspace\Product;
-use Doctrine\Common\Collections\Collection;
 
 interface ProductRepository
 {

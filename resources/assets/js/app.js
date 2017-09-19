@@ -10,6 +10,9 @@ $(() => {
   }
 });
 
+// negstive money to red
+$(".money:contains('-')").css("color", "red");
+
 $.ajaxSetup({
    headers: {
      'X-CSRF-Token': document.head.querySelector('meta[name="csrf-token"]').content,

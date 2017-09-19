@@ -61,6 +61,10 @@ HMS\Entities\Profile:
       type: date
       column: date_of_birth
       nullable: true
+    balance:
+      type: integer
+      options:
+        default: 0
     createdAt:
       type: datetime
       gedmo:

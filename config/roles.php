@@ -37,6 +37,8 @@ return [
         'project.edit.all',
         'project.printLabel.self',
         'project.printLabel.all',
+        'snackspaceTransaction.view.self',
+        'snackspaceTransaction.view.all',
     ],
 
     /*
@@ -78,6 +80,7 @@ return [
                 'project.view.self',
                 'project.edit.self',
                 'project.printLabel.self',
+                'snackspaceTransaction.view.self',
             ],
         ],
         'member.ex'         => [
@@ -87,6 +90,7 @@ return [
                 'profile.view.self',
                 'profile.edit.self',
                 'link.view',
+                'snackspaceTransaction.view.self',
             ],
         ],
         'member.current'    => [
@@ -101,6 +105,7 @@ return [
                 'project.view.self',
                 'project.edit.self',
                 'project.printLabel.self',
+                'snackspaceTransaction.view.self',
             ],
         ],
         'member.temporarybanned'    => [
@@ -111,6 +116,7 @@ return [
                 'profile.view.self',
                 'profile.edit.self',
                 'link.view',
+                'snackspaceTransaction.view.self',
             ],
         ],
         'member.banned'    => [
@@ -121,6 +127,7 @@ return [
                 'profile.view.self',
                 'profile.edit.self',
                 'link.view',
+                'snackspaceTransaction.view.self',
             ],
         ],
         'user.super'         => [
@@ -142,6 +149,7 @@ return [
                 'project.view.all',
                 'project.edit.all',
                 'project.printLabel.all',
+                'snackspaceTransaction.view.all',
             ],
         ],
         'team.trustees'    => [
@@ -159,6 +167,7 @@ return [
                 'project.view.all',
                 'project.edit.all',
                 'project.printLabel.all',
+                'snackspaceTransaction.view.all',
             ],
         ],
         'team.software'    => [

@@ -12,6 +12,6 @@ const { mix } = require('laravel-mix');
  */
 
 mix.js('resources/assets/js/app.js', 'public/js')
-    .extract(['lodash', 'jquery', 'axios', 'select2', 'foundation-sites', 'motion-ui'])
+    .extract(['lodash', 'jquery', 'axios', 'select2', 'bootstrap'])
     .sass('resources/assets/sass/app.scss', 'public/css')
     .version();

@@ -9,8 +9,10 @@ window._ = require('lodash');
 
 try {
     window.$ = window.jQuery = require('jquery');
-	require('foundation-sites');
-    require('motion-ui');
+
+    window.Popper = require('popper.js');
+
+    require('bootstrap');
 } catch (e) {}
 
 /**

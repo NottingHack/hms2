@@ -36,7 +36,7 @@ $(".js-data-member-search-ajax").change(function(){
 });
 
 $(".js-data-member-search-ajax").select2({
-  theme: "foundation",
+  // theme: "foundation",
   width: '100%',
   placeholder: "Search for a member...",
   ajax: {
@@ -74,7 +74,7 @@ $(".js-data-member-search-ajax").select2({
 });
 
 $(".js-data-existing-account-ajax").select2({
-  theme: "foundation",
+  // theme: "foundation",
   placeholder: "Search for a member...",
   ajax: {
     url: '/api/search/users',

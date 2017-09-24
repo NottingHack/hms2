@@ -53,28 +53,35 @@ $theme-colors: (
 //   }
 // }
 
-// ul.nomarkers {
-//     list-style-type: none;
-//     margin-left: 0;
-// }
+// A UL which has no markers
+ul.nomarkers {
+    list-style-type: none;
+    margin-left: 0;
+}
+
+footer {
+  @extend .container-fluid;
+  font-size: 0.8rem;
+}
 
 .footer {
-    background-color: $footer-background-colour;
-    color: $footer-text-colour;
-    padding-top: 1rem;
+  @extend .row;
+  background-color: $footer-background-colour;
+  color: $footer-text-colour;
+  padding-top: 1rem;
 
-    a {
-        color: $footer-link-colour;
-    }
+  a {
+    color: $footer-link-colour;
+  }
 }
 
 header {
   @extend .container-fluid;
-  padding: 0;
   box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.5);
 }
 
 .header {
+  @include make-row();
   background-color: $header-background-colour;
   color: $header-text-colour;
   padding-top: 1rem;
@@ -109,13 +116,13 @@ header {
   a {
     color: $header-text-colour;
   }
-  @include make-row();
 }
 
 .userbar {
   @extend .navbar;
   @extend .navbar-expand-lg;
   @extend .justify-content-between;
+  @extend .row;
   background-color: $userbar-background-colour;
   color: $userbar-text-colour;
 }

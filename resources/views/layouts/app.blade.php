@@ -130,7 +130,7 @@
   <footer>
     <div class="footer">
       <div class="col-sm-12 col-md-3">
-        <ul class="nomarkers">
+        <ul class="list-unstyled">
           <li>HMS Version 2.0.0</li>
           <li><a href="http://github.com/nottinghack/hms2">Get Source</a></li>
           <li><a href="#">Credits</a></li>
@@ -139,7 +139,7 @@
         </ul>
       </div>
       <div class="col-sm-12 col-md-3">
-        <ul class="nomarkers">
+        <ul class="list-unstyled">
           <li><a href="#"><i class="fa fa-fw fa-twitter"></i>&nbsp;Twitter</a></li>
           <li><a href="#"><i class="fa fa-fw fa-envelope"></i>&nbsp;Google Group</a></li>
           <li><a href="#"><i class="fa fa-fw fa-flickr"></i>&nbsp;Flickr</a></li>
@@ -148,7 +148,7 @@
         </ul>
       </div>
       <div class="col-sm-12 col-md-3">
-        <ul class="nomarkers">
+        <ul class="list-unstyled">
           <li>Nottingham Hackspace Ltd</li>
           <li>No. 07766826</li>
           <li>Reg. in England &amp; Wales</li>

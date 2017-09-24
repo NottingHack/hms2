@@ -35,8 +35,8 @@
 </head>
 <body class="with-footer">
   <header>
-    <div class="row expanded header">
-      <div class="columns shrink">
+    <div class="header">
+      <div class="col-sm-auto">
         <a href="/">
           <!-- Hackspace logo SVG -->
           <svg version="1.1" x="0px" y="0px" width="75" height="75" viewBox="0 0 220 220" enable-background="new 0 0 223.489 220.489" id="logo">
@@ -45,9 +45,9 @@
           </svg>
         </a>
       </div>
-      <div class="columns">
-        <div class="row expanded">
-          <div class="small-12 medium-expand columns">
+      <div class="col-sm container-fluid">
+        <div class="row">
+          <div class="col-sm-12 col-md-8">
             @hasSection('pageTitle')
               <h1 class="tiny-header"><a href="/">Nottingham Hackspace</a></h1>
               <h2 class="big-header">@yield('pageTitle')</h2>
@@ -56,7 +56,7 @@
             @endif
           </div>
           @can('search.users')
-            <div class="small-12 medium-4 columns">
+            <div class="col-sm-12 col-md-4">
                   @include('partials.memberSearch')
             </div>
           @endcan
@@ -64,66 +64,52 @@
       </div>
     </div>
 
-    <div class="row expanded align-middle userbar">
+    <nav class="userbar">
       @if (!Auth::guest() and isset($mainNav) )
-        {{-- build the menu toggle for small screens --}}
-        <div class="mobile-menu-button columns hide-for-medium">
-          <button data-toggle="mobile-menu" type="button"><i class="fa fa-bars" aria-hidden="true"></i> Menu</button>
-        </div>
-
-        {{-- build the meu for medium+ screens --}}
-        <div class="columns show-for-medium" id="main-menu">
-          <ul class="dropdown menu" data-dropdown-menu>
+        {{-- build the menu toggler --}}
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        {{-- build the menu --}}
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
             @foreach ($mainNav as $link)
-              <li{!! $link['active'] ? ' class="active"' : '' !!}><a href="{{ $link['url'] }}">{{ $link['text'] }}</a>
-                @if ( count($link['links']) > 0 )
-                  <ul class="menu submenu">
+              @if (count($link['links']) > 0)
+                <li class="nav-item {!! $link['active'] ? 'active' : '' !!} dropdown">
+                  <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopups="true" aria-expanded="false" href="{{ $link['url'] }}">{{ $link['text'] }}</a>
+                  <div class="dropdown-menu">
                     @foreach ($link['links'] as $subLink)
-                      <li{!! $subLink['active'] ? ' class="active"' : '' !!}><a href="{{ $subLink['url'] }}">{{ $subLink['text'] }}</a></li>
+                      <a class="dropdown-item" href="{{ $subLink['url'] }}">{{ $subLink['text'] }}</a>
                     @endforeach
-                  </ul>
-                @endif
-              </li>
+                  </div>
+                </li>
+              @else
+                <li class="nav-item {!! $link['active'] ? 'active' : '' !!}">
+                  <a class="nav-link" href="{{ $link['url'] }}">{{ $link['text'] }}</a>
+                </li>
+              @endif
             @endforeach
+          </ul>
+          <ul class="navbar-nav ml-auto">
+            <li class="navbar-text ml-auto">Logged in as {{ Auth::user()->getFirstName() }} @if (Auth::viaRemember()) (via Remember Me) @endif</li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
+              <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                {{ csrf_field() }}
+              </form>
+            </li>
           </ul>
         </div>
+      @elseif (Auth::guest())
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Log In</a></li>
+          @if (SiteVisitor::inTheSpace())
+          <li class="nav-item"><a class="nav-link" href="{{ route('registerInterest') }}">Register Interest</a></li>
+          @endif
+        </ul>
       @endif
-
-      <ul class="columns menu align-right">
-        @if (Auth::guest())
-        <li><a href="{{ url('/login') }}">Log In</a></li>
-        @if (SiteVisitor::inTheSpace())
-        <li><a href="{{ route('registerInterest') }}">Register Interest</a></li>
-        @endif
-        @else
-        <li>Logged in as {{ Auth::user()->getFirstName() }} @if (Auth::viaRemember()) (via Remember Me) @endif</li>
-        <li>
-          <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
-          <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-            {{ csrf_field() }}
-          </form>
-        </li>
-        @endif
-      </ul>
-    </div>
+    </nav>
   </header>
-
-{{-- build the menu for small screens --}}
-<div id="mobile-menu" data-toggler="show-mobile-menu">
-  <ul class="vertical menu" data-accordion-menu>
-    @foreach ($mainNav as $link)
-      <li{!! $link['active'] ? ' class="active"' : '' !!}><a href="{{ $link['url'] }}">{{ $link['text'] }}</a>
-        @if ( count($link['links']) > 0 )
-          <ul class="vertical nested menu">
-            @foreach ($link['links'] as $subLink)
-              <li{!! $subLink['active'] ? ' class="active"' : '' !!}><a href="{{ $subLink['url'] }}">{{ $subLink['text'] }}</a></li>
-            @endforeach
-          </ul>
-        @endif
-      </li>
-    @endforeach
-  </ul>
-</div>
 
 <!-- main body -->
 <div class="content">

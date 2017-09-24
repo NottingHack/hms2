@@ -35,8 +35,8 @@
 </head>
 <body class="with-footer">
   <header>
-    <div class="header">
-      <div class="column shrink">
+    <div class="row expanded header">
+      <div class="columns shrink">
         <a href="/">
           <!-- Hackspace logo SVG -->
           <svg version="1.1" x="0px" y="0px" width="75" height="75" viewBox="0 0 220 220" enable-background="new 0 0 223.489 220.489" id="logo">
@@ -45,9 +45,9 @@
           </svg>
         </a>
       </div>
-      <div class="column">
+      <div class="columns">
         <div class="row expanded">
-          <div class="small-12 medium-expand column">
+          <div class="small-12 medium-expand columns">
             @hasSection('pageTitle')
               <h1 class="tiny-header"><a href="/">Nottingham Hackspace</a></h1>
               <h2 class="big-header">@yield('pageTitle')</h2>
@@ -56,7 +56,7 @@
             @endif
           </div>
           @can('search.users')
-            <div class="small-12 medium-4 column">
+            <div class="small-12 medium-4 columns">
                   @include('partials.memberSearch')
             </div>
           @endcan
@@ -67,12 +67,12 @@
     <div class="row expanded align-middle userbar">
       @if (!Auth::guest() and isset($mainNav) )
         {{-- build the menu toggle for small screens --}}
-        <div class="mobile-menu-button column hide-for-medium">
+        <div class="mobile-menu-button columns hide-for-medium">
           <button data-toggle="mobile-menu" type="button"><i class="fa fa-bars" aria-hidden="true"></i> Menu</button>
         </div>
 
         {{-- build the meu for medium+ screens --}}
-        <div class="column show-for-medium" id="main-menu">
+        <div class="columns show-for-medium" id="main-menu">
           <ul class="dropdown menu" data-dropdown-menu>
             @foreach ($mainNav as $link)
               <li{!! $link['active'] ? ' class="active"' : '' !!}><a href="{{ $link['url'] }}">{{ $link['text'] }}</a>
@@ -89,7 +89,7 @@
         </div>
       @endif
 
-      <ul class="column menu align-right">
+      <ul class="columns menu align-right">
         @if (Auth::guest())
         <li><a href="{{ url('/login') }}">Log In</a></li>
         @if (SiteVisitor::inTheSpace())
@@ -132,7 +132,7 @@
 
 
   <div class="row align-top">
-    <div class="small-12 medium-expand column">
+    <div class="small-12 medium-expand columns">
       @yield('content')
     </div>
 
@@ -145,7 +145,7 @@
   <!-- footer -->
   <footer>
     <div class="row expanded footer">
-      <div class="column small-12 medium-3">
+      <div class="columns small-12 medium-3">
         <ul class="nomarkers">
           <li>HMS Version 2.0.0</li>
           <li><a href="http://github.com/nottinghack/hms2">Get Source</a></li>
@@ -154,7 +154,7 @@
           <li class="copyright">&copy; 2016 Nottinghack</li>
         </ul>
       </div>
-      <div class="column small-12 medium-3">
+      <div class="columns small-12 medium-3">
         <ul class="nomarkers">
           <li><a href="#"><i class="fa fa-fw fa-twitter"></i>&nbsp;Twitter</a></li>
           <li><a href="#"><i class="fa fa-fw fa-envelope"></i>&nbsp;Google Group</a></li>
@@ -163,14 +163,14 @@
           <li><a href="#"><i class="fa fa-fw fa-facebook"></i>&nbsp;Facebook</a></li>
         </ul>
       </div>
-      <div class="column small-12 medium-3">
+      <div class="columns small-12 medium-3">
         <ul class="nomarkers">
           <li>Nottingham Hackspace Ltd</li>
           <li>No. 07766826</li>
           <li>Reg. in England &amp; Wales</li>
         </ul>
       </div>
-      <div class="column small-12 medium-3">
+      <div class="columns small-12 medium-3">
         <address>
           Unit F6 BizSpace<br />
           Roden House<br />

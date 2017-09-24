@@ -9,6 +9,8 @@
 @import '~select2-foundation/dist/select2-foundation-theme';
 
 @include foundation-everything($flex: true);
+@include foundation-flex-classes;
+@include foundation-flex-grid;
 
 button {
   font-family: inherit;
@@ -65,6 +67,7 @@ header {
 }
 
 .header {
+    @include flex-grid-row($size: "expand");
     background-color: $header-background-colour;
     color: $header-text-colour;
     padding-top: rem-calc(20);
@@ -166,13 +169,13 @@ header {
 }
 
 .form-label {
-  @extend .columns;
+  @extend .column;
   @extend .small-12;
   @extend .medium-3;
 }
 
 .form-control {
-  @extend .columns;
+  @extend .column;
   @extend .small-12;
   @extend .medium-9;
 }
@@ -200,7 +203,7 @@ header {
 }
 
 .form-buttons {
-  @extend .columns;
+  @extend .column;
   @extend .small-12;
   @extend .medium-9;
   @extend .medium-offset-3;
@@ -238,7 +241,7 @@ header {
 // ---------------------
 
 .cookie-consent {
-  @extend .columns;
+  @extend .column;
 }
 
 .cookie-consent__container {

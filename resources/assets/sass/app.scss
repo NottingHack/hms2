@@ -32,11 +32,12 @@ $theme-colors: (
   align-items: stretch !important;
 }
 
-// .content {
-//     flex: 1;
-//     margin-top: 2rem;
-//     padding-bottom: rem-calc(20);
-// }
+.content {
+  @extend .container-fluid;
+  flex: 1;
+  margin-top: 2rem;
+  padding-bottom: 1rem;
+}
 
 // @include breakpoint(small only) {
 //   .content {
@@ -60,7 +61,7 @@ $theme-colors: (
 .footer {
     background-color: $footer-background-colour;
     color: $footer-text-colour;
-    padding-top: rem-calc(20);
+    padding-top: 1rem;
 
     a {
         color: $footer-link-colour;
@@ -76,8 +77,8 @@ header {
 .header {
   background-color: $header-background-colour;
   color: $header-text-colour;
-  padding-top: rem-calc(20);
-  padding-bottom: rem-calc(20);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 
   h1 {
     margin: 0;
@@ -117,6 +118,49 @@ header {
   @extend .justify-content-between;
   background-color: $userbar-background-colour;
   color: $userbar-text-colour;
+}
+
+// CARDS
+// -----
+
+// a custom card body which is designed to have an icon on the left in its own column
+// sized to match an h3 card title at the top of the rest of the card
+// .icon-card-body
+//   .icon-card-icon
+//     i.fa-icon
+//   .icon-card-content
+//     h3.card-title
+//     content elements
+.icon-card-body {
+  @extend .card-body;
+  @extend .d-flex;
+
+  .icon-card-icon {
+    @extend .h3;
+  }
+
+  .icon-card-content {
+    @extend .ml-3;
+
+    h3 {
+      @extend .card-title;
+    }
+  }
+}
+
+// TABLES
+// -------------
+
+// a table which doesn't have 100% width;
+.table-noexpand {
+  @extend .table;
+  width: auto;
+}
+
+// DEFINITION LISTS
+// ----------------
+dl > dt {
+  @extend .h5;
 }
 
 // // Foundation docs say it provides this class, but it doesn't seem to work
@@ -322,11 +366,9 @@ header {
 //   }
 // }
 
-// /*
-//  * Definition Lists
-//  */
-
-// // slightly modify the spacing on the Foundation default definition lists, so that there's more space on top of a <dt>
+/*
+ * Definition Lists
+ */
 // dt {
 //  margin-top: 0.6rem;
 // }

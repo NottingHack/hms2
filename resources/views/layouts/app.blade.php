@@ -115,16 +115,14 @@
 <div class="content">
 
   @include('partials.flash')
-
-
-  <div class="row align-top">
-    <div class="small-12 medium-expand columns">
+  <div class="row">
+    <div class="col-sm-12">
       @yield('content')
     </div>
+  </div>
 
-    <div class="row">
-      @include('cookieConsent::index')
-    </div>
+  <div class="row">
+    @include('cookieConsent::index')
   </div>
 </div>
 

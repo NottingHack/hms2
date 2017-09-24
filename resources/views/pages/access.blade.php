@@ -4,12 +4,11 @@
 
 @section('content')
 
-<div class="row">
-    <div class="card small-12 medium-6 columns">
-        <div class="card-section">
-            <h4>
-                <i class="fa fa-key" aria-hidden="true"></i> Door Codes
-            </h4>
+<div class="card my-3">
+    <div class="icon-card-body">
+        <div class="icon-card-icon"><i class="fa fa-key" aria-hidden="true"></i></div>
+        <div class="icon-card-content">
+            <h3>Door Codes</h3>
             <dl>
                 <dt>Street Door</dt>
                 <dd>{{ $outerDoorCode }}</dd>
@@ -18,12 +17,15 @@
             </dl>
         </div>
     </div>
+</div>
 
-    <div class="card small-12 medium-6 columns">
-        <div class="card-section">
-            <h4>
-                <i class="fa fa-wifi" aria-hidden="true"></i> Members&apos; WiFi
-            </h4>
+<div class="card my-3">
+    <div class="icon-card-body">
+        <div class="icon-card-icon">
+            <i class="fa fa-wifi" aria-hidden="true"></i>
+        </div>
+        <div class="icon-card-content">
+            <h3>Member&apos;s WiFi</h3>
             <dl>
                 <dt>SSID</dt>
                 <dd>{{ $wifiSsid }}</dd>
@@ -32,12 +34,14 @@
             </dl>
         </div>
     </div>
-
-    <div class="card small-12 medium-6 columns">
-        <div class="card-section">
-            <h4>
-                <i class="fa fa-wifi" aria-hidden="true"></i> Guest WiFi
-            </h4>
+</div>
+<div class="card my-3">
+    <div class="icon-card-body">
+        <div class="icon-card-icon">
+            <i class="fa fa-wifi" aria-hidden="true"></i>
+        </div>
+        <div class="icon-card-content">
+            <h3>Guest WiFi</h3>
             <dl>
                 <dt>SSID</dt>
                 <dd>{{ $guestWifiSsid }}</dd>
@@ -47,5 +51,4 @@
         </div>
     </div>
 </div>
-
 @endsection

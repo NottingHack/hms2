@@ -66,12 +66,12 @@
 
     <nav class="userbar">
       @if (!Auth::guest() and isset($mainNav) )
-        {{-- build the menu toggler --}}
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+        {{-- build the nav toggler --}}
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fa fa-bars"></i>&nbsp;Menu
         </button>
-        {{-- build the menu --}}
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        {{-- build the nav --}}
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav">
             @foreach ($mainNav as $link)
               @if (count($link['links']) > 0)

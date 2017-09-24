@@ -120,7 +120,7 @@ header {
 
 .userbar {
   @extend .navbar;
-  @extend .navbar-expand-lg;
+  @extend .navbar-expand-md;
   @extend .justify-content-between;
   @extend .row;
   background-color: $userbar-background-colour;

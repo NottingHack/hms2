@@ -8,7 +8,7 @@ Snackspace account for {{ $user->getFirstname() }}
 <div>
   <dl>
     <dt>Balance</dt>
-    <dd class="money">@format_pennies($user->getProfile()->getBalance())</dd>
+    <dd class="money">@format_pennies($user->getProfile() ? $user->getProfile()->getBalance() : 0)</dd>
   </dl>
 </div>
 

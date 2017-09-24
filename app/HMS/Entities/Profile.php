@@ -58,6 +58,7 @@ class Profile
 
         // setup defaults.
         $this->creditLimit = 0;
+        $this->balance = 0;
     }
 
     /**

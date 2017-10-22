@@ -27,9 +27,13 @@ $(".js-data-member-search-ajax").change(function(){
   $("#member-search").submit();
 });
 
+$(".js-permission-select").select2({
+	width: 'element'
+});
+
 $(".js-data-member-search-ajax").select2({
   // theme: "foundation",
-  width: '100%',
+  width: 'element',
   placeholder: "Search for a member...",
   ajax: {
     url: '/api/search/users',

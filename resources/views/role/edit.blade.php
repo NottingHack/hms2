@@ -3,7 +3,15 @@
 @section('pageTitle', 'Edit Role')
 
 @section('content')
+
+<div class="container">
+
 <h1>{{ $role->getName() }}</h1>
+
+</div>
+
+
+<div class="container">
 
 <form role="form" method="POST" action="{{ route('roles.update', $role->getId()) }}">
     {{ csrf_field() }}
@@ -75,25 +83,30 @@
             @endif
         </div>
     </div>
-
-<h2>Permissions</h2>
-
+	
+	</div>
+	
+	<div class="container">
+	
+	<h2>Permissions</h2>
+	<hr>
+	<div class="container">
+<select class="js-permission-select custom-select" style="width: 100%" name="permissions[]" multiple="multiple">
 @foreach ($allPermissions as $category => $permissions)
-
-<div class="form-group">
-    <h3>{{ $category }}</h3>
-
-@foreach ($permissions as $permission)
-
-    <div class="form-tickbox-row">
-        <input id="permissions-{{ $permission->getName() }}" type="checkbox" name="permissions[{{ $permission->getName() }}]" {{ $role->getPermissions()->contains($permission) ? 'checked="checked"' : '' }} autofocus>
-        <label for="permissions-{{ $permission->getName() }}">{{ $permission->getName() }}</label>
-    </div>
-
+	<optgroup label="{{ $category }}">
+	@foreach ($permissions as $permission)
+		<option value="{{ $permission->getName() }}" {{ $role->getPermissions()->contains($permission) ? 'selected="selected"' : '' }}>{{ $permission->getName() }}</option>
+	@endforeach
+	</optgroup>
 @endforeach
+</select>
+
 </div>
 
-@endforeach
+</div>
+
+	
+
     <div class="row">
         <div class="form-control">
             <input type="submit" class="button" name="save" value="Save">

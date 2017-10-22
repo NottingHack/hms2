@@ -4,7 +4,11 @@
 
 @section('content')
 
-<div class="card my-3">
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <div class="card my-3">
     <div class="icon-card-body">
         <div class="icon-card-icon"><i class="fa fa-key" aria-hidden="true"></i></div>
         <div class="icon-card-content">
@@ -18,8 +22,9 @@
         </div>
     </div>
 </div>
-
-<div class="card my-3">
+    </div>
+    <div class="col-sm">
+     <div class="card my-3">
     <div class="icon-card-body">
         <div class="icon-card-icon">
             <i class="fa fa-wifi" aria-hidden="true"></i>
@@ -35,7 +40,9 @@
         </div>
     </div>
 </div>
-<div class="card my-3">
+    </div>
+    <div class="col-sm">
+      <div class="card my-3">
     <div class="icon-card-body">
         <div class="icon-card-icon">
             <i class="fa fa-wifi" aria-hidden="true"></i>
@@ -51,4 +58,12 @@
         </div>
     </div>
 </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
 @endsection

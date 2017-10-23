@@ -12,46 +12,74 @@
 		<div class="container">
 			<h1 class="display-4">Welcome, {{ Auth::user()->getFirstName() }}</h1>
 	<hr>
-        <!-- Example row of columns -->
-        <div class="row">
-          <div class="col-sm">
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
-          </div>
-          <div class="col-sm">
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
-          </div>
-          <div class="col-sm">
-            <h2>Heading</h2>
-            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
-          </div>
-        </div>
-
-      </div>
-            <div class="panel panel-default">
-
-                <div class="panel-body">
-                    You are logged in!
-                </div>
-
-                @can('profile.view.self')
-                <div class="panel-body">
-                    You have the 'profile.view.self' permission.
-                </div>
-                @endcan
-
-                @can('profile.view.all')
-                <div class="panel-body">
-                    You have the 'profile.view.all' permission.
-                </div>
-                @endcan
-
-            </div>
         </div>
     </div>
 </div>
+            
+<div class="container">
+  <div class="row">
+      
+      <div class="card-deck">
+      
+        <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                <div class="card-header icon-card-body">
+        <div class="icon-card-icon"><i class="fa fa-key" aria-hidden="true"></i></div>
+        <div class="icon-card-content">
+            <h3>Hackspace is</h3>
+        </div>
+          </div>
+            <div class="card-body">
+            <h1 class="card-text text-center">Open</h1>
+            </div>
+            <div class="card-footer"></div>
+        </div>
+      
+      
+        <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                <div class="card-header icon-card-body">
+        <div class="icon-card-icon"><i class="fa fa-newspaper-o" aria-hidden="true"></i></div>
+        <div class="icon-card-content">
+            <h3>Notice</h3>
+        </div>
+          </div>
+            <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+            <div class="card-footer"></div>
+        </div>
+      
+          
+      
+
+        <div class="card text-white bg-info mb-3" style="max-width: 20rem;">
+                <div class="card-header icon-card-body">
+        <div class="icon-card-icon"><i class="fa fa-money" aria-hidden="true"></i></div>
+        <div class="icon-card-content">
+            <h3>Balance</h3>
+        </div>
+          </div>
+            <div class="card-body">
+            <h1 class="card-text text-center">£0.00</h1>
+            </div>
+            <div class="card-footer"></div>
+        </div>
+
+
+        <div class="card text-white bg-secondary mb-3" style="max-width: 20rem;">
+                <div class="card-header icon-card-body">
+        <div class="icon-card-icon"><i class="fa fa-wrench" aria-hidden="true"></i></div>
+        <div class="icon-card-content">
+            <h3>Active Projects</h3>
+        </div>
+          </div>
+            <div class="card-body">
+            <h1 class="card-text text-center">0</h1>
+            </div>
+            <div class="card-footer"></div>
+        </div>
+    </div>
+      
+      
+    </div>
+  </div>
 @endsection

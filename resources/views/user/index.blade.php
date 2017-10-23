@@ -35,9 +35,7 @@
 </table>
     </div>
 <div class="container">
-<div class="pagination text-center">
     {{ $users->links() }}
-</div>
 </div>
 
 @endsection

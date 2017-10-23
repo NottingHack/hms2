@@ -57,7 +57,7 @@
           </div>
             <br>
           @can('search.users')
-            <div class="justify-content-end col-lg-3 col-md-auto col-sm-auto">
+            <div class="col-lg-4 col-md-10 col-sm-10">
                   @include('partials.memberSearch')
             </div>
           @endcan

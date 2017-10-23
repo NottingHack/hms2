@@ -3,14 +3,13 @@
 @section('pageTitle', 'Print Label')
 
 @section('content')
-<h1>{{ $templateName}}</h1>
-<!-- TODO: shade this area -->
-<div>
-    <pre>{{ $template }}</pre>
-    <p/>
-</div>
-
-<div>
+<div class="container">
+<div class="card">
+  <h4 class="card-header"> {{ $templateName}} </h4>
+  <div class="card-body">
+    <pre class="card-text">{{ $template}}</pre>
+    </div>
+    <div class="card-footer">
     <form role="form" method="POST" action="{{ route('labels.print', $templateName) }}">
         {{ csrf_field() }}
         @if ( ! empty($fields))
@@ -32,22 +31,20 @@
 
         @if (SiteVisitor::inTheSpace())
         <p>How many copies would you like.</p>
-        <div class="row">
+        <hr>
+        <div class="form-group">
           <label for="copiesToPrint" class="form-label">Copies</label>
-          <div class="form-control">
-            <input id="copiesToPrint" type="text" name="copiesToPrint" value="{{ old('copiesToPrint', '1') }}" required autofocus>
+            <input class="form-control" style="width: 5%" id="copiesToPrint" type="text" name="copiesToPrint" value="{{ old('copiesToPrint', '1') }}" required autofocus>
             @if ($errors->has('copiesToPrint'))
             <p class="help-text">
               <strong>{{ $errors->first('copiesToPrint') }}</strong>
             </p>
             @endif
           </div>
-        </div>
-        <div class="row">
-          <div class="form-buttons">
-            <button type="submit" class="button">Print</button>
+        <hr>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Print</button>
           </div>
-        </div>
         @else
         <div class="row">
             <p>Labels can only be printed from within the space.</p>
@@ -55,4 +52,7 @@
         @endif
     </form>
 </div>
+    </div>
+</div>
+
 @endsection

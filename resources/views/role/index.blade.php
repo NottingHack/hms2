@@ -3,9 +3,10 @@
 @section('pageTitle', 'Roles')
 
 @section('content')
-
+    <div class="container">
 @foreach ($roles as $category => $categoryRoles)
-    <h2>{{ $category }}</h2>
+
+    <h2 style="text-transform: capitalize">{{ $category }}</h2>
 	<hr>
     <table class="table table-bordered table-hover table-responsive">
         <thead>
@@ -30,5 +31,5 @@
         </tbody>
     </table>
 @endforeach
-
+</div>
 @endsection

@@ -3,7 +3,8 @@
 @section('pageTitle', $project->getProjectName())
 
 @section('content')
-<table>
+<div class="container">
+<table class="table table-bordered">
   <tbody>
     <tr>
       <th>Name</th>
@@ -29,20 +30,31 @@
     </tr>
   </tbody>
 </table>
-
+    
+    
+<div class="card border-light">
+    
 @if ( ($project->getUser() == \Auth::user() && \Auth::user()->can('project.edit.self')) || ($project->getUser() != \Auth::user() && \Auth::user()->can('project.edit.all')) )
-<a href="{{ route('projects.edit', $project->getId()) }}" class="button"><i class="fa fa-edit fg-la" aria-hidden="true"></i> Edit Project</a>
+<a href="{{ route('projects.edit', $project->getId()) }}" class="btn btn-sm btn-primary btn-sm-spacing"><i class="fa fa-edit fg-la" aria-hidden="true"></i> Edit Project</a>
 @endif
+    
+</div>
+    
+<div class="card border-light">
 
 @if ( ($project->getUser() == \Auth::user() && \Auth::user()->can('project.printLabel.self')) || ($project->getUser() != \Auth::user() && \Auth::user()->can('project.printLabel.all')) )
   @if (SiteVisitor::inTheSpace() && $project->getState() == \HMS\Entities\Members\Project::PROJCET_ACTIVE)
-  <a href="{{ route('projects.print', $project->getId()) }}" class="button"><i class="fa fa-print fa-lg" aria-hidden="true"></i> Print Do-Not-Hack Label</a>
+  <a href="{{ route('projects.print', $project->getId()) }}" class="btn btn-sm btn-primary btn-sm-spacing"><i class="fa fa-print fa-lg" aria-hidden="true"></i> Print Do-Not-Hack Label</a>
   @endif
 @endcan
-
+    
+    </div>
+    
+<div class="card border-light">
+    
 @if ($project->getState() == \HMS\Entities\Members\Project::PROJCET_ACTIVE)
   @if ($project->getUser() == \Auth::user() && \Auth::user()->can('project.edit.self'))
-  <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="button">
+  <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-sm btn-primary btn-sm-spacing">
     <form action="{{ route('projects.markComplete', $project->getId()) }}" method="POST" style="display: none">
       {{ method_field('PATCH') }}
       {{ csrf_field() }}
@@ -50,7 +62,7 @@
     <i class="fa fa-check fa-lg" aria-hidden="true"></i> Mark Complete
   </a>
   @elseif (\Auth::user()->can('project.edit.all'))
-  <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="button alert">
+  <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-sm btn-primary btn-sm-spacing">
     <form action="{{ route('projects.markAbandoned', $project->getId()) }}" method="POST" style="display: none">
       {{ method_field('PATCH') }}
       {{ csrf_field() }}
@@ -59,10 +71,11 @@
   </a>
   @endif
 @endif
-
+    </div>
+<div class="card border-light">
 @if ( ($project->getUser() == \Auth::user() && \Auth::user()->can('project.printLabel.self')) || ($project->getUser() != \Auth::user() && \Auth::user()->can('project.printLabel.all')) )
   @if ($project->getState() != \HMS\Entities\Members\Project::PROJCET_ACTIVE)
-  <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="button">
+  <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-sm btn-primary btn-sm-spacing">
     <form action="{{ route('projects.markActive', $project->getId()) }}" method="POST" style="display: none">
       {{ method_field('PATCH') }}
       {{ csrf_field() }}
@@ -71,4 +84,6 @@
   </a>
   @endif
 @endif
+    </div>
+    </div>
 @endsection

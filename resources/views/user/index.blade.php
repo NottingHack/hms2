@@ -9,7 +9,8 @@
 @endsection
 
 @section('content')
-<table>
+<div class="container">
+<table class="table table-bordered table-hover table-responsive">
     <thead>
         <tr>
             <th>Username</th>
@@ -25,14 +26,18 @@
             <td>{{ $user->getFullName() }}</td>
             <td>{{ $user->getEmail() }}</td>
             <td>
-              <a href="{{ route('users.show', $user->getId()) }}">View</a> 
-              - <a href="{{ route('users.edit', $user->getId()) }}">Edit</a> 
+              <a class="btn btn-primary btn-sm btn-sm-spacing" href="{{ route('users.show', $user->getId()) }}">View</a> 
+              - <a class="btn btn-primary btn-sm btn-sm-spacing" href="{{ route('users.edit', $user->getId()) }}">Edit</a> 
             </td>
         </tr>
     @endforeach
     </tbody>
 </table>
-<div classs="pagination-links">
+    </div>
+<div class="container">
+<div class="pagination text-center">
     {{ $users->links() }}
 </div>
+</div>
+
 @endsection

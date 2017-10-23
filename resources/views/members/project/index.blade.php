@@ -6,11 +6,15 @@ Projects for {{ $user->getFirstname() }}
 
 @section('content')
 @can('project.create.self')
-<div>
-  <a href="{{ route('projects.create') }}" class="button"><i class="fa fa-plus" aria-hidden="true"></i> Add new project</a>
+<div class="container">
+    <div class="card">
+  <a href="{{ route('projects.create') }}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Add new project</a>
+</div>
 </div>
 @endcan
 
+<br>
+<div class="container">
 <table class="table table-bordered table-hover table-responsive">
   <thead>
     <tr>
@@ -26,7 +30,7 @@ Projects for {{ $user->getFirstname() }}
   @foreach ($projects as $project)
     <tr>
       <td>{{ $project->getProjectName() }}</td>
-      <td>{{ $project->getDescription() }}</td>
+      <td style="width:40%">{{ $project->getDescription() }}</td>
       <td>{{ $project->getStartDate()->toDateString() }}</td>
       <td>{{ $project->getCompleteDate() ? $project->getCompleteDate()->toDateString() : '' }}</td>
       <td>{{ $project->getStateString() }}</td>
@@ -74,4 +78,5 @@ Projects for {{ $user->getFirstname() }}
   @endforeach
 </tbody>
 </table>
+    </div>
 @endsection

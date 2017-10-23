@@ -15,17 +15,15 @@
         @if ( ! empty($fields))
         <p>This template requires the following information to print.</p>
         @foreach ($fields as $field)
-        <div class="row">
+        <div class="form-group">
           <label for="{{ $field }}" class="form-label">{{ $field }}</label>
-          <div class="form-control">
-            <input id="{{ $field }}" type="text" name="{{ $field }}" value="{{ old($field, '') }}" required autofocus>
+            <input class="form-control" id="{{ $field }}" type="text" name="{{ $field }}" value="{{ old($field, '') }}" required autofocus>
             @if ($errors->has($field))
             <p class="help-text">
               <strong>{{ $errors->first($field) }}</strong>
             </p>
             @endif
           </div>
-        </div>
         @endforeach
         @endif
 
@@ -42,7 +40,7 @@
             @endif
           </div>
         <hr>
-        <div class="form-group">
+        <div class="card">
             <button type="submit" class="btn btn-success">Print</button>
           </div>
         @else

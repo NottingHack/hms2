@@ -3,7 +3,8 @@
 @section('pageTitle', 'Meta Values')
 
 @section('content')
-<table>
+<div class="container">
+<table class="table table-bordered table-hover table-responsives">
     <thead>
         <tr>
             <th>Key</th>
@@ -18,14 +19,15 @@
             <td>{{ $meta->getValue() }}</td>
             <td>
             @can('meta.edit')
-                <a href="{{ route('metas.edit', $meta->getKey()) }}">Edit</a>
+                <a class="btn btn-primary btn-sm" href="{{ route('metas.edit', $meta->getKey()) }}">Edit</a>
             @endcan
             </td>
         </tr>
     @endforeach
     </tbody>
 </table>
-<div classs="pagination-links">
+<div classs="pagination">
     {{ $metas->links() }}
 </div>
+    </div>
 @endsection

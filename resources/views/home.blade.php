@@ -10,7 +10,7 @@
     <div class="row">
 
 		<div class="container">
-			<h1 class="display-4">Welcome, [Name]</h1>
+			<h1 class="display-4">Welcome, {{ Auth::user()->getFirstName() }}</h1>
 	<hr>
         <!-- Example row of columns -->
         <div class="row">

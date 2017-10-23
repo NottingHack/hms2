@@ -47,7 +47,7 @@
       </div>
       <div class="col-sm container-fluid">
         <div class="row">
-          <div class="col-sm-12 col-md-8">
+          <div class="col-sm-12 col-md-8 header-center">
             @hasSection('pageTitle')
               <h1 class="tiny-header"><a href="/">Nottingham Hackspace</a></h1>
               <h2 class="big-header">@yield('pageTitle')</h2>
@@ -55,8 +55,9 @@
               <h1><a href="/">Nottingham Hackspace</a></h1>
             @endif
           </div>
+            <br>
           @can('search.users')
-            <div class="col-sm-12 col-md-4">
+            <div class="justify-content-end col-lg-3 col-md-auto col-sm-auto">
                   @include('partials.memberSearch')
             </div>
           @endcan
@@ -109,7 +110,16 @@
         </ul>
       @endif
     </nav>
+      
+
   </header>
+    
+<div class="container-fluid"> 
+    <div class="row">
+    @include('cookieConsent::index')
+    </div>
+</div>
+
 
 <!-- main body -->
 <div class="content">
@@ -121,9 +131,7 @@
     </div>
   </div>
 
-  <div class="row">
-    @include('cookieConsent::index')
-  </div>
+
 </div>
 
   <!-- footer -->

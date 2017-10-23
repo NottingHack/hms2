@@ -1,4 +1,8 @@
-<div class="alert alert-primary container-fluid text-center" role="alert">
+<div class="container-fluid">
+<div class="row">
+
+
+<div class="alert alert-primary text-center" role="alert" style="width:100%">
   <div class="cookie-consent__container">
     <span class="cookie-consent__message">
         {!! trans('cookieConsent::texts.message') !!} 
@@ -9,4 +13,6 @@
         {{ trans('cookieConsent::texts.agree') }}
     </button>
   </div>
+</div>
+</div>
 </div>

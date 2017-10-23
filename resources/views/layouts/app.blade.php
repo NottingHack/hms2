@@ -114,12 +114,8 @@
 
   </header>
     
-<div class="container-fluid"> 
-    <div class="row">
-    @include('cookieConsent::index')
-    </div>
-</div>
 
+    @include('cookieConsent::index')
 
 <!-- main body -->
 <div class="content">

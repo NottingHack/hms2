@@ -3,7 +3,8 @@
 @section('pageTitle', $user->getFullName())
 
 @section('content')
-<table>
+<div class="container">
+<table class="table table-bordered">
   <tbody>
     <tr>
       <th>Username:</th>
@@ -65,8 +66,10 @@
     @endif
   </tbody>
 </table>
+
 @if (($user == Auth::user() && Auth::user()->can('profile.edit.self')) || ($user->getId() != Auth::user()->getId() && Auth::user()->can('profile.edit.all')))
-     <a href="{{ route('users.edit', $user->getID()) }}" class="button">Edit details</a>
+     <a href="{{ route('users.edit', $user->getID()) }}" class="btn btn-info btn-block">Edit details</a>
 @endif
+    </div>
 
 @endsection

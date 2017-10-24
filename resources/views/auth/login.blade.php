@@ -3,7 +3,7 @@
 <div class="container">
 
 
-    <div class="card-body-padding card-container text-center">
+    <div class="card card-container card-body-padding text-center">
 
         <svg version="1.1" x="0px" y="0px" width="75" height="75" viewBox="0 0 220 220" enable-background="new 0 0 223.489 220.489" id="logo" class="profile-img-card" style="fill: #195905;">
             

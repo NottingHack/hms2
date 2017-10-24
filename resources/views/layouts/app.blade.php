@@ -124,42 +124,53 @@
     </div>
 
     <!-- footer -->
-    <footer>
-        <div class="footer">
-            <div class="col-sm-12 col-md-3">
-                <ul class="list-unstyled">
-                    <li>HMS Version 2.0.0</li>
-                    <li><a href="http://github.com/nottinghack/hms2">Get Source</a></li>
-                    <li><a href="#">Credits</a></li>
-                    <li><a href="http://www.nottinghack.org.uk">Nottinghack Website</a></li>
-                    <li class="copyright">&copy; 2017 Nottinghack</li>
-                </ul>
+<footer id="myFooter">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 myCols">
+                    <h5>HMS 2.0.0</h5>
+                    <ul>
+                        <li><a href="#">Get Source</a></li>
+                        <li><a href="#">Credits</a></li>
+                        <li><a href="#">Nottinghack Website</a></li>
+                        <li>© 2017 Nottinghack</li>
+                    </ul>
+                </div>
+                <div class="col-sm-3 myCols">
+                    <h5>About us</h5>
+                    <ul>
+                        <li><a href="#">Company Information</a></li>
+                        <li><a href="#">Contact us</a></li>
+                        <li><a href="#">Reviews</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3 myCols">
+                    <h5>Address</h5>
+                    <ul>
+                        <li>Unit F6 Bizspace</li>
+                        <li>Roden House</li>
+                        <li>Business Centre</li>
+                        <li>Nottingham</li>
+                        <li>NG3 1JH</li>
+                    </ul>
+                </div>
+                <div class="col-sm-3 myCols">
+                    <h5>Legal</h5>
+                    <ul>
+                        <li>Nottingham Hackspace Ltd</li>
+                        <li>No. 07766826</li>
+                        <li>Reg. in England & Wales</li>
+                    </ul>
+                </div>
             </div>
-            <div class="col-sm-12 col-md-3">
-                <ul class="list-unstyled">
-                    <li><a href="#"><i class="fa fa-fw fa-twitter"></i>&nbsp;Twitter</a></li>
-                    <li><a href="#"><i class="fa fa-fw fa-envelope"></i>&nbsp;Google Group</a></li>
-                    <li><a href="#"><i class="fa fa-fw fa-flickr"></i>&nbsp;Flickr</a></li>
-                    <li><a href="#"><i class="fa fa-fw fa-youtube"></i>&nbsp;YouTube</a></li>
-                    <li><a href="#"><i class="fa fa-fw fa-facebook"></i>&nbsp;Facebook</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-12 col-md-3">
-                <ul class="list-unstyled">
-                    <li>Nottingham Hackspace Ltd</li>
-                    <li>No. 07766826</li>
-                    <li>Reg. in England &amp; Wales</li>
-                </ul>
-            </div>
-            <div class="col-sm-12 col-md-3">
-                <address>
-          Unit F6 BizSpace<br />
-          Roden House<br />
-          Business Centre<br />
-          Nottingham<br />
-          NG3 1JH
-        </address>
-            </div>
+        </div>
+    <hr>
+        <div class="social-networks">
+            <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+            <a href="#" class="facebook"><i class="fa fa-facebook-official"></i></a>
+            <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+            <a href="#" class="flickr"><i class="fa fa-flickr"></i></a>
+            <a href="#" class="youtube"><i class="fa fa-youtube"></i></a>
         </div>
     </footer>
 

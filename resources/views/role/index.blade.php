@@ -3,10 +3,12 @@
 @section('pageTitle', 'Roles')
 
 @section('content')
-
+    <div class="container">
 @foreach ($roles as $category => $categoryRoles)
-    <h2>{{ $category }}</h2>
-    <table>
+
+    <h2 style="text-transform: capitalize">{{ $category }}</h2>
+	<hr>
+    <table class="table table-bordered table-hover table-responsive">
         <thead>
             <tr>
                 <th>Role</th>
@@ -22,12 +24,12 @@
                 <td>{{ $role->getName() }}</td>
                 <td>{{ $role->getDescription() }}</td>
                 <td>@can('role.edit.all')
-                <a href="{{ route('roles.edit', $role->getId()) }}">edit</a>
+                <a class="btn btn-primary" href="{{ route('roles.edit', $role->getId()) }}">Edit</a>
                 @endcan</td>
             </tr>
         @endforeach
         </tbody>
     </table>
 @endforeach
-
+</div>
 @endsection

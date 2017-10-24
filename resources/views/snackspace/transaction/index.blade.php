@@ -5,14 +5,68 @@ Snackspace account for {{ $user->getFirstname() }}
 @endsection
 
 @section('content')
-<div>
-  <dl>
-    <dt>Balance</dt>
-    <dd class="money">@format_pennies($user->getProfile()->getBalance())</dd>
-  </dl>
+<div class="container">
+    <div class="row">
+        
+            <div class="col-sm">
+      <div class="card">
+    <div class="card-header icon-card-body">
+        <div class="icon-card-icon"><i class="fa fa-money" aria-hidden="true"></i></div>
+        <div class="icon-card-content">
+            <h3>Balance</h3>
+        </div>
+          </div>
+          <div class="card-body">
+            <dl>
+                <dt>£ @format_pennies($user->getProfile()->getBalance())</dt>
+            </dl>
+        </div>
+    </div>
 </div>
+        
+                    <div class="col-sm">
+      <div class="card">
+    <div class="card-header icon-card-body">
+        <div class="icon-card-icon"><i class="fa fa-wrench" aria-hidden="true"></i></div>
+        <div class="icon-card-content">
+            <h3>Laser Cutter</h3>
+        </div>
+          </div>
+          <div class="card-body">
+            <dl>
+                <dt>£ @format_pennies($user->getProfile()->getBalance())</dt>
+            </dl>
+        </div>
+    </div>
+</div>
+        
+                    <div class="col-sm">
+      <div class="card">
+    <div class="card-header icon-card-body">
+        <div class="icon-card-icon"><i class="fa fa-money" aria-hidden="true"></i></div>
+        <div class="icon-card-content">
+            <h3>Something Else</h3>
+        </div>
+          </div>
+          <div class="card-body">
+            <dl>
+                <dt>£ @format_pennies($user->getProfile()->getBalance())</dt>
+            </dl>
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+      
+          
 
-<table>
+
+<br>
+
+
+<div class="container">
+
+<table class="table table-bordered table-hover table-responsive">
   <thead>
     <tr>
       <td>Date</td>
@@ -36,4 +90,5 @@ Snackspace account for {{ $user->getFirstname() }}
 <div classs="pagination-links">
     {{ $transactions->links() }}
 </div>
+    </div>
 @endsection

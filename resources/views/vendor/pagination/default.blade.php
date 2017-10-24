@@ -1,4 +1,4 @@
-@if ($paginator->hasPages()) 
+@if ($paginator->hasPages())
 <nav>
     <ul class="pagination" role="navigation" aria-label="Pagination">
         {{-- Previous Page Link --}}
@@ -8,12 +8,13 @@
             <li class="page-item"><a class="page-link" href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="Previous page"><span class="page-item">Previous Page</span></a></li>
         @endif
 
-        {{-- Pagination Elements --}}
-        @foreach ($elements as $element)
-            {{-- "Three Dots" Separator --}}
-            @if (is_string($element))
-                <li class="ellipsis" aria-hidden="true"></li>
-            @endif
+             {{-- Pagination Elements --}}
+            @foreach ($elements as $element)
+                {{-- "Three Dots" Separator --}}
+                @if (is_string($element))
+                    <li><span class="page-item page-link disabled">{{ $element }}</span></li>
+                @endif
+ 
 
             {{-- Array Of Links --}}
             @if (is_array($element))

@@ -5,6 +5,7 @@ namespace HMS\Repositories\Snackspace\Doctrine;
 use HMS\Entities\User;
 use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Snackspace\Transaction;
+use HMS\Entities\Snackspace\TransactionState;
 use HMS\Repositories\Snackspace\TransactionRepository;
 use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 
@@ -40,7 +41,7 @@ class DoctrineTransactionRepository extends EntityRepository implements Transact
     public function saveAndUpdateBalance(Transaction $transaction)
     {
         $transaction->getUser()->getProfile()->updateBalanceByAmount($transaction->getAmount());
-        $transaction->setStatus(Transaction::STATE_COMPLETE);
+        $transaction->setStatus(TransactionState::COMPLETE);
         $this->_em->persist($transaction);
         $this->_em->flush();
 

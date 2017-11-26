@@ -2,9 +2,9 @@
 
 namespace HMS\Factories\GateKeeper;
 
-use HMS\Entities\GateKeeper\PinState;
 use HMS\Entities\User;
 use HMS\Entities\GateKeeper\Pin;
+use HMS\Entities\GateKeeper\PinState;
 use HMS\Repositories\GateKeeper\PinRepository;
 
 class PinFactory

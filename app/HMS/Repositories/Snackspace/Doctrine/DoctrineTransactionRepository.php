@@ -2,10 +2,10 @@
 
 namespace HMS\Repositories\Snackspace\Doctrine;
 
+use HMS\Entities\User;
 use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Snackspace\Transaction;
 use HMS\Entities\Snackspace\TransactionState;
-use HMS\Entities\User;
 use HMS\Repositories\Snackspace\TransactionRepository;
 use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 

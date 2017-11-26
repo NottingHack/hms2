@@ -8,13 +8,13 @@ If you do wish to maintain your membership you will need to check your standing 
 Here are the details your standing order should have:
 
 @component('mail::panel')
-Account number: {{ $accountNo }}<br />
-Sort Code: {{ $sortCode }}<br />
+Account number: {{ $accountNo }}<br>
+Sort Code: {{ $sortCode }}<br>
 Reference: {{ $paymentRef }}
 @endcomponent
 
 If we receive a payment soon your membership will carry on unaffected.
 
-Thanks,<br />
+Thanks,<br>
 Nottinghack Membership Team
 @endcomponent

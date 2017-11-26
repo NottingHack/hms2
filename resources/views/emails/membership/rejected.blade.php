@@ -13,6 +13,6 @@ Please log into HMS and update your details.
 Update my Details
 @endcomponent
 
-Thanks,<br />
+Thanks,<br>
 Nottinghack Membership Team
 @endcomponent

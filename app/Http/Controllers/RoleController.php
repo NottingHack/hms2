@@ -7,6 +7,7 @@ use HMS\Entities\User;
 use HMS\User\UserManager;
 use Illuminate\Http\Request;
 use HMS\Repositories\RoleRepository;
+use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
 use HMS\Repositories\PermissionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -34,14 +35,24 @@ class RoleController extends Controller
     private $userManager;
 
     /**
+     * @var UserRepository
+     */
+    protected $userRepository;
+
+    /**
      * Create a new controller instance.
      */
-    public function __construct(RoleManager $roleManager, RoleRepository $roleRepository, UserManager $userManager, PermissionRepository $permissionRepository)
+    public function __construct(RoleManager $roleManager,
+        RoleRepository $roleRepository,
+        UserManager $userManager,
+        PermissionRepository $permissionRepository,
+        UserRepository $userRepository)
     {
         $this->roleManager = $roleManager;
         $this->roleRepository = $roleRepository;
         $this->userManager = $userManager;
         $this->permissionRepository = $permissionRepository;
+        $this->userRepository = $userRepository;
 
         $this->middleware('can:role.view.all')->only(['index', 'show']);
         $this->middleware('can:role.edit.all')->only(['edit', 'update']);
@@ -72,7 +83,9 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        return view('role.show')->with('role', $role);
+        $users = $this->userRepository->paginateUsersWithRole($role);
+
+        return view('role.show')->with('role', $role)->with('users', $users);
     }
 
     /**

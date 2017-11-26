@@ -91,7 +91,7 @@ class Email
      *
      * @return self
      */
-    public function setTo(array $toAddress): Email
+    public function setTo(array $toAddress): self
     {
         $this->toAddress = $toAddress;
 
@@ -115,7 +115,7 @@ class Email
      *
      * @return self
      */
-    public function setSubject(string $subject): Email
+    public function setSubject(string $subject): self
     {
         $this->subject = $subject;
 
@@ -139,7 +139,7 @@ class Email
      *
      * @return self
      */
-    public function setBody($body): Email
+    public function setBody($body): self
     {
         $this->body = $body;
 
@@ -163,7 +163,7 @@ class Email
      *
      * @return self
      */
-    public function setFullString($fullString): Email
+    public function setFullString($fullString): self
     {
         $this->fullString = $fullString;
 
@@ -187,7 +187,7 @@ class Email
      *
      * @return self
      */
-    public function setSentAt($sentAt): Email
+    public function setSentAt($sentAt): self
     {
         $this->sentAt = $sentAt;
 
@@ -221,7 +221,7 @@ class Email
      *
      * @return self
      */
-    public function setRole(?Role $role): Email
+    public function setRole(?Role $role): self
     {
         $this->role = $role;
 

@@ -83,7 +83,7 @@ Route::group(['middleware' => 'auth'], function () {
         [
             'except' => ['create', 'store', 'show'],
             'parameters' => [
-                'rfid-tags' => 'rfidTag'
+                'rfid-tags' => 'rfidTag',
             ],
         ]
     );

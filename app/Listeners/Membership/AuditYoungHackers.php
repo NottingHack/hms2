@@ -25,7 +25,7 @@ class AuditYoungHackers implements ShouldQueue
     /**
      * @var RoleManager
      */
-    protected $roleManger;
+    protected $roleManager;
 
     /**
      * @var UserRepository
@@ -36,13 +36,13 @@ class AuditYoungHackers implements ShouldQueue
      * Create the event listener.
      *
      * @param RoleRepository $roleRepository
-     * @param RoleManager    $roleManger
+     * @param RoleManager    $roleManager
      * @param UserRepository $userRepository
      */
-    public function __construct(RoleRepository $roleRepository, RoleManager $roleManger, UserRepository $userRepository)
+    public function __construct(RoleRepository $roleRepository, RoleManager $roleManager, UserRepository $userRepository)
     {
         $this->roleRepository = $roleRepository;
-        $this->roleManger = $roleManger;
+        $this->roleManager = $roleManager;
         $this->userRepository = $userRepository;
     }
 

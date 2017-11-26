@@ -184,7 +184,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
      *
      * @return self
      */
-    public function setRememberToken($value): User
+    public function setRememberToken($value): self
     {
         $this->{$this->getRememberTokenName()} = $value;
 
@@ -229,7 +229,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
      * @param null|Profile $profile
      * @return self
      */
-    public function setProfile(?Profile $profile): User
+    public function setProfile(?Profile $profile): self
     {
         $this->profile = $profile;
 
@@ -248,7 +248,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
      * @param null|Account $account
      * @return self
      */
-    public function setAccount(?Account $account): User
+    public function setAccount(?Account $account): self
     {
         $this->account = $account;
 

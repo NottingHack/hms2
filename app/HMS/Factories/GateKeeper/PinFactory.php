@@ -4,6 +4,7 @@ namespace HMS\Factories\GateKeeper;
 
 use HMS\Entities\User;
 use HMS\Entities\GateKeeper\Pin;
+use HMS\Entities\GateKeeper\PinState;
 use HMS\Repositories\GateKeeper\PinRepository;
 
 class PinFactory
@@ -29,7 +30,7 @@ class PinFactory
      */
     public function createNewEnrollPinForUser(User $user)
     {
-        $pin = new Pin((string) $this->generateUniquePin(), Pin::STATE_ENROL);
+        $pin = new Pin((string) $this->generateUniquePin(), PinState::ENROLL);
         $pin->setUser($user);
 
         return $pin;

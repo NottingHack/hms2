@@ -31,6 +31,7 @@ return [
                 'HMS\Entities\GateKeeper',
                 'HMS\Entities\Banking',
                 'HMS\Entities\Members',
+                'HMS\Entities\Snackspace',
             ],
             'paths'      => [
                 base_path('app/HMS/Mappings'),

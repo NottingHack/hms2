@@ -104,6 +104,12 @@ class NavComposer
 
                 if (count($navItem['links']) > 0) {
                     $link['links'] = $this->buildLinks($navItem['links'], $user);
+
+                    foreach ($link['links'] as $subLink) {
+                        if ($subLink['active']) {
+                            $link['active'] = true;
+                        }
+                    }
                 }
 
                 if (count($navItem['links']) > 0 && count($link['links']) == 0) {

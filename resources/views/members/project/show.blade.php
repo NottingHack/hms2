@@ -35,12 +35,12 @@
 @endif
 
 @if ( ($project->getUser() == \Auth::user() && \Auth::user()->can('project.printLabel.self')) || ($project->getUser() != \Auth::user() && \Auth::user()->can('project.printLabel.all')) )
-  @if (SiteVisitor::inTheSpace() && $project->getState() == \HMS\Entities\Members\Project::PROJCET_ACTIVE)
+  @if (SiteVisitor::inTheSpace() && $project->getState() == \HMS\Entities\Members\ProjectState::ACTIVE)
   <a href="{{ route('projects.print', $project->getId()) }}" class="button"><i class="fa fa-print fa-lg" aria-hidden="true"></i> Print Do-Not-Hack Label</a>
   @endif
 @endcan
 
-@if ($project->getState() == \HMS\Entities\Members\Project::PROJCET_ACTIVE)
+@if ($project->getState() == \HMS\Entities\Members\ProjectState::ACTIVE)
   @if ($project->getUser() == \Auth::user() && \Auth::user()->can('project.edit.self'))
   <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="button">
     <form action="{{ route('projects.markComplete', $project->getId()) }}" method="POST" style="display: none">
@@ -61,7 +61,7 @@
 @endif
 
 @if ( ($project->getUser() == \Auth::user() && \Auth::user()->can('project.printLabel.self')) || ($project->getUser() != \Auth::user() && \Auth::user()->can('project.printLabel.all')) )
-  @if ($project->getState() != \HMS\Entities\Members\Project::PROJCET_ACTIVE)
+  @if ($project->getState() != \HMS\Entities\Members\ProjectState::ACTIVE)
   <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="button">
     <form action="{{ route('projects.markActive', $project->getId()) }}" method="POST" style="display: none">
       {{ method_field('PATCH') }}

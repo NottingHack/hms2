@@ -24,6 +24,12 @@ return [
             'permissions'   => ['project.view.self'],
             'links'         => [],
         ],
+        'snackspaceTransactions' => [
+            'text'          => 'Snackspace',
+            'route'         => 'transactions.index',
+            'permissions'   => ['snackspaceTransaction.view.self'],
+            'links'         => [],
+        ],
         'codes' => [
             'text'          => 'Access Codes',
             'route'         => 'accessCodes',

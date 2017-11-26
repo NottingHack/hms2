@@ -45,6 +45,9 @@ class Profile
     /** @var null|Carbon */
     protected $dateOfBirth;
 
+    /** @var int */
+    protected $balance;
+
     /**
      * Profile constructor.
      * @param User $user
@@ -55,6 +58,7 @@ class Profile
 
         // setup defaults.
         $this->creditLimit = 0;
+        $this->balance = 0;
     }
 
     /**
@@ -285,6 +289,36 @@ class Profile
     public function setDateOfBirth(?Carbon $dateOfBirth): Profile
     {
         $this->dateOfBirth = $dateOfBirth;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBalance(): int
+    {
+        return $this->balance;
+    }
+
+    /**
+     * @param int $balance
+     * @return self
+     */
+    public function setBalance(int $balance): Profile
+    {
+        $this->balance = $balance;
+
+        return $this;
+    }
+
+    /**
+     * @param  int    $amount
+     * @return self
+     */
+    public function updateBalanceByAmount(int $amount): Profile
+    {
+        $this->balance += $amount;
 
         return $this;
     }

@@ -62,7 +62,7 @@ class Account
      *
      * @return self
      */
-    protected function setPaymentRef(string $paymentRef): Account
+    protected function setPaymentRef(string $paymentRef): self
     {
         $this->paymentRef = $paymentRef;
 

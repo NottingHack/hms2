@@ -17,7 +17,7 @@ Snackspace account for {{ $user->getFirstname() }}
         </div>
         <div class="card-body">
           <dl>
-            <dt>£ @format_pennies($user->getProfile()->getBalance())</dt>
+            <dt>£ @format_pennies($user->getProfile() ? $user->getProfile()->getBalance() : 0)</dt>
           </dl>
         </div>
       </div>
@@ -33,7 +33,7 @@ Snackspace account for {{ $user->getFirstname() }}
         </div>
         <div class="card-body">
           <dl>
-            <dt>£ @format_pennies($user->getProfile()->getBalance())</dt>
+            <dt>£ @format_pennies($user->getProfile() ? $user->getProfile()->getBalance() : 0)</dt>
           </dl>
         </div>
       </div>
@@ -49,7 +49,7 @@ Snackspace account for {{ $user->getFirstname() }}
         </div>
         <div class="card-body">
           <dl>
-            <dt>£ @format_pennies($user->getProfile()->getBalance())</dt>
+            <dt>£ @format_pennies($user->getProfile() ? $user->getProfile()->getBalance() : 0)</dt>
           </dl>
         </div>
       </div>

@@ -60,7 +60,7 @@ class Meta
      *
      * @return self
      */
-    public function setValue($value): Meta
+    public function setValue($value): self
     {
         $this->value = $value;
 

@@ -1,25 +1,25 @@
 <?php
 
-namespace App\Console\Commands\Banking;
+namespace App\Console\Commands\Members;
 
 use Illuminate\Console\Command;
-use App\Events\Banking\AuditRequest;
+use App\Events\Membership\YoungHackerAuditRequest;
 
-class AuditCommand extends Command
+class YoungHackerAuditCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'hms:members:audit';
+    protected $signature = 'hms:members:youngHackerAudit';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Audit the members against current banking records';
+    protected $description = 'Audit young hackers for any that have turned 18';
 
     /**
      * Create a new command instance.
@@ -38,6 +38,6 @@ class AuditCommand extends Command
      */
     public function handle()
     {
-        event(new AuditRequest());
+        event(new YoungHackerAuditRequest());
     }
 }

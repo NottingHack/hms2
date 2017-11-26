@@ -38,7 +38,7 @@ class PasswordReset
      *
      * @return self
      */
-    public function setEmail($email): PasswordReset
+    public function setEmail($email): self
     {
         $this->email = $email;
 
@@ -62,7 +62,7 @@ class PasswordReset
      *
      * @return self
      */
-    public function setToken($token): PasswordReset
+    public function setToken($token): self
     {
         $this->token = $token;
 
@@ -86,7 +86,7 @@ class PasswordReset
      *
      * @return self
      */
-    public function setCreated(Carbon $created): PasswordReset
+    public function setCreated(Carbon $created): self
     {
         $this->created = $created;
 

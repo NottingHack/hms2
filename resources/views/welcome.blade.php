@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+
+<div class="container">
 <h1>Welcome to HMS!</h1>
 <p class="lead">Already a member? <a href="{{ url('/login') }}">Log in!</a></p>
 
@@ -17,5 +19,7 @@
 <h2>Interested in Nottingham Hackspace?</h2>
 <p>Excellent! Have you had a tour yet? If not come down to one of our open hack-nights (every Wednesday from 6:30pm at the address below). Already in the building? Look for the human near <a href="http://www.flickr.com/photos/nottinghack/7048461835/">Ein the duck</a>, they'll be able to help you.</p>
 <p>You may also want to follow Nottingham Hackspace on your choice of social network: <a href="http://twitter.com/#!/hsnotts">Twitter</a>, <a href="http://groups.google.com/group/nottinghack">Google Group</a>, <a href="http://www.flickr.com/photos/nottinghack">Flickr</a>, <a href="http://www.youtube.com/user/nottinghack">YouTube</a>, or <a href="http://www.facebook.com/pages/NottingHack/106946729335123">Facebook</a>.</p>
-<p>We also have a <a href="http://nottinghack.org.uk/">Blog</a>.</p>
+<p>We also have a <a href="http://planet.nottinghack.org.uk/">Blog</a>.</p>
 @endsection
+    
+</div>

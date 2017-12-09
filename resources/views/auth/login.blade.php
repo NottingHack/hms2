@@ -30,14 +30,14 @@
 
       <div id="remember" name="remember" class="checkbox">
         <label>
-          <input type="checkbox" value="remember-me">Remember me
+          <input type="checkbox" value="remember-me"> Remember me
         </label>
       </div>
       <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
     </form>
     <!-- /form -->
     <a href="{{ url('/password/reset') }}" class="forgot-password">
-      Forgot the password?
+      Forgot your password?
     </a>
   </div>
   <!-- /card-container -->

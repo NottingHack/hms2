@@ -20,7 +20,7 @@
           </div>
         </div>
         <div class="card-body">
-          <h1 class="card-text text-center">Open</h1>
+          <h1 class="card-text text-center">{status}</h1>
         </div>
         <div class="card-footer"></div>
       </div>
@@ -46,7 +46,7 @@
           </div>
         </div>
         <div class="card-body">
-          <h1 class="card-text text-center"> <strong>£0.00</strong></h1>
+          <h1 class="card-text text-center"> <strong>{£0.00}</strong></h1>
         </div>
         <div class="card-footer"></div>
       </div>
@@ -59,7 +59,7 @@
           </div>
         </div>
         <div class="card-body">
-          <h1 class="card-text text-center">0</h1>
+          <h1 class="card-text text-center">{0}</h1>
         </div>
         <div class="card-footer"></div>
       </div>

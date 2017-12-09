@@ -1,0 +1,30 @@
+# HMS.Entities.Members.Box.dcm.yml
+HMS\Entities\Members\Box:
+  type: entity
+  repositoryClass: HMS\Repositories\Members\BoxRepository
+  table: member_boxes
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    boughtDate:
+      type: date
+      gedmo:
+        timestampable:
+          on: create
+    removedDate:
+      type: date
+      nullable: true
+    state:
+      type: integer
+  manyToOne:
+    user:
+      targetEntity: \HMS\Entities\User
+      joinColumn:
+        name: user_id
+        referencedColumnName: id
+        nullable: false

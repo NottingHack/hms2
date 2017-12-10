@@ -8,54 +8,26 @@ Snackspace account for {{ $user->getFirstname() }}
 <div class="container">
   <div class="row">
     <div class="col-sm">
+        <center>
       <div class="card">
         <div class="card-header icon-card-body">
           <div class="icon-card-icon"><i class="fa fa-money" aria-hidden="true"></i></div>
+            
           <div class="icon-card-content">
             <h3>Balance</h3>
           </div>
         </div>
         <div class="card-body">
           <dl>
-            <dt>£ @format_pennies($user->getProfile() ? $user->getProfile()->getBalance() : 0)</dt>
+            <h1>£ @format_pennies($user->getProfile() ? $user->getProfile()->getBalance() : 0)</h1>
           </dl>
         </div>
       </div>
+          </center>
     </div>
-
-    <div class="col-sm">
-      <div class="card">
-        <div class="card-header icon-card-body">
-          <div class="icon-card-icon"><i class="fa fa-wrench" aria-hidden="true"></i></div>
-          <div class="icon-card-content">
-            <h3>Laser Cutter</h3>
-          </div>
-        </div>
-        <div class="card-body">
-          <dl>
-            <dt>£ @format_pennies($user->getProfile() ? $user->getProfile()->getBalance() : 0)</dt>
-          </dl>
-        </div>
-      </div>
     </div>
-
-    <div class="col-sm">
-      <div class="card">
-        <div class="card-header icon-card-body">
-          <div class="icon-card-icon"><i class="fa fa-money" aria-hidden="true"></i></div>
-          <div class="icon-card-content">
-            <h3>Something Else</h3>
-          </div>
-        </div>
-        <div class="card-body">
-          <dl>
-            <dt>£ @format_pennies($user->getProfile() ? $user->getProfile()->getBalance() : 0)</dt>
-          </dl>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
+      
 
 <br>
 

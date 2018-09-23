@@ -13,7 +13,7 @@ return [
     */
     'main' => [
         'news' => [
-            'text'          => 'News',
+            'text'          => 'Home',
             'route'         => 'home',
             'permissions'   => [],
             'links'         => [],
@@ -46,6 +46,20 @@ return [
             'text'          => 'Admin',
             'permissions'   => [],
             'links'         => [
+                'dashboard'         => [
+                    'text'          => 'Dashboard',
+                    'route'         => 'admin',
+                    'match'         => 'admin',
+                    'permissions'   => ['profile.view.all'],
+                    'links'         => [],
+                ],
+                  'user'         => [
+                    'text'          => 'Members',
+                    'route'         => 'users.index',
+                    'match'         => 'users.index',
+                    'permissions'   => ['profile.view.all'],
+                    'links'         => [],
+                ],
                 'roles'         => [
                     'text'          => 'Roles',
                     'route'         => 'roles.index',

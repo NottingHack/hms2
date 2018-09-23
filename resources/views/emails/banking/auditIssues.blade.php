@@ -1,6 +1,6 @@
 @component('mail::message')
 # Hello Software Team,
-I was unable to audit the following members automatically. <br />
+I was unable to audit the following members automatically. <br>
 These are current members that have no bank transactions against their name.
 
 
@@ -12,6 +12,6 @@ These are current members that have no bank transactions against their name.
 @endforeach
 @endcomponent
 
-Please help me,<br />
+Please help me,<br>
 HMS
 @endcomponent

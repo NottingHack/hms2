@@ -38,7 +38,7 @@ class RegisterInterestController extends Controller
 
         event(new MembershipInterestRegistered($invite));
 
-        flash('Thank you for Registering your interest. Please check your email.');
+        flash('Thank you for registering your interest. Please check your email.');
 
         return redirect()->route('registerInterest');
     }

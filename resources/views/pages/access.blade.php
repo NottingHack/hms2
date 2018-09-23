@@ -3,49 +3,67 @@
 @section('pageTitle', 'Access Codes')
 
 @section('content')
-
-<div class="row">
-    <div class="card small-12 medium-6 columns">
-        <div class="card-section">
-            <h4>
-                <i class="fa fa-key" aria-hidden="true"></i> Door Codes
-            </h4>
-            <dl>
-                <dt>Street Door</dt>
-                <dd>{{ $outerDoorCode }}</dd>
-                <dt>Inner Door</dt>
-                <dd>{{ $innerDoorCode }}</dd>
-            </dl>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <div class="card">
+        <div class="card-header icon-card-body">
+          <div class="icon-card-icon"><i class="fa fa-key" aria-hidden="true"></i></div>
+          <div class="icon-card-content">
+            <h3>Door Codes</h3>
+          </div>
         </div>
+        <div class="card-body">
+          <dl>
+            <dt>Street Door</dt>
+            <h4><span class="badge badge-primary">{{ $outerDoorCode }}</span></h4>
+            <hr>
+            <dt>Inner Door</dt>
+            <h4><span class="badge badge-primary">{{ $innerDoorCode }}</span></h4>
+          </dl>
+        </div>
+      </div>
     </div>
 
-    <div class="card small-12 medium-6 columns">
-        <div class="card-section">
-            <h4>
-                <i class="fa fa-wifi" aria-hidden="true"></i> Members&apos; WiFi
-            </h4>
-            <dl>
-                <dt>SSID</dt>
-                <dd>{{ $wifiSsid }}</dd>
-                <dt>PSK</dt>
-                <dd>{{ $wifiPass }}</dd>
-            </dl>
+    <div class="col-sm">
+      <div class="card">
+        <div class="card-header icon-card-body">
+          <div class="icon-card-icon"><i class="fa fa-wifi" aria-hidden="true"></i></div>
+          <div class="icon-card-content">
+            <h3>Member&apos;s WiFi</h3>
+          </div>
         </div>
+        <div class="card-body">
+          <dl>
+            <dt>SSID</dt>
+            <h4><span class="badge badge-primary">{{ $wifiSsid }}</span></h4>
+            <hr>
+            <dt>Password (PSK)</dt>
+            <h4><span class="badge badge-primary">{{ $wifiPass }}</span></h4>
+          </dl>
+        </div>
+      </div>
     </div>
 
-    <div class="card small-12 medium-6 columns">
-        <div class="card-section">
-            <h4>
-                <i class="fa fa-wifi" aria-hidden="true"></i> Guest WiFi
-            </h4>
-            <dl>
-                <dt>SSID</dt>
-                <dd>{{ $guestWifiSsid }}</dd>
-                <dt>PSK</dt>
-                <dd>{{ $guestWifiPass }}</dd>
-            </dl>
+    <div class="col-sm">
+      <div class="card">
+        <div class="card-header icon-card-body">
+          <div class="icon-card-icon"><i class="fa fa-wifi" aria-hidden="true"></i></div>
+          <div class="icon-card-content">
+            <h3>Guest WiFi</h3>
+          </div>
         </div>
+        <div class="card-body">
+          <dl>
+            <dt>SSID</dt>
+            <h4><span class="badge badge-primary">{{ $guestWifiSsid }}</span></h4>
+            <hr>
+            <dt>Password (PSK)</dt>
+            <h4><span class="badge badge-primary">{{ $guestWifiPass }}</span></h4>
+          </dl>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
-
 @endsection

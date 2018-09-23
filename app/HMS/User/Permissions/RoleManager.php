@@ -78,7 +78,7 @@ class RoleManager
 
         if (isset($details['permissions'])) {
             $role->stripPermissions();
-            foreach (array_keys($details['permissions']) as $permissionName) {
+            foreach ($details['permissions'] as $permissionName) {
                 $role->addPermission($this->permissionRepository->findOneByName($permissionName));
             }
         }

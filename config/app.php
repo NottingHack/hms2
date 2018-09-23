@@ -166,18 +166,10 @@ return [
         /*
          * Package Service Providers...
          */
-        Laravel\Tinker\TinkerServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
-        LaravelDoctrine\ORM\DoctrineServiceProvider::class,
         LaravelDoctrine\ORM\Auth\Passwords\PasswordResetServiceProvider::class,
         LaravelDoctrine\Migrations\MigrationsServiceProvider::class,
         LaravelDoctrine\ACL\AclServiceProvider::class,
-        Spatie\CookieConsent\CookieConsentServiceProvider::class,
-        Laracasts\Flash\FlashServiceProvider::class,
-        Laravel\Passport\PassportServiceProvider::class,
-        LWK\ViMbAdmin\ViMbAdminServiceProvider::class,
         MaxBrokman\SafeQueue\DoctrineQueueProvider::class,
-        PrettyRoutes\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -239,9 +231,9 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        'EntityManager' => LaravelDoctrine\ORM\Facades\EntityManager::class,
-        'Registry' => LaravelDoctrine\ORM\Facades\Registry::class,
-        'Doctrine' => LaravelDoctrine\ORM\Facades\Doctrine::class,
+        // 'EntityManager' => LaravelDoctrine\ORM\Facades\EntityManager::class,
+        // 'Registry' => LaravelDoctrine\ORM\Facades\Registry::class,
+        // 'Doctrine' => LaravelDoctrine\ORM\Facades\Doctrine::class,
 
         'SiteVisitor' => HMS\Facades\SiteVisitor::class,
         'Meta' => HMS\Facades\Meta::class,

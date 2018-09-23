@@ -32,4 +32,10 @@ interface RfidTagRepository
      * @param  RfidTag $rfidTag
      */
     public function save(RfidTag $rfidTag);
+
+    /**
+     * remove a RfidTag from the DB.
+     * @param RfidTag $rfidTag
+     */
+    public function remove(RfidTag $rfidTag);
 }

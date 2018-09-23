@@ -29,7 +29,7 @@ HMS\Entities\GateKeeper\RfidTag:
       nullable: true
     friendlyName:
       type: string
-      lenght: 128
+      length: 128
       nullable: true
   manyToOne:
     user:

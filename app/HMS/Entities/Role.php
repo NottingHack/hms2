@@ -115,7 +115,7 @@ class Role implements RoleContract
      * @param string $displayName
      * @return self
      */
-    public function setDisplayName($displayName): Role
+    public function setDisplayName($displayName): self
     {
         $this->displayName = $displayName;
 
@@ -134,7 +134,7 @@ class Role implements RoleContract
      * @param string $description
      * @return self
      */
-    public function setDescription($description): Role
+    public function setDescription($description): self
     {
         $this->description = $description;
 
@@ -155,7 +155,7 @@ class Role implements RoleContract
      * @param Permission $permission
      * @return self
      */
-    public function addPermission(Permission $permission): Role
+    public function addPermission(Permission $permission): self
     {
         if ( ! $this->permissions->contains($permission)) {
             $this->permissions->add($permission);
@@ -169,7 +169,7 @@ class Role implements RoleContract
      * @param Permission $permission
      * @return self
      */
-    public function removePermission(Permission $permission): Role
+    public function removePermission(Permission $permission): self
     {
         $this->permissions->removeElement($permission);
 
@@ -181,7 +181,7 @@ class Role implements RoleContract
      *
      * @return self
      */
-    public function stripPermissions(): Role
+    public function stripPermissions(): self
     {
         $this->permissions->clear();
 
@@ -213,7 +213,7 @@ class Role implements RoleContract
      *
      * @return self
      */
-    public function setEmail($email): Role
+    public function setEmail($email): self
     {
         $this->email = $email;
 
@@ -237,7 +237,7 @@ class Role implements RoleContract
      *
      * @return self
      */
-    public function setSlackChannel($slackChannel): Role
+    public function setSlackChannel($slackChannel): self
     {
         $this->slackChannel = $slackChannel;
 
@@ -261,7 +261,7 @@ class Role implements RoleContract
      *
      * @return self
      */
-    public function setRetained($retained): Role
+    public function setRetained($retained): self
     {
         $this->retained = $retained;
 

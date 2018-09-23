@@ -77,6 +77,18 @@ Route::group(['middleware' => 'auth'], function () {
         ]
     );
 
+    // Rfid Tags
+    Route::get('users/{user}/rfid-tags', 'GateKeeper\RfidTagsController@index')->name('users.rfid-tags');
+    Route::resource('rfid-tags', 'GateKeeper\RfidTagsController',
+        [
+            'except' => ['create', 'store', 'show'],
+            'parameters' => [
+                'rfid-tags' => 'rfidTag',
+            ],
+        ]
+    );
+    Route::patch('pins/{pin}/reavtivate', 'GateKeeper\RfidTagsController@reactivatePin')->name('pins.reactivate');
+
     // Label printer template admin
     Route::get('labels/{label}/print', 'LabelTemplateController@showPrint')->name('labels.showPrint');
     Route::post('labels/{label}/print', 'LabelTemplateController@print')->name('labels.print');
@@ -97,6 +109,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('projects', 'Members\ProjectController',
         [
             'except' => ['destroy'],
+        ]
+    );
+
+    // Snackspace
+    Route::get('users/{user}/snackspace/transactions', 'Snackspace\TransactionsController@index')->name('users.snackspace.transactions');
+    Route::resource('snackspace/transactions', 'Snackspace\TransactionsController',
+        [
+            'except' => ['show', 'store', 'create', 'edit', 'update', 'destroy'],
         ]
     );
 });

@@ -45,6 +45,9 @@ class Profile
     /** @var null|Carbon */
     protected $dateOfBirth;
 
+    /** @var int */
+    protected $balance;
+
     /**
      * Profile constructor.
      * @param User $user
@@ -55,6 +58,7 @@ class Profile
 
         // setup defaults.
         $this->creditLimit = 0;
+        $this->balance = 0;
     }
 
     /**
@@ -69,7 +73,7 @@ class Profile
      * @param User $user
      * @return self
      */
-    public function setUser(User $user): Profile
+    public function setUser(User $user): self
     {
         $this->user = $user;
 
@@ -88,7 +92,7 @@ class Profile
      * @param null|Carbon $joinDate
      * @return self
      */
-    public function setJoinDate(?Carbon $joinDate): Profile
+    public function setJoinDate(?Carbon $joinDate): self
     {
         $this->joinDate = $joinDate;
 
@@ -107,7 +111,7 @@ class Profile
      * @param null|string $unlockText
      * @return self
      */
-    public function setUnlockText(?string $unlockText): Profile
+    public function setUnlockText(?string $unlockText): self
     {
         $this->unlockText = $unlockText;
 
@@ -126,7 +130,7 @@ class Profile
      * @param int $creditLimit
      * @return self
      */
-    public function setCreditLimit(int $creditLimit): Profile
+    public function setCreditLimit(int $creditLimit): self
     {
         $this->creditLimit = $creditLimit;
 
@@ -145,7 +149,7 @@ class Profile
      * @param null|string $address1
      * @return self
      */
-    public function setAddress1(?string $address1): Profile
+    public function setAddress1(?string $address1): self
     {
         $this->address1 = $address1;
 
@@ -164,7 +168,7 @@ class Profile
      * @param string $address2
      * @return self
      */
-    public function setAddress2(?string $address2): Profile
+    public function setAddress2(?string $address2): self
     {
         $this->address2 = $address2;
 
@@ -183,7 +187,7 @@ class Profile
      * @param string $address3
      * @return self
      */
-    public function setAddress3(?string $address3): Profile
+    public function setAddress3(?string $address3): self
     {
         $this->address3 = $address3;
 
@@ -202,7 +206,7 @@ class Profile
      * @param string $addressCity
      * @return self
      */
-    public function setAddressCity(?string $addressCity): Profile
+    public function setAddressCity(?string $addressCity): self
     {
         $this->addressCity = $addressCity;
 
@@ -221,7 +225,7 @@ class Profile
      * @param string $addressCounty
      * @return self
      */
-    public function setAddressCounty(?string $addressCounty): Profile
+    public function setAddressCounty(?string $addressCounty): self
     {
         $this->addressCounty = $addressCounty;
 
@@ -240,7 +244,7 @@ class Profile
      * @param string $addressPostcode
      * @return self
      */
-    public function setAddressPostcode(?string $addressPostcode): Profile
+    public function setAddressPostcode(?string $addressPostcode): self
     {
         $this->addressPostcode = $addressPostcode;
 
@@ -259,7 +263,7 @@ class Profile
      * @param null|string $contactNumber
      * @return self
      */
-    public function setContactNumber(?string $contactNumber): Profile
+    public function setContactNumber(?string $contactNumber): self
     {
         $this->contactNumber = $contactNumber;
 
@@ -282,9 +286,39 @@ class Profile
      * @param null|Carbon $dateOfBirth
      * @return self
      */
-    public function setDateOfBirth(?Carbon $dateOfBirth): Profile
+    public function setDateOfBirth(?Carbon $dateOfBirth): self
     {
         $this->dateOfBirth = $dateOfBirth;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBalance(): int
+    {
+        return $this->balance;
+    }
+
+    /**
+     * @param int $balance
+     * @return self
+     */
+    public function setBalance(int $balance): self
+    {
+        $this->balance = $balance;
+
+        return $this;
+    }
+
+    /**
+     * @param  int    $amount
+     * @return self
+     */
+    public function updateBalanceByAmount(int $amount): self
+    {
+        $this->balance += $amount;
 
         return $this;
     }

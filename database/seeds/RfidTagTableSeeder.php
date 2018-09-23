@@ -4,6 +4,7 @@ use HMS\Entities\Role;
 use Illuminate\Database\Seeder;
 use HMS\Entities\GateKeeper\RfidTag;
 use HMS\Repositories\RoleRepository;
+use HMS\Entities\GateKeeper\RfidTagState;
 use HMS\Repositories\GateKeeper\PinRepository;
 use HMS\Repositories\GateKeeper\RfidTagRepository;
 
@@ -73,10 +74,10 @@ class RfidTagTableSeeder extends Seeder
                 $rfidTag->setState(random_int(1, 3) * 10);
                 $rfidTag->setUser($user);
                 $this->rfidTagRepository->save($rfidTag);
-                if ($rfidTag->getState() != RfidTag::STATE_ACTIVE and random_int(1, 3) >= 2) {
+                if ($rfidTag->getState() != RfidTagState::ACTIVE and random_int(1, 3) >= 2) {
                     list($rfidSerial, $rfidSerialLegacy) = $this->generateRfid();
                     $rfidTag = new RfidTag($rfidSerial);
-                    $rfidTag->setState(RfidTag::STATE_ACTIVE);
+                    $rfidTag->setState(RfidTagState::ACTIVE);
                     $rfidTag->setUser($user);
                     $this->rfidTagRepository->save($rfidTag);
                 }

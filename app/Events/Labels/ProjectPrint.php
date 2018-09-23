@@ -47,7 +47,7 @@ class ProjectPrint implements LabelPrintEventInterface
             'startDate' => $project->getStartDate()->toDateString(),
             'lastDate' => Carbon::now()->toDateString(),
             'qrURL' => route('projects.show', ['project' => $project->getId()]),
-            'idOffset' => $idOffset,
+            'idOffset' => 220 + $idOffset,
             'memberProjectId' => $project->getId(),
         ];
     }

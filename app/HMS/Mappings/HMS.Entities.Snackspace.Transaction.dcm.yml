@@ -1,0 +1,42 @@
+# HMS.Entities.Snackspace.Transaction.dcm.yml
+HMS\Entities\Snackspace\Transaction:
+  type: entity
+  repositoryClass: HMS\Repositories\Snackspace\TransactionRepository
+  table: transactions
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    transactionDatetime:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    amount:
+      type: integer
+      nullable: true
+    type:
+      type: string
+      column: transaction_type
+    status:
+      type: string
+      column: transaction_status
+    description:
+      type: string
+      length: 512
+      nullable: true
+      column: transaction_desc
+  manyToOne:
+    user:
+      targetEntity: \HMS\Entities\User
+    product:
+      targetEntity: \HMS\Entities\Snackspace\Product
+    recordedUser:
+      targetEntity: \HMS\Entities\User
+      joinColumn:
+        name: recorded_by
+        referencedColumnName: id

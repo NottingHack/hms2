@@ -1,0 +1,28 @@
+# HMS.Entities.Snackspace.Product.dcm.yml
+HMS\Entities\Snackspace\Product:
+  type: entity
+  repositoryClass: HMS\Repositories\Snackspace\ProductRepository
+  table: products
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    price:
+      type: integer
+    barcode:
+      type: string
+      nullable: true
+      unique: true
+    available:
+      type: integer
+      nullable: true
+    shortDescription:
+      type: string
+      nullable: true
+    longDescription:
+      type: text
+      nullable: true

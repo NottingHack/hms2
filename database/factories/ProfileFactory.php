@@ -25,6 +25,7 @@ $factory->define(HMS\Entities\Profile::class, function (Faker\Generator $faker, 
         'addressPostcode' => $faker->postcode,
         'contactNumber' => $faker->phoneNumber,
         'dateOfBirth' => Carbon::instance($faker->dateTimeBetween($startDate = '-100 years', $endDate = '-18 years')),
+        'balance' => 0,
     ];
 });
 
@@ -40,6 +41,7 @@ $factory->defineAs(HMS\Entities\Profile::class, 'youngHacker', function (Faker\G
         'addressPostcode' => $faker->postcode,
         'contactNumber' => $faker->phoneNumber,
         'dateOfBirth' => Carbon::instance($faker->dateTimeBetween($startDate = '-18 years', $endDate = '-16 years')),
+        'balance' => 0,
     ];
 });
 
@@ -54,5 +56,6 @@ $factory->defineAs(HMS\Entities\Profile::class, 'approval', function (Faker\Gene
         'addressPostcode' => $faker->postcode,
         'contactNumber' => $faker->phoneNumber,
         'dateOfBirth' => Carbon::instance($faker->dateTimeBetween($startDate = '-100 years', $endDate = '-16 years')),
+        'balance' => 0,
     ];
 });

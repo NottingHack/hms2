@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
         Commands\Permissions\AddCommand::class,
         Commands\Permissions\RemoveCommand::class,
         Commands\Permissions\StripCommand::class,
+        Commands\Permissions\SyncCommand::class,
         Commands\Invites\PurgeCommand::class,
         Commands\Permissions\DefaultsCommand::class,
         Commands\Make\MakeCommand::class,
@@ -26,6 +27,7 @@ class Kernel extends ConsoleKernel
         Commands\Make\RepositoryImplementationMakeCommand::class,
         Commands\Make\FactoryMakeCommand::class,
         Commands\Banking\AuditCommand::class,
+        Commands\Members\YoungHackerAuditCommand::class,
     ];
 
     /**
@@ -42,6 +44,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('hms:members:audit')
                  ->weekdays()
                  ->dailyAt('23:55');
+
+        $schedule->command('hms:members:youngHackerAudit')
+                ->dailyAt('06:00');
     }
 
     /**

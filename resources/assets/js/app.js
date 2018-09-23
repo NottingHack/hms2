@@ -10,6 +10,9 @@ $(() => {
   }
 });
 
+// negstive money to red
+$(".money:contains('-')").css("color", "red");
+
 $.ajaxSetup({
    headers: {
      'X-CSRF-Token': document.head.querySelector('meta[name="csrf-token"]').content,
@@ -28,6 +31,7 @@ $(".js-data-member-search-ajax").change(function(){
   var user = $(this).val();
   var action = $("#member-search").attr("action").replace("_ID_", user);
   $("#member-search").attr("action", action);
+  $("#member-search select[name=user]").attr("disabled", "disabled");
   $("#member-search").submit();
 });
 
@@ -131,4 +135,8 @@ $("#user-edit-form,#membership-edit-details-form,#register-form").submit(functio
   if (date.val().includes('/')) {
     date.val(date.val().split('/').reverse().join('-'));
   }
+});
+
+$(".select2-basic-single").select2({
+  theme: "foundation",
 });

@@ -19,5 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AccessLogTableSeeder::class);
         $this->call(BankTransactionTableSeeder::class);
         $this->call(RoleUpdateTableSeeder::class);
+        $this->call(ProductTableSeeder::class);
+        $this->call(TransactionTableSeeder::class);
     }
 }

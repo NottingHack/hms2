@@ -8,30 +8,6 @@ use HMS\Entities\User;
 class Project
 {
     /**
-     * This projcet is considered active and being worked on.
-     */
-    const PROJCET_ACTIVE = 10;
-
-    /**
-     * Project has been finished/removed from the hackspace.
-     */
-    const PROJCET_COMPLETE = 20;
-
-    /**
-     * Project has been identified as abandoned and not beeing worked on.
-     */
-    const PROJCET_ABANDONED = 30;
-
-    /**
-     * String representation of states for display.
-     */
-    public $statusStrings = [
-        10 => 'Active',
-        20 => 'Complete',
-        30 => 'Abandoned',
-    ];
-
-    /**
      * @var int
      */
     protected $id;
@@ -143,7 +119,7 @@ class Project
      */
     public function getStateString()
     {
-        return $this->statusStrings[$this->state];
+        return ProjectState::STATE_STRINGS[$this->state];
     }
 
     /**
@@ -181,7 +157,9 @@ class Project
      */
     public function setState($state)
     {
-        $this->state = $state;
+        if (array_key_exists($state, ProjectState::STATE_STRINGS)) {
+            $this->state = $state;
+        }
 
         return $this;
     }
@@ -191,7 +169,7 @@ class Project
      */
     public function setStateActive()
     {
-        $this->state = self::PROJCET_ACTIVE;
+        $this->state = ProjectState::ACTIVE;
         $this->completeDate = null;
 
         return $this;
@@ -202,7 +180,7 @@ class Project
      */
     public function setStateComplete()
     {
-        $this->state = self::PROJCET_COMPLETE;
+        $this->state = ProjectState::COMPLETE;
         $this->completeDate = Carbon::now();
 
         return $this;
@@ -213,7 +191,7 @@ class Project
      */
     public function setStateAbandoned()
     {
-        $this->state = self::PROJCET_ABANDONED;
+        $this->state = ProjectState::ABANDONED;
         $this->completeDate = Carbon::now();
 
         return $this;

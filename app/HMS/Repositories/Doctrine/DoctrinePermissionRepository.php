@@ -22,7 +22,7 @@ class DoctrinePermissionRepository extends EntityRepository implements Permissio
      * Finds a permission based on the permission name.
      *
      * @param  string $permissionName name of the permission we want
-     * @return Permission|object
+     * @return null|Permission
      */
     public function findOneByName(string $permissionName)
     {

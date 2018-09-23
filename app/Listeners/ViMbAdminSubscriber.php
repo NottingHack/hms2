@@ -6,11 +6,14 @@ use Exception;
 use HMS\Entities\Role;
 use LWK\ViMbAdmin\Model\Link;
 use LWK\ViMbAdmin\Model\Alias;
+use LWK\ViMbAdmin\Model\Error;
 use LWK\ViMbAdmin\Model\Domain;
 use LWK\ViMbAdmin\Model\Mailbox;
 use App\Events\Roles\RoleCreated;
 use LWK\ViMbAdmin\ViMbAdminClient;
+use HMS\Repositories\UserRepository;
 use App\Events\Roles\UserAddedToRole;
+use App\Events\Users\UserEmailChanged;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Events\Roles\UserRemovedFromRole;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -27,13 +30,20 @@ class ViMbAdminSubscriber implements ShouldQueue
     protected $client;
 
     /**
+     * @var UserRepository
+     */
+    protected $userRepository;
+
+    /**
      * Create the event listener.
      *
      * @param ViMbAdminClient $client
+     * @param UserRepository $userRepository
      */
-    public function __construct(ViMbAdminClient $client)
+    public function __construct(ViMbAdminClient $client, UserRepository $userRepository)
     {
         $this->client = $client;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -47,7 +57,7 @@ class ViMbAdminSubscriber implements ShouldQueue
     {
         if ($event->role->getEmail()) {
             // See if there is allrady an alias for this role
-            $alias = $this->getAliasForRole($event->role, true);
+            $alias = $this->getAliasForRole($event->role);
             if ($alias instanceof Alias) {
                 return;
             }
@@ -119,11 +129,10 @@ class ViMbAdminSubscriber implements ShouldQueue
      * Given a role update alias with a newly calculated set of goto addresses.
      *
      * @param  Role   $role
-     * @param  bool $skipException
      * @throws Exception
-     * @return Alias
+     * @return null|Alias
      */
-    public function getAliasForRole(Role $role, $skipException = flase)
+    public function getAliasForRole(Role $role)
     {
         $aliasEmail = $role->getEmail();
         if ( ! filter_var($aliasEmail, FILTER_VALIDATE_EMAIL)) {
@@ -134,12 +143,44 @@ class ViMbAdminSubscriber implements ShouldQueue
         $domainName = explode('@', $aliasEmail)[1];
 
         // now we have done our prep, time to grab the alias from the external API
-        $alias = $this->client->findAliasesForDomain($domainName, $aliasEmail);
-        if ( ! $skipException && ! $alias instanceof Alias) {
+        $aliases = $this->client->findAliasesForDomain($domainName, $aliasEmail);
+        if ($aliases instanceof Error) {
             throw new Exception('Unable to get Alias for '.$aliasEmail);
         }
 
-        return $alias;
+        if (empty($aliases)) {
+            return null;
+        }
+
+        return $aliases[0];
+    }
+
+    /**
+     * Update any email aliases when a user changes thier email address.
+     *
+     * @param  UserEmailChanged $event
+     * @throws Exception
+     */
+    public function onUserEmailChanged(UserEmailChanged $event)
+    {
+        // get a fresh copy of the user as the roles object will not be hydrated
+        $user = $this->userRepository->find($event->user->getId());
+
+        $roles = $user->getRoles();
+
+        foreach ($roles as $role) {
+            if ($role->getEmail()) {
+                $alias = $this->getAliasForRole($role);
+                $alias->removeForwardAddress($event->oldEmail);
+                $alias->addForwardAddress($user->getEmail());
+
+                // save the updated alias back to the external API
+                $response = $this->client->updateAlias($alias);
+                if ( ! $response instanceof Link) {
+                    throw new Exception('Alias update failed with Error: '.$response);
+                }
+            }
+        }
     }
 
     /**
@@ -162,6 +203,11 @@ class ViMbAdminSubscriber implements ShouldQueue
         $events->listen(
             'App\Events\Roles\UserRemovedFromRole',
             'App\Listeners\ViMbAdminSubscriber@onUserRemovedFromRole'
+        );
+
+        $events->listen(
+            'App\Events\Users\UserEmailChanged',
+            'App\Listeners\ViMbAdminSubscriber@onUserEmailChanged'
         );
     }
 

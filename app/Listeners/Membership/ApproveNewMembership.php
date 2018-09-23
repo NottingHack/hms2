@@ -79,7 +79,7 @@ class ApproveNewMembership implements ShouldQueue
 
         // update roles
         if ( ! $user->hasRoleByName(Role::MEMBER_PAYMENT)) {
-            // we shouldn not be here get out
+            // we should not be here get out
             // TODO: email some one about it
             return;
         }
@@ -110,7 +110,7 @@ class ApproveNewMembership implements ShouldQueue
         $user->getProfile()->setJoinDate(Carbon::now());
         $this->userRepository->save($user);
 
-        // emial user
+        // email user
         \Mail::to($user)->send(new MembershipComplete($user, $this->metaRepository, $this->roleRepository));
     }
 }

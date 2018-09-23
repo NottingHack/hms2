@@ -24,6 +24,12 @@ return [
             'permissions'   => ['project.view.self'],
             'links'         => [],
         ],
+        'snackspaceTransactions' => [
+            'text'          => 'Snackspace',
+            'route'         => 'transactions.index',
+            'permissions'   => ['snackspaceTransaction.view.self'],
+            'links'         => [],
+        ],
         'codes' => [
             'text'          => 'Access Codes',
             'route'         => 'accessCodes',
@@ -59,6 +65,13 @@ return [
                     'route'         => 'labels.index',
                     'match'         => 'labels.index',
                     'permissions'   => ['labelTemplate.view'],
+                    'links'         => [],
+                ],
+                'bankTransactions' => [
+                    'text'          => 'Reconcile Bank Transaction',
+                    'route'         => 'bank-transactions.unmatched',
+                    'match'         => 'bank-transactions.unmatched',
+                    'permissions'   => ['bankTransactions.reconcile'],
                     'links'         => [],
                 ],
             ],

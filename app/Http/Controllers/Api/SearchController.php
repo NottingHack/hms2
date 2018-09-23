@@ -28,8 +28,8 @@ class SearchController extends Controller
     /**
      * Search for users.
      *
+     * @param string $searchQuery
      * @param Request $request
-     * @param  string $searchQuery
      * @return \Illuminate\Http\Response
      */
     public function users(string $searchQuery = null, Request $request)

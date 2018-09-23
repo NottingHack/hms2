@@ -1,7 +1,7 @@
 @component('mail::message')
 # Hello {{ $fullname }}
 
-Thanks for reinstating your membership of Nottingham Hackspace. Here is a reminder of some details  you might needu need.
+Thanks for reinstating your membership of Nottingham Hackspace. Here is a reminder of some details you might need.
 
 GateKeeper is our RFID entry system for which you need a suitable card set up, which we provide. Visit on the next open hack night and ask people to point you to one of the membership team, or please contact membership@nottinghack.org.uk if you are unable to attend one.
 

@@ -10,6 +10,9 @@ $(() => {
   }
 });
 
+// negstive money to red
+$(".money:contains('-')").css("color", "red");
+
 $.ajaxSetup({
    headers: {
      'X-CSRF-Token': document.head.querySelector('meta[name="csrf-token"]').content,
@@ -132,4 +135,8 @@ $("#user-edit-form,#membership-edit-details-form,#register-form").submit(functio
   if (date.val().includes('/')) {
     date.val(date.val().split('/').reverse().join('-'));
   }
+});
+
+$(".select2-basic-single").select2({
+  theme: "foundation",
 });

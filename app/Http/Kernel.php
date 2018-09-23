@@ -41,6 +41,8 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:60,1',
             'bindings',
+            'entity.bindings',
+            'json.request',
         ],
     ];
 
@@ -60,5 +62,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'ipcheck' => \App\Http\Middleware\IpCheck::class,
         'entity.bindings' => \LaravelDoctrine\ORM\Middleware\SubstituteBindings::class,
+        'json.request' => \App\Http\Middleware\JsonRequestMiddleware::class,
+        'client' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
     ];
 }

@@ -35,12 +35,12 @@ Projects for {{ $user->getFirstname() }}
       <a href="{{ route('projects.show', $project->getId()) }}"><i class="fa fa-eye" aria-hidden="true"></i> View Project</a><br/>
       @endcan
       @can('project.printLabel.self')
-        @if (SiteVisitor::inTheSpace() && $project->getState() == \HMS\Entities\Members\Project::PROJCET_ACTIVE)
+        @if (SiteVisitor::inTheSpace() && $project->getState() == \HMS\Entities\Members\ProjectState::ACTIVE)
         <a href="{{ route('projects.print', $project->getId()) }}"><i class="fa fa-print" aria-hidden="true"></i> Print Do-Not-Hack Label</a><br />
         @endif
       @endcan
       @can('project.edit.self')
-        @if ($project->getState() == \HMS\Entities\Members\Project::PROJCET_ACTIVE)
+        @if ($project->getState() == \HMS\Entities\Members\ProjectState::ACTIVE)
           @if ($project->getUser() == \Auth::user())
           <a href="javascript:void(0);" onclick="$(this).find('form').submit();">
             <form action="{{ route('projects.markComplete', $project->getId()) }}" method="POST" style="display: none">
@@ -59,7 +59,7 @@ Projects for {{ $user->getFirstname() }}
           </a><br />
           @endif
         @endif
-        @if ($project->getState() != \HMS\Entities\Members\Project::PROJCET_ACTIVE)
+        @if ($project->getState() != \HMS\Entities\Members\ProjectState::ACTIVE)
         <a href="javascript:void(0);" onclick="$(this).find('form').submit();">
           <form action="{{ route('projects.markActive', $project->getId()) }}" method="POST" style="display: none">
             {{ method_field('PATCH') }}

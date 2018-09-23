@@ -29,6 +29,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('hms:members:audit')
                  ->weekdays()
                  ->dailyAt('23:55');
+
+        $schedule->command('hms:members:youngHackerAudit')
+                ->dailyAt('06:00');
     }
 
     /**

@@ -38,6 +38,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Banking\ReinstatementOfMembershipPayment' => [
             'App\Listeners\Membership\ReinstateMembership',
         ],
+        'App\Events\Banking\TransactionsUploaded' => [
+            'App\Listeners\Banking\SaveNewTransactions',
+        ],
         'App\Events\Membership\YoungHackerAuditRequest' => [
             'App\Listeners\Membership\AuditYoungHackers',
         ],

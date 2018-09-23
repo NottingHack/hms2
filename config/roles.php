@@ -37,6 +37,7 @@ return [
         'project.edit.all',
         'project.printLabel.self',
         'project.printLabel.all',
+        'bankTransation.upload',
         'snackspaceTransaction.view.self',
         'snackspaceTransaction.view.all',
         'rfidTags.view.self',
@@ -190,7 +191,7 @@ return [
                 'pins.reactivate',
             ],
         ],
-        'team.software'    => [
+        'team.software'     => [
             'name'          => 'Software Team',
             'description'   => 'Software Team',
             'email'         => 'software@nottinghack.org.uk',
@@ -218,6 +219,13 @@ return [
                 'labelTemplate.create',
                 'labelTemplate.edit',
                 'labelTemplate.print',
+            ],
+        ],
+        'team.finance'     => [
+            'name'          => 'Finance Team',
+            'description'   => 'Finance Team',
+            'email'         => 'accounts@nottinghack.org.uk',
+            'permissions'   => [
             ],
         ],
     ],

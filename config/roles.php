@@ -176,7 +176,7 @@ return [
             ],
         ],
         'team.trustees'    => [
-            'name'          => 'Trustees',
+            'name'          => 'Nottingham Hackspace Trustees',
             'description'   => 'The Trustees',
             'email'         => 'trustees@nottinghack.org.uk',
             'slackChannel'  => '#general',

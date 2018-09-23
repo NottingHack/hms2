@@ -3,7 +3,9 @@
 @section('pageTitle', 'Unmatched Bank Transactions')
 
 @section('content')
-<table>
+<div class="container">
+  <div class="row">
+    <table class="table table-bordered">
   <thead>
     <tr>
       <th>Date</th>

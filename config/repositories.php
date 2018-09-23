@@ -52,5 +52,7 @@ return [
         'Banking\BankTransaction',
         'Banking\MembershipStatusNotification',
         'Members\Project',
+        'Snackspace\Product',
+        'Snackspace\Transaction',
     ],
 ];

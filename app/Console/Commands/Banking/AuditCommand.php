@@ -19,7 +19,7 @@ class AuditCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Audit the members aginst current banking records';
+    protected $description = 'Audit the members against current banking records';
 
     /**
      * Create a new command instance.

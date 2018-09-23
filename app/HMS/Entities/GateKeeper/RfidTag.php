@@ -7,30 +7,6 @@ use HMS\Entities\User;
 class RfidTag
 {
     /**
-     * This RfidTag can be used for entry (up until the expiry date), cannot be used to register a card.
-     */
-    const STATE_ACTIVE = 10;
-
-    /**
-     * RfidTag has expired and can no longer be used for entry.
-     */
-    const STATE_EXPIRED = 20;
-
-    /**
-     * RfidTag has been lost and can no longer be used for entry.
-     */
-    const STATE_LOST = 30;
-
-    /**
-     * String representation of states for display.
-     */
-    public $statusStrings = [
-                                  10 => 'Active',
-                                  20 => 'Expired',
-                                  30 => 'Lost',
-                                  ];
-
-    /**
      * @var int
      */
     protected $id;
@@ -152,7 +128,7 @@ class RfidTag
      */
     public function setState($state)
     {
-        if (in_array($state, array_keys($this->statusStrings))) {
+        if (array_key_exists($state, RfidTagState::STATE_STRINGS)) {
             $this->state = $state;
         }
 

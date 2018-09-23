@@ -57,7 +57,7 @@ class ViMbAdminSubscriber implements ShouldQueue
     {
         if ($event->role->getEmail()) {
             // See if there is allrady an alias for this role
-            $alias = $this->getAliasForRole($event->role, true);
+            $alias = $this->getAliasForRole($event->role);
             if ($alias instanceof Alias) {
                 return;
             }
@@ -129,11 +129,10 @@ class ViMbAdminSubscriber implements ShouldQueue
      * Given a role update alias with a newly calculated set of goto addresses.
      *
      * @param  Role   $role
-     * @param  bool $skipException
      * @throws Exception
-     * @return Alias
+     * @return null|Alias
      */
-    public function getAliasForRole(Role $role, $skipException = false)
+    public function getAliasForRole(Role $role)
     {
         $aliasEmail = $role->getEmail();
         if ( ! filter_var($aliasEmail, FILTER_VALIDATE_EMAIL)) {
@@ -144,12 +143,16 @@ class ViMbAdminSubscriber implements ShouldQueue
         $domainName = explode('@', $aliasEmail)[1];
 
         // now we have done our prep, time to grab the alias from the external API
-        $alias = $this->client->findAliasesForDomain($domainName, $aliasEmail);
-        if ( ! $skipException && $alias instanceof Error) {
+        $aliases = $this->client->findAliasesForDomain($domainName, $aliasEmail);
+        if ($aliases instanceof Error) {
             throw new Exception('Unable to get Alias for '.$aliasEmail);
         }
 
-        return $alias[0];
+        if (empty($aliases)) {
+            return null;
+        }
+
+        return $aliases[0];
     }
 
     /**

@@ -83,7 +83,7 @@ Route::group(['middleware' => 'auth'], function () {
         [
             'except' => ['create', 'store', 'show'],
             'parameters' => [
-                'rfid-tags' => 'rfidTag'
+                'rfid-tags' => 'rfidTag',
             ],
         ]
     );
@@ -117,10 +117,18 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('users/{user}/bank-transactions', 'Banking\BankTransactionsController@index')->name('users.bank-transactions');
     Route::resource('bank-transactions', 'Banking\BankTransactionsController',
         [
-            'except' => ['show', 'create', 'store' , 'destroy'],
+            'except' => ['show', 'create', 'store', 'destroy'],
             'parameters' => [
-                'bank-transactions' => 'bankTransaction'
+                'bank-transactions' => 'bankTransaction',
             ],
+        ]
+    );
+
+    // Snackspace
+    Route::get('users/{user}/snackspace/transactions', 'Snackspace\TransactionsController@index')->name('users.snackspace.transactions');
+    Route::resource('snackspace/transactions', 'Snackspace\TransactionsController',
+        [
+            'except' => ['show', 'store', 'create', 'edit', 'update', 'destroy'],
         ]
     );
 });

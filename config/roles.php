@@ -37,6 +37,9 @@ return [
         'project.edit.all',
         'project.printLabel.self',
         'project.printLabel.all',
+        'bankTransation.upload',
+        'snackspaceTransaction.view.self',
+        'snackspaceTransaction.view.all',
         'rfidTags.view.self',
         'rfidTags.view.all',
         'rfidTags.edit.self',
@@ -89,6 +92,7 @@ return [
                 'project.edit.self',
                 'project.printLabel.self',
                 'bankTransactions.view.self',
+                'snackspaceTransaction.view.self',
             ],
         ],
         'member.ex'         => [
@@ -99,6 +103,7 @@ return [
                 'profile.edit.self',
                 'link.view',
                 'bankTransactions.view.self',
+                'snackspaceTransaction.view.self',
             ],
         ],
         'member.current'    => [
@@ -114,6 +119,7 @@ return [
                 'project.edit.self',
                 'project.printLabel.self',
                 'bankTransactions.view.self',
+                'snackspaceTransaction.view.self',
             ],
         ],
         'member.temporarybanned'    => [
@@ -125,6 +131,7 @@ return [
                 'profile.edit.self',
                 'link.view',
                 'bankTransactions.view.self',
+                'snackspaceTransaction.view.self',
             ],
         ],
         'member.banned'    => [
@@ -136,6 +143,7 @@ return [
                 'profile.edit.self',
                 'link.view',
                 'bankTransactions.view.self',
+                'snackspaceTransaction.view.self',
             ],
         ],
         'user.super'         => [
@@ -157,6 +165,7 @@ return [
                 'project.view.all',
                 'project.edit.all',
                 'project.printLabel.all',
+                'snackspaceTransaction.view.all',
                 'rfidTags.view.self',
                 'rfidTags.view.all',
                 'rfidTags.edit.self',
@@ -181,6 +190,7 @@ return [
                 'project.view.all',
                 'project.edit.all',
                 'project.printLabel.all',
+                'snackspaceTransaction.view.all',
                 'rfidTags.view.self',
                 'rfidTags.view.all',
                 'rfidTags.edit.self',
@@ -191,7 +201,7 @@ return [
                 'bankTransactions.view.all',
             ],
         ],
-        'team.software'    => [
+        'team.software'     => [
             'name'          => 'Software Team',
             'description'   => 'Software Team',
             'email'         => 'software@nottinghack.org.uk',
@@ -219,6 +229,13 @@ return [
                 'labelTemplate.create',
                 'labelTemplate.edit',
                 'labelTemplate.print',
+            ],
+        ],
+        'team.finance'     => [
+            'name'          => 'Finance Team',
+            'description'   => 'Finance Team',
+            'email'         => 'accounts@nottinghack.org.uk',
+            'permissions'   => [
             ],
         ],
     ],

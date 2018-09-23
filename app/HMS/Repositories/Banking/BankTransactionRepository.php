@@ -32,6 +32,13 @@ interface BankTransactionRepository
     public function paginateByAccount(?Account $account, $perPage = 15, $pageName = 'page');
 
     /**
+     * find a matching tranaction in the db or save this one.
+     * @param  BankTransaction $bankTransaction
+     * @return BankTransaction
+     */
+    public function findOrSave(BankTransaction $bankTransaction);
+
+    /**
      * save BankTransaction to the DB.
      * @param  BankTransaction $bankTransaction
      */

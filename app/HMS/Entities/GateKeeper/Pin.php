@@ -8,35 +8,6 @@ use HMS\Entities\User;
 class Pin
 {
     /**
-     * This pin can be used for entry (up until the expiry date), cannot be used to register a card.
-     */
-    const STATE_ACTIVE = 10;
-
-    /**
-     * Pin has expired and can no longer be used for entry.
-     */
-    const STATE_EXPIRED = 20;
-
-    /**
-     * This pin cannot be used for entry, and has likely been used to activate an RFID card.
-     */
-    const STATE_CANCELLED = 30;
-
-    /**
-     * This pin may be used to enrol an RFID card.
-     */
-    const STATE_ENROL = 40;
-    /**
-     * String representation of states for display.
-     */
-    public $statusStrings = [
-                                  10 => 'Active',
-                                  20 => 'Expired',
-                                  30 => 'Cancelled',
-                                  40 => 'Enrolment',
-                                  ];
-
-    /**
      * @var int
      */
     protected $id;
@@ -65,7 +36,7 @@ class Pin
      * @param string $pin
      * @param int $state
      */
-    public function __construct(string $pin, int $state = self::STATE_ACTIVE)
+    public function __construct(string $pin, int $state = PinState::ACTIVE)
     {
         $this->pin = $pin;
         $this->state = $state;
@@ -172,21 +143,11 @@ class Pin
      */
     public function setState($state)
     {
-        if (in_array($state, array_keys($this->statusStrings))) {
+        if (array_key_exists($state, PinState::STATE_STRINGS)) {
             $this->state = $state;
         }
 
         return $this;
-    }
-
-    /**
-     * Gets the value of state.
-     *
-     * @return string
-     */
-    public function getStateString()
-    {
-        return $this->statusStrings[$this->state];
     }
 
     /**
@@ -196,19 +157,19 @@ class Pin
      */
     public function setStateCancelled()
     {
-        $this->state = self::STATE_CANCELLED;
+        $this->state = PinState::CANCELLED;
 
         return $this;
     }
 
     /**
-     * Sets the value of state to enrol.
+     * Sets the value of state to enroll.
      *
      * @return self
      */
-    public function setStateEnrol()
+    public function setStateEnroll()
     {
-        $this->state = self::STATE_ENROL;
+        $this->state = PinState::ENROLL;
 
         return $this;
     }

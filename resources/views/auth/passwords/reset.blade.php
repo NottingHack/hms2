@@ -13,11 +13,11 @@
   <div class="row">
     <label for="email" class="form-label">E-Mail Address</label>
     <div class="form-control">
-      <input id="email" type="email" name="email" value="{{ $email or old('email') }}" required autofocus> 
+      <input id="email" type="email" name="email" value="{{ $email or old('email') }}" required autofocus>
       @if ($errors->has('email'))
       <span class="help-block">
         <strong>{{ $errors->first('email') }}</strong>
-      </span> 
+      </span>
       @endif
     </div>
   </div>

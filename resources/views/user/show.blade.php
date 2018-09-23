@@ -27,17 +27,17 @@
                 <th>Join Date:</th>
                 <td>@if($user->getProfile()->getJoinDate()){{ $user->getProfile()->getJoinDate()->toDateString() }}@endif</td>
             </tr>
-            
+
             <tr>
                 <th>Status</th>
                 <td>{Status Here}</td>
             </tr>
-            
+
             <tr>
                 <th>Roles</th>
                 <td>{Roles Here}</td>
             </tr>
-            
+
             <tr>
                 <th>Address 1:</th>
                 <td>{{ $user->getProfile()->getAddress1() }}</td>
@@ -76,6 +76,7 @@
     </table>
 
     @if (($user == Auth::user() && Auth::user()->can('profile.edit.self')) || ($user->getId() != Auth::user()->getId() && Auth::user()->can('profile.edit.all')))
-    <a href="{{ route('users.edit', $user->getID()) }}" class="btn btn-info btn-block">Edit details</a> @endif
+    <a href="{{ route('users.edit', $user->getID()) }}" class="btn btn-info btn-block">Edit details</a>
+    @endif
 </div>
 @endsection

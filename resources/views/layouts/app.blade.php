@@ -88,7 +88,7 @@
           @endforeach
         </ul>
         <ul class="navbar-nav ml-auto">
-          <li class="navbar-text ml-auto">Logged in as {{ Auth::user()->getFirstName() }} @if (Auth::viaRemember()) (via Remember Me) @endif |</li>
+          <li class="navbar-text ml-auto">Logged in as {{ Auth::user()->getFirstName() }} @if (Auth::viaRemember()) (via Remember Me) @endif</li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
             <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">

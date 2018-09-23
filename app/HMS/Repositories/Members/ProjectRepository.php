@@ -17,7 +17,7 @@ interface ProjectRepository
     public function paginateByUser(User $user, $perPage = 15, $pageName = 'page');
 
     /**
-     * Return number of active projects for a user
+     * Return number of active projects for a user.
      * @param  User   $user
      *
      * @return int

@@ -31,7 +31,7 @@ class DoctrineProjectRepository extends EntityRepository implements ProjectRepos
     }
 
     /**
-     * Return number of active projects for a user
+     * Return number of active projects for a user.
      * @param  User   $user
      *
      * @return int
@@ -45,7 +45,6 @@ class DoctrineProjectRepository extends EntityRepository implements ProjectRepos
         $q = $q->setParameter('user_id', $user->getId())
                 ->setParameter('project_state', ProjectState::ACTIVE)
                 ->getQuery();
-
 
         return count($q->getResult());
     }

@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row">
         <div class="container">
-            <h1 class="display-4">Welcome, {{ Auth::user()->getFirstName() }}</h1>
+            <h1 class="display-4">Welcome, {{ $user->getFirstName() }}</h1>
             <hr>
         </div>
     </div>
@@ -41,6 +41,7 @@
                 </div>
             </div>
 
+            @if($user->getProfile() !== Null)
             <div class="col">
                 <div class="card text-white bg-dark mb-3" >
                     <div class="card-header icon-card-body">
@@ -50,11 +51,12 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <h1 class="card-text text-center"> <strong>£ @format_pennies($profile->getBalance())</strong></h1>
+                        <h1 class="card-text text-center"> <strong>£ @format_pennies($user->getProfile()->getBalance())</strong></h1>
                     </div>
                     <div class="card-footer"></div>
                 </div>
             </div>
+            @endif
 
             <div class="col">
                 <div class="card text-white bg-secondary mb-3" >

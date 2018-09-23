@@ -15,6 +15,8 @@ class HomeController extends Controller
     /**
      * Create a new controller instance.
      *
+     * @param ProjectRepository $projectRepository
+     *
      * @return void
      */
     public function __construct(ProjectRepository $projectRepository)
@@ -32,11 +34,10 @@ class HomeController extends Controller
     {
         $user = \Auth::user();
 
-        $projectCount = count($this->projectRepository->findBy(['user' => $user->getId()]));
+        $projectCount = $this->projectRepository->countActiveByUser($user);
 
         return view('home')->with([
             'user' => $user,
-            'profile' => $user->getProfile(),
             'projectCount' => $projectCount,
         ]);
     }

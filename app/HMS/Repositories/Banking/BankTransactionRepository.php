@@ -21,6 +21,17 @@ interface BankTransactionRepository
     public function findLatestTransactionByAccount(Account $account);
 
     /**
+     * find all transactions for a given account and pagineate them.
+     * Ordered by transactionDate DESC.
+     *
+     * @param null|Account   $account
+     * @param int    $perPage
+     * @param string $pageName
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function paginateByAccount(?Account $account, $perPage = 15, $pageName = 'page');
+
+    /**
      * find a matching tranaction in the db or save this one.
      * @param  BankTransaction $bankTransaction
      * @return BankTransaction

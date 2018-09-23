@@ -113,6 +113,18 @@ Route::group(['middleware' => 'auth'], function () {
         ]
     );
 
+    // Bank Transactions
+    Route::get('bank-transactions/unmatched', 'Banking\BankTransactionsController@listUnmatched')->name('bank-transactions.unmatched');
+    Route::get('users/{user}/bank-transactions', 'Banking\BankTransactionsController@index')->name('users.bank-transactions');
+    Route::resource('bank-transactions', 'Banking\BankTransactionsController',
+        [
+            'except' => ['show', 'create', 'store', 'destroy'],
+            'parameters' => [
+                'bank-transactions' => 'bankTransaction',
+            ],
+        ]
+    );
+
     // Snackspace
     Route::get('users/{user}/snackspace/transactions', 'Snackspace\TransactionsController@index')->name('users.snackspace.transactions');
     Route::resource('snackspace/transactions', 'Snackspace\TransactionsController',

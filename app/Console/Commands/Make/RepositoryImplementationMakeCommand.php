@@ -30,16 +30,6 @@ class RepositoryImplementationMakeCommand extends GeneratorCommand
     }
 
     /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
-    {
-        parent::fire();
-    }
-
-    /**
      * Get the destination class path.
      *
      * @param  string  $name

@@ -6,6 +6,7 @@ use Exception;
 use Doctrine\ORM\EntityNotFoundException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\Response as IlluminateResponse;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -66,7 +67,7 @@ class Handler extends ExceptionHandler
     protected function unauthenticated($request, AuthenticationException $exception)
     {
         if ($request->expectsJson()) {
-            return response()->json(['error' => 'Unauthenticated.'], 401);
+            return response()->json(['error' => 'Unauthenticated.'], IlluminateResponse::HTTP_UNAUTHORIZED);
         }
 
         return redirect()->guest(route('login'));
@@ -82,7 +83,7 @@ class Handler extends ExceptionHandler
     protected function unauthorized($request, AuthorizationException $exception)
     {
         if ($request->expectsJson()) {
-            return response()->json(['error' => 'Unauthorized.'], 403);
+            return response()->json(['error' => 'Unauthorized.'], IlluminateResponse::HTTP_FORBIDDEN);
         }
 
         flash('Unauthorized', 'error');

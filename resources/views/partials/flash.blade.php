@@ -1,5 +1,5 @@
 <div class="container">
-  @foreach ((array) session('flash_notification') as $message)
+  @foreach (session('flash_notification', collect())->toArray() as $message)
   @if ($message['overlay'])
   @include('partials.flashModal', [
     'modalClass' => 'flash-modal',

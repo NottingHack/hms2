@@ -44,7 +44,7 @@
 
 <h2>Users</h2>
 <ul>
-  @foreach ($role->getUsers() as $user)
+  @foreach ($users as $user)
   <li>
     <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="alert form-submit-link" aria-label="delete">
       <form action="{{ route('roles.removeUser', ['roleId' => $role->getId(), 'userId' => $user->getId()]) }}" method="POST" style="display: inline">
@@ -56,6 +56,10 @@
  </li>
  @endforeach
 </ul>
+
+<div classs="pagination-links">
+    {{ $users->links() }}
+</div>
 
 @can('role.edit.all')
 <a href="{{ route('roles.edit', $role->getId()) }}" class="button">edit</a>

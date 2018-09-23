@@ -32,16 +32,6 @@ class MappingMakeCommand extends GeneratorCommand
     }
 
     /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
-    {
-        parent::fire();
-    }
-
-    /**
      * Build the class with the given name.
      *
      * @param  string  $name

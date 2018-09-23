@@ -7,12 +7,11 @@ use HMS\Repositories\Members\ProjectRepository;
 
 class HomeController extends Controller
 {
-    
     /**
      * @var projectRepository
      */
     protected $projectRepository;
-    
+
     /**
      * Create a new controller instance.
      *
@@ -31,15 +30,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-    $user = \Auth::user();
-        
-    $projectCount = count($this->projectRepository->findBy(['user' => $user->getId()]));
+        $user = \Auth::user();
 
-    return view('home')->with([
-    'user' => $user,
-    'profile' => $user->getProfile(),
-    'projectCount' => $projectCount
-]);
+        $projectCount = count($this->projectRepository->findBy(['user' => $user->getId()]));
+
+        return view('home')->with([
+            'user' => $user,
+            'profile' => $user->getProfile(),
+            'projectCount' => $projectCount,
+        ]);
     }
 
     /**

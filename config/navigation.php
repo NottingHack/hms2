@@ -46,7 +46,6 @@ return [
             'text'          => 'Admin',
             'permissions'   => [],
             'links'         => [
-                
                 'dashboard'         => [
                     'text'          => 'Dashboard',
                     'route'         => 'admin',
@@ -61,7 +60,6 @@ return [
                     'permissions'   => ['profile.view.all'],
                     'links'         => [],
                 ],
-                
                 'roles'         => [
                     'text'          => 'Roles',
                     'route'         => 'roles.index',

@@ -3,6 +3,7 @@
 @section('pageTitle', 'Links')
 
 @section('content')
+<div class="container">
 <p>Useful links for members</p>
 
 @can('link.create')
@@ -51,5 +52,6 @@
 
 <div classs="pagination-links">
   {{ $links->links() }}
+</div>
 </div>
 @endsection

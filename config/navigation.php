@@ -42,6 +42,24 @@ return [
             'permissions'   => ['link.view'],
             'links'         => [],
         ],
+
+        'membershipAdmin' => [
+            'text'          => 'Membership Admin',
+            'route'         => 'links.index',
+            'permissions'   => ['profile.view.all'],
+            'links'         => [
+
+                'user'         => [
+                    'text'          => 'Members',
+                    'route'         => 'users.index',
+                    'match'         => 'users.index',
+                    'permissions'   => ['profile.view.all'],
+                    'links'         => [],
+                ],
+            ],
+        ],
+
+
         'admin' => [
             'text'          => 'Admin',
             'permissions'   => [],

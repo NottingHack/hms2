@@ -4,8 +4,7 @@
 
 @section('content')
 <div class="container">
-  <div class="row">
-    <table class="table table-bordered">
+  <table class="table table-bordered table-hover table-responsive">
   <thead>
     <tr>
       <th>Date</th>
@@ -31,4 +30,6 @@
 <div classs="pagination-links">
   {{ $bankTransactions->links() }}
 </div>
+</div>
+
 @endsection

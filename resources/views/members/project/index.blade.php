@@ -15,7 +15,7 @@ Projects for {{ $user->getFirstname() }}
 
 <br>
 <div class="container">
-  <table class="table table-bordered table-hover table-responsive">
+  <table class="table table-bordered table-hover">
     <thead>
       <tr>
         <th>Project Name</th>

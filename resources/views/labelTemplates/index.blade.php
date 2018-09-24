@@ -6,7 +6,7 @@
 <div class="container">
   <p>Label templates printed via the thermal printer.<br> Templates are written in EPL2<br> Approx 780w x 600h</p>
   <br>
-  <table class="table table-bordered table-hover table-responsive">
+  <table class="table table-bordered table-hover">
     <thead>
       <tr>
         <th scope="col">Name</th>

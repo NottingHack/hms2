@@ -7,7 +7,7 @@
 <div class="container">
 <h1>{{ $role->getDisplayName() }}</h1>
 <hr>
-<table class="table table-bordered table-hover table-responsive">
+<table class="table table-bordered table-hover ">
   <tbody>
     <tr>
       <th>Name:</th>
@@ -55,7 +55,7 @@
 </nav>
 </br>
 @endcan
-<table class="table table-bordered table-hover table-responsive">
+<table class="table table-bordered table-hover">
   @foreach ($users as $user)
   <td>
      {{ $user->getFullName() }}
@@ -65,7 +65,7 @@
       <form action="{{ route('roles.removeUser', ['roleId' => $role->getId(), 'userId' => $user->getId()]) }}" method="POST" style="display: inline">
        {{ method_field('DELETE') }}
        {{ csrf_field() }}
-       <p>Remove</p>
+       <p>pRemove</p>
      </form>
    </a> 
  </td>

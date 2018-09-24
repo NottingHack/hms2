@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-  <h2>Useful links for members</h2>
+  <h2>Useful links for Members</h2>
   <hr>
 
   @can('link.create')

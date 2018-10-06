@@ -22,7 +22,8 @@
         "maxbrokman/safe-queue": "^0.3.0",
         "pda/pheanstalk": "~3.0",
         "predis/predis": "^1.1",
-        "spatie/laravel-cookie-consent": "^2.0"
+        "spatie/laravel-cookie-consent": "^2.0",
+        "brainrepo/carbon-normalizer": "dev-master"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

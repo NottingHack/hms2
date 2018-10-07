@@ -1,6 +1,7 @@
 #HMS.Entities.Email.dcm.yml
 HMS\Entities\Email:
   type: entity
+  repositoryClass: HMS\Repositories\Doctrine\DoctrineEmailRepository
   table: emails
   id:
     id:

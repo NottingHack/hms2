@@ -1,7 +1,7 @@
 # HMS.Entities.Banking.Bank.dcm.yml
 HMS\Entities\Banking\Bank:
   type: entity
-  repositoryClass: HMS\Repositories\Banking\BankRepository
+  repositoryClass: HMS\Repositories\Banking\Doctrine\DoctrineBankRepository
   table: banks
   id:
     id:

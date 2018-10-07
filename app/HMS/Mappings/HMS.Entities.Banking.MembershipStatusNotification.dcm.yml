@@ -1,7 +1,7 @@
 # HMS.Entities.Banking.MembershipStatusNotification.dcm.yml
 HMS\Entities\Banking\MembershipStatusNotification:
   type: entity
-  repositoryClass: HMS\Repositories\Banking\MembershipStatusNotificationRepository
+  repositoryClass: HMS\Repositories\Banking\Doctrine\DoctrineMembershipStatusNotificationRepository
   table: membership_status_notifications
   id:
     id:

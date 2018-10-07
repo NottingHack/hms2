@@ -1,7 +1,7 @@
 # HMS.Entities.GateKeeper.RfidTag.dcm.yml
 HMS\Entities\GateKeeper\RfidTag:
   type: entity
-  repositoryClass: HMS\Repositories\GateKeeper\RfidTagRepository
+  repositoryClass: HMS\Repositories\GateKeeper\Doctrine\DoctrineRfidTagRepository
   id:
     id:
       type: integer

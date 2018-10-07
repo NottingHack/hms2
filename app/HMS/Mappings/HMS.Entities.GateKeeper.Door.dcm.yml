@@ -1,7 +1,7 @@
 # HMS.Entities.GateKeeper.Door.dcm.yml
 HMS\Entities\GateKeeper\Door:
   type: entity
-  repositoryClass: HMS\Repositories\GateKeeper\DoorRepository
+  repositoryClass: HMS\Repositories\GateKeeper\Doctrine\DoctrineDoorRepository
   table: doors
   id:
     id:

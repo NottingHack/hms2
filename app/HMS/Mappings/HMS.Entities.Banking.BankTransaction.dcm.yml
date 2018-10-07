@@ -1,7 +1,7 @@
 # HMS.Entities.Banking.BankTransaction.dcm.yml
 HMS\Entities\Banking\BankTransaction:
   type: entity
-  repositoryClass: HMS\Repositories\Banking\BankTransactionRepository
+  repositoryClass: HMS\Repositories\Banking\Doctrine\DoctrineBankTransactionRepository
   table: bank_transactions
   uniqueConstraints:
     duplicate_idx:

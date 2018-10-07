@@ -1,6 +1,7 @@
 # HMS.Entities.Profile.dcm.yml
 HMS\Entities\Profile:
   type: entity
+  repositoryClass: HMS\Repositories\Doctrine\DoctrineProfileRepository
   table: profile
   id:
     user:

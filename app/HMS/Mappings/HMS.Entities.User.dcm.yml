@@ -1,6 +1,7 @@
 # HMS.Entities.User.dcm.yml
 HMS\Entities\User:
   type: entity
+  repositoryClass: HMS\Repositories\Doctrine\DoctrineUserRepository
   table: user
   indexes:
     email_index:

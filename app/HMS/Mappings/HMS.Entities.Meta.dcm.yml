@@ -1,7 +1,7 @@
 # HMS.Entities.Meta.dcm.yml
 HMS\Entities\Meta:
   type: entity
-  repositoryClass: HMS\Repositories\MetaRepository
+  repositoryClass: HMS\Repositories\Doctrine\DoctrineMetaRepository
   table: meta
   gedmo:
     soft_deleteable:

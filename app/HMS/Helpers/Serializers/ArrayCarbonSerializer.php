@@ -15,7 +15,7 @@ class ArrayCarbonSerializer
     protected $serializer;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {

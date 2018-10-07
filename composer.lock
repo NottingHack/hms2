@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a4f81d395d31ee1f66d06139e5d5a6bb",
+    "content-hash": "a43feec97447fa6966794cb4c2a0ca98",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -5942,16 +5942,16 @@
         },
         {
             "name": "laracasts/behat-laravel-extension",
-            "version": "1.1.1",
+            "version": "dev-bug/78-not-compatible-with-laravel-56",
             "source": {
                 "type": "git",
-                "url": "https://github.com/laracasts/Behat-Laravel-Extension.git",
-                "reference": "292a471321badec123a7f2b00edbde59be5759b0"
+                "url": "https://github.com/flaxandteal/Behat-Laravel-Extension.git",
+                "reference": "6fb801694365cdccd6cb3721e4abda7549e9aa97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laracasts/Behat-Laravel-Extension/zipball/292a471321badec123a7f2b00edbde59be5759b0",
-                "reference": "292a471321badec123a7f2b00edbde59be5759b0",
+                "url": "https://api.github.com/repos/flaxandteal/Behat-Laravel-Extension/zipball/6fb801694365cdccd6cb3721e4abda7549e9aa97",
+                "reference": "6fb801694365cdccd6cb3721e4abda7549e9aa97",
                 "shasum": ""
             },
             "require": {
@@ -5970,7 +5970,6 @@
                     "Laracasts\\Behat\\": "src"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -5982,12 +5981,15 @@
             ],
             "description": "Laravel extension for Behat",
             "keywords": [
-                "BDD",
-                "Behat",
+                "bdd",
+                "behat",
                 "extension",
                 "laravel"
             ],
-            "time": "2018-01-21T15:09:22+00:00"
+            "support": {
+                "source": "https://github.com/flaxandteal/Behat-Laravel-Extension/tree/bug/78-not-compatible-with-laravel-56"
+            },
+            "time": "2018-07-12T15:48:53+00:00"
         },
         {
             "name": "maximebf/debugbar",
@@ -7949,7 +7951,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "brainrepo/carbon-normalizer": 20
+        "brainrepo/carbon-normalizer": 20,
+        "laracasts/behat-laravel-extension": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

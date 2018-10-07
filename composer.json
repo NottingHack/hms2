@@ -32,11 +32,17 @@
         "behat/mink-extension": "^2.1",
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",
-        "laracasts/behat-laravel-extension": "^1.0",
+        "laracasts/behat-laravel-extension": "dev-bug/78-not-compatible-with-laravel-56",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^2.0",
         "phpunit/phpunit": "^7.0"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/flaxandteal/Behat-Laravel-Extension/"
+        }
+    ],
     "autoload": {
         "classmap": [
             "database/seeds",

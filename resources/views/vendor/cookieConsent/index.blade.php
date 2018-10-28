@@ -1,51 +1,47 @@
 @if($cookieConsentConfig['enabled'] && !$alreadyConsentedWithCookies)
+@include('cookieConsent::dialogContents')
+<script>
+  window.laravelCookieConsent = (function () {
 
-    @include('cookieConsent::dialogContents')
+    var COOKIE_VALUE = 1;
 
-    <script>
+    function consentWithCookies() {
+      setCookie('{{ $cookieConsentConfig['cookie_name'] }}', COOKIE_VALUE, 365 * 20);
+      hideCookieDialog();
+    }
 
-        window.laravelCookieConsent = (function () {
+    function cookieExists(name) {
+      return (document.cookie.split('; ').indexOf(name + '=' + COOKIE_VALUE) !== -1);
+    }
 
-            var COOKIE_VALUE = 1;
+    function hideCookieDialog() {
+      var dialogs = document.getElementsByClassName('js-cookie-consent');
 
-            function consentWithCookies() {
-                setCookie('{{ $cookieConsentConfig['cookie_name'] }}', COOKIE_VALUE, 365 * 20);
-                hideCookieDialog();
-            }
+      for (var i = 0; i < dialogs.length; ++i) {
+        dialogs[i].style.display = 'none';
+      }
+    }
 
-            function cookieExists(name) {
-                return (document.cookie.split('; ').indexOf(name + '=' + COOKIE_VALUE) !== -1);
-            }
+    function setCookie(name, value, expirationInDays) {
+      var date = new Date();
+      date.setTime(date.getTime() + (expirationInDays * 24 * 60 * 60 * 1000));
+      document.cookie = name + '=' + value + '; ' + 'expires=' + date.toUTCString() +';path=/';
+    }
 
-            function hideCookieDialog() {
-                var dialogs = document.getElementsByClassName('js-cookie-consent');
+    if(cookieExists('{{ $cookieConsentConfig['cookie_name'] }}')) {
+      hideCookieDialog();
+    }
 
-                for (var i = 0; i < dialogs.length; ++i) {
-                    dialogs[i].style.display = 'none';
-                }
-            }
+    var buttons = document.getElementsByClassName('js-cookie-consent-agree');
 
-            function setCookie(name, value, expirationInDays) {
-                var date = new Date();
-                date.setTime(date.getTime() + (expirationInDays * 24 * 60 * 60 * 1000));
-                document.cookie = name + '=' + value + '; ' + 'expires=' + date.toUTCString() +';path=/';
-            }
+    for (var i = 0; i < buttons.length; ++i) {
+      buttons[i].addEventListener('click', consentWithCookies);
+    }
 
-            if(cookieExists('{{ $cookieConsentConfig['cookie_name'] }}')) {
-                hideCookieDialog();
-            }
-
-            var buttons = document.getElementsByClassName('js-cookie-consent-agree');
-
-            for (var i = 0; i < buttons.length; ++i) {
-                buttons[i].addEventListener('click', consentWithCookies);
-            }
-
-            return {
-                consentWithCookies: consentWithCookies,
-                hideCookieDialog: hideCookieDialog
-            };
-        })();
-    </script>
-
+    return {
+      consentWithCookies: consentWithCookies,
+      hideCookieDialog: hideCookieDialog
+    };
+  })();
+</script>
 @endif

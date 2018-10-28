@@ -1,7 +1,7 @@
 # HMS.Entities.GateKeeper.Zone.dcm.yml
 HMS\Entities\GateKeeper\Zone:
   type: entity
-  repositoryClass: HMS\Repositories\GateKeeper\ZoneRepository
+  repositoryClass: HMS\Repositories\GateKeeper\Doctrine\DoctrineZoneRepository
   table: zones
   id:
     id:

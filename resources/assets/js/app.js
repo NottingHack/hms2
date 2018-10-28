@@ -2,14 +2,6 @@ require('./bootstrap');
 // This file is for global JavaScript which is to be present on every page.
 // It is compiled by Webpack, so can freely contain ES2015 code.
 
-// Initialise Foundation plugins
-$(() => {
-  $(document).foundation();
-  if ($('#flash-overlay-modal').lenght) {
-    $('#flash-overlay-modal').foundation('open');
-  }
-});
-
 // negstive money to red
 $(".money:contains('-')").css("color", "red");
 
@@ -35,9 +27,13 @@ $(".js-data-member-search-ajax").change(function(){
   $("#member-search").submit();
 });
 
+$(".js-permission-select").select2({
+	width: 'element'
+});
+
 $(".js-data-member-search-ajax").select2({
-  theme: "foundation",
-  width: '100%',
+  // theme: "foundation",
+  width: 'element',
   placeholder: "Search for a member...",
   ajax: {
     url: '/api/search/users',
@@ -74,7 +70,7 @@ $(".js-data-member-search-ajax").select2({
 });
 
 $(".js-data-existing-account-ajax").select2({
-  theme: "foundation",
+  // theme: "foundation",
   placeholder: "Search for a member...",
   ajax: {
     url: '/api/search/users',
@@ -135,4 +131,8 @@ $("#user-edit-form,#membership-edit-details-form,#register-form").submit(functio
   if (date.val().includes('/')) {
     date.val(date.val().split('/').reverse().join('-'));
   }
+});
+
+$(".select2-basic-single").select2({
+  theme: "foundation",
 });

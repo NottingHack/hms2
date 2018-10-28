@@ -28,14 +28,4 @@ class EntityMakeCommand extends GeneratorCommand
     {
         return __DIR__.'/stubs/entity.stub';
     }
-
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
-    {
-        parent::fire();
-    }
 }

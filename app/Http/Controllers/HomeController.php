@@ -3,17 +3,26 @@
 namespace App\Http\Controllers;
 
 use HMS\Repositories\MetaRepository;
+use HMS\Repositories\Members\ProjectRepository;
 
 class HomeController extends Controller
 {
     /**
+     * @var ProjectRepository
+     */
+    protected $projectRepository;
+
+    /**
      * Create a new controller instance.
+     *
+     * @param ProjectRepository $projectRepository
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(ProjectRepository $projectRepository)
     {
         $this->middleware('auth');
+        $this->projectRepository = $projectRepository;
     }
 
     /**
@@ -23,7 +32,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user = \Auth::user();
+
+        $projectCount = $this->projectRepository->countActiveByUser($user);
+
+        return view('home')->with([
+            'user' => $user,
+            'projectCount' => $projectCount,
+        ]);
     }
 
     /**

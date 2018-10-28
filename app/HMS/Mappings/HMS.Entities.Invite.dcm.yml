@@ -1,7 +1,7 @@
 # HMS.Entities.Invite.dcm.yml
 HMS\Entities\Invite:
   type: entity
-  repositoryClass: HMS\Repositories\InviteRepository
+  repositoryClass: HMS\Repositories\Doctrine\DoctrineInviteRepository
   table: invites
   indexes:
     email_index:

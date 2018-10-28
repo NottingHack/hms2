@@ -18,14 +18,14 @@ When the standing order is set-up, once your payment shows up in our bank accoun
 
 A few important details: Nottingham Hackspace is incorporated as a non-profit company, registration number 07766826. Everyone who works on stuff for the hackspace is a volunteer; the hackspace has no staff, just members. So far, it has also been entirely funded and is self-sustaining through members contributions rather than grants.
 
-Here's the URL for the public google group:<br />
+Here's the URL for the public google group:<br>
 {{ $groupLink }}
 
-Here are the hackspace rules:<br />
+Here are the hackspace rules:<br>
 {{ $rulesLink }}
 
 If you have any questions, just email.
 
-Thanks,<br />
+Thanks,<br>
 Nottinghack Membership Team
 @endcomponent

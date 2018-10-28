@@ -1,7 +1,7 @@
 # HMS.Entities.Banking.Account.dcm.yml
 HMS\Entities\Banking\Account:
   type: entity
-  repositoryClass: HMS\Repositories\Banking\AccountRepository
+  repositoryClass: HMS\Repositories\Banking\Doctrine\DoctrineAccountRepository
   table: accounts
   indexes:
     payment_ref_index:

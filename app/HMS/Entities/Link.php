@@ -3,8 +3,8 @@
 namespace HMS\Entities;
 
 use App\Http\Requests\LinkRequest;
+use HMS\Traits\Entities\Arrayable;
 use HMS\Traits\Entities\SoftDeletable;
-use LaravelDoctrine\ORM\Serializers\Arrayable;
 use LaravelDoctrine\Extensions\Timestamps\Timestamps;
 use Illuminate\Contracts\Support\Arrayable as ArrayableContract;
 

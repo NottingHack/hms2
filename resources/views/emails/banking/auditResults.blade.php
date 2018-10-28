@@ -2,7 +2,7 @@
 # Hello {{ $teamName }},
 
 
-I have audited the members with following results.<br />
+I have audited the members with following results.<br>
 Each will have had an automated email.
 
 ## New Members: {{ count($formattedApproveUsers) }}
@@ -56,6 +56,6 @@ These ex-members have started paying again, so their membership has been reinsta
 @endforelse
 @endcomponent
 
-Thank you,<br />
+Thank you,<br>
 HMS
 @endcomponent

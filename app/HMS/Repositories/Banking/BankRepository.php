@@ -13,6 +13,12 @@ interface BankRepository
     public function find($id);
 
     /**
+     * @param  string $accountNumber
+     * @return null|Bank
+     */
+    public function findOneByAccountNumber(string $accountNumber);
+
+    /**
      * save Bank to the DB.
      * @param  Bank $bank
      */

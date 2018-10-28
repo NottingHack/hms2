@@ -10,6 +10,7 @@ return [
     | This value is the name of your application. This value is used when the
     | framework needs to place the application's name in a notification or
     | any other location as required by the application or its packages.
+    |
     */
 
     'name' => env('APP_NAME', 'Laravel'),
@@ -109,23 +110,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Logging Configuration
-    |--------------------------------------------------------------------------
-    |
-    | Here you may configure the log settings for your application. Out of
-    | the box, Laravel uses the Monolog PHP logging library. This gives
-    | you a variety of powerful log handlers / formatters to utilize.
-    |
-    | Available Settings: "single", "daily", "syslog", "errorlog"
-    |
-    */
-
-    'log' => env('APP_LOG', 'single'),
-
-    'log_level' => env('APP_LOG_LEVEL', 'debug'),
-
-    /*
-    |--------------------------------------------------------------------------
     | Autoloaded Service Providers
     |--------------------------------------------------------------------------
     |
@@ -166,18 +150,10 @@ return [
         /*
          * Package Service Providers...
          */
-        Laravel\Tinker\TinkerServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
-        LaravelDoctrine\ORM\DoctrineServiceProvider::class,
         LaravelDoctrine\ORM\Auth\Passwords\PasswordResetServiceProvider::class,
         LaravelDoctrine\Migrations\MigrationsServiceProvider::class,
         LaravelDoctrine\ACL\AclServiceProvider::class,
-        Spatie\CookieConsent\CookieConsentServiceProvider::class,
-        Laracasts\Flash\FlashServiceProvider::class,
-        Laravel\Passport\PassportServiceProvider::class,
-        LWK\ViMbAdmin\ViMbAdminServiceProvider::class,
         MaxBrokman\SafeQueue\DoctrineQueueProvider::class,
-        PrettyRoutes\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -239,9 +215,9 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        'EntityManager' => LaravelDoctrine\ORM\Facades\EntityManager::class,
-        'Registry' => LaravelDoctrine\ORM\Facades\Registry::class,
-        'Doctrine' => LaravelDoctrine\ORM\Facades\Doctrine::class,
+        // 'EntityManager' => LaravelDoctrine\ORM\Facades\EntityManager::class,
+        // 'Registry' => LaravelDoctrine\ORM\Facades\Registry::class,
+        // 'Doctrine' => LaravelDoctrine\ORM\Facades\Doctrine::class,
 
         'SiteVisitor' => HMS\Facades\SiteVisitor::class,
         'Meta' => HMS\Facades\Meta::class,

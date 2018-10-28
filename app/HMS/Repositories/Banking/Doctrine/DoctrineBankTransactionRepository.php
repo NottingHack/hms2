@@ -6,9 +6,12 @@ use HMS\Entities\Banking\Account;
 use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Banking\BankTransaction;
 use HMS\Repositories\Banking\BankTransactionRepository;
+use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 
 class DoctrineBankTransactionRepository extends EntityRepository implements BankTransactionRepository
 {
+    use PaginatesFromRequest;
+
     /**
      * find the latest transaction for each account.
      * @return array
@@ -31,6 +34,53 @@ class DoctrineBankTransactionRepository extends EntityRepository implements Bank
     public function findLatestTransactionByAccount(Account $account)
     {
         return parent::findOneByAccount($account, ['transactionDate' => 'DESC']);
+    }
+
+    /**
+     * find all transactions for a given account and pagineate them.
+     * Ordered by transactionDate DESC.
+     *
+     * @param null|Account   $account
+     * @param int    $perPage
+     * @param string $pageName
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function paginateByAccount(?Account $account, $perPage = 15, $pageName = 'page')
+    {
+        $q = parent::createQueryBuilder('bankTransaction');
+        if (is_null($account)) {
+            $q = $q->where('bankTransaction.account IS NULL');
+        } else {
+            $q = $q->where('bankTransaction.account = :account_id');
+            $q = $q->setParameter('account_id', $account->getId());
+        }
+        $q = $q->orderBy('bankTransaction.transactionDate', 'DESC');
+
+        $q = $q->getQuery();
+
+        return $this->paginate($q, $perPage, $pageName);
+    }
+
+    /**
+     * find a matching tranaction in the db or save this one.
+     * @param  BankTransaction $bankTransaction
+     * @return BankTransaction
+     */
+    public function findOrSave(BankTransaction $bankTransaction)
+    {
+        $bt = parent::findOneBy([
+            'transactionDate' => $bankTransaction->getTransactionDate(),
+            'description' => $bankTransaction->getDescription(),
+            'amount' => $bankTransaction->getAmount(),
+        ]);
+
+        if ($bt) {
+            return $bt;
+        }
+
+        $this->save($bankTransaction);
+
+        return $bankTransaction;
     }
 
     /**

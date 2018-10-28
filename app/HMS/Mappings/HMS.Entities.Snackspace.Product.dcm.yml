@@ -1,7 +1,7 @@
 # HMS.Entities.Snackspace.Product.dcm.yml
 HMS\Entities\Snackspace\Product:
   type: entity
-  repositoryClass: HMS\Repositories\Snackspace\ProductRepository
+  repositoryClass: HMS\Repositories\Snackspace\Doctrine\DoctrineProductRepository
   table: products
   id:
     id:

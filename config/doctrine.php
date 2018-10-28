@@ -28,6 +28,8 @@ return [
             'namespaces' => [
                 'HMS',
                 'HMS\Entities',
+                'HMS\Entities\GateKeeper',
+                'HMS\Entities\Banking',
                 'HMS\Entities\Members',
                 'HMS\Entities\Snackspace',
             ],

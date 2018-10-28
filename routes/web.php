@@ -27,10 +27,10 @@ Route::get('/', function () {
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
-Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
-Route::get('password/reset/', 'Auth\ForgotPasswordController@showLinkRequestForm');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset/', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
-Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::get('register/{token}', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
 
@@ -77,6 +77,18 @@ Route::group(['middleware' => 'auth'], function () {
         ]
     );
 
+    // Rfid Tags
+    Route::get('users/{user}/rfid-tags', 'GateKeeper\RfidTagsController@index')->name('users.rfid-tags');
+    Route::resource('rfid-tags', 'GateKeeper\RfidTagsController',
+        [
+            'except' => ['create', 'store', 'show'],
+            'parameters' => [
+                'rfid-tags' => 'rfidTag',
+            ],
+        ]
+    );
+    Route::patch('pins/{pin}/reavtivate', 'GateKeeper\RfidTagsController@reactivatePin')->name('pins.reactivate');
+
     // Label printer template admin
     Route::get('labels/{label}/print', 'LabelTemplateController@showPrint')->name('labels.showPrint');
     Route::post('labels/{label}/print', 'LabelTemplateController@print')->name('labels.print');
@@ -90,6 +102,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/membership/update-details/{user}', 'MembershipController@updateDetails')->name('membership.update');
 
     // Members Projects and DNH labels
+    Route::get('users/{user}/projects', 'Members\ProjectController@index')->name('users.projects');
     Route::patch('projects/{project}/markActive', 'Members\ProjectController@markActive')->name('projects.markActive');
     Route::patch('projects/{project}/markAbandoned', 'Members\ProjectController@markAbandoned')->name('projects.markAbandoned');
     Route::patch('projects/{project}/markComplete', 'Members\ProjectController@markComplete')->name('projects.markComplete');
@@ -111,6 +124,18 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('boxes', 'Members\BoxController',
         [
             'except' => ['show', 'create', 'edit', 'update', 'destroy'],
+        ]
+    );
+
+    // Bank Transactions
+    Route::get('bank-transactions/unmatched', 'Banking\BankTransactionsController@listUnmatched')->name('bank-transactions.unmatched');
+    Route::get('users/{user}/bank-transactions', 'Banking\BankTransactionsController@index')->name('users.bank-transactions');
+    Route::resource('bank-transactions', 'Banking\BankTransactionsController',
+        [
+            'except' => ['show', 'create', 'store', 'destroy'],
+            'parameters' => [
+                'bank-transactions' => 'bankTransaction',
+            ],
         ]
     );
 

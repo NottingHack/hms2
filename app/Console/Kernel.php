@@ -13,21 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\Permissions\ListCommand::class,
-        Commands\Permissions\AddCommand::class,
-        Commands\Permissions\RemoveCommand::class,
-        Commands\Permissions\StripCommand::class,
-        Commands\Permissions\SyncCommand::class,
-        Commands\Invites\PurgeCommand::class,
-        Commands\Permissions\DefaultsCommand::class,
-        Commands\Make\MakeCommand::class,
-        Commands\Make\EntityMakeCommand::class,
-        Commands\Make\MappingMakeCommand::class,
-        Commands\Make\RepositoryInterfaceMakeCommand::class,
-        Commands\Make\RepositoryImplementationMakeCommand::class,
-        Commands\Make\FactoryMakeCommand::class,
-        Commands\Banking\AuditCommand::class,
-        Commands\Members\YoungHackerAuditCommand::class,
+        //
     ];
 
     /**
@@ -50,12 +36,14 @@ class Kernel extends ConsoleKernel
     }
 
     /**
-     * Register the Closure based commands for the application.
+     * Register the commands for the application.
      *
      * @return void
      */
     protected function commands()
     {
+        $this->load(__DIR__.'/Commands');
+
         require base_path('routes/console.php');
     }
 }

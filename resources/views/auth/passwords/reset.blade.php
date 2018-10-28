@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('pageTitle', 'Reset Password')
-@section('content')
 
+@section('content')
 <p>Choose a new password for your HMS account.</p>
 
 <form role="form" method="POST" action="{{ url('/password/reset') }}">
@@ -13,7 +13,7 @@
   <div class="row">
     <label for="email" class="form-label">E-Mail Address</label>
     <div class="form-control">
-      <input id="email" type="email" name="email" value="{{ $email or old('email') }}" required autofocus>
+      <input id="email" type="email" name="email" value="{{ $email ?? old('email') }}" required autofocus>
       @if ($errors->has('email'))
       <span class="help-block">
         <strong>{{ $errors->first('email') }}</strong>
@@ -26,7 +26,6 @@
     <label for="password" class="form-label">Password</label>
     <div class="form-control">
       <input id="password" name="password" type="password" required>
-
       @if ($errors->has('password'))
       <span class="help-block">
         <strong>{{ $errors->first('password') }}</strong>
@@ -39,7 +38,6 @@
     <label for="password-confirm" class="form-label">Confirm Password</label>
     <div class="form-control">
       <input id="password-confirm" name="password_confirmation" type="password" required>
-
       @if ($errors->has('password_confirmation'))
       <span class="help-block">
         <strong>{{ $errors->first('password_confirmation') }}</strong>

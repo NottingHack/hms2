@@ -1,7 +1,7 @@
 # HMS.Entities.Members.Project.dcm.yml
 HMS\Entities\Members\Project:
   type: entity
-  repositoryClass: HMS\Repositories\Members\ProjectRepository
+  repositoryClass: HMS\Repositories\Members\Doctrine\DoctrineProjectRepository
   table: member_projects
   id:
     id:

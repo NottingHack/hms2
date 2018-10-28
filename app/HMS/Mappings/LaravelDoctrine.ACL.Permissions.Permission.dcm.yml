@@ -1,6 +1,7 @@
 # LaravelDoctrine.ACL.Permissions.Permission.dcm.yml
 LaravelDoctrine\ACL\Permissions\Permission:
   type: entity
+  repositoryClass: HMS\Repositories\Doctrine\DoctrinePermissionRepository
   table: permissions
   indexes:
     name_index:

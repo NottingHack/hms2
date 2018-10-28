@@ -17,7 +17,7 @@
                   <div class="icon-card-icon"><i class="fa fa-key" aria-hidden="true"></i>
                   </div>
                   <div class="icon-card-content">
-                    <h3>Hackspace</h3>
+                    <h3>Hackspace is</h3>
                   </div>  
                 </div>
                 <div class="card-body">

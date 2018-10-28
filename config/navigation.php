@@ -27,7 +27,7 @@ return [
         'boxes' => [
             'text'          => 'Boxes',
             'route'         => 'boxes.index',
-            'permissions'   => ['boxes.view.self'],
+            'permissions'   => ['box.view.self'],
             'links'         => [],
         ],
         'snackspaceTransactions' => [

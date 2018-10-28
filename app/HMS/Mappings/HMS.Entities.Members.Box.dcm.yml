@@ -1,7 +1,7 @@
 # HMS.Entities.Members.Box.dcm.yml
 HMS\Entities\Members\Box:
   type: entity
-  repositoryClass: HMS\Repositories\Members\BoxRepository
+  repositoryClass: HMS\Repositories\Members\Doctrine\DoctrineBoxRepository
   table: member_boxes
   id:
     id:

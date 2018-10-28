@@ -3,8 +3,6 @@
 @section('pageTitle', 'New Member Details Review')
 
 @section('content')
-
-
 <div class="container">
   <p>Please review the details below and check they are all sensible.</p>
   <table class="table table-bordered table-hover">
@@ -101,7 +99,6 @@
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
               </div>
           </form>
-
         </div>
       </div>
     </div>
@@ -114,29 +111,27 @@
         <div class="modal-header">
           <h5 class="modal-title" id="ApproveTitle">Reject Details</h5>
         </div>
-        <div class="modal-body">
-          <p>To reject these member details please provide the reason why and ask the member to update them using the email box below.</p>
-
-          <form role="form" method="POST" action="{{ route('membership.reject', $user->getId()) }}">
-      {{ csrf_field() }}
-      <label for="reason" class="form-label">Reason</label>
-      <div class="form-group">
-        <textarea class="from-control" rows="4" id="reason" name="reason" required>{{ old('reason', '') }}</textarea>
-        @if ($errors->has('reason'))
-        <p class="help-text">
-          <strong>{{ $errors->first('reason') }}</strong>
-        </p>
-        @endif
-      </div>
+        <form role="form" method="POST" action="{{ route('membership.reject', $user->getId()) }}">
+          {{ csrf_field() }}
+          <div class="modal-body">
+            <p>To reject these member details please provide the reason why and ask the member to update them using the email box below.</p>
+            <label for="reason" class="form-label">Reason</label>
+            <div class="form-group">
+              <textarea class="form-control" rows="4" id="reason" name="reason" required>{{ old('reason', '') }}</textarea>
+              @if ($errors->has('reason'))
+              <p class="help-text">
+                <strong>{{ $errors->first('reason') }}</strong>
+              </p>
+              @endif
             </div>
-              <div class="modal-footer">
-              <button type="submit" class="btn btn-danger">Reject Details</button>
-              <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-              </div>
-          </form>
-
-        </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-danger">Reject Details</button>
+            <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
+</div>
 @endsection

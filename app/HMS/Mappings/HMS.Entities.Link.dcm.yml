@@ -1,6 +1,7 @@
 # HMS.Entities.Link.dcm.yml
 HMS\Entities\Link:
   type: entity
+  repositoryClass: HMS\Repositories\Doctrine\DoctrineLinkRepository
   table: links
   gedmo:
     soft_deleteable:

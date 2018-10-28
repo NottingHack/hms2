@@ -2,6 +2,7 @@
 HMS\Entities\LabelTemplate:
   type: entity
   table: label_templates
+  repositoryClass: HMS\Repositories\Doctrine\DoctrineLabelTemplateRepository
   gedmo:
     soft_deleteable:
       field_name: deletedAt

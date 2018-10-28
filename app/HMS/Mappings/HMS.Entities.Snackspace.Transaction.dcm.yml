@@ -1,7 +1,7 @@
 # HMS.Entities.Snackspace.Transaction.dcm.yml
 HMS\Entities\Snackspace\Transaction:
   type: entity
-  repositoryClass: HMS\Repositories\Snackspace\TransactionRepository
+  repositoryClass: HMS\Repositories\Snackspace\Doctrine\DoctrineTransactionRepository
   table: transactions
   id:
     id:

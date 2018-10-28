@@ -8,7 +8,7 @@ use HMS\Repositories\Members\ProjectRepository;
 class HomeController extends Controller
 {
     /**
-     * @var projectRepository
+     * @var ProjectRepository
      */
     protected $projectRepository;
 

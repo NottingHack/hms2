@@ -1,7 +1,7 @@
 # HMS.Entities.GateKeeper.Pin.dcm.yml
 HMS\Entities\GateKeeper\Pin:
   type: entity
-  repositoryClass: HMS\Repositories\GateKeeper\PinRepository
+  repositoryClass: HMS\Repositories\GateKeeper\Doctrine\DoctrinePinRepository
   table: pins
   id:
     id:

@@ -1,7 +1,7 @@
 # HMS.Entities.RoleUpdate.dcm.yml
 HMS\Entities\RoleUpdate:
   type: entity
-  repositoryClass: HMS\Repository\RoleUpdateRepository
+  repositoryClass: HMS\Repositories\Doctrine\DoctrineRoleUpdateRepository
   table: role_updates
   id:
     id:

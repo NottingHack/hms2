@@ -2,10 +2,10 @@
 
 namespace HMS\Entities;
 
+use HMS\Traits\Entities\Arrayable;
 use HMS\Traits\Entities\SoftDeletable;
 use HMS\Traits\Entities\Timestampable;
 use App\Http\Requests\LabelTemplateRequest;
-use LaravelDoctrine\ORM\Serializers\Arrayable;
 use Illuminate\Contracts\Support\Arrayable as ArrayableContract;
 
 class LabelTemplate implements ArrayableContract

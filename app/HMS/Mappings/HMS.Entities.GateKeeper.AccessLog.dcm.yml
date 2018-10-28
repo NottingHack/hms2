@@ -1,7 +1,7 @@
 # HMS.Entities.GateKeeper.AccessLog.dcm.yml
 HMS\Entities\GateKeeper\AccessLog:
   type: entity
-  repositoryClass: HMS\Repositories\GateKeeper\AccessLogRepository
+  repositoryClass: HMS\Repositories\GateKeeper\Doctrine\DoctrineAccessLogRepository
   table: access_logs
   indexes:
     access_time_index:

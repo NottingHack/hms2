@@ -172,7 +172,7 @@ class BoxController extends Controller
     }
 
     /**
-     * print a Do Not Hack label for a given box.
+     * print a label for a given box.
      *
      * @param  Box $box
      * @return \Illuminate\Http\Response

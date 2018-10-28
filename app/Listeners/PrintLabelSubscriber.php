@@ -73,6 +73,11 @@ class PrintLabelSubscriber implements ShouldQueue
             'App\Events\Labels\ProjectPrint',
             'App\Listeners\PrintLabelSubscriber@handlePrint'
         );
+
+        $events->listen(
+            'App\Events\Labels\BoxPrint',
+            'App\Listeners\PrintLabelSubscriber@handlePrint'
+        );
     }
 
     /**

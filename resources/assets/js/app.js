@@ -72,6 +72,7 @@ $(".js-data-member-search-ajax").select2({
 $(".js-data-existing-account-ajax").select2({
   // theme: "foundation",
   placeholder: "Search for a member...",
+  dropdownParent: $('.existing-account-select2'),
   ajax: {
     url: '/api/search/users',
     dataType: 'json',

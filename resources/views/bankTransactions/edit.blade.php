@@ -29,8 +29,10 @@
     {{ csrf_field() }}
     {{ method_field('PATCH') }}
 
+    <div class="existing-account-select2">
     <select name="existing-account" class="js-data-existing-account-ajax" style="width:100%">
     </select>
+  </div>
     <br>
     <div class="card">
       <button type="submit" class="btn btn-success">Match Transaction</button>

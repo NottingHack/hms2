@@ -133,6 +133,6 @@ $("#user-edit-form,#membership-edit-details-form,#register-form").submit(functio
   }
 });
 
-$( "#dropdown" ).select2({
-    theme: "bootstrap4"
+$(".select2-basic-single").select2({
+  theme: "foundation",
 });

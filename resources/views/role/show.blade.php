@@ -46,18 +46,20 @@
   @endforeach
 <br>
 <br>
+@can('role.edit.all')
+<div class="card">
+<a href="{{ route('roles.edit', $role->getId()) }}" class="btn btn-info"> <i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+</div>
+<br>
+@endcan
 
 <h2>Users</h2>
 <hr>
-@can('role.edit.all')
-<nav class="navbar navbar-light bg-light">
-<a href="{{ route('roles.edit', $role->getId()) }}" class="btn btn-info"> <i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-</nav>
-<br>
-@endcan
-<table class="table table-bordered table-hover">
+
+<table class="table table-bordered table-sm table-hover">
   @foreach ($users as $user)
-  <td>
+  <tr>
+    <td>
      {{ $user->getFullName() }}
    </td>
    <td>
@@ -65,15 +67,16 @@
       <form action="{{ route('roles.removeUser', ['roleId' => $role->getId(), 'userId' => $user->getId()]) }}" method="POST" style="display: inline">
        {{ method_field('DELETE') }}
        {{ csrf_field() }}
-       <p>pRemove</p>
      </form>
+     <i class="fa fa-trash" aria-hidden="true"></i>Remove
    </a> 
  </td>
+</tr>
  @endforeach
 </table>
 </ul>
 
-<div classs="pagination-links">
+<div classs="pagination-links center">
     {{ $users->links() }}
 </div>
 

@@ -56,11 +56,11 @@
 @endif
           </div>
           <br>
-{{-- @can('search.users')
+@can('search.users')
           <div class="col-lg-4 col-md-10 col-sm-10">
 @include('partials.memberSearch')
           </div>
-@endcan --}}
+@endcan
         </div>
       </div>
     </div>

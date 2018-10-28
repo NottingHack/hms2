@@ -4,6 +4,8 @@
 
 @section('content')
 <div class="container">
+  @if(count($bankTransactions) > 0) 
+  <p> Please match any transactions below </p>
   <table class="table table-bordered table-hover">
   <thead>
     <tr>
@@ -21,7 +23,7 @@
       <td>{{ $bankTransaction->getDescription() }}</td>
       <td>{{ $bankTransaction->getAmount() }}</td>
       <td>{{ $bankTransaction->getBank()->getName() }}</td>
-      <td><a href="{{ route('bank-transactions.edit', $bankTransaction->getId()) }}"><i class="fa fa-edit fa-lg" aria-hidden="true"></i> Reconcile</a></td>
+      <td><a class="btn btn-primary" href="{{ route('bank-transactions.edit', $bankTransaction->getId()) }}"><i class="fa fa-edit fa-lg" aria-hidden="true"></i> Reconcile</a></td>
     </tr>
   @endforeach
   </tbody>
@@ -30,6 +32,9 @@
 <div classs="pagination-links">
   {{ $bankTransactions->links() }}
 </div>
+@else
+<p> There are no unmatched transactions </p>
+@endif
 </div>
 
 @endsection

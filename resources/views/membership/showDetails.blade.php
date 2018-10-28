@@ -3,10 +3,11 @@
 @section('pageTitle', 'New Member Details Review')
 
 @section('content')
+
+
 <div class="container">
   <p>Please review the details below and check they are all sensible.</p>
-
-  <table class="table table-bordered">
+  <table class="table table-bordered table-hover">
     <tbody>
       <tr>
         <th>Username:</th>
@@ -59,50 +60,83 @@
     </tbody>
   </table>
 
-  <div id="approve" class="card" data-reveal>
-    <h2>Approval</h2>
-    <p>To approve these member details please select if a new bank reference should be created or if this account should be link to another member's account.</p>
-    <form role="form" method="POST" action="{{ route('membership.approve', $user->getId()) }}">
-      {{ csrf_field() }}
-      <label for="value" class="form-label">Account</label>
-      <div class="form-group">
-        <div class="form-tickbox-row">
-          <input name="new-account" type="radio" id="Yes" value="1" class="js-programmatic-disable" checked="checked" />
-          <label for="Yes">Create a new account reference</label>
+  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#approveDetails">
+    Approve Details
+  </button>
+
+  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#rejectDetails">
+    Reject Details
+  </button>
+
+  <!-- Approve Modal -->
+  <div class="modal fade existing-account-select2" id="approveDetails" tabindex="-1" role="dialog" aria-labelledby="Approve Details" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ApproveTitle">Approve Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <div class="form-tickbox-row">
-          <input name="new-account" type="radio" id="No" value="0" class="js-programmatic-enable" />
-          <label for="No">Link to an existing account</label>
+        <div class="modal-body">
+          <p>To approve these member details please select if a new bank reference should be created or if this account should be link to another member's account.</p>
+
+          <form role="form" method="POST" action="{{ route('membership.approve', $user->getId()) }}">
+            {{ csrf_field() }}
+            <label for="value" class="form-label">Account</label>
+            <div class="form-group">
+              <div class="form-tickbox-row">
+                <input name="new-account" type="radio" id="Yes" value="1" class="js-programmatic-disable" checked="checked" />
+                <label for="Yes">Create a new account reference</label>
+              </div>
+              <div class="form-tickbox-row">
+                <input name="new-account" type="radio" id="No" value="0" class="js-programmatic-enable" />
+                <label for="No">Link to an existing account</label>
+              </div>
+              <select name="existing-account" class="js-data-existing-account-ajax" disabled="disabled" data-width="100%" style="width: 100%">
+              </select>
+            </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success">Approve Details</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              </div>
+          </form>
+
         </div>
-        <select name="existing-account" class="js-data-existing-account-ajax" disabled="disabled" data-width="100%">
-        </select>
-        <hr>
-        <button type="submit" class="btn btn-success">Approve Details</button>
-        <button type="button" class="btn btn-danger" data-close>Cancel</button>
       </div>
-    </form>
+    </div>
   </div>
 
-  <div id="reject" class="card" data-reveal>
-    <h2>Rejection</h2>
-    <p>To reject these member details please provide the reason why and ask the member to update them using the email box below.</p>
-    <form role="form" method="POST" action="{{ route('membership.reject', $user->getId()) }}">
+  <!-- Reject Modal -->
+  <div class="modal fade" id="rejectDetails" tabindex="-1" role="dialog" aria-labelledby="Reject Details" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ApproveTitle">Reject Details</h5>
+        </div>
+        <div class="modal-body">
+          <p>To reject these member details please provide the reason why and ask the member to update them using the email box below.</p>
+
+          <form role="form" method="POST" action="{{ route('membership.reject', $user->getId()) }}">
       {{ csrf_field() }}
       <label for="reason" class="form-label">Reason</label>
       <div class="form-group">
-        <textarea class="from-control" rows="4" cols="50" id="reason" name="reason" required>{{ old('reason', '') }}</textarea>
+        <textarea class="from-control" rows="4" id="reason" name="reason" required>{{ old('reason', '') }}</textarea>
         @if ($errors->has('reason'))
         <p class="help-text">
           <strong>{{ $errors->first('reason') }}</strong>
         </p>
         @endif
       </div>
-      <hr>
-      <div class="form-group">
-        <button type="submit" class="btn btn-danger">Reject Details</button>
-        <button type="button" class="btn btn-info" data-close>Cancel</button>
+            </div>
+              <div class="modal-footer">
+              <button type="submit" class="btn btn-danger">Reject Details</button>
+              <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+              </div>
+          </form>
+
+        </div>
       </div>
-    </form>
+    </div>
   </div>
-</div>
 @endsection

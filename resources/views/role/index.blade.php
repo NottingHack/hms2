@@ -7,7 +7,7 @@
   @foreach ($roles as $category => $categoryRoles)
   <h2 style="text-transform: capitalize">{{ $category }}</h2>
   <hr>
-  <table class="table table-bordered table-hover table-responsive">
+  <table class="table table-bordered table-hover">
     <thead>
       <tr>
         <th>Role</th>

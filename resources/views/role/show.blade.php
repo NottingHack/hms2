@@ -3,8 +3,11 @@
 @section('pageTitle', 'Role')
 
 @section('content')
+
+<div class="container">
 <h1>{{ $role->getDisplayName() }}</h1>
-<table>
+<hr>
+<table class="table table-bordered table-hover ">
   <tbody>
     <tr>
       <th>Name:</th>
@@ -36,32 +39,45 @@
 </table>
 
 <h2>Permissions</h2>
-<ul>
+<hr>
+
   @foreach ($role->getPermissions() as $permission)
-  <li>{{ $permission->getName() }}</li>
+  <span class="badge badge-pill badge-primary">{{ $permission->getName() }}</span>
   @endforeach
-</ul>
+<br>
+<br>
 
 <h2>Users</h2>
-<ul>
+<hr>
+@can('role.edit.all')
+<nav class="navbar navbar-light bg-light">
+<a href="{{ route('roles.edit', $role->getId()) }}" class="btn btn-info"> <i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+</nav>
+<br>
+@endcan
+<table class="table table-bordered table-hover">
   @foreach ($users as $user)
-  <li>
-    <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="alert form-submit-link" aria-label="delete">
+  <td>
+     {{ $user->getFullName() }}
+   </td>
+   <td>
+    <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-danger btn-sm" aria-label="delete">
       <form action="{{ route('roles.removeUser', ['roleId' => $role->getId(), 'userId' => $user->getId()]) }}" method="POST" style="display: inline">
        {{ method_field('DELETE') }}
        {{ csrf_field() }}
-       <i class="fa fa-minus-circle" aria-hidden="true"></i>
+       <p>pRemove</p>
      </form>
-   </a>{{ $user->getFullName() }}
- </li>
+   </a> 
+ </td>
  @endforeach
+</table>
 </ul>
 
 <div classs="pagination-links">
     {{ $users->links() }}
 </div>
 
-@can('role.edit.all')
-<a href="{{ route('roles.edit', $role->getId()) }}" class="button">edit</a>
-@endcan
+
+
+</div>
 @endsection

@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "axios": "^0.16.2",
-    "bootstrap": "4.0.0-beta",
+    "bootstrap": "^4.0.0",
     "cross-env": "^3.2.3",
     "jquery": "^3.1.1",
     "laravel-mix": "^1.0",
@@ -20,5 +20,8 @@
     "select2": "latest",
     "select2-foundation": "https://github.com/egemensarica/select2-foundation.git#v6",
     "vue": "^2.1.10"
+  },
+  "dependencies": {
+    "select2-foundation_theme": "https://github.com/egemensarica/select2-foundation.git#v6"
   }
 }

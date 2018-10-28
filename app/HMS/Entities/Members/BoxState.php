@@ -25,7 +25,7 @@ class BoxState
     const STATE_STRINGS =
     [
         self::INUSE => 'In Use',
-        self::COMPLETE => 'Removed',
+        self::REMOVED => 'Removed',
         self::ABANDONED => 'Abandoned',
     ];
 }

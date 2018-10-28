@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Members;
 
+use HMS\Entities\User;
 use Illuminate\Http\Request;
 use HMS\Entities\Members\Box;
 use App\Events\Labels\BoxPrint;
 use App\Http\Controllers\Controller;
 use HMS\Repositories\UserRepository;
-use Doctrine\ORM\EntityNotFoundException;
 use HMS\Factories\Members\BoxFactory;
+use Doctrine\ORM\EntityNotFoundException;
 use HMS\Repositories\Members\BoxRepository;
 
 class BoxController extends Controller
@@ -102,19 +103,15 @@ class BoxController extends Controller
     /**
      * Show the form for issue a new box.
      *
+     * @param  User  $user user we are issuing a box for
      * @return \Illuminate\Http\Response
      */
-    public function issue()
+    public function issue(User $user)
     {
-        if ($request->user) {
-            $user = $this->userRepository->find($request->user);
-            if (is_null($user)) {
-                throw EntityNotFoundException::fromClassNameAndIdentifier(User::class, ['id' => $request->user]);
-            }
-        } else {
+        if ($user == \Auth::user()) {
             flash('Can not issue a box to yourself')->error();
 
-            return redirect()->route('home');
+            return redirect()->route('boxes.index');
         }
 
         // check member does not all ready have max number of boxes
@@ -136,7 +133,7 @@ class BoxController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'boxUser' => 'sometimes|exists:HMS\Entities\User',
+            'boxUser' => 'sometimes|exists:HMS\Entities\User,id',
         ]);
 
         if ($request->boxUser) {
@@ -248,7 +245,7 @@ class BoxController extends Controller
         if ($box->getUser() == \Auth::user()) {
             flash('You can not abandoned your own box')->error();
 
-            return redirect()->route('home');
+            return redirect()->route('boxes.index');
         }
 
         if ($box->getUser() != \Auth::user() && \Gate::denies('box.edit.all')) {

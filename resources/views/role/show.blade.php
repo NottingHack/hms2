@@ -44,8 +44,8 @@
   @foreach ($role->getPermissions() as $permission)
   <span class="badge badge-pill badge-primary">{{ $permission->getName() }}</span>
   @endforeach
-</br>
-</br>
+<br>
+<br>
 
 <h2>Users</h2>
 <hr>
@@ -53,7 +53,7 @@
 <nav class="navbar navbar-light bg-light">
 <a href="{{ route('roles.edit', $role->getId()) }}" class="btn btn-info"> <i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
 </nav>
-</br>
+<br>
 @endcan
 <table class="table table-bordered table-hover">
   @foreach ($users as $user)

@@ -16,7 +16,11 @@
   <!-- Scripts -->
   <!-- Font Awesome -->
   <script src="https://use.fontawesome.com/5fd8ad5172.js"></script>
-
+  <script type="text/javascript">
+  $( "#dropdown" ).select2({
+    theme: "bootstrap4"
+});
+</script>
   <!-- fav icons -->
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />

@@ -3,53 +3,49 @@
 @section('pageTitle', 'Links')
 
 @section('content')
-<p>Useful links for members</p>
+<div class="container">
+  <h2>Useful links for Members</h2>
+  <hr>
 
-@can('link.create')
-<div class="nav">
-  <div class="nav-item">
+  @can('link.create')
+  <div class="navbar navbar-light bg-secondary">
     <a href="{{ route('links.create') }}" class="nav-link btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Add new link</a>
   </div>
-</div>
-@endcan
+  <br>
+  @endcan
 
-<ul class="list-unstyled">
-  @foreach ($links as $link)
-  <li>
-    <div class="card my-3">
-      <div class="card-body">
-        <div class="d-flex card-title">
-          <div class="link-name">
-            <a href="{{ $link->getLink() }}" target="_blank">{{ $link->getName() }}</a>
-          </div>
 
-          @can('link.edit')
-          <ul class="list-inline ml-auto">
-            <li class="list-inline-item"><a href="{{ route('links.edit', $link->getId()) }}"><i class="fa fa-edit fa-lg" aria-hidden="true"></i> Edit</a></li>
-            <li class="list-inline-item">
-              <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="alert">
-                <form action="{{ route('links.destroy', $link->getId()) }}" method="POST" style="display: none">
-                  {{ method_field('DELETE') }}
-                  {{ csrf_field() }}
-                </form>
-                <i class="fa fa-trash fa-lg" aria-hidden="true"></i> Remove
-              </a>
-            </li>
-          </ul>
-          @endcan
-        </div>
-        @if ($link->getDescription())
-        <div class="link-description">
-          {{ $link->getDescription() }}
-        </div>
-        @endif
+  <div class="card-columns">
+    @foreach ($links as $link)
+    <div class="card text-center">
+      <div class="card-header text-center">
+          <a href="{{ $link->getLink() }}" target="_blank">
+            <h3>{{ $link->getName() }}</h3>
+          </a> 
       </div>
+      @if ($link->getDescription())
+      <div class="card-body">
+        <p class="card-text text-center lead">{{ $link->getDescription() }}</p>   
+      </div>
+      @endif
+      @can('link.edit')
+      <div class="card-footer">
+        <a href="{{ route('links.edit', $link->getId()) }}" class="btn btn-primary"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a>
+        <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary">
+          <form action="{{ route('links.destroy', $link->getId()) }}" method="POST" style="display: none">
+            {{ method_field('DELETE') }}
+            {{ csrf_field() }}
+          </form>
+          <i class="fa fa-trash" aria-hidden="true"></i> Remove
+        </a>
+      </div>
+      @endcan
     </div>
-  </li>
-  @endforeach
-</ul>
+    @endforeach
+  </div>
 
-<div classs="pagination-links">
-  {{ $links->links() }}
+  <div classs="pagination-links">
+    {{ $links->links() }}
+  </div>
 </div>
 @endsection

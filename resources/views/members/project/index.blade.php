@@ -15,7 +15,7 @@ Projects for {{ $user->getFirstname() }}
 
 <br>
 <div class="container">
-  <table class="table table-bordered table-hover table-responsive">
+  <table class="table table-bordered table-hover">
     <thead>
       <tr>
         <th>Project Name</th>
@@ -64,7 +64,7 @@ Projects for {{ $user->getFirstname() }}
           @endif
           @endif
           @if ($project->getState() != \HMS\Entities\Members\ProjectState::ACTIVE)
-          <a href="javascript:void(0);" onclick="$(this).find('form').submit();">
+          <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm btn-sm-spacing">
             <form action="{{ route('projects.markActive', $project->getId()) }}" method="POST" style="display: none">
               {{ method_field('PATCH') }}
               {{ csrf_field() }}

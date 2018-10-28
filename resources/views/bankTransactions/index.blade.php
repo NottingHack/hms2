@@ -5,8 +5,10 @@ Membership Payments for {{ $user->getFirstname() }}
 @endsection
 
 @section('content')
-<table>
-  <thead>
+
+<div class="container">
+  <table class="table table-bordered table-hover">
+      <thead>
     <tr>
       <th>Date</th>
       <th>Amount</th>
@@ -24,7 +26,9 @@ Membership Payments for {{ $user->getFirstname() }}
   </tbody>
 </table>
 
-<div classs="pagination-links">
+<div class="pagination-links">
   {{ $bankTransactions->links() }}
+</div>
+
 </div>
 @endsection

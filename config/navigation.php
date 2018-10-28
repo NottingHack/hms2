@@ -42,7 +42,6 @@ return [
             'permissions'   => ['link.view'],
             'links'         => [],
         ],
-
         'admin' => [
             'text'          => 'Admin',
             'permissions'   => [],

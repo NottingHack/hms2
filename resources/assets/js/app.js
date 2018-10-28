@@ -11,6 +11,9 @@ $.ajaxSetup({
    }
 });
 
+// default all select2 to bootstrap theme
+$.fn.select2.defaults.set( "theme", "bootstrap" );
+
 $(".js-programmatic-enable").on("click", function () {
   $(".js-data-existing-account-ajax").prop("disabled", false);
 });
@@ -32,7 +35,6 @@ $(".js-permission-select").select2({
 });
 
 $(".js-data-member-search-ajax").select2({
-  // theme: "foundation",
   width: 'element',
   placeholder: "Search for a member...",
   ajax: {
@@ -70,7 +72,6 @@ $(".js-data-member-search-ajax").select2({
 });
 
 $(".js-data-existing-account-ajax").select2({
-  // theme: "foundation",
   placeholder: "Search for a member...",
   dropdownParent: $('.existing-account-select2'),
   ajax: {
@@ -135,5 +136,4 @@ $("#user-edit-form,#membership-edit-details-form,#register-form").submit(functio
 });
 
 $(".select2-basic-single").select2({
-  theme: "foundation",
 });

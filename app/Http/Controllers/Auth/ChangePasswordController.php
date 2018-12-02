@@ -10,7 +10,6 @@ use App\Events\Users\UserPasswordChanged;
 
 class ChangePasswordController extends Controller
 {
-
     /** @var PasswordStore */
     protected $passwordStore;
 
@@ -47,17 +46,19 @@ class ChangePasswordController extends Controller
 
         $valideCurrentPassword = \Auth::guard()->validate([
             $user->getAuthIdentifierName() => $user->getAuthIdentifier(),
-            'password' => $request->currentPassword
+            'password' => $request->currentPassword,
             ]);
 
-        if (!$valideCurrentPassword) {
-            flash("Your current password does not matches with the password you provided. Please try again.")->error();
+        if ( ! $valideCurrentPassword) {
+            flash('Your current password does not matches with the password you provided. Please try again.')->error();
+
             return redirect()->back();
         }
 
-        if(strcmp($request->get('currentPassword'), $request->get('password')) == 0){
+        if (strcmp($request->get('currentPassword'), $request->get('password')) == 0) {
             //Current password and new password are same
-            flash("New Password cannot be same as your current password. Please choose a different password.")->error();
+            flash('New Password cannot be same as your current password. Please choose a different password.')->error();
+
             return redirect()->back();
         }
 
@@ -68,7 +69,7 @@ class ChangePasswordController extends Controller
 
         $this->passwordStore->setPassword($user->getAuthIdentifier(), $request->password);
 
-        flash("Your password has been updated.")->success();
+        flash('Your password has been updated.')->success();
 
         event(new UserPasswordChanged($user));
 

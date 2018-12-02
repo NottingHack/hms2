@@ -2,12 +2,11 @@
 
 namespace App\Listeners\Users;
 
-use Illuminate\Queue\InteractsWithQueue;
 use App\Events\Users\UserPasswordChanged;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Notifications\Users\PasswordChanged;
 
-class EmailOnPasswordChange
+class EmailOnPasswordChange implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -28,6 +27,5 @@ class EmailOnPasswordChange
     public function handle(UserPasswordChanged $event)
     {
         $event->user->notify(new PasswordChanged());
-
     }
 }

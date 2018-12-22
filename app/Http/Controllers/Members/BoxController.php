@@ -68,7 +68,7 @@ class BoxController extends Controller
         $this->metaRepository = $metaRepository;
 
         $this->middleware('can:box.view.self')->only(['index']);
-        $this->middleware('can:box.buy.self')->only(['buy', 'store']);
+        $this->middleware('can:box.buy.self')->only(['create', 'store']);
         $this->middleware('can:box.issue.all')->only(['issue', 'store']);
         $this->middleware('can:box.edit.self')->only(['markInUse', 'markAbandoned', 'markRemoved']);
         $this->middleware('can:box.printLabel.self')->only(['printLabel']);
@@ -113,17 +113,34 @@ class BoxController extends Controller
      */
     public function create()
     {
+        $user = \Auth::user();
+
+        $individualLimit = (int)$this->metaRepository->get($this->individualLimitKey);
+        $maxLimit = (int)$this->metaRepository->get($this->maxLimitKey);
         $boxCost = (int)$this->metaRepository->get($this->boxCostKey);
 
         // check member does not all ready have max number of boxes
-        // ('You have too many boxes already')
+        $userBoxCount = $this->boxRepository->countInUseByUser($user);
+        if ($userBoxCount >= $individualLimit) {
+            flash('You have too many boxes already')->error();
+
+            return redirect()->route('boxes.index');
+        }
 
         // do we have space for a box
-        // ('Sorry we have no room for any more boxes')
+        $spaceBoxCount = $this->boxRepository->countAllInUse();
+        if ($spaceBoxCount >= $maxLimit) {
+            flash('Sorry we have no room for any more boxes')->error();
+
+            return redirect()->route('boxes.index');
+        }
 
         // do we have enought credit to buy a box?
-        // ('Sorry you do not have enought credit to buy another box')
+        if ($user->getProfile()->getBalance() + $boxCost < (-1*$user->getProfile()->getCreditLimit())) {
+            flash('Sorry you do not have enought credit to buy another box')->error();
 
+            return redirect()->route('boxes.index');
+        }
 
         return view('members.box.buy')
             ->with('boxCost', -$boxCost);
@@ -143,11 +160,24 @@ class BoxController extends Controller
             return redirect()->route('boxes.index');
         }
 
+        $individualLimit = (int)$this->metaRepository->get($this->individualLimitKey);
+        $maxLimit = (int)$this->metaRepository->get($this->maxLimitKey);
+
         // check member does not all ready have max number of boxes
-        // ('This member has too many boxes already')
+        $userBoxCount = $this->boxRepository->countInUseByUser($user);
+        if ($userBoxCount >= $individualLimit) {
+            flash('This member has too many boxes already')->error();
+
+            return redirect()->route('user.boxes', ['user' => $user->getId()]);
+        }
 
         // even if it's free issue we need to check we have space
-        // ('Sorry we have no room for any more boxes')
+        $spaceBoxCount = $this->boxRepository->countAllInUse();
+        if ($spaceBoxCount >= $maxLimit) {
+            flash('Sorry we have no room for any more boxes')->error();
+
+            return redirect()->route('user.boxes', ['user' => $user->getId()]);
+        }
 
         return view('members.box.issue')
             ->with(['boxUser' => $user]);
@@ -180,17 +210,39 @@ class BoxController extends Controller
             $user = \Auth::user();
         }
 
+        $individualLimit = (int)$this->metaRepository->get($this->individualLimitKey);
+        $maxLimit = (int)$this->metaRepository->get($this->maxLimitKey);
+        $boxCost = (int)$this->metaRepository->get($this->boxCostKey);
+
         $box = $this->boxFactory->create($user);
 
         // do we still have space
+        $spaceBoxCount = $this->boxRepository->countAllInUse();
+        if ($spaceBoxCount >= $maxLimit) {
+            flash('Sorry we have no room for any more boxes')->error();
 
+            return redirect()->route('boxes.index',  ['user' => $user->getId()]);
+        }
 
         // if needed can it still be paid for
         if ($user != \Auth::user()) {
             // should be a free issue
+            $userBoxCount = $this->boxRepository->countInUseByUser($user);
+            if ($userBoxCount >= $individualLimit) {
+                flash('This member has too many boxes already')->error();
 
+                return redirect()->route('user.boxes', $user);
+            }
         } else {
             // check & debit balance
+            // do we have enought credit to buy a box?
+            if ($user->getProfile()->getBalance() + $boxCost < (-1*$user->getProfile()->getCreditLimit())) {
+                flash('Sorry you do not have enought credit to buy another box')->error();
+
+                return redirect()->route('boxes.index');
+            }
+
+            // charge this users snackspace account $boxCost
 
         }
 
@@ -228,33 +280,35 @@ class BoxController extends Controller
      */
     public function markInUse(Box $box)
     {
-        if ($box->getUser() != \Auth::user() && \Gate::denies('box.edit.all')) {
+        $user = $box->getUser();
+        if ($user != \Auth::user() && \Gate::denies('box.edit.all')) {
             flash('Unauthorized')->error();
 
             return redirect()->route('home');
         }
 
-/*
-        // check member is not at limit for number of allowed boxes
-        $individualLimit = ($this->Meta->getValueFor($this->individualLimitKey));
+        $individualLimit = (int)$this->metaRepository->get($this->individualLimitKey);
+        $maxLimit = (int)$this->metaRepository->get($this->maxLimitKey);
 
-        $memberBoxCount = $this->MemberBox->boxCountForMemberByBox($memberBoxId);
+        // check member does not all ready have max number of boxes
+        $userBoxCount = $this->boxRepository->countInUseByUser($user);
+        if ($userBoxCount >= $individualLimit) {
+            if ($box->getUser() == \Auth::user()){
+                flash('You have too many boxes already')->error();
+            } else {
+                flash('This member has too many boxes already')->error();
+            }
 
-        // check we have not hit max limit of boxes
-        $maxLimit = ($this->Meta->getValueFor($this->maxLimitKey));
-        $spaceBoxCount = $this->MemberBox->boxCountForSpace();
-
-        if ($spaceBoxCount == $maxLimit) {
-            $this->Session->setFlash('Sorry we have no room for any more boxes');
-        } else if ($memberBoxCount == $individualLimit) {
-            // all ready got to many boxes
-            $this->Session->setFlash('Too many boxes already');
-        } else if ($this->MemberBox->changeStateForBox($memberBoxId, MemberBox::BOX_INUSE)) {
-            $this->Session->setFlash('Box marked inuse');
-        } else {
-            $this->Session->setFlash('Unable to update box');
+            return redirect()->route('boxes.index', ['user' => $user->getId()]);
         }
-*/
+
+        // do we have space for a box
+        $spaceBoxCount = $this->boxRepository->countAllInUse();
+        if ($spaceBoxCount >= $maxLimit) {
+            flash('Sorry we have no room for any more boxes')->error();
+
+            return redirect()->route('boxes.index', ['user' => $user->getId()]);
+        }
 
         $box->setStateInUse();
         $this->boxRepository->save($box);

@@ -5,12 +5,34 @@ namespace HMS\Repositories\Members\Doctrine;
 use HMS\Entities\User;
 use HMS\Entities\Members\Box;
 use Doctrine\ORM\EntityRepository;
+use HMS\Entities\Members\BoxState;
 use HMS\Repositories\Members\BoxRepository;
 use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 
 class DoctrineBoxRepository extends EntityRepository implements BoxRepository
 {
     use PaginatesFromRequest;
+
+    /**
+     * Count all boxes INUSE.
+     *
+     * @return int Total number of boxes INUSE
+     */
+    public function countAllInUse()
+    {
+        return parent::countByState(BoxState::INUSE);
+    }
+
+    /**
+     * Count how many boxes a User has INUSE.
+     * @param User $user
+     *
+     * @return int Number of boxes this user has INUSE
+     */
+    public function countInUseByUser(User $user)
+    {
+        return parent::count(['user' => $user, 'state' => BoxState::INUSE]);
+    }
 
     /**
      * @param User   $user
@@ -29,7 +51,7 @@ class DoctrineBoxRepository extends EntityRepository implements BoxRepository
         return $this->paginate($q, $perPage, $pageName);
     }
     /**
-     * save Box to the DB. 
+     * save Box to the DB.
      * @param  Box $box
      */
     public function save(Box $box)

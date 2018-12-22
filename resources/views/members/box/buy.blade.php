@@ -6,7 +6,7 @@ Confirm buying a new box
 
 @section('content')
 <div class="container">
-  <p>You are about to buy a new box, this will debt your Snackspace account £5</p>
+  <p>You are about to buy a new box, this will debt your Snackspace account £@format_pennies($boxCost)</p>
   <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-success">
   <form action="{{ route('boxes.store') }}" method="POST" style="display: none">
     {{ method_field('POST') }}

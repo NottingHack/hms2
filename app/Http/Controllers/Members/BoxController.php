@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use HMS\Entities\Members\Box;
 use App\Events\Labels\BoxPrint;
 use App\Http\Controllers\Controller;
+use HMS\Repositories\MetaRepository;
 use HMS\Repositories\UserRepository;
 use HMS\Factories\Members\BoxFactory;
 use Doctrine\ORM\EntityNotFoundException;
@@ -30,6 +31,26 @@ class BoxController extends Controller
     protected $userRepository;
 
     /**
+     * @var MetaRepository
+     */
+    protected $metaRepository;
+
+    /**
+     * @var string
+     */
+    protected $individualLimitKey = 'member_box_individual_limit';
+
+    /**
+     * @var string
+     */
+    protected $maxLimitKey = 'member_box_limit';
+
+    /**
+     * @var string
+     */
+    protected $boxCostKey = 'member_box_cost';
+
+    /**
      * Create a new controller instance.
      *
      * @param BoxRepository  $boxRepository
@@ -38,11 +59,13 @@ class BoxController extends Controller
      */
     public function __construct(BoxRepository $boxRepository,
         BoxFactory $boxFactory,
-        UserRepository $userRepository)
+        UserRepository $userRepository,
+        MetaRepository $metaRepository)
     {
         $this->boxRepository = $boxRepository;
         $this->boxFactory = $boxFactory;
         $this->userRepository = $userRepository;
+        $this->metaRepository = $metaRepository;
 
         $this->middleware('can:box.view.self')->only(['index']);
         $this->middleware('can:box.buy.self')->only(['buy', 'store']);
@@ -75,9 +98,12 @@ class BoxController extends Controller
         }
 
         $boxes = $this->boxRepository->paginateByUser($user);
+        $boxCost = (int)$this->metaRepository->get($this->boxCostKey);
 
         return view('members.box.index')
-            ->with(['user' => $user, 'boxes' => $boxes]);
+            ->with('user', $user)
+            ->with('boxes', $boxes)
+            ->with('boxCost', -$boxCost);
     }
 
     /**
@@ -87,6 +113,8 @@ class BoxController extends Controller
      */
     public function create()
     {
+        $boxCost = (int)$this->metaRepository->get($this->boxCostKey);
+
         // check member does not all ready have max number of boxes
         // ('You have too many boxes already')
 
@@ -97,7 +125,8 @@ class BoxController extends Controller
         // ('Sorry you do not have enought credit to buy another box')
 
 
-        return view('members.box.buy');
+        return view('members.box.buy')
+            ->with('boxCost', -$boxCost);
     }
 
     /**

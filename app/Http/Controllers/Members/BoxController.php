@@ -12,6 +12,9 @@ use HMS\Repositories\UserRepository;
 use HMS\Factories\Members\BoxFactory;
 use Doctrine\ORM\EntityNotFoundException;
 use HMS\Repositories\Members\BoxRepository;
+use HMS\Entities\Snackspace\TransactionType;
+use HMS\Factories\Snackspace\TransactionFactory;
+use HMS\Repositories\Snackspace\TransactionRepository;
 
 class BoxController extends Controller
 {
@@ -36,6 +39,16 @@ class BoxController extends Controller
     protected $metaRepository;
 
     /**
+     * @var TransactionRepository
+     */
+    protected $transactionRepository;
+
+    /**
+     * @var TransactionFactory
+     */
+    protected $transactionFactory;
+
+    /**
      * @var string
      */
     protected $individualLimitKey = 'member_box_individual_limit';
@@ -51,21 +64,34 @@ class BoxController extends Controller
     protected $boxCostKey = 'member_box_cost';
 
     /**
+     * Description used for the snackspace transaction.
+     * @var string
+     */
+    protected $transactionDescription = 'Members Box';
+
+    /**
      * Create a new controller instance.
      *
      * @param BoxRepository  $boxRepository
      * @param BoxFactory     $boxFactory
      * @param UserRepository $userRepository
+     * @param MetaRepository $metaRepository
+     * @param TransactionRepository $transactionRepository
+     * @param TransactionFactory $transactionFactory
      */
     public function __construct(BoxRepository $boxRepository,
         BoxFactory $boxFactory,
         UserRepository $userRepository,
-        MetaRepository $metaRepository)
+        MetaRepository $metaRepository,
+        TransactionRepository $transactionRepository,
+        TransactionFactory $transactionFactory)
     {
         $this->boxRepository = $boxRepository;
         $this->boxFactory = $boxFactory;
         $this->userRepository = $userRepository;
         $this->metaRepository = $metaRepository;
+        $this->transactionRepository = $transactionRepository;
+        $this->transactionFactory = $transactionFactory;
 
         $this->middleware('can:box.view.self')->only(['index']);
         $this->middleware('can:box.buy.self')->only(['create', 'store']);
@@ -98,7 +124,7 @@ class BoxController extends Controller
         }
 
         $boxes = $this->boxRepository->paginateByUser($user);
-        $boxCost = (int)$this->metaRepository->get($this->boxCostKey);
+        $boxCost = (int) $this->metaRepository->get($this->boxCostKey);
 
         return view('members.box.index')
             ->with('user', $user)
@@ -115,9 +141,9 @@ class BoxController extends Controller
     {
         $user = \Auth::user();
 
-        $individualLimit = (int)$this->metaRepository->get($this->individualLimitKey);
-        $maxLimit = (int)$this->metaRepository->get($this->maxLimitKey);
-        $boxCost = (int)$this->metaRepository->get($this->boxCostKey);
+        $individualLimit = (int) $this->metaRepository->get($this->individualLimitKey);
+        $maxLimit = (int) $this->metaRepository->get($this->maxLimitKey);
+        $boxCost = (int) $this->metaRepository->get($this->boxCostKey);
 
         // check member does not all ready have max number of boxes
         $userBoxCount = $this->boxRepository->countInUseByUser($user);
@@ -136,7 +162,7 @@ class BoxController extends Controller
         }
 
         // do we have enought credit to buy a box?
-        if ($user->getProfile()->getBalance() + $boxCost < (-1*$user->getProfile()->getCreditLimit())) {
+        if ($user->getProfile()->getBalance() + $boxCost < (-1 * $user->getProfile()->getCreditLimit())) {
             flash('Sorry you do not have enought credit to buy another box')->error();
 
             return redirect()->route('boxes.index');
@@ -160,8 +186,8 @@ class BoxController extends Controller
             return redirect()->route('boxes.index');
         }
 
-        $individualLimit = (int)$this->metaRepository->get($this->individualLimitKey);
-        $maxLimit = (int)$this->metaRepository->get($this->maxLimitKey);
+        $individualLimit = (int) $this->metaRepository->get($this->individualLimitKey);
+        $maxLimit = (int) $this->metaRepository->get($this->maxLimitKey);
 
         // check member does not all ready have max number of boxes
         $userBoxCount = $this->boxRepository->countInUseByUser($user);
@@ -210,9 +236,9 @@ class BoxController extends Controller
             $user = \Auth::user();
         }
 
-        $individualLimit = (int)$this->metaRepository->get($this->individualLimitKey);
-        $maxLimit = (int)$this->metaRepository->get($this->maxLimitKey);
-        $boxCost = (int)$this->metaRepository->get($this->boxCostKey);
+        $individualLimit = (int) $this->metaRepository->get($this->individualLimitKey);
+        $maxLimit = (int) $this->metaRepository->get($this->maxLimitKey);
+        $boxCost = (int) $this->metaRepository->get($this->boxCostKey);
 
         $box = $this->boxFactory->create($user);
 
@@ -221,7 +247,7 @@ class BoxController extends Controller
         if ($spaceBoxCount >= $maxLimit) {
             flash('Sorry we have no room for any more boxes')->error();
 
-            return redirect()->route('boxes.index',  ['user' => $user->getId()]);
+            return redirect()->route('boxes.index', ['user' => $user->getId()]);
         }
 
         // if needed can it still be paid for
@@ -235,15 +261,16 @@ class BoxController extends Controller
             }
         } else {
             // check & debit balance
-            // do we have enought credit to buy a box?
-            if ($user->getProfile()->getBalance() + $boxCost < (-1*$user->getProfile()->getCreditLimit())) {
-                flash('Sorry you do not have enought credit to buy another box')->error();
+            // do we have enough credit to buy a box?
+            if ($user->getProfile()->getBalance() + $boxCost < (-1 * $user->getProfile()->getCreditLimit())) {
+                flash('Sorry you do not have enough credit to buy another box')->error();
 
                 return redirect()->route('boxes.index');
             }
 
             // charge this users snackspace account $boxCost
-
+            $boxTransaction = $this->transactionFactory->create($user, $boxCost, TransactionType::MEMBER_BOX, $this->transactionDescription);
+            $this->transactionRepository->saveAndUpdateBalance($boxTransaction);
         }
 
         $this->boxRepository->save($box);
@@ -287,13 +314,13 @@ class BoxController extends Controller
             return redirect()->route('home');
         }
 
-        $individualLimit = (int)$this->metaRepository->get($this->individualLimitKey);
-        $maxLimit = (int)$this->metaRepository->get($this->maxLimitKey);
+        $individualLimit = (int) $this->metaRepository->get($this->individualLimitKey);
+        $maxLimit = (int) $this->metaRepository->get($this->maxLimitKey);
 
         // check member does not all ready have max number of boxes
         $userBoxCount = $this->boxRepository->countInUseByUser($user);
         if ($userBoxCount >= $individualLimit) {
-            if ($box->getUser() == \Auth::user()){
+            if ($box->getUser() == \Auth::user()) {
                 flash('You have too many boxes already')->error();
             } else {
                 flash('This member has too many boxes already')->error();

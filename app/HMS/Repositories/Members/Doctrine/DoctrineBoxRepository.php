@@ -50,6 +50,7 @@ class DoctrineBoxRepository extends EntityRepository implements BoxRepository
 
         return $this->paginate($q, $perPage, $pageName);
     }
+
     /**
      * save Box to the DB.
      * @param  Box $box

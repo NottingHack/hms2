@@ -29,4 +29,3 @@ class BoxState
         self::ABANDONED => 'Abandoned',
     ];
 }
-

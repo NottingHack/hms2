@@ -105,7 +105,7 @@ class Box
      */
     public function setState($state)
     {
-       if (array_key_exists($state, BoxState::STATE_STRINGS)) {
+        if (array_key_exists($state, BoxState::STATE_STRINGS)) {
             $this->state = $state;
         }
 
@@ -164,6 +164,4 @@ class Box
 
         return $this;
     }
-
-
 }

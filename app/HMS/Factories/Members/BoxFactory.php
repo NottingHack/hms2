@@ -28,7 +28,7 @@ class BoxFactory
     {
         $_box = new Box();
         $_box->setStateInUse();
-        if ($user){
+        if ($user) {
             $_box->setUser($user);
         } else {
             $_box->setUser(\Auth::user());

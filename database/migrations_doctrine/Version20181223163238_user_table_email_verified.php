@@ -2,8 +2,8 @@
 
 namespace Database\Migrations;
 
-use Doctrine\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema as Schema;
+use Doctrine\Migrations\AbstractMigration;
 
 class Version20181223163238_user_table_email_verified extends AbstractMigration
 {

@@ -10,7 +10,7 @@ abstract class RfidTagState
     const ACTIVE = 10;
 
     /**
-     * RfidTag has expired and can no longer be used for entry.
+     * RfidTag has been destroyed and can no longer be used for entry.
      */
     const EXPIRED = 20;
 
@@ -25,7 +25,7 @@ abstract class RfidTagState
     const STATE_STRINGS =
     [
         self::ACTIVE => 'Active',
-        self::EXPIRED => 'Expired',
+        self::EXPIRED => 'Destroyed',
         self::LOST => 'Lost',
     ];
 }

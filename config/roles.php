@@ -105,6 +105,8 @@ return [
                 'box.printLabel.self',
                 'bankTransactions.view.self',
                 'snackspaceTransaction.view.self',
+                'rfidTags.view.self',
+                'rfidTags.edit.self',
             ],
         ],
         'member.ex'         => [
@@ -116,6 +118,7 @@ return [
                 'link.view',
                 'bankTransactions.view.self',
                 'snackspaceTransaction.view.self',
+                'rfidTags.view.self',
             ],
         ],
         'member.current'    => [
@@ -136,6 +139,8 @@ return [
                 'box.printLabel.self',
                 'bankTransactions.view.self',
                 'snackspaceTransaction.view.self',
+                'rfidTags.view.self',
+                'rfidTags.edit.self',
             ],
         ],
         'member.temporarybanned'    => [
@@ -150,6 +155,8 @@ return [
                 'box.view.self',
                 'bankTransactions.view.self',
                 'snackspaceTransaction.view.self',
+                'rfidTags.view.self',
+                'rfidTags.edit.self',
             ],
         ],
         'member.banned'    => [
@@ -164,6 +171,7 @@ return [
                 'box.view.self',
                 'bankTransactions.view.self',
                 'snackspaceTransaction.view.self',
+                'rfidTags.view.self',
             ],
         ],
         'user.super'         => [

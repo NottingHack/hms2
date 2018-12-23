@@ -31,7 +31,7 @@ class RfidTag
      */
     protected $lastUsed;
     /**
-     * @var string
+     * @var null|string
      */
     protected $friendlyName;
 
@@ -168,11 +168,11 @@ class RfidTag
     /**
      * Sets the value of friendlyName.
      *
-     * @param string $friendlyName the friendly name
+     * @param null|string $friendlyName the friendly name
      *
      * @return self
      */
-    public function setFriendlyName(string $friendlyName)
+    public function setFriendlyName($friendlyName)
     {
         $this->friendlyName = $friendlyName;
 

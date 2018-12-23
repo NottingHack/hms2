@@ -9,7 +9,9 @@ use HMS\Entities\GateKeeper\Pin;
 use App\Http\Controllers\Controller;
 use HMS\Entities\GateKeeper\RfidTag;
 use HMS\Repositories\UserRepository;
+use HMS\Entities\GateKeeper\PinState;
 use Doctrine\ORM\EntityNotFoundException;
+use HMS\Entities\GateKeeper\RfidTagState;
 use HMS\Repositories\GateKeeper\PinRepository;
 use HMS\Repositories\GateKeeper\RfidTagRepository;
 
@@ -116,7 +118,7 @@ class RfidTagsController extends Controller
             'friendlyName' => 'nullable|string|max:128',
             'state' => [
                 'required',
-                Rule::in(array_keys($rfidTag->statusStrings)),
+                Rule::in(array_keys(RfidTagState::STATE_STRINGS)),
             ],
         ]);
 
@@ -151,7 +153,7 @@ class RfidTagsController extends Controller
      */
     public function reactivatePin(Pin $pin)
     {
-        if ($pin->getState() != Pin::STATE_CANCELLED) {
+        if ($pin->getState() != PinState::CANCELLED) {
             flash('Pin state can not be changed')->error();
 
             return redirect()->route('rfid-tags.index', ['user' => $pin->getUser()->getId()]);

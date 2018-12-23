@@ -135,5 +135,5 @@ $("#user-edit-form,#membership-edit-details-form,#register-form").submit(functio
 });
 
 $(".select2-basic-single").select2({
-  theme: "foundation",
+  // theme: "foundation",
 });

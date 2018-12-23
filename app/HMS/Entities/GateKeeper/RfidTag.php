@@ -142,7 +142,7 @@ class RfidTag
      */
     public function getStateString()
     {
-        return $this->statusStrings[$this->state];
+        return RfidTagState::STATE_STRINGS[$this->state];
     }
 
     /**

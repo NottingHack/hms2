@@ -27,17 +27,6 @@
                 <th>Join Date:</th>
                 <td>@if($user->getProfile()->getJoinDate()){{ $user->getProfile()->getJoinDate()->toDateString() }}@endif</td>
             </tr>
-
-            <tr>
-                <th>Status</th>
-                <td>{Status Here}</td>
-            </tr>
-
-            <tr>
-                <th>Roles</th>
-                <td>{Roles Here}</td>
-            </tr>
-
             <tr>
                 <th>Address 1:</th>
                 <td>{{ $user->getProfile()->getAddress1() }}</td>
@@ -70,7 +59,6 @@
                 <th>Date of Birth:</th>
                 <td>@if($user->getProfile()->getDateOfBirth()){{ $user->getProfile()->getDateOfBirth()->toDateString() }}@endif</td>
             </tr>
-
             @endif
         </tbody>
     </table>

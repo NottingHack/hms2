@@ -90,6 +90,10 @@ class UserManager
         if ($request['email']) {
             $oldEmail = $user->getEmail();
             $user->setEmail($request['email']);
+            if ($user instanceof MustVerifyEmail) {
+                $user->setEmailVerifiedAt(null);
+                $user->sendEmailVerificationNotification();
+            }
             event(new UserEmailChanged($user, $oldEmail));
         }
 

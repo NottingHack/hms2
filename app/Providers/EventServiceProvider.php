@@ -44,6 +44,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Membership\YoungHackerAuditRequest' => [
             'App\Listeners\Membership\AuditYoungHackers',
         ],
+        'App\Events\Users\UserPasswordChanged' => [
+            'App\Listeners\Users\EmailOnPasswordChange',
+        ],
     ];
 
     /**

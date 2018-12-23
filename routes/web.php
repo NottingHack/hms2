@@ -59,6 +59,8 @@ Route::group(['middleware' => 'auth'], function () {
             'except' => ['store', 'create', 'destroy'],
         ]
     );
+    Route::get('change-password', 'Auth\ChangePasswordController@edit')->name('users.changePassword');
+    Route::put('change-password', 'Auth\ChangePasswordController@update')->name('users.changePassword.update');
 
     // Admin
     Route::get('admin', 'HomeController@admin')->name('admin');

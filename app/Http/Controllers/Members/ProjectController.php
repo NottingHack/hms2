@@ -45,7 +45,8 @@ class ProjectController extends Controller
 
         $this->middleware('can:project.view.self')->only(['index', 'show']);
         $this->middleware('can:project.create.self')->only(['create', 'store']);
-        $this->middleware('can:project.edit.self')->only(['edit', 'update', 'markActive', 'markAbandoned', 'markComplete']);
+        $this->middleware('can:project.edit.self')->only(['edit', 'update', 'markActive', 'markComplete']);
+        $this->middleware('can:project.edit.all')->only(['markAbandoned']);
         $this->middleware('can:project.printLabel.self')->only(['printLabel']);
     }
 
@@ -205,6 +206,12 @@ class ProjectController extends Controller
      */
     public function markActive(Project $project)
     {
+        if ($project->getUser() != \Auth::user() && \Gate::denies('project.edit.all')) {
+            flash('Unauthorized')->error();
+
+            return redirect()->route('home');
+        }
+
         $project->setStateActive();
         $this->projectRepository->save($project);
         flash('Project \''.$project->getProjectName().'\' marked active.')->success();
@@ -220,6 +227,12 @@ class ProjectController extends Controller
      */
     public function markAbandoned(Project $project)
     {
+        if ($project->getUser() == \Auth::user()) {
+            flash('You can not abandoned your own project')->error();
+
+            return redirect()->route('home');
+        }
+
         $project->setStateAbandoned();
         $this->projectRepository->save($project);
         flash('Project \''.$project->getProjectName().'\' marked abandoned.')->success();
@@ -235,6 +248,12 @@ class ProjectController extends Controller
      */
     public function markComplete(Project $project)
     {
+        if ($project->getUser() != \Auth::user()) {
+            flash('Unauthorized')->error();
+
+            return redirect()->route('home');
+        }
+
         $project->setStateComplete();
         $this->projectRepository->save($project);
         flash('Project \''.$project->getProjectName().'\' marked complete.')->success();

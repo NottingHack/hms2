@@ -32,8 +32,9 @@ trait DoctrineMustVerifyEmail
     {
         $repository = EntityManager::getRepository(get_class($this));
         $this->emailVerifiedAt = new Carbon;
+        $repository->save($this);
 
-        return $repository->save($this);
+        return true;
     }
 
     /**

@@ -13,10 +13,28 @@ use HMS\Repositories\Members\ProjectRepository;
 
 class ProjectController extends Controller
 {
+    /**
+     * @var ProjectRepository
+     */
     protected $projectRepository;
+
+    /**
+     * @var ProjectFactory
+     */
     protected $projectFactory;
+
+    /**
+     * @var UserRepository
+     */
     protected $userRepository;
 
+    /**
+     * Create a new controller instance.
+     *
+     * @param ProjectRepository $projectRepository
+     * @param ProjectFactory    $projectFactory
+     * @param UserRepository    $userRepository
+     */
     public function __construct(ProjectRepository $projectRepository,
         ProjectFactory $projectFactory,
         UserRepository $userRepository)

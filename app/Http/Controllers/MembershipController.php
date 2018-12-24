@@ -61,6 +61,15 @@ class MembershipController extends Controller
 
     /**
      * Create a new controller instance.
+     *
+     * @param MetaRepository    $metaRepository
+     * @param AccountFactory    $accountFactory
+     * @param UserRepository    $userRepository
+     * @param RoleManager       $roleManager
+     * @param AccountRepository $accountRepository
+     * @param UserManager       $userManager
+     * @param ProfileManager    $profileManager
+     * @param RoleRepository    $roleRepository
      */
     public function __construct(MetaRepository $metaRepository,
         AccountFactory $accountFactory,

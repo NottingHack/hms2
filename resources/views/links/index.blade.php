@@ -21,17 +21,17 @@
       <div class="card-header text-center">
           <a href="{{ $link->getLink() }}" target="_blank">
             <h3>{{ $link->getName() }}</h3>
-          </a> 
+          </a>
       </div>
       @if ($link->getDescription())
       <div class="card-body">
-        <p class="card-text text-center lead">{{ $link->getDescription() }}</p>   
+        <p class="card-text text-center lead">{{ $link->getDescription() }}</p>
       </div>
       @endif
       @can('link.edit')
       <div class="card-footer">
         <a href="{{ route('links.edit', $link->getId()) }}" class="btn btn-primary"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a>
-        <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary">
+        <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-danger">
           <form action="{{ route('links.destroy', $link->getId()) }}" method="POST" style="display: none">
             {{ method_field('DELETE') }}
             {{ csrf_field() }}

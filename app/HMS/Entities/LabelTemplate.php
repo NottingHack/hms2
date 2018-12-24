@@ -30,7 +30,7 @@ class LabelTemplate implements ArrayableContract
      */
     public function updateWithRequest(LabelTemplateRequest $request)
     {
-        $this->template_name = $request['template_name'];
+        $this->template_name = $request['templateName'];
         $this->template = $request['template'];
 
         return $this;

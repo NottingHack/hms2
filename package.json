@@ -18,10 +18,7 @@
     "lodash": "^4.17.5",
     "popper.js": "^1.12",
     "select2": "latest",
-    "select2-foundation": "https://github.com/egemensarica/select2-foundation.git#v6",
-    "vue": "^2.5.7"
-  },
-  "dependencies": {
-    "select2-foundation_theme": "https://github.com/egemensarica/select2-foundation.git#v6"
+    "vue": "^2.5.7",
+    "select2-theme-bootstrap4": "^0.2.0-beta.2"
   }
 }

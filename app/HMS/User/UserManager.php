@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
 use App\Events\Users\UserEmailChanged;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class UserManager
 {

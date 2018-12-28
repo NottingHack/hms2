@@ -33,4 +33,11 @@ interface RoleRepository
      * @param  Role $role
      */
     public function save(Role $role);
+
+    /**
+     * Remove a role based on the role name.
+     *
+     * @param string $toleName
+     */
+    public function removeOneByName(string $roleName);
 }

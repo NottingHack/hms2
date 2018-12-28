@@ -54,4 +54,18 @@ class DoctrineRoleRepository extends EntityRepository implements RoleRepository
         $this->_em->persist($role);
         $this->_em->flush();
     }
+
+    /**
+     * Remove a role based on the role name.
+     *
+     * @param string $toleName
+     */
+    public function removeOneByName(string $roleName)
+    {
+        $role = $this->findOneByName($roleName);
+        if (! is_null($role)) {
+            $this->_em->remove($role);
+            $this->_em->flush();
+        }
+    }
 }

@@ -83,9 +83,13 @@ class ToolManager
     protected $roleManager;
 
     /**
-     * Create a new Tool Manager instance
-     * @param ToolRepository $toolRepository
-     * @param ToolFactory    $toolFactory
+     * Create a new Tool Manager instance.
+     *
+     * @param ToolRepository       $toolRepository
+     * @param ToolFactory          $toolFactory
+     * @param PermissionRepository $permissionRepository
+     * @param RoleRepository       $roleRepository
+     * @param RoleManager          $roleManager
      */
     function __construct(ToolRepository $toolRepository,
         ToolFactory $toolFactory,

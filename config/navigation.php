@@ -36,6 +36,12 @@ return [
             'permissions'   => ['snackspaceTransaction.view.self'],
             'links'         => [],
         ],
+        'tools' => [
+            'text'          => 'Tools',
+            'route'         => 'tools.index',
+            'permissions'   => ['tools.view'],
+            'links'         => [],
+        ],
         'codes' => [
             'text'          => 'Access Codes',
             'route'         => 'accessCodes',

@@ -35,6 +35,7 @@ class ToolTableSeeder extends Seeder
                 'bookingLength' => 30,
                 'lengthMax' => 120,
                 'bookingsMax' => 1,
+                'slackChannel'  => '#laser',
             ],
             [
                 'name' => 'Ultimaker',
@@ -43,6 +44,7 @@ class ToolTableSeeder extends Seeder
                 'bookingLength' => 60,
                 'lengthMax' => 240,
                 'bookingsMax' => 2,
+                'slackChannel'  => '#3d-printing',
             ],
             [
                 'name' => 'Embroidery Machine',
@@ -51,6 +53,7 @@ class ToolTableSeeder extends Seeder
                 'bookingLength' => 15,
                 'lengthMax' => 120,
                 'bookingsMax' => 1,
+                'slackChannel'  => '#embroidery-machine',
             ],
         ];
 

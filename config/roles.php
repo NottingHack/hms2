@@ -58,6 +58,13 @@ return [
         'bankTransactions.view.self',
         'bankTransactions.view.all',
         'bankTransactions.reconcile',
+        'tools.view',                       // can view tools
+        'tools.create',                     // can add a new tool to the system
+        'tools.edit',                       // can edit details of all tools
+        'tools.destroy',                    // can remove a tool
+        'tools.maintainer.grant',           // trustees can grant and revoke maintainer roles on all tools from hms
+        'tools.inductor.grant',             // trustees can grant and revoke inductor roles on all tools from hms
+        'tools.user.grant',                 // trustees can grant and revoke user roles on all tools from hms
     ],
 
     /*
@@ -107,6 +114,7 @@ return [
                 'snackspaceTransaction.view.self',
                 'rfidTags.view.self',
                 'rfidTags.edit.self',
+                'tools.view',
             ],
         ],
         'member.ex'         => [
@@ -141,6 +149,7 @@ return [
                 'snackspaceTransaction.view.self',
                 'rfidTags.view.self',
                 'rfidTags.edit.self',
+                'tools.view',
             ],
         ],
         'member.temporarybanned'    => [
@@ -234,6 +243,12 @@ return [
                 'pins.view.all',
                 'pins.reactivate',
                 'bankTransactions.view.all',
+                'tools.view',
+                'tools.create',
+                'tools.edit',
+                'tools.maintainer.grant',
+                'tools.inductor.grant',
+                'tools.user.grant',
             ],
         ],
         'team.software'    => [
@@ -271,6 +286,21 @@ return [
             'description'   => 'Finance Team',
             'email'         => 'accounts@nottinghack.org.uk',
             'permissions'   => [
+            ],
+        ],
+        'team.network'     => [
+            'name'          => 'Network Team',
+            'description'   => 'Network Team',
+            'email'         => 'network@nottinghack.org.uk',
+            'permissions'   => [
+                'meta.view',
+                'meta.edit',
+                'tools.view',
+                'tools.create',
+                'tools.edit',
+                'tools.destroy',
+                'tools.maintainer.grant',
+                'tools.inductor.grant',
             ],
         ],
     ],

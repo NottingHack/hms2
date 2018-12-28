@@ -55,5 +55,6 @@ return [
         'Members\Box',
         'Snackspace\Product',
         'Snackspace\Transaction',
+        'Tools\Tool',
     ],
 ];

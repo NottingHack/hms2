@@ -4,15 +4,23 @@ namespace App\Console\Commands\Permissions;
 
 use HMS\Entities\Role;
 use Illuminate\Console\Command;
-use App\Events\Roles\RoleCreated;
 use HMS\Repositories\RoleRepository;
+use HMS\User\Permissions\RoleManager;
 use Doctrine\ORM\EntityManagerInterface;
 use HMS\Repositories\PermissionRepository;
 use LaravelDoctrine\ACL\Permissions\Permission;
 
 class SyncCommand extends BaseCommand
 {
+    /**
+     * @var PermissionRepository
+     */
     protected $permissionRepository;
+
+    /**
+     * @var RoleManager
+     */
+    protected $roleManager;
 
     /**
      * The name and signature of the console command.
@@ -38,10 +46,11 @@ class SyncCommand extends BaseCommand
      */
     private $roles = [];
 
-    public function __construct(EntityManagerInterface $entityManager, RoleRepository $roleRepository, PermissionRepository $permissionRepository)
+    public function __construct(EntityManagerInterface $entityManager, RoleRepository $roleRepository, PermissionRepository $permissionRepository, RoleManager $roleManager)
     {
         parent::__construct($entityManager, $roleRepository);
         $this->permissionRepository = $permissionRepository;
+        $this->roleManager = $roleManager;
 
         $permissions = config('roles.permissions');
 
@@ -118,28 +127,7 @@ class SyncCommand extends BaseCommand
      */
     private function createRole(string $roleName, array $role)
     {
-        $roleEntity = new Role($roleName, $role['name'], $role['description']);
-        if (isset($role['email'])) {
-            $roleEntity->setEmail($role['email']);
-        }
-        if (isset($role['slackChannel'])) {
-            $roleEntity->setSlackChannel($role['slackChannel']);
-        }
-        if (isset($role['retained'])) {
-            $roleEntity->setRetained($role['retained']);
-        }
-        if (count($role['permissions']) == 1 && $role['permissions'][0] == '*') {
-            foreach ($this->permissions as $permission) {
-                $roleEntity->addPermission($permission);
-            }
-        } else {
-            foreach ($role['permissions'] as $permission) {
-                $roleEntity->addPermission($this->permissions[$permission]);
-            }
-        }
-        $this->entityManager->persist($roleEntity);
-        event(new RoleCreated($roleEntity));
+        $this->roleManager->createRoleFromTemplate($roleName, $role, $this->permissions);
         $this->info('Created role: '.$roleName);
-        unset($roleEntity);
     }
 }

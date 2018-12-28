@@ -4,6 +4,7 @@ namespace HMS\User\Permissions;
 
 use HMS\Entities\Role;
 use HMS\Entities\User;
+use App\Events\Roles\RoleCreated;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
 use App\Events\Roles\UserAddedToRole;
@@ -44,6 +45,42 @@ class RoleManager
         $this->permissionRepository = $permissionRepository;
         $this->userRepository = $userRepository;
         $this->entityManager = $entityManager;
+    }
+
+    /**
+     * Creates roles and assigns permissions.
+     *
+     * @param string $roleName
+     * @param array $role
+     * @param array $permissions
+     *
+     * @return Role new role object
+     */
+    public function createRoleFromTemplate(string $roleName, array $role, array $permissions)
+    {
+        $roleEntity = new Role($roleName, $role['name'], $role['description']);
+        if (isset($role['email'])) {
+            $roleEntity->setEmail($role['email']);
+        }
+        if (isset($role['slackChannel'])) {
+            $roleEntity->setSlackChannel($role['slackChannel']);
+        }
+        if (isset($role['retained'])) {
+            $roleEntity->setRetained($role['retained']);
+        }
+        if (count($role['permissions']) == 1 && $role['permissions'][0] == '*') {
+            foreach ($permissions as $permission) {
+                $roleEntity->addPermission($permission);
+            }
+        } else {
+            foreach ($role['permissions'] as $permission) {
+                $roleEntity->addPermission($permissions[$permission]);
+            }
+        }
+        $this->roleRepository->save($roleEntity);
+        event(new RoleCreated($roleEntity));
+
+        return $roleEntity;
     }
 
     /**

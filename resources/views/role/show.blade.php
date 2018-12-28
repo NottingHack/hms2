@@ -69,7 +69,7 @@
        {{ csrf_field() }}
      </form>
      <i class="fa fa-trash" aria-hidden="true"></i>Remove
-   </a> 
+   </a>
  </td>
 </tr>
  @endforeach

@@ -2,6 +2,7 @@
 
 namespace HMS\Entities\Tools;
 
+use Carbon\Carbon;
 use HMS\Entities\User;
 use HMS\Traits\Entities\SoftDeletable;
 use LaravelDoctrine\Extensions\Timestamps\Timestamps;

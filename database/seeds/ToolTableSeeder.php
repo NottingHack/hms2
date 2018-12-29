@@ -89,6 +89,7 @@ class ToolTableSeeder extends Seeder
 
             $currentMembers = $this->roleRepository->findOneByName(Role::MEMBER_CURRENT)->getUsers();
             $exMembers = $this->roleRepository->findOneByName(Role::MEMBER_EX)->getUsers();
+            $superusers = $this->roleRepository->findOneByName(Role::SUPERUSER)->getUsers();
 
             $roleMaintainer = $this->roleRepository->findOneByName('tools.'.$tool->getPermissionName().'.maintainer');
             $roleInductor = $this->roleRepository->findOneByName('tools.'.$tool->getPermissionName().'.inductor');
@@ -131,6 +132,12 @@ class ToolTableSeeder extends Seeder
                 $this->roleManager->addUserToRole($user, $roleUser);
 
                 $exMembers->removeElement($user);
+            }
+
+            foreach ($superusers as $user) {
+                $this->roleManager->addUserToRole($user, $roleUser);
+                $this->roleManager->addUserToRole($user, $roleInductor);
+                $this->roleManager->addUserToRole($user, $roleMaintainer);
             }
         }
     }

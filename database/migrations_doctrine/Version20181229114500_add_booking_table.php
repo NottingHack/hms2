@@ -2,8 +2,8 @@
 
 namespace Database\Migrations;
 
-use Doctrine\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema as Schema;
+use Doctrine\Migrations\AbstractMigration;
 
 class Version20181229114500_add_booking_table extends AbstractMigration
 {

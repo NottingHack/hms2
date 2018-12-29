@@ -10,7 +10,7 @@ use HMS\Entities\Tools\Booking;
 interface BookingRepository
 {
     /**
-     * Get the current booking for a tool
+     * Get the current booking for a tool.
      * @param  Tool   $tool
      * @return null|Booking
      */

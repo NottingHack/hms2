@@ -95,13 +95,13 @@ class ToolTableSeeder extends Seeder
             $roleUser = $this->roleRepository->findOneByName('tools.'.$tool->getPermissionName().'.user');
 
             // add 2-5 maintainers
-            for ($i=0; $i < rand(1, 5); $i++) {
+            for ($i = 0; $i < rand(1, 5); $i++) {
                 $user = $currentMembers->get(array_rand($currentMembers->toArray()));
                 $this->roleManager->addUserToRole($user, $roleUser);
                 $this->roleManager->addUserToRole($user, $roleMaintainer);
 
                 //  of witch half are also inductors
-                if ((($i+1) % 2) == 1) {
+                if ((($i + 1) % 2) == 1) {
                     $this->roleManager->addUserToRole($user, $roleInductor);
                 }
 
@@ -109,7 +109,7 @@ class ToolTableSeeder extends Seeder
             }
 
             // add 2-5 more inductors
-            for ($i=0; $i < rand(1, 5); $i++) {
+            for ($i = 0; $i < rand(1, 5); $i++) {
                 $user = $currentMembers->get(array_rand($currentMembers->toArray()));
                 $this->roleManager->addUserToRole($user, $roleUser);
                 $this->roleManager->addUserToRole($user, $roleInductor);
@@ -118,7 +118,7 @@ class ToolTableSeeder extends Seeder
             }
 
             // add 10-20 users
-            for ($i=0; $i < rand(10, 20); $i++) {
+            for ($i = 0; $i < rand(10, 20); $i++) {
                 $user = $currentMembers->get(array_rand($currentMembers->toArray()));
                 $this->roleManager->addUserToRole($user, $roleUser);
 
@@ -126,7 +126,7 @@ class ToolTableSeeder extends Seeder
             }
 
             // some ex members also as users
-            for ($i=0; $i < rand(1, $exMembers->count()); $i++) {
+            for ($i = 0; $i < rand(1, $exMembers->count()); $i++) {
                 $user = $exMembers->get(array_rand($exMembers->toArray()));
                 $this->roleManager->addUserToRole($user, $roleUser);
 

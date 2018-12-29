@@ -255,7 +255,7 @@ class Tool
     }
 
     /**
-     * Get name for use in permission checks
+     * Get name for use in permission checks.
      *
      * @return string
      */

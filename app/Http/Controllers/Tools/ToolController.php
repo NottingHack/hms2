@@ -25,7 +25,7 @@ class ToolController extends Controller
      *
      * @param ToolRepository $tool
      */
-    function __construct(ToolRepository $toolRepository, ToolManager $toolManager)
+    public function __construct(ToolRepository $toolRepository, ToolManager $toolManager)
     {
         $this->toolRepository = $toolRepository;
         $this->toolManager = $toolManager;

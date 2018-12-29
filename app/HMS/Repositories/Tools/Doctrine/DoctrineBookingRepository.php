@@ -14,7 +14,7 @@ use HMS\Repositories\Tools\BookingRepository;
 class DoctrineBookingRepository extends EntityRepository implements BookingRepository
 {
     /**
-     * Get the current booking for a tool
+     * Get the current booking for a tool.
      * @param  Tool   $tool
      * @return null|Booking
      */
@@ -25,16 +25,17 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
         $expr = Criteria::expr();
         $criteria = Criteria::create()
             ->where(
-              $expr->andX(
-                $expr->lte('start', $now),
-                $expr->gte('end', $now),
-                $expr->eq('tool', $tool)
-              )
+                $expr->andX(
+                    $expr->lte('start', $now),
+                    $expr->gte('end', $now),
+                    $expr->eq('tool', $tool)
+                )
             )
             ->orderBy(['start' => Criteria::ASC])
             ->setMaxResults(1);
 
         $results = $this->matching($criteria);
+
         return $results->isEmpty() ? null : $results->first();
     }
 
@@ -50,15 +51,16 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
         $expr = Criteria::expr();
         $criteria = Criteria::create()
             ->where(
-              $expr->andX(
-                $expr->gte('start', $now),
-                $expr->eq('tool', $tool)
-              )
+                $expr->andX(
+                    $expr->gte('start', $now),
+                    $expr->eq('tool', $tool)
+                )
             )
             ->orderBy(['start' => Criteria::ASC])
             ->setMaxResults(1);
 
         $results = $this->matching($criteria);
+
         return $results->isEmpty() ? null : $results->first();
     }
 
@@ -102,7 +104,6 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
             ->getQuery();
 
         return $q->getResult();
-
     }
 
     /**

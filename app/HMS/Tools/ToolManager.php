@@ -11,7 +11,6 @@ use HMS\Repositories\PermissionRepository;
 use HMS\Repositories\Tools\ToolRepository;
 use LaravelDoctrine\ACL\Permissions\Permission;
 
-
 class ToolManager
 {
     const PERMISSION_NAME_TEMPLATES = [
@@ -91,7 +90,7 @@ class ToolManager
      * @param RoleRepository       $roleRepository
      * @param RoleManager          $roleManager
      */
-    function __construct(ToolRepository $toolRepository,
+    public function __construct(ToolRepository $toolRepository,
         ToolFactory $toolFactory,
         PermissionRepository $permissionRepository,
         RoleRepository $roleRepository,
@@ -120,7 +119,6 @@ class ToolManager
     {
         // TODO: check tool name is unique
 
-
         $_tool = $this->toolFactory->create(
             $name,
             $restricted,
@@ -133,12 +131,12 @@ class ToolManager
         $this->toolRepository->save($_tool);
 
         $replace = [
-            "_TOOL_PERMISSION_NAME_" => $_tool->getPermissionName(),
-            "_TOOL_NAME_" => $_tool->getName(),
+            '_TOOL_PERMISSION_NAME_' => $_tool->getPermissionName(),
+            '_TOOL_NAME_' => $_tool->getName(),
         ];
 
         // Create tool permissions first
-        $permissionNames = str_replace(array_keys($replace), array_values($replace), ToolManager::PERMISSION_NAME_TEMPLATES);
+        $permissionNames = str_replace(array_keys($replace), array_values($replace), self::PERMISSION_NAME_TEMPLATES);
 
         $permissions = [];
         foreach ($permissionNames as $permissionName) {
@@ -153,10 +151,10 @@ class ToolManager
         }
 
         // Now create tool roles and add permissions
-        $rolesTemplates = json_decode(str_replace(array_keys($replace), array_values($replace), json_encode(ToolManager::ROLE_TEMPLATES)), true);
+        $rolesTemplates = json_decode(str_replace(array_keys($replace), array_values($replace), json_encode(self::ROLE_TEMPLATES)), true);
 
         foreach ($rolesTemplates as $roleName => $role) {
-            if (! $this->roleRepository->findOneByName($roleName)) {
+            if ( ! $this->roleRepository->findOneByName($roleName)) {
                 $this->roleManager->createRoleFromTemplate($roleName, $role, $permissions);
             }
         }
@@ -180,7 +178,6 @@ class ToolManager
             $tool->setName($details['toolName']);
 
             // TODO: update the role and permission names
-
         }
 
         if (isset($details['restricted'])) {
@@ -236,13 +233,13 @@ class ToolManager
     }
 
     /**
-     * Remove a tool and its permissions;
+     * Remove a tool and its permissions.
      *
      * @param  Tool   $tool
      */
     public function removeTool(Tool $tool)
     {
-        $roleNames = str_replace('_TOOL_PERMISSION_NAME_', $tool->getPermissionName(), array_keys(ToolManager::ROLE_TEMPLATES));
+        $roleNames = str_replace('_TOOL_PERMISSION_NAME_', $tool->getPermissionName(), array_keys(self::ROLE_TEMPLATES));
         foreach ($roleNames as $roleName) {
             $this->roleRepository->removeOneByName($roleName);
         }

@@ -63,7 +63,7 @@ class DoctrineRoleRepository extends EntityRepository implements RoleRepository
     public function removeOneByName(string $roleName)
     {
         $role = $this->findOneByName($roleName);
-        if (! is_null($role)) {
+        if ( ! is_null($role)) {
             $this->_em->remove($role);
             $this->_em->flush();
         }

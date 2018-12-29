@@ -3,7 +3,6 @@
 namespace HMS\Entities\Tools;
 
 use HMS\Entities\User;
-use HMS\Entities\Tools\Tool;
 use HMS\Traits\Entities\SoftDeletable;
 use LaravelDoctrine\Extensions\Timestamps\Timestamps;
 
@@ -27,7 +26,7 @@ class Booking
     protected $end;
 
     /**
-     * @var String
+     * @var string
      */
     protected $type;
 
@@ -92,7 +91,7 @@ class Booking
     }
 
     /**
-     * @return String
+     * @return string
      */
     public function getType()
     {
@@ -100,11 +99,11 @@ class Booking
     }
 
     /**
-     * @param String $type
+     * @param string $type
      *
      * @return self
      */
-    public function setType(String $type)
+    public function setType(string $type)
     {
         $this->type = $type;
 

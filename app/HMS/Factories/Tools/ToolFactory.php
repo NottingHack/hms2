@@ -26,7 +26,7 @@ class ToolFactory
 
         // set to disabled by default
         $_tool->setStatus(ToolState::DISABLED);
-        $_tool->setStatusText("New tool not yet in use");
+        $_tool->setStatusText('New tool not yet in use');
 
         if ($restricted) {
             $_tool->setRestricted();

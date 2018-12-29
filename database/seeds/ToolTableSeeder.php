@@ -1,7 +1,10 @@
 <?php
 
+use HMS\Entities\Role;
 use HMS\Tools\ToolManager;
 use Illuminate\Database\Seeder;
+use HMS\Repositories\RoleRepository;
+use HMS\User\Permissions\RoleManager;
 
 class ToolTableSeeder extends Seeder
 {
@@ -11,13 +14,29 @@ class ToolTableSeeder extends Seeder
     protected $toolManager;
 
     /**
+     * @var RoleManager
+     */
+    protected $roleManager;
+
+    /**
+     * @var RoleRepository
+     */
+    protected $roleRepository;
+
+    /**
      * Create a new TableSeeder instance.
      *
      * @param ToolManager $toolManager
+     * @param RoleManager $roleManager
+     * @param RoleRepository $roleRepository
      */
-    public function __construct(ToolManager $toolManager)
+    public function __construct(ToolManager $toolManager,
+        RoleManager $roleManager,
+        RoleRepository $roleRepository)
     {
         $this->toolManager = $toolManager;
+        $this->roleManager = $roleManager;
+        $this->roleRepository = $roleRepository;
     }
 
     /**
@@ -67,6 +86,52 @@ class ToolTableSeeder extends Seeder
                 $toolSettings['bookingsMax']);
 
             $this->toolManager->enableTool($tool);
+
+            $currentMembers = $this->roleRepository->findOneByName(Role::MEMBER_CURRENT)->getUsers();
+            $exMembers = $this->roleRepository->findOneByName(Role::MEMBER_EX)->getUsers();
+
+            $roleMaintainer = $this->roleRepository->findOneByName('tools.'.$tool->getPermissionName().'.maintainer');
+            $roleInductor = $this->roleRepository->findOneByName('tools.'.$tool->getPermissionName().'.inductor');
+            $roleUser = $this->roleRepository->findOneByName('tools.'.$tool->getPermissionName().'.user');
+
+            // add 2-5 maintainers
+            for ($i=0; $i < rand(1, 5); $i++) {
+                $user = $currentMembers->get(array_rand($currentMembers->toArray()));
+                $this->roleManager->addUserToRole($user, $roleUser);
+                $this->roleManager->addUserToRole($user, $roleMaintainer);
+
+                //  of witch half are also inductors
+                if ((($i+1) % 2) == 1) {
+                    $this->roleManager->addUserToRole($user, $roleInductor);
+                }
+
+                $currentMembers->removeElement($user);
+            }
+
+            // add 2-5 more inductors
+            for ($i=0; $i < rand(1, 5); $i++) {
+                $user = $currentMembers->get(array_rand($currentMembers->toArray()));
+                $this->roleManager->addUserToRole($user, $roleUser);
+                $this->roleManager->addUserToRole($user, $roleInductor);
+
+                $currentMembers->removeElement($user);
+            }
+
+            // add 10-20 users
+            for ($i=0; $i < rand(10, 20); $i++) {
+                $user = $currentMembers->get(array_rand($currentMembers->toArray()));
+                $this->roleManager->addUserToRole($user, $roleUser);
+
+                $currentMembers->removeElement($user);
+            }
+
+            // some ex members also as users
+            for ($i=0; $i < rand(1, $exMembers->count()); $i++) {
+                $user = $exMembers->get(array_rand($exMembers->toArray()));
+                $this->roleManager->addUserToRole($user, $roleUser);
+
+                $exMembers->removeElement($user);
+            }
         }
     }
 }

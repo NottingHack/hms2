@@ -9,7 +9,7 @@ interface DoorRepository
     /**
      * find by short name.
      * @param  string $shortName
-     * @return Door
+     * @return null|Door
      */
     public function findOneByShortName(string $shortName);
 

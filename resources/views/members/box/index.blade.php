@@ -34,63 +34,65 @@ Boxes for {{ $user->getFirstname() }}
 
 <br>
 <div class="container">
-  <table class="table table-bordered table-hover">
-    <thead>
-      <tr>
-        <th>Box Id</th>
-        <th>Bought Date</th>
-        <th>Removed Date</th>
-        <th>State</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach ($boxes as $box)
-      <tr>
-        <td>{{ $box->getId() }}</td>
-        <td>{{ $box->getBoughtDate()->toDateString() }}</td>
-        <td>{{ $box->getRemovedDate() ? $box->getRemovedDate()->toDateString() : '' }}</td>
-        <td>{{ $box->getStateString() }}</td>
-        <td>
-          @can('box.printLabel.self')
-          @if (SiteVisitor::inTheSpace() && $box->getState() == \HMS\Entities\Members\BoxState::INUSE)
-          <a href="{{ route('boxes.print', $box->getId()) }}" class="btn btn-primary btn-sm btn-sm-spacing"><i class="fa fa-print" aria-hidden="true"></i> Print Box Label</a><br>
-          @endif
-          @endcan
-          @can('box.edit.self')
-          @if ($box->getState() == \HMS\Entities\Members\BoxState::INUSE)
-          @if ($box->getUser() == \Auth::user())
-          <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm">
-            <form action="{{ route('boxes.markRemoved', $box->getId()) }}" method="POST" style="display: none">
-              {{ method_field('PATCH') }}
-              {{ csrf_field() }}
-            </form>
-            <i class="fa fa-minus-circle" aria-hidden="true"></i> Mark Removed
-          </a>
-          @else
-          <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm btn-sm-spacing">
-            <form action="{{ route('boxes.markAbandoned', $box->getId()) }}" method="POST" style="display: none">
-              {{ method_field('PATCH') }}
-              {{ csrf_field() }}
-            </form>
-            <i class="fa fa-frown-o" aria-hidden="true"></i> Mark Abandoned
-          </a><br>
-          @endif
-          @endif
-          @if ($box->getState() != \HMS\Entities\Members\BoxState::INUSE)
-          <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm btn-sm-spacing">
-            <form action="{{ route('boxes.markInUse', $box->getId()) }}" method="POST" style="display: none">
-              {{ method_field('PATCH') }}
-              {{ csrf_field() }}
-            </form>
-            <i class="fa fa-play" aria-hidden="true"></i> Mark In Use
-          </a>
-          @endif
-          @endcan
-        </td>
-      </tr>
-      @endforeach
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>Box Id</th>
+          <th>Bought Date</th>
+          <th>Removed Date</th>
+          <th>State</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach ($boxes as $box)
+        <tr>
+          <td>{{ $box->getId() }}</td>
+          <td>{{ $box->getBoughtDate()->toDateString() }}</td>
+          <td>{{ $box->getRemovedDate() ? $box->getRemovedDate()->toDateString() : '' }}</td>
+          <td>{{ $box->getStateString() }}</td>
+          <td>
+            @can('box.printLabel.self')
+            @if (SiteVisitor::inTheSpace() && $box->getState() == \HMS\Entities\Members\BoxState::INUSE)
+            <a href="{{ route('boxes.print', $box->getId()) }}" class="btn btn-primary btn-sm btn-sm-spacing"><i class="fa fa-print" aria-hidden="true"></i> Print Box Label</a><br>
+            @endif
+            @endcan
+            @can('box.edit.self')
+            @if ($box->getState() == \HMS\Entities\Members\BoxState::INUSE)
+            @if ($box->getUser() == \Auth::user())
+            <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm">
+              <form action="{{ route('boxes.markRemoved', $box->getId()) }}" method="POST" style="display: none">
+                {{ method_field('PATCH') }}
+                {{ csrf_field() }}
+              </form>
+              <i class="fa fa-minus-circle" aria-hidden="true"></i> Mark Removed
+            </a>
+            @else
+            <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm btn-sm-spacing">
+              <form action="{{ route('boxes.markAbandoned', $box->getId()) }}" method="POST" style="display: none">
+                {{ method_field('PATCH') }}
+                {{ csrf_field() }}
+              </form>
+              <i class="fa fa-frown-o" aria-hidden="true"></i> Mark Abandoned
+            </a><br>
+            @endif
+            @endif
+            @if ($box->getState() != \HMS\Entities\Members\BoxState::INUSE)
+            <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm btn-sm-spacing">
+              <form action="{{ route('boxes.markInUse', $box->getId()) }}" method="POST" style="display: none">
+                {{ method_field('PATCH') }}
+                {{ csrf_field() }}
+              </form>
+              <i class="fa fa-play" aria-hidden="true"></i> Mark In Use
+            </a>
+            @endif
+            @endcan
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
 </div>
 @endsection

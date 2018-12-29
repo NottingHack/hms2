@@ -24,6 +24,16 @@ interface BookingRepository
     public function nextForTool(Tool $tool);
 
     /**
+     * Check for any Bookings that would clash with a given start and end time.
+     *
+     * @param  Tool   $tool
+     * @param  Carbon $start
+     * @param  Carbon $end
+     * @return Bookings[]
+     */
+    public function checkForClashByTool(Tool $tool, Carbon $start, Carbon $end);
+
+    /**
      * @param Tool $tool
      * @return Booking[]
      */
@@ -35,6 +45,16 @@ interface BookingRepository
      * @return Booking[]
      */
     public function findByToolAndUser(Tool $tool, User $user);
+
+    /**
+     * Count normal booing for a User on a given Tool.
+     *
+     * @param  Tool   $tool
+     * @param  User   $user
+     * @param  BookingType $bookingType
+     * @return Booking[]
+     */
+    public function countNormalByToolAndUser(Tool $tool, User $user);
 
     /**
      * @param Tool $tool
@@ -67,4 +87,10 @@ interface BookingRepository
      * @param  Booking $booking
      */
     public function save(Booking $booking);
+
+    /**
+     * Remove a Booking.
+     * @param  Booking $booking
+     */
+    public function remove(Booking $booking);
 }

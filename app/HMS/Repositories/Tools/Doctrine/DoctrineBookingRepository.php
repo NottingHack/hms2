@@ -65,6 +65,40 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
     }
 
     /**
+     * Check for any Bookings that would clash with a given start and end time.
+     *
+     * @param  Tool   $tool
+     * @param  Carbon $start
+     * @param  Carbon $end
+     * @return Bookings[]
+     */
+    public function checkForClashByTool(Tool $tool, Carbon $start, Carbon $end)
+    {
+        $expr = Criteria::expr();
+        $criteria = Criteria::create()
+            ->where($expr->eq('tool', $tool))
+            ->andWhere(
+                $expr->orX(
+                    $expr->andX(
+                        $expr->lte('start', $start),
+                        $expr->gt('end', $start)
+                    ),
+                    $expr->andX(
+                        $expr->lt('start', $end),
+                        $expr->gte('end', $end)
+                    ),
+                    $expr->andX(
+                        $expr->gt('start', $start),
+                        $expr->lt('start', $end)
+                    )
+                )
+            )
+            ->orderBy(['start' => Criteria::ASC]);
+
+        return $this->matching($criteria)->toArray();
+    }
+
+    /**
      * @param Tool $tool
      * @return Booking[]
      */
@@ -80,7 +114,19 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
      */
     public function findByToolAndUser(Tool $tool, User $user)
     {
-        return parent::findBy(['tool' => $tool, 'user' => $user], ['stat' => 'ASC']);
+        return parent::findBy(['tool' => $tool, 'user' => $user], ['start' => 'ASC']);
+    }
+
+    /**
+     * Count normal booing for a User on a given Tool.
+     *
+     * @param  Tool   $tool
+     * @param  User   $user
+     * @return Booking[]
+     */
+    public function countNormalByToolAndUser(Tool $tool, User $user)
+    {
+        return count(parent::findBy(['tool' => $tool, 'user' => $user, 'type' => BookingType::NORMAL], ['start' => 'ASC']));
     }
 
     /**
@@ -140,6 +186,16 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
     public function save(Booking $booking)
     {
         $this->_em->persist($booking);
+        $this->_em->flush();
+    }
+
+    /**
+     * Remove a Booking.
+     * @param  Booking $booking
+     */
+    public function remove(Booking $booking)
+    {
+        $this->_em->remove($booking);
         $this->_em->flush();
     }
 }

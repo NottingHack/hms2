@@ -51,8 +51,7 @@ interface BookingRepository
      *
      * @param  Tool   $tool
      * @param  User   $user
-     * @param  BookingType $bookingType
-     * @return Booking[]
+     * @return int
      */
     public function countNormalByToolAndUser(Tool $tool, User $user);
 

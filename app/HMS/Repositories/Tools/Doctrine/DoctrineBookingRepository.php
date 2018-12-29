@@ -122,7 +122,7 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
      *
      * @param  Tool   $tool
      * @param  User   $user
-     * @return Booking[]
+     * @return int
      */
     public function countNormalByToolAndUser(Tool $tool, User $user)
     {

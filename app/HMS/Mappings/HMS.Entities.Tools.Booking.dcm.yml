@@ -1,0 +1,42 @@
+# HMS.Entities.Tools.Booking.dcm.yml
+HMS\Entities\Tools\Booking:
+  type: entity
+  repositoryClass: HMS\Repositories\Tools\Doctrine\DoctrineBookingRepository
+  table: bookings
+  gedmo:
+    soft_deleteable:
+      field_name: deletedAt
+      time_aware: false
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    start:
+      type: datetime
+    end:
+      type: datetime
+    type:
+      type: string
+      lenght: 20
+    deletedAt:
+      type: datetime
+      nullable: true
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+  manyToOne:
+    user:
+      targetEntity: \HMS\Entities\User
+    tool:
+      targetEntity: \HMS\Entities\Tools\Tool

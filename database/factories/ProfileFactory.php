@@ -59,3 +59,11 @@ $factory->defineAs(HMS\Entities\Profile::class, 'approval', function (Faker\Gene
         'balance' => 0,
     ];
 });
+
+$factory->defineAs(HMS\Entities\Profile::class, 'superuser', function (Faker\Generator $faker, array $attributes) {
+    return [
+        'user' => isset($attributes['user']) ? $attributes['user'] : null,
+        'creditLimit' => \Meta::get('member_credit_limit'),
+        'balance' => 0,
+    ];
+});

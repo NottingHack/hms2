@@ -16,8 +16,8 @@
         <form action="{{ route('labels.destroy', $templateName) }}" method="POST" style="display: inline">
           {{ method_field('DELETE') }}
           {{ csrf_field() }}
-          <i class="fa fa-trash fa-lg" aria-hidden="true"></i> Remove
         </form>
+        <i class="fa fa-trash fa-lg" aria-hidden="true"></i> Remove
       </a>
       @endcan
       @if (SiteVisitor::inTheSpace())

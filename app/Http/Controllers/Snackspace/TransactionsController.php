@@ -22,6 +22,8 @@ class TransactionsController extends Controller
     protected $userRepository;
 
     /**
+     * Create a new controller instance.
+     *
      * @param TransactionRepository $transactionRepository
      * @param UserRepository $userRepository
      */

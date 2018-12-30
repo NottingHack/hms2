@@ -34,7 +34,7 @@ class DoctrineInviteRepository extends EntityRepository implements InviteReposit
      * find an invite by emial.
      *
      * @param  string $email
-     * @return Invite
+     * @return null|Invite
      */
     public function findOneByEmail($email)
     {
@@ -45,7 +45,7 @@ class DoctrineInviteRepository extends EntityRepository implements InviteReposit
      * find an invite by token.
      *
      * @param  string $token
-     * @return Invite
+     * @return null|Invite
      */
     public function findOneByInviteToken($token)
     {

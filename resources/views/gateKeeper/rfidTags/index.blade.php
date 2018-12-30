@@ -40,41 +40,43 @@ Rfid cards for {{ $user->getFirstname() }}
 @endcan
 
 <div class="container">
-  <table class="table table-bordered table-hover">
-    <thead>
-      <tr>
-        <th>Card Serial Number</th>
-        <th>Last Used</th>
-        <th>Name</th>
-        <th>State</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-    @foreach ($rfidTags as $rfidTag)
-      <tr>
-        <td>{{ $rfidTag->getBestRfidSerial() }}</td>
-        <td>{{ $rfidTag->getLastUsed() ? $rfidTag->getLastUsed()->toDateTimeString() : '' }}</td>
-        <td>{{ $rfidTag->getFriendlyName() }}</td>
-        <td>{{ $rfidTag->getStateString() }}</td>
-        <td>
-          @can('rfidTags.edit.self')
-          <a href="{{ route('rfid-tags.edit', $rfidTag->getId()) }}" class="btn btn-primary btn-sm btn-sm-spacing"><i class="fa fa-edit fa-lg" aria-hidden="true"></i> Edit</a><br>
-          @endcan
-          @can('rfidTags.destroy')
-          <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-danger btn-sm btn-sm-spacing">
-            <form action="{{ route('rfid-tags.destroy', $rfidTag->getId()) }}" method="POST" style="display: none">
-              {{ method_field('DELETE') }}
-              {{ csrf_field() }}
-            </form>
-            <i class="fa fa-trash fa-lg" aria-hidden="true"></i> Remove
-          </a>
-          @endcan
-        </td>
-      </tr>
-    @endforeach
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>Card Serial Number</th>
+          <th>Last Used</th>
+          <th>Name</th>
+          <th>State</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach ($rfidTags as $rfidTag)
+        <tr>
+          <td>{{ $rfidTag->getBestRfidSerial() }}</td>
+          <td>{{ $rfidTag->getLastUsed() ? $rfidTag->getLastUsed()->toDateTimeString() : '' }}</td>
+          <td>{{ $rfidTag->getFriendlyName() }}</td>
+          <td>{{ $rfidTag->getStateString() }}</td>
+          <td>
+            @can('rfidTags.edit.self')
+            <a href="{{ route('rfid-tags.edit', $rfidTag->getId()) }}" class="btn btn-primary btn-sm btn-sm-spacing"><i class="fa fa-edit fa-lg" aria-hidden="true"></i> Edit</a><br>
+            @endcan
+            @can('rfidTags.destroy')
+            <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-danger btn-sm btn-sm-spacing">
+              <form action="{{ route('rfid-tags.destroy', $rfidTag->getId()) }}" method="POST" style="display: none">
+                {{ method_field('DELETE') }}
+                {{ csrf_field() }}
+              </form>
+              <i class="fa fa-trash fa-lg" aria-hidden="true"></i> Remove
+            </a>
+            @endcan
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
   <div classs="pagination-links">
       {{ $rfidTags->links() }}
   </div>

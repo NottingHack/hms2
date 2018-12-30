@@ -14,7 +14,6 @@
   <br>
   @endcan
 
-
   <div class="card-columns">
     @foreach ($links as $link)
     <div class="card text-center">

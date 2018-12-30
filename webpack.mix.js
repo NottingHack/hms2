@@ -21,4 +21,5 @@ mix.webpackConfig({
    .js('resources/assets/js/app.js', 'public/js')
    .extract(['lodash', 'jquery', 'axios', 'select2', 'bootstrap', 'popper.js'])
    .sass('resources/assets/sass/app.scss', 'public/css')
-   .version();
+   .version()
+   .browserSync('hmsdev');

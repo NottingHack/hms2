@@ -19,7 +19,7 @@ interface InviteRepository
      * find an invite by emial.
      *
      * @param  string $email
-     * @return Invite
+     * @return null|Invite
      */
     public function findOneByEmail($email);
 
@@ -27,7 +27,7 @@ interface InviteRepository
      * find an invite by token.
      *
      * @param  string $token
-     * @return Invite
+     * @return null|Invite
      */
     public function findOneByInviteToken($token);
 

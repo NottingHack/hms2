@@ -22,7 +22,10 @@ class LabelTemplateController extends Controller
     protected $labelTemplateFactory;
 
     /**
+     * Create a new controller instance.
+     *
      * @param LabelTemplateRepository $labelTemplateRepository
+     * @param LabelTemplateFactory $labelTemplateFactory
      */
     public function __construct(LabelTemplateRepository $labelTemplateRepository, LabelTemplateFactory $labelTemplateFactory)
     {

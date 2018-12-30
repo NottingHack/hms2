@@ -12,7 +12,7 @@
   <form role="form" method="POST" action="{{ route('roles.update', $role->getId()) }}">
     {{ csrf_field() }}
     {{ method_field('PUT') }}
- 
+
  <div class="form-group">
       <label for="displayName" class="form-label">Display Name</label>
         <input class="form-control" id="displayName" type="text" name="displayName" value="{{ old('displayName', $role->getDisplayName()) }}" required autofocus>
@@ -25,7 +25,7 @@
 
       <div class="form-group">
       <label for="description" class="form-label">Description</label>
-        <input class="form-control" id="description" type="text" name="description" value="{{ old('description', $role->getDescription()) }}" required autofocus>
+        <input class="form-control" id="description" type="text" name="description" value="{{ old('description', $role->getDescription()) }}" required>
         @if ($errors->has('description'))
         <p class="help-text">
           <strong>{{ $errors->first('description') }}</strong>
@@ -35,7 +35,7 @@
 
       <div class="form-group">
       <label for="email" class="form-label">Email</label>
-        <input class="form-control" id="email" type="text" name="email" value="{{ old('email', $role->getEmail()) }}" autofocus>
+        <input class="form-control" id="email" type="text" name="email" value="{{ old('email', $role->getEmail()) }}">
         @if ($errors->has('email'))
         <p class="help-text">
           <strong>{{ $errors->first('email') }}</strong>
@@ -45,7 +45,7 @@
 
       <div class="form-group">
       <label for="slackChannel" class="form-label">Slack channel</label>
-        <input class="form-control" id="slackChannel" type="text" name="slackChannel" value="{{ old('slackChannel', $role->getSlackChannel()) }}" autofocus>
+        <input class="form-control" id="slackChannel" type="text" name="slackChannel" value="{{ old('slackChannel', $role->getSlackChannel()) }}">
         @if ($errors->has('slackChannel'))
         <p class="help-text">
           <strong>{{ $errors->first('slackChannel') }}</strong>
@@ -55,8 +55,7 @@
 
       <div class="form-check">
         <input class="form-check-input" id="retained" type="checkbox" name="retained"
-        {{ old('retained', $role->getRetained()) ? 'checked="checked"' : '' }}
-        autofocus>
+        {{ old('retained', $role->getRetained()) ? 'checked="checked"' : '' }}>
         <label for="retained" class="form-label">Retained</label>
         @if ($errors->has('retained'))
         <p class="help-text">

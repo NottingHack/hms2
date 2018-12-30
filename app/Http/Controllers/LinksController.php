@@ -20,7 +20,10 @@ class LinksController extends Controller
     protected $linkFactory;
 
     /**
+     * Create a new controller instance.
+     *
      * @param LinkRepository $linkRepository
+     * @param LinkFactory $linkFactory
      */
     public function __construct(LinkRepository $linkRepository, LinkFactory $linkFactory)
     {

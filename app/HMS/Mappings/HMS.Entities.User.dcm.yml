@@ -34,6 +34,10 @@ HMS\Entities\User:
       type: string
       length: 100
       nullable: true
+    emailVerifiedAt:
+      column: email_verified_at
+      type: datetime
+      nullable: true
     deletedAt:
       type: datetime
       nullable: true

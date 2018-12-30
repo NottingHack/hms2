@@ -33,18 +33,21 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::get('register/{token}', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
+Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
+Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
+Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 
 Route::get('home', 'HomeController@index')->name('home');
 Route::get('access-codes', 'HomeController@accessCodes')->name('accessCodes');
 
 // Routes in the following group can only be access from inside the hackspace (as defined by the ip range in .env)
-Route::group(['middleware' => 'ipcheck'], function () {
+Route::middleware(['ipcheck'])->group(function () {
     Route::get('/register-interest', 'RegisterInterestController@index')->name('registerInterest');
     Route::post('/register-interest', 'RegisterInterestController@registerInterest');
 });
 
 // Routes in the following group can only be access once logged-in)
-Route::group(['middleware' => 'auth'], function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     // ROLE
     Route::get('/roles', 'RoleController@index')->name('roles.index');
     Route::get('/roles/{role}', 'RoleController@show')->name('roles.show');

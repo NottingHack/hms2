@@ -32,12 +32,15 @@ class ProfileTableSeeder extends Seeder
      */
     public function run()
     {
-        $roles = [Role::MEMBER_APPROVAL, Role::MEMBER_PAYMENT, Role::MEMBER_YOUNG, Role::MEMBER_EX, Role::MEMBER_CURRENT];
+        $roles = [Role::MEMBER_APPROVAL, Role::MEMBER_PAYMENT, Role::MEMBER_YOUNG, Role::MEMBER_EX, Role::MEMBER_CURRENT, Role::SUPERUSER];
         foreach ($roles as $role) {
             $role = $this->roleRepository->findOneByName($role);
             foreach ($role->getUsers() as $user) {
                 $p = null;
                 switch ($role->getName()) {
+                case Role::SUPERUSER:
+                    $p = entity(Profile::class, 'superuser')->make(['user' => $user]);
+                    break;
                 case Role::MEMBER_APPROVAL:
                 case Role::MEMBER_PAYMENT:
                     $p = entity(Profile::class, 'approval')->make(['user' => $user]);

@@ -5,58 +5,60 @@
 @section('content')
 <div class="container">
   <p>Please review the details below and check they are all sensible.</p>
-  <table class="table table-bordered table-hover">
-    <tbody>
-      <tr>
-        <th>Username:</th>
-        <td>{{ $user->getUsername() }}</td>
-      </tr>
-      <tr>
-        <th>First name:</th>
-        <td>{{ $user->getFirstname() }}</td>
-      </tr>
-      <tr>
-        <th>Last name:</th>
-        <td>{{ $user->getLastname() }}</td>
-      </tr>
-      <tr>
-        <th>Email:</th>
-        <td>{{ $user->getEmail() }}</td>
-      </tr>
-      <tr>
-        <th>Address 1:</th>
-        <td>{{ $user->getProfile()->getAddress1() }}</td>
-      </tr>
-      <tr>
-        <th>Address 2:</th>
-        <td>{{ $user->getProfile()->getAddress2() }}</td>
-      </tr>
-      <tr>
-        <th>Address 3:</th>
-        <td>{{ $user->getProfile()->getAddress3() }}</td>
-      </tr>
-      <tr>
-        <th>City:</th>
-        <td>{{ $user->getProfile()->getAddressCity() }}</td>
-      </tr>
-      <tr>
-        <th>County:</th>
-        <td>{{ $user->getProfile()->getAddressCounty() }}</td>
-      </tr>
-      <tr>
-        <th>Post Code:</th>
-        <td>{{ $user->getProfile()->getAddressPostCode() }}</td>
-      </tr>
-      <tr>
-        <th>Contact Number:</th>
-        <td>{{ $user->getProfile()->getContactNumber() }}</td>
-      </tr>
-      <tr>
-        <th>Date of Birth:</th>
-        <td>@if($user->getProfile()->getDateOfBirth()){{ $user->getProfile()->getDateOfBirth()->toDateString() }}@endif</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <tbody>
+        <tr>
+          <th>Username:</th>
+          <td>{{ $user->getUsername() }}</td>
+        </tr>
+        <tr>
+          <th>First name:</th>
+          <td>{{ $user->getFirstname() }}</td>
+        </tr>
+        <tr>
+          <th>Last name:</th>
+          <td>{{ $user->getLastname() }}</td>
+        </tr>
+        <tr>
+          <th>Email:</th>
+          <td>{{ $user->getEmail() }}</td>
+        </tr>
+        <tr>
+          <th>Address 1:</th>
+          <td>{{ $user->getProfile()->getAddress1() }}</td>
+        </tr>
+        <tr>
+          <th>Address 2:</th>
+          <td>{{ $user->getProfile()->getAddress2() }}</td>
+        </tr>
+        <tr>
+          <th>Address 3:</th>
+          <td>{{ $user->getProfile()->getAddress3() }}</td>
+        </tr>
+        <tr>
+          <th>City:</th>
+          <td>{{ $user->getProfile()->getAddressCity() }}</td>
+        </tr>
+        <tr>
+          <th>County:</th>
+          <td>{{ $user->getProfile()->getAddressCounty() }}</td>
+        </tr>
+        <tr>
+          <th>Post Code:</th>
+          <td>{{ $user->getProfile()->getAddressPostCode() }}</td>
+        </tr>
+        <tr>
+          <th>Contact Number:</th>
+          <td>{{ $user->getProfile()->getContactNumber() }}</td>
+        </tr>
+        <tr>
+          <th>Date of Birth:</th>
+          <td>@if($user->getProfile()->getDateOfBirth()){{ $user->getProfile()->getDateOfBirth()->toDateString() }}@endif</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <button type="button" class="btn btn-success" data-toggle="modal" data-target="#approveDetails">
     Approve Details

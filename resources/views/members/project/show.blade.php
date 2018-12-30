@@ -4,32 +4,34 @@
 
 @section('content')
 <div class="container">
-  <table class="table table-bordered">
-    <tbody>
-      <tr>
-        <th>Name</th>
-        <td>{{ $project->getProjectName() }}</td>
-      </tr>
-      <tr>
-        <th>Description</th>
-        <td>{{ $project->getDescription() }}</td>
-      </tr>
-      <tr>
-        <th>Start Date</th>
-        <td>{{ $project->getStartDate()->toDateString() }}</td>
-      </tr>
-      @if ($project->getCompleteDate())
-      <tr>
-        <th>Complete Date</th>
-        <td>{{ $project->getCompleteDate()->toDateString() }}</td>
-      </tr>
-      @endif
-      <tr>
-        <th>Status</th>
-        <td>{{ $project->getStateString() }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <tbody>
+        <tr>
+          <th>Name</th>
+          <td>{{ $project->getProjectName() }}</td>
+        </tr>
+        <tr>
+          <th>Description</th>
+          <td>{{ $project->getDescription() }}</td>
+        </tr>
+        <tr>
+          <th>Start Date</th>
+          <td>{{ $project->getStartDate()->toDateString() }}</td>
+        </tr>
+        @if ($project->getCompleteDate())
+        <tr>
+          <th>Complete Date</th>
+          <td>{{ $project->getCompleteDate()->toDateString() }}</td>
+        </tr>
+        @endif
+        <tr>
+          <th>Status</th>
+          <td>{{ $project->getStateString() }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <div class="card border-light">
     @if ( ($project->getUser() == \Auth::user() && \Auth::user()->can('project.edit.self')) || ($project->getUser() != \Auth::user() && \Auth::user()->can('project.edit.all')) )

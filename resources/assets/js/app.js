@@ -1,19 +1,29 @@
+
+/**
+ * First we will load all of this project's JavaScript dependencies which
+ * includes Vue and other libraries. It is a great starting point when
+ * building robust, powerful web applications using Vue and Laravel.
+ */
+
 require('./bootstrap');
+
 // This file is for global JavaScript which is to be present on every page.
 // It is compiled by Webpack, so can freely contain ES2015 code.
 
-// negstive money to red
+// Negative money values should be red
 $(".money:contains('-')").css("color", "red");
 
+// Setup jQuery ajax with the CSRF token
 $.ajaxSetup({
    headers: {
      'X-CSRF-Token': document.head.querySelector('meta[name="csrf-token"]').content,
    }
 });
 
-// default all select2 to bootstrap theme
+// default all select2 instances to use the bootstrap theme
 $.fn.select2.defaults.set( "theme", "bootstrap" );
 
+// views/membership/showDetails.blade.php
 $(".js-programmatic-enable").on("click", function () {
   $(".js-data-existing-account-ajax").prop("disabled", false);
 });
@@ -22,16 +32,18 @@ $(".js-programmatic-disable").on("click", function () {
   $(".js-data-existing-account-ajax").prop("disabled", true);
 });
 
+// views/role/edit.blade.php
+$(".js-permission-select").select2({
+  width: 'element'
+});
+
+// views/partials/memberSearch.blade.php
 $(".js-data-member-search-ajax").change(function(){
   var user = $(this).val();
   var action = $("#member-search").attr("action").replace("_ID_", user);
   $("#member-search").attr("action", action);
   $("#member-search select[name=user]").attr("disabled", "disabled");
   $("#member-search").submit();
-});
-
-$(".js-permission-select").select2({
-	width: 'element'
 });
 
 $(".js-data-member-search-ajax").select2({
@@ -67,10 +79,12 @@ $(".js-data-member-search-ajax").select2({
   },
   escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
   minimumInputLength: 1,
-  templateResult: formatUser, // omitted for brevity, see the source of this page
-  templateSelection: formatUserSelection // omitted for brevity, see the source of this page
+  templateResult: formatUser,
+  templateSelection: formatUserSelection
 });
 
+// views/bankTransactions/edit.blade.php
+// views/membership/showDetails.blade.php
 $(".js-data-existing-account-ajax").select2({
   placeholder: "Search for a member...",
   dropdownParent: $('.existing-account-select2'),
@@ -108,10 +122,11 @@ $(".js-data-existing-account-ajax").select2({
   },
   escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
   minimumInputLength: 1,
-  templateResult: formatUser, // omitted for brevity, see the source of this page
-  templateSelection: formatUserSelection // omitted for brevity, see the source of this page
+  templateResult: formatUser,
+  templateSelection: formatUserSelection
 });
 
+// helpers for the above select2 searches
 function formatUser (user) {
   if (user.loading) return user.text;
   var markup = '<div class="membersearch">' +
@@ -127,7 +142,7 @@ function formatUserSelection (user) {
   return user.text;
 }
 
-// Workaround to reformat sumbited date's into ISO if there in UK format
+// Workaround to reformat submitted date's into ISO if there in UK format
 $("#user-edit-form,#membership-edit-details-form,#register-form").submit(function() {
   var date = $("input[type='date']");
   if (date.val().includes('/')) {
@@ -135,6 +150,7 @@ $("#user-edit-form,#membership-edit-details-form,#register-form").submit(functio
   }
 });
 
+// views/gateKeeper/rfidTags/edit.blade.php
 $(".select2-basic-single").select2({
 });
 

@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use HMS\Entities\Role;
 use HMS\Entities\User;
 use HMS\Auth\PasswordStore;
@@ -92,6 +93,7 @@ class UserTableSeeder extends Seeder
         if ($this->createAdmin === true) {
             $admin = new User('Admin', 'Admin', 'admin', 'hmsadmin@nottinghack.org.uk');
             $admin->getRoles()->add($this->roleRepository->findOneByName(Role::SUPERUSER));
+            $admin->setEmailVerifiedAt(new Carbon);
             $this->passwordStore->add($admin->getUsername(), 'admin');
             EntityManager::persist($admin);
         }

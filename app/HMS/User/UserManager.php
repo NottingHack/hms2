@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
 use App\Events\Users\UserEmailChanged;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class UserManager
 {
@@ -90,6 +91,10 @@ class UserManager
         if ($request['email']) {
             $oldEmail = $user->getEmail();
             $user->setEmail($request['email']);
+            if ($user instanceof MustVerifyEmail) {
+                $user->setEmailVerifiedAt(null);
+                $user->sendEmailVerificationNotification();
+            }
             event(new UserEmailChanged($user, $oldEmail));
         }
 

@@ -14,6 +14,8 @@ class MetaController extends Controller
     protected $metaRepository;
 
     /**
+     * Create a new controller instance.
+     *
      * @param MetaRepository $metaRepository
      */
     public function __construct(MetaRepository $metaRepository)

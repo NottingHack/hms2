@@ -18,7 +18,7 @@ Boxes for {{ $user->getFirstname() }}
 @can('box.buy.self')
 <div class="container">
   <div class="card">
-    <a href="{{ route('boxes.create') }}" class="btn btn-primary"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Buy new box</a>
+    <a href="{{ route('boxes.create') }}" class="btn btn-primary"><i class="fas fa-shopping-cart" aria-hidden="true"></i> Buy new box</a>
   </div>
 </div>
 @endcan
@@ -26,7 +26,7 @@ Boxes for {{ $user->getFirstname() }}
 @can('box.issue.all')
 <div class="container">
   <div class="card">
-    <a href="{{ route('user.boxes.issue', $user->getId()) }}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Issue new box</a>
+    <a href="{{ route('user.boxes.issue', $user->getId()) }}" class="btn btn-primary"><i class="fas fa-plus" aria-hidden="true"></i> Issue new box</a>
   </div>
 </div>
 @endcan
@@ -55,7 +55,7 @@ Boxes for {{ $user->getFirstname() }}
           <td>
             @can('box.printLabel.self')
             @if (SiteVisitor::inTheSpace() && $box->getState() == \HMS\Entities\Members\BoxState::INUSE)
-            <a href="{{ route('boxes.print', $box->getId()) }}" class="btn btn-primary btn-sm btn-sm-spacing"><i class="fa fa-print" aria-hidden="true"></i> Print Box Label</a><br>
+            <a href="{{ route('boxes.print', $box->getId()) }}" class="btn btn-primary btn-sm btn-sm-spacing"><i class="fas fa-print" aria-hidden="true"></i> Print Box Label</a><br>
             @endif
             @endcan
             @can('box.edit.self')
@@ -66,7 +66,7 @@ Boxes for {{ $user->getFirstname() }}
                 {{ method_field('PATCH') }}
                 {{ csrf_field() }}
               </form>
-              <i class="fa fa-minus-circle" aria-hidden="true"></i> Mark Removed
+              <i class="fas fa-minus-circle" aria-hidden="true"></i> Mark Removed
             </a>
             @else
             <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm btn-sm-spacing">
@@ -74,7 +74,7 @@ Boxes for {{ $user->getFirstname() }}
                 {{ method_field('PATCH') }}
                 {{ csrf_field() }}
               </form>
-              <i class="fa fa-frown-o" aria-hidden="true"></i> Mark Abandoned
+              <i class="far fa-frown" aria-hidden="true"></i> Mark Abandoned
             </a><br>
             @endif
             @endif
@@ -84,7 +84,7 @@ Boxes for {{ $user->getFirstname() }}
                 {{ method_field('PATCH') }}
                 {{ csrf_field() }}
               </form>
-              <i class="fa fa-play" aria-hidden="true"></i> Mark In Use
+              <i class="fal fa-play" aria-hidden="true"></i> Mark In Use
             </a>
             @endif
             @endcan

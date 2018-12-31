@@ -24,7 +24,7 @@ Rfid cards for {{ $user->getFirstname() }}
               {{ method_field('PATCH') }}
               {{ csrf_field() }}
             </form>
-            <i class="fa fa-refresh fa-lg" aria-hidden="true"></i> Reactivate pin for enrolment
+            <i class="fas fa-sync-alt fa-lg" aria-hidden="true"></i> Reactivate pin for enrolment
           </a>
         </div>
         @endcan
@@ -60,7 +60,7 @@ Rfid cards for {{ $user->getFirstname() }}
           <td>{{ $rfidTag->getStateString() }}</td>
           <td>
             @can('rfidTags.edit.self')
-            <a href="{{ route('rfid-tags.edit', $rfidTag->getId()) }}" class="btn btn-primary btn-sm btn-sm-spacing"><i class="fa fa-edit fa-lg" aria-hidden="true"></i> Edit</a><br>
+            <a href="{{ route('rfid-tags.edit', $rfidTag->getId()) }}" class="btn btn-primary btn-sm btn-sm-spacing"><i class="fas fa-pencil fa-lg" aria-hidden="true"></i> Edit</a><br>
             @endcan
             @can('rfidTags.destroy')
             <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-danger btn-sm btn-sm-spacing">
@@ -68,7 +68,7 @@ Rfid cards for {{ $user->getFirstname() }}
                 {{ method_field('DELETE') }}
                 {{ csrf_field() }}
               </form>
-              <i class="fa fa-trash fa-lg" aria-hidden="true"></i> Remove
+              <i class="fas fa-trash fa-lg" aria-hidden="true"></i> Remove
             </a>
             @endcan
           </td>

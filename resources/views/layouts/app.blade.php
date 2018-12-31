@@ -18,9 +18,6 @@
   <script src="{{ mix('/js/vendor.js') }}" defer></script>
   <script src="{{ mix('/js/app.js') }}" defer></script>
 
-  <!-- Font Awesome -->
-  <script src="https://use.fontawesome.com/5fd8ad5172.js"></script>
-
   <!-- fav icons -->
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />

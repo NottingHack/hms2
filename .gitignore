@@ -28,6 +28,7 @@ Thumbs.db
 
 /public/css
 /public/js
+/public/fonts/vendor
 mixwatch.log
 /public/mix-manifest.json
 /storage/proxies

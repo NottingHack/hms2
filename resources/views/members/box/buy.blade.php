@@ -12,7 +12,7 @@ Confirm buying a new box
     {{ method_field('POST') }}
     {{ csrf_field() }}
   </form>
-  <i class="fa fa-check" aria-hidden="true"></i> Confirm buy box
+  <i class="fas fa-check" aria-hidden="true"></i> Confirm buy box
   </a>
 </div>
 @endsection

@@ -39,7 +39,7 @@
 
 @can('tools.edit')
 <div class="card">
-<a href="{{ route('tools.edit', $tool->getId()) }}" class="btn btn-info"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+  <a href="{{ route('tools.edit', $tool->getId()) }}" class="btn btn-info"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
 </div>
 <br>
 @endcan
@@ -51,7 +51,7 @@
       {{ method_field('DELETE') }}
       {{ csrf_field() }}
     </form>
-    <i class="fa fa-trash fa-lg" aria-hidden="true"></i> Remove
+    <i class="fas fa-trash fa-lg" aria-hidden="true"></i> Remove
   </button>
 </div>
 <br>

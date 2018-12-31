@@ -11,14 +11,14 @@ Snackspace account for {{ $user->getFirstname() }}
       <center>
         <div class="card">
           <div class="card-header icon-card-body">
-            <div class="icon-card-icon"><i class="fa fa-money" aria-hidden="true"></i></div>
+            <div class="icon-card-icon"><i class="far fa-money-bill" aria-hidden="true"></i></div>
             <div class="icon-card-content">
               <h3>Balance</h3>
             </div>
           </div>
           <div class="card-body">
             <dl>
-              <h1>£ @format_pennies($user->getProfile() ? $user->getProfile()->getBalance() : 0)</h1>
+              <h1>£ <span class="money">@format_pennies($user->getProfile() ? $user->getProfile()->getBalance() : 0)</span></h1>
             </dl>
           </div>
         </div>

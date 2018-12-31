@@ -21,7 +21,7 @@
       <tbody>
         @foreach($tools as $tool)
         <tr>
-          <td style="width:25px"><span style="color: #195905"><i class="fa fa-calendar" aria-hidden="true"></i></span></td>
+          <td style="width:25px"><span style="color: #195905"><i class="fal fa-calendar-alt" aria-hidden="true"></i></span></td>
           <td><a href="{{ route('bookings.index', $tool->getId()) }}">{{ $tool->getName() }}</a></td>
           <td>
             {{ $tool->getStatusString() }}
@@ -34,10 +34,10 @@
           @can(['tools.edit', 'tools.maintainer.grant'])
           <td>
             @can('tools.edit')
-            <a class="btn btn-primary btn-sm btn-sm-spacing" href="{{ route('tools.show', $tool->getId()) }}" class="button"><i class="fa fa-eye" aria-hidden="true"></i> View Settings</a>
+            <a class="btn btn-primary btn-sm btn-sm-spacing" href="{{ route('tools.show', $tool->getId()) }}" class="button"><i class="far fa-eye" aria-hidden="true"></i> View Settings</a>
             @endcan
             @can('tools.maintainer.grant')
-            <a class="btn btn-primary btn-sm btn-sm-spacing" href="" class="button"><i class="fa fa-plus" aria-hidden="true"></i> Appoint Maintainer</a>
+            <a class="btn btn-primary btn-sm btn-sm-spacing" href="" class="button"><i class="fas fa-plus" aria-hidden="true"></i> Appoint Maintainer</a>
             @endcan
           </td>
           @endcan
@@ -52,7 +52,7 @@
 <br>
 <div class="container">
   <div class="card">
-    <a href="{{ route('tools.create') }}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Add new tool</a>
+    <a href="{{ route('tools.create') }}" class="btn btn-primary"><i class="fas fa-plus" aria-hidden="true"></i> Add new tool</a>
   </div>
 </div>
 @endcan

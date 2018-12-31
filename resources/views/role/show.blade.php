@@ -42,7 +42,7 @@
   <br>
   @can('role.edit.all')
   <div class="card">
-    <a href="{{ route('roles.edit', $role->getId()) }}" class="btn btn-info"> <i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+    <a href="{{ route('roles.edit', $role->getId()) }}" class="btn btn-info"> <i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
   </div>
   <br>
   @endcan
@@ -61,7 +61,7 @@
               {{ method_field('DELETE') }}
               {{ csrf_field() }}
             </form>
-            <i class="fa fa-trash" aria-hidden="true"></i> Remove
+            <i class="fas fa-trash" aria-hidden="true"></i> Remove
           </a>
         </td>
       </tr>

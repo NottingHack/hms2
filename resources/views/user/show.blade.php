@@ -70,7 +70,7 @@
   </div>
 
   @if (($user == Auth::user() && Auth::user()->can('profile.edit.self')) || ($user->getId() != Auth::user()->getId() && Auth::user()->can('profile.edit.all')))
-  <a href="{{ route('users.edit', $user->getID()) }}" class="btn btn-info btn-block"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+  <a href="{{ route('users.edit', $user->getID()) }}" class="btn btn-info btn-block"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
   @endif
 </div>
 @endsection

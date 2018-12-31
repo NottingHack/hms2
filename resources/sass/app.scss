@@ -7,6 +7,13 @@
 @import '~select2/dist/css/select2';
 @import '~select2-theme-bootstrap4/dist/select2-bootstrap';
 
+// Fontawesome
+@import '~@fortawesome/fontawesome-pro/scss/fontawesome';
+@import '~@fortawesome/fontawesome-pro/scss/regular';
+@import '~@fortawesome/fontawesome-pro/scss/solid';
+@import '~@fortawesome/fontawesome-pro/scss/light';
+@import '~@fortawesome/fontawesome-pro/scss/brands';
+
 /* HMS Custom CSS */
 .card-container.card {
   max-width: 350px;

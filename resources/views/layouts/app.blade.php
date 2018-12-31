@@ -11,7 +11,7 @@
   <title>@hasSection('pageTitle') @yield('pageTitle') |@endif {{ config('app.name', 'Laravel') }}</title>
 
   <!-- Styles -->
-  <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+  <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
 
   <!-- Scripts -->
   <!-- Font Awesome -->
@@ -177,8 +177,8 @@
 
   <!-- Scripts -->
   <script src="{{ mix('/js/manifest.js') }}"></script>
-  <script src="{{ mix('js/vendor.js') }}"></script>
-  <script src="{{ mix('js/app.js') }}"></script>
+  <script src="{{ mix('/js/vendor.js') }}"></script>
+  <script src="{{ mix('/js/app.js') }}"></script>
 
   @stack('scripts')
 </body>

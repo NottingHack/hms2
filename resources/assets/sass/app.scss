@@ -2,7 +2,7 @@
 
 @import url('https://fonts.googleapis.com/css?family=Oxygen');
 
-@import 'custom';
+@import 'variables';
 @import '~bootstrap/scss/bootstrap';
 @import '~select2/dist/css/select2';
 @import '~select2-theme-bootstrap4/dist/select2-bootstrap';
@@ -41,13 +41,13 @@
 }
 
 #myFooter a{
-    color:#d2d1d1;
+    color: #d2d1d1;
     text-decoration: none;
 }
 
 #myFooter a:hover, #myFooter a:focus{
     text-decoration: none;
-    color:white;
+    color: white;
 }
 
 #myFooter .myCols{
@@ -79,7 +79,6 @@
         text-align: center;
     }
 }
-
 
 .card-container.card {
     max-width: 350px;
@@ -212,14 +211,6 @@ margin-bottom: 0.10rem;
 }
 
 
-// button {
-//   font-family: inherit;
-// }
-
-// h2 {
-//   color: $hackspace-green;
-// }
-
 .with-footer {
   min-height: 100vh;
   display: flex;
@@ -233,20 +224,6 @@ margin-bottom: 0.10rem;
   margin-top: 2rem;
   padding-bottom: 1rem;
 }
-
-// @include breakpoint(small only) {
-//   .content {
-//     padding-left: 1rem;
-//     padding-right: 1rem;
-//   }
-// }
-
-// @include breakpoint(medium) {
-//   .content {
-//     padding-left: 2rem;
-//     padding-right: 2rem;
-//   }
-// }
 
 footer {
   @extend .container-fluid;
@@ -366,222 +343,30 @@ dl > dt {
   @extend .h5;
 }
 
-// // Foundation docs say it provides this class, but it doesn't seem to work
-// .align-middle {
-//     align-items: center;
-// }
-
-// /*
-//  * Navigation classes and objects need to show/hide in the right circumstances
-//  */
-// @include breakpoint(small only) {
-//   // In small screens, the main menu is hidden and the mobile menu is showable
-//   #main-menu {
-//     display: none;
-//   }
-
-//   // This selector must be more specific than the ID selector which hides the menu
-//   #mobile-menu.show-mobile-menu {
-//     display: block;
-//   }
-// }
-
-// @include breakpoint(medium) {
-//   // In medium+, the mobile menu's toggle button is hidden
-//   .mobile-menu-button {
-//     display: none;
-//   }
-// }
-
-// // The default visibility of the mobile menu is hidden
-// #mobile-menu {
-//   display: none;
-// }
-
-// .no-js {
-//  .submenu {
-//    display: none;
-//   }
-// }
-
-
-
-// // Spacing classes
-// // ---------------
-// // Utility classes for spacing things around in special circumstances
-
-// .margin-top-small {
-//   margin-top: 0.5rem;
-// }
-
-// // Form classes
-// // ------------
-
-// // a class for wrapping a form in when embedded in the middle of another page
-// .form-container {
-//   margin: 2rem;
-// }
-
-// .form-label {
-//   @extend .columns;
-//   @extend .small-12;
-//   @extend .medium-3;
-// }
-
-// .form-control {
-//   @extend .columns;
-//   @extend .small-12;
-//   @extend .medium-9;
-// }
-
-// /* Use form-tickbox-row when making rows of simple checkbox or radio toggles, like lists of permissions in roles.
-//  * Markup is an input (checkbox or radio) and a label, inside a div.form-tickbox-row
-//  */
-// .form-tickbox-row {
-//   display: flex;
-//   align-items: center;
-
-//   input {
-//     margin: 0;
-//     padding: 0;
-//   }
-
-//   label {
-//     padding-left: 1rem;
-//   }
-// }
-
-// .form-group {
-//   margin-top: 1rem;
-//   margin-bottom: 1rem;
-// }
-
-// .form-buttons {
-//   @extend .columns;
-//   @extend .small-12;
-//   @extend .medium-9;
-//   @extend .medium-offset-3;
-//   margin-top: 1rem;
-
-//   button {
-//     margin-left: 0.25rem;
-//     margin-right: 0.25rem;
-
-//     &:first-child {
-//       margin-left: 0;
-//     }
-
-//     &:last-child {
-//       margin-right: 0;
-//     }
-//   }
-
-//   a {
-//     margin-left: 0.25rem;
-//     margin-right: 0.25rem;
-
-//     &:first-child {
-//       margin-left: 0;
-//     }
-
-//     &:last-child {
-//       margin-right: 0;
-//     }
-//   }
-// }
-
-
-// // Cookie consent pop-up
-// // ---------------------
-
-// .cookie-consent {
-//   @extend .columns;
-// }
-
-// .cookie-consent__container {
-//   @extend .callout;
-//   @extend .secondary;
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-//   flex-wrap: wrap;
-// }
-
-// .cookie-consent__agree {
-//   @extend .button;
-//   @extend .primary;
-// }
-
-// // Link colouring
-// // --------------
-
-// // create an a-specific class for each colour in the palette
-// @each $name, $color in $foundation-palette {
-//   a.#{$name} {
-//     color: $color;
-//   }
-// }
-
-// .menu {
-//   li:not(.active) {
-//     a:hover {
-//       background-color: $menu-item-background-hover;
-//     }
-//   }
-// }
-
-// // Workaround for Foundation Reveal modal's tendency to make the scrollbar vanish and the backing page jump to the right when a model opens.
-// @include breakpoint(medium) {
-// 	/* The following prevent page jump (left->right) when reveal opens on a centered page with right scrollbar */
-// 	body.is-reveal-open {
-// 	    overflow: visible !important;
-// 	}
-// 	.reveal-overlay {
-// 		overflow: hidden;
-// 	}
-// }
-
-// /*
-//  * Member search result styles
-//  */
-
-// .membersearch {
-//   .name {
-//     .fullname {
-//       font-weight: bold;
-//     }
-
-//     .username {
-//       font-style: italic;
-
-//       &::before {
-//         content: '(';
-//       }
-
-//       &::after {
-//         content: ')';
-//       }
-//     }
-//   }
-
-//   .email, .address, .paymentref {
-//     font-size: 0.8rem;
-//   }
-// }
-
 /*
- * Definition Lists
+ * Member search result styles
  */
-// dt {
-//  margin-top: 0.6rem;
-// }
 
+.membersearch {
+  .name {
+    .fullname {
+      font-weight: bold;
+    }
 
-// /*
-// * Links page
-// */
+    .username {
+      font-style: italic;
 
-// .link-name {
-//   font-size: 1.5rem;
-//   font-weight: bold;
-// }
+      &::before {
+        content: '(';
+      }
+
+      &::after {
+        content: ')';
+      }
+    }
+  }
+
+  .email, .address, .paymentref {
+    font-size: 0.8rem;
+  }
+}

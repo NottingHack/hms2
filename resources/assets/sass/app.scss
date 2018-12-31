@@ -8,78 +8,6 @@
 @import '~select2-theme-bootstrap4/dist/select2-bootstrap';
 
 // CUSTOM CSS
-
-#myFooter {
-    background-color: grey;
-    color:white;
-}
-
-#myFooter .footer-copyright{
-    background-color: #383737;
-    padding-top:3px;
-    padding-bottom:3px;
-    text-align: center;
-}
-
-#myFooter .footer-copyright p{
-    margin:10px;
-    color: #ccc;
-}
-
-#myFooter ul{
-    list-style-type: none;
-    padding-left: 0;
-    line-height: 1.7;
-
-}
-
-#myFooter h5{
-    font-size: 18px;
-    color: white;
-    font-weight: bold;
-    margin-top: 30px;
-}
-
-#myFooter a{
-    color: #d2d1d1;
-    text-decoration: none;
-}
-
-#myFooter a:hover, #myFooter a:focus{
-    text-decoration: none;
-    color: white;
-}
-
-#myFooter .myCols{
-    text-align: center;
-}
-
-#myFooter .social-networks{
-    text-align: center;
-    padding-top: 5px;
-    padding-bottom: 10px;
-}
-
-#myFooter .social-networks a{
-    font-size: 32px;
-    margin-right: 5px;
-    margin-left: 5px;
-    color: #f9f9f9;
-    padding: 10px;
-    transition: 0.2s;
-}
-
-#myFooter .social-networks a:hover{
-    text-decoration: none;
-
-}
-
-@media screen and (max-width: 767px){
-    #myFooter {
-        text-align: center;
-    }
-}
-
 .card-container.card {
     max-width: 350px;
     padding: 40px 40px;
@@ -210,7 +138,6 @@ margin-bottom: 0.10rem;
     
 }
 
-
 .with-footer {
   min-height: 100vh;
   display: flex;
@@ -227,16 +154,55 @@ margin-bottom: 0.10rem;
 
 footer {
   @extend .container-fluid;
+  background-color: $footer-background-colour;
+  color: $footer-text-colour;
   font-size: 0.8rem;
 }
 
 .footer {
   @extend .row;
-  background-color: $footer-background-colour;
-  padding-top: 1rem;
+  text-align: center;
+
+  ul{
+      list-style-type: none;
+      padding-left: 0;
+      line-height: 1.7;
+
+  }
+
+  h5 {
+      font-size: 18px;
+      color: $footer-text-colour;
+      font-weight: bold;
+      margin-top: 30px;
+  }
 
   a {
     color: $footer-link-colour;
+    text-decoration: none;
+  }
+
+  a:hover, a:focus{
+    color: $footer-link-hover-colour;
+    text-decoration: none;
+  }
+}
+
+.social-networks{
+  @extend .col;
+  text-align: center;
+  padding-bottom: 10px;
+  
+  a {
+    font-size: 32px;
+    margin-right: 5px;
+    margin-left: 5px;
+    color: $social-networks-colour;
+    padding: 10px;
+  }
+  
+  a:hover {
+    text-decoration: none;
   }
 }
 

@@ -12,9 +12,9 @@
     </div>
     <div class="col-sm container-fluid">
       <div class="row">
-        <div class="col-sm-12 col-md-8 header-center">
+        <div class="col-sm-11 col-md-8 header-center">
 @hasSection('pageTitle')
-          <h1 class="tiny-header"><a href="/">Nottingham Hackspace</a></h1>
+          <h1 class="tiny-header d-none d-md-block"><a href="/">Nottingham Hackspace</a></h1>
           <h2 class="big-header">@yield('pageTitle')</h2>
 @else
           <h1><a href="/">Nottingham Hackspace</a></h1>

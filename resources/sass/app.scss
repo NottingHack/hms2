@@ -165,89 +165,14 @@
 
 .header-center {
   padding-top: 0.5%;
-
-}
-
-.with-footer {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch !important;
-}
-
-.content {
-  @extend .container-fluid;
-  flex: 1;
-  margin-top: 2rem;
-  padding-bottom: 1rem;
 }
 
 /*
- * Footer
+ * Body
  */
-footer {
-  @extend .container-fluid;
-  background-color: $footer-background-colour;
-  color: $footer-text-colour;
-  font-size: 0.8rem;
-}
-
-.footer {
-  @extend .row;
-  text-align: center;
-
-  ul{
-    list-style-type: none;
-    padding-left: 0;
-    line-height: 1.7;
-
-  }
-
-  h5 {
-    font-size: 18px;
-    color: $footer-text-colour;
-    font-weight: bold;
-    margin-top: 30px;
-  }
-
-  a {
-    color: $footer-link-colour;
-    text-decoration: none;
-  }
-
-  a:hover, a:focus{
-    color: $footer-link-hover-colour;
-    text-decoration: none;
-  }
-}
-
-.social-networks{
-  @extend .col;
-  text-align: center;
-  padding-bottom: 10px;
-  
-  a {
-    font-size: 32px;
-    margin-right: 5px;
-    margin-left: 5px;
-    color: $social-networks-colour;
-    padding: 10px;
-  }
-  
-  a:hover {
-    text-decoration: none;
-  }
-}
-
-/* 
- * Genral Links
- */
-a {
-  color: $link-colour;
-}
-
-a:hover {
-  color: $link-hover-colour;
+body {
+  min-height: 100vh;
+  align-items: stretch !important;
 }
 
 /*
@@ -306,6 +231,72 @@ header {
   @extend .row;
   background-color: $userbar-background-colour;
   color: $userbar-text-colour;
+}
+
+/*
+ * Footer
+ */
+footer {
+  @extend .container-fluid;
+  background-color: $footer-background-colour;
+  color: $footer-text-colour;
+  font-size: 0.8rem;
+}
+
+.footer {
+  @include make-row();
+  text-align: center;
+
+  ul{
+    list-style-type: none;
+    padding-left: 0;
+    line-height: 1.7;
+  }
+
+  h5 {
+    font-size: 18px;
+    color: $footer-text-colour;
+    font-weight: bold;
+    margin-top: 30px;
+  }
+
+  a {
+    color: $footer-link-colour;
+    text-decoration: none;
+  }
+
+  a:hover, a:focus{
+    color: $footer-link-hover-colour;
+    text-decoration: none;
+  }
+}
+
+.social-networks{
+  text-align: center;
+  padding-bottom: 10px;
+  
+  a {
+    font-size: 32px;
+    margin-right: 5px;
+    margin-left: 5px;
+    color: $social-networks-colour;
+    padding: 10px;
+  }
+  
+  a:hover {
+    text-decoration: none;
+  }
+}
+
+/* 
+ * Genral Links
+ */
+a {
+  color: $link-colour;
+}
+
+a:hover {
+  color: $link-hover-colour;
 }
 
 /*

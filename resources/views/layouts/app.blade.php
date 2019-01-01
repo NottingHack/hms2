@@ -30,28 +30,26 @@
   <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
 </head>
 
-<body class="with-footer">
-  <div id="app">
-    @include('layouts.header')
+<body class="d-flex flex-column">
+  @include('layouts.header')
 
-    @include('cookieConsent::index')
+  @include('cookieConsent::index')
 
-    <!-- main body -->
-    <div class="content">
+  <!-- main body -->
+  <main id="app" class="flex-fill mt-2 pb-1">
 @include('partials.flash')
-      <div class="row">
-        <div class="col-sm-12">
+    <div class="row">
+      <div class="col-sm-12">
 @yield('content')
-        </div>
       </div>
     </div>
-    <!-- main body end -->
+  </main>
+  <!-- main body end -->
 
-    @include('layouts.footer')
+  @include('layouts.footer')
 
-    <!-- Scripts stack -->
-    @stack('scripts')
-    <!-- Scripts stack end -->
-  </div>
+  <!-- Scripts stack -->
+  @stack('scripts')
+  <!-- Scripts stack end -->
 </body>
 </html>

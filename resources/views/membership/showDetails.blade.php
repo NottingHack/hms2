@@ -86,11 +86,11 @@
             <label for="value" class="form-label">Account</label>
             <div class="form-group">
               <div class="form-tickbox-row">
-                <input name="new-account" type="radio" id="Yes" value="1" class="js-programmatic-disable" checked="checked" />
+                <input name="new-account" type="radio" id="Yes" value="1" class="js-programmatic-disable" checked="checked">
                 <label for="Yes">Create a new account reference</label>
               </div>
               <div class="form-tickbox-row">
-                <input name="new-account" type="radio" id="No" value="0" class="js-programmatic-enable" />
+                <input name="new-account" type="radio" id="No" value="0" class="js-programmatic-enable">
                 <label for="No">Link to an existing account</label>
               </div>
               <select name="existing-account" class="js-data-existing-account-ajax" disabled="disabled" data-width="100%" style="width: 100%">

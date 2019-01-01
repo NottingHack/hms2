@@ -154,6 +154,43 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
 
     /**
      * @param Tool $tool
+     * @param Carbon $day
+     * @return Booking[]
+     */
+    public function findByToolForDay(Tool $tool, Carbon $day)
+    {
+        $start = $day->copy()->startOfDay();
+        $end = $day->copy()->endOfDay();
+
+        return $this->findByToolBetween($tool, $start, $end);
+    }
+
+    /**
+     * @param Tool $tool
+     * @param Carbon $week
+     * @return Booking[]
+     */
+    public function findByToolForWeek(Tool $tool, Carbon $week)
+    {
+        $start = $week->copy()->startOfWeek();
+        $end = $week->copy()->endOfWeek();
+
+        return $this->findByToolBetween($tool, $start, $end);
+    }
+
+    /**
+     * @param Tool $tool
+     * @return Booking[]
+     */
+    public function findByToolForThisWeek(Tool $tool)
+    {
+        $week = Carbon::now('Europe/London');
+
+        return $this->findByToolForWeek($tool, $week);
+    }
+
+    /**
+     * @param Tool $tool
      * @return Booking[]
      */
     public function findNormalByTool(Tool $tool)

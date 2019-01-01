@@ -65,6 +65,26 @@ interface BookingRepository
 
     /**
      * @param Tool $tool
+     * @param Carbon $day
+     * @return Booking[]
+     */
+    public function findByToolForDay(Tool $tool, Carbon $day);
+
+    /**
+     * @param Tool $tool
+     * @param Carbon $week
+     * @return Booking[]
+     */
+    public function findByToolForWeek(Tool $tool, Carbon $week);
+
+    /**
+     * @param Tool $tool
+     * @return Booking[]
+     */
+    public function findByToolForThisWeek(Tool $tool);
+
+    /**
+     * @param Tool $tool
      * @return Booking[]
      */
     public function findNormalByTool(Tool $tool);

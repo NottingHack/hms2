@@ -5,9 +5,25 @@ namespace App\Http\Controllers\Tools;
 use HMS\Entities\Tools\Tool;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use HMS\Repositories\Tools\BookingRepository;
 
 class BookingController extends Controller
 {
+    /**
+     * @var BookingRepository
+     */
+    protected $bookingRepository;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param BookingRepository $bookingRepository
+     */
+    public function __construct(BookingRepository $bookingRepository)
+    {
+        $this->bookingRepository = $bookingRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +33,11 @@ class BookingController extends Controller
      */
     public function index(Tool $tool)
     {
-        dd($tool);
+        $bookingsThisWeek = $this->bookingRepository->findByToolForThisWeek($tool);
+
+        return view('tools.booking.index')
+            ->with('tool', $tool)
+            ->with('bookingsThisWeek', $bookingsThisWeek);
     }
 
     /**

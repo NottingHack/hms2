@@ -45,7 +45,7 @@ class ToolController extends Controller
     {
         $tools = $this->toolRepository->findAll();
 
-        return view('tools.index')->with('tools', $tools);
+        return view('tools.tool.index')->with('tools', $tools);
     }
 
     /**
@@ -55,7 +55,7 @@ class ToolController extends Controller
      */
     public function create()
     {
-        return view('tools.create');
+        return view('tools.tool.create');
     }
 
     /**
@@ -96,7 +96,7 @@ class ToolController extends Controller
      */
     public function show(Tool $tool)
     {
-        return view('tools.show')->with('tool', $tool);
+        return view('tools.tool.show')->with('tool', $tool);
     }
 
     /**
@@ -107,7 +107,7 @@ class ToolController extends Controller
      */
     public function edit(Tool $tool)
     {
-        return view('tools.edit')->with('tool', $tool);
+        return view('tools.tool.edit')->with('tool', $tool);
     }
 
     /**

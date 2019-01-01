@@ -2,6 +2,8 @@
 
 namespace HMS\Entities\Tools;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class Tool
 {
     /**
@@ -55,6 +57,19 @@ class Tool
      * @var int
      */
     protected $bookingsMax;
+
+    /**
+     * @var Booking[]
+     */
+    protected $bookings;
+
+    /**
+     * Tool constructor.
+     */
+    public function __construct()
+    {
+        $this->bookings = new ArrayCollection();
+    }
 
     /**
      * Gets the value of id.
@@ -262,5 +277,13 @@ class Tool
     public function getPermissionName()
     {
         return camel_case($this->name);
+    }
+
+    /**
+     * @return ArrayCollection|Booking[]
+     */
+    public function getBookings()
+    {
+        return $this->bookings;
     }
 }

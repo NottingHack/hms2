@@ -36,3 +36,7 @@ HMS\Entities\Tools\Tool:
     bookingsMax:
       column: bookings_max
       type: integer
+  oneToMany:
+    bookings:
+      targetEntity: \HMS\Entities\Tools\Booking
+      mappedBy: tool

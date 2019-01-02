@@ -140,7 +140,7 @@ class BookingManager
         // BASIC CHECKS
         // can this user post this event?
         // Is the tool restricted and has the user been inducted
-        if ($user->cannot('tools.'.$tool->getPermissionName().'.book.maintanance')) {
+        if ($user->cannot('tools.'.$tool->getPermissionName().'.book.maintenance')) {
             return 'Must be inducted to book this tool';
         }
 

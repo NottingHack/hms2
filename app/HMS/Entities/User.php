@@ -167,7 +167,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
      */
     public function getAuthPassword()
     {
-        throw new Exception('Not Supported');
+        throw new \Exception('Not Supported');
     }
 
     /**

@@ -204,7 +204,7 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
      */
     public function findInductionByTool(Tool $tool)
     {
-        return parent::findBy(['tool' => $tool, 'type' => BookingType::INDCUTION], ['start' => 'ASC']);
+        return parent::findBy(['tool' => $tool, 'type' => BookingType::INDUCTION], ['start' => 'ASC']);
     }
 
     /**

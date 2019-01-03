@@ -12,7 +12,7 @@ abstract class BookingType
     /**
      * Tool is booked for an Induction.
      */
-    const INDCUTION = 'INDCUTION';
+    const INDUCTION = 'INDUCTION';
 
     /**
      * Tool is booked for maintenance.
@@ -25,7 +25,7 @@ abstract class BookingType
     const TYPE_STRINGS =
     [
         self::NORMAL => 'Normal',
-        self::INDCUTION => 'Induction',
+        self::INDUCTION => 'Induction',
         self::MAINTENANCE => 'Maintenance',
     ];
 }

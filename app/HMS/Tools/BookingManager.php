@@ -116,7 +116,7 @@ class BookingManager
         }
 
         // Phew!  We can now add the booking
-        $booking = $this->bookingFactory->create($start, $end, BookingType::INDCUTION, $user, $tool);
+        $booking = $this->bookingFactory->create($start, $end, BookingType::INDUCTION, $user, $tool);
         $this->bookingRepository->save($booking);
 
         return $booking;

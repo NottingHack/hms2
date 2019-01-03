@@ -15,14 +15,30 @@
 @import '~@fortawesome/fontawesome-pro/scss/brands';
 
 /* HMS Custom CSS */
+
+/*
+ * Tool related bits
+ */
+.tool-normal {
+  background-color: $tool-booking-normal !important;
+}
+
+.tool-induction {
+  background-color: $tool-booking-induction !important;
+}
+
+.tool-maintenance {
+  background-color: $tool-booking-maintenance !important;
+}
+
+/*
+ * Card component
+ */  
 .card-container.card {
   max-width: 350px;
   padding: 40px 40px;
 }
 
-/*
- * Card component
- */
 .card-body-padding {
   background-color: #F7F7F7;
   /* just in case there no content */

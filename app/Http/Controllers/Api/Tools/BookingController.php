@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Tools;
+namespace App\Http\Controllers\Api\Tools;
 
+use Carbon\Carbon;
 use HMS\Entities\Tools\Tool;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -9,19 +10,11 @@ use HMS\Repositories\Tools\BookingRepository;
 
 class BookingController extends Controller
 {
-    /**
-     * @var BookingRepository
-     */
-    protected $bookingRepository;
+    protected $bookingsRepository;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @param BookingRepository $bookingRepository
-     */
-    public function __construct(BookingRepository $bookingRepository)
+    public function __construct(BookingRepository $bookingsRepository)
     {
-        $this->bookingRepository = $bookingRepository;
+        $this->bookingsRepository = $bookingsRepository;
     }
 
     protected function mapBookings($booking)
@@ -32,7 +25,7 @@ class BookingController extends Controller
             'start' => $booking->getStart()->toAtomString(),
             'end' => $booking->getEnd()->toAtomString(),
             'title' => $booking->getUser()->getFullName(),
-            'type' => $booking->getType(),
+            'className' => 'tool-'.strtolower($booking->getType()),
             'toolId' => $booking->getTool()->getId(),
         ];
     }
@@ -40,36 +33,17 @@ class BookingController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  Tool $tool
-     *
      * @return \Illuminate\Http\Response
      */
-    public function index(Tool $tool)
+    public function index(Tool $tool, Request $request)
     {
-        $user = \Auth::user();
-        $bookingsThisWeek = $this->bookingRepository->findByToolForThisWeek($tool);
-        $mappedBookingsThisWeek = array_map([$this, 'mapBookings'], $bookingsThisWeek);
-        $userCanBook = [
-            'use' => $user->can('tools.'.$tool->getPermissionName().'.book'),
-            'induction' => $user->can('tools.'.$tool->getPermissionName().'.book.induction'),
-            'maintenance' => $user->can('tools.'.$tool->getPermissionName().'.book.maintenance'),
+        $start = new Carbon($request->start);
+        $end = new Carbon($request->end);
 
-        ];
+        $bookings = $this->bookingsRepository->findByToolBetween($tool, $start, $end);
+        $mappedBookings = array_map([$this, 'mapBookings'], $bookings);
 
-        return view('tools.booking.index')
-            ->with('tool', $tool)
-            ->with('userCanBook', $userCanBook)
-            ->with('bookingsThisWeek', $mappedBookingsThisWeek);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json($mappedBookings);
     }
 
     /**
@@ -90,17 +64,6 @@ class BookingController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
     {
         //
     }

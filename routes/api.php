@@ -20,6 +20,8 @@ Route::name('api.')->middleware('auth:api')->group(function () {
     // api/search/users?q=matt&withAccount=true Only search for members with Accounts
     Route::get('search/users/{searchQuery?}', 'Api\SearchController@users')
         ->name('search.users');
+
+    Route::apiResource('tools/{tool}/bookings', 'Api\Tools\BookingController');
 });
 
 Route::name('client.')->middleware('client')->group(function () {

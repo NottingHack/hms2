@@ -12,7 +12,12 @@ const mix = require('laravel-mix');
  */
 
 mix.webpackConfig({
-        devtool: 'source-map'
+        devtool: 'source-map',
+        resolve: {
+            alias: {
+                'sass': path.resolve(__dirname, 'resources/sass')
+            }
+        }
     })
    .js('resources/js/app.js', 'public/js')
    .extract()

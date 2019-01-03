@@ -7,6 +7,7 @@ use HMS\Entities\Tools\Tool;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use HMS\Repositories\Tools\ToolRepository;
+use HMS\Repositories\Tools\BookingRepository;
 
 class ToolController extends Controller
 {
@@ -21,14 +22,22 @@ class ToolController extends Controller
     protected $toolManager;
 
     /**
+     * @var BookingRepository
+     */
+    protected $bookingRepository;
+
+    /**
      * Create a new controller instance.
      *
-     * @param ToolRepository $tool
+     * @param ToolRepository    $toolRepository
+     * @param ToolManager       $toolManager
+     * @param BookingRepository $bookingRepository
      */
-    public function __construct(ToolRepository $toolRepository, ToolManager $toolManager)
+    public function __construct(ToolRepository $toolRepository, ToolManager $toolManager, BookingRepository $bookingRepository)
     {
         $this->toolRepository = $toolRepository;
         $this->toolManager = $toolManager;
+        $this->bookingRepository = $bookingRepository;
 
         $this->middleware('can:tools.view')->only(['index', 'show']);
         $this->middleware('can:tools.create')->only(['create', 'store']);
@@ -44,8 +53,14 @@ class ToolController extends Controller
     public function index()
     {
         $tools = $this->toolRepository->findAll();
+        $nextBookings = [];
+        foreach ($tools as $tool) {
+            $nextBookings[$tool->getId()] = $this->bookingRepository->nextForTool($tool);
+        }
 
-        return view('tools.tool.index')->with('tools', $tools);
+        return view('tools.tool.index')
+            ->with('tools', $tools)
+            ->with('nextBookings', $nextBookings);
     }
 
     /**

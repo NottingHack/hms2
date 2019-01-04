@@ -15,6 +15,7 @@ echo "export FONTAWESOME_TOKEN=$FONTAWESOME_TOKEN" >> ~/.bashrc
 mkdir ~/hms2/
 cp /vagrant/package.json ~/hms2/
 cp /vagrant/yarn.lock ~/hms2/
+cp /vagrant/.npmrc ~/hms2/
 cd ~/hms2/
 yarn
 rm -rf /vagrant/node_modules

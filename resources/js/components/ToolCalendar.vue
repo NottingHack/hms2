@@ -33,7 +33,13 @@
         const self = this
         return {
           timeZone: 'Europe/London',
-          events: self.events,
+          eventSources: [
+            {
+              events: self.events,
+              id: 'bookings',
+            },
+          ],
+
           eventClick(info) {
             console.log(info);
           },
@@ -41,7 +47,7 @@
           selectable: true,
           selectOverlap: false,
           selectMirror: true,
-          // unselectCancel: '', https://fullcalendar.io/docs/v4/unselectCancel
+          unselectCancel: '.popover',
 
           select(selectionInfo) {
             self.setupBookingConfirmation(selectionInfo);
@@ -179,80 +185,93 @@
       /**
        * Confirmation onConfirm handler.
        * @param  {string} type
-       * @param  {object} selectInfo
+       * @param  {object} selectionInfo
        * @return
        */
-      book(type, selectInfo) {
-        // console.log(type, selectInfo);
+      bookOnConfirm(type, selectionInfo) {
         switch (type) {
           case "NORMAL":
-            this.bookNormal(selectInfo);
+            this.bookNormal(selectionInfo.startStr, selectionInfo.endStr);
             break;
           case "INDUCTION":
-            this.bookIndcution(selectInfo);
+            this.bookIndcution(selectionInfo.startStr, selectionInfo.endStr);
             break;
           case "MAINTENANCE":
-            this.bookMaintenance(selectInfo);
+            this.bookMaintenance(selectionInfo.startStr, selectionInfo.endStr);
             break;
         }
       },
 
-      bookNormal(selectInfo) {
-        // try to make a normal booking
+      bookNormal(start, end) {
+        // make a normal booking
         // we can just submit this to the end point, don't need any other user interaction
 
         let booking = new FormData();
-
+        booking.append('start', start);
+        booking.append('end', end);
         booking.append('type', 'NORMAL');
-        booking.append('start', selectInfo.startStr);
-        booking.append('end', selectInfo.endStr)
 
-        axios.post(this.bookingsUrl, booking)
-          .then((response) => {
-            // TODO: deal with the response
-            // if HTTP_CREATED we have a new booking
-            // else if HTTP_UNPROCESSABLE_ENTITY some validation error laravel or us
-            // else if HTTP_CONFLICT to many bookings or over lap
-            // else if HTTP_FORBIDDEN on enough permissions
-            console.log(response.data);
-          });
+        this.createBooking(booking);
       },
 
-      bookIndcution(selectInfo) {
+      bookIndcution(start, end) {
+        // make a induction booking
+        // for now we don't need other interaction on inductions
+        // TODO: in future we might ask who is to be inducted (or tie this in with induction requests)
 
         let booking = new FormData();
-
+        booking.append('start', start);
+        booking.append('end', end);
         booking.append('type', 'INDUCTION');
-        booking.append('start', selectInfo.startStr);
-        booking.append('end', selectInfo.endStr)
 
-        axios.post(this.bookingsUrl, booking)
-          .then((response) => {
-            // TODO: deal with the response
-            // if HTTP_CREATED we have a new booking
-            // else if HTTP_UNPROCESSABLE_ENTITY some validation error laravel or us
-            // else if HTTP_CONFLICT to many bookings or over lap
-            // else if HTTP_FORBIDDEN on enough permissions
-            console.log(response.data);
-          });
+        this.createBooking(booking);
       },
 
-      bookMaintenance(selectInfo) {
+      bookMaintenance(start, end) {
+        // make a maintenance slot
+        // TODO: ask for e reason? ask if they want a longer slot (past normal limits), ask if we should disable the tool and let members know
 
         let booking = new FormData();
-
+        booking.append('start', start);
+        booking.append('end', end);
         booking.append('type', 'MAINTENANCE');
-        booking.append('start', selectInfo.startStr);
-        booking.append('end', selectInfo.endStr)
 
+        this.createBooking(booking);
+      },
+
+      createBooking(booking) {
         axios.post(this.bookingsUrl, booking)
           .then((response) => {
             // TODO: deal with the response
-            // if HTTP_CREATED we have a new booking
-            // else if HTTP_UNPROCESSABLE_ENTITY some validation error laravel or us
-            // else if HTTP_CONFLICT to many bookings or over lap
-            // else if HTTP_FORBIDDEN on enough permissions
-            console.log(response.data);
+            if (response.status == '201') { // HTTP_CREATED
+              // if type normal,
+              //   adjust this.userCanBook['normalCurrentCount'] down by 1
+              this.calendar.unselect();
+              // this.calendar.addEvent(response.data, 'bookings'); // this is broken until the next release
+              this.calendar.refetchEvents(); // using this until the above is fixed
+            } else {
+              console.log(response.data);
+              console.log(response.status);
+              console.log(response.statusText);
+            }
+          })
+          .catch((error) => {
+            if (error.response) {
+              // if HTTP_UNPROCESSABLE_ENTITY some validation error laravel or us
+              // else if HTTP_CONFLICT to many bookings or over lap
+              // else if HTTP_FORBIDDEN on enough permissions
+              console.log(error.response.data);
+              console.log(error.response.status);
+              console.log(error.response.headers);
+            } else if (error.request) {
+              // The request was made but no response was received
+              // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+              // http.ClientRequest in node.js
+              console.log(error.request);
+            } else {
+              // Something happened in setting up the request that triggered an Error
+              console.log('Error', error.message);
+            }
           });
       },
 
@@ -268,14 +287,14 @@
           selector: '.fc-mirror',
           title: "Add booking?",
           onConfirm(type) {
-            self.book(type, selectionInfo);
+            self.bookOnConfirm(type, selectionInfo);
           },
           onCancel() {
             self.calendar.unselect();
           },
           buttons: [
             {
-              label: '&nbsp;',
+              label: this.defaultView == 'agendaWeek' ? '&nbsp;' : '',
               class: 'btn-outline-dark',
               iconClass: 'fas fa-times',
               cancel: true,

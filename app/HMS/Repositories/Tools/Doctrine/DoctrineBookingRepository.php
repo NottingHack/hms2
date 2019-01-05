@@ -118,7 +118,7 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
     }
 
     /**
-     * Count normal booing for a User on a given Tool.
+     * Count future normal bookings for a User on a given Tool.
      *
      * @param  Tool   $tool
      * @param  User   $user
@@ -126,7 +126,21 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
      */
     public function countNormalByToolAndUser(Tool $tool, User $user)
     {
-        return count(parent::findBy(['tool' => $tool, 'user' => $user, 'type' => BookingType::NORMAL], ['start' => 'ASC']));
+        $now = Carbon::now();
+
+        $expr = Criteria::expr();
+        $criteria = Criteria::create()
+            ->where(
+                $expr->andX(
+                    $expr->eq('tool', $tool),
+                    $expr->eq('user', $user),
+                    $expr->gte('start', $now)
+                )
+            )
+            ->orderBy(['start' => Criteria::ASC]);
+
+        // return $this->count($criteria); // cant do this https://github.com/doctrine/orm/issues/7523
+        return count($this->matching($criteria)); // however this actually does the count on the db side
     }
 
     /**

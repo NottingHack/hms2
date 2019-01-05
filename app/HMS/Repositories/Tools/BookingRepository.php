@@ -47,7 +47,7 @@ interface BookingRepository
     public function findByToolAndUser(Tool $tool, User $user);
 
     /**
-     * Count normal booing for a User on a given Tool.
+     * Count future normal bookings for a User on a given Tool.
      *
      * @param  Tool   $tool
      * @param  User   $user

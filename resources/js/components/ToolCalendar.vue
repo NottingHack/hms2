@@ -7,10 +7,13 @@
 <script>
   import { Calendar } from 'fullcalendar';
   import moment from 'moment';
+  require('bootstrap-confirmation2');
 
   export default {
     props: [
       'toolId',
+      'bookingLengthMax',
+      'bookingsMax',
       'bookingsUrl',
       // 'initialBookings',
       'userCanBook',
@@ -21,23 +24,60 @@
         bookings: [],
         axiosCancle: null,
         calendar: null,
+        defaultView: 'agendaDay',
+      };
+    },
 
-        config: {
+    computed: {
+      defaultConfig() {
+        const self = this
+        return {
           timeZone: 'Europe/London',
-          events: this.events,
-          dateClick: function(arg) {
-            console.log(arg.date.toString()); // use *local* methods on the native Date Object
-            // will output something like 'Sat Sep 01 2018 00:00:00 GMT-XX:XX (Eastern Daylight Time)'
+          events: self.events,
+          eventClick(info) {
+            console.log(info);
           },
+
           selectable: true,
-          selectAllow: function(selectInfo) {
-            return moment().diff(selectInfo.start) <= 0;
+          selectOverlap: false,
+          selectMirror: true,
+          // unselectCancel: '', https://fullcalendar.io/docs/v4/unselectCancel
+
+          select(selectionInfo) {
+            self.setupBookingConfirmation(selectionInfo);
           },
-          // businessHours: this.businessHours(),
-          datesRender: function (info) {
-            // console.log(info);
+
+          unselect( jsEvent, view ) {
+            self.removeConfirmation();
           },
-          defaultView: 'agendaDay',
+
+          selectAllow(selectInfo) {
+            // Don't allow selection if start is in the past
+            if (moment().diff(selectInfo.start) > 0) {
+              return false;
+            }
+
+            // TODO: check max allowed bookings and userCanBook
+
+            // Check length against tools max booking length
+            var duration = moment.duration(moment(selectInfo.end).diff(selectInfo.start));
+            if (duration.asMinutes() > self.bookingLengthMax) {
+              // TODO: flash message "Max booking length is HH:mm"
+              return false;
+            }
+
+            return true;
+          },
+
+          // datesRender(info) {
+          //   // console.log(info);
+          // },
+          eventRender: function(event, element) {
+          //   element.find('.fc-title').append("<br/>" + event.description);
+          //  TODO: if this is one of our own bookings and in the future we should be able to cancel it or edit it?
+          },
+
+          defaultView: this.defaultView,
           themeSystem: 'bootstrap4',
           header: {
             left:   'prev',
@@ -75,22 +115,25 @@
               },
             },
           },
-        },
-      };
+        };
+      },
     },
 
     methods: {
+      /**
+       * Attached to 'resize' event so we can make the view responsive.
+       */
       getWindowResize(event) {
         const windowWidth = document.documentElement.clientWidth;
 
         if (windowWidth < 767.98) {
-          this.config.defaultView = 'agendaDay';
+          this.defaultView = 'agendaDay';
         } else {
-          this.config.defaultView = 'agendaWeek';
+          this.defaultView = 'agendaWeek';
         }
 
         if (this.calendar !== null) {
-          this.calendar.changeView(this.config.defaultView);
+          this.calendar.changeView(this.defaultView);
         }
       },
 
@@ -102,7 +145,7 @@
         self = this
         const CancelToken = axios.CancelToken;
         if (this.axiosCancle !== null) {
-          this.axiosCancle("New events request");
+          this.axiosCancle("New events range requested");
         }
 
         const request = axios.get(this.bookingsUrl, {
@@ -132,6 +175,166 @@
 
         return request;
       },
+
+      /**
+       * Confirmation onConfirm handler.
+       * @param  {string} type
+       * @param  {object} selectInfo
+       * @return
+       */
+      book(type, selectInfo) {
+        // console.log(type, selectInfo);
+        switch (type) {
+          case "NORMAL":
+            this.bookNormal(selectInfo);
+            break;
+          case "INDUCTION":
+            this.bookIndcution(selectInfo);
+            break;
+          case "MAINTENANCE":
+            this.bookMaintenance(selectInfo);
+            break;
+        }
+      },
+
+      bookNormal(selectInfo) {
+        // try to make a normal booking
+        // we can just submit this to the end point, don't need any other user interaction
+
+        let booking = new FormData();
+
+        booking.append('type', 'NORMAL');
+        booking.append('start', selectInfo.startStr);
+        booking.append('end', selectInfo.endStr)
+
+        axios.post(this.bookingsUrl, booking)
+          .then((response) => {
+            // TODO: deal with the response
+            // if HTTP_CREATED we have a new booking
+            // else if HTTP_UNPROCESSABLE_ENTITY some validation error laravel or us
+            // else if HTTP_CONFLICT to many bookings or over lap
+            // else if HTTP_FORBIDDEN on enough permissions
+            console.log(response.data);
+          });
+      },
+
+      bookIndcution(selectInfo) {
+
+        let booking = new FormData();
+
+        booking.append('type', 'INDUCTION');
+        booking.append('start', selectInfo.startStr);
+        booking.append('end', selectInfo.endStr)
+
+        axios.post(this.bookingsUrl, booking)
+          .then((response) => {
+            // TODO: deal with the response
+            // if HTTP_CREATED we have a new booking
+            // else if HTTP_UNPROCESSABLE_ENTITY some validation error laravel or us
+            // else if HTTP_CONFLICT to many bookings or over lap
+            // else if HTTP_FORBIDDEN on enough permissions
+            console.log(response.data);
+          });
+      },
+
+      bookMaintenance(selectInfo) {
+
+        let booking = new FormData();
+
+        booking.append('type', 'MAINTENANCE');
+        booking.append('start', selectInfo.startStr);
+        booking.append('end', selectInfo.endStr)
+
+        axios.post(this.bookingsUrl, booking)
+          .then((response) => {
+            // TODO: deal with the response
+            // if HTTP_CREATED we have a new booking
+            // else if HTTP_UNPROCESSABLE_ENTITY some validation error laravel or us
+            // else if HTTP_CONFLICT to many bookings or over lap
+            // else if HTTP_FORBIDDEN on enough permissions
+            console.log(response.data);
+          });
+      },
+
+      /**
+       * Display bootstrap confirmation popover for a new selection.
+       */
+      setupBookingConfirmation(selectionInfo) {
+        const self = this;
+
+        let options = {
+          container: 'body',
+          rootSelector: '.fc-mirror',
+          selector: '.fc-mirror',
+          title: "Add booking?",
+          onConfirm(type) {
+            self.book(type, selectionInfo);
+          },
+          onCancel() {
+            self.calendar.unselect();
+          },
+          buttons: [
+            {
+              label: '&nbsp;',
+              class: 'btn-outline-dark',
+              iconClass: 'fas fa-times',
+              cancel: true,
+            },
+          ],
+        };
+
+        if (this.userCanBook['maintenance']) {
+          options.buttons.splice(0, 0,
+            {
+              label: this.defaultView == 'agendaWeek' ? '&nbsp;Maintenance' : '',
+              value: 'MAINTENANCE',
+              class: 'btn-booking-maintenance',
+              iconClass: 'fas fa-wrench',
+            }
+          );
+        }
+
+        if (this.userCanBook['induction']) {
+          options.buttons.splice(0, 0,
+            {
+              label: this.defaultView == 'agendaWeek' ? '&nbsp;Induction' : '',
+              value: 'INDUCTION',
+              class: 'btn-booking-induction',
+              iconClass: 'fas fa-chalkboard-teacher',
+            }
+          );
+        }
+
+        if (this.userCanBook['normal']) {
+          if (this.userCanBook['normalCurrentCount'] < this.bookingsMax) {
+            options.buttons.splice(0, 0,
+              {
+                label: this.defaultView == 'agendaWeek' ? '&nbsp;Normal' : '',
+                value: 'NORMAL',
+                class: 'btn-booking-normal',
+                iconClass: 'fas fa-check',
+              }
+            );
+          } else {
+            const txt = this.bookingsMax > 1 ? 'bookings' : 'booking';
+            options.content = 'You can only have ' + this.bookingsMax + ' normal ' + txt + ' for this tool';
+          }
+        } else {
+
+        }
+
+        $('.fc-mirror').confirmation(options);
+
+        $('.fc-mirror').confirmation('show');
+      },
+
+      /**
+       * Remove the previous bootstrap confirmation popover.
+       */
+      removeConfirmation() {
+        $('.popover').remove();
+      },
+
     },
 
     mounted() {
@@ -145,7 +348,7 @@
         this.getWindowResize();
       });
 
-      this.calendar = new Calendar(cal, this.config);
+      this.calendar = new Calendar(cal, self.defaultConfig);
       this.calendar.render();
     },
 
@@ -172,4 +375,7 @@
   background-color: rgba(0, 0, 0, 0.05);
 }
 
+.popover{
+    max-width: 100%;
+}
 </style>

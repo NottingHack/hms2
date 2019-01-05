@@ -54,12 +54,12 @@ class BookingManager
         // can this user post this event?
         // Is the tool restricted and has the user been inducted
         if ($tool->isRestricted() && $user->cannot('tools.'.$tool->getPermissionName().'.book')) {
-            return 'Must be inducted to book this tool';
+            return 'Must be inducted to book this tool'; // 403
         }
 
         $basicChecks = $this->basicTimeChecks($start, $end, $tool->getLengthMax());
         if (is_string($basicChecks)) {
-            return $basicChecks;
+            return $basicChecks; // 422
         }
 
         // ADVANCED CHECKS
@@ -67,12 +67,12 @@ class BookingManager
         if ($this->bookingRepository->countNormalByToolAndUser($tool, $user) >= $tool->getBookingsMax()) {
             $txt = $tool->getBookingsMax() > 1 ? 'bookings' : 'booking';
 
-            return 'You can only have ' . $tool->getBookingsMax() . ' ' . $txt . ' for this tool';
+            return 'You can only have ' . $tool->getBookingsMax() . ' ' . $txt . ' for this tool'; // 409 ?
         }
 
         // does it clash?
         if ( ! empty($this->bookingRepository->checkForClashByTool($tool, $start, $end))) {
-            return 'Your booking request clashes with another booking. No booking has been made.';
+            return 'Your booking request clashes with another booking. No booking has been made.'; // 409
         }
 
         // Phew!  We can now add the booking
@@ -187,23 +187,23 @@ class BookingManager
         // check start date is in the future (within 30 minutes)
         $now = Carbon::now('Europe/London')->subMinutes(30);
         if ($start <= $now) {
-            return 'Start date cannot be in the past';
+            return 'Start date cannot be in the past'; // 422
         }
 
         // check the end date is after the start date
         if ($end < $start) {
-            return 'End date must be after the start date';
+            return 'End date must be after the start date'; // 422
         }
 
         // check the end and start date aren't the same?
         if ($end == $start) {
-            return 'Length of booking must be greater than zero!';
+            return 'Length of booking must be greater than zero!'; // 422
         }
 
         // check length <= max
         $length = $end->diffInMinutes($start);
         if ($length > $maxLength) {
-            return 'Maximum booking time is ' . $maxLength . ' minutes for this tool';
+            return 'Maximum booking time is ' . $maxLength . ' minutes for this tool'; //422
         }
 
         return true;

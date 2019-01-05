@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Tools;
 
 use HMS\Entities\Tools\Tool;
 use Illuminate\Http\Request;
+use HMS\Entities\Tools\Booking;
 use App\Http\Controllers\Controller;
 use HMS\Repositories\Tools\BookingRepository;
 
@@ -24,7 +25,7 @@ class BookingController extends Controller
         $this->bookingRepository = $bookingRepository;
     }
 
-    protected function mapBookings($booking)
+    protected function mapBookings(Booking $booking)
     {
         // TODO: swap out for Fractal
         return [
@@ -50,10 +51,10 @@ class BookingController extends Controller
         $bookingsThisWeek = $this->bookingRepository->findByToolForThisWeek($tool);
         $mappedBookingsThisWeek = array_map([$this, 'mapBookings'], $bookingsThisWeek);
         $userCanBook = [
-            'use' => $user->can('tools.'.$tool->getPermissionName().'.book'),
+            'normal' => $user->can('tools.'.$tool->getPermissionName().'.book'),
+            'normalCurrentCount' => $this->bookingRepository->countNormalByToolAndUser($tool, $user),
             'induction' => $user->can('tools.'.$tool->getPermissionName().'.book.induction'),
             'maintenance' => $user->can('tools.'.$tool->getPermissionName().'.book.maintenance'),
-
         ];
 
         return view('tools.booking.index')

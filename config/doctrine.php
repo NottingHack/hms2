@@ -22,7 +22,7 @@ return [
     */
     'managers'                  => [
         'default' => [
-            'dev'        => env('APP_DEBUG'),
+            'dev'        => env('APP_DEBUG', false),
             'meta'       => env('DOCTRINE_METADATA', 'annotations'),
             'connection' => env('DB_CONNECTION', 'mysql'),
             'namespaces' => [
@@ -140,6 +140,14 @@ return [
     'custom_string_functions'   => [],
     /*
     |--------------------------------------------------------------------------
+    | Register custom hydrators
+    |--------------------------------------------------------------------------
+    */
+    'custom_hydration_modes'     => [
+        // e.g. 'hydrationModeName' => MyHydrator::class,
+    ],
+    /*
+    |--------------------------------------------------------------------------
     | Enable query logging with laravel file logging,
     | debugbar, clockwork or an own implementation.
     | Setting it to false, will disable logging
@@ -162,10 +170,22 @@ return [
     | Available: apc|array|file|memcached|redis|void
     |
     */
-    'cache'                     => [
-        'default'                => env('DOCTRINE_CACHE', 'array'),
-        'namespace'              => null,
-        'second_level'           => false,
+    'cache' => [
+        'second_level'     => false,
+        'default'          => env('DOCTRINE_CACHE', 'array'),
+        'namespace'        => null,
+        'metadata'         => [
+            'driver'       => env('DOCTRINE_METADATA_CACHE', env('DOCTRINE_CACHE', 'array')),
+            'namespace'    => null,
+        ],
+        'query'            => [
+            'driver'       => env('DOCTRINE_QUERY_CACHE', env('DOCTRINE_CACHE', 'array')),
+            'namespace'    => null,
+        ],
+        'result'           => [
+            'driver'       => env('DOCTRINE_RESULT_CACHE', env('DOCTRINE_CACHE', 'array')),
+            'namespace'    => null,
+        ],
     ],
     /*
     |--------------------------------------------------------------------------
@@ -189,4 +209,16 @@ return [
      |
      */
     'doctrine_presence_verifier' => true,
+
+    /*
+     |--------------------------------------------------------------------------
+     | Notifications
+     |--------------------------------------------------------------------------
+     |
+     |  Doctrine notifications channel
+     |
+     */
+    'notifications'              => [
+        'channel' => 'database',
+    ],
 ];

@@ -16,6 +16,25 @@
 
 /* HMS Custom CSS */
 
+/* 
+ * Genral Links
+ */
+a {
+  color: $link-colour;
+}
+
+a:hover {
+  color: $link-hover-colour;
+}
+
+/*
+ * Definition Lists
+ */
+dl > dt {
+  @extend .h5;
+}
+
+
 /*
  * Tool related bits
  */
@@ -302,33 +321,6 @@ footer {
   a:hover {
     text-decoration: none;
   }
-}
-
-/* 
- * Genral Links
- */
-a {
-  color: $link-colour;
-}
-
-a:hover {
-  color: $link-hover-colour;
-}
-
-/*
- * Tables
- */
-// a table which doesn't have 100% width;
-.table-noexpand {
-  @extend .table;
-  width: auto;
-}
-
-/*
- * Definition Lists
- */
-dl > dt {
-  @extend .h5;
 }
 
 /*

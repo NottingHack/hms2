@@ -51,6 +51,7 @@ class BookingController extends Controller
         $bookingsThisWeek = $this->bookingRepository->findByToolForThisWeek($tool);
         $mappedBookingsThisWeek = array_map([$this, 'mapBookings'], $bookingsThisWeek);
         $userCanBook = [
+            'userId' => $user->getId(),
             'normal' => $user->can('tools.'.$tool->getPermissionName().'.book'),
             'normalCurrentCount' => $this->bookingRepository->countNormalByToolAndUser($tool, $user),
             'induction' => $user->can('tools.'.$tool->getPermissionName().'.book.induction'),

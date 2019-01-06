@@ -1,8 +1,6 @@
 // HMS colours
 $hackspace-green: #195905;
 $hackspace-grey: #eeeeee;
-$tool-induction-background-colour: #600;
-$tool-maintenance-background-colour: #000;
 $footer-background-colour: gray;
 $footer-text-colour: white;
 $footer-link-colour: #d2d1d1;
@@ -22,6 +20,7 @@ $tool-booking-maintenance: black;
 $primary: $hackspace-green;
 
 $theme-colors: (
+    "hackspace-grey": $hackspace-grey,
     "booking-normal": $tool-booking-normal,
     "booking-induction": $tool-booking-induction,
     "booking-maintenance": $tool-booking-maintenance,

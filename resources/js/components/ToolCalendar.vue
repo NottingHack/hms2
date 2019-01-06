@@ -6,6 +6,7 @@
 
 <script>
   import { Calendar } from 'fullcalendar';
+  import 'fullcalendar/dist/plugins/moment-timezone';
   import moment from 'moment';
   require('bootstrap-confirmation2');
 
@@ -34,22 +35,20 @@
         return {
           locale: 'en-gb',
           timeZone: 'Europe/London',
+          timeZoneImpl: 'moment-timezone',
           firstDay: 1,
           eventSources: [
             {
-              events: self.events,
+              events: self.fetchEvents,
               id: 'bookings',
             },
           ],
 
-          eventClick(info) {
-            console.log(info);
-          },
+          loading: self.loading,
 
-          selectable: true,
-          selectOverlap: false,
-          selectMirror: true,
-          unselectCancel: '.popover',
+          eventClick(info) {
+            console.log('eventClick', info);
+          },
 
           select(selectionInfo) {
             self.setupBookingConfirmation(selectionInfo);
@@ -77,14 +76,35 @@
             return true;
           },
 
-          // datesRender(info) {
-          //   // console.log(info);
-          // },
-          eventRender: function(event, element) {
-          //   element.find('.fc-title').append("<br/>" + event.description);
-          //  TODO: if this is one of our own bookings and in the future we should be able to cancel it or edit it?
+          eventDrop(eventDropInfo) {
+            // check it has not been dropped into the past
+            if (moment().diff(eventDropInfo.event.start) > 0) {
+              // TODO: flash "Bookings can not be moved into the past"
+              eventDropInfo.revert();
+              return;
+            }
+            // patch the bookings start and end time
+            self.patchBooking(eventDropInfo.event, eventDropInfo.revert)
           },
 
+          eventResize(eventResizeInfo) {
+            // check new duration except on Maintenance
+            var duration = moment.duration(moment(eventResizeInfo.event.end).diff(eventResizeInfo.event.start));
+            if (duration.asMinutes() > self.bookingLengthMax && eventResizeInfo.event.extendedProps.type != 'MAINTENANCE') {
+              // TODO: flash message "Max booking length is HH:mm"
+              eventResizeInfo.revert();
+              return;
+            }
+
+            // patch the bookings end time
+            self.patchBooking(eventResizeInfo.event, eventResizeInfo.revert)
+          },
+
+          selectable: true,
+          selectOverlap: false,
+          selectMirror: true,
+          unselectCancel: '.popover',
+          eventOverlap: false,
           defaultView: this.defaultView,
           themeSystem: 'bootstrap4',
           header: {
@@ -125,7 +145,7 @@
           },
         };
       },
-    },
+    }, // end of computed
 
     methods: {
       /**
@@ -145,11 +165,30 @@
         }
       },
 
+      mapBookings(booking) {
+          booking.className = 'tool-' + booking.type.toLowerCase();
+
+          if (booking.userId != self.userCanBook.userId) {
+            booking.className += ' not-ours';
+          }
+
+          if (booking.userId == self.userCanBook.userId && moment().diff(booking.start) < 0) {
+            booking.editable = true;
+          }
+
+          return booking;
+      },
+
+      loading(isLoading) {
+        // TODO: loading spinner/grey out
+        console.log('loading', isLoading)
+      },
+
       /**
        * FullCalendar will call this function whenever it needs new event data.
        * This is triggered when the user clicks prev/next or switches views.
        */
-      events(fetchInfo, successCallback, failureCallback) {
+      fetchEvents(fetchInfo, successCallback, failureCallback) {
         self = this
         const CancelToken = axios.CancelToken;
         if (this.axiosCancle !== null) {
@@ -167,16 +206,18 @@
         });
 
         request.then(({ data }) => {
-          // console.log(data);
-          self.bookings = data;
-          successCallback(data);
+          // need to map over our api response first to prep them for fullcalender
+          self.bookings = data.map(self.mapBookings);
+
+          // pass bookings over to fullcalenders callback
+          successCallback(self.bookings);
         })
         .catch((thrown) => {
           if (axios.isCancel(thrown)) {
-            // console.log('Request cancelled', thrown.message);
+            // console.log('fetchEvents: Request cancelled', thrown.message);
           } else {
             // handle error
-            console.log('Request error', thrown);
+            console.log('fetchEvents: Request error', thrown);
             failureCallback(thrown);
           }
         });
@@ -242,38 +283,99 @@
       },
 
       createBooking(booking) {
+        this.loading(true);
         axios.post(this.bookingsUrl, booking)
           .then((response) => {
             // TODO: deal with the response
             if (response.status == '201') { // HTTP_CREATED
-              // if type normal,
-              //   adjust this.userCanBook['normalCurrentCount'] down by 1
+              const booking = this.mapBookings(response.data);
+
+              if (booking.type === 'NORMAL') {
+                this.userCanBook.normalCurrentCount += 1;
+              }
+
               this.calendar.unselect();
-              // this.calendar.addEvent(response.data, 'bookings'); // this is broken until the next release
+              // this.calendar.addEvent(booking, 'bookings'); // this is broken until the next release
               this.calendar.refetchEvents(); // using this until the above is fixed
+              // this.loading(false);
             } else {
-              console.log(response.data);
-              console.log(response.status);
-              console.log(response.statusText);
+              console.log('createBooking', response.data);
+              console.log('createBooking', response.status);
+              console.log('createBooking', response.statusText);
             }
           })
           .catch((error) => {
+            // TODO: flash error
             if (error.response) {
               // if HTTP_UNPROCESSABLE_ENTITY some validation error laravel or us
               // else if HTTP_CONFLICT to many bookings or over lap
               // else if HTTP_FORBIDDEN on enough permissions
-              console.log(error.response.data);
-              console.log(error.response.status);
-              console.log(error.response.headers);
+              console.log('createBooking: Response error', error.response.data, error.response.status, error.response.headers);
             } else if (error.request) {
               // The request was made but no response was received
               // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
               // http.ClientRequest in node.js
-              console.log(error.request);
+              console.error('createBooking: Request error', error.request);
             } else {
               // Something happened in setting up the request that triggered an Error
-              console.log('Error', error.message);
+              console.error('createBooking: Error', error.message);
             }
+            this.loading(false);
+          });
+      },
+
+      patchBooking(event, revert) {
+
+        let booking = {
+          start: moment(event.start).toISOString(true),
+          end: moment(event.end).toISOString(true),
+        }
+
+        this.loading(true);
+
+        axios.patch(this.bookingsUrl + '/' + event.id, booking)
+          .then((response) => {
+            // TODO: deal with the response
+            if (response.status == '200') { // HTTP_CREATED
+              // flash "Booking updated"
+              console.log('patchBooking', 'Booking Updated OK');
+
+              // const booking = this.mapBookings(response.data);
+
+              // if (booking.type === 'NORMAL') {
+              //   this.userCanBook.normalCurrentCount--;
+              // }
+
+              // this.calendar.unselect();
+              // // this.calendar.addEvent(booking, 'bookings'); // this is broken until the next release
+              // this.calendar.refetchEvents(); // using this until the above is fixed
+
+              this.loading(false);
+            } else {
+              console.log('patchBooking', response.data);
+              console.log('patchBooking', response.status);
+              console.log('patchBooking', response.statusText);
+            }
+          })
+          .catch((error) => {
+            // TODO: flash error
+            if (error.response) {
+              // if HTTP_UNPROCESSABLE_ENTITY some validation error laravel or us
+              // else if HTTP_CONFLICT to many bookings or over lap
+              // else if HTTP_FORBIDDEN on enough permissions
+              console.log('patchBooking: Response error', error.response.data, error.response.status, error.response.headers);
+            } else if (error.request) {
+              // The request was made but no response was received
+              // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+              // http.ClientRequest in node.js
+              console.error('patchBooking: Request error', error.request);
+            } else {
+              // Something happened in setting up the request that triggered an Error
+              console.error('patchBooking: Error', error.message);
+            }
+
+            revert();
+            this.loading(false);
           });
       },
 
@@ -304,7 +406,7 @@
           ],
         };
 
-        if (this.userCanBook['maintenance']) {
+        if (this.userCanBook.maintenance) {
           options.buttons.splice(0, 0,
             {
               label: this.defaultView == 'agendaWeek' ? '&nbsp;Maintenance' : '',
@@ -315,7 +417,7 @@
           );
         }
 
-        if (this.userCanBook['induction']) {
+        if (this.userCanBook.induction) {
           options.buttons.splice(0, 0,
             {
               label: this.defaultView == 'agendaWeek' ? '&nbsp;Induction' : '',
@@ -326,8 +428,8 @@
           );
         }
 
-        if (this.userCanBook['normal']) {
-          if (this.userCanBook['normalCurrentCount'] < this.bookingsMax) {
+        if (this.userCanBook.normal) {
+          if (this.userCanBook.normalCurrentCount < this.bookingsMax) {
             options.buttons.splice(0, 0,
               {
                 label: this.defaultView == 'agendaWeek' ? '&nbsp;Normal' : '',
@@ -356,7 +458,7 @@
         $('.popover').remove();
       },
 
-    },
+    }, // end of methods
 
     mounted() {
       const cal = this.$refs.calendar
@@ -380,8 +482,9 @@
 </script>
 
 <style lang="scss">
-@import "~sass/_variables.scss";
+@import '~sass/_variables.scss';
 @import '~fullcalendar/dist/fullcalendar.css';
+@import '~sass/color-helpers';
 
 // override the bootstrap 4 theme today highlight
 .fc-today {
@@ -399,4 +502,50 @@
 .popover{
     max-width: 100%;
 }
+
+/*
+ * Tool related bits
+ */
+.tool-normal {
+  border-color: $tool-booking-normal;
+  background-color: $tool-booking-normal !important;
+  &.not-ours {
+    background: repeating-linear-gradient(
+        -45deg,
+        $tool-booking-normal,
+        $tool-booking-normal 10px,
+        tint($tool-booking-normal, 10%) 10px,
+        tint($tool-booking-normal, 10%) 20px
+    );
+  }
+}
+
+.tool-induction {
+  border-color: $tool-booking-induction;
+  background-color: $tool-booking-induction !important;
+  &.not-ours {
+    background: repeating-linear-gradient(
+        -45deg,
+        $tool-booking-induction,
+        $tool-booking-induction 10px,
+        tint($tool-booking-induction, 10%) 10px,
+        tint($tool-booking-induction, 10%) 20px
+    );
+  }
+}
+
+.tool-maintenance {
+  border-color: $tool-booking-maintenance;
+  background-color: $tool-booking-maintenance !important;
+  &.not-ours {
+    background: repeating-linear-gradient(
+        -45deg,
+        $tool-booking-maintenance,
+        $tool-booking-maintenance 10px,
+        tint($tool-booking-maintenance, 10%) 10px,
+        tint($tool-booking-maintenance, 10%) 20px
+    );
+  }
+}
+
 </style>

@@ -2,6 +2,7 @@
 
 @import url('https://fonts.googleapis.com/css?family=Oxygen');
 
+@import 'color-helpers';
 @import 'variables';
 @import '~bootstrap/scss/bootstrap';
 @import '~select2/dist/css/select2';
@@ -16,7 +17,7 @@
 
 /* HMS Custom CSS */
 
-/* 
+/*
  * Genral Links
  */
 a {
@@ -34,25 +35,9 @@ dl > dt {
   @extend .h5;
 }
 
-
-/*
- * Tool related bits
- */
-.tool-normal {
-  background-color: $tool-booking-normal !important;
-}
-
-.tool-induction {
-  background-color: $tool-booking-induction !important;
-}
-
-.tool-maintenance {
-  background-color: $tool-booking-maintenance !important;
-}
-
 /*
  * Card component
- */  
+ */
 .card-container.card {
   max-width: 350px;
   padding: 40px 40px;
@@ -309,7 +294,7 @@ footer {
 .social-networks{
   text-align: center;
   padding-bottom: 10px;
-  
+
   a {
     font-size: 32px;
     margin-right: 5px;
@@ -317,7 +302,7 @@ footer {
     color: $social-networks-colour;
     padding: 10px;
   }
-  
+
   a:hover {
     text-decoration: none;
   }

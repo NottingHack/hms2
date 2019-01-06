@@ -45,8 +45,9 @@ class BookingController extends Controller
             'start' => $booking->getStart()->toAtomString(),
             'end' => $booking->getEnd()->toAtomString(),
             'title' => $booking->getUser()->getFullName(),
-            'className' => 'tool-'.strtolower($booking->getType()),
+            'type' => $booking->getType(),
             'toolId' => $booking->getTool()->getId(),
+            'userId' => $booking->getUser()->getId(),
         ];
     }
 
@@ -129,13 +130,30 @@ class BookingController extends Controller
     /**
      * Update the specified resource in storage.
      *
+     * @param  Tool  $tool
+     * @param  Booking $booking
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Tool $tool, Booking $booking, Request $request)
     {
-        //
+        $this->validate($request, [
+            'start' => 'required|date',
+            'end' => 'required|date',
+        ]);
+
+        $start = new Carbon($request->start);
+        $end = new Carbon($request->end);
+
+        $response = $this->bookingManager->update($tool, $booking, $start, $end);
+
+        if (is_string($response)) {
+            // response is some sort of error
+            return response()->json($response, IlluminateResponse::HTTP_UNPROCESSABLE_ENTITY);
+        } else {
+            // response is the new booking object
+            return response()->json($this->mapBookings($response), IlluminateResponse::HTTP_OK);
+        }
     }
 
     /**

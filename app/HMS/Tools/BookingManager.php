@@ -54,7 +54,7 @@ class BookingManager
         // can this user post this event?
         // Is the tool restricted and has the user been inducted
         if ($tool->isRestricted() && $user->cannot('tools.'.$tool->getPermissionName().'.book')) {
-            return 'Must be inducted to book this tool'; // 403
+            return 'Must be inducted to book this tool.'; // 403
         }
 
         $basicChecks = $this->basicTimeChecks($start, $end, $tool->getLengthMax());
@@ -67,7 +67,7 @@ class BookingManager
         if ($this->bookingRepository->countNormalByToolAndUser($tool, $user) >= $tool->getBookingsMax()) {
             $txt = $tool->getBookingsMax() > 1 ? 'bookings' : 'booking';
 
-            return 'You can only have ' . $tool->getBookingsMax() . ' ' . $txt . ' for this tool'; // 409 ?
+            return 'You can only have ' . $tool->getBookingsMax() . ' ' . $txt . ' for this tool.'; // 409 ?
         }
 
         // does it clash?
@@ -101,7 +101,7 @@ class BookingManager
         // can this user post this event?
         // Is the tool restricted and has the user been inducted
         if ($tool->isRestricted() && $user->cannot('tools.'.$tool->getPermissionName().'.book.induction')) {
-            return 'Must be inducted to book this tool';
+            return 'Must be inducted to book this tool.';
         }
 
         $basicChecks = $this->basicTimeChecks($start, $end, $tool->getLengthMax());
@@ -141,7 +141,7 @@ class BookingManager
         // can this user post this event?
         // Is the tool restricted and has the user been inducted
         if ($user->cannot('tools.'.$tool->getPermissionName().'.book.maintenance')) {
-            return 'Must be inducted to book this tool';
+            return 'Must be inducted to book this tool.';
         }
 
         // Maintenance slot length can be to the end of the day
@@ -161,6 +161,57 @@ class BookingManager
 
         // Phew!  We can now add the booking
         $booking = $this->bookingFactory->create($start, $end, BookingType::MAINTENANCE, $user, $tool);
+        $this->bookingRepository->save($booking);
+
+        return $booking;
+    }
+
+    /**
+     * Update a booking.
+     *
+     * @param  Tool        $tool
+     * @param  Booking     $booking
+     * @param  Carbon|null $start
+     * @param  Carbon|null $end
+     * @return string|Booking String with error message or a Booking
+     */
+    public function update(Tool $tool, Booking $booking, Carbon $start = null, Carbon $end = null)
+    {
+        $user = \Auth::user();
+
+        if ($user->getId() != $booking->getUser()->getId()) {
+            return 'This is not your booking.'; // 403
+        }
+
+        if ($tool->getId() != $booking->getTool()->getId()) {
+            return 'This booking is not for this tool.'; // 422
+        }
+
+        if (is_null($start)) {
+            // not changing the start
+            $start = $booking->getStart();
+        }
+
+        if (is_null($end)) {
+            // not chaning the end
+            $end = $booking->getEnd();
+        }
+
+        if ($booking->getType() == BookingType::MAINTENANCE) {
+            // Maintenance slot length can be to the end of the day
+            $maxLength = $start->diffInMinutes($start->copy()->endOfDay());
+        } else {
+            $maxLength = $tool->getLengthMax();
+        }
+
+        $basicChecks = $this->basicTimeChecks($start, $end, $maxLength);
+        if (is_string($basicChecks)) {
+            return $basicChecks; // 422
+        }
+
+        // all check passed lets update it
+        $booking->setStart($start);
+        $booking->setEnd($end);
         $this->bookingRepository->save($booking);
 
         return $booking;

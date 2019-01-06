@@ -22,7 +22,6 @@
 
     data() {
       return {
-        bookings: [],
         axiosCancle: null,
         calendar: null,
         defaultView: 'agendaDay',
@@ -32,7 +31,7 @@
 
     computed: {
       defaultConfig() {
-        const self = this
+        const self = this;
         return {
           locale: 'en-gb',
           timeZone: 'Europe/London',
@@ -40,73 +39,22 @@
           firstDay: 1,
           eventSources: [
             {
-              events: self.fetchEvents,
+              events: this.fetchEvents,
               id: 'bookings',
             },
           ],
 
-          loading: self.loading,
-
-          eventClick(info) {
-            // is it ours and is it in the future
-            if (info.event.extendedProps.userId == self.userCanBook.userId && moment().diff(info.event.start) < 0) {
-              self.setupCancleConfirmation(info);
-            }
-          },
-
-          select(selectionInfo) {
-            self.setupBookingConfirmation(selectionInfo);
-          },
-
-          unselect( jsEvent, view ) {
-            self.removeConfirmation();
-          },
-
-          selectAllow(selectInfo) {
-            if (self.isLoading) {
-              return false;
-            }
-
-            // Don't allow selection if start is in the past
-            if (moment().diff(selectInfo.start) > 0) {
-              return false;
-            }
-
-            // TODO: check max allowed bookings and userCanBook
-
-            // Check length against tools max booking length
-            var duration = moment.duration(moment(selectInfo.end).diff(selectInfo.start));
-            if (duration.asMinutes() > self.bookingLengthMax) {
-              // TODO: flash message 'Max booking length is HH:mm'
-              return false;
-            }
-
-            return true;
-          },
-
-          eventDrop(eventDropInfo) {
-            // check it has not been dropped into the past
-            if (moment().diff(eventDropInfo.event.start) > 0) {
-              // TODO: flash 'Bookings can not be moved into the past'
-              eventDropInfo.revert();
-              return;
-            }
-            // patch the bookings start and end time
-            self.patchBooking(eventDropInfo.event, eventDropInfo.revert)
-          },
-
-          eventResize(eventResizeInfo) {
-            // check new duration except on Maintenance
-            var duration = moment.duration(moment(eventResizeInfo.event.end).diff(eventResizeInfo.event.start));
-            if (duration.asMinutes() > self.bookingLengthMax && eventResizeInfo.event.extendedProps.type != 'MAINTENANCE') {
-              // TODO: flash message 'Max booking length is HH:mm'
-              eventResizeInfo.revert();
-              return;
-            }
-
-            // patch the bookings end time
-            self.patchBooking(eventResizeInfo.event, eventResizeInfo.revert)
-          },
+          // type callbacks to our methods
+          loading: this.loading,
+          select: this.select,
+          unselect: this.unselect,
+          selectAllow: this.selectAllow,
+          eventClick: this.eventClick,
+          eventAllow: this.eventAllow,
+          eventDragStart: this.removeConfirmation,
+          eventDrop: this.eventDrop,
+          eventResizeStart: this.removeConfirmation,
+          eventResize: this.eventResize,
 
           selectable: true,
           selectOverlap: false,
@@ -156,42 +104,74 @@
     }, // end of computed
 
     methods: {
-      /**
-       * Attached to 'resize' event so we can make the view responsive.
-       */
-      getWindowResize(event) {
-        const windowWidth = document.documentElement.clientWidth;
-
-        if (windowWidth < 767.98) {
-          this.defaultView = 'agendaDay';
-        } else {
-          this.defaultView = 'agendaWeek';
-        }
-
-        if (this.calendar !== null) {
-          this.calendar.changeView(this.defaultView);
-          this.removeConfirmation();
-        }
-      },
-
-      mapBookings(booking) {
-          booking.className = 'tool-' + booking.type.toLowerCase();
-
-          if (booking.userId != self.userCanBook.userId) {
-            booking.className += ' not-ours';
-          }
-
-          if (booking.userId == self.userCanBook.userId && moment().diff(booking.start) < 0) {
-            booking.editable = true;
-          }
-
-          return booking;
-      },
-
       loading(isLoading) {
         // TODO: loading spinner/grey out
         console.log('loading', isLoading)
         this.isLoading = isLoading;
+      },
+
+      select(selectionInfo) {
+        this.setupBookingConfirmation(selectionInfo);
+      },
+
+      unselect( jsEvent, view ) {
+        this.removeConfirmation();
+      },
+
+      selectAllow(selectInfo) {
+        if (this.isLoading) {
+          return false;
+        }
+
+        // Don't allow selection if start is in the past
+        if (moment().diff(selectInfo.start) > 0) {
+          return false;
+        }
+
+        // TODO: check max allowed bookings and userCanBook
+
+        // Check length against tools max booking length
+        var duration = moment.duration(moment(selectInfo.end).diff(selectInfo.start));
+        if (duration.asMinutes() > this.bookingLengthMax) {
+          // TODO: flash message 'Max booking length is HH:mm'
+          return false;
+        }
+
+        return true;
+      },
+
+      eventClick(info) {
+        // is it ours and is it in the future
+        if (info.event.extendedProps.userId == this.userCanBook.userId && moment().diff(info.event.start) < 0) {
+          this.setupCancleConfirmation(info);
+        }
+      },
+
+      eventAllow(dropInfo, draggedEvent) {
+        // check it has not been dropped into the past
+        if (moment().diff(dropInfo.start) > 0) {
+          // TODO: flash 'Bookings can not be moved into the past'
+          return false;
+        }
+
+        // check new duration except on Maintenance
+        var duration = moment.duration(moment(dropInfo.end).diff(dropInfo.start));
+        if (duration.asMinutes() > this.bookingLengthMax && draggedEvent.extendedProps.type != 'MAINTENANCE') {
+          // TODO: flash message 'Max booking length is HH:mm'
+          return false;
+        }
+
+        return true;
+      },
+
+      eventDrop(eventDropInfo) {
+        // patch the bookings start and end time
+        this.patchBooking(eventDropInfo.event, eventDropInfo.revert)
+      },
+
+      eventResize(eventResizeInfo) {
+        // patch the bookings end time
+        this.patchBooking(eventResizeInfo.event, eventResizeInfo.revert)
       },
 
       /**
@@ -199,7 +179,7 @@
        * This is triggered when the user clicks prev/next or switches views.
        */
       fetchEvents(fetchInfo, successCallback, failureCallback) {
-        self = this
+        const self = this;
         const CancelToken = axios.CancelToken;
         if (this.axiosCancle !== null) {
           this.axiosCancle('New events range requested');
@@ -210,17 +190,15 @@
             start: fetchInfo.startStr,
             end: fetchInfo.endStr,
           },
-          cancelToken: new CancelToken(function executor(c) {
+          cancelToken: new CancelToken((c) => {
             self.axiosCancle = c;
           }),
         });
 
         request.then(({ data }) => {
           // need to map over our api response first to prep them for fullcalender
-          self.bookings = data.map(self.mapBookings);
-
           // pass bookings over to fullcalenders callback
-          successCallback(self.bookings);
+          successCallback(data.map(this.mapBookings));
         })
         .catch((thrown) => {
           if (axios.isCancel(thrown)) {
@@ -244,13 +222,13 @@
       bookOnConfirm(type, selectionInfo) {
         switch (type) {
           case 'NORMAL':
-            this.bookNormal(selectionInfo.startStr, selectionInfo.endStr);
+            this.bookNormal(moment(selectionInfo.start), moment(selectionInfo.end));
             break;
           case 'INDUCTION':
-            this.bookIndcution(selectionInfo.startStr, selectionInfo.endStr);
+            this.bookIndcution(moment(selectionInfo.start), moment(selectionInfo.end));
             break;
           case 'MAINTENANCE':
-            this.bookMaintenance(selectionInfo.startStr, selectionInfo.endStr);
+            this.bookMaintenance(moment(selectionInfo.start), moment(selectionInfo.end));
             break;
         }
       },
@@ -260,8 +238,8 @@
         // we can just submit this to the end point, don't need any other user interaction
 
         let booking = new FormData();
-        booking.append('start', start);
-        booking.append('end', end);
+        booking.append('start', start.toISOString(true));
+        booking.append('end', end.toISOString(true));
         booking.append('type', 'NORMAL');
 
         this.createBooking(booking);
@@ -273,8 +251,8 @@
         // TODO: in future we might ask who is to be inducted (or tie this in with induction requests)
 
         let booking = new FormData();
-        booking.append('start', start);
-        booking.append('end', end);
+        booking.append('start', start.toISOString(true));
+        booking.append('end', end.toISOString(true));
         booking.append('type', 'INDUCTION');
 
         this.createBooking(booking);
@@ -285,8 +263,8 @@
         // TODO: ask for e reason? ask if they want a longer slot (past normal limits), ask if we should disable the tool and let members know
 
         let booking = new FormData();
-        booking.append('start', start);
-        booking.append('end', end);
+        booking.append('start', start.toISOString(true));
+        booking.append('end', end.toISOString(true));
         booking.append('type', 'MAINTENANCE');
 
         this.createBooking(booking);
@@ -304,6 +282,7 @@
                 this.userCanBook.normalCurrentCount += 1;
               }
 
+              this.removeConfirmation();
               this.calendar.unselect();
               // this.calendar.addEvent(booking, 'bookings'); // this is broken until the next release
               this.calendar.refetchEvents(); // using this until the above is fixed
@@ -400,7 +379,7 @@
             if (response.status == '204') { // HTTP_NO_CONTENT
               // flash 'Booking updated'
               console.log('cancelBooking', 'Booking deleted');
-              console.log(event.extendedProps.type);
+
               if (event.extendedProps.type == "NORMAL") {
                 this.userCanBook.normalCurrentCount -= 1;
               }
@@ -542,12 +521,41 @@
         $('.popover').remove();
       },
 
+      /**
+       * Attached to 'resize' event so we can make the view responsive.
+       */
+      getWindowResize(event) {
+        const windowWidth = document.documentElement.clientWidth;
+
+        if (windowWidth < 767.98) {
+          this.defaultView = 'agendaDay';
+        } else {
+          this.defaultView = 'agendaWeek';
+        }
+
+        if (this.calendar !== null) {
+          this.calendar.changeView(this.defaultView);
+          this.removeConfirmation();
+        }
+      },
+
+      mapBookings(booking) {
+          booking.className = 'tool-' + booking.type.toLowerCase();
+
+          if (booking.userId != this.userCanBook.userId) {
+            booking.className += ' not-ours';
+          }
+
+          if (booking.userId == this.userCanBook.userId && moment().diff(booking.start) < 0) {
+            booking.editable = true;
+          }
+
+          return booking;
+      },
+
     }, // end of methods
 
     mounted() {
-      const cal = this.$refs.calendar
-      self = this
-
       this.$nextTick(function() {
         window.addEventListener('resize', this.getWindowResize);
 
@@ -555,7 +563,7 @@
         this.getWindowResize();
       });
 
-      this.calendar = new Calendar(cal, self.defaultConfig);
+      this.calendar = new Calendar(this.$refs.calendar, this.defaultConfig);
       this.calendar.render();
     },
 

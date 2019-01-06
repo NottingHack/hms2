@@ -32,7 +32,9 @@
       defaultConfig() {
         const self = this
         return {
+          locale: 'en-gb',
           timeZone: 'Europe/London',
+          firstDay: 1,
           eventSources: [
             {
               events: self.events,

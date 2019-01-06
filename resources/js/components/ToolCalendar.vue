@@ -55,6 +55,7 @@
           eventDrop: this.eventDrop,
           eventResizeStart: this.removeConfirmation,
           eventResize: this.eventResize,
+          datesDestroy: this.removeConfirmation,
 
           selectable: true,
           selectOverlap: false,
@@ -421,8 +422,11 @@
 
         let options = {
           container: 'body',
+          rootSelector: '.fc-mirror',
           selector: '.fc-mirror',
           title: 'Add booking?',
+          popout: true,
+          singleton: true,
           onConfirm(type) {
             self.bookOnConfirm(type, selectionInfo);
           },
@@ -495,8 +499,10 @@
 
         let options = {
           container: 'body',
-          selector: '.booking-selected',
+          rootSelector: '.booking-selected',
           title: 'Would you like to cancel this booking?',
+          popout: true,
+          singleton: true,
           btnOkClass: 'btn-danger',
           btnCancelClass: 'btn-outline-dark',
           onConfirm(type) {
@@ -505,13 +511,12 @@
           },
           onCancel() {
             $(info.el).removeClass('booking-selected');
-            self.removeConfirmation();
           },
         };
 
-        $(info.el).confirmation(options);
+        $('.booking-selected').confirmation(options);
 
-        $(info.el).confirmation('show');
+        $('.booking-selected').confirmation('show');
       },
 
       /**

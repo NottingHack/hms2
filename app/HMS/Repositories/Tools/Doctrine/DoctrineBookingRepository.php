@@ -134,13 +134,14 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
                 $expr->andX(
                     $expr->eq('tool', $tool),
                     $expr->eq('user', $user),
+                    $expr->eq('type', BookingType::NORMAL),
                     $expr->gte('start', $now)
                 )
             )
             ->orderBy(['start' => Criteria::ASC]);
 
         // return $this->count($criteria); // cant do this https://github.com/doctrine/orm/issues/7523
-        return count($this->matching($criteria)); // however this actually does the count on the db side
+        return $this->matching($criteria)->count(); // however this actually does the count on the db side
     }
 
     /**

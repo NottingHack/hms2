@@ -219,15 +219,25 @@ class BookingManager
 
     /**
      * Cancel a Booking.
+     *
      * @param  Booking $booking
+     * @return bool|string
      */
     public function cancel(Booking $booking)
     {
+        $user = \Auth::user();
+
+        if ($user->getId() != $booking->getUser()->getId()) {
+            return 'This is not your booking.'; // 403
+        }
+
         $this->bookingRepository->remove($booking);
+        return true;
     }
 
     /**
      * Do some basic time checks.
+     *
      * @param  Carbon       $start
      * @param  Carbon       $end
      * @param  int          $maxLength

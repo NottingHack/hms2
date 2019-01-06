@@ -159,11 +159,25 @@ class BookingController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Tool  $tool
+     * @param  Booking $booking
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Tool $tool, Booking $booking)
     {
-        //
+        // check tool and booking id match?
+        if ($tool->getId() != $booking->getTool()->getId()) {
+            return response()->json('This booking is not for this tool.', IlluminateResponse::HTTP_FORBIDDEN); // 422
+        }
+
+        $response = $this->bookingManager->cancel($booking);
+
+        if (is_string($response)) {
+            // response is some sort of error
+            return response()->json($response, IlluminateResponse::HTTP_FORBIDDEN);
+        } else {
+            // response is empty
+            return response(null, IlluminateResponse::HTTP_NO_CONTENT);
+        }
     }
 }

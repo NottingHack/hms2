@@ -26,6 +26,7 @@
         axiosCancle: null,
         calendar: null,
         defaultView: 'agendaDay',
+        isLoading: true,
       };
     },
 
@@ -47,7 +48,10 @@
           loading: self.loading,
 
           eventClick(info) {
-            console.log('eventClick', info);
+            // is it ours and is it in the future
+            if (info.event.extendedProps.userId == self.userCanBook.userId && moment().diff(info.event.start) < 0) {
+              self.setupCancleConfirmation(info);
+            }
           },
 
           select(selectionInfo) {
@@ -59,6 +63,10 @@
           },
 
           selectAllow(selectInfo) {
+            if (self.isLoading) {
+              return false;
+            }
+
             // Don't allow selection if start is in the past
             if (moment().diff(selectInfo.start) > 0) {
               return false;
@@ -69,7 +77,7 @@
             // Check length against tools max booking length
             var duration = moment.duration(moment(selectInfo.end).diff(selectInfo.start));
             if (duration.asMinutes() > self.bookingLengthMax) {
-              // TODO: flash message "Max booking length is HH:mm"
+              // TODO: flash message 'Max booking length is HH:mm'
               return false;
             }
 
@@ -79,7 +87,7 @@
           eventDrop(eventDropInfo) {
             // check it has not been dropped into the past
             if (moment().diff(eventDropInfo.event.start) > 0) {
-              // TODO: flash "Bookings can not be moved into the past"
+              // TODO: flash 'Bookings can not be moved into the past'
               eventDropInfo.revert();
               return;
             }
@@ -91,7 +99,7 @@
             // check new duration except on Maintenance
             var duration = moment.duration(moment(eventResizeInfo.event.end).diff(eventResizeInfo.event.start));
             if (duration.asMinutes() > self.bookingLengthMax && eventResizeInfo.event.extendedProps.type != 'MAINTENANCE') {
-              // TODO: flash message "Max booking length is HH:mm"
+              // TODO: flash message 'Max booking length is HH:mm'
               eventResizeInfo.revert();
               return;
             }
@@ -162,6 +170,7 @@
 
         if (this.calendar !== null) {
           this.calendar.changeView(this.defaultView);
+          this.removeConfirmation();
         }
       },
 
@@ -182,6 +191,7 @@
       loading(isLoading) {
         // TODO: loading spinner/grey out
         console.log('loading', isLoading)
+        this.isLoading = isLoading;
       },
 
       /**
@@ -192,7 +202,7 @@
         self = this
         const CancelToken = axios.CancelToken;
         if (this.axiosCancle !== null) {
-          this.axiosCancle("New events range requested");
+          this.axiosCancle('New events range requested');
         }
 
         const request = axios.get(this.bookingsUrl, {
@@ -233,13 +243,13 @@
        */
       bookOnConfirm(type, selectionInfo) {
         switch (type) {
-          case "NORMAL":
+          case 'NORMAL':
             this.bookNormal(selectionInfo.startStr, selectionInfo.endStr);
             break;
-          case "INDUCTION":
+          case 'INDUCTION':
             this.bookIndcution(selectionInfo.startStr, selectionInfo.endStr);
             break;
-          case "MAINTENANCE":
+          case 'MAINTENANCE':
             this.bookMaintenance(selectionInfo.startStr, selectionInfo.endStr);
             break;
         }
@@ -336,8 +346,8 @@
         axios.patch(this.bookingsUrl + '/' + event.id, booking)
           .then((response) => {
             // TODO: deal with the response
-            if (response.status == '200') { // HTTP_CREATED
-              // flash "Booking updated"
+            if (response.status == '200') { // HTTP_OK
+              // flash 'Booking updated'
               console.log('patchBooking', 'Booking Updated OK');
 
               // const booking = this.mapBookings(response.data);
@@ -379,6 +389,51 @@
           });
       },
 
+      cancelBooking(event) {
+        console.log('cancelBooking', event);
+
+        this.loading(true);
+
+        axios.delete(this.bookingsUrl + '/' + event.id)
+          .then((response) => {
+            // TODO: deal with the response
+            if (response.status == '204') { // HTTP_NO_CONTENT
+              // flash 'Booking updated'
+              console.log('cancelBooking', 'Booking deleted');
+              console.log(event.extendedProps.type);
+              if (event.extendedProps.type == "NORMAL") {
+                this.userCanBook.normalCurrentCount -= 1;
+              }
+
+              event.remove();
+              this.loading(false);
+            } else {
+              console.log('cancelBooking', response.data);
+              console.log('cancelBooking', response.status);
+              console.log('cancelBooking', response.statusText);
+            }
+          })
+          .catch((error) => {
+            // TODO: flash error
+            if (error.response) {
+              // if HTTP_UNPROCESSABLE_ENTITY some validation error laravel or us
+              // else if HTTP_CONFLICT to many bookings or over lap
+              // else if HTTP_FORBIDDEN on enough permissions
+              console.log('cancelBooking: Response error', error.response.data, error.response.status, error.response.headers);
+            } else if (error.request) {
+              // The request was made but no response was received
+              // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+              // http.ClientRequest in node.js
+              console.error('cancelBooking: Request error', error.request);
+            } else {
+              // Something happened in setting up the request that triggered an Error
+              console.error('cancelBooking: Error', error.message);
+            }
+
+            this.loading(false);
+          });
+      },
+
       /**
        * Display bootstrap confirmation popover for a new selection.
        */
@@ -387,9 +442,8 @@
 
         let options = {
           container: 'body',
-          rootSelector: '.fc-mirror',
           selector: '.fc-mirror',
-          title: "Add booking?",
+          title: 'Add booking?',
           onConfirm(type) {
             self.bookOnConfirm(type, selectionInfo);
           },
@@ -449,6 +503,36 @@
         $('.fc-mirror').confirmation(options);
 
         $('.fc-mirror').confirmation('show');
+      },
+
+      /**
+       * Display bootstrap confirmation popover for a new selection.
+       */
+      setupCancleConfirmation(info) {
+        const self = this;
+
+        // info.el attach booking-selected class to the <a>
+        $(info.el).addClass('booking-selected');
+
+        let options = {
+          container: 'body',
+          selector: '.booking-selected',
+          title: 'Would you like to cancel this booking?',
+          btnOkClass: 'btn-danger',
+          btnCancelClass: 'btn-outline-dark',
+          onConfirm(type) {
+            $(info.el).removeClass('booking-selected');
+            self.cancelBooking(info.event);
+          },
+          onCancel() {
+            $(info.el).removeClass('booking-selected');
+            self.removeConfirmation();
+          },
+        };
+
+        $(info.el).confirmation(options);
+
+        $(info.el).confirmation('show');
       },
 
       /**

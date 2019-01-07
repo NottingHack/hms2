@@ -7,10 +7,8 @@ window.select2 = require('select2')
 // default all select2 instances to use the bootstrap theme
 $.fn.select2.defaults.set( "theme", "bootstrap" );
 
-
 // views/role/edit.blade.php
 $(".js-permission-select").select2({
-  width: 'element'
 });
 
 // views/gateKeeper/rfidTags/edit.blade.php
@@ -27,7 +25,6 @@ $(".js-data-member-search-ajax").change(function(){
 });
 
 $(".js-data-member-search-ajax").select2({
-  width: 'element',
   placeholder: "Search for a member...",
   ajax: {
     url: '/api/search/users',

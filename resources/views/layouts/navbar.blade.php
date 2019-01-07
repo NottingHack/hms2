@@ -1,20 +1,20 @@
 <!-- navbar -->
-<nav class="userbar">
+<nav class="row navbar navbar-expand-md justify-content-between">
   @if (!Auth::guest() and isset($mainNav) )
   {{-- build the nav toggler --}}
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <i class="fas fa-bars"></i>&nbsp;Menu
+    <div class="navbar-toggler-icon"><i class="fas fa-bars"></i>&nbsp;Menu</div>
   </button>
   {{-- build the nav --}}
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav">
+    <ul class="navbar-nav mr-auto">
       @foreach ($mainNav as $link)
       @if (count($link['links']) > 0)
       <li class="nav-item {!! $link['active'] ? 'active' : '' !!} dropdown">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopups="true" aria-expanded="false" href="{{ $link['url'] }}">{{ $link['text'] }}</a>
         <div class="dropdown-menu">
           @foreach ($link['links'] as $subLink)
-          <a class="dropdown-item" href="{{ $subLink['url'] }}">{{ $subLink['text'] }}</a>
+          <a class="dropdown-item {!! $subLink['active'] ? 'active' : '' !!}" href="{{ $subLink['url'] }}">{{ $subLink['text'] }}</a>
           @endforeach
         </div>
       </li>
@@ -26,7 +26,8 @@
       @endforeach
     </ul>
     <ul class="navbar-nav ml-auto">
-      <li class="navbar-text ml-auto">Logged in as {{ Auth::user()->getFirstName() }} @if (Auth::viaRemember()) (via Remember Me) @endif</li>
+      <li class="nav-item"><hr class="border-top"></li>
+      <li class="navbar-text d-md-none d-lg-block">Logged in as {{ Auth::user()->getFirstName() }} @if (Auth::viaRemember()) (via Remember Me) @endif</li>
       <li class="nav-item">
         <a class="nav-link" href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
         <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">

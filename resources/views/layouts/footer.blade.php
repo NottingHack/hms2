@@ -8,6 +8,15 @@
         <li><a href="#">Credits</a></li>
         <li><a href="#">Nottinghack Website</a></li>
         <li>© {{ \Carbon\Carbon::now()->year }} Nottinghack</li>
+        @if (config('app.env') != 'production')
+        <li>
+          <span class="d-block d-sm-none">Breakpoint: xs</span>
+          <span class="d-none d-sm-block d-md-none">Breakpoint: sm</span>
+          <span class="d-none d-md-block d-lg-none">Breakpoint: md</span>
+          <span class="d-none d-lg-block d-xl-none">Breakpoint: lg</span>
+          <span class="d-none d-xl-block">Breakpoint: xl</span>
+        </li>
+        @endif
       </ul>
     </div>
     <div class="col-sm-3">

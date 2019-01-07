@@ -183,10 +183,6 @@ dl > dt {
   margin-bottom: 0.10rem;
 }
 
-.header-center {
-  padding-top: 0.5%;
-}
-
 /*
  * Body
  */
@@ -211,24 +207,21 @@ header {
   padding-bottom: 1rem;
 
   h1 {
-    margin: 0;
     text-shadow: $black 1px 1px 1px;
-    font-size: 3rem;
 
     &.tiny-header {
       font-weight: bold;
-      font-size: 1rem;
+      font-size: $h4-font-size;
     }
   }
 
   h2 {
     color: $hackspace-grey;
-    margin: 0;
     text-shadow: $black 2px 2px 2px;
 
     &.big-header {
       font-weight: bold;
-      font-size: 3rem;
+      font-size: $h1-font-size;
     }
   }
 
@@ -243,15 +236,120 @@ header {
 
 /*
  * NavBar
+ * https://work.smarchal.com/twbscolor/4.0.0/scss/eeeeeee1e1e11959050000001
+ * with a few tweaks
  */
-.userbar {
-  @extend .navbar;
-  @extend .navbar-expand-md;
-  @extend .justify-content-between;
-  @extend .row;
-  background-color: $userbar-background-colour;
-  color: $userbar-text-colour;
-}
+$bgDefault      : $hackspace-grey;
+$bgHighlight    : shade($bgDefault, 25%); //d6d6d6; // darker shade of hackspace-grey
+$bgHover        : tint($bgDefault, 50%); // #f3f3f3; // tint of hackspace-grey
+$bgActive       : tint($hackspace-green, 25%);
+$colDefault     : $hackspace-green;
+$colText        : $userbar-text-colour;
+$colHighlight   : $userbar-text-colour;
+$colTextActive  : white;
+
+$dropDown       : true;
+.navbar {
+  background-color: $bgDefault;
+  .navbar-brand {
+    color: $colDefault;
+    &:hover, &:focus {
+      color: $colHighlight; }}
+  .navbar-text {
+    color: $colText;
+    margin: 0 0.25em;
+    padding-left: 0.5rem;
+    a {
+      color: $colHighlight;
+      &:hover, &:focus {
+        color: $colHighlight; }}}
+  .navbar-nav {
+    .nav-link {
+      color: $colDefault;
+      border-radius: .25rem;
+      margin: 0 0.25em;
+      padding-left: 0.5rem;
+      &:not(.disabled) {
+        &:hover, &:focus {
+          color: $colHighlight; background-color: $bgHover;}}}
+    @if ($dropDown) {
+      .dropdown-menu {
+        background-color: $bgDefault;
+        border-color: $bgHighlight;
+        .dropdown-item {
+          color: $colDefault;
+          &:hover, &:focus, {
+            color: $colHighlight;
+            background-color: $bgHover;}
+          &.active {
+            color: $colTextActive;
+            background-color: $bgActive; }}
+        .dropdown-divider {
+          border-top-color: $bgHighlight; }}}
+    .nav-item.active, .nav-item.show {
+      .nav-link, .nav-link:hover, .nav-link:focus {
+        color: $colTextActive;
+        background-color: $bgActive; }}}
+  .navbar-toggler {
+    &:hover, &:focus {
+      background-color: $bgHover; }
+    .navbar-toggler-icon {
+      width: auto;
+      height: auto;
+      color: $colDefault; }}
+  .navbar-collapse,
+  .navbar-form {
+    border-color: $colDefault; }
+  .navbar-link {
+    color: $colDefault;
+    &:hover {
+      color: $colHighlight; }}}
+@media (max-width: 575px) {
+  .navbar-expend-sm .navbar-nav .show .dropdown-menu {
+    .dropdown-item {
+      color: $colDefault;
+      &:hover, &:focus {
+        color: $colHighlight; }}
+    .dropdown-item.active {
+      color: $colHighlight;
+      background-color: $bgActive; }}}
+@media (max-width: 767px) {
+  .navbar-expend-md .navbar-nav .show {
+    .dropdown-menu {
+      .dropdown-item {
+        color: $colDefault;
+        &:hover, &:focus {
+          color: $colHighlight; }}
+      .dropdown-item.active {
+        color: $colTextActive;
+        background-color: $bgActive; }}}
+  }
+@media (max-width: 991px) {
+  .navbar-expend-lg .navbar-nav .show .dropdown-menu {
+    .dropdown-item {
+      color: $colDefault;
+      &:hover, &:focus {
+        color: $colHighlight; }}
+    .dropdown-item.active {
+      color: $colTextActive;
+      background-color: $bgActive; }}}
+@media (max-width: 1199px) {
+  .navbar-expend-xl .navbar-nav .show .dropdown-menu {
+    .dropdown-item {
+      color: $colDefault;
+      &:hover, &:focus {
+        color: $colHighlight; }}
+    .dropdown-item.active {
+      color: $colTextActive;
+      background-color: $bgActive; }}}
+.navbar-expend .navbar-nav .show .dropdown-menu {
+  .dropdown-item {
+    color: $colDefault;
+    &:hover, &:focus {
+      color: $colHighlight; }}
+  .dropdown-item.active {
+    color: $colTextActive;
+    background-color: $bgActive; }}
 
 /*
  * Footer

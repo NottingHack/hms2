@@ -21,24 +21,28 @@ return [
         'projects' => [
             'text'          => 'Projects',
             'route'         => 'projects.index',
+            'match'         => 'projects.index',
             'permissions'   => ['project.view.self'],
             'links'         => [],
         ],
         'boxes' => [
             'text'          => 'Boxes',
             'route'         => 'boxes.index',
+            'match'         => 'boxes.index',
             'permissions'   => ['box.view.self'],
             'links'         => [],
         ],
         'snackspaceTransactions' => [
             'text'          => 'Snackspace',
             'route'         => 'transactions.index',
+            'match'         => 'transactions.index',
             'permissions'   => ['snackspaceTransaction.view.self'],
             'links'         => [],
         ],
         'tools' => [
             'text'          => 'Tools',
             'route'         => 'tools.index',
+            'match'         => 'tools.index',
             'permissions'   => ['tools.view'],
             'links'         => [],
         ],
@@ -51,6 +55,7 @@ return [
         'links' => [
             'text'          => 'Links',
             'route'         => 'links.index',
+            'match'         => 'links.index',
             'permissions'   => ['link.view'],
             'links'         => [],
         ],

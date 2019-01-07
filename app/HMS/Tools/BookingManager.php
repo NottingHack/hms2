@@ -232,6 +232,7 @@ class BookingManager
         }
 
         $this->bookingRepository->remove($booking);
+
         return true;
     }
 

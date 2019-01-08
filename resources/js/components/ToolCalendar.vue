@@ -30,6 +30,7 @@
         defaultView: 'agendaDay',
         isLoading: true,
         loader: null,
+        interval: null,
       };
     },
 
@@ -589,9 +590,16 @@
 
       this.calendar = new Calendar(this.$refs.calendar, this.defaultConfig);
       this.calendar.render();
+
+      // Call refetchEventsevery 15 minutes, so past events are shaded
+      this.interval = setInterval(function () {
+        // TODO: once we have Echo running only really need to call this if there is an event under now ±15
+        this.calendar.refetchEvents();
+      }.bind(this), 900000);
     },
 
     beforeDestroy() {
+      clearInterval(this.interval);
       window.removeEventListener('resize', this.getWindowResize);
     },
   }

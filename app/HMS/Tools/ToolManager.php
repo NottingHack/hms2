@@ -205,7 +205,6 @@ class ToolManager
      * Enable a tool.
      *
      * @param  Tool   $tool
-     * @param  string $reason
      */
     public function enableTool(Tool $tool)
     {
@@ -223,7 +222,7 @@ class ToolManager
      * @param  string $reason
      * @param  bool   $notify Should we tell user with a booking for this tool.
      */
-    public function disableTool(Tool $tool, string $reason, bool $notify)
+    public function disableTool(Tool $tool, string $reason, bool $notify = false)
     {
         $tool->setStatus(ToolState::DISABLED);
         $tool->setStatusText($reason);

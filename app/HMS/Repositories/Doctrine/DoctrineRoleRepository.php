@@ -58,7 +58,7 @@ class DoctrineRoleRepository extends EntityRepository implements RoleRepository
     /**
      * Remove a role based on the role name.
      *
-     * @param string $toleName
+     * @param string $roleName
      */
     public function removeOneByName(string $roleName)
     {

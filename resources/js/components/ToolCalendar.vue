@@ -9,6 +9,7 @@
   import 'fullcalendar/dist/plugins/moment-timezone';
   import moment from 'moment';
   require('bootstrap-confirmation2');
+  const humanizeDuration = require('humanize-duration')
   import Loading from 'vue-loading-overlay';
   import 'vue-loading-overlay/dist/vue-loading.css';
   Vue.use(Loading);
@@ -44,7 +45,7 @@
           firstDay: 1,
           eventSources: [
             {
-              events: this.fetchEvents,
+              events: this.fetchBookings,
               id: 'bookings',
             },
           ],
@@ -111,8 +112,6 @@
 
     methods: {
       loading(isLoading) {
-        // TODO: loading spinner/grey out
-        console.log('loading', isLoading)
         this.isLoading = isLoading;
         if (isLoading && this.loader == null) {
           this.loader = this.$loading.show({
@@ -148,7 +147,7 @@
         // Check length against tools max booking length
         var duration = moment.duration(moment(selectInfo.end).diff(selectInfo.start));
         if (duration.asMinutes() > this.bookingLengthMax) {
-          // TODO: flash message 'Max booking length is HH:mm'
+          flash('Max booking length is '+ humanizeDuration(this.bookingLengthMax * 60000), 'warning');
           return false;
         }
 
@@ -173,14 +172,14 @@
 
         // check it has not been dropped into the past
         if (moment().diff(dropInfo.start) > 0) {
-          // TODO: flash 'Bookings can not be moved into the past'
+          flash('Bookings can not be in the past', 'warning');
           return false;
         }
 
         // check new duration except on Maintenance
         var duration = moment.duration(moment(dropInfo.end).diff(dropInfo.start));
         if (duration.asMinutes() > this.bookingLengthMax && draggedEvent.extendedProps.type != 'MAINTENANCE') {
-          // TODO: flash message 'Max booking length is HH:mm'
+          flash('Max booking length is '+ humanizeDuration(this.bookingLengthMax * 60000), 'warning');
           return false;
         }
 
@@ -201,7 +200,7 @@
        * FullCalendar will call this function whenever it needs new event data.
        * This is triggered when the user clicks prev/next or switches views.
        */
-      fetchEvents(fetchInfo, successCallback, failureCallback) {
+      fetchBookings(fetchInfo, successCallback, failureCallback) {
         // TODO: look at caching bookings on the Vue and only do axios call when we don't have the data in the Vue cache
         const self = this;
         const CancelToken = axios.CancelToken;
@@ -226,10 +225,11 @@
         })
         .catch((thrown) => {
           if (axios.isCancel(thrown)) {
-            // console.log('fetchEvents: Request cancelled', thrown.message);
+            // console.log('fetchBookings: Request cancelled', thrown.message);
           } else {
             // handle error
-            console.log('fetchEvents: Request error', thrown);
+            console.log('fetchBookings: Request error', thrown);
+            flash('Error fetching bookings', 'danger');
             failureCallback(thrown);
           }
         });
@@ -296,7 +296,6 @@
         this.loading(true);
         axios.post(this.bookingsUrl, booking)
           .then((response) => {
-            // TODO: deal with the response
             if (response.status == '201') { // HTTP_CREATED
               const booking = this.mapBookings(response.data);
 
@@ -308,8 +307,9 @@
               this.calendar.unselect();
               // this.calendar.addEvent(booking, 'bookings'); // this is broken until the next release
               this.calendar.refetchEvents(); // using this until the above is fixed
-              // this.loading(false);
+              flash('Booking created');
             } else {
+              flash('Error creating booking', 'danger');
               console.log('createBooking', response.data);
               console.log('createBooking', response.status);
               console.log('createBooking', response.statusText);
@@ -317,7 +317,7 @@
             this.loading(false);
           })
           .catch((error) => {
-            // TODO: flash error
+            flash('Error creating booking', 'danger');
             if (error.response) {
               // if HTTP_UNPROCESSABLE_ENTITY some validation error laravel or us
               // else if HTTP_CONFLICT to many bookings or over lap
@@ -337,7 +337,6 @@
       },
 
       patchBooking(event, revert) {
-
         let booking = {
           start: moment(event.start).toISOString(true),
           end: moment(event.end).toISOString(true),
@@ -347,9 +346,8 @@
 
         axios.patch(this.bookingsUrl + '/' + event.id, booking)
           .then((response) => {
-            // TODO: deal with the response
             if (response.status == '200') { // HTTP_OK
-              // flash 'Booking updated'
+              flash('Booking updated');
               console.log('patchBooking', 'Booking Updated OK');
 
               // const booking = this.mapBookings(response.data);
@@ -361,16 +359,18 @@
               // this.calendar.unselect();
               // // this.calendar.addEvent(booking, 'bookings'); // this is broken until the next release
               // this.calendar.refetchEvents(); // using this until the above is fixed
-
-              this.loading(false);
             } else {
+              flash('Error updating booking', 'danger');
+              revert();
               console.log('patchBooking', response.data);
               console.log('patchBooking', response.status);
               console.log('patchBooking', response.statusText);
             }
+
+            this.loading(false);
           })
           .catch((error) => {
-            // TODO: flash error
+            flash('Error updating booking', 'danger');
             if (error.response) {
               // if HTTP_UNPROCESSABLE_ENTITY some validation error laravel or us
               // else if HTTP_CONFLICT to many bookings or over lap
@@ -398,9 +398,8 @@
 
         axios.delete(this.bookingsUrl + '/' + event.id)
           .then((response) => {
-            // TODO: deal with the response
             if (response.status == '204') { // HTTP_NO_CONTENT
-              // flash 'Booking updated'
+              flash('Booking cancelled');
               console.log('cancelBooking', 'Booking deleted');
 
               if (event.extendedProps.type == "NORMAL") {
@@ -408,15 +407,17 @@
               }
 
               event.remove();
-              this.loading(false);
             } else {
+              flash('Error cancelling booking', 'danger');
               console.log('cancelBooking', response.data);
               console.log('cancelBooking', response.status);
               console.log('cancelBooking', response.statusText);
             }
+
+            this.loading(false);
           })
           .catch((error) => {
-            // TODO: flash error
+            flash('Error cancelling booking', 'danger');
             if (error.response) {
               // if HTTP_UNPROCESSABLE_ENTITY some validation error laravel or us
               // else if HTTP_CONFLICT to many bookings or over lap

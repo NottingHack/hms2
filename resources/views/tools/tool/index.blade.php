@@ -36,9 +36,9 @@
             @can('tools.edit')
             <a class="btn btn-primary btn-sm btn-sm-spacing" href="{{ route('tools.show', $tool->getId()) }}" class="button"><i class="far fa-eye" aria-hidden="true"></i> View Settings</a>
             @endcan
-            @can('tools.maintainer.grant')
+            {{-- @can('tools.maintainer.grant')
             <a class="btn btn-primary btn-sm btn-sm-spacing" href="" class="button"><i class="fas fa-plus" aria-hidden="true"></i> Appoint Maintainer</a>
-            @endcan
+            @endcan --}}
           </td>
           @endcan
         </tr>

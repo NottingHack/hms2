@@ -9,6 +9,9 @@
   import 'fullcalendar/dist/plugins/moment-timezone';
   import moment from 'moment';
   require('bootstrap-confirmation2');
+  import Loading from 'vue-loading-overlay';
+  import 'vue-loading-overlay/dist/vue-loading.css';
+  Vue.use(Loading);
 
   export default {
     props: [
@@ -26,6 +29,7 @@
         calendar: null,
         defaultView: 'agendaDay',
         isLoading: true,
+        loader: null,
       };
     },
 
@@ -109,6 +113,15 @@
         // TODO: loading spinner/grey out
         console.log('loading', isLoading)
         this.isLoading = isLoading;
+        if (isLoading && this.loader == null) {
+          this.loader = this.$loading.show({
+            container: this.$refs.calendar,
+            color: '#195905',
+          });
+        } else if (this.loader !== null) {
+          this.loader.hide();
+          this.loader = null;
+        }
       },
 
       select(selectionInfo) {
@@ -142,6 +155,10 @@
       },
 
       eventClick(info) {
+        if (this.isLoading) {
+          return false;
+        }
+
         // is it ours and is it in the future
         if (info.event.extendedProps.userId == this.userCanBook.userId && moment().diff(info.event.start) < 0) {
           this.setupCancleConfirmation(info);
@@ -149,6 +166,10 @@
       },
 
       eventAllow(dropInfo, draggedEvent) {
+        if (this.isLoading) {
+          return false;
+        }
+
         // check it has not been dropped into the past
         if (moment().diff(dropInfo.start) > 0) {
           // TODO: flash 'Bookings can not be moved into the past'
@@ -180,6 +201,7 @@
        * This is triggered when the user clicks prev/next or switches views.
        */
       fetchEvents(fetchInfo, successCallback, failureCallback) {
+        // TODO: look at caching bookings on the Vue and only do axios call when we don't have the data in the Vue cache
         const self = this;
         const CancelToken = axios.CancelToken;
         if (this.axiosCancle !== null) {
@@ -210,8 +232,6 @@
             failureCallback(thrown);
           }
         });
-
-        return request;
       },
 
       /**
@@ -293,6 +313,7 @@
               console.log('createBooking', response.status);
               console.log('createBooking', response.statusText);
             }
+            this.loading(false);
           })
           .catch((error) => {
             // TODO: flash error
@@ -547,12 +568,10 @@
       mapBookings(booking) {
           booking.className = 'tool-' + booking.type.toLowerCase();
 
-          if (booking.userId != this.userCanBook.userId) {
-            booking.className += ' not-ours';
-          }
-
           if (booking.userId == this.userCanBook.userId && moment().diff(booking.start) < 0) {
             booking.editable = true;
+          } else {
+            booking.className += ' not-editable';
           }
 
           return booking;
@@ -606,7 +625,7 @@
 .tool-normal {
   border-color: $tool-booking-normal;
   background-color: $tool-booking-normal !important;
-  &.not-ours {
+  &.not-editable {
     background: repeating-linear-gradient(
         -45deg,
         $tool-booking-normal,
@@ -620,7 +639,7 @@
 .tool-induction {
   border-color: $tool-booking-induction;
   background-color: $tool-booking-induction !important;
-  &.not-ours {
+  &.not-editable {
     background: repeating-linear-gradient(
         -45deg,
         $tool-booking-induction,
@@ -634,7 +653,7 @@
 .tool-maintenance {
   border-color: $tool-booking-maintenance;
   background-color: $tool-booking-maintenance !important;
-  &.not-ours {
+  &.not-editable {
     background: repeating-linear-gradient(
         -45deg,
         $tool-booking-maintenance,

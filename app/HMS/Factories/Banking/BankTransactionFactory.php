@@ -31,9 +31,9 @@ class BankTransactionFactory
      * @param Bank $bank
      * @param Carbon $transactionDate
      * @param string $description
-     * @param float $amount
+     * @param int $amount
      */
-    public function create(Bank $bank, Carbon $transactionDate, string $description, float $amount)
+    public function create(Bank $bank, Carbon $transactionDate, string $description, int $amount)
     {
         $_bankTransaction = new BankTransaction();
         $_bankTransaction->setBank($bank);

@@ -22,7 +22,7 @@
         <tr>
           <td>{{ $bankTransaction->getTransactionDate()->toDateString() }}</td>
           <td>{{ $bankTransaction->getDescription() }}</td>
-          <td>{{ $bankTransaction->getAmount() }}</td>
+          <td><span class="money">@format_pennies($bankTransaction->getAmount())</span></td>
           <td>{{ $bankTransaction->getBank()->getName() }}</td>
           <td><a class="btn btn-primary" href="{{ route('bank-transactions.edit', $bankTransaction->getId()) }}"><i class="fas fa-search-dollar fa-lg" aria-hidden="true"></i> Reconcile</a></td>
         </tr>

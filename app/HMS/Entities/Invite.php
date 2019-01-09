@@ -3,13 +3,12 @@
 namespace HMS\Entities;
 
 use Carbon\Carbon;
-use HMS\Traits\Entities\SoftDeletable;
 use HMS\Traits\Entities\Timestampable;
 use LaravelDoctrine\ORM\Notifications\Notifiable;
 
 class Invite
 {
-    use Notifiable, SoftDeletable, Timestampable;
+    use Notifiable, Timestampable;
 
     /**
      * @var int

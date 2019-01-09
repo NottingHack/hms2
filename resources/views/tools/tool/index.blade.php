@@ -29,7 +29,7 @@
             <br>{{ $tool->getStatusText() }}
             @endif
           </td>
-          <td>£@format_pennies($tool->getPph())</td>
+          <td>@format_pennies($tool->getPph())</td>
           <td>{{ $nextBookings[$tool->getId()] ? $nextBookings[$tool->getId()]->getStart()->format('jS F Y @ H:i') : "None" }}</td>
           @can(['tools.edit', 'tools.maintainer.grant'])
           <td>

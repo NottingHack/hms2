@@ -36,7 +36,7 @@
   @include('cookieConsent::index')
 
   <!-- main body -->
-  <main id="app" class="flex-fill mt-2 pb-1">
+  <main id="app" class="flex-fill mt-3 pb-1">
 @include('partials.flash')
     <div class="row">
       <div class="col-sm-12">

@@ -19,7 +19,7 @@ Membership Payments for {{ $user->getFirstname() }}
         @foreach ($bankTransactions as $bankTransaction)
         <tr>
           <td>{{ $bankTransaction->getTransactionDate()->toDateString() }}</td>
-          <td><span class="money">£@format_pennies($bankTransaction->getAmount())</span></td>
+          <td><span class="money">@format_pennies($bankTransaction->getAmount())</span></td>
           <td>{{ $bankTransaction->getBank()->getName() }}</td>
         </tr>
         @endforeach

@@ -53,7 +53,7 @@
             </div>
           </div>
           <div class="card-body">
-            <h1 class="card-text text-center"><strong>£ @format_pennies($user->getProfile()->getBalance())</strong></h1></h1>
+            <h1 class="card-text text-center"><strong>@format_pennies($user->getProfile()->getBalance())</strong></h1></h1>
           </div>
           <div class="card-footer">
             <small class="text-white">Last updated 3 mins ago</small>

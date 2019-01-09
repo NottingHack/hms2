@@ -8,7 +8,7 @@ Boxes for {{ $user->getFirstname() }}
 <div class="container">
   <p>All members are entitled to a member's box in the storage room, but we have limited space.</p>
 
-  <p>If there is an empty box available (please check in real life first!) you can purchase it using the "Buy new box" button below. This will debit your Snackspace account by £@format_pennies($boxCost) and assign a box to you. The system will also check that there is space available for your box.</p>
+  <p>If there is an empty box available (please check in real life first!) you can purchase it using the "Buy new box" button below. This will debit your Snackspace account by @format_pennies($boxCost) and assign a box to you. The system will also check that there is space available for your box.</p>
 
   <p><strong>Note:</strong> The system does not know if there is an actual empty box available for you, and will debit you either way - please check first!</p>
 

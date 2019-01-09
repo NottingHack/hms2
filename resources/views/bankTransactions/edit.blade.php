@@ -37,7 +37,7 @@
     </div>
     <br>
     <div class="card">
-      <button type="submit" class="btn btn-success">Match Transaction</button>
+      <button type="submit" class="btn btn-success"><i class="fas fa-check fa-lg" aria-hidden="true"></i> Match Transaction</button>
     </div>
   </form>
 </div>

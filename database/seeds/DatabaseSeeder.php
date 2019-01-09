@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleUpdateTableSeeder::class);
         $this->call(ProductTableSeeder::class);
         $this->call(TransactionTableSeeder::class);
+        $this->call(ToolTableSeeder::class);
     }
 }

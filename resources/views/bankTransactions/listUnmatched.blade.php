@@ -24,7 +24,7 @@
           <td>{{ $bankTransaction->getDescription() }}</td>
           <td>{{ $bankTransaction->getAmount() }}</td>
           <td>{{ $bankTransaction->getBank()->getName() }}</td>
-          <td><a class="btn btn-primary" href="{{ route('bank-transactions.edit', $bankTransaction->getId()) }}"><i class="fa fa-edit fa-lg" aria-hidden="true"></i> Reconcile</a></td>
+          <td><a class="btn btn-primary" href="{{ route('bank-transactions.edit', $bankTransaction->getId()) }}"><i class="fas fa-search-dollar fa-lg" aria-hidden="true"></i> Reconcile</a></td>
         </tr>
         @endforeach
       </tbody>

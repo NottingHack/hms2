@@ -19,7 +19,7 @@
             <div class="card-deck">
                 <div class="card text-white bg-info mb-3">
                     <div class="card-header icon-card-body">
-                        <div class="icon-card-icon"><i class="fa fa-key" aria-hidden="true"></i></div>
+                        <div class="icon-card-icon"><i class="fas fa-key" aria-hidden="true"></i></div>
                         <div class="icon-card-content">
                             <h3>Hackspace is</h3>
                         </div>
@@ -36,7 +36,7 @@
             <div class="card-deck">
                 <div class="card text-white bg-info mb-3">
                     <div class="card-header icon-card-body">
-                        <div class="icon-card-icon"><i class="fa fa-key" aria-hidden="true"></i></div>
+                        <div class="icon-card-icon"><i class="fas fa-key" aria-hidden="true"></i></div>
                         <div class="icon-card-content">
                             <h3>Hackspace is</h3>
                         </div>
@@ -55,7 +55,7 @@
             <div class="card-deck">
                 <div class="card text-white bg-info mb-3">
                     <div class="card-header icon-card-body">
-                        <div class="icon-card-icon"><i class="fa fa-key" aria-hidden="true"></i></div>
+                        <div class="icon-card-icon"><i class="fas fa-key" aria-hidden="true"></i></div>
                         <div class="icon-card-content">
                             <h3>Hackspace is</h3>
                         </div>
@@ -72,7 +72,7 @@
             <div class="card-deck">
                 <div class="card text-white bg-info mb-3">
                     <div class="card-header icon-card-body">
-                        <div class="icon-card-icon"><i class="fa fa-key" aria-hidden="true"></i></div>
+                        <div class="icon-card-icon"><i class="fas fa-key" aria-hidden="true"></i></div>
                         <div class="icon-card-content">
                             <h3>Hackspace is</h3>
                         </div>
@@ -89,7 +89,7 @@
             <div class="card-deck">
                 <div class="card text-white bg-info mb-3">
                     <div class="card-header icon-card-body">
-                        <div class="icon-card-icon"><i class="fa fa-key" aria-hidden="true"></i></div>
+                        <div class="icon-card-icon"><i class="fas fa-key" aria-hidden="true"></i></div>
                         <div class="icon-card-content">
                             <h3>Hackspace is</h3>
                         </div>
@@ -101,8 +101,8 @@
                 </div>
             </div>
         </div>
-    </div>     
-    
+    </div>
+
 
 
 @endsection

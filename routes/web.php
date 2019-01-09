@@ -150,4 +150,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             'except' => ['show', 'store', 'create', 'edit', 'update', 'destroy'],
         ]
     );
+
+    // Tools
+    Route::resource('tools', 'Tools\ToolController');
+    Route::resource('tools/{tool}/bookings', 'Tools\BookingController');
 });

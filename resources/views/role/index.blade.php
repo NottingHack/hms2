@@ -25,7 +25,7 @@
           <td>{{ $role->getDescription() }}</td>
           <td>
             @can('role.edit.all')
-            <a class="btn btn-primary" href="{{ route('roles.edit', $role->getId()) }}">Edit</a>
+            <a class="btn btn-primary" href="{{ route('roles.edit', $role->getId()) }}"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
             @endcan
           </td>
         </tr>

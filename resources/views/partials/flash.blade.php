@@ -1,5 +1,7 @@
-<div class="container">
-  @foreach (session('flash_notification', collect())->toArray() as $message)
+@foreach (session('flash_notification', collect())->toArray() as $message)
+  @if ($loop->first)
+  <div class="container">
+  @endif
   @if ($message['overlay'])
   @include('partials.flashModal', [
     'modalClass' => 'flash-modal',
@@ -14,6 +16,8 @@
     </button>
   </div>
   @endif
-  @endforeach
-  {{ session()->forget('flash_notification') }}
-</div>
+  @if ($loop->last)
+  </div>
+  @endif
+@endforeach
+{{ session()->forget('flash_notification') }}

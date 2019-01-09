@@ -13,7 +13,7 @@
       <div class="card-deck">
         <div class="card text-white bg-info">
           <div class="card-header icon-card-body">
-            <div class="icon-card-icon"><i class="fa fa-key" aria-hidden="true"></i>
+            <div class="icon-card-icon"><i class="fas fa-key" aria-hidden="true"></i>
             </div>
             <div class="icon-card-content">
               <h3>Hackspace</h3>
@@ -29,7 +29,7 @@
 
         <div class="card text-white bg-warning">
           <div class="card-header icon-card-body">
-            <div class="icon-card-icon"><i class="fa fa-newspaper-o" aria-hidden="true"></i>
+            <div class="icon-card-icon"><i class="fal fa-newspaper" aria-hidden="true"></i>
             </div>
             <div class="icon-card-content">
               <h3>Notice</h3>
@@ -46,7 +46,7 @@
         @if($user->getProfile() !== Null)
         <div class="card text-white bg-dark">
           <div class="card-header icon-card-body">
-            <div class="icon-card-icon"><i class="fa fa-money" aria-hidden="true"></i>
+            <div class="icon-card-icon"><i class="far fa-money-bill" aria-hidden="true"></i>
             </div>
             <div class="icon-card-content">
               <h3>Balance</h3>
@@ -63,7 +63,7 @@
 
         <div class="card text-white bg-secondary">
           <div class="card-header icon-card-body">
-            <div class="icon-card-icon"><i class="fa fa-wrench" aria-hidden="true"></i>
+            <div class="icon-card-icon"><i class="fas fa-wrench" aria-hidden="true"></i>
             </div>
             <div class="icon-card-content">
               <h3>Active Projects</h3>

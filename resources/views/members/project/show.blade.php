@@ -35,14 +35,14 @@
 
   <div class="card border-light">
     @if ( ($project->getUser() == \Auth::user() && \Auth::user()->can('project.edit.self')) || ($project->getUser() != \Auth::user() && \Auth::user()->can('project.edit.all')) )
-    <a href="{{ route('projects.edit', $project->getId()) }}" class="btn btn-sm btn-primary btn-sm-spacing"><i class="fa fa-edit fg-la" aria-hidden="true"></i> Edit Project</a>
+    <a href="{{ route('projects.edit', $project->getId()) }}" class="btn btn-sm btn-primary btn-sm-spacing"><i class="fas fa-pencil fg-la" aria-hidden="true"></i> Edit Project</a>
     @endif
   </div>
 
   <div class="card border-light">
     @if ( ($project->getUser() == \Auth::user() && \Auth::user()->can('project.printLabel.self')) || ($project->getUser() != \Auth::user() && \Auth::user()->can('project.printLabel.all')) )
     @if (SiteVisitor::inTheSpace() && $project->getState() == \HMS\Entities\Members\ProjectState::ACTIVE)
-    <a href="{{ route('projects.print', $project->getId()) }}" class="btn btn-sm btn-primary btn-sm-spacing"><i class="fa fa-print fa-lg" aria-hidden="true"></i> Print Do-Not-Hack Label</a>
+    <a href="{{ route('projects.print', $project->getId()) }}" class="btn btn-sm btn-primary btn-sm-spacing"><i class="fas fa-print fa-lg" aria-hidden="true"></i> Print Do-Not-Hack Label</a>
     @endif
     @endif
   </div>
@@ -55,7 +55,7 @@
         {{ method_field('PATCH') }}
         {{ csrf_field() }}
       </form>
-      <i class="fa fa-check fa-lg" aria-hidden="true"></i> Mark Complete
+      <i class="fas fa-check fa-lg" aria-hidden="true"></i> Mark Complete
     </a>
     @elseif (\Auth::user()->can('project.edit.all'))
     <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-sm btn-primary btn-sm-spacing">
@@ -63,7 +63,7 @@
         {{ method_field('PATCH') }}
         {{ csrf_field() }}
       </form>
-      <i class="fa fa-frown-o fa-lg" aria-hidden="true"></i> Mark Abandoned
+      <i class="far fa-frown fa-lg" aria-hidden="true"></i> Mark Abandoned
     </a>
     @endif
     @endif
@@ -77,7 +77,7 @@
         {{ method_field('PATCH') }}
         {{ csrf_field() }}
       </form>
-      <i class="fa fa-play fa-lg" aria-hidden="true"></i> Resume Project
+      <i class="fal fa-play fa-lg" aria-hidden="true"></i> Resume Project
     </a>
     @endif
     @endif

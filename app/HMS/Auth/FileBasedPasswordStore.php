@@ -2,6 +2,7 @@
 
 namespace HMS\Auth;
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class FileBasedPasswordStore implements PasswordStore
@@ -33,7 +34,7 @@ class FileBasedPasswordStore implements PasswordStore
      */
     public function add($username, $password)
     {
-        $this->users[$username] = $password;
+        $this->users[$username] = Hash::make($password);
         $this->persistUsers();
     }
 
@@ -69,7 +70,7 @@ class FileBasedPasswordStore implements PasswordStore
      */
     public function setPassword($username, $password)
     {
-        $this->users[$username] = $password;
+        $this->users[$username] = Hash::make($password);
         $this->persistUsers();
     }
 
@@ -82,7 +83,7 @@ class FileBasedPasswordStore implements PasswordStore
      */
     public function checkPassword($username, $password)
     {
-        return $this->users[$username] == $password;
+        return Hash::check($password, $this->users[$username]);
     }
 
     private function persistUsers()

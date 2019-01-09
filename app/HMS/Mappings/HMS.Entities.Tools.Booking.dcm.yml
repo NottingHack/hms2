@@ -3,10 +3,6 @@ HMS\Entities\Tools\Booking:
   type: entity
   repositoryClass: HMS\Repositories\Tools\Doctrine\DoctrineBookingRepository
   table: bookings
-  gedmo:
-    soft_deleteable:
-      field_name: deletedAt
-      time_aware: false
   id:
     id:
       type: integer
@@ -22,9 +18,6 @@ HMS\Entities\Tools\Booking:
     type:
       type: string
       lenght: 20
-    deletedAt:
-      type: datetime
-      nullable: true
     createdAt:
       type: datetime
       gedmo:

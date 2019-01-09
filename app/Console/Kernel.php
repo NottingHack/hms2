@@ -33,6 +33,9 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('hms:members:youngHackerAudit')
                 ->dailyAt('06:00');
+
+        $schedule->command('auth:clear-resets')
+                ->weekly();
     }
 
     /**

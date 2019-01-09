@@ -26,6 +26,6 @@ I was unable to match a Bank account for the folllowing transactions.
 @endif
 
 
-Thank you,<br />
+Thank you,<br>
 HMS
 @endcomponent

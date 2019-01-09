@@ -13,7 +13,7 @@ Confirm issuing a new box
       {{ csrf_field() }}
       <input type="hidden" name="boxUser" value="{{ $boxUser->getId() }}">
     </form>
-    <i class="fa fa-check" aria-hidden="true"></i> Confirm issue box
+    <i class="fas fa-check" aria-hidden="true"></i> Confirm issue box
   </a>
 </div>
 @endsection

@@ -54,3 +54,10 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+// Setup jQuery ajax with the CSRF token
+$.ajaxSetup({
+   headers: {
+     'X-CSRF-Token': document.head.querySelector('meta[name="csrf-token"]').content,
+   }
+});

@@ -21,19 +21,19 @@
 
           <td>
             @can('labelTemplate.edit')
-            <a class="btn btn-primary btn-sm btn-sm-spacing" href="{{ route('labels.show', $labelTemplate->getTemplateName()) }}"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
-            <a class="btn btn-primary btn-sm btn-sm-spacing" href="{{ route('labels.edit', $labelTemplate->getTemplateName()) }}"><i class="fa fa-edit fa-lg" aria-hidden="true"></i> Edit</a>
+            <a class="btn btn-primary btn-sm btn-sm-spacing" href="{{ route('labels.show', $labelTemplate->getTemplateName()) }}"><i class="far fa-eye" aria-hidden="true"></i> View</a>
+            <a class="btn btn-primary btn-sm btn-sm-spacing" href="{{ route('labels.edit', $labelTemplate->getTemplateName()) }}"><i class="fas fa-pencil fa-lg" aria-hidden="true"></i> Edit</a>
             <a class="btn btn-danger btn-sm btn-sm-spacing" href="javascript:void(0);" onclick="$(this).find('form').submit();">
               <form action="{{ route('labels.destroy', $labelTemplate->getTemplateName()) }}" method="POST" style="display: inline">
                 {{ method_field('DELETE') }}
                 {{ csrf_field() }}
               </form>
-              <i class="fa fa-trash fa-lg" aria-hidden="true"></i> Remove
+              <i class="fas fa-trash fa-lg" aria-hidden="true"></i> Remove
             </a>
             @endcan
             @if (SiteVisitor::inTheSpace())
             @can('labelTemplate.print')
-            <a class="btn btn-primary btn-sm btn-sm-spacing" href="{{ route('labels.showPrint', $labelTemplate->getTemplateName()) }}"><i class="fa fa-print" aria-hidden="true"></i> Print</a>
+            <a class="btn btn-primary btn-sm btn-sm-spacing" href="{{ route('labels.showPrint', $labelTemplate->getTemplateName()) }}"><i class="fas fa-print" aria-hidden="true"></i> Print</a>
             @endcan
             @endif
           </td>
@@ -44,7 +44,7 @@
   </div>
   @can('labelTemplate.create')
   <div class="card">
-    <a class="btn btn-primary" href="{{ route('labels.create') }}" class="button"><i class="fa fa-plus" aria-hidden="true"></i> Add new template</a>
+    <a class="btn btn-primary" href="{{ route('labels.create') }}" class="button"><i class="fas fa-plus" aria-hidden="true"></i> Add new template</a>
   </div>
   @endcan
   <div classs="pagination-links">

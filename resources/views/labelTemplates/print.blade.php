@@ -40,7 +40,7 @@
         </div>
         <hr>
         <div class="card">
-          <button type="submit" class="btn btn-success"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
+          <button type="submit" class="btn btn-success"><i class="fas fa-print" aria-hidden="true"></i> Print</button>
         </div>
         @else
         <div class="row">

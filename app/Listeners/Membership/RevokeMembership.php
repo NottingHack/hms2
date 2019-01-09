@@ -68,7 +68,7 @@ class RevokeMembership implements ShouldQueue
 
         // remove all non retained roles (this will include MEMBER_CURRENT and MEMBER_YOUNG)
         foreach ($user->getRoles() as $role) {
-            if ( ! $role->getRetained) {
+            if ( ! $role->getRetained()) {
                 $this->roleManager->removeUserFromRole($user, $role);
             }
         }

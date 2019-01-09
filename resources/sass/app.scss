@@ -1,0 +1,434 @@
+@charset 'utf-8';
+
+@import url('https://fonts.googleapis.com/css?family=Oxygen');
+
+@import 'color-helpers';
+@import 'variables';
+@import '~bootstrap/scss/bootstrap';
+@import '~select2/dist/css/select2';
+@import '~select2-theme-bootstrap4/dist/select2-bootstrap';
+
+// Fontawesome
+@import '~@fortawesome/fontawesome-pro/scss/fontawesome';
+@import '~@fortawesome/fontawesome-pro/scss/regular';
+@import '~@fortawesome/fontawesome-pro/scss/solid';
+@import '~@fortawesome/fontawesome-pro/scss/light';
+@import '~@fortawesome/fontawesome-pro/scss/brands';
+
+/* HMS Custom CSS */
+
+/*
+ * Genral Links
+ */
+a {
+  color: $link-colour;
+}
+
+a:hover {
+  color: $link-hover-colour;
+}
+
+/*
+ * Definition Lists
+ */
+dl > dt {
+  @extend .h5;
+}
+
+/*
+ * Card component
+ */
+.card-container.card {
+  max-width: 350px;
+  padding: 40px 40px;
+}
+
+.card-body-padding {
+  background-color: #F7F7F7;
+  /* just in case there no content */
+  padding: 20px 25px 30px;
+  margin: 0 auto 25px;
+  margin-top: 50px;
+  /* shadows and rounded borders */
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.profile-img-card {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 10px;
+  display: block;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.profile-name-card {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  margin: 10px 0 0;
+  min-height: 1em;
+}
+
+// a custom card body which is designed to have an icon on the left in its own column
+// sized to match an h3 card title at the top of the rest of the card
+// .icon-card-body
+//   .icon-card-icon
+//     i.fa-icon
+//   .icon-card-content
+//     h3.card-title
+//     content elements
+.icon-card-body {
+  @extend .card-body;
+  @extend .d-flex;
+
+  .icon-card-icon {
+    @extend .h3;
+  }
+
+  .icon-card-content {
+    @extend .ml-3;
+
+    h3 {
+      @extend .card-title;
+    }
+  }
+}
+
+/*
+ * Form styles
+ */
+.reauth-email {
+  display: block;
+  color: #404040;
+  line-height: 2;
+  margin-bottom: 10px;
+  font-size: 14px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.form-signin #inputEmail,
+.form-signin #inputPassword {
+  direction: ltr;
+  height: 44px;
+  font-size: 16px;
+}
+
+.form-signin input[type=email],
+.form-signin input[type=password],
+.form-signin input[type=text],
+.form-signin button {
+  width: 100%;
+  display: block;
+  margin-bottom: 10px;
+  z-index: 1;
+  position: relative;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.form-signin .form-control:focus {
+  border-color: rgb(104, 145, 162);
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+}
+
+.btn.btn-signin {
+  background-color: rgb(104, 145, 162);
+  padding: 0px;
+  font-weight: 700;
+  font-size: 14px;
+  height: 36px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  border: none;
+  -o-transition: all 0.218s;
+  -moz-transition: all 0.218s;
+  -webkit-transition: all 0.218s;
+  transition: all 0.218s;
+}
+
+.btn.btn-signin:hover,
+.btn.btn-signin:active,
+.btn.btn-signin:focus {
+  background-color: rgb(12, 97, 33);
+}
+
+.forgot-password {
+  color: rgb(104, 145, 162);
+}
+
+.forgot-password:hover,
+.forgot-password:active,
+.forgot-password:focus{
+  color: rgb(12, 97, 33);
+}
+
+.btn-sm-spacing {
+  margin-bottom: 0.10rem;
+}
+
+/*
+ * Body
+ */
+body {
+  min-height: 100vh;
+  align-items: stretch !important;
+}
+
+/*
+ * Header
+ */
+header {
+  @extend .container-fluid;
+  box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.5);
+}
+
+.header {
+  @include make-row();
+  background-color: $header-background-colour;
+  color: $header-text-colour;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+
+  h1 {
+    text-shadow: $black 1px 1px 1px;
+
+    &.tiny-header {
+      font-weight: bold;
+      font-size: $h4-font-size;
+    }
+  }
+
+  h2 {
+    color: $hackspace-grey;
+    text-shadow: $black 2px 2px 2px;
+
+    &.big-header {
+      font-weight: bold;
+      font-size: $h1-font-size;
+    }
+  }
+
+  #logo-path {
+    fill: $hackspace-grey;
+  }
+
+  a {
+    color: $header-text-colour;
+  }
+}
+
+/*
+ * NavBar
+ * https://work.smarchal.com/twbscolor/4.0.0/scss/eeeeeee1e1e11959050000001
+ * with a few tweaks
+ */
+$bgDefault      : $hackspace-grey;
+$bgHighlight    : shade($bgDefault, 25%); //d6d6d6; // darker shade of hackspace-grey
+$bgHover        : tint($bgDefault, 50%); // #f3f3f3; // tint of hackspace-grey
+$bgActive       : tint($hackspace-green, 25%);
+$colDefault     : $hackspace-green;
+$colText        : $userbar-text-colour;
+$colHighlight   : $userbar-text-colour;
+$colTextActive  : white;
+
+$dropDown       : true;
+.navbar {
+  background-color: $bgDefault;
+  .navbar-brand {
+    color: $colDefault;
+    &:hover, &:focus {
+      color: $colHighlight; }}
+  .navbar-text {
+    color: $colText;
+    margin: 0 0.25em;
+    padding-left: 0.5rem;
+    a {
+      color: $colHighlight;
+      &:hover, &:focus {
+        color: $colHighlight; }}}
+  .navbar-nav {
+    .nav-link {
+      color: $colDefault;
+      border-radius: .25rem;
+      margin: 0 0.25em;
+      padding-left: 0.5rem;
+      &:not(.disabled) {
+        &:hover, &:focus {
+          color: $colHighlight; background-color: $bgHover;}}}
+    @if ($dropDown) {
+      .dropdown-menu {
+        background-color: $bgDefault;
+        border-color: $bgHighlight;
+        .dropdown-item {
+          color: $colDefault;
+          &:hover, &:focus, {
+            color: $colHighlight;
+            background-color: $bgHover;}
+          &.active {
+            color: $colTextActive;
+            background-color: $bgActive; }}
+        .dropdown-divider {
+          border-top-color: $bgHighlight; }}}
+    .nav-item.active, .nav-item.show {
+      .nav-link, .nav-link:hover, .nav-link:focus {
+        color: $colTextActive;
+        background-color: $bgActive; }}}
+  .navbar-toggler {
+    &:hover, &:focus {
+      background-color: $bgHover; }
+    .navbar-toggler-icon {
+      width: auto;
+      height: auto;
+      color: $colDefault; }}
+  .navbar-collapse,
+  .navbar-form {
+    border-color: $colDefault; }
+  .navbar-link {
+    color: $colDefault;
+    &:hover {
+      color: $colHighlight; }}}
+@media (max-width: 575px) {
+  .navbar-expend-sm .navbar-nav .show .dropdown-menu {
+    .dropdown-item {
+      color: $colDefault;
+      &:hover, &:focus {
+        color: $colHighlight; }}
+    .dropdown-item.active {
+      color: $colHighlight;
+      background-color: $bgActive; }}}
+@media (max-width: 767px) {
+  .navbar-expend-md .navbar-nav .show {
+    .dropdown-menu {
+      .dropdown-item {
+        color: $colDefault;
+        &:hover, &:focus {
+          color: $colHighlight; }}
+      .dropdown-item.active {
+        color: $colTextActive;
+        background-color: $bgActive; }}}
+  }
+@media (max-width: 991px) {
+  .navbar-expend-lg .navbar-nav .show .dropdown-menu {
+    .dropdown-item {
+      color: $colDefault;
+      &:hover, &:focus {
+        color: $colHighlight; }}
+    .dropdown-item.active {
+      color: $colTextActive;
+      background-color: $bgActive; }}}
+@media (max-width: 1199px) {
+  .navbar-expend-xl .navbar-nav .show .dropdown-menu {
+    .dropdown-item {
+      color: $colDefault;
+      &:hover, &:focus {
+        color: $colHighlight; }}
+    .dropdown-item.active {
+      color: $colTextActive;
+      background-color: $bgActive; }}}
+.navbar-expend .navbar-nav .show .dropdown-menu {
+  .dropdown-item {
+    color: $colDefault;
+    &:hover, &:focus {
+      color: $colHighlight; }}
+  .dropdown-item.active {
+    color: $colTextActive;
+    background-color: $bgActive; }}
+
+/*
+ * Footer
+ */
+footer {
+  @extend .container-fluid;
+  background-color: $footer-background-colour;
+  color: $footer-text-colour;
+  font-size: 0.8rem;
+}
+
+.footer {
+  @include make-row();
+  text-align: center;
+
+  ul{
+    list-style-type: none;
+    padding-left: 0;
+    line-height: 1.7;
+  }
+
+  h5 {
+    font-size: 18px;
+    color: $footer-text-colour;
+    font-weight: bold;
+    margin-top: 30px;
+  }
+
+  a {
+    color: $footer-link-colour;
+    text-decoration: none;
+  }
+
+  a:hover, a:focus{
+    color: $footer-link-hover-colour;
+    text-decoration: none;
+  }
+}
+
+.social-networks{
+  text-align: center;
+  padding-bottom: 10px;
+
+  a {
+    font-size: 32px;
+    margin-right: 5px;
+    margin-left: 5px;
+    color: $social-networks-colour;
+    padding: 10px;
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+}
+
+/*
+ * Member search result styles
+ */
+.membersearch {
+  .name {
+    .fullname {
+      font-weight: bold;
+    }
+
+    .username {
+      font-style: italic;
+
+      &::before {
+        content: '(';
+      }
+
+      &::after {
+        content: ')';
+      }
+    }
+  }
+
+  .email, .address, .paymentref {
+    font-size: 0.8rem;
+  }
+}

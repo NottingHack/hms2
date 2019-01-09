@@ -8,7 +8,7 @@
     <div class="col-sm">
       <div class="card">
         <div class="card-header icon-card-body">
-          <div class="icon-card-icon"><i class="fa fa-key" aria-hidden="true"></i></div>
+          <div class="icon-card-icon"><i class="fas fa-key" aria-hidden="true"></i></div>
           <div class="icon-card-content">
             <h3>Door Codes</h3>
           </div>
@@ -28,7 +28,7 @@
     <div class="col-sm">
       <div class="card">
         <div class="card-header icon-card-body">
-          <div class="icon-card-icon"><i class="fa fa-wifi" aria-hidden="true"></i></div>
+          <div class="icon-card-icon"><i class="fas fa-wifi" aria-hidden="true"></i></div>
           <div class="icon-card-content">
             <h3>Member&apos;s WiFi</h3>
           </div>
@@ -48,7 +48,7 @@
     <div class="col-sm">
       <div class="card">
         <div class="card-header icon-card-body">
-          <div class="icon-card-icon"><i class="fa fa-wifi" aria-hidden="true"></i></div>
+          <div class="icon-card-icon"><i class="fas fa-wifi" aria-hidden="true"></i></div>
           <div class="icon-card-content">
             <h3>Guest WiFi</h3>
           </div>

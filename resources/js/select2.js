@@ -1,40 +1,18 @@
-
 /**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
+ * File to hold all our select2 related JavaScript
  */
 
-require('./bootstrap');
-
-// This file is for global JavaScript which is to be present on every page.
-// It is compiled by Webpack, so can freely contain ES2015 code.
-
-// Negative money values should be red
-$(".money:contains('-')").css("color", "red");
-
-// Setup jQuery ajax with the CSRF token
-$.ajaxSetup({
-   headers: {
-     'X-CSRF-Token': document.head.querySelector('meta[name="csrf-token"]').content,
-   }
-});
+window.select2 = require('select2')
 
 // default all select2 instances to use the bootstrap theme
 $.fn.select2.defaults.set( "theme", "bootstrap" );
 
-// views/membership/showDetails.blade.php
-$(".js-programmatic-enable").on("click", function () {
-  $(".js-data-existing-account-ajax").prop("disabled", false);
-});
- 
-$(".js-programmatic-disable").on("click", function () {
-  $(".js-data-existing-account-ajax").prop("disabled", true);
-});
-
 // views/role/edit.blade.php
 $(".js-permission-select").select2({
-  width: 'element'
+});
+
+// views/gateKeeper/rfidTags/edit.blade.php
+$(".select2-basic-single").select2({
 });
 
 // views/partials/memberSearch.blade.php
@@ -47,7 +25,6 @@ $(".js-data-member-search-ajax").change(function(){
 });
 
 $(".js-data-member-search-ajax").select2({
-  width: 'element',
   placeholder: "Search for a member...",
   ajax: {
     url: '/api/search/users',
@@ -141,15 +118,3 @@ function formatUser (user) {
 function formatUserSelection (user) {
   return user.text;
 }
-
-// Workaround to reformat submitted date's into ISO if there in UK format
-$("#user-edit-form,#membership-edit-details-form,#register-form").submit(function() {
-  var date = $("input[type='date']");
-  if (date.val().includes('/')) {
-    date.val(date.val().split('/').reverse().join('-'));
-  }
-});
-
-// views/gateKeeper/rfidTags/edit.blade.php
-$(".select2-basic-single").select2({
-});

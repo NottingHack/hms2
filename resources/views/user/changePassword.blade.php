@@ -18,7 +18,7 @@
         @if ($errors->has('currentPassword'))
         <span class="help-block">
           <strong>{{ $errors->first('currentPassword') }}</strong>
-        </span><br/>
+        </span><br>
         @endif
 
         <hr>
@@ -28,7 +28,7 @@
         @if ($errors->has('password'))
         <span class="help-block">
           <strong>{{ $errors->first('password') }}</strong>
-        </span><br/>
+        </span><br>
         @endif
 
         <label for="Password2" class="form-label">Confirm New Password</label>
@@ -36,7 +36,7 @@
         @if ($errors->has('password_confirmation'))
         <span class="help-block">
           <strong>{{ $errors->first('password_confirmation') }}</strong>
-        </span><br/>
+        </span><br>
         @endif
 
       <div class="card-footer">

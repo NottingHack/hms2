@@ -35,7 +35,7 @@ Rfid card for {{ $rfidTag->getUser()->getFirstname() }}
 
     <div class="form-group">
       <label for="state" class="form-label">State</label>
-      <select id="state" name="state" class="select2-basic-single" style="width: 100%"  required>
+      <select id="state" name="state" class="select2-basic-single" style="width: 100%" required>
         @foreach (\HMS\Entities\GateKeeper\RfidTagState::STATE_STRINGS as $value => $string)
         <option value="{{ $value }}" {{ old('state', $rfidTag->getState()) == $value ? 'selected' : '' }}>{{ $string }}</option>
         @endforeach

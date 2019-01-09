@@ -12,14 +12,15 @@ const mix = require('laravel-mix');
  */
 
 mix.webpackConfig({
-        devtool: 'source-map'
+        devtool: 'source-map',
+        resolve: {
+            alias: {
+                'sass': path.resolve(__dirname, 'resources/sass')
+            }
+        }
     })
-   .autoload({
-        jquery: ['jQuery', '$', 'window.jQuery'],
-        'popper.js/dist/umd/popper.js': ['Popper']
-    })
-   .js('resources/assets/js/app.js', 'public/js')
-   .extract(['lodash', 'jquery', 'axios', 'select2', 'bootstrap', 'popper.js'])
-   .sass('resources/assets/sass/app.scss', 'public/css')
+   .js('resources/js/app.js', 'public/js')
+   .extract()
+   .sass('resources/sass/app.scss', 'public/css')
    .version()
-   .browserSync('hmsdev');
+   .sourceMaps();

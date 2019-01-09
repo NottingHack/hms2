@@ -20,7 +20,7 @@
           <td>{{ $meta->getValue() }}</td>
           <td>
             @can('meta.edit')
-            <a class="btn btn-primary btn-sm" href="{{ route('metas.edit', $meta->getKey()) }}">Edit</a>
+            <a class="btn btn-primary btn-sm" href="{{ route('metas.edit', $meta->getKey()) }}"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
             @endcan
           </td>
         </tr>

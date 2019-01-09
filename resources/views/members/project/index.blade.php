@@ -8,7 +8,7 @@ Projects for {{ $user->getFirstname() }}
 @can('project.create.self')
 <div class="container">
   <div class="card">
-    <a href="{{ route('projects.create') }}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Add new project</a>
+    <a href="{{ route('projects.create') }}" class="btn btn-primary"><i class="fas fa-plus" aria-hidden="true"></i> Add new project</a>
   </div>
 </div>
 @endcan
@@ -37,11 +37,11 @@ Projects for {{ $user->getFirstname() }}
           <td>{{ $project->getStateString() }}</td>
           <td>
             @can('project.view.self')
-            <a href="{{ route('projects.show', $project->getId()) }}" class="btn btn-primary btn-sm btn-sm-spacing"><i class="fa fa-eye" aria-hidden="true"></i> View Project</a><br>
+            <a href="{{ route('projects.show', $project->getId()) }}" class="btn btn-primary btn-sm btn-sm-spacing"><i class="far fa-eye" aria-hidden="true"></i> View Project</a><br>
             @endcan
             @can('project.printLabel.self')
             @if (SiteVisitor::inTheSpace() && $project->getState() == \HMS\Entities\Members\ProjectState::ACTIVE)
-            <a href="{{ route('projects.print', $project->getId()) }}" class="btn btn-primary btn-sm btn-sm-spacing"><i class="fa fa-print" aria-hidden="true"></i> Print Do-Not-Hack Label</a><br>
+            <a href="{{ route('projects.print', $project->getId()) }}" class="btn btn-primary btn-sm btn-sm-spacing"><i class="fas fa-print" aria-hidden="true"></i> Print Do-Not-Hack Label</a><br>
             @endif
             @endcan
             @can('project.edit.self')
@@ -52,7 +52,7 @@ Projects for {{ $user->getFirstname() }}
                 {{ method_field('PATCH') }}
                 {{ csrf_field() }}
               </form>
-              <i class="fa fa-check" aria-hidden="true"></i> Mark Complete
+              <i class="fas fa-check" aria-hidden="true"></i> Mark Complete
             </a>
             @else
             <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm btn-sm-spacing">
@@ -60,7 +60,7 @@ Projects for {{ $user->getFirstname() }}
                 {{ method_field('PATCH') }}
                 {{ csrf_field() }}
               </form>
-              <i class="fa fa-frown-o" aria-hidden="true"></i> Mark Abandoned
+              <i class="far fa-frown" aria-hidden="true"></i> Mark Abandoned
             </a><br>
             @endif
             @endif
@@ -70,7 +70,7 @@ Projects for {{ $user->getFirstname() }}
                 {{ method_field('PATCH') }}
                 {{ csrf_field() }}
               </form>
-              <i class="fa fa-play" aria-hidden="true"></i> Resume Project
+              <i class="fal fa-play" aria-hidden="true"></i> Resume Project
             </a>
             @endif
             @endcan

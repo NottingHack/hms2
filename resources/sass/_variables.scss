@@ -1,0 +1,30 @@
+// HMS colours
+$hackspace-green: #195905;
+$hackspace-grey: #eeeeee;
+$footer-background-colour: gray;
+$footer-text-colour: white;
+$footer-link-colour: #d2d1d1;
+$footer-link-hover-colour: white;
+$social-networks-colour: $footer-text-colour;
+$header-background-colour: $hackspace-green;
+$header-text-colour: $hackspace-grey;
+$userbar-background-colour: $hackspace-grey;
+$userbar-text-colour: #000;
+$link-colour: $hackspace-green;
+$link-hover-colour: #000;
+$tool-booking-normal: $hackspace-green;
+$tool-booking-induction: red;
+$tool-booking-maintenance: black;
+
+// Override theme colours
+$primary: $hackspace-green;
+
+$theme-colors: (
+    "hackspace-grey": $hackspace-grey,
+    "booking-normal": $tool-booking-normal,
+    "booking-induction": $tool-booking-induction,
+    "booking-maintenance": $tool-booking-maintenance,
+);
+
+// Override font family Oxygen + $font-family-sans-serif
+$font-family-base: 'Oxygen', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" ;

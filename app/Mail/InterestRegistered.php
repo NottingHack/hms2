@@ -52,8 +52,8 @@ class InterestRegistered extends Mailable implements ShouldQueue
         $this->token = $invite->getInviteToken();
         $this->membershipEmail = $roleRepository->findOneByName(Role::TEAM_MEMBERSHIP)->getEmail();
         $this->trusteesEmail = $roleRepository->findOneByName(Role::TEAM_TRUSTEES)->getEmail();
-        $this->groupLink = $metaRepository->get('link_Google Group');
-        $this->rulesLink = $metaRepository->get('link_Hackspace Rules');
+        $this->groupLink = $metaRepository->get('google_group_html');
+        $this->rulesLink = $metaRepository->get('rules_html');
     }
 
     /**

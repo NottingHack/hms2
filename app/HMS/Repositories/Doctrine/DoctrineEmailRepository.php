@@ -14,9 +14,9 @@ class DoctrineEmailRepository extends EntityRepository implements EmailRepositor
      * @param  $id
      * @return null|Email
      */
-    public function find($id)
+    public function findOneById($id)
     {
-        return parent::find($id);
+        return parent::findOneById($id);
     }
 
     /**

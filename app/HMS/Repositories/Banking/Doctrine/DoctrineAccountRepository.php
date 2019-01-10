@@ -12,9 +12,9 @@ class DoctrineAccountRepository extends EntityRepository implements AccountRepos
      * @param  $id
      * @return null|Account
      */
-    public function find($id)
+    public function findOneById($id)
     {
-        return parent::find($id);
+        return parent::findOneById($id);
     }
 
     /**

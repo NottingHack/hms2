@@ -10,7 +10,7 @@ interface AccountRepository
      * @param  $id
      * @return null|Account
      */
-    public function find($id);
+    public function findOneById($id);
 
     /**
      * @return Account[]

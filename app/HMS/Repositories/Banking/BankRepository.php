@@ -10,7 +10,7 @@ interface BankRepository
      * @param  $id
      * @return null|Bank
      */
-    public function find($id);
+    public function findOneById($id);
 
     /**
      * @param  string $accountNumber

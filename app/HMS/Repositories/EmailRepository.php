@@ -12,7 +12,7 @@ interface EmailRepository
      * @param  $id
      * @return null|Email
      */
-    public function find($id);
+    public function findOneById($id);
 
     /**
      * @param  Role $role

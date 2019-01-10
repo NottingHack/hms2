@@ -58,7 +58,7 @@ class RevokeMembership implements ShouldQueue
     public function handle(NonPaymentOfMembership $event)
     {
         // get a fresh copy of the user
-        $user = $this->userRepository->find($event->user->getId());
+        $user = $this->userRepository->findOneById($event->user->getId());
 
         if ( ! $user->hasRoleByName([Role::MEMBER_CURRENT, Role::MEMBER_YOUNG])) {
             // should not be here

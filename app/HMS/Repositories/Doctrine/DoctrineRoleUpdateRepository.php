@@ -12,11 +12,11 @@ class DoctrineRoleUpdateRepository extends EntityRepository implements RoleUpdat
 {
     /**
      * @param  $id
-     * @return null|Role
+     * @return null|RoleUpdate
      */
-    public function find($id)
+    public function findOneById($id)
     {
-        return parent::find($id);
+        return parent::findOneById($id);
     }
 
     /**

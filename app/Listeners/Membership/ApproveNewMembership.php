@@ -75,7 +75,7 @@ class ApproveNewMembership implements ShouldQueue
     public function handle(NewMembershipPaidFor $event)
     {
         // get a fresh copy of the user
-        $user = $this->userRepository->find($event->user->getId());
+        $user = $this->userRepository->findOneById($event->user->getId());
 
         // update roles
         if ( ! $user->hasRoleByName(Role::MEMBER_PAYMENT)) {

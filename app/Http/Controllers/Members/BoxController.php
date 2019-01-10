@@ -109,7 +109,7 @@ class BoxController extends Controller
     public function index(Request $request)
     {
         if ($request->user) {
-            $user = $this->userRepository->find($request->user);
+            $user = $this->userRepository->findOneById($request->user);
             if (is_null($user)) {
                 throw EntityNotFoundException::fromClassNameAndIdentifier(User::class, ['id' => $request->user]);
             }
@@ -222,7 +222,7 @@ class BoxController extends Controller
         ]);
 
         if ($request->boxUser) {
-            $user = $this->userRepository->find($request->boxUser);
+            $user = $this->userRepository->findOneById($request->boxUser);
             if (is_null($user)) {
                 throw EntityNotFoundException::fromClassNameAndIdentifier(User::class, ['id' => $request->boxUser]);
             }

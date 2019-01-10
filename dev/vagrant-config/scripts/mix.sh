@@ -14,13 +14,13 @@ echo "export FONTAWESOME_TOKEN=$FONTAWESOME_TOKEN" >> ~/.bashrc
 # move to the share folder and use yarn to install deps
 mkdir ~/hms2/
 cp /vagrant/package.json ~/hms2/
-cp /vagrant/yarn.lock ~/hms2/
+cp /vagrant/package-lock.json ~/hms2/
 cp /vagrant/.npmrc ~/hms2/
 cd ~/hms2/
-yarn
+npm install > /dev/null 2>&1
 rm -rf /vagrant/node_modules
 cp -R node_modules /vagrant/
 
 # run Laravel Mix once
 cd /vagrant
-yarn run dev
+npm run dev

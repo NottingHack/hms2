@@ -80,6 +80,9 @@
             center: 'today',
             right:  'next',
           },
+          buttonText: {
+            today:  'Today',
+          },
           views: {
             agenda: {
               // options apply to agendaWeek and agendaDay views

@@ -164,7 +164,7 @@ class ViMbAdminSubscriber implements ShouldQueue
     public function onUserEmailChanged(UserEmailChanged $event)
     {
         // get a fresh copy of the user as the roles object will not be hydrated
-        $user = $this->userRepository->find($event->user->getId());
+        $user = $this->userRepository->findOneById($event->user->getId());
 
         $roles = $user->getRoles();
 

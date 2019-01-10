@@ -65,7 +65,7 @@ class WarnMembershipMayExpire implements ShouldQueue
     public function handle(MembershipPaymentWarning $event)
     {
         // get a fresh copy of the user
-        $user = $this->userRepository->find($event->user->getId());
+        $user = $this->userRepository->findOneById($event->user->getId());
 
         $membershipStatusNotification = $this->membershipStatusNotificationFactory->create($user, $user->getAccount());
         $this->membershipStatusNotificationRepository->save($membershipStatusNotification);

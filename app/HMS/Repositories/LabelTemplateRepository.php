@@ -11,7 +11,7 @@ interface LabelTemplateRepository
      * @param  mixed $template_name
      * @return object|null The entity instance or NULL if the entity can not be found.
      */
-    public function find($template_name);
+    public function findByTemplateName($template_name);
 
     /**
      * save temple to the DB.

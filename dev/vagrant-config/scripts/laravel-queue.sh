@@ -9,7 +9,7 @@ echo " "
 cat >> /etc/supervisor/conf.d/laravel-worker.conf << EOF
 [program:laravel-worker]
 process_name=%(program_name)s_%(process_num)02d
-command=php /vagrant/artisan doctrine:queue:work beanstalkd --daemon --sleep=3 --tries=3
+command=php /vagrant/artisan doctrine:queue:work redis --daemon --sleep=3 --tries=3
 autostart=true
 autorestart=true
 user=vagrant

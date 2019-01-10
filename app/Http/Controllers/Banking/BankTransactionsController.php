@@ -52,7 +52,7 @@ class BankTransactionsController extends Controller
     public function index(Request $request)
     {
         if ($request->user) {
-            $user = $this->userRepository->find($request->user);
+            $user = $this->userRepository->findOneById($request->user);
             if (is_null($user)) {
                 throw EntityNotFoundException::fromClassNameAndIdentifier(User::class, ['id' => $request->user]);
             }
@@ -98,7 +98,7 @@ class BankTransactionsController extends Controller
      */
     public function update(Request $request, BankTransaction $bankTransaction)
     {
-        $account = $this->accountRepository->find($request['existing-account']);
+        $account = $this->accountRepository->findOneById($request['existing-account']);
         $bankTransaction->setAccount($account);
         $this->bankTransactionRepository->save($bankTransaction);
 

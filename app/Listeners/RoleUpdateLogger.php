@@ -61,8 +61,8 @@ class RoleUpdateLogger implements ShouldQueue
             return;
         }
 
-        $user = $this->userRepository->find($event->user->getId());
-        $role = $this->roleRepository->find($event->role->getId());
+        $user = $this->userRepository->findOneById($event->user->getId());
+        $role = $this->roleRepository->findOneById($event->role->getId());
         $roleUpdate = new RoleUpdate($user, $role);
         $this->roleUpdateRepository->save($roleUpdate);
     }
@@ -74,8 +74,8 @@ class RoleUpdateLogger implements ShouldQueue
      */
     public function onUserRemovedFromRole(UserRemovedFromRole $event)
     {
-        $user = $this->userRepository->find($event->user->getId());
-        $role = $this->roleRepository->find($event->role->getId());
+        $user = $this->userRepository->findOneById($event->user->getId());
+        $role = $this->roleRepository->findOneById($event->role->getId());
         $roleUpdate = new RoleUpdate($user, null, $role);
         $this->roleUpdateRepository->save($roleUpdate);
     }

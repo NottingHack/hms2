@@ -90,7 +90,7 @@ class PrintLabelSubscriber implements ShouldQueue
      */
     private function printLabel($templateName, $substitutions = [])
     {
-        $template = $this->labelTemplateRepository->findByTemplateName($templateName);
+        $template = $this->labelTemplateRepository->findOneByTemplateName($templateName);
         if ($template == null) {
             return false;
         }

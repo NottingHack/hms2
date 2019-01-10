@@ -4,6 +4,8 @@ echo " "
 echo "LARAVEL"
 echo " "
 
+sudo apt-get install -y unzip > /dev/null 2>&1
+
 # sort out Laravel environment
 
 cp /vagrant/dev/vagrant-config/laravel/.env /vagrant/.env

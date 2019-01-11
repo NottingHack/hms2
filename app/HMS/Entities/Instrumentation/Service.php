@@ -7,7 +7,7 @@ use Carbon\Carbon;
 class Service
 {
     /**
-     * Primary key
+     * Primary key.
      * @var string
      */
     protected $name;

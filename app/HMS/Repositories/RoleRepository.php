@@ -8,6 +8,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 interface RoleRepository
 {
     /**
+     * @param  $id
+     * @return Role|null
+     */
+    public function findOneById($id);
+
+    /**
      * Finds all entities in the repository.
      *
      * @return ArrayCollection The entities.

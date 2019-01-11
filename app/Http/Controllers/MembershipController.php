@@ -137,7 +137,7 @@ class MembershipController extends Controller
         if ($request['new-account']) {
             $account = $this->accountFactory->createNewAccount();
         } else {
-            $account = $this->accountRepository->find($request['existing-account']);
+            $account = $this->accountRepository->findOneById($request['existing-account']);
         }
 
         $user->setAccount($account);

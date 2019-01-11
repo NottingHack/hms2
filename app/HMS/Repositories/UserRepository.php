@@ -11,7 +11,7 @@ interface UserRepository
      * @param  $id
      * @return null|User
      */
-    public function find($id);
+    public function findOneById($id);
 
     /**
      * @param  string $username

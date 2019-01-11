@@ -12,9 +12,9 @@ class DoctrineBankRepository extends EntityRepository implements BankRepository
      * @param  $id
      * @return null|Bank
      */
-    public function find($id)
+    public function findOneById($id)
     {
-        return parent::find($id);
+        return parent::findOneById($id);
     }
 
     /**

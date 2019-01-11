@@ -13,5 +13,15 @@ EOF
 
 chown vagrant:vagrant /home/vagrant/labelprinter.sh
 chmod +x /home/vagrant/labelprinter.sh
-sed -i -e 's/^exit 0/\/home\/vagrant\/labelprinter.sh \&\n\nexit 0/' /etc/rc.local
+
+cat <<\EOF > /etc/rc.local
+#!/bin/sh -e
+
+/home/vagrant/labelprinter.sh
+
+exit 0
+EOF
+
+chmod +x /etc/rc.local
+
 /home/vagrant/labelprinter.sh &

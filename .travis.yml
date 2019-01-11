@@ -12,7 +12,7 @@ cache:
     - $HOME/.composer/cache
 
 addons:
-  mariadb: '10.1'
+  mariadb: '10.2'
 
 services:
   - memcached

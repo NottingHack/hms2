@@ -1,0 +1,24 @@
+# HMS.Entities.Instrumentation.Event.dcm.yml
+HMS\Entities\Instrumentation\Event:
+  type: entity
+  repositoryClass: HMS\Repositories\Instrumentation\Doctrine\DoctrineEventRepository
+  table: events
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    time:
+      column: "`time`"
+      type: datetime
+      options:
+        default: CURRENT_TIMESTAMP
+    type:
+      type: string
+      length: 25
+    value:
+      type: string
+      nullable: true

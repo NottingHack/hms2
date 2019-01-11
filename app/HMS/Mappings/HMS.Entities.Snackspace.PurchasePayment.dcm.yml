@@ -1,0 +1,25 @@
+# HMS.Entities.Snackspace.PurchasePayment.dcm.yml
+HMS\Entities\Snackspace\PurchasePayment:
+  type: entity
+  repositoryClass: HMS\Repositories\Snackspace\Doctrine\DoctrinePurchasePaymentRepository
+  table: purchase_payment
+  id:
+    purchase:
+      associationKey: true
+    payment:
+      associationKey: true
+  fields:
+    amount:
+      type: integer
+      nullable: true
+  manyToOne:
+      purchase:
+        targetEntity: HMS\Entities\Snackspace\Transaction
+        joinColumn:
+          name: transaction_id_purchase
+          referencedColumnName: id
+      payment:
+        targetEntity: HMS\Entities\Snackspace\Transaction
+        joinColumn:
+          name: transaction_id_payment
+          referencedColumnName: id

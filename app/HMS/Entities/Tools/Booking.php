@@ -99,6 +99,14 @@ class Booking
     }
 
     /**
+     * @return string
+     */
+    public function getTypeString()
+    {
+        return BookingType::TYPE_STRINGS[$this->type];
+    }
+
+    /**
      * @param string $type
      *
      * @return self

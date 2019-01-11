@@ -50,7 +50,6 @@ class Version20190111052902_switch_to_utf8mb4 extends AbstractMigration
         foreach ($this->tables as $tbl_name) {
             $this->addSql("ALTER TABLE $tbl_name DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
             $this->addSql("ALTER TABLE $tbl_name CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
-
         }
     }
 

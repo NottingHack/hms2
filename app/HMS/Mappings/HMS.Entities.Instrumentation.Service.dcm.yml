@@ -1,0 +1,33 @@
+# HMS.Entities.Instrumentation.Service.dcm.yml
+HMS\Entities\Instrumentation\Service:
+  type: entity
+  repositoryClass: HMS\Repositories\Instrumentation\Doctrine\DoctrineServiceRepository
+  table: service_status
+  id:
+    name:
+      type: string
+      column: service_name
+      length: 100
+      unique: true
+      generator:
+        strategy: NONE
+  fields:
+    status:
+      type: integer
+    statusString:
+      column: status_str
+      type: string
+      nullable: true
+    queryTime:
+      type: datetime
+      options:
+        default: CURRENT_TIMESTAMP
+    replyTime:
+      type: datetime
+      nullable: true
+    restartTime:
+      type: datetime
+      nullable: true
+    description:
+      type: text
+      nullable: true

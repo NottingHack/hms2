@@ -1,0 +1,24 @@
+# HMS.Entities.Instrumentation.Temperature.dcm.yml
+HMS\Entities\Instrumentation\Temperature:
+  type: entity
+  repositoryClass: HMS\Repositories\Instrumentation\Doctrine\DoctrineTemperatureRepository
+  table: temperature
+  id:
+    dallasAddress:
+      type: string
+      length: 16
+      generator:
+        strategy: NONE
+  fields:
+    name:
+      type: string
+      length: 100
+      nullable: true
+    temperature:
+      type: float
+      nullable: true
+    time:
+      type: datetime
+      column: "`time`"
+      options:
+        default: CURRENT_TIMESTAMP

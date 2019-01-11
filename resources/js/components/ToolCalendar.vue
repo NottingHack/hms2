@@ -308,8 +308,7 @@
 
               this.removeConfirmation();
               this.calendar.unselect();
-              // this.calendar.addEvent(booking, 'bookings'); // this is broken until the next release
-              this.calendar.refetchEvents(); // using this until the above is fixed
+              this.calendar.addEvent(booking, 'bookings');
               flash('Booking created');
             } else {
               flash('Error creating booking', 'danger');

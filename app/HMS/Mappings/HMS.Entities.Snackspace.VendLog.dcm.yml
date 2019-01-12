@@ -1,0 +1,50 @@
+# HMS.Entities.Snackspace.VendLog.dcm.yml
+HMS\Entities\Snackspace\VendLog:
+  type: entity
+  repositoryClass: HMS\Repositories\Snackspace\Doctrine\DoctrineVendLogRepository
+  table: vend_logs
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    rfidSerial:
+      type: string
+      length: 50
+      nullable: true
+    enqueuedTime:
+      type: datetime
+      nullable: true
+    requestTime:
+      type: datetime
+      nullable: true
+    successTime:
+      type: datetime
+      nullable: true
+    cancelledTime:
+      type: datetime
+      nullable: true
+    failedTime:
+      type: datetime
+      nullable: true
+    amountScaled:
+      type: integer
+      nullable: true
+    position:
+      type: string
+      length: 10
+      nullable: true
+    deniedReason:
+      type: string
+      length: 100
+      nullable: true
+  manyToOne:
+    vendingMachine:
+      targetEntity: \HMS\Entities\Snackspace\VendingMachine
+    user:
+      targetEntity: \HMS\Entities\User
+    transaction:
+      targetEntity: \HMS\Entities\Snackspace\Transaction

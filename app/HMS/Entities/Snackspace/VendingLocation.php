@@ -25,9 +25,9 @@ class VendingLocation
     protected $name;
 
     /**
-     * @var Product
+     * @var Products[]
      */
-    protected $product;
+    protected $products;
 
     /**
      * Gets the value of id.

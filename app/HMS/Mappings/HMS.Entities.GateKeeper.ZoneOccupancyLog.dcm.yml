@@ -1,0 +1,24 @@
+# HMS.Entities.GateKeeper.ZoneOccupancyLog.dcm.yml
+HMS\Entities\GateKeeper\ZoneOccupancyLog:
+  type: entity
+  repositoryClass: HMS\Repositories\GateKeeper\Doctrine\DoctrineZoneOccupancyLogRepository
+  table: zone_occupancy_logs
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    timeExited:
+      type: datetime
+      nullable: true
+    timeEntered:
+      type: datetime
+      nullable: true
+  manyToOne:
+    zone:
+      targetEntity: \HMS\Entities\GateKeeper\Zone
+    user:
+      targetEntity: \HMS\Entities\User

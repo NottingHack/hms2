@@ -21,3 +21,10 @@ HMS\Entities\GateKeeper\Zone:
       type: string
       length: 16
       nullable: true
+  oneToMany:
+    zoneOccupancts:
+      targetEntity: \HMS\Entities\GateKeeper\ZoneOccupant
+      mappedBy: zone
+    zoneOccupancyLogs:
+      targetEntity: \HMS\Entities\GateKeeper\ZoneOccupancyLog
+      mappedBy: zone

@@ -82,13 +82,13 @@ class Version20190111021836_populate_bells_and_door_bell extends AbstractMigrati
 
         foreach ($this->bells as list($id, $description, $topic, $message, $enabled)) {
             $this->addSql(
-                "DELETE FROM bells WHERE id in ($id)"
+                "DELETE FROM bells WHERE id = $id"
             );
         }
 
         foreach ($this->doors as list($id, $description, $short_name, $state, $side_a_zone_id, $side_b_zone_id)) {
             $this->addSql(
-                "DELETE FROM doors WHERE id in ($id)"
+                "DELETE FROM doors WHERE id = $id"
             );
         }
 

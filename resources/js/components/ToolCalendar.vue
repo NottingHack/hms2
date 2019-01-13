@@ -80,6 +80,9 @@
             center: 'today',
             right:  'next',
           },
+          buttonText: {
+            today:  'Today',
+          },
           views: {
             agenda: {
               // options apply to agendaWeek and agendaDay views
@@ -305,8 +308,7 @@
 
               this.removeConfirmation();
               this.calendar.unselect();
-              // this.calendar.addEvent(booking, 'bookings'); // this is broken until the next release
-              this.calendar.refetchEvents(); // using this until the above is fixed
+              this.calendar.addEvent(booking, 'bookings');
               flash('Booking created');
             } else {
               flash('Error creating booking', 'danger');
@@ -321,8 +323,10 @@
             if (error.response) {
               // if HTTP_UNPROCESSABLE_ENTITY some validation error laravel or us
               // else if HTTP_CONFLICT to many bookings or over lap
+              this.calendar.refetchEvents();  // has some one else booked this slot we should refect to see if they have
               // else if HTTP_FORBIDDEN on enough permissions
               console.log('createBooking: Response error', error.response.data, error.response.status, error.response.headers);
+
             } else if (error.request) {
               // The request was made but no response was received
               // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
@@ -332,6 +336,7 @@
               // Something happened in setting up the request that triggered an Error
               console.error('createBooking: Error', error.message);
             }
+
             this.loading(false);
           });
       },
@@ -374,6 +379,7 @@
             if (error.response) {
               // if HTTP_UNPROCESSABLE_ENTITY some validation error laravel or us
               // else if HTTP_CONFLICT to many bookings or over lap
+              this.calendar.refetchEvents();  // has some one else booked this slot we
               // else if HTTP_FORBIDDEN on enough permissions
               console.log('patchBooking: Response error', error.response.data, error.response.status, error.response.headers);
             } else if (error.request) {

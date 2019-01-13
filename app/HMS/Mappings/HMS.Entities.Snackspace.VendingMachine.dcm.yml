@@ -1,0 +1,36 @@
+# HMS.Entities.Snackspace.VendingMachine.dcm.yml
+HMS\Entities\Snackspace\VendingMachine:
+  type: entity
+  repositoryClass: HMS\Repositories\Snackspace\Doctrine\DoctrineVendingMachineRepository
+  table: vending_machines
+  uniqueConstraints:
+    vending_machines_uniqie_idx:
+      columns: [ connection, address ]
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields: 
+    description:
+      type: string
+      length: 100
+      nullable: true
+    type:
+      type: string
+      length: 10
+      nullable: true
+    connection:
+      type: string
+      length: 10
+      nullable: true
+    address:
+      type: string
+      length: 100
+      nullable: true
+  oneToMany:
+    vendingLocations:
+      targetEntity: \HMS\Entities\Snackspace\VendingLocation
+      mappedBy: vendingMachines

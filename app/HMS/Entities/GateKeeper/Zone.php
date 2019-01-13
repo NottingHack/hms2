@@ -25,6 +25,16 @@ class Zone
     protected $permissionCode;
 
     /**
+     * @var ZoneOccupant[]
+     */
+    protected $zoneOccupancts;
+
+    /**
+     * @var ZoneOccupancyLog[]
+     */
+    protected $zoneOccupancyLogs;
+
+    /**
      * Gets the value of id.
      *
      * @return int
@@ -56,5 +66,21 @@ class Zone
     public function getPermissionCode()
     {
         return $this->permissionCode;
+    }
+
+    /**
+     * @return ZoneOccupant[]
+     */
+    public function getZoneOccupancts()
+    {
+        return $this->zoneOccupancts;
+    }
+
+    /**
+     * @return ZoneOccupancyLog[]
+     */
+    public function getZoneOccupancyLogs()
+    {
+        return $this->zoneOccupancyLogs;
     }
 }

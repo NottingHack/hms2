@@ -1,0 +1,33 @@
+# HMS.Entities.Snackspace.Invoice.dcm.yml
+HMS\Entities\Snackspace\Invoice:
+  type: entity
+  repositoryClass: HMS\Repositories\Snackspace\Doctrine\DoctrineInvoiceRepository
+  table: invoices
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    from:
+      type: datetime
+    to:
+      type: datetime
+    generated:
+      type: datetime
+      options:
+        default: CURRENT_TIMESTAMP
+    status:
+      type: string
+      length: 16
+    amount:
+      type: integer 
+  manyToOne:
+    user:
+      targetEntity: HMS\Entities\User
+  oneToOne:
+    email:
+      targetEntity: HMS\Entities\Snackspace\Email
+      nullable: true

@@ -61,9 +61,6 @@ HMS\Entities\User:
       targetEntity: \HMS\Entities\Banking\Account
       inversedBy: users
       cascade: ['persist']
-      joinColumns:
-        acccount_id:
-          referencedColumnName: id
   manyToMany:
     roles:
       targetEntity: Role

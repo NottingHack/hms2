@@ -20,7 +20,7 @@ abstract class BookingType
     const MAINTENANCE = 'MAINTENANCE';
 
     /**
-     * String representation of states for display.
+     * String representation of types for display.
      */
     const TYPE_STRINGS =
     [

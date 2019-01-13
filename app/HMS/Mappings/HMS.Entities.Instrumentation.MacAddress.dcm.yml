@@ -1,0 +1,28 @@
+# HMS.Entities.Instrumentation.MacAddress.dcm.yml
+HMS\Entities\Instrumentation\MacAddress:
+  type: entity
+  repositoryClass: HMS\Repositories\Instrumentation\Doctrine\DoctrineMacAddressRepository
+  table: addresses
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    macAddress:
+      type: string
+      length: 100
+      unique: true
+    lastSeen:
+      type: datetime
+      options:
+        default: CURRENT_TIMESTAMP
+    ignore:
+      column: ignore_addr
+      type: boolean
+      options:
+        default: 0
+    comments:
+      type: string

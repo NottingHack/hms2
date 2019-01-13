@@ -3,6 +3,7 @@
 namespace HMS\Entities\GateKeeper;
 
 use Carbon\Carbon;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class Door
 {
@@ -45,6 +46,19 @@ class Door
      * @var Zone
      */
     protected $sideBZone;
+
+    /**
+     * @var Bell
+     */
+    protected $bells;
+
+    /**
+     * Door constructor.
+     */
+    public function __construct()
+    {
+        $this->bells = new ArrayCollection();
+    }
 
     /**
      * Gets the value of id.
@@ -110,5 +124,13 @@ class Door
     public function getSideBZone()
     {
         return $this->sideBZone;
+    }
+
+    /**
+     * @return Bell
+     */
+    public function getBells()
+    {
+        return $this->bells;
     }
 }

@@ -1,0 +1,31 @@
+# HMS.Entities.Tools.Usage.dcm.yml
+HMS\Entities\Tools\Usage:
+  type: entity
+  repositoryClass: HMS\Repositories\Tools\Doctrine\DoctrineUsageRepository
+  table: tool_usages
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    start:
+      type: datetime
+      nullable: true
+    duration:
+      type: integer
+      nullable: true
+    activeTime:
+      type: integer
+      nullable: true
+    status:
+      type: string
+      length: 20
+      nullable: true
+  manyToOne:
+    user:
+      targetEntity: HMS\Entities\User
+    tool:
+      targetEntity: HMS\Entities\Tools\Tool

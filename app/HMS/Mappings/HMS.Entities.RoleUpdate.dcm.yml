@@ -28,3 +28,7 @@ HMS\Entities\RoleUpdate:
       targetEntity: Role
       joinColumn:
         name: removed_role_id
+    updateBy:
+      targetEntity: User
+      joinColumn:
+        name: update_by_user_id

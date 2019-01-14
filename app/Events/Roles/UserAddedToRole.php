@@ -21,6 +21,11 @@ class UserAddedToRole
     public $role;
 
     /**
+     * @var User|null
+     */
+    public $updateBy;
+
+    /**
      * Create a new event instance.
      *
      * @return void
@@ -29,5 +34,6 @@ class UserAddedToRole
     {
         $this->user = $user;
         $this->role = $role;
+        $this->updateBy = \Auth::user();
     }
 }

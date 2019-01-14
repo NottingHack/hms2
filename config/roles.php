@@ -292,6 +292,7 @@ return [
             'name'          => 'Network Team',
             'description'   => 'Network Team',
             'email'         => 'network@nottinghack.org.uk',
+            'slackChannel'  => '#network',
             'permissions'   => [
                 'meta.view',
                 'meta.edit',

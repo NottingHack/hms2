@@ -22,12 +22,10 @@ HMS\Entities\GateKeeper\AccessLog:
     rfidSerial:
       type: string
       length: 50
-      unique: true
       nullable: true
     pin:
       type: string
       length: 12
-      unique: true
       nullable: true
     accessResult:
       type: integer

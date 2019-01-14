@@ -8,6 +8,7 @@ use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
 use App\Mail\Membership\MembershipRevoked;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use HMS\Repositories\Banking\BankRepository;
 use App\Events\Banking\NonPaymentOfMembership;
 use HMS\Repositories\Banking\MembershipStatusNotificationRepository;
 
@@ -34,19 +35,30 @@ class RevokeMembership implements ShouldQueue
     protected $metaRepository;
 
     /**
+     * @var BankRepository
+     */
+    protected $bankRepository;
+
+    /**
      * Create the event listener.
      *
-     * @return void
+     * @param UserRepository                         $userRepository
+     * @param RoleManager                            $roleManager
+     * @param MembershipStatusNotificationRepository $membershipStatusNotificationRepository
+     * @param MetaRepository                         $metaRepository
+     * @param BankRepository                         $bankRepository
      */
     public function __construct(UserRepository $userRepository,
         RoleManager $roleManager,
         MembershipStatusNotificationRepository $membershipStatusNotificationRepository,
-        MetaRepository $metaRepository)
+        MetaRepository $metaRepository,
+        BankRepository $bankRepository)
     {
         $this->userRepository = $userRepository;
         $this->roleManager = $roleManager;
         $this->membershipStatusNotificationRepository = $membershipStatusNotificationRepository;
         $this->metaRepository = $metaRepository;
+        $this->bankRepository = $bankRepository;
     }
 
     /**
@@ -84,6 +96,6 @@ class RevokeMembership implements ShouldQueue
         }
 
         // emial user
-        \Mail::to($user)->send(new MembershipRevoked($user, $this->metaRepository));
+        \Mail::to($user)->send(new MembershipRevoked($user, $this->metaRepository, $this->bankRepository));
     }
 }

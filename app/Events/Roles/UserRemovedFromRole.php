@@ -21,6 +21,11 @@ class UserRemovedFromRole
     public $role;
 
     /**
+     * @var User|null
+     */
+    public $updateBy;
+
+    /**
      * Create a new event instance.
      *
      *  @param User $user
@@ -30,5 +35,6 @@ class UserRemovedFromRole
     {
         $this->user = $user;
         $this->role = $role;
+        $this->updateBy = \Auth::user();
     }
 }

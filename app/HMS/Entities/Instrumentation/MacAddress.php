@@ -27,7 +27,7 @@ class MacAddress
     protected $ignore;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $comments;
 
@@ -90,7 +90,7 @@ class MacAddress
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getComments()
     {

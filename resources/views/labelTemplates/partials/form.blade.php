@@ -11,7 +11,7 @@
 
   <div class="form-group">
     <label for="template" class="form-label">Template</label>
-    <textarea class="form-control" id="template" name="template" rows="10" required >{{ old('template', $template) }}</textarea>
+    <textarea class="form-control" id="template" name="template" rows="10" required v-pre>{{ old('template', $template) }}</textarea>
     @if ($errors->has('template'))
     <p class="help-text">
       <strong>{{ $errors->first('template') }}</strong>

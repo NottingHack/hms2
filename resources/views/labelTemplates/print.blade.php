@@ -7,7 +7,7 @@
   <div class="card">
     <h4 class="card-header">{{ $templateName}}</h4>
     <div class="card-body">
-      <pre class="card-text">{{ $template}}</pre>
+      <pre class="card-text" v-pre>{{ $template }}</pre>
     </div>
     <div class="card-footer">
       <form role="form" method="POST" action="{{ route('labels.print', $templateName) }}">

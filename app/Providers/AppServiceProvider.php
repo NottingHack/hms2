@@ -36,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
             return $passwordStoreManager->driver();
         });
 
-        $this->app->singleton(FakerGenerator::class, function () {
+        $this->app->singleton(FakerGenerator::class, function ($app) {
             return FakerFactory::create($app['config']->get('app.faker_locale', 'en_US'));
         });
     }

@@ -2,7 +2,7 @@
 <footer>
   <div class="footer">
     <div class="col-sm-3">
-      <h5>HMS 2.0.0</h5>
+      <h5>HMS {{ $version }}</h5>
       <ul>
         <li><a href="#">Get Source</a></li>
         <li><a href="#">Credits</a></li>

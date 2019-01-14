@@ -14,6 +14,7 @@ use HMS\User\Permissions\RoleManager;
 use App\Mail\MembershipDetailsApproved;
 use App\Mail\MembershipDetailsRejected;
 use HMS\Factories\Banking\AccountFactory;
+use HMS\Repositories\Banking\BankRepository;
 use App\Notifications\NewMemberApprovalNeeded;
 use HMS\Repositories\Banking\AccountRepository;
 
@@ -60,6 +61,11 @@ class MembershipController extends Controller
     protected $roleRepository;
 
     /**
+     * @var BankRepository
+     */
+    protected $bankRepository;
+
+    /**
      * Create a new controller instance.
      *
      * @param MetaRepository    $metaRepository
@@ -70,6 +76,7 @@ class MembershipController extends Controller
      * @param UserManager       $userManager
      * @param ProfileManager    $profileManager
      * @param RoleRepository    $roleRepository
+     * @param BankRepository    $bankRepository
      */
     public function __construct(MetaRepository $metaRepository,
         AccountFactory $accountFactory,
@@ -78,7 +85,8 @@ class MembershipController extends Controller
         AccountRepository $accountRepository,
         UserManager $userManager,
         ProfileManager $profileManager,
-        RoleRepository $roleRepository)
+        RoleRepository $roleRepository,
+        BankRepository $bankRepository)
     {
         $this->metaRepository = $metaRepository;
         $this->accountFactory = $accountFactory;
@@ -88,6 +96,7 @@ class MembershipController extends Controller
         $this->userManager = $userManager;
         $this->profileManager = $profileManager;
         $this->roleRepository = $roleRepository;
+        $this->bankRepository = $bankRepository;
 
         $this->middleware('can:membership.approval')->only(['showDetailsForApproval', 'approveDetails', 'rejectDetails']);
         $this->middleware('can:membership.updateDetails')->only(['editDetails', 'updateDetails']);
@@ -148,7 +157,7 @@ class MembershipController extends Controller
         $this->roleManager->addUserToRoleByName($user, Role::MEMBER_PAYMENT);
 
         // notify the user
-        \Mail::to($user)->send(new MembershipDetailsApproved($user, $this->metaRepository));
+        \Mail::to($user)->send(new MembershipDetailsApproved($user, $this->metaRepository, $this->bankRepository));
 
         flash('Member approved, thank you.')->success();
 

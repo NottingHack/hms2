@@ -39,6 +39,7 @@ class MembershipRevoked extends Mailable implements ShouldQueue
      *
      * @param User           $user
      * @param MetaRepository $metaRepository
+     * @param BankRepository $bankRepository
      */
     public function __construct(User $user, MetaRepository $metaRepository, BankRepository $bankRepository)
     {

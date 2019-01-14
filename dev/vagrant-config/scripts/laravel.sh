@@ -16,7 +16,7 @@ composer install --no-progress --no-suggest
 # Set up DB
 php artisan doctrine:migration:refresh
 php artisan migrate
-php artisan hms:database:refresh-viwes
+php artisan hms:database:refresh-views
 php artisan hms:database:refresh-procedures
 php artisan permission:defaults
 php artisan db:seed

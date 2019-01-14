@@ -23,4 +23,15 @@ return [
     |--------------------------------------------------------------------------
     */
     'restriced_ip_range' => env('RESTRICED_IP_RANGE', '10.0.0.0/8'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | View and Procedure Directory
+    |--------------------------------------------------------------------------
+    | Paths to folder containing .sql files define any views and procedures.
+    | These can be re-loaded with the relevant to hms:database:refresh-*
+    | artisan command.
+    */
+    'views_directory' => database_path(env('VIEWS_DIRECTORY', 'database/views')),
+    'procedures_directory' => database_path(env('PROCEDURES_DIRECTORY', 'database/procedures')),
 ];

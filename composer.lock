@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c81597c2efba1fc8e415c5c044f8085e",
+    "content-hash": "2c1808c999f8c109656e2d823c18bcf0",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -3036,16 +3036,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.1.1",
+            "version": "v4.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "8aae5b59b83bb4d0dbf07b0a835f2680a658f610"
+                "reference": "594bcae1fc0bccd3993d2f0d61a018e26ac2865a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/8aae5b59b83bb4d0dbf07b0a835f2680a658f610",
-                "reference": "8aae5b59b83bb4d0dbf07b0a835f2680a658f610",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/594bcae1fc0bccd3993d2f0d61a018e26ac2865a",
+                "reference": "594bcae1fc0bccd3993d2f0d61a018e26ac2865a",
                 "shasum": ""
             },
             "require": {
@@ -3061,7 +3061,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.1-dev"
+                    "dev-master": "4.2-dev"
                 }
             },
             "autoload": {
@@ -3083,7 +3083,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2018-12-26T11:32:39+00:00"
+            "time": "2019-01-12T16:31:37+00:00"
         },
         {
             "name": "ocramius/package-versions",
@@ -5555,6 +5555,42 @@
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
             "time": "2017-11-27T11:13:29+00:00"
+        },
+        {
+            "name": "tremby/laravel-git-version",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tremby/laravel-git-version.git",
+                "reference": "8c462c3209f13b4343f38c126a216bbdeabf6598"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tremby/laravel-git-version/zipball/8c462c3209f13b4343f38c126a216bbdeabf6598",
+                "reference": "8c462c3209f13b4343f38c126a216bbdeabf6598",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": ">=4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tremby\\LaravelGitVersion\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bart Nagel",
+                    "email": "bart@tremby.net"
+                }
+            ],
+            "description": "A helper to get the current git version of the application",
+            "time": "2017-04-03T23:17:44+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

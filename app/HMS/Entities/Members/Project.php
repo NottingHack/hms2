@@ -8,6 +8,11 @@ use HMS\Entities\User;
 class Project
 {
     /**
+     * Length of the trimmed description.
+     */
+    const TRIMMED_LENGHT = 100;
+
+    /**
      * @var int
      */
     protected $id;
@@ -77,6 +82,18 @@ class Project
      */
     public function getDescription()
     {
+        return $this->description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescriptionTrimed()
+    {
+        if (strlen($this->description) > self::TRIMMED_LENGHT) {
+            return substr($this->description, 0, self::TRIMMED_LENGHT) . '...';
+        }
+
         return $this->description;
     }
 

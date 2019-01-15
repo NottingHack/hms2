@@ -5,6 +5,7 @@
 @import 'color-helpers';
 @import 'variables';
 @import '~bootstrap/scss/bootstrap';
+@import "~bootstrap4-card-tables/src/bootstrap4-card-tables";
 @import '~select2/dist/css/select2';
 @import '~select2-theme-bootstrap4/dist/select2-bootstrap';
 
@@ -63,5 +64,19 @@
     h3 {
       @extend .card-title;
     }
+  }
+}
+
+.card-columns {
+  @include media-breakpoint-down(sm) {
+    column-count: 1;
+  }
+
+  @include media-breakpoint-only(md) {
+    column-count: 2;
+  }
+
+  @include media-breakpoint-up(lg) {
+    column-count: 3;
   }
 }

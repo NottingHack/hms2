@@ -15,6 +15,8 @@ return [
         'profile.view.all',
         'role.view.all',
         'role.edit.all',
+        'role.grant.all',
+        'role.grant.team',
         'profile.edit.self',
         'profile.edit.all',
         'accessCodes.view',
@@ -249,6 +251,7 @@ return [
                 'tools.maintainer.grant',
                 'tools.inductor.grant',
                 'tools.user.grant',
+                'role.grant.team',
             ],
         ],
         'team.software'    => [

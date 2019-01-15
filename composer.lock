@@ -2751,16 +2751,16 @@
         },
         {
             "name": "lwk/vimbadmin-laravel-client",
-            "version": "1.0.6",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dpslwk/vimbadmin-laravel-client.git",
-                "reference": "80c0a9042ca6d01e34c742229f25a925f8b4ead7"
+                "reference": "6241845143ce1809b550744bc4bcd5b1c6403569"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dpslwk/vimbadmin-laravel-client/zipball/80c0a9042ca6d01e34c742229f25a925f8b4ead7",
-                "reference": "80c0a9042ca6d01e34c742229f25a925f8b4ead7",
+                "url": "https://api.github.com/repos/dpslwk/vimbadmin-laravel-client/zipball/6241845143ce1809b550744bc4bcd5b1c6403569",
+                "reference": "6241845143ce1809b550744bc4bcd5b1c6403569",
                 "shasum": ""
             },
             "require": {
@@ -2804,7 +2804,7 @@
             "keywords": [
                 "vimbadmin"
             ],
-            "time": "2018-09-24T18:56:05+00:00"
+            "time": "2019-01-15T05:47:00+00:00"
         },
         {
             "name": "maxbrokman/safe-queue",

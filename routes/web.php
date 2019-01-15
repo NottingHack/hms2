@@ -54,6 +54,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/roles/{role}/edit', 'RoleController@edit')->name('roles.edit');
     Route::put('/roles/{role}', 'RoleController@update')->name('roles.update');
     Route::delete('/roles/{role}/users/{user}', 'RoleController@removeUser')->name('roles.removeUser');
+    Route::patch('team/{role}/users', 'RoleController@addUsertoTeam')->name('roles.addUsertoTeam');
 
     // USER
     Route::get('users-by-role/{role}', 'UserController@listUsersByRole')->name('users.byRole');

@@ -121,6 +121,18 @@ class Transaction
     }
 
     /**
+     * @return string
+     */
+    public function getTypeString()
+    {
+        if ($this->type == TransactionType::VEND && $this->amount > 0) {
+            return TransactionType::TYPE_STRINGS[TransactionType::CASH_PAYMENT];
+        }
+
+        return TransactionType::TYPE_STRINGS[$this->type];
+    }
+
+    /**
      * @param string $type
      *
      * @return self

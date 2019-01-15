@@ -15,7 +15,7 @@ Projects for {{ $user->getFirstname() }}
 
 <br>
 <div class="container">
-  <div class="table-responsive">
+  <div class="table-responsive no-more-tables">
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
@@ -30,12 +30,12 @@ Projects for {{ $user->getFirstname() }}
       <tbody>
         @foreach ($projects as $project)
         <tr>
-          <td>{{ $project->getProjectName() }}</td>
-          <td style="width:40%">{{ $project->getDescription() }}</td>
-          <td>{{ $project->getStartDate()->toDateString() }}</td>
-          <td>{{ $project->getCompleteDate() ? $project->getCompleteDate()->toDateString() : '' }}</td>
-          <td>{{ $project->getStateString() }}</td>
-          <td>
+          <td data-title="Project Name">{{ $project->getProjectName() }}</td>
+          <td data-title="Description" class="w-35">{{ $project->getDescriptionTrimed() }}</td>
+          <td data-title="Start Date">{{ $project->getStartDate()->toDateString() }}</td>
+          <td data-title="Complete Date">{{ $project->getCompleteDate() ? $project->getCompleteDate()->toDateString() : '' }}&nbsp;</td>
+          <td data-title="State">{{ $project->getStateString() }}</td>
+          <td data-title="Actions" class="actions">
             @can('project.view.self')
             <a href="{{ route('projects.show', $project->getId()) }}" class="btn btn-primary btn-sm btn-sm-spacing"><i class="far fa-eye" aria-hidden="true"></i> View Project</a><br>
             @endcan
@@ -47,7 +47,7 @@ Projects for {{ $user->getFirstname() }}
             @can('project.edit.self')
             @if ($project->getState() == \HMS\Entities\Members\ProjectState::ACTIVE)
             @if ($project->getUser() == \Auth::user())
-            <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm">
+            <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm btn-sm-spacing">
               <form action="{{ route('projects.markComplete', $project->getId()) }}" method="POST" style="display: none">
                 {{ method_field('PATCH') }}
                 {{ csrf_field() }}

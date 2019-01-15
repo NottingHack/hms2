@@ -40,7 +40,7 @@ Rfid cards for {{ $user->getFirstname() }}
 @endcan
 
 <div class="container">
-  <div class="table-responsive">
+  <div class="table-responsive no-more-tables">
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
@@ -54,11 +54,11 @@ Rfid cards for {{ $user->getFirstname() }}
       <tbody>
         @foreach ($rfidTags as $rfidTag)
         <tr>
-          <td>{{ $rfidTag->getBestRfidSerial() }}</td>
-          <td>{{ $rfidTag->getLastUsed() ? $rfidTag->getLastUsed()->toDateTimeString() : '' }}</td>
-          <td>{{ $rfidTag->getFriendlyName() }}</td>
-          <td>{{ $rfidTag->getStateString() }}</td>
-          <td>
+          <td data-title="Card Serial Number">{{ $rfidTag->getBestRfidSerial() }}</td>
+          <td data-title="Last Used">{{ $rfidTag->getLastUsed() ? $rfidTag->getLastUsed()->toDateTimeString() : '' }}&nbsp;</td>
+          <td data-title="Name">{{ $rfidTag->getFriendlyName() }}&nbsp;</td>
+          <td data-title="State">{{ $rfidTag->getStateString() }}</td>
+          <td class="actions">
             @can('rfidTags.edit.self')
             <a href="{{ route('rfid-tags.edit', $rfidTag->getId()) }}" class="btn btn-primary btn-sm btn-sm-spacing"><i class="fas fa-pencil fa-lg" aria-hidden="true"></i> Edit</a><br>
             @endcan

@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-  <div class="table-responsive">
+  <div class="table-responsive no-more-tables">
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
@@ -16,9 +16,9 @@
       <tbody>
         @foreach ($metas as $meta)
         <tr>
-          <td>{{ $meta->getKey() }}</td>
-          <td>{{ $meta->getValue() }}</td>
-          <td>
+          <td data-title="Key">{{ $meta->getKey() }}</td>
+          <td data-title="Value">{{ $meta->getValue() }}</td>
+          <td data-title="Actions" class="actions">
             @can('meta.edit')
             <a class="btn btn-primary btn-sm" href="{{ route('metas.edit', $meta->getKey()) }}"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
             @endcan

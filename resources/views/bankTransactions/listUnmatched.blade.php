@@ -6,7 +6,7 @@
 <div class="container">
   @if(count($bankTransactions) > 0)
   <p> Please match any transactions below </p>
-  <div class="table-responsive">
+  <div class="table-responsive no-more-tables">
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
@@ -20,11 +20,11 @@
       <tbody>
         @foreach ($bankTransactions as $bankTransaction)
         <tr>
-          <td>{{ $bankTransaction->getTransactionDate()->toDateString() }}</td>
-          <td>{{ $bankTransaction->getDescription() }}</td>
-          <td><span class="money">@format_pennies($bankTransaction->getAmount())</span></td>
-          <td>{{ $bankTransaction->getBank()->getName() }}</td>
-          <td><a class="btn btn-primary" href="{{ route('bank-transactions.edit', $bankTransaction->getId()) }}"><i class="fas fa-search-dollar fa-lg" aria-hidden="true"></i> Reconcile</a></td>
+          <td data-title="Date">{{ $bankTransaction->getTransactionDate()->toDateString() }}</td>
+          <td data-title="Description">{{ $bankTransaction->getDescription() }}</td>
+          <td data-title="Amount"><span class="money">@format_pennies($bankTransaction->getAmount())</span></td>
+          <td data-title="Bank Account">{{ $bankTransaction->getBank()->getName() }}</td>
+          <td class="actions"><a class="btn btn-primary" href="{{ route('bank-transactions.edit', $bankTransaction->getId()) }}"><i class="fas fa-search-dollar fa-lg" aria-hidden="true"></i> Reconcile</a></td>
         </tr>
         @endforeach
       </tbody>

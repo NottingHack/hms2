@@ -34,7 +34,8 @@ Boxes for {{ $user->getFirstname() }}
 
 <br>
 <div class="container">
-  <div class="table-responsive">
+  @if(count($boxes) > 0)
+  <div class="table-responsive no-more-tables">
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
@@ -48,11 +49,11 @@ Boxes for {{ $user->getFirstname() }}
       <tbody>
         @foreach ($boxes as $box)
         <tr>
-          <td>{{ $box->getId() }}</td>
-          <td>{{ $box->getBoughtDate()->toDateString() }}</td>
-          <td>{{ $box->getRemovedDate() ? $box->getRemovedDate()->toDateString() : '' }}</td>
-          <td>{{ $box->getStateString() }}</td>
-          <td>
+          <td data-title="Box Id">{{ $box->getId() }}</td>
+          <td data-title="Bought Date">{{ $box->getBoughtDate()->toDateString() }}</td>
+          <td data-title="Removed Date">{{ $box->getRemovedDate() ? $box->getRemovedDate()->toDateString() : '' }}&nbsp;</td>
+          <td data-title="State">{{ $box->getStateString() }}</td>
+          <td data-title="Actions" class="actions">
             @can('box.printLabel.self')
             @if (SiteVisitor::inTheSpace() && $box->getState() == \HMS\Entities\Members\BoxState::INUSE)
             <a href="{{ route('boxes.print', $box->getId()) }}" class="btn btn-primary btn-sm btn-sm-spacing"><i class="fas fa-print" aria-hidden="true"></i> Print Box Label</a><br>
@@ -94,5 +95,9 @@ Boxes for {{ $user->getFirstname() }}
       </tbody>
     </table>
   </div>
+  <div classs="pagination-links">
+    {{ $boxes->links() }}
+  </div>
+  @endif
 </div>
 @endsection

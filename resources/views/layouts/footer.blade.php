@@ -27,7 +27,7 @@
         <li><a href="#">Reviews</a></li>
       </ul>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-3 d-none d-sm-block">
       <h5>Address</h5>
       <ul>
         <li>Unit F6 Bizspace</li>

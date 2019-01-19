@@ -6,7 +6,7 @@
 <div class="container">
   <div class="row">
     <div class="col-sm">
-      <div class="card">
+      <div class="card mb-3">
         <div class="card-header icon-card-body">
           <div class="icon-card-icon"><i class="fas fa-key" aria-hidden="true"></i></div>
           <div class="icon-card-content">
@@ -26,7 +26,7 @@
     </div>
 
     <div class="col-sm">
-      <div class="card">
+      <div class="card mb-3">
         <div class="card-header icon-card-body">
           <div class="icon-card-icon"><i class="fas fa-wifi" aria-hidden="true"></i></div>
           <div class="icon-card-content">
@@ -46,7 +46,7 @@
     </div>
 
     <div class="col-sm">
-      <div class="card">
+      <div class="card mb-3">
         <div class="card-header icon-card-body">
           <div class="icon-card-icon"><i class="fas fa-wifi" aria-hidden="true"></i></div>
           <div class="icon-card-content">

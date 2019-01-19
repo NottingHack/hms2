@@ -10,7 +10,7 @@
 
 @section('content')
 <div class="container">
-  <div class="table-responsive">
+  <div class="table-responsive no-more-tables">
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
@@ -23,10 +23,10 @@
       <tbody>
         @foreach ($users as $user)
         <tr>
-          <td>{{ $user->getUsername() }}</td>
-          <td>{{ $user->getFullName() }}</td>
-          <td>{{ $user->getEmail() }}</td>
-          <td>
+          <td data-title="Username">{{ $user->getUsername() }}</td>
+          <td data-title="Name">{{ $user->getFullName() }}</td>
+          <td data-title="Email">{{ $user->getEmail() }}</td>
+          <td data-title="Actions" class="actions">
             <a class="btn btn-primary btn-sm btn-sm-spacing" href="{{ route('users.show', $user->getId()) }}"><i class="far fa-eye" aria-hidden="true"></i> View</a>
             <a class="btn btn-primary btn-sm btn-sm-spacing" href="{{ route('users.edit', $user->getId()) }}"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
           </td>

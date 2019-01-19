@@ -67,6 +67,11 @@ return [
         'tools.maintainer.grant',           // trustees can grant and revoke maintainer roles on all tools from hms
         'tools.inductor.grant',             // trustees can grant and revoke inductor roles on all tools from hms
         'tools.user.grant',                 // trustees can grant and revoke user roles on all tools from hms
+        'gatekeeper.zoneEntry.upstairs',    // these are hard coded here for now, untill we have a GateKeeperManager to generate them
+        'gatekeeper.zoneEntry.cncBlueRoom',
+        'gatekeeper.zoneEntry.classRoomMetalworking',
+        'gatekeeper.zoneEntry.teamStrorage',
+        'gatekeeper.zoneEntry.downstairsMembersStrorage',
     ],
 
     /*
@@ -117,6 +122,10 @@ return [
                 'rfidTags.view.self',
                 'rfidTags.edit.self',
                 'tools.view',
+                'gatekeeper.zoneEntry.upstairs',
+                'gatekeeper.zoneEntry.cncBlueRoom',
+                'gatekeeper.zoneEntry.classRoomMetalworking',
+                'gatekeeper.zoneEntry.downstairsMembersStrorage',
             ],
         ],
         'member.ex'         => [
@@ -152,6 +161,10 @@ return [
                 'rfidTags.view.self',
                 'rfidTags.edit.self',
                 'tools.view',
+                'gatekeeper.zoneEntry.upstairs',
+                'gatekeeper.zoneEntry.cncBlueRoom',
+                'gatekeeper.zoneEntry.classRoomMetalworking',
+                'gatekeeper.zoneEntry.downstairsMembersStrorage',
             ],
         ],
         'member.temporarybanned'    => [
@@ -215,6 +228,7 @@ return [
                 'pins.view.all',
                 'pins.reactivate',
                 'bankTransactions.view.all',
+                'gatekeeper.zoneEntry.teamStrorage',
             ],
         ],
         'team.trustees'    => [
@@ -252,6 +266,7 @@ return [
                 'tools.inductor.grant',
                 'tools.user.grant',
                 'role.grant.team',
+                'gatekeeper.zoneEntry.teamStrorage',
             ],
         ],
         'team.software'    => [
@@ -282,6 +297,7 @@ return [
                 'labelTemplate.create',
                 'labelTemplate.edit',
                 'labelTemplate.print',
+                'gatekeeper.zoneEntry.teamStrorage',
             ],
         ],
         'team.finance'     => [
@@ -289,6 +305,7 @@ return [
             'description'   => 'Finance Team',
             'email'         => 'accounts@nottinghack.org.uk',
             'permissions'   => [
+                'gatekeeper.zoneEntry.teamStrorage',
             ],
         ],
         'team.network'     => [
@@ -305,6 +322,7 @@ return [
                 'tools.destroy',
                 'tools.maintainer.grant',
                 'tools.inductor.grant',
+                'gatekeeper.zoneEntry.teamStrorage',
             ],
         ],
     ],

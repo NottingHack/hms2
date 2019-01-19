@@ -29,5 +29,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.network "private_network", ip: "192.168.25.35"
 
+  config.trigger.after :up, :resume, :reload do |trigger|
+      trigger.info = "Restaring Nginx & PHP"
+      trigger.run_remote = {inline: "sudo systemctl restart nginx php7.2-fpm"}
+  end
 
 end

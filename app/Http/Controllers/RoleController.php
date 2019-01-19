@@ -62,6 +62,7 @@ class RoleController extends Controller
         $this->middleware('can:role.view.all')->only(['index', 'show']);
         $this->middleware('can:role.edit.all')->only(['edit', 'update']);
 
+        $this->middleware('can:role.grant.team')->only('addUserToTeam');
         $this->middleware('can:role.edit.all')->only('removeUser');
         $this->middleware('can:profile.edit.all')->only('removeUser');
     }
@@ -126,6 +127,41 @@ class RoleController extends Controller
         $this->roleManager->updateRole($role, $request->all());
 
         return redirect()->route('roles.show', ['role' => $role->getId()]);
+    }
+
+    /**
+     * Add a specific user to a a specific team role.
+     *
+     * @param Role $role the role
+     * @param User $user the user
+     */
+    public function addUserToTeam(Role $role, Request $request)
+    {
+        $request['role_name'] = $role->getName();
+        $userRepository = $this->userRepository;
+
+        $this->validate($request, [
+            'user_id' => [
+                'required',
+                'exists:HMS\Entities\User,id',
+                'bail',
+                function ($attribute, $value, $fail) use ($userRepository, $role) {
+                    $user = $userRepository->findOneById($value);
+                    if ($user->hasRole($role)) {
+                        $fail('User is already on the team.');
+                    }
+                },
+            ],
+            'role_name' => 'starts_with:team.',
+        ]);
+
+        $user = $userRepository->findOneById($request->user_id);
+
+        $this->roleManager->addUserToRole($user, $role);
+
+        flash($user->getFullname() . ' added to ' . $role->getDisplayName())->success();
+
+        return back();
     }
 
     /**

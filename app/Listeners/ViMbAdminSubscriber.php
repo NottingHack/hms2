@@ -63,21 +63,21 @@ class ViMbAdminSubscriber implements ShouldQueue
             }
 
             $mailboxEmail = $event->role->getEmail();
-            if ( ! filter_var($mailboxEmail, FILTER_VALIDATE_EMAIL)) {
+            if (! filter_var($mailboxEmail, FILTER_VALIDATE_EMAIL)) {
                 // bugger this should not happen. throw an error??
                 throw new Exception('Role email address '.$mailboxEmail.' is not valid');
             }
 
             $domainName = explode('@', $mailboxEmail)[1];
             $domain = $this->client->findDomains($domainName)[0];
-            if ( ! $domain instanceof Domain) {
+            if (! $domain instanceof Domain) {
                 throw new Exception('Domain for '.$domainName.' does not exist in ViMAdmin and we cant create it');
             }
 
             $mailbox = Mailbox::create($mailboxEmail, $event->role->getDisplayname(), $domain);
 
             $response = $this->client->createMailbox($mailbox);
-            if ( ! $response instanceof Mailbox) {
+            if (! $response instanceof Mailbox) {
                 throw new Exception('Failed to create Mailbox for Role: '.$event->role->getName());
             }
         }
@@ -98,7 +98,7 @@ class ViMbAdminSubscriber implements ShouldQueue
 
             // save the updated alias back to the external API
             $response = $this->client->updateAlias($alias);
-            if ( ! $response instanceof Link) {
+            if (! $response instanceof Link) {
                 throw new Exception('Alias update failed with Error: '.$response);
             }
         }
@@ -119,7 +119,7 @@ class ViMbAdminSubscriber implements ShouldQueue
 
             // save the updated alias back to the external API
             $response = $this->client->updateAlias($alias);
-            if ( ! $response instanceof Link) {
+            if (! $response instanceof Link) {
                 throw new Exception('Alias update failed with Error: '.$response);
             }
         }
@@ -135,7 +135,7 @@ class ViMbAdminSubscriber implements ShouldQueue
     public function getAliasForRole(Role $role)
     {
         $aliasEmail = $role->getEmail();
-        if ( ! filter_var($aliasEmail, FILTER_VALIDATE_EMAIL)) {
+        if (! filter_var($aliasEmail, FILTER_VALIDATE_EMAIL)) {
             // bugger this should not happen. throw an error??
             throw new Exception('Role email address '.$aliasEmail.' is not valid');
         }
@@ -176,7 +176,7 @@ class ViMbAdminSubscriber implements ShouldQueue
 
                 // save the updated alias back to the external API
                 $response = $this->client->updateAlias($alias);
-                if ( ! $response instanceof Link) {
+                if (! $response instanceof Link) {
                     throw new Exception('Alias update failed with Error: '.$response);
                 }
             }

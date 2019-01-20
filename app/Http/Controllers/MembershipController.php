@@ -134,7 +134,7 @@ class MembershipController extends Controller
      */
     public function approveDetails(User $user, Request $request)
     {
-        if ( ! $user->hasRoleByName(Role::MEMBER_APPROVAL)) {
+        if (! $user->hasRoleByName(Role::MEMBER_APPROVAL)) {
             return redirect()->route('home');
         }
 
@@ -174,7 +174,7 @@ class MembershipController extends Controller
      */
     public function rejectDetails(User $user, Request $request)
     {
-        if ( ! $user->hasRoleByName(Role::MEMBER_APPROVAL)) {
+        if (! $user->hasRoleByName(Role::MEMBER_APPROVAL)) {
             return redirect()->route('home');
         }
 
@@ -196,7 +196,7 @@ class MembershipController extends Controller
      */
     public function editDetails(User $user)
     {
-        if ( ! $user->hasRoleByName(Role::MEMBER_APPROVAL)) {
+        if (! $user->hasRoleByName(Role::MEMBER_APPROVAL)) {
             return redirect()->route('home');
         }
 
@@ -212,7 +212,7 @@ class MembershipController extends Controller
      */
     public function updateDetails(User $user, Request $request)
     {
-        if ( ! $user->hasRoleByName(Role::MEMBER_APPROVAL)) {
+        if (! $user->hasRoleByName(Role::MEMBER_APPROVAL)) {
             return redirect()->route('home');
         }
 

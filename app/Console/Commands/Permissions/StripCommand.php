@@ -26,7 +26,7 @@ class StripCommand extends BaseCommand
      */
     public function handle()
     {
-        if ( ! $role = $this->getRole($this->argument('role'))) {
+        if (! $role = $this->getRole($this->argument('role'))) {
             return;
         }
 

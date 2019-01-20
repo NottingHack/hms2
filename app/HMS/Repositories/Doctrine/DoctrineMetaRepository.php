@@ -46,7 +46,7 @@ class DoctrineMetaRepository extends EntityRepository implements MetaRepository
     public function set($key, $value = null)
     {
         $meta = $this->findOneByKey($key);
-        if ( ! $meta) {
+        if (! $meta) {
             $meta = new Meta;
             $meta->create($key);
         }

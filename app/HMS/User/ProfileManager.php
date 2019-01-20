@@ -59,11 +59,11 @@ class ProfileManager
 
         $profile->setAddress1($address1);
 
-        if ( ! empty($address2)) {
+        if (! empty($address2)) {
             $profile->setAddress2($address2);
         }
 
-        if ( ! empty($address3)) {
+        if (! empty($address3)) {
             $profile->setAddress3($address3);
         }
 
@@ -72,7 +72,7 @@ class ProfileManager
         $profile->setAddressPostcode($addressPostcode);
         $profile->setContactNumber($contactNumber);
 
-        if ( ! empty($dateOfBirth)) {
+        if (! empty($dateOfBirth)) {
             $profile->setDateOfBirth(new Carbon($dateOfBirth));
         }
 

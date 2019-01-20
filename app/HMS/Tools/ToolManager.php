@@ -154,7 +154,7 @@ class ToolManager
         $rolesTemplates = json_decode(str_replace(array_keys($replace), array_values($replace), json_encode(self::ROLE_TEMPLATES)), true);
 
         foreach ($rolesTemplates as $roleName => $role) {
-            if ( ! $this->roleRepository->findOneByName($roleName)) {
+            if (! $this->roleRepository->findOneByName($roleName)) {
                 $this->roleManager->createRoleFromTemplate($roleName, $role, $permissions);
             }
         }

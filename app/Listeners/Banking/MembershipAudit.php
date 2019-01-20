@@ -177,7 +177,7 @@ class MembershipAudit implements ShouldQueue
                 $notificationRevokeUsers[] = $user;
             } elseif ($transactionDate < $warnDate) { // transaction date is older than warning date
                 // if not already warned
-                if ( ! in_array($user->getId(), $memberIdsForCurrentNotifications)) {
+                if (! in_array($user->getId(), $memberIdsForCurrentNotifications)) {
                     // warn membership may be terminated if we don't see one soon
                     $warnUsers[] = $user;
                 }
@@ -208,7 +208,7 @@ class MembershipAudit implements ShouldQueue
                 $notificationRevokeUsers[] = $user;
             } elseif ($transactionDate < $warnDate) { // transaction date is older than warning date
                 // if not already warned
-                if ( ! in_array($user->getId(), $memberIdsForCurrentNotifications)) {
+                if (! in_array($user->getId(), $memberIdsForCurrentNotifications)) {
                     // warn membership may be terminated if we don't see one soon
                     $warnUsers[] = $user;
                 }

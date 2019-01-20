@@ -84,7 +84,7 @@ class SyncCommand extends BaseCommand
     private function createPermissionEntities()
     {
         foreach ($this->permissions as $permission => &$entity) {
-            if ( ! $entity = $this->permissionRepository->findOneByName($permission)) {
+            if (! $entity = $this->permissionRepository->findOneByName($permission)) {
                 $entity = new Permission($permission);
                 $this->entityManager->persist($entity);
                 $this->info('Created permission: '.$permission);

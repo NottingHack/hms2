@@ -71,7 +71,7 @@ class BookingManager
         }
 
         // does it clash?
-        if ( ! empty($this->bookingRepository->checkForClashByTool($tool, $start, $end))) {
+        if (! empty($this->bookingRepository->checkForClashByTool($tool, $start, $end))) {
             return 'Your booking request clashes with another booking. No booking has been made.'; // 409
         }
 
@@ -111,7 +111,7 @@ class BookingManager
 
         // ADVANCED CHECKS
         // does it clash?
-        if ( ! empty($this->bookingRepository->checkForClashByTool($tool, $start, $end))) {
+        if (! empty($this->bookingRepository->checkForClashByTool($tool, $start, $end))) {
             return 'Your booking request clashes with another booking. No booking has been made.';
         }
 
@@ -155,7 +155,7 @@ class BookingManager
         // ADVANCED CHECKS
         // does it clash?
         // TODO: Maintenance slot can overwrite other bookings
-        if ( ! empty($this->bookingRepository->checkForClashByTool($tool, $start, $end))) {
+        if (! empty($this->bookingRepository->checkForClashByTool($tool, $start, $end))) {
             return 'Your booking request clashes with another booking. No booking has been made.';
         }
 

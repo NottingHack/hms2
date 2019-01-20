@@ -54,7 +54,7 @@ class ReinstateMembership implements ShouldQueue
         $user = $this->userRepository->findOneById($event->user->getId());
 
         // update roles
-        if ( ! $user->hasRoleByName(Role::MEMBER_EX)) {
+        if (! $user->hasRoleByName(Role::MEMBER_EX)) {
             // we shouldn not be here get out
             // TODO: email some one about it
             return;

@@ -48,7 +48,7 @@ class ChangePasswordController extends Controller
             'password' => $request->currentPassword,
             ]);
 
-        if ( ! $valideCurrentPassword) {
+        if (! $valideCurrentPassword) {
             flash('Your current password does not matches with the password you provided. Please try again.')->error();
 
             return redirect()->back();

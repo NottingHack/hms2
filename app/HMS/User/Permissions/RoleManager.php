@@ -143,7 +143,7 @@ class RoleManager
      */
     public function addUserToRoleByName(User $user, string $roleName)
     {
-        if ( ! $role = $this->roleRepository->findOneByName($roleName)) {
+        if (! $role = $this->roleRepository->findOneByName($roleName)) {
             return;
         }
 
@@ -170,7 +170,7 @@ class RoleManager
      */
     public function removeUserFromRoleByName(User $user, string $roleName)
     {
-        if ( ! $role = $this->roleRepository->findOneByName($roleName)) {
+        if (! $role = $this->roleRepository->findOneByName($roleName)) {
             return;
         }
 

@@ -68,7 +68,7 @@ abstract class BaseCommand extends Command
     protected function getRole($name, $error = true)
     {
         $role = $this->roleRepository->findOneByName($name);
-        if ( ! is_null($role)) {
+        if (! is_null($role)) {
             return $role;
         } else {
             if ($error) {
@@ -87,7 +87,7 @@ abstract class BaseCommand extends Command
     protected function getPermission($name, $error = true)
     {
         $permission = $this->permissionsRepository->findOneBy(['name' => $name]);
-        if ( ! is_null($permission)) {
+        if (! is_null($permission)) {
             return $permission;
         } else {
             if ($error) {

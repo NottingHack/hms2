@@ -78,7 +78,7 @@ class ApproveNewMembership implements ShouldQueue
         $user = $this->userRepository->findOneById($event->user->getId());
 
         // update roles
-        if ( ! $user->hasRoleByName(Role::MEMBER_PAYMENT)) {
+        if (! $user->hasRoleByName(Role::MEMBER_PAYMENT)) {
             // we should not be here get out
             // TODO: email some one about it
             return;

@@ -71,7 +71,7 @@ class NavComposer
             if (count($navItem['permissions']) > 0) {
                 $allowed = false;
                 foreach ($navItem['permissions'] as $permission) {
-                    if ( ! is_null($user) && $user->can($permission)) {
+                    if (! is_null($user) && $user->can($permission)) {
                         $allowed = true;
                     }
                 }
@@ -96,7 +96,7 @@ class NavComposer
                 // multiple routes can set a link as "active"
                 if (isset($navItem['match']) && strpos($this->request->url(), route($navItem['match'])) !== false) {
                     $link['active'] = true;
-                } elseif ( ! isset($navItem['match'])) {
+                } elseif (! isset($navItem['match'])) {
                     if ($this->request->url() == $link['url']) {
                         $link['active'] = true;
                     }

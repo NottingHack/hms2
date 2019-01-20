@@ -72,7 +72,7 @@ class RevokeMembership implements ShouldQueue
         // get a fresh copy of the user
         $user = $this->userRepository->findOneById($event->user->getId());
 
-        if ( ! $user->hasRoleByName([Role::MEMBER_CURRENT, Role::MEMBER_YOUNG])) {
+        if (! $user->hasRoleByName([Role::MEMBER_CURRENT, Role::MEMBER_YOUNG])) {
             // should not be here
             // TODO: tell some one about it
             return;
@@ -80,7 +80,7 @@ class RevokeMembership implements ShouldQueue
 
         // remove all non retained roles (this will include MEMBER_CURRENT and MEMBER_YOUNG)
         foreach ($user->getRoles() as $role) {
-            if ( ! $role->getRetained()) {
+            if (! $role->getRetained()) {
                 $this->roleManager->removeUserFromRole($user, $role);
             }
         }

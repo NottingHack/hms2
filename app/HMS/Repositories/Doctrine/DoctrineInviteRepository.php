@@ -19,7 +19,7 @@ class DoctrineInviteRepository extends EntityRepository implements InviteReposit
     public function findOrCreateByEmail($email)
     {
         $invite = $this->findOneByEmail($email);
-        if ( ! $invite) {
+        if (! $invite) {
             // Don't have a previous invite so create one
             $invite = new Invite();
             $invite->create($email);

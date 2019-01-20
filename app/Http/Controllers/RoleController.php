@@ -47,12 +47,13 @@ class RoleController extends Controller
      * @param UserManager          $userManager
      * @param PermissionRepository $permissionRepository
      */
-    public function __construct(RoleManager $roleManager,
+    public function __construct(
+        RoleManager $roleManager,
         RoleRepository $roleRepository,
         UserManager $userManager,
         PermissionRepository $permissionRepository,
-        UserRepository $userRepository)
-    {
+        UserRepository $userRepository
+    ) {
         $this->roleManager = $roleManager;
         $this->roleRepository = $roleRepository;
         $this->userManager = $userManager;

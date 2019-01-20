@@ -26,7 +26,7 @@ class RepositoryImplementationMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__.'/stubs/doctrine-repository.stub';
+        return __DIR__ . '/stubs/doctrine-repository.stub';
     }
 
     /**
@@ -39,6 +39,6 @@ class RepositoryImplementationMakeCommand extends GeneratorCommand
     {
         $name = $this->getNamespacedRepositoryImplementation($name);
 
-        return $this->laravel['path'].'/'.str_replace('\\', '/', $name).'.php';
+        return $this->laravel['path'] . '/' . str_replace('\\', '/', $name) . '.php';
     }
 }

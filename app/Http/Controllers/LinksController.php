@@ -69,7 +69,7 @@ class LinksController extends Controller
     {
         $link = $this->linkFactory->createFromRequest($request);
         $this->linkRepository->save($link);
-        flash()->success('Link \''.$link->getName().'\' created.');
+        flash()->success('Link \'' . $link->getName() . '\' created.');
 
         return redirect()->route('links.index');
     }
@@ -96,7 +96,7 @@ class LinksController extends Controller
     {
         $link->updateWithRequest($request);
         $this->linkRepository->save($link);
-        flash()->success('Link \''.$link->getName().'\' updated.');
+        flash()->success('Link \'' . $link->getName() . '\' updated.');
 
         return redirect()->route('links.index');
     }
@@ -110,7 +110,7 @@ class LinksController extends Controller
     public function destroy(Link $link)
     {
         $this->linkRepository->remove($link);
-        flash()->success('Link \''.$link->getName().'\' removed.');
+        flash()->success('Link \'' . $link->getName() . '\' removed.');
 
         return redirect()->route('links.index');
     }

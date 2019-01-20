@@ -42,11 +42,12 @@ class SaveNewTransactions implements ShouldQueue
      * @param BankTransactionRepository $bankTransactionRepository
      * @param RoleRepository $roleRepository
      */
-    public function __construct(BankRepository $bankRepository,
+    public function __construct(
+        BankRepository $bankRepository,
         BankTransactionFactory $bankTransactionFactory,
         BankTransactionRepository $bankTransactionRepository,
-        RoleRepository $roleRepository)
-    {
+        RoleRepository $roleRepository
+    ) {
         $this->bankRepository = $bankRepository;
         $this->bankTransactionFactory = $bankTransactionFactory;
         $this->bankTransactionRepository = $bankTransactionRepository;
@@ -82,7 +83,13 @@ class SaveNewTransactions implements ShouldQueue
 
             $transactionDate = new Carbon($transaction['date']);
 
-            $bankTransaction = $this->bankTransactionFactory->create($bank, $transactionDate, $transaction['description'], $transaction['amount']);
+            $bankTransaction = $this->bankTransactionFactory
+                ->create(
+                    $bank,
+                    $transactionDate,
+                    $transaction['description'],
+                    $transaction['amount']
+                );
 
             // now see if we already have this transaction on record? before saving it
             $bankTransaction = $this->bankTransactionRepository->findOrSave($bankTransaction);

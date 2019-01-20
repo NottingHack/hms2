@@ -59,8 +59,11 @@ class Transaction
      * @param int    $amount
      * @param string $status
      */
-    public function __construct(User $user, int $amount, string $status = TransactionState::PENDING)
-    {
+    public function __construct(
+        User $user,
+        int $amount,
+        string $status = TransactionState::PENDING
+    ) {
         $this->user = $user;
         $this->amount = $amount;
         $this->status = $status;

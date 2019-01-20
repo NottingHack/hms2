@@ -53,9 +53,11 @@ class RegisterController extends Controller
      * @param Validator $validator
      * @param UserManager $userManager
      */
-    public function __construct(Validator $validator,
-        UserManager $userManager, ProfileManager $profileManager)
-    {
+    public function __construct(
+        Validator $validator,
+        UserManager $userManager,
+        ProfileManager $profileManager
+    ) {
         $this->middleware('guest');
         $this->validator = $validator;
         $this->userManager = $userManager;

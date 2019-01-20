@@ -72,6 +72,6 @@ class PurgeCommand extends Command
 
         $this->inviteRepository->removeAllOlderThan($date);
 
-        $this->info('Invites older than '.$date->format('Y-m-d').' removed.');
+        $this->info('Invites older than ' . $date->format('Y-m-d') . ' removed.');
     }
 }

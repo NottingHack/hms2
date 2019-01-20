@@ -33,10 +33,11 @@ class UserController extends Controller
      * @param UserManager $userManager
      * @param ProfileManager $profileManager
      */
-    public function __construct(UserRepository $userRepository,
+    public function __construct(
+        UserRepository $userRepository,
         UserManager $userManager,
-        ProfileManager $profileManager)
-    {
+        ProfileManager $profileManager
+    ) {
         $this->userRepository = $userRepository;
         $this->userManager = $userManager;
         $this->profileManager = $profileManager;
@@ -105,7 +106,7 @@ class UserController extends Controller
         $this->validate($request, [
             'firstname' => 'required|max:255',
             'lastname' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:HMS\Entities\User,email,'.$user->getId(),
+            'email' => 'required|email|max:255|unique:HMS\Entities\User,email,' . $user->getId(),
             'address1' => 'sometimes|required|max:100',
             'address2' => 'sometimes|nullable|max:100',
             'address3' => 'sometimes|nullable|max:100',

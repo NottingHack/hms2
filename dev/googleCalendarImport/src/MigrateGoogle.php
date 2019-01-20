@@ -84,7 +84,7 @@ class MigrateGoogle
         while (true) {
             $allEvents = array_merge($allEvents, $events->getItems());
 
-            echo 'Got '.count($allEvents)." Events\n";
+            echo 'Got ' . count($allEvents) . " Events\n";
 
             $pageToken = $events->getNextPageToken();
             if ($pageToken) {

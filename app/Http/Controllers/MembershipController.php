@@ -78,7 +78,8 @@ class MembershipController extends Controller
      * @param RoleRepository    $roleRepository
      * @param BankRepository    $bankRepository
      */
-    public function __construct(MetaRepository $metaRepository,
+    public function __construct(
+        MetaRepository $metaRepository,
         AccountFactory $accountFactory,
         UserRepository $userRepository,
         RoleManager $roleManager,
@@ -86,8 +87,8 @@ class MembershipController extends Controller
         UserManager $userManager,
         ProfileManager $profileManager,
         RoleRepository $roleRepository,
-        BankRepository $bankRepository)
-    {
+        BankRepository $bankRepository
+    ) {
         $this->metaRepository = $metaRepository;
         $this->accountFactory = $accountFactory;
         $this->userRepository = $userRepository;
@@ -98,7 +99,8 @@ class MembershipController extends Controller
         $this->roleRepository = $roleRepository;
         $this->bankRepository = $bankRepository;
 
-        $this->middleware('can:membership.approval')->only(['showDetailsForApproval', 'approveDetails', 'rejectDetails']);
+        $this->middleware('can:membership.approval')
+            ->only(['showDetailsForApproval', 'approveDetails', 'rejectDetails']);
         $this->middleware('can:membership.updateDetails')->only(['editDetails', 'updateDetails']);
     }
 
@@ -111,10 +113,14 @@ class MembershipController extends Controller
     public function showDetailsForApproval(User $user)
     {
         if ($user->hasRoleByName(Role::MEMBER_APPROVAL)) {
-            return view('membership.showDetails')->with(
-                'user', $user)->with(
-                'subject', $this->metaRepository->get('reject_details_subject', 'Nottingham Hackspace: Issue with contact details')
-
+            return view('membership.showDetails')
+                ->with('user', $user)
+                ->with(
+                    'subject',
+                    $this->metaRepository->get(
+                        'reject_details_subject',
+                        'Nottingham Hackspace: Issue with contact details'
+                    )
                 );
         }
 

@@ -91,7 +91,10 @@ abstract class BaseCommand extends Command
             return $permission;
         } else {
             if ($error) {
-                $this->printError('The permission ' . $permission . ' was not found within the system.', 'Incorrect Permission');
+                $this->printError(
+                    'The permission ' . $permission . ' was not found within the system.',
+                    'Incorrect Permission'
+                );
             }
 
             return false;

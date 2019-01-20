@@ -30,7 +30,7 @@ class StripCommand extends BaseCommand
             return;
         }
 
-        if ($this->confirm('Remove all permissions from the '. $role->getName() .' role? [y|N]')) {
+        if ($this->confirm('Remove all permissions from the ' . $role->getName() . ' role? [y|N]')) {
             $role->stripPermissions();
             $this->entityManager->persist($role);
             $this->entityManager->flush();

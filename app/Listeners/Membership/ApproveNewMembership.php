@@ -51,13 +51,14 @@ class ApproveNewMembership implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(UserRepository $userRepository,
+    public function __construct(
+        UserRepository $userRepository,
         RoleManager $roleManager,
         PinFactory $pinFactory,
         PinRepository $pinRepository,
         MetaRepository $metaRepository,
-        RoleRepository $roleRepository)
-    {
+        RoleRepository $roleRepository
+    ) {
         $this->userRepository = $userRepository;
         $this->roleManager = $roleManager;
         $this->pinFactory = $pinFactory;

@@ -712,13 +712,13 @@ class MigrateInstrumentaionCommand extends Command
         foreach ($tools as $tool) {
             $toolRoleIds[$tool->id] = [
                 'MAINTAINER'    => DB::table('roles')
-                                        ->where('name', 'LIKE', 'tools.'.camel_case($tool->name).'.maintainer')
+                                        ->where('name', 'LIKE', 'tools.' . camel_case($tool->name) . '.maintainer')
                                         ->value('id'),
                 'INDUCTOR'      => DB::table('roles')
-                                        ->where('name', 'LIKE', 'tools.'.camel_case($tool->name).'.inductor')
+                                        ->where('name', 'LIKE', 'tools.' . camel_case($tool->name) . '.inductor')
                                         ->value('id'),
                 'USER'          => DB::table('roles')
-                                        ->where('name', 'LIKE', 'tools.'.camel_case($tool->name).'.user')
+                                        ->where('name', 'LIKE', 'tools.' . camel_case($tool->name) . '.user')
                                         ->value('id'),
             ];
         }
@@ -749,7 +749,7 @@ class MigrateInstrumentaionCommand extends Command
                         'created_at' => $row->mt_date_inducted,
                         'update_by_user_id' => $row->member_id_induct,
                     ];
-
+                    // No break
                 case 'INDUCTOR':
                     $roleUsers[] = [
                         'role_id' => $toolRoleIds[$row->tool_id]['INDUCTOR'],
@@ -762,7 +762,7 @@ class MigrateInstrumentaionCommand extends Command
                         'created_at' => $row->mt_date_inducted,
                         'update_by_user_id' => $row->member_id_induct,
                     ];
-
+                    // No break
                 default:
                     $roleUsers[] = [
                         'role_id' => $toolRoleIds[$row->tool_id]['USER'],
@@ -823,7 +823,7 @@ class MigrateInstrumentaionCommand extends Command
 
             // go fetch user from user table so we can rebuild a plausible email address
             $user = DB::table('user')->where('id', $row->member_id)->first();
-            $newRow['to_address'] = serialize(["$user->email" => $user->firstname.' '.$user->lastname]);
+            $newRow['to_address'] = serialize(["$user->email" => $user->firstname . ' ' . $user->lastname]);
 
             // We don't have a full record of the email so these will have to be empty
             $newRow['body'] = '';

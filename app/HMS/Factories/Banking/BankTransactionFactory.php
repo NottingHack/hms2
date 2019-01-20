@@ -20,8 +20,10 @@ class BankTransactionFactory
      * @param BankTransactionRepository $bankTransactionRepository
      * @param AccountRepository $accountRepository
      */
-    public function __construct(BankTransactionRepository $bankTransactionRepository, AccountRepository $accountRepository)
-    {
+    public function __construct(
+        BankTransactionRepository $bankTransactionRepository,
+        AccountRepository $accountRepository
+    ) {
         $this->bankTransactionRepository = $bankTransactionRepository;
         $this->accountRepository = $accountRepository;
     }

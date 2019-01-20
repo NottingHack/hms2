@@ -39,8 +39,11 @@ class AuditYoungHackers implements ShouldQueue
      * @param RoleManager    $roleManager
      * @param UserRepository $userRepository
      */
-    public function __construct(RoleRepository $roleRepository, RoleManager $roleManager, UserRepository $userRepository)
-    {
+    public function __construct(
+        RoleRepository $roleRepository,
+        RoleManager $roleManager,
+        UserRepository $userRepository
+    ) {
         $this->roleRepository = $roleRepository;
         $this->roleManager = $roleManager;
         $this->userRepository = $userRepository;

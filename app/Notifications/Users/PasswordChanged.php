@@ -42,8 +42,11 @@ class PasswordChanged extends Notification implements ShouldQueue
     {
         return (new MailMessage)
                     ->subject('Your HMS password has been changed')
-                    ->greeting('Hello '.$notifiable->getFirstname().',')
-                    ->line('Your password for signing into HMS was changed recently. If you made this change then ignore me!')
+                    ->greeting('Hello ' . $notifiable->getFirstname() . ',')
+                    ->line(
+                        'Your password for signing into HMS was changed recently.'
+                        . 'If you made this change then ignore me!'
+                    )
                     ->line("If, however, you didn't change your password please")
                     ->action('Reset Password Here', route('password.request'))
                     ->line('If you have any problems please reply to this email.');

@@ -31,8 +31,11 @@ class LogSentMessage implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(EmailRepository $emailRepository, UserRepository $userRepository, RoleRepository $roleRepository)
-    {
+    public function __construct(
+        EmailRepository $emailRepository,
+        UserRepository $userRepository,
+        RoleRepository $roleRepository
+    ) {
         $this->emailRepository = $emailRepository;
         $this->userRepository = $userRepository;
         $this->roleRepository = $roleRepository;

@@ -35,10 +35,11 @@ class ProjectController extends Controller
      * @param ProjectFactory    $projectFactory
      * @param UserRepository    $userRepository
      */
-    public function __construct(ProjectRepository $projectRepository,
+    public function __construct(
+        ProjectRepository $projectRepository,
         ProjectFactory $projectFactory,
-        UserRepository $userRepository)
-    {
+        UserRepository $userRepository
+    ) {
         $this->projectRepository = $projectRepository;
         $this->projectFactory = $projectFactory;
         $this->userRepository = $userRepository;
@@ -108,7 +109,7 @@ class ProjectController extends Controller
 
         $project = $this->projectFactory->create($request->projectName, $request->description);
         $this->projectRepository->save($project);
-        flash('Project \''.$project->getProjectName().'\' created.')->success();
+        flash('Project \'' . $project->getProjectName() . '\' created.')->success();
 
         return redirect()->route('projects.show', ['project' => $project->getId()]);
     }
@@ -173,7 +174,7 @@ class ProjectController extends Controller
         $project->setDescription($request->description);
         $this->projectRepository->save($project);
 
-        flash('Project \''.$project->getProjectName().'\' updated.')->success();
+        flash('Project \'' . $project->getProjectName() . '\' updated.')->success();
 
         return redirect()->route('projects.show', ['project' => $project->getId()]);
     }
@@ -214,7 +215,7 @@ class ProjectController extends Controller
 
         $project->setStateActive();
         $this->projectRepository->save($project);
-        flash('Project \''.$project->getProjectName().'\' marked active.')->success();
+        flash('Project \'' . $project->getProjectName() . '\' marked active.')->success();
 
         return back();
     }
@@ -235,7 +236,7 @@ class ProjectController extends Controller
 
         $project->setStateAbandoned();
         $this->projectRepository->save($project);
-        flash('Project \''.$project->getProjectName().'\' marked abandoned.')->success();
+        flash('Project \'' . $project->getProjectName() . '\' marked abandoned.')->success();
 
         return back();
     }
@@ -256,7 +257,7 @@ class ProjectController extends Controller
 
         $project->setStateComplete();
         $this->projectRepository->save($project);
-        flash('Project \''.$project->getProjectName().'\' marked complete.')->success();
+        flash('Project \'' . $project->getProjectName() . '\' marked complete.')->success();
 
         return back();
     }

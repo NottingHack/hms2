@@ -31,9 +31,10 @@ class BoxPrint implements LabelPrintEventInterface
      * @param Box $box
      * @param int $copiesToPrint
      */
-    public function __construct(Box $box,
-        $copiesToPrint = 1)
-    {
+    public function __construct(
+        Box $box,
+        $copiesToPrint = 1
+    ) {
         $this->templateName = 'member_box';
         $this->copiesToPrint = $copiesToPrint;
 

@@ -7,7 +7,8 @@ use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Banking\MembershipStatusNotification;
 use HMS\Repositories\Banking\MembershipStatusNotificationRepository;
 
-class DoctrineMembershipStatusNotificationRepository extends EntityRepository implements MembershipStatusNotificationRepository
+class DoctrineMembershipStatusNotificationRepository extends EntityRepository implements
+    MembershipStatusNotificationRepository
 {
     /**
      * find outstanding notifications.

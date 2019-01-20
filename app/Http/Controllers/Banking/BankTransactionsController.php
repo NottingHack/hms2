@@ -31,10 +31,11 @@ class BankTransactionsController extends Controller
      * @param UserRepository $userRepository
      * @param AccountRepository $accountRepository
      */
-    public function __construct(BankTransactionRepository $bankTransactionRepository,
+    public function __construct(
+        BankTransactionRepository $bankTransactionRepository,
         UserRepository $userRepository,
-        AccountRepository $accountRepository)
-    {
+        AccountRepository $accountRepository
+    ) {
         $this->bankTransactionRepository = $bankTransactionRepository;
         $this->userRepository = $userRepository;
         $this->accountRepository = $accountRepository;

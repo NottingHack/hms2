@@ -33,8 +33,11 @@ class ProfileManager
      * @param UserRepository    $userRepository
      * @param MetaRepository    $metaRepository
      */
-    public function __construct(ProfileRepository $profileRepository, UserRepository $userRepository, MetaRepository $metaRepository)
-    {
+    public function __construct(
+        ProfileRepository $profileRepository,
+        UserRepository $userRepository,
+        MetaRepository $metaRepository
+    ) {
         $this->profileRepository = $profileRepository;
         $this->userRepository = $userRepository;
         $this->metaRepository = $metaRepository;
@@ -53,8 +56,17 @@ class ProfileManager
      * @param null|string $dateOfBirth
      * @return User
      */
-    public function create(User $user, string $address1, ?string $address2, ?string $address3, string $addressCity, string $addressCounty, string $addressPostcode, string $contactNumber, ?string $dateOfBirth): User
-    {
+    public function create(
+        User $user,
+        string $address1,
+        ?string $address2,
+        ?string $address3,
+        string $addressCity,
+        string $addressCounty,
+        string $addressPostcode,
+        string $contactNumber,
+        ?string $dateOfBirth
+    ): User {
         $profile = new Profile($user);
 
         $profile->setAddress1($address1);

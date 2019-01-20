@@ -41,8 +41,11 @@ class MembershipDetailsApproved extends Mailable implements ShouldQueue
      * @param MetaRepostiory $metaRepository
      * @param BankRepository $bankRepository
      */
-    public function __construct(User $user, MetaRepository $metaRepository, BankRepository $bankRepository)
-    {
+    public function __construct(
+        User $user,
+        MetaRepository $metaRepository,
+        BankRepository $bankRepository
+    ) {
         $bank = $bankRepository->find($metaRepository->get('so_bank_id'));
         $this->accountNo = $bank->getAccountNumber();
         $this->sortCode = $bank->getSortCode();

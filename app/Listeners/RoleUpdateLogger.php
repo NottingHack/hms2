@@ -42,8 +42,12 @@ class RoleUpdateLogger implements ShouldQueue
      *
      * @param RoleUpdateRepository $roleUpdateRepository
      */
-    public function __construct(RoleUpdateRepository $roleUpdateRepository, EntityManagerInterface $entityManager, UserRepository $userRepository, RoleRepository $roleRepository)
-    {
+    public function __construct(
+        RoleUpdateRepository $roleUpdateRepository,
+        EntityManagerInterface $entityManager,
+        UserRepository $userRepository,
+        RoleRepository $roleRepository
+    ) {
         $this->roleUpdateRepository = $roleUpdateRepository;
         $this->entityManager = $entityManager;
         $this->userRepository = $userRepository;

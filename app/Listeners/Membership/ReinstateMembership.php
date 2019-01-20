@@ -31,11 +31,12 @@ class ReinstateMembership implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(UserRepository $userRepository,
+    public function __construct(
+        UserRepository $userRepository,
         RoleManager $roleManager,
         MetaRepository $metaRepository,
-        RoleRepository $roleRepository)
-    {
+        RoleRepository $roleRepository
+    ) {
         $this->userRepository = $userRepository;
         $this->roleManager = $roleManager;
         $this->metaRepository = $metaRepository;

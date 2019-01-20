@@ -38,8 +38,11 @@ class RfidTagsController extends Controller
      * @param UserRepository    $userRepository
      * @param PinRepository     $pinRepository
      */
-    public function __construct(RfidTagRepository $rfidTagRepository, UserRepository $userRepository, PinRepository $pinRepository)
-    {
+    public function __construct(
+        RfidTagRepository $rfidTagRepository,
+        UserRepository $userRepository,
+        PinRepository $pinRepository
+    ) {
         $this->rfidTagRepository = $rfidTagRepository;
         $this->userRepository = $userRepository;
         $this->pinRepository = $pinRepository;
@@ -140,7 +143,7 @@ class RfidTagsController extends Controller
     {
         $this->rfidTagRepository->remove($rfidTag);
 
-        flash()->success('RfidTag \''.$rfidTag->getBestRfidSerial().'\' removed.');
+        flash()->success('RfidTag \'' . $rfidTag->getBestRfidSerial() . '\' removed.');
 
         return redirect()->route('rfid-tags.index', ['user' => $rfidTag->getUser()->getId()]);
     }
@@ -162,7 +165,7 @@ class RfidTagsController extends Controller
         $pin->setStateEnroll();
         $this->pinRepository->save($pin);
 
-        flash()->success('Pin \''.$pin->getPin().'\' set to Enrol');
+        flash()->success('Pin \'' . $pin->getPin() . '\' set to Enrol');
 
         return redirect()->route('rfid-tags.index', ['user' => $pin->getUser()->getId()]);
     }

@@ -41,7 +41,8 @@ class AccountFactory
         $safeChars = '2346789BCDFGHJKMPQRTVWXY';
         // We prefix the ref with a string that lets people know it's us
         $prefix = 'HSNTSB';
-        // Payment references can be up to 18 chars according to: http://www.bacs.co.uk/Bacs/Businesses/BacsDirectCredit/Receiving/Pages/PaymentReferenceInformation.aspx
+        // Payment references can be up to 18 chars according to:
+        // http://www.bacs.co.uk/Bacs/Businesses/BacsDirectCredit/Receiving/Pages/PaymentReferenceInformation.aspx
         $maxRefLength = 16;
         $paymentRef = $prefix;
         for ($i = strlen($prefix); $i < $maxRefLength; $i++) {

@@ -33,8 +33,11 @@ class ToolController extends Controller
      * @param ToolManager       $toolManager
      * @param BookingRepository $bookingRepository
      */
-    public function __construct(ToolRepository $toolRepository, ToolManager $toolManager, BookingRepository $bookingRepository)
-    {
+    public function __construct(
+        ToolRepository $toolRepository,
+        ToolManager $toolManager,
+        BookingRepository $bookingRepository
+    ) {
         $this->toolRepository = $toolRepository;
         $this->toolManager = $toolManager;
         $this->bookingRepository = $bookingRepository;
@@ -98,7 +101,7 @@ class ToolController extends Controller
             $request->lengthMax,
             $request->bookingsMax
         );
-        flash('Tool \''.$tool->getName().'\' created.')->success();
+        flash('Tool \'' . $tool->getName() . '\' created.')->success();
 
         return redirect()->route('tools.show', ['tool' => $tool->getId()]);
     }
@@ -135,7 +138,7 @@ class ToolController extends Controller
     public function update(Request $request, Tool $tool)
     {
         $this->validate($request, [
-            'toolName'      => 'required|string|max:20|unique:HMS\Entities\Tools\Tool,name,'.$tool->getId(),
+            'toolName'      => 'required|string|max:20|unique:HMS\Entities\Tools\Tool,name,' . $tool->getId(),
             'restricted'    => 'sometimes|required',
             'cost'          => 'required|integer|min:0',
             'bookingLength' => 'required|integer|min:0',
@@ -144,7 +147,7 @@ class ToolController extends Controller
         ]);
 
         $this->toolManager->update($tool, $request->all());
-        flash('Tool \''.$tool->getName().'\' updated.')->success();
+        flash('Tool \'' . $tool->getName() . '\' updated.')->success();
 
         return redirect()->route('tools.show', ['tool' => $tool->getId()]);
     }
@@ -158,7 +161,7 @@ class ToolController extends Controller
     public function destroy(Tool $tool)
     {
         $this->toolManager->removeTool($tool);
-        flash('Tool \''.$tool->getName().'\' removed.')->success();
+        flash('Tool \'' . $tool->getName() . '\' removed.')->success();
 
         return redirect()->route('tools.index');
     }

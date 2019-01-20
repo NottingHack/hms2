@@ -33,8 +33,15 @@ class PrintLabelSubscriber implements ShouldQueue
      */
     protected $labelTemplateRepository;
 
-    public function __construct(LabelTemplateRepository $labelTemplateRepository, MetaRepository $metaRepository)
-    {
+    /**
+     * Create event listner.
+     * @param LabelTemplateRepository $labelTemplateRepository
+     * @param MetaRepository          $metaRepository
+     */
+    public function __construct(
+        LabelTemplateRepository $labelTemplateRepository,
+        MetaRepository $metaRepository
+    ) {
         $this->metaRepository = $metaRepository;
         $this->labelTemplateRepository = $labelTemplateRepository;
     }
@@ -115,8 +122,9 @@ class PrintLabelSubscriber implements ShouldQueue
     }
 
     /**
-     * Render Blade template with given substitutions
+     * Render Blade template with given substitutions.
      * borrowed from https://laracasts.com/index.php/discuss/channels/general-discussion/render-template-from-blade-template-in-database .
+     *
      * @param  string $template blade template to render
      * @param  array $substitutions
      * @return string

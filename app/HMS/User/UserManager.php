@@ -34,9 +34,11 @@ class UserManager
      * @param RoleManager $roleManager
      * @param PasswordStore $passwordStore
      */
-    public function __construct(UserRepository $userRepository,
-        RoleManager $roleManager, PasswordStore $passwordStore)
-    {
+    public function __construct(
+        UserRepository $userRepository,
+        RoleManager $roleManager,
+        PasswordStore $passwordStore
+    ) {
         $this->userRepository = $userRepository;
         $this->roleManager = $roleManager;
         $this->passwordStore = $passwordStore;

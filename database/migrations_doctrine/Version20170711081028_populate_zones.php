@@ -23,7 +23,7 @@ class Version20170711081028_populate_zones extends AbstractMigration
         foreach ($zones as $zone) {
             list($id, $description, $short_name, $permission_code) = $zone;
             $this->addSql(
-                'INSERT INTO zones (id, description, short_name, permission_code) VALUES (\''.$id.'\', \''.$description.'\', \''.$short_name.'\', \''.$permission_code.'\')'
+                'INSERT INTO zones (id, description, short_name, permission_code) VALUES (\'' . $id . '\', \'' . $description . '\', \'' . $short_name . '\', \'' . $permission_code . '\')'
             );
         }
     }

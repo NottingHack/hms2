@@ -53,13 +53,14 @@ class WarnMembershipMayExpire implements ShouldQueue
      * @param MetaRepository                         $metaRepository
      * @param BankRepository                         $bankRepository
      */
-    public function __construct(UserRepository $userRepository,
+    public function __construct(
+        UserRepository $userRepository,
         RoleManager $roleManager,
         MembershipStatusNotificationFactory $membershipStatusNotificationFactory,
         MembershipStatusNotificationRepository $membershipStatusNotificationRepository,
         MetaRepository $metaRepository,
-        BankRepository $bankRepository)
-    {
+        BankRepository $bankRepository
+    ) {
         $this->userRepository = $userRepository;
         $this->roleManager = $roleManager;
         $this->membershipStatusNotificationFactory = $membershipStatusNotificationFactory;

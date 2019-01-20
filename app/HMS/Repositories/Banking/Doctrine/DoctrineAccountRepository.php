@@ -42,7 +42,7 @@ class DoctrineAccountRepository extends EntityRepository implements AccountRepos
     {
         $q = parent::createQueryBuilder('a')
           ->where('a.paymentRef LIKE :paymentRef')
-          ->setParameter('paymentRef', '%'.$paymentRef.'%')
+          ->setParameter('paymentRef', '%' . $paymentRef . '%')
           ->getQuery();
 
         return $q->getResult();

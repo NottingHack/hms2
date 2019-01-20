@@ -28,7 +28,7 @@ class MappingMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__.'/stubs/mapping.stub';
+        return __DIR__ . '/stubs/mapping.stub';
     }
 
     /**
@@ -43,7 +43,11 @@ class MappingMakeCommand extends GeneratorCommand
 
         $namspacedDummmyMapping = str_replace('\\', '.', $name);
 
-        $dummyTable = str_replace('\\', '', Str::snake(Str::plural(str_replace($this->getNamespace($name).'\\', '', $name))));
+        $dummyTable = str_replace(
+            '\\',
+            '',
+            Str::snake(Str::plural(str_replace($this->getNamespace($name) . '\\', '', $name)))
+        );
 
         $stub = str_replace(
             ['NamspacedDummmyMapping', 'dummyTable'],
@@ -64,6 +68,6 @@ class MappingMakeCommand extends GeneratorCommand
     {
         $name = str_replace('\\', '.', $name);
 
-        return $this->laravel['path'].'/HMS/Mappings/'.str_replace('\\', '/', $name).'.dcm.yml';
+        return $this->laravel['path'] . '/HMS/Mappings/' . str_replace('\\', '/', $name) . '.dcm.yml';
     }
 }

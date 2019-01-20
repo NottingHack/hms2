@@ -79,13 +79,14 @@ class BoxController extends Controller
      * @param TransactionRepository $transactionRepository
      * @param TransactionFactory $transactionFactory
      */
-    public function __construct(BoxRepository $boxRepository,
+    public function __construct(
+        BoxRepository $boxRepository,
         BoxFactory $boxFactory,
         UserRepository $userRepository,
         MetaRepository $metaRepository,
         TransactionRepository $transactionRepository,
-        TransactionFactory $transactionFactory)
-    {
+        TransactionFactory $transactionFactory
+    ) {
         $this->boxRepository = $boxRepository;
         $this->boxFactory = $boxFactory;
         $this->userRepository = $userRepository;
@@ -269,7 +270,13 @@ class BoxController extends Controller
             }
 
             // charge this users snackspace account $boxCost
-            $boxTransaction = $this->transactionFactory->create($user, $boxCost, TransactionType::MEMBER_BOX, $this->transactionDescription);
+            $boxTransaction = $this->transactionFactory
+                ->create(
+                    $user,
+                    $boxCost,
+                    TransactionType::MEMBER_BOX,
+                    $this->transactionDescription
+                );
             $this->transactionRepository->saveAndUpdateBalance($boxTransaction);
         }
 

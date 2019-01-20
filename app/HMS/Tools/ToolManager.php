@@ -90,12 +90,13 @@ class ToolManager
      * @param RoleRepository       $roleRepository
      * @param RoleManager          $roleManager
      */
-    public function __construct(ToolRepository $toolRepository,
+    public function __construct(
+        ToolRepository $toolRepository,
         ToolFactory $toolFactory,
         PermissionRepository $permissionRepository,
         RoleRepository $roleRepository,
-        RoleManager $roleManager)
-    {
+        RoleManager $roleManager
+    ) {
         $this->toolRepository = $toolRepository;
         $this->toolFactory = $toolFactory;
         $this->permissionRepository = $permissionRepository;
@@ -115,8 +116,14 @@ class ToolManager
      *
      * @return Tool
      */
-    public function create(string $name, bool $restricted, int $pph, int $bookingLength, int $lengthMax, int $bookingsMax = 1)
-    {
+    public function create(
+        string $name,
+        bool $restricted,
+        int $pph,
+        int $bookingLength,
+        int $lengthMax,
+        int $bookingsMax = 1
+    ) {
         // TODO: check tool name is unique
 
         $_tool = $this->toolFactory->create(
@@ -151,7 +158,14 @@ class ToolManager
         }
 
         // Now create tool roles and add permissions
-        $rolesTemplates = json_decode(str_replace(array_keys($replace), array_values($replace), json_encode(self::ROLE_TEMPLATES)), true);
+        $rolesTemplates = json_decode(
+            str_replace(
+                array_keys($replace),
+                array_values($replace),
+                json_encode(self::ROLE_TEMPLATES)
+            ),
+            true
+        );
 
         foreach ($rolesTemplates as $roleName => $role) {
             if (! $this->roleRepository->findOneByName($roleName)) {
@@ -238,7 +252,12 @@ class ToolManager
      */
     public function removeTool(Tool $tool)
     {
-        $roleNames = str_replace('_TOOL_PERMISSION_NAME_', $tool->getPermissionName(), array_keys(self::ROLE_TEMPLATES));
+        $roleNames = str_replace(
+            '_TOOL_PERMISSION_NAME_',
+            $tool->getPermissionName(),
+            array_keys(self::ROLE_TEMPLATES)
+        );
+
         foreach ($roleNames as $roleName) {
             $this->roleRepository->removeOneByName($roleName);
         }

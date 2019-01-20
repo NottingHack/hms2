@@ -47,9 +47,8 @@ class MetaController extends Controller
      */
     public function edit($key)
     {
-        if (! $this->metaRepository->has(
-            $key)) {
-            flash('Key \''.$key.'\' not found', 'warning');
+        if (! $this->metaRepository->has($key)) {
+            flash('Key \'' . $key . '\' not found', 'warning');
 
             return redirect()->route('metas.index');
         }
@@ -72,9 +71,8 @@ class MetaController extends Controller
      */
     public function update(Request $request, $key)
     {
-        if (! $this->metaRepository->has(
-            $key)) {
-            flash('Key \''.$key.'\' not found', 'warning');
+        if (! $this->metaRepository->has($key)) {
+            flash('Key \'' . $key . '\' not found', 'warning');
 
             return redirect()->route('metas.index');
         }
@@ -86,7 +84,7 @@ class MetaController extends Controller
 
         $this->metaRepository->set($key, $request['value']);
 
-        flash()->success('Key \''.$key.'\' updated.');
+        flash()->success('Key \'' . $key . '\' updated.');
 
         return redirect()->route('metas.index');
     }

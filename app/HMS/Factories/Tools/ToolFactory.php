@@ -19,8 +19,14 @@ class ToolFactory
      *
      * @return Tool
      */
-    public function create(string $name, bool $restricted, int $pph, int $bookingLength, int $lengthMax, int $bookingsMax = 1)
-    {
+    public function create(
+        string $name,
+        bool $restricted,
+        int $pph,
+        int $bookingLength,
+        int $lengthMax,
+        int $bookingsMax = 1
+    ) {
         $_tool = new Tool();
         $_tool->setName($name);
 

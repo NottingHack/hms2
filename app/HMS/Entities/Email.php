@@ -54,8 +54,12 @@ class Email
      * @param string $body
      * @param string $fullString
      */
-    public function __construct(array $toAddress, string $subject, string $body, string $fullString)
-    {
+    public function __construct(
+        array $toAddress,
+        string $subject,
+        string $body,
+        string $fullString
+    ) {
         $this->toAddress = $toAddress;
         $this->subject = $subject;
         $this->body = $body;

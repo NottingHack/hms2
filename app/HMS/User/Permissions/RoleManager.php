@@ -39,8 +39,12 @@ class RoleManager
      *
      * @param HMS\Repositories\RoleRepository $roleRepository An instance of a role repository
      */
-    public function __construct(RoleRepository $roleRepository, PermissionRepository $permissionRepository, UserRepository $userRepository, EntityManagerInterface $entityManager)
-    {
+    public function __construct(
+        RoleRepository $roleRepository,
+        PermissionRepository $permissionRepository,
+        UserRepository $userRepository,
+        EntityManagerInterface $entityManager
+    ) {
         $this->roleRepository = $roleRepository;
         $this->permissionRepository = $permissionRepository;
         $this->userRepository = $userRepository;

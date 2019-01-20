@@ -52,7 +52,7 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
      */
     protected function getPath($name)
     {
-        return $this->laravel['path'].'/'.str_replace('\\', '/', $name).'.php';
+        return $this->laravel['path'] . '/' . str_replace('\\', '/', $name) . '.php';
     }
 
     /**
@@ -74,7 +74,7 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
      */
     protected function getNamespacedRepositoryInterface($name)
     {
-        $name = str_replace($this->getDefaultNamespace($name).'\\', '', $name);
+        $name = str_replace($this->getDefaultNamespace($name) . '\\', '', $name);
         $interface = config('repositories.repository_namespace') . '\\' . $name . 'Repository';
 
         return $interface;
@@ -101,7 +101,7 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
      */
     protected function getNamespacedRepositoryImplementation($name)
     {
-        $name = str_replace($this->getDefaultNamespace($name).'\\', '', $name);
+        $name = str_replace($this->getDefaultNamespace($name) . '\\', '', $name);
         $implementation = config('repositories.repository_namespace') . '\\' .
                 (strpos($name, '\\') ? explode('\\', $name)[0] . '\\' : '') .
                 'Doctrine\\Doctrine' .
@@ -132,7 +132,7 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
      */
     protected function getClassInstance($name)
     {
-        $class = str_replace($this->getNamespace($name).'\\', '', $name);
+        $class = str_replace($this->getNamespace($name) . '\\', '', $name);
 
         return Str::camel($class);
     }

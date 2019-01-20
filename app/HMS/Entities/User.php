@@ -20,9 +20,23 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use LaravelDoctrine\ACL\Contracts\HasPermissions as HasPermissionsContract;
 
-class User implements AuthenticatableContract, CanResetPasswordContract, HasRoleContract, HasPermissionsContract, AuthorizableContract, MustVerifyEmailContract
+class User implements
+    AuthenticatableContract,
+    CanResetPasswordContract,
+    HasRoleContract,
+    HasPermissionsContract,
+    AuthorizableContract,
+    MustVerifyEmailContract
 {
-    use CanResetPassword, Notifiable, HasRoles, HasPermissions, SoftDeletable, Timestampable, Authorizable, HasApiTokens, DoctrineMustVerifyEmail;
+    use CanResetPassword,
+        Notifiable,
+        HasRoles,
+        HasPermissions,
+        SoftDeletable,
+        Timestampable,
+        Authorizable,
+        HasApiTokens,
+        DoctrineMustVerifyEmail;
 
     const MIN_PASSWORD_LENGTH = 3;
 
@@ -83,8 +97,12 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
      * @param string $username
      * @param string $email
      */
-    public function __construct(string $firstname, string $lastname, string $username, string $email)
-    {
+    public function __construct(
+        string $firstname,
+        string $lastname,
+        string $username,
+        string $email
+    ) {
         $this->name = $firstname;
         $this->lastname = $lastname;
         $this->username = $username;

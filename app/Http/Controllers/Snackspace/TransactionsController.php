@@ -58,7 +58,7 @@ class TransactionsController extends Controller
             $user = \Auth::user();
         }
         if (! $user->getProfile()) {
-            flash($user->getFirstname().' has no profile')->warning();
+            flash($user->getFirstname() . ' has no profile')->warning();
 
             return redirect()->route('home');
         }

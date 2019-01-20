@@ -28,9 +28,10 @@ class BookingManager
      * @param BookingRepository $bookingRepository
      * @param BookingFactory    $bookingFactory
      */
-    public function __construct(BookingRepository $bookingRepository,
-        BookingFactory $bookingFactory)
-    {
+    public function __construct(
+        BookingRepository $bookingRepository,
+        BookingFactory $bookingFactory
+    ) {
         $this->bookingRepository = $bookingRepository;
         $this->bookingFactory = $bookingFactory;
     }
@@ -53,7 +54,7 @@ class BookingManager
         // BASIC CHECKS
         // can this user post this event?
         // Is the tool restricted and has the user been inducted
-        if ($tool->isRestricted() && $user->cannot('tools.'.$tool->getPermissionName().'.book')) {
+        if ($tool->isRestricted() && $user->cannot('tools.' . $tool->getPermissionName() . '.book')) {
             return 'Must be inducted to book this tool.'; // 403
         }
 
@@ -100,7 +101,7 @@ class BookingManager
         // BASIC CHECKS
         // can this user post this event?
         // Is the tool restricted and has the user been inducted
-        if ($tool->isRestricted() && $user->cannot('tools.'.$tool->getPermissionName().'.book.induction')) {
+        if ($tool->isRestricted() && $user->cannot('tools.' . $tool->getPermissionName() . '.book.induction')) {
             return 'Must be inducted to book this tool.';
         }
 
@@ -140,7 +141,7 @@ class BookingManager
         // BASIC CHECKS
         // can this user post this event?
         // Is the tool restricted and has the user been inducted
-        if ($user->cannot('tools.'.$tool->getPermissionName().'.book.maintenance')) {
+        if ($user->cannot('tools.' . $tool->getPermissionName() . '.book.maintenance')) {
             return 'Must be inducted to book this tool.';
         }
 

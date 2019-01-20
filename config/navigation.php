@@ -70,7 +70,7 @@ return [
                     'permissions'   => ['profile.view.all'],
                     'links'         => [],
                 ],
-                  'user'         => [
+                'user'         => [
                     'text'          => 'Members',
                     'route'         => 'users.index',
                     'match'         => 'users.index',

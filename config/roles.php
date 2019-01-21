@@ -72,6 +72,7 @@ return [
         'gatekeeper.zoneEntry.classRoomMetalworking',
         'gatekeeper.zoneEntry.teamStrorage',
         'gatekeeper.zoneEntry.downstairsMembersStrorage',
+        'gatekeeper.zoneEntry.ouside',
     ],
 
     /*
@@ -83,29 +84,29 @@ return [
     |
     */
     'roles' => [
-        'member.approval'   => [
-            'name'          => 'Awaiting Approval',
-            'description'   => 'Member awaiting approval',
-            'permissions'   => [
+        'member.approval' => [
+            'name' => 'Awaiting Approval',
+            'description' => 'Member awaiting approval',
+            'permissions' => [
                 'profile.view.self',
                 'profile.edit.self',
                 'link.view',
                 'membership.updateDetails',
             ],
         ],
-        'member.payment'    => [
-            'name'          => 'Awaiting Payment',
-            'description'   => 'Awaiting standing order payment',
-            'permissions'   => [
+        'member.payment' => [
+            'name' => 'Awaiting Payment',
+            'description' => 'Awaiting standing order payment',
+            'permissions' => [
                 'profile.view.self',
                 'profile.edit.self',
                 'link.view',
             ],
         ],
-        'member.young'      => [
-            'name'          => 'Young Hacker',
-            'description'   => 'Member between 16 and 18',
-            'permissions'   => [
+        'member.young' => [
+            'name' => 'Young Hacker',
+            'description' => 'Member between 16 and 18',
+            'permissions' => [
                 'profile.view.self',
                 'profile.edit.self',
                 'link.view',
@@ -122,28 +123,30 @@ return [
                 'rfidTags.view.self',
                 'rfidTags.edit.self',
                 'tools.view',
+                'gatekeeper.zoneEntry.ouside',
                 'gatekeeper.zoneEntry.upstairs',
                 'gatekeeper.zoneEntry.cncBlueRoom',
                 'gatekeeper.zoneEntry.classRoomMetalworking',
                 'gatekeeper.zoneEntry.downstairsMembersStrorage',
             ],
         ],
-        'member.ex'         => [
-            'name'          => 'Ex Member',
-            'description'   => 'Ex Member',
-            'permissions'   => [
+        'member.ex' => [
+            'name' => 'Ex Member',
+            'description' => 'Ex Member',
+            'permissions' => [
                 'profile.view.self',
                 'profile.edit.self',
                 'link.view',
                 'bankTransactions.view.self',
                 'snackspaceTransaction.view.self',
                 'rfidTags.view.self',
+                'gatekeeper.zoneEntry.ouside',
             ],
         ],
-        'member.current'    => [
-            'name'          => 'Current Member',
-            'description'   => 'Current Member',
-            'permissions'   => [
+        'member.current' => [
+            'name' => 'Current Member',
+            'description' => 'Current Member',
+            'permissions' => [
                 'profile.view.self',
                 'profile.edit.self',
                 'accessCodes.view',
@@ -161,17 +164,18 @@ return [
                 'rfidTags.view.self',
                 'rfidTags.edit.self',
                 'tools.view',
+                'gatekeeper.zoneEntry.ouside',
                 'gatekeeper.zoneEntry.upstairs',
                 'gatekeeper.zoneEntry.cncBlueRoom',
                 'gatekeeper.zoneEntry.classRoomMetalworking',
                 'gatekeeper.zoneEntry.downstairsMembersStrorage',
             ],
         ],
-        'member.temporarybanned'    => [
-            'name'          => 'Temporary Banned Member',
-            'description'   => 'Temporary Banned Member',
-            'retained'      => true,
-            'permissions'   => [
+        'member.temporarybanned' => [
+            'name' => 'Temporary Banned Member',
+            'description' => 'Temporary Banned Member',
+            'retained' => true,
+            'permissions' => [
                 'profile.view.self',
                 'profile.edit.self',
                 'link.view',
@@ -181,13 +185,14 @@ return [
                 'snackspaceTransaction.view.self',
                 'rfidTags.view.self',
                 'rfidTags.edit.self',
+                'gatekeeper.zoneEntry.ouside',
             ],
         ],
-        'member.banned'    => [
-            'name'          => 'Banned Member',
-            'description'   => 'Banned Member',
-            'retained'      => true,
-            'permissions'   => [
+        'member.banned' => [
+            'name' => 'Banned Member',
+            'description' => 'Banned Member',
+            'retained' => true,
+            'permissions' => [
                 'profile.view.self',
                 'profile.edit.self',
                 'link.view',
@@ -196,21 +201,22 @@ return [
                 'bankTransactions.view.self',
                 'snackspaceTransaction.view.self',
                 'rfidTags.view.self',
+                'gatekeeper.zoneEntry.ouside',
             ],
         ],
-        'user.super'         => [
-            'name'          => 'Super User',
-            'description'   => 'Full access to all parts of the system',
-            'permissions'   =>  [
+        'user.super' => [
+            'name' => 'Super User',
+            'description' => 'Full access to all parts of the system',
+            'permissions' => [
                 '*',
             ],
         ],
-        'team.membership'    => [
-            'name'          => 'Membership Team',
-            'description'   => 'Membership Team',
-            'email'         => 'membership@nottinghack.org.uk',
-            'slackChannel'  => '#membership',
-            'permissions'   => [
+        'team.membership' => [
+            'name' => 'Membership Team',
+            'description' => 'Membership Team',
+            'email' => 'membership@nottinghack.org.uk',
+            'slackChannel' => '#membership',
+            'permissions' => [
                 'profile.view.all',
                 'membership.approval',
                 'search.users',
@@ -231,12 +237,12 @@ return [
                 'gatekeeper.zoneEntry.teamStrorage',
             ],
         ],
-        'team.trustees'    => [
-            'name'          => 'Nottingham Hackspace Trustees',
-            'description'   => 'The Trustees',
-            'email'         => 'trustees@nottinghack.org.uk',
-            'slackChannel'  => '#general',
-            'permissions'   => [
+        'team.trustees' => [
+            'name' => 'Nottingham Hackspace Trustees',
+            'description' => 'The Trustees',
+            'email' => 'trustees@nottinghack.org.uk',
+            'slackChannel' => '#general',
+            'permissions' => [
                 'profile.view.all',
                 'profile.edit.all',
                 'meta.view',
@@ -269,12 +275,12 @@ return [
                 'gatekeeper.zoneEntry.teamStrorage',
             ],
         ],
-        'team.software'    => [
-            'name'          => 'Software Team',
-            'description'   => 'Software Team',
-            'email'         => 'software@nottinghack.org.uk',
-            'slackChannel'  => '#software',
-            'permissions'   => [
+        'team.software' => [
+            'name' => 'Software Team',
+            'description' => 'Software Team',
+            'email' => 'software@nottinghack.org.uk',
+            'slackChannel' => '#software',
+            'permissions' => [
                 'profile.view.all',
                 'profile.edit.all',
                 'role.view.all',
@@ -300,20 +306,20 @@ return [
                 'gatekeeper.zoneEntry.teamStrorage',
             ],
         ],
-        'team.finance'     => [
-            'name'          => 'Finance Team',
-            'description'   => 'Finance Team',
-            'email'         => 'accounts@nottinghack.org.uk',
-            'permissions'   => [
+        'team.finance' => [
+            'name' => 'Finance Team',
+            'description' => 'Finance Team',
+            'email' => 'accounts@nottinghack.org.uk',
+            'permissions' => [
                 'gatekeeper.zoneEntry.teamStrorage',
             ],
         ],
-        'team.network'     => [
-            'name'          => 'Network Team',
-            'description'   => 'Network Team',
-            'email'         => 'network@nottinghack.org.uk',
-            'slackChannel'  => '#network',
-            'permissions'   => [
+        'team.network' => [
+            'name' => 'Network Team',
+            'description' => 'Network Team',
+            'email' => 'network@nottinghack.org.uk',
+            'slackChannel' => '#network',
+            'permissions' => [
                 'meta.view',
                 'meta.edit',
                 'tools.view',

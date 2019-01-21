@@ -12,6 +12,8 @@ class Version20190119205657_updated_populated_zones extends AbstractMigration
      */
     public function up(Schema $schema)
     {
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+
         // for some reason I messed with these in Version20190111021836_populate_bells_and_door_bell
         $this->addSql('SET foreign_key_checks = 0');
         $this->addSql('UPDATE zones SET id = id+1 ORDER BY ID DESC');
@@ -59,6 +61,8 @@ class Version20190119205657_updated_populated_zones extends AbstractMigration
      */
     public function down(Schema $schema)
     {
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+
         $this->addSql(
             "UPDATE doors SET side_a_zone_id = NULL, side_b_zone_id = NULL WHERE short_name = 'WORKSHOP'"
         );

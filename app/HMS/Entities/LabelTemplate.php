@@ -13,7 +13,8 @@ class LabelTemplate implements ArrayableContract
     use SoftDeletable, Timestampable, Arrayable;
 
     /**
-     * primary key.
+     * Primary key.
+     *
      * @var string
      */
     protected $template_name;
@@ -25,7 +26,9 @@ class LabelTemplate implements ArrayableContract
 
     /**
      * Update with detials from the LabelTemplateRequest.
+     *
      * @param LabelTemplateRequest $request
+     *
      * @return self
      */
     public function updateWithRequest(LabelTemplateRequest $request)

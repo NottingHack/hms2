@@ -86,6 +86,7 @@ class RoleController extends Controller
      * Show a specific role.
      *
      * @param Role $role the Role
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Role $role)
@@ -99,6 +100,7 @@ class RoleController extends Controller
      * Show the edit form for a role.
      *
      * @param Role $role the Role
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Role $role)
@@ -115,6 +117,7 @@ class RoleController extends Controller
      *
      * @param Role $role the Role
      * @param Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Role $role, Request $request)
@@ -170,6 +173,7 @@ class RoleController extends Controller
      *
      * @param Role $role the role
      * @param User $user the user
+     *
      * @return \Illuminate\Http\Response
      */
     public function removeUser(Role $role, User $user)
@@ -183,6 +187,7 @@ class RoleController extends Controller
      * Remove a specific user from a specific role.
      *
      * @param ArrayCollection|array $list
+     *
      * @return array
      */
     private function formatDotNotationList($list)

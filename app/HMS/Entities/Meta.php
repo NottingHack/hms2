@@ -11,7 +11,7 @@ class Meta
     use SoftDeletable, Timestamps;
 
     /**
-     * @var  string
+     * @var string
      */
     protected $key;
 
@@ -36,7 +36,7 @@ class Meta
     /**
      * Gets the value of key.
      *
-     * @return  string
+     * @return string
      */
     public function getKey(): string
     {

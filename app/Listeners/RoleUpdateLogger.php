@@ -57,7 +57,7 @@ class RoleUpdateLogger implements ShouldQueue
     /**
      * Handle user added to role events.
      *
-     * @param  UserAddedToRole $event
+     * @param UserAddedToRole $event
      */
     public function onUserAddedToRole(UserAddedToRole $event)
     {
@@ -75,7 +75,7 @@ class RoleUpdateLogger implements ShouldQueue
     /**
      * Handle user removed from role events.
      *
-     * @param  UserRemovedFromRole $event
+     * @param UserRemovedFromRole $event
      */
     public function onUserRemovedFromRole(UserRemovedFromRole $event)
     {
@@ -89,7 +89,7 @@ class RoleUpdateLogger implements ShouldQueue
     /**
      * Register the listeners for the subscriber.
      *
-     * @param  Illuminate\Events\Dispatcher  $events
+     * @param Illuminate\Events\Dispatcher $events
      */
     public function subscribe($events)
     {

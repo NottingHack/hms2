@@ -32,8 +32,8 @@ class ProjectController extends Controller
      * Create a new controller instance.
      *
      * @param ProjectRepository $projectRepository
-     * @param ProjectFactory    $projectFactory
-     * @param UserRepository    $userRepository
+     * @param ProjectFactory $projectFactory
+     * @param UserRepository $userRepository
      */
     public function __construct(
         ProjectRepository $projectRepository,
@@ -54,7 +54,8 @@ class ProjectController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -97,7 +98,8 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -117,7 +119,8 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Project  $project
+     * @param Project $project
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Project $project)
@@ -135,7 +138,8 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Project  $project
+     * @param Project $project
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Project $project)
@@ -153,8 +157,9 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  Project  $project
+     * @param \Illuminate\Http\Request $request
+     * @param Project $project
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Project $project)
@@ -180,9 +185,10 @@ class ProjectController extends Controller
     }
 
     /**
-     * print a Do Not Hack label for a given project.
+     * Print a Do Not Hack label for a given project.
      *
-     * @param  Project $project
+     * @param Project $project
+     *
      * @return \Illuminate\Http\Response
      */
     public function printLabel(Project $project)
@@ -200,9 +206,10 @@ class ProjectController extends Controller
     }
 
     /**
-     * mark a project active.
+     * Mark a project active.
      *
-     * @param  Project $project
+     * @param Project $project
+     *
      * @return \Illuminate\Http\Response
      */
     public function markActive(Project $project)
@@ -221,9 +228,10 @@ class ProjectController extends Controller
     }
 
     /**
-     * mark a project abandoned.
+     * Mark a project abandoned.
      *
-     * @param  Project $project
+     * @param Project $project
+     *
      * @return \Illuminate\Http\Response
      */
     public function markAbandoned(Project $project)
@@ -242,9 +250,10 @@ class ProjectController extends Controller
     }
 
     /**
-     * mark a project complete.
+     * Mark a project complete.
      *
-     * @param  Project $project
+     * @param Project $project
+     *
      * @return \Illuminate\Http\Response
      */
     public function markComplete(Project $project)

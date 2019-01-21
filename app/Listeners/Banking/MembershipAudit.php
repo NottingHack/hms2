@@ -93,7 +93,8 @@ class MembershipAudit implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  AuditRequest $event
+     * @param AuditRequest $event
+     *
      * @return mixed
      */
     public function handle(AuditRequest $event)

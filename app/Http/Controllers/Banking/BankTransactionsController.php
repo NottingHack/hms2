@@ -47,7 +47,8 @@ class BankTransactionsController extends Controller
     /**
      * BankTransactions for a given users account.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -82,7 +83,8 @@ class BankTransactionsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  BankTransaction  $bankTransaction
+     * @param BankTransaction $bankTransaction
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(BankTransaction $bankTransaction)
@@ -93,8 +95,9 @@ class BankTransactionsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  BankTransaction  $bankTransaction
+     * @param \Illuminate\Http\Request $request
+     * @param BankTransaction $bankTransaction
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, BankTransaction $bankTransaction)

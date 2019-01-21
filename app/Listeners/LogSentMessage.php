@@ -44,7 +44,8 @@ class LogSentMessage implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  IlluminateMailEventsMessageSending  $event
+     * @param IlluminateMailEventsMessageSending $event
+     *
      * @return void
      */
     public function handle(MessageSending $event)

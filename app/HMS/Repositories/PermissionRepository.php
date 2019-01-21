@@ -16,14 +16,16 @@ interface PermissionRepository
     /**
      * Finds a permission based on the permission name.
      *
-     * @param  string $permissionName name of the permission we want
+     * @param string $permissionName name of the permission we want
+     *
      * @return null|Permission
      */
     public function findOneByName(string $permissionName);
 
     /**
-     * store a new user in the DB.
-     * @param  Permission $permission
+     * Store a new user in the DB.
+     *
+     * @param Permission $permission
      */
     public function save(Permission $permission);
 }

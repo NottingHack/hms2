@@ -9,7 +9,8 @@ use HMS\Repositories\Banking\AccountRepository;
 class DoctrineAccountRepository extends EntityRepository implements AccountRepository
 {
     /**
-     * @param  $id
+     * @param $id
+     *
      * @return null|Account
      */
     public function findOneById($id)
@@ -26,7 +27,8 @@ class DoctrineAccountRepository extends EntityRepository implements AccountRepos
     }
 
     /**
-     * @param  string $paymentRef
+     * @param string $paymentRef
+     *
      * @return null|Account
      */
     public function findOneByPaymentRef(string $paymentRef)
@@ -35,7 +37,8 @@ class DoctrineAccountRepository extends EntityRepository implements AccountRepos
     }
 
     /**
-     * @param  string $paymentRef
+     * @param string $paymentRef
+     *
      * @return Account[]
      */
     public function findLikeByPaymentRef(string $paymentRef)
@@ -49,8 +52,9 @@ class DoctrineAccountRepository extends EntityRepository implements AccountRepos
     }
 
     /**
-     * save Account to the DB.
-     * @param  Account $account
+     * Save Account to the DB.
+     *
+     * @param Account $account
      */
     public function save(Account $account)
     {

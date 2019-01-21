@@ -84,11 +84,11 @@ class ToolManager
     /**
      * Create a new Tool Manager instance.
      *
-     * @param ToolRepository       $toolRepository
-     * @param ToolFactory          $toolFactory
+     * @param ToolRepository $toolRepository
+     * @param ToolFactory $toolFactory
      * @param PermissionRepository $permissionRepository
-     * @param RoleRepository       $roleRepository
-     * @param RoleManager          $roleManager
+     * @param RoleRepository $roleRepository
+     * @param RoleManager $roleManager
      */
     public function __construct(
         ToolRepository $toolRepository,
@@ -107,12 +107,12 @@ class ToolManager
     /**
      * Function to create a new tool and setup the permissions.
      *
-     * @param  string $name          Tool name
-     * @param  bool   $restricted    Does this tool require an induction
-     * @param  int    $pph           Cost per hour in pence
-     * @param  int    $bookingLength Default booking length for this tool, minutes
-     * @param  int    $lengthMax     Maximum amount of time a booking can be made for, minutes
-     * @param  int    $bookingsMax   Maximum number of bookings a user can have at any one time
+     * @param string $name          Tool name
+     * @param bool   $restricted    Does this tool require an induction
+     * @param int    $pph           Cost per hour in pence
+     * @param int    $bookingLength Default booking length for this tool, minutes
+     * @param int    $lengthMax     Maximum amount of time a booking can be made for, minutes
+     * @param int    $bookingsMax   Maximum number of bookings a user can have at any one time
      *
      * @return Tool
      */
@@ -218,7 +218,7 @@ class ToolManager
     /**
      * Enable a tool.
      *
-     * @param  Tool   $tool
+     * @param Tool $tool
      */
     public function enableTool(Tool $tool)
     {
@@ -232,9 +232,9 @@ class ToolManager
     /**
      * Disable a tool for maintenance.
      *
-     * @param  Tool   $tool
-     * @param  string $reason
-     * @param  bool   $notify Should we tell user with a booking for this tool.
+     * @param Tool $tool
+     * @param string $reason
+     * @param bool $notify Should we tell user with a booking for this tool.
      */
     public function disableTool(Tool $tool, string $reason, bool $notify = false)
     {
@@ -248,7 +248,7 @@ class ToolManager
     /**
      * Remove a tool and its permissions.
      *
-     * @param  Tool   $tool
+     * @param Tool $tool
      */
     public function removeTool(Tool $tool)
     {

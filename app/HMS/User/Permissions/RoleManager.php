@@ -128,9 +128,10 @@ class RoleManager
     }
 
     /**
-     * add user to Role and fire of an event.
-     * @param User   $user
-     * @param Role   $role
+     * Add user to Role and fire of an event.
+     *
+     * @param User $user
+     * @param Role $role
      */
     public function addUserToRole(User $user, Role $role)
     {
@@ -141,8 +142,9 @@ class RoleManager
     }
 
     /**
-     * add user to Role and fire of an event.
-     * @param User   $user
+     * Add user to Role and fire of an event.
+     *
+     * @param User $user
      * @param string $roleName take a role name string rather than a role enitity
      */
     public function addUserToRoleByName(User $user, string $roleName)
@@ -155,9 +157,10 @@ class RoleManager
     }
 
     /**
-     * remove a user from a role and fire of an update event.
-     * @param  User   $user
-     * @param  Role   $role
+     * Remove a user from a role and fire of an update event.
+     *
+     * @param User $user
+     * @param Role $role
      */
     public function removeUserFromRole(User $user, Role $role)
     {
@@ -168,8 +171,9 @@ class RoleManager
     }
 
     /**
-     * remove a user from a role and fire of an update event.
-     * @param  User   $user
+     * Remove a user from a role and fire of an update event.
+     *
+     * @param User $user
      * @param string $roleName take a role name string rather than a role enitity
      */
     public function removeUserFromRoleByName(User $user, string $roleName)

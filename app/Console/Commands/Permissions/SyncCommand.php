@@ -83,6 +83,7 @@ class SyncCommand extends BaseCommand
 
     /**
      * Creates permissions based on array.
+     *
      * @return void
      */
     private function createPermissionEntities()

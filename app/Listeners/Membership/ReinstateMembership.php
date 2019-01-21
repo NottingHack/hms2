@@ -46,7 +46,8 @@ class ReinstateMembership implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  ReinstatementOfMembershipPayment  $event
+     * @param ReinstatementOfMembershipPayment $event
+     *
      * @return void
      */
     public function handle(ReinstatementOfMembershipPayment $event)

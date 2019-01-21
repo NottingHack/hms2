@@ -13,7 +13,8 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     use PaginatesFromRequest;
 
     /**
-     * @param  $id
+     * @param $id
+     *
      * @return null|User
      */
     public function findOneById($id)
@@ -22,7 +23,8 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     }
 
     /**
-     * @param  string $username
+     * @param string $username
+     *
      * @return array
      */
     public function findByUsername(string $username)
@@ -31,7 +33,8 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     }
 
     /**
-     * @param  string $email
+     * @param string $email
+     *
      * @return array
      */
     public function findByEmail(string $email)
@@ -40,7 +43,8 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     }
 
     /**
-     * @param  string $email
+     * @param string $email
+     *
      * @return User|null
      */
     public function findOneByEmail(string $email)
@@ -52,8 +56,9 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
      * @param string $searchQuery
      * @param null|bool $hasAccount limit to users with associated accounts
      * @param bool $paginate
-     * @param int    $perPage
+     * @param int $perPage
      * @param string $pageName
+     *
      * @return User[]|array|\Illuminate\Pagination\LengthAwarePaginator
      */
     public function searchLike(
@@ -88,8 +93,9 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     }
 
     /**
-     * save User to the DB.
-     * @param  User $user
+     * Save User to the DB.
+     *
+     * @param User $user
      */
     public function save(User $user)
     {
@@ -99,7 +105,7 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
 
     /**
      * @param Role $role
-     * @param int    $perPage
+     * @param int $perPage
      * @param string $pageName
      *
      * @return \Illuminate\Pagination\LengthAwarePaginator

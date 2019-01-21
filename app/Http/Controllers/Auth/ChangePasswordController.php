@@ -10,7 +10,9 @@ use App\Events\Users\UserPasswordChanged;
 
 class ChangePasswordController extends Controller
 {
-    /** @var PasswordStore */
+    /**
+     * @var PasswordStore
+     */
     protected $passwordStore;
 
     /**
@@ -36,7 +38,8 @@ class ChangePasswordController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)

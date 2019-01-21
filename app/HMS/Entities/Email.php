@@ -49,7 +49,8 @@ class Email
 
     /**
      * Create a new email record.
-     * @param array  $toAddress      Array of to adddress in format [ email => name]
+     *
+     * @param array $toAddress Array of to adddress in format [ email => name]
      * @param string $subject
      * @param string $body
      * @param string $fullString

@@ -32,6 +32,7 @@ abstract class BaseCommand extends Command
 
     /**
      * Create a new command instance.
+     *
      * @param EntityManagerInterface $entityManager
      * @param RoleRepository $roleRepository
      */
@@ -63,6 +64,7 @@ abstract class BaseCommand extends Command
     /**
      * @param $name
      * @param bool $error
+     *
      * @return bool|Role
      */
     protected function getRole($name, $error = true)
@@ -82,6 +84,7 @@ abstract class BaseCommand extends Command
     /**
      * @param $name
      * @param bool $error
+     *
      * @return bool|Permission
      */
     protected function getPermission($name, $error = true)

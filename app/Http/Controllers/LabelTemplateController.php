@@ -56,6 +56,7 @@ class LabelTemplateController extends Controller
      * Show a specific resource.
      *
      * @param LabelTemplate $label
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(LabelTemplate $label)
@@ -78,7 +79,8 @@ class LabelTemplateController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(LabelTemplateRequest $request)
@@ -93,7 +95,8 @@ class LabelTemplateController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  LabelTemplate  $label
+     * @param LabelTemplate $label
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(LabelTemplate $label)
@@ -104,8 +107,9 @@ class LabelTemplateController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  LabelTemplate  $label
+     * @param \Illuminate\Http\Request $request
+     * @param LabelTemplate $label
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(LabelTemplateRequest $request, LabelTemplate $label)
@@ -120,7 +124,8 @@ class LabelTemplateController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  LabelTemplate  $label
+     * @param LabelTemplate $label
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(LabelTemplate $label)
@@ -135,7 +140,8 @@ class LabelTemplateController extends Controller
      * Preper a label template for printing,
      * A label template may require some user provided field.
      *
-     * @param  LabelTemplate $label
+     * @param LabelTemplate $label
+     *
      * @return \Illuminate\Http\Response
      */
     public function showPrint(LabelTemplate $label)
@@ -151,8 +157,9 @@ class LabelTemplateController extends Controller
     /**
      * Send a label off for printing.
      *
-     * @param  Request       $request
-     * @param  LabelTemplate $label
+     * @param Request $request
+     * @param LabelTemplate $label
+     *
      * @return \Illuminate\Http\Response
      */
     public function print(Request $request, LabelTemplate $label)

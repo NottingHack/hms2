@@ -79,7 +79,8 @@ class ToolController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -109,7 +110,8 @@ class ToolController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Tool  $tool
+     * @param Tool $tool
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Tool $tool)
@@ -120,7 +122,8 @@ class ToolController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Tool  $tool
+     * @param Tool $tool
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Tool $tool)
@@ -131,8 +134,9 @@ class ToolController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  Tool  $tool
+     * @param \Illuminate\Http\Request $request
+     * @param Tool $tool
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Tool $tool)
@@ -155,7 +159,8 @@ class ToolController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Tool  $tool
+     * @param Tool $tool
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Tool $tool)

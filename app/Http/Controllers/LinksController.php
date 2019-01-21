@@ -62,7 +62,8 @@ class LinksController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(LinkRequest $request)
@@ -77,7 +78,8 @@ class LinksController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Link  $link
+     * @param Link $link
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Link $link)
@@ -88,8 +90,9 @@ class LinksController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  Link  $link
+     * @param \Illuminate\Http\Request $request
+     * @param Link $link
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(LinkRequest $request, Link $link)
@@ -104,7 +107,8 @@ class LinksController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Link  $link
+     * @param Link $link
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Link $link)

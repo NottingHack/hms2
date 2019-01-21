@@ -30,6 +30,7 @@ class UserManager
 
     /**
      * UserManager constructor.
+     *
      * @param UserRepository $userRepository
      * @param RoleManager $roleManager
      * @param PasswordStore $passwordStore
@@ -59,6 +60,7 @@ class UserManager
      * @param string $username
      * @param string $email
      * @param string $password
+     *
      * @return User
      */
     public function create(string $firstname, string $lastname, string $username, string $email, string $password)
@@ -75,9 +77,11 @@ class UserManager
     }
 
     /**
-     * update the user form a form request.
-     * @param  User    $user    user to update
-     * @param  Illuminate\Http\Request $request
+     * Update the user form a form request.
+     *
+     * @param User $user User to update
+     * @param Illuminate\Http\Request $request
+     *
      * @return User
      */
     public function updateFromRequest(User $user, Request $request): User

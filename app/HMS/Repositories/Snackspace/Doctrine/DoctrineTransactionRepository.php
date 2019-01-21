@@ -14,12 +14,13 @@ class DoctrineTransactionRepository extends EntityRepository implements Transact
     use PaginatesFromRequest;
 
     /**
-     * find all transactions for a given user and pagineate them.
+     * Find all transactions for a given user and pagineate them.
      * Ordered by transactionDatetime DESC.
      *
-     * @param User   $user
-     * @param int    $perPage
+     * @param User $user
+     * @param int $perPage
      * @param string $pageName
+     *
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
     public function paginateByUser(User $user, $perPage = 15, $pageName = 'page')
@@ -34,8 +35,10 @@ class DoctrineTransactionRepository extends EntityRepository implements Transact
     }
 
     /**
-     * save Transaction to the DB and update the users balance.
-     * @param  Transaction $transaction
+     * Save Transaction to the DB and update the users balance.
+     *
+     * @param Transaction $transaction
+     *
      * @return Transaction
      */
     public function saveAndUpdateBalance(Transaction $transaction)
@@ -49,8 +52,9 @@ class DoctrineTransactionRepository extends EntityRepository implements Transact
     }
 
     /**
-     * save Transaction to the DB.
-     * @param  Transaction $transaction
+     * Save Transaction to the DB.
+     *
+     * @param Transaction $transaction
      */
     public function save(Transaction $transaction)
     {

@@ -67,6 +67,7 @@ class DefaultsCommand extends BaseCommand
 
     /**
      * Creates permissions based on array.
+     *
      * @return void
      */
     private function createPermissionEntities()
@@ -79,6 +80,7 @@ class DefaultsCommand extends BaseCommand
 
     /**
      * Creates roles and assigns permissions.
+     *
      * @return void
      */
     private function createRoles()

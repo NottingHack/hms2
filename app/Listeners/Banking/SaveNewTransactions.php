@@ -57,13 +57,14 @@ class SaveNewTransactions implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  TransactionsUploaded  $event
+     * @param TransactionsUploaded $event
+     *
      * @return void
      */
     public function handle(TransactionsUploaded $event)
     {
         /**
-         * each transaction should be in the following form
+         * Each transaction should be in the following form
          * {
          *     "sortCode" : "77-22-24",
          *     "accountNumber" : "13007568",

@@ -16,7 +16,7 @@ class RevokeInviteOnUserRegistered implements ShouldQueue
     /**
      * Create the event listener.
      *
-     * @param  InviteRepository $inviteRepository
+     * @param InviteRepository $inviteRepository
      */
     public function __construct(InviteRepository $inviteRepository)
     {
@@ -26,7 +26,8 @@ class RevokeInviteOnUserRegistered implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  Registered  $event
+     * @param Registered $event
+     *
      * @return void
      */
     public function handle(Registered $event)

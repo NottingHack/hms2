@@ -34,7 +34,9 @@ class Link implements ArrayableContract
 
     /**
      * Update with detials from the LinkRequest.
+     *
      * @param LinkRequest $request
+     *
      * @return self
      */
     public function updateWithRequest(LinkRequest $request)

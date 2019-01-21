@@ -22,6 +22,7 @@ class AccountFactory
 
     /**
      * Create a new Account with a unique payment refrence.
+     *
      * @return Account
      */
     public function createNewAccount()
@@ -56,7 +57,7 @@ class AccountFactory
      * Generate a unique payment reference.
      *
      * @return string A unique (at the time of function-call) payment reference.
-     * @link http://www.bacs.co.uk/Bacs/Businesses/BacsDirectCredit/Receiving/Pages/PaymentReferenceInformation.aspx
+     * @link   http://www.bacs.co.uk/Bacs/Businesses/BacsDirectCredit/Receiving/Pages/PaymentReferenceInformation.aspx
      */
     protected function generateUniquePaymentRef()
     {

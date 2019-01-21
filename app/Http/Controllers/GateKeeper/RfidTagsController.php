@@ -34,9 +34,10 @@ class RfidTagsController extends Controller
 
     /**
      * Create a new controller instance.
+     *
      * @param RfidTagRepository $rfidTagRepository
-     * @param UserRepository    $userRepository
-     * @param PinRepository     $pinRepository
+     * @param UserRepository $userRepository
+     * @param PinRepository $pinRepository
      */
     public function __construct(
         RfidTagRepository $rfidTagRepository,
@@ -56,7 +57,8 @@ class RfidTagsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -86,7 +88,8 @@ class RfidTagsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  RfidTag  $rfidTag
+     * @param RfidTag $rfidTag
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(RfidTag $rfidTag)
@@ -104,8 +107,9 @@ class RfidTagsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  RfidTag  $rfidTag
+     * @param \Illuminate\Http\Request $request
+     * @param RfidTag $rfidTag
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, RfidTag $rfidTag)
@@ -136,7 +140,8 @@ class RfidTagsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  RfidTag  $rfidTag
+     * @param RfidTag $rfidTag
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(RfidTag $rfidTag)
@@ -151,7 +156,8 @@ class RfidTagsController extends Controller
     /**
      * Reactivate a Pin for gatekeeper rfid card enrolment.
      *
-     * @param  Pin    $pin
+     * @param Pin $pin
+     *
      * @return \Illuminate\Http\Response
      */
     public function reactivatePin(Pin $pin)

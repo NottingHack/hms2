@@ -46,6 +46,7 @@ class WarnMembershipMayExpire implements ShouldQueue
 
     /**
      * Create the event listener.
+     *
      * @param UserRepository                         $userRepository
      * @param RoleManager                            $roleManager
      * @param MembershipStatusNotificationFactory    $membershipStatusNotificationFactory
@@ -72,7 +73,8 @@ class WarnMembershipMayExpire implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  MembershipPaymentWarning  $event
+     * @param MembershipPaymentWarning $event
+     *
      * @return void
      */
     public function handle(MembershipPaymentWarning $event)

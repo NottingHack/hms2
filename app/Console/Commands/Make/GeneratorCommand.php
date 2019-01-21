@@ -10,7 +10,8 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
     /**
      * Build the class with the given name.
      *
-     * @param  string  $name
+     * @param string $name
+     *
      * @return string
      */
     protected function buildClass($name)
@@ -47,7 +48,8 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
     /**
      * Get the destination class path.
      *
-     * @param  string  $name
+     * @param string $name
+     *
      * @return string
      */
     protected function getPath($name)
@@ -58,7 +60,8 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
     /**
      * Get the default namespace for the class.
      *
-     * @param  string  $rootNamespace
+     * @param string $rootNamespace
+     *
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace)
@@ -69,7 +72,8 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
     /**
      * Get the namespaced repository interface for the class.
      *
-     * @param  string  $name
+     * @param string $name
+     *
      * @return string
      */
     protected function getNamespacedRepositoryInterface($name)
@@ -83,7 +87,8 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
     /**
      * Get the repository interface namespace for the class.
      *
-     * @param  string  $name
+     * @param string $name
+     *
      * @return string
      */
     protected function getRepositoryInterfaceNamespace($name)
@@ -96,7 +101,8 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
     /**
      * Get the namespaced repository implementation for the class.
      *
-     * @param  string  $name
+     * @param string $name
+     *
      * @return string
      */
     protected function getNamespacedRepositoryImplementation($name)
@@ -114,7 +120,8 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
     /**
      * Get the repository implementation namespace for the class.
      *
-     * @param  string  $name
+     * @param string $name
+     *
      * @return string
      */
     protected function getRepositoryImplementationNamespace($name)
@@ -127,7 +134,8 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
     /**
      * Get the camelcase name for the class.
      *
-     * @param  string  $name
+     * @param string $name
+     *
      * @return string
      */
     protected function getClassInstance($name)

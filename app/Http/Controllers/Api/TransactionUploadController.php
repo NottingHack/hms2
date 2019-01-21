@@ -10,8 +10,10 @@ use Illuminate\Http\Response as IlluminateResponse;
 class TransactionUploadController extends Controller
 {
     /**
-     * upload new bank transacions via json.
-     * @param  Request $request
+     * Upload new bank transacions via json.
+     *
+     * @param Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function upload(Request $request)

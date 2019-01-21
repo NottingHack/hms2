@@ -65,7 +65,8 @@ class RevokeMembership implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  NonPaymentOfMembership  $event
+     * @param NonPaymentOfMembership $event
+     *
      * @return void
      */
     public function handle(NonPaymentOfMembership $event)

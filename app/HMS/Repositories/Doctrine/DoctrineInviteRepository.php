@@ -13,7 +13,8 @@ class DoctrineInviteRepository extends EntityRepository implements InviteReposit
     /**
      * Create a new invite if not found.
      *
-     * @param  string $email
+     * @param string $email
+     *
      * @return Invite
      */
     public function findOrCreateByEmail($email)
@@ -31,9 +32,10 @@ class DoctrineInviteRepository extends EntityRepository implements InviteReposit
     }
 
     /**
-     * find an invite by emial.
+     * Find an invite by emial.
      *
-     * @param  string $email
+     * @param string $email
+     *
      * @return null|Invite
      */
     public function findOneByEmail($email)
@@ -42,9 +44,10 @@ class DoctrineInviteRepository extends EntityRepository implements InviteReposit
     }
 
     /**
-     * find an invite by token.
+     * Find an invite by token.
      *
-     * @param  string $token
+     * @param string $token
+     *
      * @return null|Invite
      */
     public function findOneByInviteToken($token)
@@ -53,8 +56,10 @@ class DoctrineInviteRepository extends EntityRepository implements InviteReposit
     }
 
     /**
-     * remove all invites older than a given date.
-     * @param  Carbon $date
+     * Remove all invites older than a given date.
+     *
+     * @param Carbon $date
+     *
      * @return array
      */
     public function removeAllOlderThan(Carbon $date)
@@ -71,8 +76,9 @@ class DoctrineInviteRepository extends EntityRepository implements InviteReposit
     }
 
     /**
-     * remove a single invites.
-     * @param  Invite $invite
+     * Remove a single invites.
+     *
+     * @param Invite $invite
      */
     public function remove(Invite $invite)
     {

@@ -28,8 +28,9 @@ class FileBasedPasswordStore implements PasswordStore
     /**
      * Add a new user with the given username and password.
      *
-     * @param  string $username
-     * @param  string $password
+     * @param string $username
+     * @param string $password
+     *
      * @return void
      */
     public function add($username, $password)
@@ -41,7 +42,8 @@ class FileBasedPasswordStore implements PasswordStore
     /**
      * Remove the new with the given username.
      *
-     * @param  string $username
+     * @param string $username
+     *
      * @return void
      */
     public function remove($username)
@@ -53,7 +55,8 @@ class FileBasedPasswordStore implements PasswordStore
     /**
      * Check if a user with the given username exists.
      *
-     * @param  string $username
+     * @param string $username
+     *
      * @return bool
      */
     public function exists($username)
@@ -64,8 +67,9 @@ class FileBasedPasswordStore implements PasswordStore
     /**
      * Set the password for the given user.
      *
-     * @param  string $username
-     * @param  string $password
+     * @param string $username
+     * @param string $password
+     *
      * @return void
      */
     public function setPassword($username, $password)
@@ -77,8 +81,9 @@ class FileBasedPasswordStore implements PasswordStore
     /**
      * Check the password for the given username.
      *
-     * @param  string $username
-     * @param  string $password
+     * @param string $username
+     * @param string $password
+     *
      * @return bool
      */
     public function checkPassword($username, $password)

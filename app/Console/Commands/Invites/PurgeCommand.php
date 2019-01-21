@@ -37,8 +37,8 @@ class PurgeCommand extends Command
     /**
      * Create a new command instance.
      *
-     * @param  InviteRepository $inviteRepository
-     * @param  MetaRepository $metaRepository
+     * @param InviteRepository $inviteRepository
+     * @param MetaRepository $metaRepository
      */
     public function __construct(InviteRepository $inviteRepository, MetaRepository $metaRepository)
     {

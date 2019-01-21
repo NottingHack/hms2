@@ -14,8 +14,8 @@ class DoctrineProjectRepository extends EntityRepository implements ProjectRepos
     use PaginatesFromRequest;
 
     /**
-     * @param User   $user
-     * @param int    $perPage
+     * @param User $user
+     * @param int $perPage
      * @param string $pageName
      *
      * @return \Illuminate\Pagination\LengthAwarePaginator
@@ -32,7 +32,8 @@ class DoctrineProjectRepository extends EntityRepository implements ProjectRepos
 
     /**
      * Return number of active projects for a user.
-     * @param  User   $user
+     *
+     * @param User $user
      *
      * @return int
      */
@@ -50,8 +51,9 @@ class DoctrineProjectRepository extends EntityRepository implements ProjectRepos
     }
 
     /**
-     * save Project to the DB.
-     * @param  Project $project
+     * Save Project to the DB.
+     *
+     * @param Project $project
      */
     public function save(Project $project)
     {

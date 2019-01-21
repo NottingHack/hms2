@@ -9,8 +9,9 @@ use HMS\Repositories\ProfileRepository;
 class DoctrineProfileRepository extends EntityRepository implements ProfileRepository
 {
     /**
-     * save Profile to the DB.
-     * @param  Profile $profile
+     * Save Profile to the DB.
+     *
+     * @param Profile $profile
      */
     public function save(Profile $profile)
     {

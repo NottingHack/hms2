@@ -10,7 +10,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 class DoctrineRoleRepository extends EntityRepository implements RoleRepository
 {
     /**
-     * @param  $id
+     * @param $id
+     *
      * @return Role|null
      */
     public function findOneById($id)
@@ -37,7 +38,8 @@ class DoctrineRoleRepository extends EntityRepository implements RoleRepository
     /**
      * Finds a role based on the role name.
      *
-     * @param  string $roleName name of the role we want
+     * @param string $roleName name of the role we want
+     *
      * @return Role|nul
      */
     public function findOneByName(string $roleName)
@@ -46,7 +48,8 @@ class DoctrineRoleRepository extends EntityRepository implements RoleRepository
     }
 
     /**
-     * @param  string $email
+     * @param string $email
+     *
      * @return Role|null
      */
     public function findOneByEmail(string $email)
@@ -55,8 +58,9 @@ class DoctrineRoleRepository extends EntityRepository implements RoleRepository
     }
 
     /**
-     * store a new user in the DB.
-     * @param  Role $role
+     * Store a new user in the DB.
+     *
+     * @param Role $role
      */
     public function save(Role $role)
     {

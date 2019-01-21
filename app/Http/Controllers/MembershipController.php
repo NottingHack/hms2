@@ -107,7 +107,8 @@ class MembershipController extends Controller
     /**
      * Show the membership approval form.
      *
-     * @param  User   $user
+     * @param User $user
+     *
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function showDetailsForApproval(User $user)
@@ -134,8 +135,9 @@ class MembershipController extends Controller
      * Now setup bank account ref, either new or linked, and email member with standing order setup details
      * (possible deal with young hacker stuff here).
      *
-     * @param  User    $user
-     * @param  Illuminate\Http\Request $request
+     * @param User $user
+     * @param Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function approveDetails(User $user, Request $request)
@@ -174,8 +176,9 @@ class MembershipController extends Controller
      * Reject new member details.
      * Email the member asking them to update Details as noted.
      *
-     * @param  User    $user
-     * @param  Illuminate\Http\Request $request
+     * @param User $user
+     * @param Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function rejectDetails(User $user, Request $request)
@@ -197,7 +200,9 @@ class MembershipController extends Controller
 
     /**
      * Show the user a form to allow updating of there details and request anoter review.
-     * @param  User   $user
+     *
+     * @param User $user
+     *
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function editDetails(User $user)
@@ -212,8 +217,9 @@ class MembershipController extends Controller
     /**
      * Store the updated users details and request another review from membership team.
      *
-     * @param  User   $user
-     * @param  Illuminate\Http\Request $request
+     * @param User $user
+     * @param Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function updateDetails(User $user, Request $request)

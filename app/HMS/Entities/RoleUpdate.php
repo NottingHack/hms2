@@ -39,7 +39,7 @@ class RoleUpdate
     /**
      * Construct a new Role Update.
      *
-     * @param User      $user
+     * @param User $user
      * @param Role|null $roleAdded
      * @param Role|null $roleRemoved
      * @param User|null $updateBy

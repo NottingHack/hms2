@@ -43,7 +43,7 @@ class InterestRegistered extends Mailable implements ShouldQueue
     /**
      * Create a new message instance.
      *
-     * @param Invite         $invite
+     * @param Invite $invite
      * @param MetaRepository $metaRepository
      * @param RoleRepository $roleRepository
      */

@@ -12,8 +12,10 @@ class DoctrineLabelTemplateRepository extends EntityRepository implements LabelT
     use PaginatesFromRequest;
 
     /**
-     * find a temple in the DB.
-     * @param  string $template_name
+     * Find a temple in the DB.
+     *
+     * @param string $template_name
+     *
      * @return LabelTemplate|null
      */
     public function findOneByTemplateName($template_name)
@@ -22,8 +24,9 @@ class DoctrineLabelTemplateRepository extends EntityRepository implements LabelT
     }
 
     /**
-     * save temple to the DB.
-     * @param  LabelTemplate $labelTemplate
+     * Save temple to the DB.
+     *
+     * @param LabelTemplate $labelTemplate
      */
     public function save(LabelTemplate $labelTemplate)
     {
@@ -32,8 +35,9 @@ class DoctrineLabelTemplateRepository extends EntityRepository implements LabelT
     }
 
     /**
-     * remove a temple from the DB.
-     * @param  LabelTemplate $labelTemplate
+     * Remove a temple from the DB.
+     *
+     * @param LabelTemplate $labelTemplate
      */
     public function remove(LabelTemplate $labelTemplate)
     {

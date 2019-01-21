@@ -10,7 +10,8 @@ use HMS\Repositories\GateKeeper\PinRepository;
 class DoctrinePinRepository extends EntityRepository implements PinRepository
 {
     /**
-     * @param  string $pin
+     * @param string $pin
+     *
      * @return null|Pin
      */
     public function findOneByPin(string $pin)
@@ -19,7 +20,8 @@ class DoctrinePinRepository extends EntityRepository implements PinRepository
     }
 
     /**
-     * @param  User $user
+     * @param User $user
+     *
      * @return Pin[]
      */
     public function findByUser(User $user)
@@ -28,8 +30,9 @@ class DoctrinePinRepository extends EntityRepository implements PinRepository
     }
 
     /**
-     * save Pin to the DB.
-     * @param  Pin $pin
+     * Save Pin to the DB.
+     *
+     * @param Pin $pin
      */
     public function save(Pin $pin)
     {

@@ -12,7 +12,9 @@ use Illuminate\Contracts\Auth\Authenticatable as IlluminateAuthenticatable;
  */
 class HmsUserProvider extends DoctrineUserProvider
 {
-    /** @var PasswordStore */
+    /**
+     * @var PasswordStore
+     */
     protected $passwordStore;
 
     /**

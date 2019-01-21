@@ -14,8 +14,9 @@ interface ProductRepository
     public function findAll();
 
     /**
-     * save Product to the DB.
-     * @param  Product $product
+     * Save Product to the DB.
+     *
+     * @param Product $product
      */
     public function save(Product $product);
 }

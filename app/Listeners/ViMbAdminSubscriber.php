@@ -50,7 +50,8 @@ class ViMbAdminSubscriber implements ShouldQueue
      * Handle role created events.
      * If the updateTeamEmail field is set we need to create a new mailbox.
      *
-     * @param  RoleCreated $event
+     * @param RoleCreated $event
+     *
      * @throws Exception
      */
     public function onRoleCreated(RoleCreated $event)
@@ -87,7 +88,8 @@ class ViMbAdminSubscriber implements ShouldQueue
      * Handle user added to role events.
      * If the updateTeamEmail field is set we need to add the user to the alias.
      *
-     * @param  UserAddedToRole $event
+     * @param UserAddedToRole $event
+     *
      * @throws Exception
      */
     public function onUserAddedToRole(UserAddedToRole $event)
@@ -108,7 +110,8 @@ class ViMbAdminSubscriber implements ShouldQueue
      * Handle user removed from role events.
      * If the updateTeamEmail field is set we need to remove the user from the alias.
      *
-     * @param  UserRemovedFromRole $event
+     * @param UserRemovedFromRole $event
+     *
      * @throws Exception
      */
     public function onUserRemovedFromRole(UserRemovedFromRole $event)
@@ -128,8 +131,10 @@ class ViMbAdminSubscriber implements ShouldQueue
     /**
      * Given a role update alias with a newly calculated set of goto addresses.
      *
-     * @param  Role   $role
+     * @param Role $role
+     *
      * @throws Exception
+     *
      * @return null|Alias
      */
     public function getAliasForRole(Role $role)
@@ -158,7 +163,8 @@ class ViMbAdminSubscriber implements ShouldQueue
     /**
      * Update any email aliases when a user changes thier email address.
      *
-     * @param  UserEmailChanged $event
+     * @param UserEmailChanged $event
+     *
      * @throws Exception
      */
     public function onUserEmailChanged(UserEmailChanged $event)
@@ -186,7 +192,7 @@ class ViMbAdminSubscriber implements ShouldQueue
     /**
      * Register the listeners for the subscriber.
      *
-     * @param  Illuminate\Events\Dispatcher  $events
+     * @param Illuminate\Events\Dispatcher $events
      */
     public function subscribe($events)
     {
@@ -213,8 +219,8 @@ class ViMbAdminSubscriber implements ShouldQueue
 
     /*
      * Deal with failed updates somehow.
-     * @param  OrderShipped $event
-     * @param  \Exception   $exception
+     * @param OrderShipped $event
+     * @param \Exception $exception
      */
     // public function failed(OrderShipped $event, $exception)
     // {

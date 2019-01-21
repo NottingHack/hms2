@@ -24,7 +24,9 @@ class ResetPasswordController extends Controller
 
     use ResetsPasswords;
 
-    /** @var PasswordStore */
+    /**
+     * @var PasswordStore
+     */
     protected $passwordStore;
 
     /**
@@ -43,7 +45,8 @@ class ResetPasswordController extends Controller
      * Note: this is overridden from the ResetPasswords trait as no mechanism is provided to customise the validation
      * rules, see: https://github.com/laravel/framework/issues/15086.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function reset(Request $request)

@@ -37,7 +37,7 @@ class MembershipRevoked extends Mailable implements ShouldQueue
     /**
      * Create a new message instance.
      *
-     * @param User           $user
+     * @param User $user
      * @param MetaRepository $metaRepository
      * @param BankRepository $bankRepository
      */

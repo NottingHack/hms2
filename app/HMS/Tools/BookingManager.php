@@ -26,7 +26,7 @@ class BookingManager
      * Create a new Booking Manager instance.
      *
      * @param BookingRepository $bookingRepository
-     * @param BookingFactory    $bookingFactory
+     * @param BookingFactory $bookingFactory
      */
     public function __construct(
         BookingRepository $bookingRepository,
@@ -39,10 +39,11 @@ class BookingManager
     /**
      * Make a normal tool Booking.
      *
-     * @param  Tool      $tool
-     * @param  Carbon    $start
-     * @param  Carbon    $end
-     * @param  User|null $user
+     * @param Tool $tool
+     * @param Carbon $start
+     * @param Carbon $end
+     * @param User|null $user
+     *
      * @return string|Booking String with error message or a Booking
      */
     public function bookNormal(Tool $tool, Carbon $start, Carbon $end, User $user = null)
@@ -86,10 +87,11 @@ class BookingManager
     /**
      * Make a Induction tool Booking.
      *
-     * @param  Tool      $tool
-     * @param  Carbon    $start
-     * @param  Carbon    $end
-     * @param  User|null $user
+     * @param Tool $tool
+     * @param Carbon $start
+     * @param Carbon $end
+     * @param User|null $user
+     *
      * @return string|Booking String with error message or a Booking
      */
     public function bookInduction(Tool $tool, Carbon $start, Carbon $end, User $user = null)
@@ -126,10 +128,11 @@ class BookingManager
     /**
      * Make a Maintenance tool Booking.
      *
-     * @param  Tool      $tool
-     * @param  Carbon    $start
-     * @param  Carbon    $end
-     * @param  User|null $user
+     * @param Tool $tool
+     * @param Carbon $start
+     * @param Carbon $end
+     * @param User|null $user
+     *
      * @return string|Booking String with error message or a Booking
      */
     public function bookMaintenance(Tool $tool, Carbon $start, Carbon $end, User $user = null)
@@ -170,10 +173,11 @@ class BookingManager
     /**
      * Update a booking.
      *
-     * @param  Tool        $tool
-     * @param  Booking     $booking
-     * @param  Carbon|null $start
-     * @param  Carbon|null $end
+     * @param Tool $tool
+     * @param Booking $booking
+     * @param Carbon|null $start
+     * @param Carbon|null $end
+     *
      * @return string|Booking String with error message or a Booking
      */
     public function update(Tool $tool, Booking $booking, Carbon $start = null, Carbon $end = null)
@@ -221,7 +225,8 @@ class BookingManager
     /**
      * Cancel a Booking.
      *
-     * @param  Booking $booking
+     * @param Booking $booking
+     *
      * @return bool|string
      */
     public function cancel(Booking $booking)
@@ -240,9 +245,10 @@ class BookingManager
     /**
      * Do some basic time checks.
      *
-     * @param  Carbon       $start
-     * @param  Carbon       $end
-     * @param  int          $maxLength
+     * @param Carbon $start
+     * @param Carbon $end
+     * @param int $maxLength
+     *
      * @return bool|string
      */
     protected function basicTimeChecks(Carbon $start, Carbon $end, int $maxLength)

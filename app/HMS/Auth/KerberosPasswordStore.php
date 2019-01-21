@@ -6,18 +6,21 @@ class KerberosPasswordStore implements PasswordStore
 {
     /**
      * The KADM5 connection to use.
+     *
      * @var KADM5.
      */
     private $krbConn;
 
     /**
      * The relm to use.
+     *
      * @var string
      */
     private $realm;
 
     /**
      * If true, we're in debug mode and shouldn't actually take any action.
+     *
      * @var bool
      */
     private $debug;
@@ -37,8 +40,9 @@ class KerberosPasswordStore implements PasswordStore
     /**
      * Add a new identity with the specified username and password.
      *
-     * @param  string $username
-     * @param  string $password
+     * @param string $username
+     * @param string $password
+     *
      * @return void
      */
     public function add($username, $password)
@@ -72,7 +76,8 @@ class KerberosPasswordStore implements PasswordStore
     /**
      * Remove the specified identity.
      *
-     * @param  string $username
+     * @param string $username
+     *
      * @return void
      */
     public function remove($username)
@@ -95,7 +100,8 @@ class KerberosPasswordStore implements PasswordStore
     /**
      * Check if a specified identity exists.
      *
-     * @param  string $username
+     * @param string $username
+     *
      * @return bool
      */
     public function exists($username)
@@ -116,8 +122,9 @@ class KerberosPasswordStore implements PasswordStore
     /**
      * Set the password for a specified identity.
      *
-     * @param  string $username
-     * @param  string $password
+     * @param string $username
+     * @param string $password
+     *
      * @return void
      */
     public function setPassword($username, $password)
@@ -140,8 +147,9 @@ class KerberosPasswordStore implements PasswordStore
     /**
      * Check the password for a specified identity is correct.
      *
-     * @param  string $username
-     * @param  string $password
+     * @param string $username
+     * @param string $password
+     *
      * @return bool
      */
     public function checkPassword($username, $password)

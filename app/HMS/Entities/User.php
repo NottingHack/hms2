@@ -92,6 +92,7 @@ class User implements
 
     /**
      * User constructor.
+     *
      * @param string $firstname
      * @param string $lastname
      * @param string $username
@@ -181,6 +182,7 @@ class User implements
 
     /**
      * Get the password for the user.
+     *
      * @return string
      */
     public function getAuthPassword()
@@ -190,6 +192,7 @@ class User implements
 
     /**
      * Get the token value for the "remember me" session.
+     *
      * @return string
      */
     public function getRememberToken(): string
@@ -213,6 +216,7 @@ class User implements
 
     /**
      * Get the column name for the "remember me" token.
+     *
      * @return string
      */
     public function getRememberTokenName(): string
@@ -247,6 +251,7 @@ class User implements
 
     /**
      * @param null|Profile $profile
+     *
      * @return self
      */
     public function setProfile(?Profile $profile): self
@@ -266,6 +271,7 @@ class User implements
 
     /**
      * @param null|Account $account
+     *
      * @return self
      */
     public function setAccount(?Account $account): self
@@ -276,7 +282,8 @@ class User implements
     }
 
     /**
-     * use by passport.
+     * Use by passport.
+     *
      * @return int
      */
     public function getKey()

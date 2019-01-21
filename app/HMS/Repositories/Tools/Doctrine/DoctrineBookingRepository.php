@@ -15,7 +15,9 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
 {
     /**
      * Get the current booking for a tool.
-     * @param  Tool   $tool
+     *
+     * @param Tool $tool
+     *
      * @return null|Booking
      */
     public function currnetForTool(Tool $tool)
@@ -41,7 +43,9 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
 
     /**
      * Get the next booking for a tool.
-     * @param  Tool   $tool
+     *
+     * @param Tool $tool
+     *
      * @return null|Booking
      */
     public function nextForTool(Tool $tool)
@@ -67,9 +71,10 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
     /**
      * Check for any Bookings that would clash with a given start and end time.
      *
-     * @param  Tool   $tool
-     * @param  Carbon $start
-     * @param  Carbon $end
+     * @param Tool $tool
+     * @param Carbon $start
+     * @param Carbon $end
+     *
      * @return Bookings[]
      */
     public function checkForClashByTool(Tool $tool, Carbon $start, Carbon $end)
@@ -100,6 +105,7 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
 
     /**
      * @param Tool $tool
+     *
      * @return Booking[]
      */
     public function findByTool(Tool $tool)
@@ -108,8 +114,9 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
     }
 
     /**
-     * @param  Tool   $tool
-     * @param  User   $user
+     * @param Tool $tool
+     * @param User $user
+     *
      * @return Booking[]
      */
     public function findByToolAndUser(Tool $tool, User $user)
@@ -120,8 +127,9 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
     /**
      * Count future normal bookings for a User on a given Tool.
      *
-     * @param  Tool   $tool
-     * @param  User   $user
+     * @param Tool $tool
+     * @param User $user
+     *
      * @return int
      */
     public function countNormalByToolAndUser(Tool $tool, User $user)
@@ -148,6 +156,7 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
      * @param Tool $tool
      * @param Carbon $start
      * @param Carbon $end
+     *
      * @return Booking[]
      */
     public function findByToolBetween(Tool $tool, Carbon $start, Carbon $end)
@@ -170,6 +179,7 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
     /**
      * @param Tool $tool
      * @param Carbon $day
+     *
      * @return Booking[]
      */
     public function findByToolForDay(Tool $tool, Carbon $day)
@@ -183,6 +193,7 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
     /**
      * @param Tool $tool
      * @param Carbon $week
+     *
      * @return Booking[]
      */
     public function findByToolForWeek(Tool $tool, Carbon $week)
@@ -195,6 +206,7 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
 
     /**
      * @param Tool $tool
+     *
      * @return Booking[]
      */
     public function findByToolForThisWeek(Tool $tool)
@@ -206,6 +218,7 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
 
     /**
      * @param Tool $tool
+     *
      * @return Booking[]
      */
     public function findNormalByTool(Tool $tool)
@@ -215,6 +228,7 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
 
     /**
      * @param Tool $tool
+     *
      * @return Booking[]
      */
     public function findInductionByTool(Tool $tool)
@@ -224,6 +238,7 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
 
     /**
      * @param Tool $tool
+     *
      * @return Booking[]
      */
     public function findMaintenanceByTool(Tool $tool)
@@ -232,8 +247,9 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
     }
 
     /**
-     * save Booking to the DB.
-     * @param  Booking $booking
+     * Save Booking to the DB.
+     *
+     * @param Booking $booking
      */
     public function save(Booking $booking)
     {
@@ -243,7 +259,8 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
 
     /**
      * Remove a Booking.
-     * @param  Booking $booking
+     *
+     * @param Booking $booking
      */
     public function remove(Booking $booking)
     {

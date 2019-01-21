@@ -33,7 +33,7 @@ class NavComposer
     /**
      * Is called before views render.
      *
-     * @param  View   $view
+     * @param View $view
      */
     public function compose(View $view)
     {
@@ -58,8 +58,9 @@ class NavComposer
     /**
      * Iterative function to build the links.
      *
-     * @param  array $navLinks
-     * @param  HMS\Entities\User|null $user
+     * @param array $navLinks
+     * @param HMS\Entities\User|null $user
+     *
      * @return array   links
      */
     private function buildLinks($navLinks, $user)

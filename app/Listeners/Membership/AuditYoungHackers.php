@@ -36,7 +36,7 @@ class AuditYoungHackers implements ShouldQueue
      * Create the event listener.
      *
      * @param RoleRepository $roleRepository
-     * @param RoleManager    $roleManager
+     * @param RoleManager $roleManager
      * @param UserRepository $userRepository
      */
     public function __construct(
@@ -52,7 +52,7 @@ class AuditYoungHackers implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  YoungHackerAuditRequest  $event
+     * @param YoungHackerAuditRequest $event
      */
     public function handle(YoungHackerAuditRequest $event)
     {

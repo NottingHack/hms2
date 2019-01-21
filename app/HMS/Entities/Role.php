@@ -74,6 +74,7 @@ class Role implements RoleContract
 
     /**
      * Role constructor.
+     *
      * @param $name
      * @param $displayName
      * @param $description
@@ -113,6 +114,7 @@ class Role implements RoleContract
 
     /**
      * @param string $displayName
+     *
      * @return self
      */
     public function setDisplayName($displayName): self
@@ -132,6 +134,7 @@ class Role implements RoleContract
 
     /**
      * @param string $description
+     *
      * @return self
      */
     public function setDescription($description): self
@@ -153,6 +156,7 @@ class Role implements RoleContract
      * Add a Permission to the Role.
      *
      * @param Permission $permission
+     *
      * @return self
      */
     public function addPermission(Permission $permission): self
@@ -166,7 +170,9 @@ class Role implements RoleContract
 
     /**
      * Remove a single permission from the Role.
+     *
      * @param Permission $permission
+     *
      * @return self
      */
     public function removePermission(Permission $permission): self

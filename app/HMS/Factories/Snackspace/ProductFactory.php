@@ -23,9 +23,10 @@ class ProductFactory
     /**
      * Function to instantiate a new Product from given params.
      *
-     * @param  int         $price
-     * @param  string      $shortDescription
-     * @param  string|null $longDescription
+     * @param int $price
+     * @param string $shortDescription
+     * @param string|null $longDescription
+     *
      * @return Product
      */
     public function create(int $price, string $shortDescription, ?string $longDescription = null)

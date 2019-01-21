@@ -42,7 +42,8 @@ class MetaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  string  $key
+     * @param string $key
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($key)
@@ -65,8 +66,9 @@ class MetaController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string  $key
+     * @param \Illuminate\Http\Request $request
+     * @param string $key
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $key)

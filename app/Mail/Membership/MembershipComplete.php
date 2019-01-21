@@ -73,7 +73,7 @@ class MembershipComplete extends Mailable implements ShouldQueue
     /**
      * Create a new message instance.
      *
-     * @param User           $user
+     * @param User $user
      * @param MetaRepository $metaRepository
      * @param RoleRepository $roleRepository
      */

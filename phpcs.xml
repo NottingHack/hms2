@@ -46,4 +46,8 @@
         </properties>
     </rule>
     <rule ref="Squiz.Strings.DoubleQuoteUsage" />
+
+    <rule ref="Generic.Commenting.DocComment">
+        <exclude name="Generic.Commenting.DocComment.MissingShort" />
+    </rule>
 </ruleset>

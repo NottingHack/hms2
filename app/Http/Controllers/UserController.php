@@ -64,6 +64,7 @@ class UserController extends Controller
      * Show a specific user.
      *
      * @param User $user
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
@@ -78,7 +79,8 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified user.
      *
-     * @param  User  $user
+     * @param User $user
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
@@ -93,8 +95,9 @@ class UserController extends Controller
     /**
      * Update the specified user in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  User  $user
+     * @param \Illuminate\Http\Request $request
+     * @param User $user
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
@@ -128,6 +131,7 @@ class UserController extends Controller
      * Display a listing of the users by role.
      *
      * @param Role $role
+     *
      * @return \Illuminate\Http\Response
      */
     public function listUsersByRole(Role $role)

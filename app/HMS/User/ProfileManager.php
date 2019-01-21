@@ -29,9 +29,10 @@ class ProfileManager
 
     /**
      * ProfileManager constructor.
+     *
      * @param ProfileRepository $profileRepository
-     * @param UserRepository    $userRepository
-     * @param MetaRepository    $metaRepository
+     * @param UserRepository $userRepository
+     * @param MetaRepository $metaRepository
      */
     public function __construct(
         ProfileRepository $profileRepository,
@@ -45,6 +46,7 @@ class ProfileManager
 
     /**
      * Bulk populate a user profile, used on registration.
+     *
      * @param User $user
      * @param string $address1
      * @param null|string $address2
@@ -54,6 +56,7 @@ class ProfileManager
      * @param string $addressPostcode
      * @param string $contactNumber
      * @param null|string $dateOfBirth
+     *
      * @return User
      */
     public function create(
@@ -101,9 +104,11 @@ class ProfileManager
     }
 
     /**
-     * update the user form a form request.
-     * @param  User    $user    user to update
-     * @param  Illuminate\Http\Request $request
+     * Update the user form a form request.
+     *
+     * @param User $user User to update
+     * @param Illuminate\Http\Request $request
+     *
      * @return User
      */
     public function updateUserProfileFromRequest(User $user, Request $request)

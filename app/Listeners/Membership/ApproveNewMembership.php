@@ -70,7 +70,8 @@ class ApproveNewMembership implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  BankingNewMembershipPaidFor  $event
+     * @param BankingNewMembershipPaidFor $event
+     *
      * @return void
      */
     public function handle(NewMembershipPaidFor $event)

@@ -30,6 +30,7 @@ class Invite
      * Invite Token is auto generated.
      *
      * @param $email
+     *
      * @return Invite
      */
     public function create($email)
@@ -63,6 +64,7 @@ class Invite
 
     /**
      * Get the token value.
+     *
      * @return null|string
      */
     public function getInviteToken(): ?string

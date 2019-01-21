@@ -12,8 +12,9 @@ class PrintLabelSubscriber implements ShouldQueue
 {
     use InteractsWithQueue;
     /**
-     * printer port.
-     * @var  int
+     * Printer port.
+     *
+     * @var int
      */
     private $port = 9100;
 
@@ -29,14 +30,16 @@ class PrintLabelSubscriber implements ShouldQueue
 
     /**
      * LabelTemplate Reposistry.
+     *
      * @var LabelTemplateRepository
      */
     protected $labelTemplateRepository;
 
     /**
      * Create event listner.
+     *
      * @param LabelTemplateRepository $labelTemplateRepository
-     * @param MetaRepository          $metaRepository
+     * @param MetaRepository $metaRepository
      */
     public function __construct(
         LabelTemplateRepository $labelTemplateRepository,
@@ -49,7 +52,8 @@ class PrintLabelSubscriber implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  LabelPrintEventInterface $event
+     * @param LabelPrintEventInterface $event
+     *
      * @return void
      */
     public function handlePrint(LabelPrintEventInterface $event)
@@ -67,7 +71,7 @@ class PrintLabelSubscriber implements ShouldQueue
     /**
      * Register the listeners for the subscriber.
      *
-     * @param  Illuminate\Events\Dispatcher  $events
+     * @param Illuminate\Events\Dispatcher $events
      */
     public function subscribe($events)
     {
@@ -93,6 +97,7 @@ class PrintLabelSubscriber implements ShouldQueue
      *
      * @param string $templateName
      * @param array $substitutions
+     *
      * @return bool
      */
     private function printLabel($templateName, $substitutions = [])
@@ -125,8 +130,9 @@ class PrintLabelSubscriber implements ShouldQueue
      * Render Blade template with given substitutions.
      * borrowed from https://laracasts.com/index.php/discuss/channels/general-discussion/render-template-from-blade-template-in-database .
      *
-     * @param  string $template blade template to render
-     * @param  array $substitutions
+     * @param string $template blade template to render
+     * @param array $substitutions
+     *
      * @return string
      */
     private function renderTemplate($template, $substitutions)
@@ -154,6 +160,7 @@ class PrintLabelSubscriber implements ShouldQueue
 
     /**
      * Get the IP of the label printer.
+     *
      * @return string
      */
     public function getHost()

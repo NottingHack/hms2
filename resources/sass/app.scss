@@ -1,6 +1,6 @@
 @charset 'utf-8';
 
-@import url('https://fonts.googleapis.com/css?family=Oxygen');
+@import url('https://fonts.googleapis.com/css?family=Oxygen:300,400,700');
 
 @import 'color-helpers';
 @import 'variables';
@@ -39,43 +39,43 @@ dl > dt {
  * No more tables
  */
 @include media-breakpoint-down(sm) {
-  .no-more-tables {  
+  .no-more-tables {
     /* Force table to not be like tables anymore */
-    table, 
-    thead, 
-    tbody, 
-    th, 
-    td, 
-    tr { 
-      display: block; 
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+      display: block;
     }
-   
+
     /* Hide table headers (but not display: none;, for accessibility) */
-    thead tr { 
+    thead tr {
       position: absolute;
       top: -9999px;
       left: -9999px;
     }
-   
+
     tr { border: 1px solid #ccc; }
-   
-    td:not(.actions) { 
+
+    td:not(.actions) {
       /* Behave  like a "row" */
       border: none;
-      border-bottom: 1px solid #eee; 
+      border-bottom: 1px solid #eee;
       position: relative;
-      padding-left: 50%; 
+      padding-left: 50%;
       white-space: normal;
       text-align:left;
       width: 100% !important;
-      &:before { 
+      &:before {
         /* Now like a table header */
         position: absolute;
         /* Top/left values mimic padding */
         top: 6px;
         left: 6px;
-        width: 45%; 
-        padding-right: 10px; 
+        width: 45%;
+        padding-right: 10px;
         white-space: nowrap;
         text-align:left;
         font-weight: bold;
@@ -86,12 +86,12 @@ dl > dt {
       */
       &:before { content: attr(data-title); }
     }
-    
+
     // This will be any td with the class .actions
-    td { 
+    td {
       /* Behave  like a "row" */
       border: none;
-      border-bottom: 1px solid #eee; 
+      border-bottom: 1px solid #eee;
       position: relative;
       white-space: normal;
       text-align:center;

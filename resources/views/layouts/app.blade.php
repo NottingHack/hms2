@@ -30,13 +30,13 @@
   <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
 </head>
 
-<body class="d-flex flex-column">
+<body class="d-flex flex-column min-vh-100">
   @include('layouts.header')
 
   @include('cookieConsent::index')
 
   <!-- main body -->
-  <main id="app" class="flex-fill mt-3 pb-1">
+  <main id="app" class="flex-fill my-3">
 @include('partials.flash')
     <div class="row">
       <div class="col-sm-12">

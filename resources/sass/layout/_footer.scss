@@ -1,0 +1,36 @@
+/*
+ * Footer
+ */
+footer {
+  @extend .container-fluid;
+  background-color: $footer-background-colour;
+  color: $footer-text-colour;
+  font-size: 0.8rem;
+}
+
+.footer {
+  @include make-row();
+  text-align: center;
+
+  ul{
+    list-style-type: none;
+    padding-left: 0;
+    line-height: 1.7;
+  }
+
+  a {
+    color: $footer-link-colour;
+  }
+
+  a:hover, a:focus{
+    color: $footer-link-hover-colour;
+  }
+}
+
+.social-networks{
+  a {
+    font-size: 32px;
+    color: $social-networks-colour;
+    padding: 10px;
+  }
+}

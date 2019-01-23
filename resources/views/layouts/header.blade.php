@@ -1,6 +1,6 @@
 <!-- header -->
 <header>
-  <div class="header align-items-center">
+  <div class="header align-items-center py-3">
     <div class="col-sm-auto">
       <a href="/">
         <!-- Hackspace logo SVG -->

@@ -19,7 +19,7 @@ HMS\Entities\GateKeeper\Zone:
       length: 10
     permissionCode:
       type: string
-      length: 16
+      length: 100
       nullable: true
   oneToMany:
     zoneOccupancts:

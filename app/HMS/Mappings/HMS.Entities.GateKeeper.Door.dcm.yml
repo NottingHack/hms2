@@ -22,10 +22,6 @@ HMS\Entities\GateKeeper\Door:
       lenght: 10
     stateChange:
       type: datetime
-    permissionCode:
-      type: string
-      length: 16
-      nullable: true
   manyToOne:
     sideAZone:
       targetEntity: \HMS\Entities\GateKeeper\Zone

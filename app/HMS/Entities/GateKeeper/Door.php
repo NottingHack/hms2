@@ -33,11 +33,6 @@ class Door
     protected $stateChange;
 
     /**
-     * @var string
-     */
-    protected $permissionCode;
-
-    /**
      * @var Zone
      */
     protected $sideAZone;
@@ -100,14 +95,6 @@ class Door
     public function getStateChange()
     {
         return $this->stateChange;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPermissionCode()
-    {
-        return $this->permissionCode;
     }
 
     /**

@@ -14,7 +14,7 @@ return [
     'main' => [
         'news' => [
             'text'          => 'Home',
-            'route'         => 'home',
+            'route'         => 'index',
             'permissions'   => [],
             'links'         => [],
         ],
@@ -56,7 +56,7 @@ return [
             'text'          => 'Links',
             'route'         => 'links.index',
             'match'         => 'links.index',
-            'permissions'   => ['link.view'],
+            'permissions'   => [],
             'links'         => [],
         ],
         'admin' => [

@@ -13,7 +13,8 @@ class LabelTemplateFactory
      *
      * @param string $templateName
      * @param string $template
-     * @return  LabelTemplate
+     *
+     * @return LabelTemplate
      */
     public function create($templateName, $template)
     {
@@ -31,7 +32,8 @@ class LabelTemplateFactory
      * Function to instantiate a new LabelTemplate from a LabelTemplateRequest.
      *
      * @param LabelTemplateRequest $request
-     * @return  LabelTemplate
+     *
+     * @return LabelTemplate
      */
     public function createFromRequest(LabelTemplateRequest $request)
     {

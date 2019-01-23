@@ -26,11 +26,12 @@ class BookingManager
      * Create a new Booking Manager instance.
      *
      * @param BookingRepository $bookingRepository
-     * @param BookingFactory    $bookingFactory
+     * @param BookingFactory $bookingFactory
      */
-    public function __construct(BookingRepository $bookingRepository,
-        BookingFactory $bookingFactory)
-    {
+    public function __construct(
+        BookingRepository $bookingRepository,
+        BookingFactory $bookingFactory
+    ) {
         $this->bookingRepository = $bookingRepository;
         $this->bookingFactory = $bookingFactory;
     }
@@ -38,10 +39,11 @@ class BookingManager
     /**
      * Make a normal tool Booking.
      *
-     * @param  Tool      $tool
-     * @param  Carbon    $start
-     * @param  Carbon    $end
-     * @param  User|null $user
+     * @param Tool $tool
+     * @param Carbon $start
+     * @param Carbon $end
+     * @param User|null $user
+     *
      * @return string|Booking String with error message or a Booking
      */
     public function bookNormal(Tool $tool, Carbon $start, Carbon $end, User $user = null)
@@ -53,7 +55,7 @@ class BookingManager
         // BASIC CHECKS
         // can this user post this event?
         // Is the tool restricted and has the user been inducted
-        if ($tool->isRestricted() && $user->cannot('tools.'.$tool->getPermissionName().'.book')) {
+        if ($tool->isRestricted() && $user->cannot('tools.' . $tool->getPermissionName() . '.book')) {
             return 'Must be inducted to book this tool.'; // 403
         }
 
@@ -71,7 +73,7 @@ class BookingManager
         }
 
         // does it clash?
-        if ( ! empty($this->bookingRepository->checkForClashByTool($tool, $start, $end))) {
+        if (! empty($this->bookingRepository->checkForClashByTool($tool, $start, $end))) {
             return 'Your booking request clashes with another booking. No booking has been made.'; // 409
         }
 
@@ -85,10 +87,11 @@ class BookingManager
     /**
      * Make a Induction tool Booking.
      *
-     * @param  Tool      $tool
-     * @param  Carbon    $start
-     * @param  Carbon    $end
-     * @param  User|null $user
+     * @param Tool $tool
+     * @param Carbon $start
+     * @param Carbon $end
+     * @param User|null $user
+     *
      * @return string|Booking String with error message or a Booking
      */
     public function bookInduction(Tool $tool, Carbon $start, Carbon $end, User $user = null)
@@ -100,7 +103,7 @@ class BookingManager
         // BASIC CHECKS
         // can this user post this event?
         // Is the tool restricted and has the user been inducted
-        if ($tool->isRestricted() && $user->cannot('tools.'.$tool->getPermissionName().'.book.induction')) {
+        if ($tool->isRestricted() && $user->cannot('tools.' . $tool->getPermissionName() . '.book.induction')) {
             return 'Must be inducted to book this tool.';
         }
 
@@ -111,7 +114,7 @@ class BookingManager
 
         // ADVANCED CHECKS
         // does it clash?
-        if ( ! empty($this->bookingRepository->checkForClashByTool($tool, $start, $end))) {
+        if (! empty($this->bookingRepository->checkForClashByTool($tool, $start, $end))) {
             return 'Your booking request clashes with another booking. No booking has been made.';
         }
 
@@ -125,10 +128,11 @@ class BookingManager
     /**
      * Make a Maintenance tool Booking.
      *
-     * @param  Tool      $tool
-     * @param  Carbon    $start
-     * @param  Carbon    $end
-     * @param  User|null $user
+     * @param Tool $tool
+     * @param Carbon $start
+     * @param Carbon $end
+     * @param User|null $user
+     *
      * @return string|Booking String with error message or a Booking
      */
     public function bookMaintenance(Tool $tool, Carbon $start, Carbon $end, User $user = null)
@@ -140,7 +144,7 @@ class BookingManager
         // BASIC CHECKS
         // can this user post this event?
         // Is the tool restricted and has the user been inducted
-        if ($user->cannot('tools.'.$tool->getPermissionName().'.book.maintenance')) {
+        if ($user->cannot('tools.' . $tool->getPermissionName() . '.book.maintenance')) {
             return 'Must be inducted to book this tool.';
         }
 
@@ -155,7 +159,7 @@ class BookingManager
         // ADVANCED CHECKS
         // does it clash?
         // TODO: Maintenance slot can overwrite other bookings
-        if ( ! empty($this->bookingRepository->checkForClashByTool($tool, $start, $end))) {
+        if (! empty($this->bookingRepository->checkForClashByTool($tool, $start, $end))) {
             return 'Your booking request clashes with another booking. No booking has been made.';
         }
 
@@ -169,10 +173,11 @@ class BookingManager
     /**
      * Update a booking.
      *
-     * @param  Tool        $tool
-     * @param  Booking     $booking
-     * @param  Carbon|null $start
-     * @param  Carbon|null $end
+     * @param Tool $tool
+     * @param Booking $booking
+     * @param Carbon|null $start
+     * @param Carbon|null $end
+     *
      * @return string|Booking String with error message or a Booking
      */
     public function update(Tool $tool, Booking $booking, Carbon $start = null, Carbon $end = null)
@@ -220,7 +225,8 @@ class BookingManager
     /**
      * Cancel a Booking.
      *
-     * @param  Booking $booking
+     * @param Booking $booking
+     *
      * @return bool|string
      */
     public function cancel(Booking $booking)
@@ -239,9 +245,10 @@ class BookingManager
     /**
      * Do some basic time checks.
      *
-     * @param  Carbon       $start
-     * @param  Carbon       $end
-     * @param  int          $maxLength
+     * @param Carbon $start
+     * @param Carbon $end
+     * @param int $maxLength
+     *
      * @return bool|string
      */
     protected function basicTimeChecks(Carbon $start, Carbon $end, int $maxLength)

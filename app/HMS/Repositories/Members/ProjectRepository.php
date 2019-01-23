@@ -8,8 +8,8 @@ use HMS\Entities\Members\Project;
 interface ProjectRepository
 {
     /**
-     * @param User   $user
-     * @param int    $perPage
+     * @param User $user
+     * @param int $perPage
      * @param string $pageName
      *
      * @return \Illuminate\Pagination\LengthAwarePaginator
@@ -18,15 +18,17 @@ interface ProjectRepository
 
     /**
      * Return number of active projects for a user.
-     * @param  User   $user
+     *
+     * @param User $user
      *
      * @return int
      */
     public function countActiveByUser(User $user);
 
     /**
-     * save Project to the DB.
-     * @param  Project $project
+     * Save Project to the DB.
+     *
+     * @param Project $project
      */
     public function save(Project $project);
 }

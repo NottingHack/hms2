@@ -14,7 +14,8 @@ class LinkFactory
      * @param string $name
      * @param string $link
      * @param string $description
-     * @return  Link
+     *
+     * @return Link
      */
     public function create($name, $link, $description = null)
     {
@@ -33,7 +34,8 @@ class LinkFactory
      * Function to instantiate a new Link from a LinkRequest.
      *
      * @param LinkRequest $request
-     * @return  Link
+     *
+     * @return Link
      */
     public function createFromRequest(LinkRequest $request)
     {

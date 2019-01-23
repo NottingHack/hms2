@@ -51,13 +51,14 @@ class ApproveNewMembership implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(UserRepository $userRepository,
+    public function __construct(
+        UserRepository $userRepository,
         RoleManager $roleManager,
         PinFactory $pinFactory,
         PinRepository $pinRepository,
         MetaRepository $metaRepository,
-        RoleRepository $roleRepository)
-    {
+        RoleRepository $roleRepository
+    ) {
         $this->userRepository = $userRepository;
         $this->roleManager = $roleManager;
         $this->pinFactory = $pinFactory;
@@ -69,7 +70,8 @@ class ApproveNewMembership implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  BankingNewMembershipPaidFor  $event
+     * @param BankingNewMembershipPaidFor $event
+     *
      * @return void
      */
     public function handle(NewMembershipPaidFor $event)
@@ -78,7 +80,7 @@ class ApproveNewMembership implements ShouldQueue
         $user = $this->userRepository->findOneById($event->user->getId());
 
         // update roles
-        if ( ! $user->hasRoleByName(Role::MEMBER_PAYMENT)) {
+        if (! $user->hasRoleByName(Role::MEMBER_PAYMENT)) {
             // we should not be here get out
             // TODO: email some one about it
             return;

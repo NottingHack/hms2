@@ -48,12 +48,13 @@ class RevokeMembership implements ShouldQueue
      * @param MetaRepository                         $metaRepository
      * @param BankRepository                         $bankRepository
      */
-    public function __construct(UserRepository $userRepository,
+    public function __construct(
+        UserRepository $userRepository,
         RoleManager $roleManager,
         MembershipStatusNotificationRepository $membershipStatusNotificationRepository,
         MetaRepository $metaRepository,
-        BankRepository $bankRepository)
-    {
+        BankRepository $bankRepository
+    ) {
         $this->userRepository = $userRepository;
         $this->roleManager = $roleManager;
         $this->membershipStatusNotificationRepository = $membershipStatusNotificationRepository;
@@ -64,7 +65,8 @@ class RevokeMembership implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  NonPaymentOfMembership  $event
+     * @param NonPaymentOfMembership $event
+     *
      * @return void
      */
     public function handle(NonPaymentOfMembership $event)
@@ -72,7 +74,7 @@ class RevokeMembership implements ShouldQueue
         // get a fresh copy of the user
         $user = $this->userRepository->findOneById($event->user->getId());
 
-        if ( ! $user->hasRoleByName([Role::MEMBER_CURRENT, Role::MEMBER_YOUNG])) {
+        if (! $user->hasRoleByName([Role::MEMBER_CURRENT, Role::MEMBER_YOUNG])) {
             // should not be here
             // TODO: tell some one about it
             return;
@@ -80,7 +82,7 @@ class RevokeMembership implements ShouldQueue
 
         // remove all non retained roles (this will include MEMBER_CURRENT and MEMBER_YOUNG)
         foreach ($user->getRoles() as $role) {
-            if ( ! $role->getRetained()) {
+            if (! $role->getRetained()) {
                 $this->roleManager->removeUserFromRole($user, $role);
             }
         }

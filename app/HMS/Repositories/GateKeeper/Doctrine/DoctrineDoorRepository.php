@@ -9,8 +9,10 @@ use HMS\Repositories\GateKeeper\DoorRepository;
 class DoctrineDoorRepository extends EntityRepository implements DoorRepository
 {
     /**
-     * find by short name.
-     * @param  string $shortName
+     * Find by short name.
+     *
+     * @param string $shortName
+     *
      * @return null|Door
      */
     public function findOneByShortName(string $shortName)
@@ -19,8 +21,9 @@ class DoctrineDoorRepository extends EntityRepository implements DoorRepository
     }
 
     /**
-     * save Door to the DB.
-     * @param  Door $door
+     * Save Door to the DB.
+     *
+     * @param Door $door
      */
     public function save(Door $door)
     {

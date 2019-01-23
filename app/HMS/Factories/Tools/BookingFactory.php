@@ -26,11 +26,12 @@ class BookingFactory
     /**
      * Function to instantiate a new Booking from given params.
      *
-     * @param  Carbon      $start Start time
-     * @param  Carbon      $end   End time
-     * @param  string $type  Normal, induction, maintenance
-     * @param  User        $user  Who
-     * @param  Tool        $tool  Which tool
+     * @param Carbon $start Start time
+     * @param Carbon $end   End time
+     * @param string $type  Normal, induction, maintenance
+     * @param User $user  Who
+     * @param Tool $tool  Which tool
+     *
      * @return Booking
      */
     public function create(Carbon $start, Carbon $end, string $type, User $user, Tool $tool)

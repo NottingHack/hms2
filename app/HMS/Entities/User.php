@@ -20,9 +20,23 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use LaravelDoctrine\ACL\Contracts\HasPermissions as HasPermissionsContract;
 
-class User implements AuthenticatableContract, CanResetPasswordContract, HasRoleContract, HasPermissionsContract, AuthorizableContract, MustVerifyEmailContract
+class User implements
+    AuthenticatableContract,
+    CanResetPasswordContract,
+    HasRoleContract,
+    HasPermissionsContract,
+    AuthorizableContract,
+    MustVerifyEmailContract
 {
-    use CanResetPassword, Notifiable, HasRoles, HasPermissions, SoftDeletable, Timestampable, Authorizable, HasApiTokens, DoctrineMustVerifyEmail;
+    use CanResetPassword,
+        Notifiable,
+        HasRoles,
+        HasPermissions,
+        SoftDeletable,
+        Timestampable,
+        Authorizable,
+        HasApiTokens,
+        DoctrineMustVerifyEmail;
 
     const MIN_PASSWORD_LENGTH = 3;
 
@@ -78,13 +92,18 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
 
     /**
      * User constructor.
+     *
      * @param string $firstname
      * @param string $lastname
      * @param string $username
      * @param string $email
      */
-    public function __construct(string $firstname, string $lastname, string $username, string $email)
-    {
+    public function __construct(
+        string $firstname,
+        string $lastname,
+        string $username,
+        string $email
+    ) {
         $this->name = $firstname;
         $this->lastname = $lastname;
         $this->username = $username;
@@ -163,6 +182,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
 
     /**
      * Get the password for the user.
+     *
      * @return string
      */
     public function getAuthPassword()
@@ -172,6 +192,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
 
     /**
      * Get the token value for the "remember me" session.
+     *
      * @return string
      */
     public function getRememberToken(): string
@@ -195,6 +216,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
 
     /**
      * Get the column name for the "remember me" token.
+     *
      * @return string
      */
     public function getRememberTokenName(): string
@@ -229,6 +251,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
 
     /**
      * @param null|Profile $profile
+     *
      * @return self
      */
     public function setProfile(?Profile $profile): self
@@ -248,6 +271,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
 
     /**
      * @param null|Account $account
+     *
      * @return self
      */
     public function setAccount(?Account $account): self
@@ -258,7 +282,8 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     }
 
     /**
-     * use by passport.
+     * Use by passport.
+     *
      * @return int
      */
     public function getKey()

@@ -21,7 +21,8 @@ class DoctrineRfidTagRepository extends EntityRepository implements RfidTagRepos
     }
 
     /**
-     * @param  User $user
+     * @param User $user
+     *
      * @return RfidTag[]
      */
     public function findByUser(User $user)
@@ -30,8 +31,8 @@ class DoctrineRfidTagRepository extends EntityRepository implements RfidTagRepos
     }
 
     /**
-     * @param User   $user
-     * @param int    $perPage
+     * @param User $user
+     * @param int $perPage
      * @param string $pageName
      *
      * @return \Illuminate\Pagination\LengthAwarePaginator
@@ -47,8 +48,9 @@ class DoctrineRfidTagRepository extends EntityRepository implements RfidTagRepos
     }
 
     /**
-     * save RfidTag to the DB.
-     * @param  RfidTag $rfidTag
+     * Save RfidTag to the DB.
+     *
+     * @param RfidTag $rfidTag
      */
     public function save(RfidTag $rfidTag)
     {
@@ -57,7 +59,8 @@ class DoctrineRfidTagRepository extends EntityRepository implements RfidTagRepos
     }
 
     /**
-     * remove a RfidTag from the DB.
+     * Remove a RfidTag from the DB.
+     *
      * @param RfidTag $rfidTag
      */
     public function remove(RfidTag $rfidTag)

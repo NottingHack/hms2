@@ -8,6 +8,7 @@ class Service
 {
     /**
      * Primary key.
+     *
      * @var string
      */
     protected $name;

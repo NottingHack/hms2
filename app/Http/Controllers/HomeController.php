@@ -49,7 +49,7 @@ class HomeController extends Controller
      */
     public function accessCodes(MetaRepository $metaRepository)
     {
-        if ( ! \Gate::allows('accessCodes.view')) {
+        if (! \Gate::allows('accessCodes.view')) {
             return redirect()->route('home');
         }
         $accessCodes = [

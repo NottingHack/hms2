@@ -39,13 +39,17 @@ class RoleUpdate
     /**
      * Construct a new Role Update.
      *
-     * @param User      $user
+     * @param User $user
      * @param Role|null $roleAdded
      * @param Role|null $roleRemoved
      * @param User|null $updateBy
      */
-    public function __construct(User $user, ?Role $roleAdded = null, ?Role $roleRemoved = null, ?User $updateBy = null)
-    {
+    public function __construct(
+        User $user,
+        ?Role $roleAdded = null,
+        ?Role $roleRemoved = null,
+        ?User $updateBy = null
+    ) {
         $this->user = $user;
         $this->roleAdded = $roleAdded;
         $this->roleRemoved = $roleRemoved;

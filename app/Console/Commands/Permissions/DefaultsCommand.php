@@ -23,7 +23,8 @@ class DefaultsCommand extends BaseCommand
      *
      * @var string
      */
-    protected $description = 'Restores roles and permissions to the default set. You should probably run migrations beforehand and the seeder afterwards';
+    protected $description = 'Restores roles and permissions to the default set. '
+                             . 'You should probably run migrations beforehand and the seeder afterwards';
 
     /**
      * @var array
@@ -66,6 +67,7 @@ class DefaultsCommand extends BaseCommand
 
     /**
      * Creates permissions based on array.
+     *
      * @return void
      */
     private function createPermissionEntities()
@@ -78,6 +80,7 @@ class DefaultsCommand extends BaseCommand
 
     /**
      * Creates roles and assigns permissions.
+     *
      * @return void
      */
     private function createRoles()

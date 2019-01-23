@@ -72,14 +72,15 @@ class MembershipAudit implements ShouldQueue
      * @param RoleUpdateRepository                   $roleUpdateRepository
      * @param PinRepository                          $pinRepository
      */
-    public function __construct(BankTransactionRepository $bankTransactionRepository,
+    public function __construct(
+        BankTransactionRepository $bankTransactionRepository,
         MembershipStatusNotificationRepository $membershipStatusNotificationRepository,
         MetaRepository $metaRepository,
         RoleRepository $roleRepository,
         AccessLogRepository $accessLogRepository,
         RoleUpdateRepository $roleUpdateRepository,
-        PinRepository $pinRepository)
-    {
+        PinRepository $pinRepository
+    ) {
         $this->bankTransactionRepository = $bankTransactionRepository;
         $this->membershipStatusNotificationRepository = $membershipStatusNotificationRepository;
         $this->metaRepository = $metaRepository;
@@ -92,7 +93,8 @@ class MembershipAudit implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  AuditRequest $event
+     * @param AuditRequest $event
+     *
      * @return mixed
      */
     public function handle(AuditRequest $event)
@@ -134,12 +136,15 @@ class MembershipAudit implements ShouldQueue
         $notificationRevokeUsers = [];
         $notificationPaymentUsers = [];
 
-        $dateNow = Carbon::now(); // this will be the server time the we run, might need to shift time portion to end of the day 23:59
+        // this will be the server time the we run, might need to shift time portion to end of the day 23:59
+        $dateNow = Carbon::now();
         $dateNow->setTime(0, 0, 0);
         $warnDate = clone $dateNow;
         $warnDate->sub(CarbonInterval::instance(new \DateInterval($this->metaRepository->get('audit_warn_interval'))));
         $revokeDate = clone $dateNow;
-        $revokeDate->sub(CarbonInterval::instance(new \DateInterval($this->metaRepository->get('audit_revoke_interval'))));
+        $revokeDate->sub(
+            CarbonInterval::instance(new \DateInterval($this->metaRepository->get('audit_revoke_interval')))
+        );
 
         foreach ($awatingMembers as $user) {
             if (isset($latestTransactionForAccounts[$user->getAccount()->getId()])) {
@@ -177,7 +182,7 @@ class MembershipAudit implements ShouldQueue
                 $notificationRevokeUsers[] = $user;
             } elseif ($transactionDate < $warnDate) { // transaction date is older than warning date
                 // if not already warned
-                if ( ! in_array($user->getId(), $memberIdsForCurrentNotifications)) {
+                if (! in_array($user->getId(), $memberIdsForCurrentNotifications)) {
                     // warn membership may be terminated if we don't see one soon
                     $warnUsers[] = $user;
                 }
@@ -208,7 +213,7 @@ class MembershipAudit implements ShouldQueue
                 $notificationRevokeUsers[] = $user;
             } elseif ($transactionDate < $warnDate) { // transaction date is older than warning date
                 // if not already warned
-                if ( ! in_array($user->getId(), $memberIdsForCurrentNotifications)) {
+                if (! in_array($user->getId(), $memberIdsForCurrentNotifications)) {
                     // warn membership may be terminated if we don't see one soon
                     $warnUsers[] = $user;
                 }
@@ -266,7 +271,9 @@ class MembershipAudit implements ShouldQueue
 
         // before sending out team emails clean up the warnings for people that have now paid us
         foreach ($notificationPaymentUsers as $user) {
-            $userNotifications = $this->membershipStatusNotificationRepository->findOutstandingNotificationsByUser($user);
+            $userNotifications = $this->membershipStatusNotificationRepository
+                ->findOutstandingNotificationsByUser($user);
+
             foreach ($userNotifications as $notification) {
                 $notification->clearNotificationsByPayment();
                 $this->membershipStatusNotificationRepository->save($notification);
@@ -274,7 +281,8 @@ class MembershipAudit implements ShouldQueue
         }
 
         // now email the audit results
-        $auditResultNotification = new AuditResult($approveUsers,
+        $auditResultNotification = new AuditResult(
+            $approveUsers,
             $warnUsers,
             $revokeUsers,
             $reinstateUsers,
@@ -284,7 +292,7 @@ class MembershipAudit implements ShouldQueue
             $this->pinRepository,
             $this->roleUpdateRepository,
             $this->roleRepository
-            );
+        );
 
         $membershipTeamRole = $this->roleRepository->findOneByName(Role::TEAM_MEMBERSHIP);
         $membershipTeamRole->notify($auditResultNotification);

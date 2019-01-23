@@ -31,23 +31,23 @@ class MakeCommand extends Command
         $name = trim($this->argument('name'));
 
         $this->call('hms:make:entity', [
-            'name' => "$name",
+            'name' => $name,
         ]);
 
         $this->call('hms:make:mapping', [
-            'name' => "$name",
+            'name' => $name,
         ]);
 
         $this->call('hms:make:repository:interface', [
-            'name' => "$name",
+            'name' => $name,
         ]);
 
         $this->call('hms:make:repository:implementation', [
-            'name' => "$name",
+            'name' => $name,
         ]);
 
         $this->call('hms:make:factory', [
-            'name' => "$name",
+            'name' => $name,
         ]);
     }
 }

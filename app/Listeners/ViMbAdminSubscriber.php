@@ -50,7 +50,8 @@ class ViMbAdminSubscriber implements ShouldQueue
      * Handle role created events.
      * If the updateTeamEmail field is set we need to create a new mailbox.
      *
-     * @param  RoleCreated $event
+     * @param RoleCreated $event
+     *
      * @throws Exception
      */
     public function onRoleCreated(RoleCreated $event)
@@ -63,22 +64,22 @@ class ViMbAdminSubscriber implements ShouldQueue
             }
 
             $mailboxEmail = $event->role->getEmail();
-            if ( ! filter_var($mailboxEmail, FILTER_VALIDATE_EMAIL)) {
+            if (! filter_var($mailboxEmail, FILTER_VALIDATE_EMAIL)) {
                 // bugger this should not happen. throw an error??
-                throw new Exception('Role email address '.$mailboxEmail.' is not valid');
+                throw new Exception('Role email address ' . $mailboxEmail . ' is not valid');
             }
 
             $domainName = explode('@', $mailboxEmail)[1];
             $domain = $this->client->findDomains($domainName)[0];
-            if ( ! $domain instanceof Domain) {
-                throw new Exception('Domain for '.$domainName.' does not exist in ViMAdmin and we cant create it');
+            if (! $domain instanceof Domain) {
+                throw new Exception('Domain for ' . $domainName . ' does not exist in ViMAdmin and we cant create it');
             }
 
             $mailbox = Mailbox::create($mailboxEmail, $event->role->getDisplayname(), $domain);
 
             $response = $this->client->createMailbox($mailbox);
-            if ( ! $response instanceof Mailbox) {
-                throw new Exception('Failed to create Mailbox for Role: '.$event->role->getName());
+            if (! $response instanceof Mailbox) {
+                throw new Exception('Failed to create Mailbox for Role: ' . $event->role->getName());
             }
         }
     }
@@ -87,7 +88,8 @@ class ViMbAdminSubscriber implements ShouldQueue
      * Handle user added to role events.
      * If the updateTeamEmail field is set we need to add the user to the alias.
      *
-     * @param  UserAddedToRole $event
+     * @param UserAddedToRole $event
+     *
      * @throws Exception
      */
     public function onUserAddedToRole(UserAddedToRole $event)
@@ -98,8 +100,8 @@ class ViMbAdminSubscriber implements ShouldQueue
 
             // save the updated alias back to the external API
             $response = $this->client->updateAlias($alias);
-            if ( ! $response instanceof Link) {
-                throw new Exception('Alias update failed with Error: '.$response);
+            if (! $response instanceof Link) {
+                throw new Exception('Alias update failed with Error: ' . $response);
             }
         }
     }
@@ -108,7 +110,8 @@ class ViMbAdminSubscriber implements ShouldQueue
      * Handle user removed from role events.
      * If the updateTeamEmail field is set we need to remove the user from the alias.
      *
-     * @param  UserRemovedFromRole $event
+     * @param UserRemovedFromRole $event
+     *
      * @throws Exception
      */
     public function onUserRemovedFromRole(UserRemovedFromRole $event)
@@ -119,8 +122,8 @@ class ViMbAdminSubscriber implements ShouldQueue
 
             // save the updated alias back to the external API
             $response = $this->client->updateAlias($alias);
-            if ( ! $response instanceof Link) {
-                throw new Exception('Alias update failed with Error: '.$response);
+            if (! $response instanceof Link) {
+                throw new Exception('Alias update failed with Error: ' . $response);
             }
         }
     }
@@ -128,16 +131,18 @@ class ViMbAdminSubscriber implements ShouldQueue
     /**
      * Given a role update alias with a newly calculated set of goto addresses.
      *
-     * @param  Role   $role
+     * @param Role $role
+     *
      * @throws Exception
+     *
      * @return null|Alias
      */
     public function getAliasForRole(Role $role)
     {
         $aliasEmail = $role->getEmail();
-        if ( ! filter_var($aliasEmail, FILTER_VALIDATE_EMAIL)) {
+        if (! filter_var($aliasEmail, FILTER_VALIDATE_EMAIL)) {
             // bugger this should not happen. throw an error??
-            throw new Exception('Role email address '.$aliasEmail.' is not valid');
+            throw new Exception('Role email address ' . $aliasEmail . ' is not valid');
         }
 
         $domainName = explode('@', $aliasEmail)[1];
@@ -145,7 +150,7 @@ class ViMbAdminSubscriber implements ShouldQueue
         // now we have done our prep, time to grab the alias from the external API
         $aliases = $this->client->findAliasesForDomain($domainName, $aliasEmail);
         if ($aliases instanceof Error) {
-            throw new Exception('Unable to get Alias for '.$aliasEmail);
+            throw new Exception('Unable to get Alias for ' . $aliasEmail);
         }
 
         if (empty($aliases)) {
@@ -158,7 +163,8 @@ class ViMbAdminSubscriber implements ShouldQueue
     /**
      * Update any email aliases when a user changes thier email address.
      *
-     * @param  UserEmailChanged $event
+     * @param UserEmailChanged $event
+     *
      * @throws Exception
      */
     public function onUserEmailChanged(UserEmailChanged $event)
@@ -176,8 +182,8 @@ class ViMbAdminSubscriber implements ShouldQueue
 
                 // save the updated alias back to the external API
                 $response = $this->client->updateAlias($alias);
-                if ( ! $response instanceof Link) {
-                    throw new Exception('Alias update failed with Error: '.$response);
+                if (! $response instanceof Link) {
+                    throw new Exception('Alias update failed with Error: ' . $response);
                 }
             }
         }
@@ -186,7 +192,7 @@ class ViMbAdminSubscriber implements ShouldQueue
     /**
      * Register the listeners for the subscriber.
      *
-     * @param  Illuminate\Events\Dispatcher  $events
+     * @param Illuminate\Events\Dispatcher $events
      */
     public function subscribe($events)
     {
@@ -213,8 +219,8 @@ class ViMbAdminSubscriber implements ShouldQueue
 
     /*
      * Deal with failed updates somehow.
-     * @param  OrderShipped $event
-     * @param  \Exception   $exception
+     * @param OrderShipped $event
+     * @param \Exception $exception
      */
     // public function failed(OrderShipped $event, $exception)
     // {

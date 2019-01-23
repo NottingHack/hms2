@@ -30,6 +30,7 @@ class SearchController extends Controller
      *
      * @param string $searchQuery
      * @param Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function users(string $searchQuery = null, Request $request)

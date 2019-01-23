@@ -15,6 +15,7 @@ class DoctrineMetaRepository extends EntityRepository implements MetaRepository
      * Determine if the given setting value exists.
      *
      * @param string $key
+     *
      * @return bool
      */
     public function has($key)
@@ -27,6 +28,7 @@ class DoctrineMetaRepository extends EntityRepository implements MetaRepository
      *
      * @param string $key
      * @param mixed $default
+     *
      * @return mixed
      */
     public function get($key, $default = null)
@@ -41,12 +43,13 @@ class DoctrineMetaRepository extends EntityRepository implements MetaRepository
      *
      * @param string $key
      * @param mixed $value
+     *
      * @return void
      */
     public function set($key, $value = null)
     {
         $meta = $this->findOneByKey($key);
-        if ( ! $meta) {
+        if (! $meta) {
             $meta = new Meta;
             $meta->create($key);
         }
@@ -59,6 +62,7 @@ class DoctrineMetaRepository extends EntityRepository implements MetaRepository
      * Forget current setting value.
      *
      * @param string $key
+     *
      * @return void
      */
     public function forget($key)

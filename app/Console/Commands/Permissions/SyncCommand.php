@@ -46,8 +46,12 @@ class SyncCommand extends BaseCommand
      */
     private $roles = [];
 
-    public function __construct(EntityManagerInterface $entityManager, RoleRepository $roleRepository, PermissionRepository $permissionRepository, RoleManager $roleManager)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        RoleRepository $roleRepository,
+        PermissionRepository $permissionRepository,
+        RoleManager $roleManager
+    ) {
         parent::__construct($entityManager, $roleRepository);
         $this->permissionRepository = $permissionRepository;
         $this->roleManager = $roleManager;
@@ -79,15 +83,16 @@ class SyncCommand extends BaseCommand
 
     /**
      * Creates permissions based on array.
+     *
      * @return void
      */
     private function createPermissionEntities()
     {
         foreach ($this->permissions as $permission => &$entity) {
-            if ( ! $entity = $this->permissionRepository->findOneByName($permission)) {
+            if (! $entity = $this->permissionRepository->findOneByName($permission)) {
                 $entity = new Permission($permission);
                 $this->entityManager->persist($entity);
-                $this->info('Created permission: '.$permission);
+                $this->info('Created permission: ' . $permission);
             }
         }
     }
@@ -112,7 +117,7 @@ class SyncCommand extends BaseCommand
                         $roleEntity->addPermission($this->permissions[$permission]);
                     }
                 }
-                $this->info('Updated role: '.$roleName);
+                $this->info('Updated role: ' . $roleName);
             } else {
                 $this->createRole($roleName, $role);
             }
@@ -128,6 +133,6 @@ class SyncCommand extends BaseCommand
     private function createRole(string $roleName, array $role)
     {
         $this->roleManager->createRoleFromTemplate($roleName, $role, $this->permissions);
-        $this->info('Created role: '.$roleName);
+        $this->info('Created role: ' . $roleName);
     }
 }

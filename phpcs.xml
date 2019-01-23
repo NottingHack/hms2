@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<ruleset name="Laravel Development">
+    <description>Laravel Development</description>
+
+    <file>app</file>
+    <file>config</file>
+    <file>resources</file>
+    <file>routes</file>
+    <file>tests</file>
+
+    <exclude-pattern>database/</exclude-pattern>
+    <exclude-pattern>cache/</exclude-pattern>
+    <exclude-pattern>*.js</exclude-pattern>
+    <exclude-pattern>*.css</exclude-pattern>
+    <exclude-pattern>*.xml</exclude-pattern>
+    <exclude-pattern>*.blade.php</exclude-pattern>
+    <exclude-pattern>autoload.php</exclude-pattern>
+    <exclude-pattern>storage/</exclude-pattern>
+    <exclude-pattern>docs/</exclude-pattern>
+    <exclude-pattern>vendor/</exclude-pattern>
+    <exclude-pattern>migrations*/</exclude-pattern>
+    <exclude-pattern>*/public/index.php</exclude-pattern>
+
+    <arg name="colors"/>
+    <arg value="p"/>
+    <ini name="memory_limit" value="128M"/>
+
+    <rule ref="PSR2"/>
+    <rule ref="Generic.Formatting.SpaceAfterNot" />
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="120"/>
+            <property name="absoluteLineLimit" value="150"/>
+            <property name="ignoreComments" value="true" />
+        </properties>
+    </rule>
+    <rule ref="Generic.Strings.UnnecessaryStringConcat">
+        <properties>
+            <property name="allowMultiline" value="true" />
+        </properties>
+    </rule>
+    <rule ref="Squiz.Strings.ConcatenationSpacing">
+        <properties>
+            <property name="spacing" value="1" />
+        <property name="ignoreNewlines" value="true" />
+        </properties>
+    </rule>
+    <rule ref="Squiz.Strings.DoubleQuoteUsage" />
+
+    <rule ref="Generic.Commenting.DocComment">
+        <exclude name="Generic.Commenting.DocComment.MissingShort" />
+    </rule>
+</ruleset>

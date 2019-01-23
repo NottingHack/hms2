@@ -10,17 +10,23 @@ class ToolFactory
     /**
      * Function to instantiate a new Tool from given params.
      *
-     * @param  string $name          Tool name
-     * @param  bool   $restricted    Does this tool require an induction
-     * @param  int    $pph           Cost per hour in pence
-     * @param  int    $bookingLength Default booking length for this tool, minutes
-     * @param  int    $lengthMax     Maximum amount of time a booking can be made for, minutes
-     * @param  int    $bookingsMax   Maximum number of bookings a user can have at any one time
+     * @param string $name          Tool name
+     * @param bool   $restricted    Does this tool require an induction
+     * @param int    $pph           Cost per hour in pence
+     * @param int    $bookingLength Default booking length for this tool, minutes
+     * @param int    $lengthMax     Maximum amount of time a booking can be made for, minutes
+     * @param int    $bookingsMax   Maximum number of bookings a user can have at any one time
      *
      * @return Tool
      */
-    public function create(string $name, bool $restricted, int $pph, int $bookingLength, int $lengthMax, int $bookingsMax = 1)
-    {
+    public function create(
+        string $name,
+        bool $restricted,
+        int $pph,
+        int $bookingLength,
+        int $lengthMax,
+        int $bookingsMax = 1
+    ) {
         $_tool = new Tool();
         $_tool->setName($name);
 

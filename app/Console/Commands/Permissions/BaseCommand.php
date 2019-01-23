@@ -32,6 +32,7 @@ abstract class BaseCommand extends Command
 
     /**
      * Create a new command instance.
+     *
      * @param EntityManagerInterface $entityManager
      * @param RoleRepository $roleRepository
      */
@@ -63,12 +64,13 @@ abstract class BaseCommand extends Command
     /**
      * @param $name
      * @param bool $error
+     *
      * @return bool|Role
      */
     protected function getRole($name, $error = true)
     {
         $role = $this->roleRepository->findOneByName($name);
-        if ( ! is_null($role)) {
+        if (! is_null($role)) {
             return $role;
         } else {
             if ($error) {
@@ -82,16 +84,20 @@ abstract class BaseCommand extends Command
     /**
      * @param $name
      * @param bool $error
+     *
      * @return bool|Permission
      */
     protected function getPermission($name, $error = true)
     {
         $permission = $this->permissionsRepository->findOneBy(['name' => $name]);
-        if ( ! is_null($permission)) {
+        if (! is_null($permission)) {
             return $permission;
         } else {
             if ($error) {
-                $this->printError('The permission ' . $permission . ' was not found within the system.', 'Incorrect Permission');
+                $this->printError(
+                    'The permission ' . $permission . ' was not found within the system.',
+                    'Incorrect Permission'
+                );
             }
 
             return false;

@@ -33,8 +33,11 @@ class ToolController extends Controller
      * @param ToolManager       $toolManager
      * @param BookingRepository $bookingRepository
      */
-    public function __construct(ToolRepository $toolRepository, ToolManager $toolManager, BookingRepository $bookingRepository)
-    {
+    public function __construct(
+        ToolRepository $toolRepository,
+        ToolManager $toolManager,
+        BookingRepository $bookingRepository
+    ) {
         $this->toolRepository = $toolRepository;
         $this->toolManager = $toolManager;
         $this->bookingRepository = $bookingRepository;
@@ -76,7 +79,8 @@ class ToolController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -98,7 +102,7 @@ class ToolController extends Controller
             $request->lengthMax,
             $request->bookingsMax
         );
-        flash('Tool \''.$tool->getName().'\' created.')->success();
+        flash('Tool \'' . $tool->getName() . '\' created.')->success();
 
         return redirect()->route('tools.show', ['tool' => $tool->getId()]);
     }
@@ -106,7 +110,8 @@ class ToolController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Tool  $tool
+     * @param Tool $tool
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Tool $tool)
@@ -117,7 +122,8 @@ class ToolController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Tool  $tool
+     * @param Tool $tool
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Tool $tool)
@@ -128,14 +134,15 @@ class ToolController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  Tool  $tool
+     * @param \Illuminate\Http\Request $request
+     * @param Tool $tool
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Tool $tool)
     {
         $this->validate($request, [
-            'toolName'      => 'required|string|max:20|unique:HMS\Entities\Tools\Tool,name,'.$tool->getId(),
+            'toolName'      => 'required|string|max:20|unique:HMS\Entities\Tools\Tool,name,' . $tool->getId(),
             'restricted'    => 'sometimes|required',
             'cost'          => 'required|integer|min:0',
             'bookingLength' => 'required|integer|min:0',
@@ -144,7 +151,7 @@ class ToolController extends Controller
         ]);
 
         $this->toolManager->update($tool, $request->all());
-        flash('Tool \''.$tool->getName().'\' updated.')->success();
+        flash('Tool \'' . $tool->getName() . '\' updated.')->success();
 
         return redirect()->route('tools.show', ['tool' => $tool->getId()]);
     }
@@ -152,13 +159,14 @@ class ToolController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Tool  $tool
+     * @param Tool $tool
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Tool $tool)
     {
         $this->toolManager->removeTool($tool);
-        flash('Tool \''.$tool->getName().'\' removed.')->success();
+        flash('Tool \'' . $tool->getName() . '\' removed.')->success();
 
         return redirect()->route('tools.index');
     }

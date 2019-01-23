@@ -84,18 +84,19 @@ class ToolManager
     /**
      * Create a new Tool Manager instance.
      *
-     * @param ToolRepository       $toolRepository
-     * @param ToolFactory          $toolFactory
+     * @param ToolRepository $toolRepository
+     * @param ToolFactory $toolFactory
      * @param PermissionRepository $permissionRepository
-     * @param RoleRepository       $roleRepository
-     * @param RoleManager          $roleManager
+     * @param RoleRepository $roleRepository
+     * @param RoleManager $roleManager
      */
-    public function __construct(ToolRepository $toolRepository,
+    public function __construct(
+        ToolRepository $toolRepository,
         ToolFactory $toolFactory,
         PermissionRepository $permissionRepository,
         RoleRepository $roleRepository,
-        RoleManager $roleManager)
-    {
+        RoleManager $roleManager
+    ) {
         $this->toolRepository = $toolRepository;
         $this->toolFactory = $toolFactory;
         $this->permissionRepository = $permissionRepository;
@@ -106,17 +107,23 @@ class ToolManager
     /**
      * Function to create a new tool and setup the permissions.
      *
-     * @param  string $name          Tool name
-     * @param  bool   $restricted    Does this tool require an induction
-     * @param  int    $pph           Cost per hour in pence
-     * @param  int    $bookingLength Default booking length for this tool, minutes
-     * @param  int    $lengthMax     Maximum amount of time a booking can be made for, minutes
-     * @param  int    $bookingsMax   Maximum number of bookings a user can have at any one time
+     * @param string $name          Tool name
+     * @param bool   $restricted    Does this tool require an induction
+     * @param int    $pph           Cost per hour in pence
+     * @param int    $bookingLength Default booking length for this tool, minutes
+     * @param int    $lengthMax     Maximum amount of time a booking can be made for, minutes
+     * @param int    $bookingsMax   Maximum number of bookings a user can have at any one time
      *
      * @return Tool
      */
-    public function create(string $name, bool $restricted, int $pph, int $bookingLength, int $lengthMax, int $bookingsMax = 1)
-    {
+    public function create(
+        string $name,
+        bool $restricted,
+        int $pph,
+        int $bookingLength,
+        int $lengthMax,
+        int $bookingsMax = 1
+    ) {
         // TODO: check tool name is unique
 
         $_tool = $this->toolFactory->create(
@@ -151,10 +158,17 @@ class ToolManager
         }
 
         // Now create tool roles and add permissions
-        $rolesTemplates = json_decode(str_replace(array_keys($replace), array_values($replace), json_encode(self::ROLE_TEMPLATES)), true);
+        $rolesTemplates = json_decode(
+            str_replace(
+                array_keys($replace),
+                array_values($replace),
+                json_encode(self::ROLE_TEMPLATES)
+            ),
+            true
+        );
 
         foreach ($rolesTemplates as $roleName => $role) {
-            if ( ! $this->roleRepository->findOneByName($roleName)) {
+            if (! $this->roleRepository->findOneByName($roleName)) {
                 $this->roleManager->createRoleFromTemplate($roleName, $role, $permissions);
             }
         }
@@ -204,7 +218,7 @@ class ToolManager
     /**
      * Enable a tool.
      *
-     * @param  Tool   $tool
+     * @param Tool $tool
      */
     public function enableTool(Tool $tool)
     {
@@ -218,9 +232,9 @@ class ToolManager
     /**
      * Disable a tool for maintenance.
      *
-     * @param  Tool   $tool
-     * @param  string $reason
-     * @param  bool   $notify Should we tell user with a booking for this tool.
+     * @param Tool $tool
+     * @param string $reason
+     * @param bool $notify Should we tell user with a booking for this tool.
      */
     public function disableTool(Tool $tool, string $reason, bool $notify = false)
     {
@@ -234,11 +248,16 @@ class ToolManager
     /**
      * Remove a tool and its permissions.
      *
-     * @param  Tool   $tool
+     * @param Tool $tool
      */
     public function removeTool(Tool $tool)
     {
-        $roleNames = str_replace('_TOOL_PERMISSION_NAME_', $tool->getPermissionName(), array_keys(self::ROLE_TEMPLATES));
+        $roleNames = str_replace(
+            '_TOOL_PERMISSION_NAME_',
+            $tool->getPermissionName(),
+            array_keys(self::ROLE_TEMPLATES)
+        );
+
         foreach ($roleNames as $roleName) {
             $this->roleRepository->removeOneByName($roleName);
         }

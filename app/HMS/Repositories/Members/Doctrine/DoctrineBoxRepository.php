@@ -25,6 +25,7 @@ class DoctrineBoxRepository extends EntityRepository implements BoxRepository
 
     /**
      * Count how many boxes a User has INUSE.
+     *
      * @param User $user
      *
      * @return int Number of boxes this user has INUSE
@@ -35,8 +36,8 @@ class DoctrineBoxRepository extends EntityRepository implements BoxRepository
     }
 
     /**
-     * @param User   $user
-     * @param int    $perPage
+     * @param User $user
+     * @param int $perPage
      * @param string $pageName
      *
      * @return \Illuminate\Pagination\LengthAwarePaginator
@@ -52,8 +53,9 @@ class DoctrineBoxRepository extends EntityRepository implements BoxRepository
     }
 
     /**
-     * save Box to the DB.
-     * @param  Box $box
+     * Save Box to the DB.
+     *
+     * @param Box $box
      */
     public function save(Box $box)
     {

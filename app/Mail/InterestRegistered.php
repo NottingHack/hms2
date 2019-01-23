@@ -43,12 +43,16 @@ class InterestRegistered extends Mailable implements ShouldQueue
     /**
      * Create a new message instance.
      *
-     * @param Invite         $invite
+     * @param Invite $invite
      * @param MetaRepository $metaRepository
      * @param RoleRepository $roleRepository
      */
-    public function __construct(Invite $invite, MetaRepository $metaRepository, RoleRepository $roleRepository)
-    {
+    public function __construct(
+        Invite $invite,
+        MetaRepository
+        $metaRepository,
+        RoleRepository $roleRepository
+    ) {
         $this->token = $invite->getInviteToken();
         $this->membershipEmail = $roleRepository->findOneByName(Role::TEAM_MEMBERSHIP)->getEmail();
         $this->trusteesEmail = $roleRepository->findOneByName(Role::TEAM_TRUSTEES)->getEmail();

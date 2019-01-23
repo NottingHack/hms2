@@ -18,42 +18,49 @@ class Tool
 
     /**
      * ToolState :: IN_USE, FREE or DISABLED.
+     *
      * @var string
      */
     protected $status;
 
     /**
      * ToolRestriction :: UNRESTRICTED or RESTRICTED.
+     *
      * @var string
      */
     protected $restrictions;
 
     /**
      * If tool_status=DISABLED, holds the reason why (free text).
+     *
      * @var null|string
      */
     protected $statusText;
 
     /**
      * Cost - pence per hour.
+     *
      * @var int
      */
     protected $pph;
 
     /**
      * Default booking length for this tool, minutes.
+     *
      * @var int
      */
     protected $bookingLength;
 
     /**
      * Maximum amount of time a booking can be made for, minutes.
+     *
      * @var int
      */
     protected $lengthMax;
 
     /**
      * Maximum number of booking.
+     *
      * @var int
      */
     protected $bookingsMax;

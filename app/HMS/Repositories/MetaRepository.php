@@ -8,6 +8,7 @@ interface MetaRepository
      * Determine if the given setting value exists.
      *
      * @param string $key
+     *
      * @return bool
      */
     public function has($key);
@@ -17,6 +18,7 @@ interface MetaRepository
      *
      * @param string $key
      * @param mixed $default
+     *
      * @return mixed
      */
     public function get($key, $default = null);
@@ -26,6 +28,7 @@ interface MetaRepository
      *
      * @param string $key
      * @param mixed $value
+     *
      * @return void
      */
     public function set($key, $value = null);
@@ -34,12 +37,13 @@ interface MetaRepository
      * Forget current setting value.
      *
      * @param string $key
+     *
      * @return void
      */
     public function forget($key);
 
     /**
-     * @param int    $perPage
+     * @param int $perPage
      * @param string $pageName
      *
      * @return \Illuminate\Pagination\LengthAwarePaginator

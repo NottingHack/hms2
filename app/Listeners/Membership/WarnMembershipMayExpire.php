@@ -46,6 +46,7 @@ class WarnMembershipMayExpire implements ShouldQueue
 
     /**
      * Create the event listener.
+     *
      * @param UserRepository                         $userRepository
      * @param RoleManager                            $roleManager
      * @param MembershipStatusNotificationFactory    $membershipStatusNotificationFactory
@@ -53,13 +54,14 @@ class WarnMembershipMayExpire implements ShouldQueue
      * @param MetaRepository                         $metaRepository
      * @param BankRepository                         $bankRepository
      */
-    public function __construct(UserRepository $userRepository,
+    public function __construct(
+        UserRepository $userRepository,
         RoleManager $roleManager,
         MembershipStatusNotificationFactory $membershipStatusNotificationFactory,
         MembershipStatusNotificationRepository $membershipStatusNotificationRepository,
         MetaRepository $metaRepository,
-        BankRepository $bankRepository)
-    {
+        BankRepository $bankRepository
+    ) {
         $this->userRepository = $userRepository;
         $this->roleManager = $roleManager;
         $this->membershipStatusNotificationFactory = $membershipStatusNotificationFactory;
@@ -71,7 +73,8 @@ class WarnMembershipMayExpire implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  MembershipPaymentWarning  $event
+     * @param MembershipPaymentWarning $event
+     *
      * @return void
      */
     public function handle(MembershipPaymentWarning $event)

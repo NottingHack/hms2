@@ -12,8 +12,9 @@ interface PasswordStore
     /**
      * Add a new identity with the specified username and password.
      *
-     * @param  string  $username
-     * @param  string  $password
+     * @param string $username
+     * @param string $password
+     *
      * @return void
      */
     public function add($username, $password);
@@ -21,7 +22,8 @@ interface PasswordStore
     /**
      * Remove the specified identity.
      *
-     * @param  string  $username
+     * @param string $username
+     *
      * @return void
      */
     public function remove($username);
@@ -29,7 +31,8 @@ interface PasswordStore
     /**
      * Check if a specified identity exists.
      *
-     * @param  string  $username
+     * @param string $username
+     *
      * @return bool
      */
     public function exists($username);
@@ -37,8 +40,9 @@ interface PasswordStore
     /**
      * Set the password for a specified identity.
      *
-     * @param  string  $username
-     * @param  string  $password
+     * @param string $username
+     * @param string $password
+     *
      * @return void
      */
     public function setPassword($username, $password);
@@ -46,8 +50,9 @@ interface PasswordStore
     /**
      * Check the password for a specified identity is correct.
      *
-     * @param  string  $username
-     * @param  string  $password
+     * @param string $username
+     * @param string $password
+     *
      * @return bool
      */
     public function checkPassword($username, $password);

@@ -78,7 +78,8 @@ class MembershipController extends Controller
      * @param RoleRepository    $roleRepository
      * @param BankRepository    $bankRepository
      */
-    public function __construct(MetaRepository $metaRepository,
+    public function __construct(
+        MetaRepository $metaRepository,
         AccountFactory $accountFactory,
         UserRepository $userRepository,
         RoleManager $roleManager,
@@ -86,8 +87,8 @@ class MembershipController extends Controller
         UserManager $userManager,
         ProfileManager $profileManager,
         RoleRepository $roleRepository,
-        BankRepository $bankRepository)
-    {
+        BankRepository $bankRepository
+    ) {
         $this->metaRepository = $metaRepository;
         $this->accountFactory = $accountFactory;
         $this->userRepository = $userRepository;
@@ -98,23 +99,29 @@ class MembershipController extends Controller
         $this->roleRepository = $roleRepository;
         $this->bankRepository = $bankRepository;
 
-        $this->middleware('can:membership.approval')->only(['showDetailsForApproval', 'approveDetails', 'rejectDetails']);
+        $this->middleware('can:membership.approval')
+            ->only(['showDetailsForApproval', 'approveDetails', 'rejectDetails']);
         $this->middleware('can:membership.updateDetails')->only(['editDetails', 'updateDetails']);
     }
 
     /**
      * Show the membership approval form.
      *
-     * @param  User   $user
+     * @param User $user
+     *
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function showDetailsForApproval(User $user)
     {
         if ($user->hasRoleByName(Role::MEMBER_APPROVAL)) {
-            return view('membership.showDetails')->with(
-                'user', $user)->with(
-                'subject', $this->metaRepository->get('reject_details_subject', 'Nottingham Hackspace: Issue with contact details')
-
+            return view('membership.showDetails')
+                ->with('user', $user)
+                ->with(
+                    'subject',
+                    $this->metaRepository->get(
+                        'reject_details_subject',
+                        'Nottingham Hackspace: Issue with contact details'
+                    )
                 );
         }
 
@@ -128,13 +135,14 @@ class MembershipController extends Controller
      * Now setup bank account ref, either new or linked, and email member with standing order setup details
      * (possible deal with young hacker stuff here).
      *
-     * @param  User    $user
-     * @param  Illuminate\Http\Request $request
+     * @param User $user
+     * @param Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function approveDetails(User $user, Request $request)
     {
-        if ( ! $user->hasRoleByName(Role::MEMBER_APPROVAL)) {
+        if (! $user->hasRoleByName(Role::MEMBER_APPROVAL)) {
             return redirect()->route('home');
         }
 
@@ -168,13 +176,14 @@ class MembershipController extends Controller
      * Reject new member details.
      * Email the member asking them to update Details as noted.
      *
-     * @param  User    $user
-     * @param  Illuminate\Http\Request $request
+     * @param User $user
+     * @param Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function rejectDetails(User $user, Request $request)
     {
-        if ( ! $user->hasRoleByName(Role::MEMBER_APPROVAL)) {
+        if (! $user->hasRoleByName(Role::MEMBER_APPROVAL)) {
             return redirect()->route('home');
         }
 
@@ -191,12 +200,14 @@ class MembershipController extends Controller
 
     /**
      * Show the user a form to allow updating of there details and request anoter review.
-     * @param  User   $user
+     *
+     * @param User $user
+     *
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function editDetails(User $user)
     {
-        if ( ! $user->hasRoleByName(Role::MEMBER_APPROVAL)) {
+        if (! $user->hasRoleByName(Role::MEMBER_APPROVAL)) {
             return redirect()->route('home');
         }
 
@@ -206,13 +217,14 @@ class MembershipController extends Controller
     /**
      * Store the updated users details and request another review from membership team.
      *
-     * @param  User   $user
-     * @param  Illuminate\Http\Request $request
+     * @param User $user
+     * @param Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function updateDetails(User $user, Request $request)
     {
-        if ( ! $user->hasRoleByName(Role::MEMBER_APPROVAL)) {
+        if (! $user->hasRoleByName(Role::MEMBER_APPROVAL)) {
             return redirect()->route('home');
         }
 

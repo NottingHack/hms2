@@ -16,7 +16,7 @@ class Version20190110025754_meta_so_bank_id extends AbstractMigration
         $now = Carbon::now();
 
         $this->addSql(
-            'INSERT INTO meta (`key`, `value`, deleted_at, created_at, updated_at) VALUES (\'so_bank_id\', \'2\', null, \''.$now.'\', \''.$now.'\')'
+            'INSERT INTO meta (`key`, `value`, deleted_at, created_at, updated_at) VALUES (\'so_bank_id\', \'2\', null, \'' . $now . '\', \'' . $now . '\')'
         );
         $this->addSql('DELETE FROM meta WHERE `key` = \'so_accountName\'');
     }
@@ -29,7 +29,7 @@ class Version20190110025754_meta_so_bank_id extends AbstractMigration
         $now = Carbon::now();
 
         $this->addSql(
-            'INSERT INTO meta (`key`, `value`, deleted_at, created_at, updated_at) VALUES (\'so_accountName\', \'Nottingham Hackspace Ltd\', null, \''.$now.'\', \''.$now.'\')'
+            'INSERT INTO meta (`key`, `value`, deleted_at, created_at, updated_at) VALUES (\'so_accountName\', \'Nottingham Hackspace Ltd\', null, \'' . $now . '\', \'' . $now . '\')'
         );
         $this->addSql('DELETE FROM meta WHERE `key` = \'so_bank_id\'');
     }

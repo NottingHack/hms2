@@ -12,14 +12,16 @@ interface ToolRepository
     public function findAll();
 
     /**
-     * save Tool to the DB.
-     * @param  Tool $tool
+     * Save Tool to the DB.
+     *
+     * @param Tool $tool
      */
     public function save(Tool $tool);
 
     /**
-     * remove Tool from the DB.
-     * @param  Tool $tool
+     * Remove Tool from the DB.
+     *
+     * @param Tool $tool
      */
     public function remove(Tool $tool);
 }

@@ -43,7 +43,7 @@ class RefreshViewsCommand extends Command
             'SET @views = NULL;' .
             'SELECT GROUP_CONCAT(table_schema, \'.\', table_name) INTO @views' .
             ' FROM information_schema.views' .
-            ' WHERE table_schema = \''.$databaseName.'\';' .
+            ' WHERE table_schema = \'' . $databaseName . '\';' .
             'SET @views = IFNULL(CONCAT(\'DROP VIEW \', @views), \'SELECT \"No Views\"\');' .
             'PREPARE stmt FROM @views;' .
             'EXECUTE stmt;' .
@@ -59,7 +59,7 @@ class RefreshViewsCommand extends Command
 
         foreach ($viewSqlFiles as $viewFile) {
             $this->info('Creating view: ' . $viewFile);
-            $sql = file_get_contents($viewsDirectory.DIRECTORY_SEPARATOR.$viewFile);
+            $sql = file_get_contents($viewsDirectory . DIRECTORY_SEPARATOR . $viewFile);
             // dump($sql);
             DB::unprepared($sql);
         }

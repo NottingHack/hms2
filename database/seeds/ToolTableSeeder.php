@@ -91,9 +91,9 @@ class ToolTableSeeder extends Seeder
             $exMembers = $this->roleRepository->findOneByName(Role::MEMBER_EX)->getUsers();
             $superusers = $this->roleRepository->findOneByName(Role::SUPERUSER)->getUsers();
 
-            $roleMaintainer = $this->roleRepository->findOneByName('tools.'.$tool->getPermissionName().'.maintainer');
-            $roleInductor = $this->roleRepository->findOneByName('tools.'.$tool->getPermissionName().'.inductor');
-            $roleUser = $this->roleRepository->findOneByName('tools.'.$tool->getPermissionName().'.user');
+            $roleMaintainer = $this->roleRepository->findOneByName('tools.' . $tool->getPermissionName() . '.maintainer');
+            $roleInductor = $this->roleRepository->findOneByName('tools.' . $tool->getPermissionName() . '.inductor');
+            $roleUser = $this->roleRepository->findOneByName('tools.' . $tool->getPermissionName() . '.user');
 
             // add 2-5 maintainers
             for ($i = 0; $i < rand(1, 5); $i++) {

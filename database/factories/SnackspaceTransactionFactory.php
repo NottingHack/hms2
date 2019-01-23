@@ -28,6 +28,6 @@ $factory->defineAs(Transaction::class, 'payment', function (Faker\Generator $fak
         'amount' => $amount,
         'type' => TransactionType::VEND,
         'status' => TransactionState::COMPLETE,
-        'description' => 'Note payment - £'.$amount / 100,
+        'description' => 'Note payment - £' . $amount / 100,
     ];
 });

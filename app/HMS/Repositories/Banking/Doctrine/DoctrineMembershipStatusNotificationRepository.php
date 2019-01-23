@@ -7,10 +7,12 @@ use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Banking\MembershipStatusNotification;
 use HMS\Repositories\Banking\MembershipStatusNotificationRepository;
 
-class DoctrineMembershipStatusNotificationRepository extends EntityRepository implements MembershipStatusNotificationRepository
+class DoctrineMembershipStatusNotificationRepository extends EntityRepository implements
+    MembershipStatusNotificationRepository
 {
     /**
-     * find outstanding notifications.
+     * Find outstanding notifications.
+     *
      * @return MembershipStatusNotification[]
      */
     public function findOutstandingNotifications()
@@ -19,8 +21,10 @@ class DoctrineMembershipStatusNotificationRepository extends EntityRepository im
     }
 
     /**
-     * find outstanding notifications for a given user.
-     * @param  User $user
+     * Find outstanding notifications for a given user.
+     *
+     * @param User $user
+     *
      * @return MembershipStatusNotification[]
      */
     public function findOutstandingNotificationsByUser(User $user)
@@ -29,8 +33,10 @@ class DoctrineMembershipStatusNotificationRepository extends EntityRepository im
     }
 
     /**
-     * find by user.
-     * @param  User $user
+     * Find by user.
+     *
+     * @param User $user
+     *
      * @return MembershipStatusNotification[]
      */
     public function findByUser(User $user)
@@ -39,8 +45,9 @@ class DoctrineMembershipStatusNotificationRepository extends EntityRepository im
     }
 
     /**
-     * save MembershipStatusNotification to the DB.
-     * @param  MembershipStatusNotification $membershipStatusNotification
+     * Save MembershipStatusNotification to the DB.
+     *
+     * @param MembershipStatusNotification $membershipStatusNotification
      */
     public function save(MembershipStatusNotification $membershipStatusNotification)
     {

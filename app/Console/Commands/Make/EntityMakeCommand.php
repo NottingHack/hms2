@@ -26,6 +26,6 @@ class EntityMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__.'/stubs/entity.stub';
+        return __DIR__ . '/stubs/entity.stub';
     }
 }

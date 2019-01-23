@@ -26,23 +26,25 @@ class FactoryMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__.'/stubs/factory.stub';
+        return __DIR__ . '/stubs/factory.stub';
     }
 
     /**
      * Build the class with the given name.
      *
-     * @param  string  $name
+     * @param string $name
+     *
      * @return string
      */
     protected function buildClass($name)
     {
         $stub = parent::buildClass($name);
-        $name = str_replace($this->getDefaultNamespace($name).'\\', '', $name);
-        $dummyFactoryNamspace = $this->rootNamespace().'\\Factories\\'.$name;
+        $name = str_replace($this->getDefaultNamespace($name) . '\\', '', $name);
+        $dummyFactoryNamspace = $this->rootNamespace() . '\\Factories\\' . $name;
         $dummyFactoryNamspace = trim(implode('\\', array_slice(explode('\\', $dummyFactoryNamspace), 0, -1)), '\\');
 
-        $stub = str_replace('DummyFactoryNamspace',
+        $stub = str_replace(
+            'DummyFactoryNamspace',
             $dummyFactoryNamspace,
             $stub
         );
@@ -53,13 +55,14 @@ class FactoryMakeCommand extends GeneratorCommand
     /**
      * Get the destination class path.
      *
-     * @param  string  $name
+     * @param string $name
+     *
      * @return string
      */
     protected function getPath($name)
     {
-        $name = str_replace($this->getDefaultNamespace($name).'\\', '', $name);
+        $name = str_replace($this->getDefaultNamespace($name) . '\\', '', $name);
 
-        return $this->laravel['path'].'/HMS/Factories/'.str_replace('\\', '/', $name).'Factory.php';
+        return $this->laravel['path'] . '/HMS/Factories/' . str_replace('\\', '/', $name) . 'Factory.php';
     }
 }

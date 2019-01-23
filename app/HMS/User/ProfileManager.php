@@ -29,12 +29,16 @@ class ProfileManager
 
     /**
      * ProfileManager constructor.
+     *
      * @param ProfileRepository $profileRepository
-     * @param UserRepository    $userRepository
-     * @param MetaRepository    $metaRepository
+     * @param UserRepository $userRepository
+     * @param MetaRepository $metaRepository
      */
-    public function __construct(ProfileRepository $profileRepository, UserRepository $userRepository, MetaRepository $metaRepository)
-    {
+    public function __construct(
+        ProfileRepository $profileRepository,
+        UserRepository $userRepository,
+        MetaRepository $metaRepository
+    ) {
         $this->profileRepository = $profileRepository;
         $this->userRepository = $userRepository;
         $this->metaRepository = $metaRepository;
@@ -42,6 +46,7 @@ class ProfileManager
 
     /**
      * Bulk populate a user profile, used on registration.
+     *
      * @param User $user
      * @param string $address1
      * @param null|string $address2
@@ -51,19 +56,29 @@ class ProfileManager
      * @param string $addressPostcode
      * @param string $contactNumber
      * @param null|string $dateOfBirth
+     *
      * @return User
      */
-    public function create(User $user, string $address1, ?string $address2, ?string $address3, string $addressCity, string $addressCounty, string $addressPostcode, string $contactNumber, ?string $dateOfBirth): User
-    {
+    public function create(
+        User $user,
+        string $address1,
+        ?string $address2,
+        ?string $address3,
+        string $addressCity,
+        string $addressCounty,
+        string $addressPostcode,
+        string $contactNumber,
+        ?string $dateOfBirth
+    ): User {
         $profile = new Profile($user);
 
         $profile->setAddress1($address1);
 
-        if ( ! empty($address2)) {
+        if (! empty($address2)) {
             $profile->setAddress2($address2);
         }
 
-        if ( ! empty($address3)) {
+        if (! empty($address3)) {
             $profile->setAddress3($address3);
         }
 
@@ -72,7 +87,7 @@ class ProfileManager
         $profile->setAddressPostcode($addressPostcode);
         $profile->setContactNumber($contactNumber);
 
-        if ( ! empty($dateOfBirth)) {
+        if (! empty($dateOfBirth)) {
             $profile->setDateOfBirth(new Carbon($dateOfBirth));
         }
 
@@ -89,9 +104,11 @@ class ProfileManager
     }
 
     /**
-     * update the user form a form request.
-     * @param  User    $user    user to update
-     * @param  Illuminate\Http\Request $request
+     * Update the user form a form request.
+     *
+     * @param User $user User to update
+     * @param Illuminate\Http\Request $request
+     *
      * @return User
      */
     public function updateUserProfileFromRequest(User $user, Request $request)

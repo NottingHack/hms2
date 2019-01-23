@@ -34,7 +34,8 @@ class MailInvite implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  MembershipInterestRegistered  $event
+     * @param MembershipInterestRegistered $event
+     *
      * @return void
      */
     public function handle(MembershipInterestRegistered $event)

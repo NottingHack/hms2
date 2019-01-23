@@ -12,11 +12,25 @@ use Illuminate\Contracts\Auth\Authenticatable as IlluminateAuthenticatable;
  */
 class HmsUserProvider extends DoctrineUserProvider
 {
-    /** @var PasswordStore */
+    /**
+     * @var PasswordStore
+     */
     protected $passwordStore;
 
-    public function __construct(Hasher $hasher, EntityManagerInterface $em, $entity, PasswordStore $passwordStore)
-    {
+    /**
+     * Construct new HmsUserProvider.
+     *
+     * @param Hasher $hasher
+     * @param EntityManagerInterface $em
+     * @param string $entity
+     * @param PasswordStore $passwordStore
+     */
+    public function __construct(
+        Hasher $hasher,
+        EntityManagerInterface $em,
+        string $entity,
+        PasswordStore $passwordStore
+    ) {
         // Note: $hasher is never used but required to construct DoctrineUserProvider (parent)
         parent::__construct($hasher, $em, $entity);
 

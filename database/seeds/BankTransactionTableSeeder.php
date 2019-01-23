@@ -141,7 +141,7 @@ class BankTransactionTableSeeder extends Seeder
         $bankTransaction = $this->bankTransactionFactory->create(
             $this->bank,
             Carbon::instance($this->faker->dateTimeBetween($startDate, $endDate)),
-            $user->getFullname() .' '. $user->getAccount()->getPaymentRef() . ' ' . $user->getAccount()->getId(),
+            $user->getFullname() . ' ' . $user->getAccount()->getPaymentRef() . ' ' . $user->getAccount()->getId(),
             rand(1, 7500)
             );
 
@@ -158,7 +158,7 @@ class BankTransactionTableSeeder extends Seeder
     {
         $bankTransaction = [
             'transaction_date' => Carbon::instance($this->faker->dateTimeBetween($startDate, $endDate)),
-            'description' => $user->getFullname() .' '. $user->getAccount()->getPaymentRef() . ' ' . $user->getAccount()->getId(),
+            'description' => $user->getFullname() . ' ' . $user->getAccount()->getPaymentRef() . ' ' . $user->getAccount()->getId(),
             'amount' => rand(1, 7500),
             ];
 

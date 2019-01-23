@@ -37,8 +37,8 @@ class PurgeCommand extends Command
     /**
      * Create a new command instance.
      *
-     * @param  InviteRepository $inviteRepository
-     * @param  MetaRepository $metaRepository
+     * @param InviteRepository $inviteRepository
+     * @param MetaRepository $metaRepository
      */
     public function __construct(InviteRepository $inviteRepository, MetaRepository $metaRepository)
     {
@@ -72,6 +72,6 @@ class PurgeCommand extends Command
 
         $this->inviteRepository->removeAllOlderThan($date);
 
-        $this->info('Invites older than '.$date->format('Y-m-d').' removed.');
+        $this->info('Invites older than ' . $date->format('Y-m-d') . ' removed.');
     }
 }

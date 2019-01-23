@@ -7,20 +7,23 @@ use HMS\Entities\Banking\Bank;
 interface BankRepository
 {
     /**
-     * @param  $id
+     * @param $id
+     *
      * @return null|Bank
      */
     public function findOneById($id);
 
     /**
-     * @param  string $accountNumber
+     * @param string $accountNumber
+     *
      * @return null|Bank
      */
     public function findOneByAccountNumber(string $accountNumber);
 
     /**
-     * save Bank to the DB.
-     * @param  Bank $bank
+     * Save Bank to the DB.
+     *
+     * @param Bank $bank
      */
     public function save(Bank $bank);
 }

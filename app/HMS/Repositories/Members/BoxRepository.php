@@ -16,6 +16,7 @@ interface BoxRepository
 
     /**
      * Count how many boxes a User has INUSE.
+     *
      * @param User $user
      *
      * @return int Number of boxes this user has INUSE
@@ -23,8 +24,8 @@ interface BoxRepository
     public function countInUseByUser(User $user);
 
     /**
-     * @param User   $user
-     * @param int    $perPage
+     * @param User $user
+     * @param int $perPage
      * @param string $pageName
      *
      * @return \Illuminate\Pagination\LengthAwarePaginator
@@ -32,8 +33,9 @@ interface BoxRepository
     public function paginateByUser(User $user, $perPage = 15, $pageName = 'page');
 
     /**
-     * save Box to the DB.
-     * @param  Box $box
+     * Save Box to the DB.
+     *
+     * @param Box $box
      */
     public function save(Box $box);
 }

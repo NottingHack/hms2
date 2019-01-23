@@ -9,20 +9,23 @@ use HMS\Entities\Email;
 interface EmailRepository
 {
     /**
-     * @param  $id
+     * @param $id
+     *
      * @return null|Email
      */
     public function findOneById($id);
 
     /**
-     * @param  Role $role
+     * @param Role $role
+     *
      * @return array
      */
     public function findByRole(Role $role);
 
     /**
-     * save Email to the DB.
-     * @param  Email $email
+     * Save Email to the DB.
+     *
+     * @param Email $email
      */
     public function save(Email $email);
 }

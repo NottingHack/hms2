@@ -17,8 +17,9 @@ class DoctrineToolRepository extends EntityRepository implements ToolRepository
     }
 
     /**
-     * save Tool to the DB.
-     * @param  Tool $tool
+     * Save Tool to the DB.
+     *
+     * @param Tool $tool
      */
     public function save(Tool $tool)
     {
@@ -27,8 +28,9 @@ class DoctrineToolRepository extends EntityRepository implements ToolRepository
     }
 
     /**
-     * remove Tool from the DB.
-     * @param  Tool $tool
+     * Remove Tool from the DB.
+     *
+     * @param Tool $tool
      */
     public function remove(Tool $tool)
     {

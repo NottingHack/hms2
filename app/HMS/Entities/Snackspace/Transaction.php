@@ -55,12 +55,15 @@ class Transaction
     /**
      * Create a new transaction as User and ammount can not be changes later.
      *
-     * @param User   $user
-     * @param int    $amount
+     * @param User $user
+     * @param int $amount
      * @param string $status
      */
-    public function __construct(User $user, int $amount, string $status = TransactionState::PENDING)
-    {
+    public function __construct(
+        User $user,
+        int $amount,
+        string $status = TransactionState::PENDING
+    ) {
         $this->user = $user;
         $this->amount = $amount;
         $this->status = $status;

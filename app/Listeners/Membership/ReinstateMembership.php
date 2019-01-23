@@ -31,11 +31,12 @@ class ReinstateMembership implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(UserRepository $userRepository,
+    public function __construct(
+        UserRepository $userRepository,
         RoleManager $roleManager,
         MetaRepository $metaRepository,
-        RoleRepository $roleRepository)
-    {
+        RoleRepository $roleRepository
+    ) {
         $this->userRepository = $userRepository;
         $this->roleManager = $roleManager;
         $this->metaRepository = $metaRepository;
@@ -45,7 +46,8 @@ class ReinstateMembership implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  ReinstatementOfMembershipPayment  $event
+     * @param ReinstatementOfMembershipPayment $event
+     *
      * @return void
      */
     public function handle(ReinstatementOfMembershipPayment $event)
@@ -54,7 +56,7 @@ class ReinstateMembership implements ShouldQueue
         $user = $this->userRepository->findOneById($event->user->getId());
 
         // update roles
-        if ( ! $user->hasRoleByName(Role::MEMBER_EX)) {
+        if (! $user->hasRoleByName(Role::MEMBER_EX)) {
             // we shouldn not be here get out
             // TODO: email some one about it
             return;

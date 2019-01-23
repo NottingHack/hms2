@@ -8,7 +8,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 interface RoleRepository
 {
     /**
-     * @param  $id
+     * @param $id
+     *
      * @return Role|null
      */
     public function findOneById($id);
@@ -23,20 +24,23 @@ interface RoleRepository
     /**
      * Finds a role based on the role name.
      *
-     * @param  string $roleName name of the role we want
+     * @param string $roleName name of the role we want
+     *
      * @return Role|null
      */
     public function findOneByName(string $roleName);
 
     /**
-     * @param  string $email
+     * @param string $email
+     *
      * @return Role|null
      */
     public function findOneByEmail(string $email);
 
     /**
-     * store a new user in the DB.
-     * @param  Role $role
+     * Store a new user in the DB.
+     *
+     * @param Role $role
      */
     public function save(Role $role);
 

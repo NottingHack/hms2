@@ -34,7 +34,7 @@ class Version20190109152643_remove_unneeded_meta_entries extends AbstractMigrati
     public function up(Schema $schema)
     {
         foreach ($this->settings as $key => $value) {
-            $this->addSql('DELETE FROM meta WHERE `key` = \''.$key.'\'');
+            $this->addSql('DELETE FROM meta WHERE `key` = \'' . $key . '\'');
         }
 
         $this->addSql('UPDATE meta SET `key` = \'google_group_html\' WHERE `key` = \'link_Google Group\'');
@@ -53,7 +53,7 @@ class Version20190109152643_remove_unneeded_meta_entries extends AbstractMigrati
 
         foreach ($this->settings as $key => $value) {
             $this->addSql(
-                'INSERT INTO meta (`key`, `value`, deleted_at, created_at, updated_at) VALUES (\''.$key.'\', \''.$value.'\', null, \''.$now.'\', \''.$now.'\')'
+                'INSERT INTO meta (`key`, `value`, deleted_at, created_at, updated_at) VALUES (\'' . $key . '\', \'' . $value . '\', null, \'' . $now . '\', \'' . $now . '\')'
             );
         }
     }

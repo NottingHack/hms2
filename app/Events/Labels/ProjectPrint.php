@@ -31,9 +31,10 @@ class ProjectPrint implements LabelPrintEventInterface
      * @param Project $project
      * @param int $copiesToPrint
      */
-    public function __construct(Project $project,
-        $copiesToPrint = 1)
-    {
+    public function __construct(
+        Project $project,
+        $copiesToPrint = 1
+    ) {
         $this->templateName = 'member_project';
         $this->copiesToPrint = $copiesToPrint;
 

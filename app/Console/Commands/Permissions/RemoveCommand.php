@@ -27,15 +27,15 @@ class RemoveCommand extends BaseCommand
      */
     public function handle()
     {
-        if ( ! $role = $this->getRole($this->argument('role'))) {
+        if (! $role = $this->getRole($this->argument('role'))) {
             return;
         }
 
-        if ( ! $permission = $this->getPermission($this->argument('permission'), true)) {
+        if (! $permission = $this->getPermission($this->argument('permission'), true)) {
             return;
         }
 
-        if ( ! $role->hasPermissionTo($permission->getName())) {
+        if (! $role->hasPermissionTo($permission->getName())) {
             $this->info($role->getName() . " doesn't have the " . $permission->getName() . ' permission.');
 
             return;

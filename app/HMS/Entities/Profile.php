@@ -9,47 +9,74 @@ class Profile
 {
     use Timestampable;
 
-    /** @var User The user to which this profile belongs. */
+    /**
+     * @var User The user to which this profile belongs.
+     */
     protected $user;
 
-    /** @var null|Carbon */
+    /**
+     * @var null|Carbon
+     */
     protected $joinDate;
 
-    /** @var null|string */
+    /**
+     * @var null|string
+     */
     protected $unlockText;
 
-    /** @var int */
+    /**
+     * @var int
+     */
     protected $creditLimit;
 
-    /** @var null|string */
+    /**
+     * @var null|string
+     */
     protected $address1;
 
-    /** @var null|string */
+    /**
+     * @var null|string
+     */
     protected $address2;
 
-    /** @var null|string */
+    /**
+     * @var null|string
+     */
     protected $address3;
 
-    /** @var null|string */
+    /**
+     * @var null|string
+     */
     protected $addressCity;
 
-    /** @var null|string */
+    /**
+     * @var null|string
+     */
     protected $addressCounty;
 
-    /** @var null|string */
+    /**
+     * @var null|string
+     */
     protected $addressPostcode;
 
-    /** @var null|string */
+    /**
+     * @var null|string
+     */
     protected $contactNumber;
 
-    /** @var null|Carbon */
+    /**
+     * @var null|Carbon
+     */
     protected $dateOfBirth;
 
-    /** @var int */
+    /**
+     * @var int
+     */
     protected $balance;
 
     /**
      * Profile constructor.
+     *
      * @param User $user
      */
     public function __construct(User $user)
@@ -71,6 +98,7 @@ class Profile
 
     /**
      * @param User $user
+     *
      * @return self
      */
     public function setUser(User $user): self
@@ -90,6 +118,7 @@ class Profile
 
     /**
      * @param null|Carbon $joinDate
+     *
      * @return self
      */
     public function setJoinDate(?Carbon $joinDate): self
@@ -109,6 +138,7 @@ class Profile
 
     /**
      * @param null|string $unlockText
+     *
      * @return self
      */
     public function setUnlockText(?string $unlockText): self
@@ -128,6 +158,7 @@ class Profile
 
     /**
      * @param int $creditLimit
+     *
      * @return self
      */
     public function setCreditLimit(int $creditLimit): self
@@ -147,6 +178,7 @@ class Profile
 
     /**
      * @param null|string $address1
+     *
      * @return self
      */
     public function setAddress1(?string $address1): self
@@ -166,6 +198,7 @@ class Profile
 
     /**
      * @param string $address2
+     *
      * @return self
      */
     public function setAddress2(?string $address2): self
@@ -185,6 +218,7 @@ class Profile
 
     /**
      * @param string $address3
+     *
      * @return self
      */
     public function setAddress3(?string $address3): self
@@ -204,6 +238,7 @@ class Profile
 
     /**
      * @param string $addressCity
+     *
      * @return self
      */
     public function setAddressCity(?string $addressCity): self
@@ -223,6 +258,7 @@ class Profile
 
     /**
      * @param string $addressCounty
+     *
      * @return self
      */
     public function setAddressCounty(?string $addressCounty): self
@@ -242,6 +278,7 @@ class Profile
 
     /**
      * @param string $addressPostcode
+     *
      * @return self
      */
     public function setAddressPostcode(?string $addressPostcode): self
@@ -261,6 +298,7 @@ class Profile
 
     /**
      * @param null|string $contactNumber
+     *
      * @return self
      */
     public function setContactNumber(?string $contactNumber): self
@@ -284,6 +322,7 @@ class Profile
 
     /**
      * @param null|Carbon $dateOfBirth
+     *
      * @return self
      */
     public function setDateOfBirth(?Carbon $dateOfBirth): self
@@ -303,6 +342,7 @@ class Profile
 
     /**
      * @param int $balance
+     *
      * @return self
      */
     public function setBalance(int $balance): self
@@ -313,7 +353,8 @@ class Profile
     }
 
     /**
-     * @param  int    $amount
+     * @param int $amount
+     *
      * @return self
      */
     public function updateBalanceByAmount(int $amount): self

@@ -56,6 +56,7 @@ class BookingController extends Controller
      *
      * @param Tool $tool
      * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function index(Tool $tool, Request $request)
@@ -78,7 +79,8 @@ class BookingController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Tool $tool
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Tool $tool, Request $request)
@@ -119,7 +121,8 @@ class BookingController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -130,9 +133,10 @@ class BookingController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Tool  $tool
-     * @param  Booking $booking
-     * @param  \Illuminate\Http\Request  $request
+     * @param Tool $tool
+     * @param Booking $booking
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Tool $tool, Booking $booking, Request $request)
@@ -159,8 +163,9 @@ class BookingController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Tool  $tool
-     * @param  Booking $booking
+     * @param Tool $tool
+     * @param Booking $booking
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Tool $tool, Booking $booking)

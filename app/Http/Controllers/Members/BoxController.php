@@ -65,6 +65,7 @@ class BoxController extends Controller
 
     /**
      * Description used for the snackspace transaction.
+     *
      * @var string
      */
     protected $transactionDescription = 'Members Box';
@@ -72,20 +73,21 @@ class BoxController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @param BoxRepository  $boxRepository
-     * @param BoxFactory     $boxFactory
-     * @param UserRepository $userRepository
-     * @param MetaRepository $metaRepository
+     * @param BoxRepository         $boxRepository
+     * @param BoxFactory            $boxFactory
+     * @param UserRepository        $userRepository
+     * @param MetaRepository        $metaRepository
      * @param TransactionRepository $transactionRepository
-     * @param TransactionFactory $transactionFactory
+     * @param TransactionFactory    $transactionFactory
      */
-    public function __construct(BoxRepository $boxRepository,
+    public function __construct(
+        BoxRepository $boxRepository,
         BoxFactory $boxFactory,
         UserRepository $userRepository,
         MetaRepository $metaRepository,
         TransactionRepository $transactionRepository,
-        TransactionFactory $transactionFactory)
-    {
+        TransactionFactory $transactionFactory
+    ) {
         $this->boxRepository = $boxRepository;
         $this->boxFactory = $boxFactory;
         $this->userRepository = $userRepository;
@@ -103,7 +105,8 @@ class BoxController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -175,7 +178,8 @@ class BoxController extends Controller
     /**
      * Show the form for issue a new box.
      *
-     * @param  User  $user user we are issuing a box for
+     * @param User $user user we are issuing a box for
+     *
      * @return \Illuminate\Http\Response
      */
     public function issue(User $user)
@@ -212,7 +216,8 @@ class BoxController extends Controller
     /**
      * Store a newly created box.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -269,7 +274,13 @@ class BoxController extends Controller
             }
 
             // charge this users snackspace account $boxCost
-            $boxTransaction = $this->transactionFactory->create($user, $boxCost, TransactionType::MEMBER_BOX, $this->transactionDescription);
+            $boxTransaction = $this->transactionFactory
+                ->create(
+                    $user,
+                    $boxCost,
+                    TransactionType::MEMBER_BOX,
+                    $this->transactionDescription
+                );
             $this->transactionRepository->saveAndUpdateBalance($boxTransaction);
         }
 
@@ -280,9 +291,10 @@ class BoxController extends Controller
     }
 
     /**
-     * print a label for a given box.
+     * Print a label for a given box.
      *
-     * @param  Box $box
+     * @param Box $box
+     *
      * @return \Illuminate\Http\Response
      */
     public function printLabel(Box $box)
@@ -300,9 +312,10 @@ class BoxController extends Controller
     }
 
     /**
-     * mark a box in use.
+     * Mark a box in use.
      *
-     * @param  Box $box
+     * @param Box $box
+     *
      * @return \Illuminate\Http\Response
      */
     public function markInUse(Box $box)
@@ -345,9 +358,10 @@ class BoxController extends Controller
     }
 
     /**
-     * mark a box abandoned.
+     * Mark a box abandoned.
      *
-     * @param  Box $box
+     * @param Box $box
+     *
      * @return \Illuminate\Http\Response
      */
     public function markAbandoned(Box $box)
@@ -372,9 +386,10 @@ class BoxController extends Controller
     }
 
     /**
-     * mark a box removed.
+     * Mark a box removed.
      *
-     * @param  Box $box
+     * @param Box $box
+     *
      * @return \Illuminate\Http\Response
      */
     public function markRemoved(Box $box)

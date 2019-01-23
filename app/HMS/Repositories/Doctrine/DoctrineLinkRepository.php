@@ -12,8 +12,9 @@ class DoctrineLinkRepository extends EntityRepository implements LinkRepository
     use PaginatesFromRequest;
 
     /**
-     * save Link to the DB.
-     * @param  Link $link
+     * Save Link to the DB.
+     *
+     * @param Link $link
      */
     public function save(Link $link)
     {
@@ -22,8 +23,9 @@ class DoctrineLinkRepository extends EntityRepository implements LinkRepository
     }
 
     /**
-     * remove a Link from the DB.
-     * @param  Link $link
+     * Remove a Link from the DB.
+     *
+     * @param Link $link
      */
     public function remove(Link $link)
     {

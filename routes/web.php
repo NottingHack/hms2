@@ -58,7 +58,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // USER
     Route::get('users-by-role/{role}', 'UserController@listUsersByRole')->name('users.byRole');
-    Route::resource('users', 'UserController',
+    Route::resource(
+        'users',
+        'UserController',
         [
             'except' => ['store', 'create', 'destroy'],
         ]
@@ -70,14 +72,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('admin', 'HomeController@admin')->name('admin');
 
     // Meta area covers various setting for HMS
-    Route::resource('metas', 'MetaController',
+    Route::resource(
+        'metas',
+        'MetaController',
         [
             'except' => ['show', 'store', 'create', 'destroy'],
         ]
     );
 
     // Usefull links
-    Route::resource('links', 'LinksController',
+    Route::resource(
+        'links',
+        'LinksController',
         [
             'except' => ['show'],
         ]
@@ -85,7 +91,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Rfid Tags
     Route::get('users/{user}/rfid-tags', 'GateKeeper\RfidTagsController@index')->name('users.rfid-tags');
-    Route::resource('rfid-tags', 'GateKeeper\RfidTagsController',
+    Route::resource(
+        'rfid-tags',
+        'GateKeeper\RfidTagsController',
         [
             'except' => ['create', 'store', 'show'],
             'parameters' => [
@@ -101,19 +109,26 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('labels', 'LabelTemplateController');
 
     // Membership
-    Route::get('/membership/approval/{user}', 'MembershipController@showDetailsForApproval')->name('membership.approval');
-    Route::post('/membership/approve-details/{user}', 'MembershipController@approveDetails')->name('membership.approve');
-    Route::post('/membership/reject-details/{user}', 'MembershipController@rejectDetails')->name('membership.reject');
+    Route::get('/membership/approval/{user}', 'MembershipController@showDetailsForApproval')
+        ->name('membership.approval');
+    Route::post('/membership/approve-details/{user}', 'MembershipController@approveDetails')
+        ->name('membership.approve');
+    Route::post('/membership/reject-details/{user}', 'MembershipController@rejectDetails')
+        ->name('membership.reject');
     Route::get('/membership/update-details/{user}', 'MembershipController@editDetails')->name('membership.edit');
     Route::put('/membership/update-details/{user}', 'MembershipController@updateDetails')->name('membership.update');
 
     // Members Projects and DNH labels
     Route::get('users/{user}/projects', 'Members\ProjectController@index')->name('users.projects');
     Route::patch('projects/{project}/markActive', 'Members\ProjectController@markActive')->name('projects.markActive');
-    Route::patch('projects/{project}/markAbandoned', 'Members\ProjectController@markAbandoned')->name('projects.markAbandoned');
-    Route::patch('projects/{project}/markComplete', 'Members\ProjectController@markComplete')->name('projects.markComplete');
+    Route::patch('projects/{project}/markAbandoned', 'Members\ProjectController@markAbandoned')
+        ->name('projects.markAbandoned');
+    Route::patch('projects/{project}/markComplete', 'Members\ProjectController@markComplete')
+        ->name('projects.markComplete');
     Route::get('projects/{project}/print', 'Members\ProjectController@printLabel')->name('projects.print');
-    Route::resource('projects', 'Members\ProjectController',
+    Route::resource(
+        'projects',
+        'Members\ProjectController',
         [
             'except' => ['destroy'],
         ]
@@ -126,16 +141,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('boxes/{box}/markAbandoned', 'Members\BoxController@markAbandoned')->name('boxes.markAbandoned');
     Route::patch('boxes/{box}/markRemoved', 'Members\BoxController@markRemoved')->name('boxes.markRemoved');
     Route::get('boxes/{box}/print', 'Members\BoxController@printLabel')->name('boxes.print');
-    Route::resource('boxes', 'Members\BoxController',
+    Route::resource(
+        'boxes',
+        'Members\BoxController',
         [
             'except' => ['show', 'edit', 'update', 'destroy'],
         ]
     );
 
     // Bank Transactions
-    Route::get('bank-transactions/unmatched', 'Banking\BankTransactionsController@listUnmatched')->name('bank-transactions.unmatched');
-    Route::get('users/{user}/bank-transactions', 'Banking\BankTransactionsController@index')->name('users.bank-transactions');
-    Route::resource('bank-transactions', 'Banking\BankTransactionsController',
+    Route::get('bank-transactions/unmatched', 'Banking\BankTransactionsController@listUnmatched')
+        ->name('bank-transactions.unmatched');
+    Route::get('users/{user}/bank-transactions', 'Banking\BankTransactionsController@index')
+        ->name('users.bank-transactions');
+    Route::resource(
+        'bank-transactions',
+        'Banking\BankTransactionsController',
         [
             'except' => ['show', 'create', 'store', 'destroy'],
             'parameters' => [
@@ -145,8 +166,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     );
 
     // Snackspace
-    Route::get('users/{user}/snackspace/transactions', 'Snackspace\TransactionsController@index')->name('users.snackspace.transactions');
-    Route::resource('snackspace/transactions', 'Snackspace\TransactionsController',
+    Route::get('users/{user}/snackspace/transactions', 'Snackspace\TransactionsController@index')
+        ->name('users.snackspace.transactions');
+    Route::resource(
+        'snackspace/transactions',
+        'Snackspace\TransactionsController',
         [
             'except' => ['show', 'store', 'create', 'edit', 'update', 'destroy'],
         ]

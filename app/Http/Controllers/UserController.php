@@ -33,10 +33,11 @@ class UserController extends Controller
      * @param UserManager $userManager
      * @param ProfileManager $profileManager
      */
-    public function __construct(UserRepository $userRepository,
+    public function __construct(
+        UserRepository $userRepository,
         UserManager $userManager,
-        ProfileManager $profileManager)
-    {
+        ProfileManager $profileManager
+    ) {
         $this->userRepository = $userRepository;
         $this->userManager = $userManager;
         $this->profileManager = $profileManager;
@@ -63,6 +64,7 @@ class UserController extends Controller
      * Show a specific user.
      *
      * @param User $user
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
@@ -77,7 +79,8 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified user.
      *
-     * @param  User  $user
+     * @param User $user
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
@@ -92,8 +95,9 @@ class UserController extends Controller
     /**
      * Update the specified user in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  User  $user
+     * @param \Illuminate\Http\Request $request
+     * @param User $user
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
@@ -105,7 +109,7 @@ class UserController extends Controller
         $this->validate($request, [
             'firstname' => 'required|max:255',
             'lastname' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:HMS\Entities\User,email,'.$user->getId(),
+            'email' => 'required|email|max:255|unique:HMS\Entities\User,email,' . $user->getId(),
             'address1' => 'sometimes|required|max:100',
             'address2' => 'sometimes|nullable|max:100',
             'address3' => 'sometimes|nullable|max:100',
@@ -127,6 +131,7 @@ class UserController extends Controller
      * Display a listing of the users by role.
      *
      * @param Role $role
+     *
      * @return \Illuminate\Http\Response
      */
     public function listUsersByRole(Role $role)

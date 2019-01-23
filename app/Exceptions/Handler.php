@@ -34,7 +34,8 @@ class Handler extends ExceptionHandler
     /**
      * Report or log an exception.
      *
-     * @param  \Exception  $exception
+     * @param \Exception $exception
+     *
      * @return void
      */
     public function report(Exception $exception)
@@ -45,8 +46,9 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
+     * @param \Illuminate\Http\Request $request
+     * @param \Exception $exception
+     *
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $exception)
@@ -63,8 +65,9 @@ class Handler extends ExceptionHandler
     /**
      * Convert an unauthorized exception into an unauthorized response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Auth\AuthorizationException  $exception
+     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Auth\AuthorizationException $exception
+     *
      * @return \Illuminate\Http\Response
      */
     protected function unauthorized($request, AuthorizationException $exception)

@@ -163,7 +163,8 @@ class MembershipStatusNotification
     }
 
     /**
-     * clear this notifiaction and set the reason as paid.
+     * Clear this notifiaction and set the reason as paid.
+     *
      * @return self
      */
     public function clearNotificationsByPayment()
@@ -175,7 +176,8 @@ class MembershipStatusNotification
     }
 
     /**
-     * clear this notifiaction and set the reason as revoked.
+     * Clear this notifiaction and set the reason as revoked.
+     *
      * @return self
      */
     public function clearNotificationsByRevoke()

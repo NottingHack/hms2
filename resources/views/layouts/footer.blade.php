@@ -1,6 +1,6 @@
 <!-- footer -->
 <footer>
-  <div class="footer">
+  <div class="footer my-3">
     <div class="col-sm-3">
       <h5>HMS {{ $version }}</h5>
       <ul>

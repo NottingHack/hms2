@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
   <h1>Welcome to HMS!</h1>
-  <p class="lead">Already a member? <a href="{{ url('/login') }}">Log in!</a></p>
+  <p class="lead">Already a member? <a href="{{ route('login') }}">Log in!</a></p>
 
   <h2>What is Nottinghack?</h2>
   <p>Nottinghack is a Nottingham based group for hackers, makers and crafty creatives!</p>

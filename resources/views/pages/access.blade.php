@@ -15,10 +15,10 @@
         </div>
         <div class="card-body">
           <dl>
-            <dt>Street Door</dt>
+            <dt class="h5">Street Door</dt>
             <h4><span class="badge badge-primary">{{ $outerDoorCode }}</span></h4>
             <hr>
-            <dt>Inner Door</dt>
+            <dt class="h5">Inner Door</dt>
             <h4><span class="badge badge-primary">{{ $innerDoorCode }}</span></h4>
           </dl>
         </div>
@@ -35,10 +35,10 @@
         </div>
         <div class="card-body">
           <dl>
-            <dt>SSID</dt>
+            <dt class="h5">SSID</dt>
             <h4><span class="badge badge-primary">{{ $wifiSsid }}</span></h4>
             <hr>
-            <dt>Password (PSK)</dt>
+            <dt class="h5">Password (PSK)</dt>
             <h4><span class="badge badge-primary">{{ $wifiPass }}</span></h4>
           </dl>
         </div>
@@ -55,10 +55,10 @@
         </div>
         <div class="card-body">
           <dl>
-            <dt>SSID</dt>
+            <dt class="h5">SSID</dt>
             <h4><span class="badge badge-primary">{{ $guestWifiSsid }}</span></h4>
             <hr>
-            <dt>Password (PSK)</dt>
+            <dt class="h5">Password (PSK)</dt>
             <h4><span class="badge badge-primary">{{ $guestWifiPass }}</span></h4>
           </dl>
         </div>

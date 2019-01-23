@@ -44,7 +44,7 @@
   </div>
   @can('labelTemplate.create')
   <div class="card">
-    <a class="btn btn-primary" href="{{ route('labels.create') }}" class="button"><i class="fas fa-plus" aria-hidden="true"></i> Add new template</a>
+    <a class="btn btn-primary" href="{{ route('labels.create') }}"><i class="fas fa-plus" aria-hidden="true"></i> Add new template</a>
   </div>
   @endcan
   <div classs="pagination-links">

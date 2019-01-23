@@ -39,6 +39,7 @@ Route::get('email/resend', 'Auth\VerificationController@resend')->name('verifica
 
 Route::get('home', 'HomeController@index')->name('home');
 Route::get('access-codes', 'HomeController@accessCodes')->name('accessCodes');
+Route::get('links', 'LinksController@index')->name('links.index');
 Route::get('instrumentation/status', 'Instrumentation\ServiceController@status')
     ->name('instrumentation.status');
 Route::get('instrumentation/{service}/events/', 'Instrumentation\ServiceController@eventsForService')
@@ -89,7 +90,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         'links',
         'LinksController',
         [
-            'except' => ['show'],
+            'except' => ['index', 'show'], // index is done above outside auth
         ]
     );
 

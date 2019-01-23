@@ -135,7 +135,7 @@
     </div>
     <div class="row">
       <div class="form-buttons">
-        <button type="submit" class="button">
+        <button class="btn btn-primary" type="submit">
           Update and request review
         </button>
       </div>

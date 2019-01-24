@@ -22,8 +22,8 @@
       </tbody>
     </table>
   </div>
-</div>
-<div class="container">
-  {{ $events->links() }}
+  <div class="pagination-links">
+    {{ $events->links() }}
+  </div>
 </div>
 @endsection

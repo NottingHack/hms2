@@ -35,8 +35,8 @@
       </tbody>
     </table>
   </div>
-</div>
-<div class="container">
-  {{ $users->links() }}
+  <div class="pagination-links">
+    {{ $users->links() }}
+  </div>
 </div>
 @endsection

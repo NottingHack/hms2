@@ -7,12 +7,7 @@
   <div class="row">
     <div class="col-sm">
       <div class="card mb-3">
-        <div class="card-header icon-card-body">
-          <div class="icon-card-icon"><i class="fas fa-key" aria-hidden="true"></i></div>
-          <div class="icon-card-content">
-            <h3>Door Codes</h3>
-          </div>
-        </div>
+        <h3 class="card-header"><i class="fas fa-key" aria-hidden="true"></i> Door Codes</h3>
         <div class="card-body">
           <dl>
             <dt class="h5">Street Door</dt>
@@ -27,12 +22,7 @@
 
     <div class="col-sm">
       <div class="card mb-3">
-        <div class="card-header icon-card-body">
-          <div class="icon-card-icon"><i class="fas fa-wifi" aria-hidden="true"></i></div>
-          <div class="icon-card-content">
-            <h3>Member&apos;s WiFi</h3>
-          </div>
-        </div>
+        <h3 class="card-header"><i class="fas fa-wifi" aria-hidden="true"></i> Member&apos;s WiFi</h3>
         <div class="card-body">
           <dl>
             <dt class="h5">SSID</dt>
@@ -47,12 +37,7 @@
 
     <div class="col-sm">
       <div class="card mb-3">
-        <div class="card-header icon-card-body">
-          <div class="icon-card-icon"><i class="fas fa-wifi" aria-hidden="true"></i></div>
-          <div class="icon-card-content">
-            <h3>Guest WiFi</h3>
-          </div>
-        </div>
+        <h3 class="card-header"><i class="fas fa-wifi" aria-hidden="true"></i> Guest WiFi</h3>
         <div class="card-body">
           <dl>
             <dt class="h5">SSID</dt>

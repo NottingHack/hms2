@@ -34,4 +34,9 @@ return [
     */
     'views_directory' => database_path(env('VIEWS_DIRECTORY', 'database/views')),
     'procedures_directory' => database_path(env('PROCEDURES_DIRECTORY', 'database/procedures')),
+
+    'mqtt' => [
+        'host' => env('MQTT_HOST', '192.168.1.0'),
+        'port' => env('MQTT_PORT', 1883),
+    ],
 ];

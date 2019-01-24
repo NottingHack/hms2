@@ -256,10 +256,11 @@ class BookingManager
         }
 
         // grab the Id before we remove the event
+        $tool = $booking->getTool();
         $bookingId = $booking->getId();
         $this->bookingRepository->remove($booking);
 
-        event(new BookingCancelled($bookingId));
+        event(new BookingCancelled($tool, $bookingId));
 
         return true;
     }

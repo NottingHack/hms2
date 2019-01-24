@@ -13,12 +13,12 @@ class BookingChanged
     /**
      * @var Booking
      */
-    protected $orignalBooking;
+    public $orignalBooking;
 
     /**
      * @var Booking
      */
-    protected $booking;
+    public $booking;
 
     /**
      * Create a new event instance.

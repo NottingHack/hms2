@@ -13,7 +13,7 @@ class NewBooking
     /**
      * @var Booking
      */
-    protected $booking;
+    public $booking;
 
     /**
      * Create a new event instance.

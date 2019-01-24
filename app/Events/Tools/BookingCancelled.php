@@ -2,6 +2,7 @@
 
 namespace App\Events\Tools;
 
+use HMS\Entities\Tools\Tool;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 
@@ -10,9 +11,14 @@ class BookingCancelled
     use Dispatchable, SerializesModels;
 
     /**
+     * @var Tool
+     */
+    public $tool;
+
+    /**
      * @var int
      */
-    protected $bookingId;
+    public $bookingId;
 
     /**
      * Create a new event instance.
@@ -21,8 +27,9 @@ class BookingCancelled
      *
      * @return void
      */
-    public function __construct(int $bookingId)
+    public function __construct(Tool $tool, int $bookingId)
     {
+        $this->tool = $tool;
         $this->bookingId = $bookingId;
     }
 }

@@ -94,7 +94,6 @@ class BankTransactionsController extends Controller
             return redirect()->route('home');
         }
 
-
         $paymentRef = $user->getAccount()->getPaymentRef();
 
         $bankTransactions = $this->bankTransactionRepository->paginateByAccount($user->getAccount(), 10);

@@ -6,7 +6,10 @@ use Carbon\Carbon;
 use HMS\Entities\User;
 use HMS\Entities\Tools\Tool;
 use HMS\Entities\Tools\Booking;
+use App\Events\Tools\NewBooking;
 use HMS\Entities\Tools\BookingType;
+use App\Events\Tools\BookingChanged;
+use App\Events\Tools\BookingCancelled;
 use HMS\Factories\Tools\BookingFactory;
 use HMS\Repositories\Tools\BookingRepository;
 
@@ -81,6 +84,8 @@ class BookingManager
         $booking = $this->bookingFactory->create($start, $end, BookingType::NORMAL, $user, $tool);
         $this->bookingRepository->save($booking);
 
+        event(new NewBooking($booking));
+
         return $booking;
     }
 
@@ -121,6 +126,8 @@ class BookingManager
         // Phew!  We can now add the booking
         $booking = $this->bookingFactory->create($start, $end, BookingType::INDUCTION, $user, $tool);
         $this->bookingRepository->save($booking);
+
+        event(new NewBooking($booking));
 
         return $booking;
     }
@@ -166,6 +173,8 @@ class BookingManager
         // Phew!  We can now add the booking
         $booking = $this->bookingFactory->create($start, $end, BookingType::MAINTENANCE, $user, $tool);
         $this->bookingRepository->save($booking);
+
+        event(new NewBooking($booking));
 
         return $booking;
     }
@@ -220,10 +229,13 @@ class BookingManager
             return $basicChecks; // 422
         }
 
+        $orignalBooking = $booking;
+
         // all check passed lets update it
         $booking->setStart($start);
         $booking->setEnd($end);
         $this->bookingRepository->save($booking);
+        event(new BookingChanged($orignalBooking, $booking));
 
         return $booking;
     }
@@ -243,13 +255,17 @@ class BookingManager
             return 'This is not your booking.'; // 403
         }
 
+        // grab the Id before we remove the event
+        $bookingId = $booking->getId();
         $this->bookingRepository->remove($booking);
+
+        event(new BookingCancelled($bookingId));
 
         return true;
     }
 
     /**
-     * Do some basic time checks.
+     * Do some basic time checks. Cancelled
      *
      * @param Carbon $start
      * @param Carbon $end

@@ -210,6 +210,12 @@ class BookingManager
         }
 
         $basicChecks = $this->basicTimeChecks($start, $end, $maxLength);
+
+        // Hack around time checks for a booking that is 'now'
+        if ($start == $booking->getStart() && $basicChecks == 'Start date cannot be in the past') {
+            $basicChecks = true;
+        }
+
         if (is_string($basicChecks)) {
             return $basicChecks; // 422
         }
@@ -253,10 +259,15 @@ class BookingManager
      */
     protected function basicTimeChecks(Carbon $start, Carbon $end, int $maxLength)
     {
-        // check start date is in the future (within 30 minutes)
-        $now = Carbon::now('Europe/London')->subMinutes(30);
+        // check start date is in the future (within 15 minutes)
+        $now = Carbon::now('Europe/London')->subMinutes(15);
         if ($start <= $now) {
             return 'Start date cannot be in the past'; // 422
+        }
+
+        // check the end date is in the future (within 30 minutes)
+        if ($end <= $now) {
+            return 'End date cannot be in the past'; // 422
         }
 
         // check the end date is after the start date

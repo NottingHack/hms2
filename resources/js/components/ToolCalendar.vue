@@ -137,11 +137,21 @@
 
       selectAllow(selectInfo) {
         if (this.isLoading) {
+
           return false;
         }
 
+        if (! (this.userCanBook.maintenance && this.userCanBook.induction && this.userCanBook.normal)) {
+          // we dont have permissino to even make a booking
+          flash('This tool requires an induction for use', 'warning');
+
+          return false;
+        }
+
+
         // Don't allow selection if start is in the past
         if (moment().diff(selectInfo.start) > 0) {
+
           return false;
         }
 
@@ -151,6 +161,7 @@
         var duration = moment.duration(moment(selectInfo.end).diff(selectInfo.start));
         if (duration.asMinutes() > this.bookingLengthMax) {
           flash('Max booking length is '+ humanizeDuration(this.bookingLengthMax * 60000), 'warning');
+
           return false;
         }
 
@@ -159,6 +170,7 @@
 
       eventClick(info) {
         if (this.isLoading) {
+
           return false;
         }
 
@@ -170,6 +182,7 @@
 
       eventAllow(dropInfo, draggedEvent) {
         if (this.isLoading) {
+
           return false;
         }
 
@@ -178,12 +191,14 @@
           if (draggedEvent.start.getTime() != dropInfo.start.getTime()) {
             // you cannot move the start
             flash('Bookings start cannot be changed', 'warning');
+
             return false;
           } else {
             // this event has been resized
             // check the end is not in the past now
             if (moment().diff(dropInfo.end) > 0) {
               flash('Booking end cannot be in the past', 'warning');
+
               return false;
             }
             // end is still in the future, fall through to length check
@@ -191,6 +206,7 @@
         } else if (moment().diff(dropInfo.start) > 0) {
           //check it has not been dropped into the past
           flash('Bookings cannot be moved into the past', 'warning');
+
           return false;
         }
 
@@ -198,6 +214,7 @@
         var duration = moment.duration(moment(dropInfo.end).diff(dropInfo.start));
         if (duration.asMinutes() > this.bookingLengthMax && draggedEvent.extendedProps.type != 'MAINTENANCE') {
           flash('Max booking length is '+ humanizeDuration(this.bookingLengthMax * 60000), 'warning');
+
           return false;
         }
 

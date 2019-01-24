@@ -52,7 +52,7 @@ class BookingController extends Controller
         $mappedBookingsThisWeek = array_map([$this, 'mapBookings'], $bookingsThisWeek);
         $userCanBook = [
             'userId' => $user->getId(),
-            'normal' => $user->can('tools.' . $tool->getPermissionName() . '.book'),
+            'normal' => $user->can('tools.' . $tool->getPermissionName() . '.book'), // TODO: true for an unrestriced tool
             'normalCurrentCount' => $this->bookingRepository->countNormalByToolAndUser($tool, $user),
             'induction' => $user->can('tools.' . $tool->getPermissionName() . '.book.induction'),
             'maintenance' => $user->can('tools.' . $tool->getPermissionName() . '.book.maintenance'),

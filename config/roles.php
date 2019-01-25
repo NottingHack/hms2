@@ -50,6 +50,10 @@ return [
         'bankTransation.upload',
         'snackspaceTransaction.view.self',
         'snackspaceTransaction.view.all',
+        'snackspace.purchase',              // Can buy stuff either vend or chargeable tool
+        'snackspace.purchase.creditOnly',   // Can buy stuff either vend or chargeable tool but only if there in credit (ex members)
+        'snackspace.payment',               // can make a payment
+        'snackspace.payment.debtOnly',      // can make a payment but only if there in debt (ex members)
         'rfidTags.view.self',
         'rfidTags.view.all',
         'rfidTags.edit.self',
@@ -120,6 +124,8 @@ return [
                 'box.printLabel.self',
                 'bankTransactions.view.self',
                 'snackspaceTransaction.view.self',
+                'snackspace.purchase',
+                'snackspace.payment',
                 'rfidTags.view.self',
                 'rfidTags.edit.self',
                 'tools.view',
@@ -139,6 +145,8 @@ return [
                 'link.view',
                 'bankTransactions.view.self',
                 'snackspaceTransaction.view.self',
+                'snackspace.purchase.creditOnly',
+                'snackspace.payment.debtOnly',
                 'rfidTags.view.self',
                 'gatekeeper.zoneEntry.ouside',
             ],
@@ -161,6 +169,8 @@ return [
                 'box.printLabel.self',
                 'bankTransactions.view.self',
                 'snackspaceTransaction.view.self',
+                'snackspace.purchase',
+                'snackspace.payment',
                 'rfidTags.view.self',
                 'rfidTags.edit.self',
                 'tools.view',

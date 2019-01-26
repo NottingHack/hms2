@@ -98,7 +98,7 @@ class BankTransactionsController extends Controller
 
         $bankTransactions = $this->bankTransactionRepository->paginateByAccount($user->getAccount(), 10);
 
-        return view('bankTransactions.index')
+        return view('banking.transactions.index')
             ->with('user', $user)
             ->with('bankTransactions', $bankTransactions)
             ->with('accountNo', $this->accountNo)
@@ -115,7 +115,7 @@ class BankTransactionsController extends Controller
      */
     public function edit(BankTransaction $bankTransaction)
     {
-        return view('bankTransactions.edit')->with(['bankTransaction' => $bankTransaction]);
+        return view('banking.transactions.edit')->with(['bankTransaction' => $bankTransaction]);
     }
 
     /**
@@ -146,6 +146,6 @@ class BankTransactionsController extends Controller
     {
         $bankTransactions = $this->bankTransactionRepository->paginateByAccount(null);
 
-        return view('bankTransactions.listUnmatched')->with(['bankTransactions' => $bankTransactions]);
+        return view('banking.transactions.listUnmatched')->with(['bankTransactions' => $bankTransactions]);
     }
 }

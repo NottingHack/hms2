@@ -161,6 +161,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ]
     );
 
+    // Accounts
+    Route::get('accounts/list-joint', 'Banking\AccountController@listJoint')->name('banking.accounts.listJoint');
+    Route::get('accounts/{account}', 'Banking\AccountController@show')->name('banking.accounts.show');
+    Route::patch('accounts/{account}/link-user/', 'Banking\AccountController@linkUser')
+        ->name('banking.accounts.linkUser');
+    Route::patch('accounts/{account}/unlink-user/', 'Banking\AccountController@unlinkUser')
+        ->name('banking.accounts.unlinkUser');
+
     // Bank Transactions
     Route::get('bank-transactions/unmatched', 'Banking\BankTransactionsController@listUnmatched')
         ->name('bank-transactions.unmatched');

@@ -98,6 +98,13 @@ return [
                     'permissions'   => ['labelTemplate.view'],
                     'links'         => [],
                 ],
+                'joinAccounts' => [
+                    'text'          => 'Join Accounts',
+                    'route'         => 'banking.accounts.listJoint',
+                    'match'         => 'banking.accounts.listJoint',
+                    'permissions'   => ['profile.view.all'],
+                    'links'         => [],
+                ],
                 'bankTransactions' => [
                     'text'          => 'Reconcile Bank Transaction',
                     'route'         => 'bank-transactions.unmatched',

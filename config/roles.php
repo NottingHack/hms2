@@ -57,6 +57,8 @@ return [
         'rfidTags.destroy',
         'pins.view.all',
         'pins.reactivate',
+        'login.shell',
+        'login.spacenet',
         'bankTransactions.view.self',
         'bankTransactions.view.all',
         'bankTransactions.reconcile',
@@ -128,6 +130,8 @@ return [
                 'gatekeeper.zoneEntry.cncBlueRoom',
                 'gatekeeper.zoneEntry.classRoomMetalworking',
                 'gatekeeper.zoneEntry.downstairsMembersStrorage',
+                'login.shell',
+                'login.spacenet',
             ],
         ],
         'member.ex' => [
@@ -169,6 +173,8 @@ return [
                 'gatekeeper.zoneEntry.cncBlueRoom',
                 'gatekeeper.zoneEntry.classRoomMetalworking',
                 'gatekeeper.zoneEntry.downstairsMembersStrorage',
+                'login.shell',
+                'login.spacenet',
             ],
         ],
         'member.temporarybanned' => [

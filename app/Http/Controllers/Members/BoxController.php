@@ -198,7 +198,7 @@ class BoxController extends Controller
         if ($userBoxCount >= $individualLimit) {
             flash('This member has too many boxes already')->error();
 
-            return redirect()->route('user.boxes', ['user' => $user->getId()]);
+            return redirect()->route('users.boxes', ['user' => $user->getId()]);
         }
 
         // even if it's free issue we need to check we have space
@@ -206,7 +206,7 @@ class BoxController extends Controller
         if ($spaceBoxCount >= $maxLimit) {
             flash('Sorry we have no room for any more boxes')->error();
 
-            return redirect()->route('user.boxes', ['user' => $user->getId()]);
+            return redirect()->route('users.boxes', ['user' => $user->getId()]);
         }
 
         return view('members.box.issue')
@@ -262,7 +262,7 @@ class BoxController extends Controller
             if ($userBoxCount >= $individualLimit) {
                 flash('This member has too many boxes already')->error();
 
-                return redirect()->route('user.boxes', $user);
+                return redirect()->route('users.boxes', $user);
             }
         } else {
             // check & debit balance

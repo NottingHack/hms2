@@ -147,8 +147,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     );
 
     // Members Boxes and labels
-    Route::get('users/{user}/boxes', 'Members\BoxController@index')->name('user.boxes');
-    Route::get('users/{user}/boxes/issue', 'Members\BoxController@issue')->name('user.boxes.issue');
+    Route::get('users/{user}/boxes', 'Members\BoxController@index')->name('users.boxes');
+    Route::get('users/{user}/boxes/issue', 'Members\BoxController@issue')->name('users.boxes.issue');
     Route::patch('boxes/{box}/markInUse', 'Members\BoxController@markInUse')->name('boxes.markInUse');
     Route::patch('boxes/{box}/markAbandoned', 'Members\BoxController@markAbandoned')->name('boxes.markAbandoned');
     Route::patch('boxes/{box}/markRemoved', 'Members\BoxController@markRemoved')->name('boxes.markRemoved');

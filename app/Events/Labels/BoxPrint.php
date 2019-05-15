@@ -45,7 +45,7 @@ class BoxPrint implements LabelPrintEventInterface
             'memberName' => $box->getUser()->getFullname(),
             'username' => $box->getUser()->getUsername(),
             'lastDate' => Carbon::now()->toDateString(),
-            'qrURL' => route('user.boxes', ['user' => $box->getUser()->getId()]),
+            'qrURL' => route('users.boxes', ['user' => $box->getUser()->getId()]),
             'idOffset' => 220 + $idOffset,
             'memberBoxId' => $box->getId(),
         ];

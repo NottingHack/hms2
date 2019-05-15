@@ -26,7 +26,7 @@ Boxes for {{ $user->getFirstname() }}
 @can('box.issue.all')
 <div class="container">
   <div class="card">
-    <a href="{{ route('user.boxes.issue', $user->getId()) }}" class="btn btn-primary"><i class="fas fa-plus" aria-hidden="true"></i> Issue new box</a>
+    <a href="{{ route('users.boxes.issue', $user->getId()) }}" class="btn btn-primary"><i class="fas fa-plus" aria-hidden="true"></i> Issue new box</a>
   </div>
 </div>
 @endcan

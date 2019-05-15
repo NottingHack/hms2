@@ -35,6 +35,9 @@ class BookingController extends Controller
     {
         $this->bookingRepository = $bookingRepository;
         $this->bookingManager = $bookingManager;
+
+        $this->middleware('can:tools.view')->only(['index']);
+        $this->middleware('can:tools.book')->only(['store', 'show',  'update', 'destroy']);
     }
 
     protected function mapBookings(Booking $booking)

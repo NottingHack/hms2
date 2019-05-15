@@ -183,5 +183,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Tools
     Route::resource('tools', 'Tools\ToolController');
-    Route::resource('tools/{tool}/bookings', 'Tools\BookingController');
+    Route::resource(
+        'tools/{tool}/bookings',
+        'Tools\BookingController',
+        [
+            'except' => ['show', 'create', 'store', 'edit', 'update', 'destroy'], // turned off for now
+        ]
+    );
 });

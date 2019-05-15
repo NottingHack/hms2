@@ -23,6 +23,8 @@ class BookingController extends Controller
     public function __construct(BookingRepository $bookingRepository)
     {
         $this->bookingRepository = $bookingRepository;
+
+        $this->middleware('can:tools.view')->only(['index']);
     }
 
     protected function mapBookings(Booking $booking)
@@ -50,6 +52,7 @@ class BookingController extends Controller
         $user = \Auth::user();
         $bookingsThisWeek = $this->bookingRepository->findByToolForThisWeek($tool);
         $mappedBookingsThisWeek = array_map([$this, 'mapBookings'], $bookingsThisWeek);
+
         $userCanBook = [
             'userId' => $user->getId(),
             'normal' => $user->can('tools.' . $tool->getPermissionName() . '.book'), // TODO: true for an unrestriced tool

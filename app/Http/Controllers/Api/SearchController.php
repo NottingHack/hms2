@@ -22,7 +22,7 @@ class SearchController extends Controller
     {
         $this->userRepository = $userRepository;
 
-        $this->middleware('can:search.users')->only(['usersSearch']);
+        $this->middleware('can:search.users')->only(['users']);
     }
 
     /**

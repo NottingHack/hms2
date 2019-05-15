@@ -17,7 +17,7 @@
         @foreach ($fields as $field)
         <div class="form-group">
           <label for="{{ $field }}" class="form-label">{{ $field }}</label>
-          <input class="form-control" id="{{ $field }}" type="text" name="{{ $field }}" value="{{ old($field, '') }}" required autofocus>
+          <input class="form-control" id="{{ $field }}" type="text" name="{{ $field }}" value="{{ old($field, '') }}" required>
           @if ($errors->has($field))
           <p class="help-text">
             <strong>{{ $errors->first($field) }}</strong>

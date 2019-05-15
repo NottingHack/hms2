@@ -17,7 +17,7 @@ class LabelTemplate implements ArrayableContract
      *
      * @var string
      */
-    protected $template_name;
+    protected $templateName;
 
     /**
      * @var string
@@ -33,7 +33,7 @@ class LabelTemplate implements ArrayableContract
      */
     public function updateWithRequest(LabelTemplateRequest $request)
     {
-        $this->template_name = $request['templateName'];
+        $this->templateName = $request['templateName'];
         $this->template = $request['template'];
 
         return $this;
@@ -46,19 +46,19 @@ class LabelTemplate implements ArrayableContract
      */
     public function getTemplateName()
     {
-        return $this->template_name;
+        return $this->templateName;
     }
 
     /**
      * Sets the primary key.
      *
-     * @param string $template_name the template name
+     * @param string $templateName the template name
      *
      * @return self
      */
-    public function setTemplateName($template_name)
+    public function setTemplateName($templateName)
     {
-        $this->template_name = $template_name;
+        $this->templateName = $templateName;
 
         return $this;
     }

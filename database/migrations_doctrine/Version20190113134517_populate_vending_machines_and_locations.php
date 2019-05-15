@@ -100,13 +100,13 @@ class Version20190113134517_populate_vending_machines_and_locations extends Abst
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        foreach ($this->vendingMachines as list($id, $description, $type, $connection, $address)) {
+        foreach ($this->vendingMachines as [$id, $description, $type, $connection, $address]) {
             $this->addSql(
                 "INSERT INTO vending_machines (id, description, type, connection, address) VALUES ($id, '$description', '$type', '$connection', '$address')"
             );
         }
 
-        foreach ($this->vendingLocations as list($id, $vending_machine_id, $encoding, $name)) {
+        foreach ($this->vendingLocations as [$id, $vending_machine_id, $encoding, $name]) {
             $this->addSql(
                 "INSERT INTO vending_locations (id, vending_machine_id, encoding, name) VALUE ($id, $vending_machine_id, '$encoding', '$name')"
             );
@@ -120,13 +120,13 @@ class Version20190113134517_populate_vending_machines_and_locations extends Abst
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        foreach ($this->vendingLocations as list($id, $vending_machine_id, $encoding, $name)) {
+        foreach ($this->vendingLocations as [$id, $vending_machine_id, $encoding, $name]) {
             $this->addSql(
                 "DELETE FROM vending_locations WHERE id = $id"
             );
         }
 
-        foreach ($this->vendingMachines as list($id, $description, $type, $connection, $address)) {
+        foreach ($this->vendingMachines as [$id, $description, $type, $connection, $address]) {
             $this->addSql(
                 "DELETE FROM vending_machines WHERE id = $id)"
             );

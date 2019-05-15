@@ -26,7 +26,7 @@ class Version20170209091949_populate_starter_links extends AbstractMigration
         ];
 
         foreach ($links as $link) {
-            list($name, $url, $description) = $link;
+            [$name, $url, $description] = $link;
             $this->addSql(
                 'INSERT INTO links (name, link, description, deleted_at, created_at, updated_at) VALUES (\'' . $name . '\', \'' . $url . '\', \'' . $description . '\', null, \'' . $now . '\', \'' . $now . '\')'
             );

@@ -23,7 +23,7 @@ class Version20170711081031_populate_doors extends AbstractMigration
         ];
 
         foreach ($doors as $door) {
-            list($id, $description, $short_name, $state, $state_change, $side_a_zone_id) = $door;
+            [$id, $description, $short_name, $state, $state_change, $side_a_zone_id] = $door;
             $this->addSql(
                 'INSERT INTO doors (id, description, short_name, state, state_change, side_a_zone_id, permission_code) VALUES (\'' . $id . '\', \'' . $description . '\', \'' . $short_name . '\', \'' . $state . '\', \'' . $state_change . '\', ' . $side_a_zone_id . ', null)'
             );

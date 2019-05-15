@@ -266,7 +266,7 @@ class BookingManager
     }
 
     /**
-     * Do some basic time checks. Cancelled
+     * Do some basic time checks. Cancelled.
      *
      * @param Carbon $start
      * @param Carbon $end

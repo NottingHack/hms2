@@ -46,19 +46,19 @@ class Version20190111021836_populate_bells_and_door_bell extends AbstractMigrati
         $this->addSql('UPDATE doors SET side_a_zone_id = side_a_zone_id-1 WHERE side_a_zone_id IS NOT NULL');
         $this->addSql('UPDATE doors SET side_b_zone_id = side_b_zone_id-1 WHERE side_b_zone_id IS NOT NULL');
 
-        foreach ($this->doors as list($id, $description, $short_name, $state, $side_a_zone_id, $side_b_zone_id)) {
+        foreach ($this->doors as [$id, $description, $short_name, $state, $side_a_zone_id, $side_b_zone_id]) {
             $this->addSql(
                 "INSERT INTO doors (id, description, short_name, state, state_change, side_a_zone_id, side_b_zone_id) VALUES ($id, '$description', '$short_name', '$state', NOW(), $side_a_zone_id, $side_b_zone_id)"
             );
         }
 
-        foreach ($this->bells as list($id, $description, $topic, $message, $enabled)) {
+        foreach ($this->bells as [$id, $description, $topic, $message, $enabled]) {
             $this->addSql(
                 "INSERT INTO bells (id, description, topic, message, enabled) VALUES ('$id', '$description', '$topic', '$message', '$enabled')"
             );
         }
 
-        foreach ($this->door_bell as list($door_id, $bell_id)) {
+        foreach ($this->door_bell as [$door_id, $bell_id]) {
             $this->addSql("INSERT INTO door_bell (door_id, bell_id) VALUES ($door_id, $bell_id)");
         }
 
@@ -74,19 +74,19 @@ class Version20190111021836_populate_bells_and_door_bell extends AbstractMigrati
 
         $this->addSql('SET foreign_key_checks = 0');
 
-        foreach ($this->door_bell as list($door_id, $bell_id)) {
+        foreach ($this->door_bell as [$door_id, $bell_id]) {
             $this->addSql(
                 "DELETE FROM door_bell WHERE door_id = $door_id AND bell_id = $bell_id"
             );
         }
 
-        foreach ($this->bells as list($id, $description, $topic, $message, $enabled)) {
+        foreach ($this->bells as [$id, $description, $topic, $message, $enabled]) {
             $this->addSql(
                 "DELETE FROM bells WHERE id = $id"
             );
         }
 
-        foreach ($this->doors as list($id, $description, $short_name, $state, $side_a_zone_id, $side_b_zone_id)) {
+        foreach ($this->doors as [$id, $description, $short_name, $state, $side_a_zone_id, $side_b_zone_id]) {
             $this->addSql(
                 "DELETE FROM doors WHERE id = $id"
             );

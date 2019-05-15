@@ -69,6 +69,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        // TODO: if viewing someone other then authed user, authed user still needs to be email verified
         if ($user != \Auth::user() && \Gate::denies('profile.view.all')) {
             return redirect()->route('home');
         }
@@ -85,6 +86,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        // TODO: if viewing someone other then authed user, authed user still needs to be email verified
         if ($user != \Auth::user() && \Gate::denies('profile.view.all')) {
             return redirect()->route('home');
         }
@@ -102,6 +104,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        // TODO: if viewing someone other then authed user, authed user still needs to be email verified
         if ($user != \Auth::user() && \Gate::denies('profile.edit.all')) {
             return redirect()->route('home');
         }

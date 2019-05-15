@@ -37,8 +37,6 @@ Route::get('email/verify', 'Auth\VerificationController@show')->name('verificati
 Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
 Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 
-Route::get('home', 'HomeController@index')->name('home');
-Route::get('access-codes', 'HomeController@accessCodes')->name('accessCodes');
 Route::get('links', 'LinksController@index')->name('links.index');
 Route::get('instrumentation/status', 'Instrumentation\ServiceController@status')
     ->name('instrumentation.status');
@@ -51,8 +49,23 @@ Route::middleware(['ipcheck'])->group(function () {
     Route::post('/register-interest', 'RegisterInterestController@registerInterest');
 });
 
-// Routes in the following group can only be access once logged-in)
+// Routes in the following group can only be access once logged-in
+Route::middleware(['auth'])->group(function () {
+    // Users (show, edit, update) to allow users to update there email if they can't verify it
+    Route::resource(
+        'users',
+        'UserController',
+        [
+            'except' => ['index', 'store', 'create', 'destroy'],
+        ]
+    );
+});
+
+// Routes in the following group can only be access once logged-in and have verified your email address
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('home', 'HomeController@index')->name('home');
+    Route::get('access-codes', 'HomeController@accessCodes')->name('accessCodes');
+
     // ROLE
     Route::get('/roles', 'RoleController@index')->name('roles.index');
     Route::get('/roles/{role}', 'RoleController@show')->name('roles.show');
@@ -63,13 +76,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // USER
     Route::get('users-by-role/{role}', 'UserController@listUsersByRole')->name('users.byRole');
-    Route::resource(
-        'users',
-        'UserController',
-        [
-            'except' => ['store', 'create', 'destroy'],
-        ]
-    );
+    Route::get('users', 'UserController@index')->name('users.index');
     Route::get('change-password', 'Auth\ChangePasswordController@edit')->name('users.changePassword');
     Route::put('change-password', 'Auth\ChangePasswordController@update')->name('users.changePassword.update');
 
@@ -85,7 +92,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ]
     );
 
-    // Usefull links
+    // Usefull links editing (index is no auth)
     Route::resource(
         'links',
         'LinksController',
@@ -106,7 +113,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ],
         ]
     );
-    Route::patch('pins/{pin}/reavtivate', 'GateKeeper\RfidTagsController@reactivatePin')->name('pins.reactivate');
+    Route::patch('pins/{pin}/reactivate', 'GateKeeper\RfidTagsController@reactivatePin')->name('pins.reactivate');
 
     // Label printer template admin
     Route::get('labels/{label}/print', 'LabelTemplateController@showPrint')->name('labels.showPrint');

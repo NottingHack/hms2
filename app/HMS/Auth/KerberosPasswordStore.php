@@ -26,7 +26,23 @@ class KerberosPasswordStore implements PasswordStore
     private $debug;
 
     /**
+     * Username for use with KADM5.
+     *
+     * @var string
+     */
+    protected $username;
+
+    /**
+     * Keytab file path.
+     *
+     * @var string
+     */
+    protected $keytab;
+
+    /**
      * Constructor.
+     *
+     * @param \Illuminate\Foundation\Application $app
      */
     public function __construct($app)
     {
@@ -34,7 +50,18 @@ class KerberosPasswordStore implements PasswordStore
 
         $this->debug = $config['debug'];
         $this->realm = $config['realm'];
-        $this->krbConn = new \KADM5($config['username'], $config['keytab'], true); // use keytab=true
+        $this->username = $config['username'];
+        $this->keytab = $config['keytab'];
+    }
+
+    /**
+     * Lazy initialize the KADM5 connection as it leaks sockets.
+     */
+    protected function initAdmin()
+    {
+        if (is_null($this->krbConn)) {
+            $this->krbConn = new \KADM5($this->username, $this->keytab, true); // use keytab=true
+        }
     }
 
     /**
@@ -47,6 +74,8 @@ class KerberosPasswordStore implements PasswordStore
      */
     public function add($username, $password)
     {
+        $this->initAdmin();
+
         /* Just incase some smartarse appends /admin to their handle
         * in an attempt to become a krb admin... */
         if (stristr($username, '/admin') === false) {
@@ -82,6 +111,8 @@ class KerberosPasswordStore implements PasswordStore
      */
     public function remove($username)
     {
+        $this->initAdmin();
+
         try {
             $princ = $this->krbConn->getPrincipal(strtolower($username));
             $princ->delete();
@@ -106,6 +137,8 @@ class KerberosPasswordStore implements PasswordStore
      */
     public function exists($username)
     {
+        $this->initAdmin();
+
         try {
             $this->krbConn->getPrincipal(strtolower($username));
         } catch (\Exception $e) {
@@ -129,6 +162,8 @@ class KerberosPasswordStore implements PasswordStore
      */
     public function setPassword($username, $password)
     {
+        $this->initAdmin();
+
         try {
             $princ = $this->krbConn->getPrincipal(strtolower($username));
             $princ->changePassword($password);
@@ -155,6 +190,7 @@ class KerberosPasswordStore implements PasswordStore
     public function checkPassword($username, $password)
     {
         $ticket = new \KRB5CCache();
+
         try {
             $ticket->initPassword(strtolower($username) . '@' . $this->realm, $password);
         } catch (\Exception $e) {

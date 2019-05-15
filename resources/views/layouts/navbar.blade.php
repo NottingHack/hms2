@@ -67,7 +67,7 @@
           <div class="dropdown-menu dropdown-menu-right">
             <a class="dropdown-item" href="{{ route('users.show', Auth::user()->getId()) }}">Update Details</a>
             <a class="dropdown-item" href="{{ route('users.changePassword') }}">Change Password</a>
-            <a class="dropdown-item" href="#">Standing Order details</a>
+            <a class="dropdown-item" href="{{ route('bank-transactions.index') }}">Standing Order details</a>
           </div>
         </li>
         <li class="nav-item">
@@ -87,7 +87,7 @@
           <a class="nav-link" href="{{ route('users.changePassword') }}">Change Password</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Standing Order details</a>
+          <a class="nav-link" href="{{ route('bank-transactions.index') }}">Standing Order details</a>
         </li>
         <li class="nav-item"><hr class="border-top-3"></li>
         <li class="nav-item">

@@ -6,30 +6,16 @@ Snackspace account for {{ $user->getFirstname() }}
 
 @section('content')
 <div class="container">
-  <div class="row">
-    <div class="col-sm">
-      <center>
-        <div class="card">
-          <div class="card-header icon-card-body">
-            <div class="icon-card-icon"><i class="far fa-money-bill" aria-hidden="true"></i></div>
-            <div class="icon-card-content">
-              <h3>Balance</h3>
-            </div>
-          </div>
-          <div class="card-body">
-            <dl>
-              <h1><span class="money">@format_pennies($user->getProfile() ? $user->getProfile()->getBalance() : 0)</span></h1>
-            </dl>
-          </div>
-        </div>
-      </center>
+  <div class="card w-100">
+    <h3 class="card-header"><i class="far fa-money-bill" aria-hidden="true"></i> Balance</h3>
+    <div class="card-body text-center">
+        <h1><span class="money">@format_pennies($user->getProfile() ? $user->getProfile()->getBalance() : 0)</span></h1>
     </div>
   </div>
-</div>
 
-<br>
+  <br>
+  <p>Words about purchases/payments records, credit limit and how to pay off balance in the space at the cash acceptors.</p>
 
-<div class="container">
   <div class="table-responsive">
     <table class="table table-bordered table-hover">
       <thead>
@@ -52,6 +38,7 @@ Snackspace account for {{ $user->getFirstname() }}
       </tbody>
     </table>
   </div>
+
   <div classs="pagination-links">
     {{ $transactions->links() }}
   </div>

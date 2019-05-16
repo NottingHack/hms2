@@ -6,7 +6,10 @@ use Carbon\Carbon;
 use HMS\Entities\User;
 use HMS\Entities\Tools\Tool;
 use HMS\Entities\Tools\Booking;
+use App\Events\Tools\NewBooking;
 use HMS\Entities\Tools\BookingType;
+use App\Events\Tools\BookingChanged;
+use App\Events\Tools\BookingCancelled;
 use HMS\Factories\Tools\BookingFactory;
 use HMS\Repositories\Tools\BookingRepository;
 
@@ -81,6 +84,8 @@ class BookingManager
         $booking = $this->bookingFactory->create($start, $end, BookingType::NORMAL, $user, $tool);
         $this->bookingRepository->save($booking);
 
+        event(new NewBooking($booking));
+
         return $booking;
     }
 
@@ -121,6 +126,8 @@ class BookingManager
         // Phew!  We can now add the booking
         $booking = $this->bookingFactory->create($start, $end, BookingType::INDUCTION, $user, $tool);
         $this->bookingRepository->save($booking);
+
+        event(new NewBooking($booking));
 
         return $booking;
     }
@@ -167,6 +174,8 @@ class BookingManager
         $booking = $this->bookingFactory->create($start, $end, BookingType::MAINTENANCE, $user, $tool);
         $this->bookingRepository->save($booking);
 
+        event(new NewBooking($booking));
+
         return $booking;
     }
 
@@ -210,14 +219,23 @@ class BookingManager
         }
 
         $basicChecks = $this->basicTimeChecks($start, $end, $maxLength);
+
+        // Hack around time checks for a booking that is 'now'
+        if ($start == $booking->getStart() && $basicChecks == 'Start date cannot be in the past') {
+            $basicChecks = true;
+        }
+
         if (is_string($basicChecks)) {
             return $basicChecks; // 422
         }
+
+        $orignalBooking = $booking;
 
         // all check passed lets update it
         $booking->setStart($start);
         $booking->setEnd($end);
         $this->bookingRepository->save($booking);
+        event(new BookingChanged($orignalBooking, $booking));
 
         return $booking;
     }
@@ -237,13 +255,18 @@ class BookingManager
             return 'This is not your booking.'; // 403
         }
 
+        // grab the Id before we remove the event
+        $tool = $booking->getTool();
+        $bookingId = $booking->getId();
         $this->bookingRepository->remove($booking);
+
+        event(new BookingCancelled($tool, $bookingId));
 
         return true;
     }
 
     /**
-     * Do some basic time checks.
+     * Do some basic time checks. Cancelled.
      *
      * @param Carbon $start
      * @param Carbon $end
@@ -253,10 +276,15 @@ class BookingManager
      */
     protected function basicTimeChecks(Carbon $start, Carbon $end, int $maxLength)
     {
-        // check start date is in the future (within 30 minutes)
-        $now = Carbon::now('Europe/London')->subMinutes(30);
+        // check start date is in the future (within 15 minutes)
+        $now = Carbon::now('Europe/London')->subMinutes(15);
         if ($start <= $now) {
             return 'Start date cannot be in the past'; // 422
+        }
+
+        // check the end date is in the future (within 30 minutes)
+        if ($end <= $now) {
+            return 'End date cannot be in the past'; // 422
         }
 
         // check the end date is after the start date

@@ -137,11 +137,21 @@
 
       selectAllow(selectInfo) {
         if (this.isLoading) {
+
           return false;
         }
 
+        if (! (this.userCanBook.maintenance && this.userCanBook.induction && this.userCanBook.normal)) {
+          // we dont have permissino to even make a booking
+          flash('This tool requires an induction for use', 'warning');
+
+          return false;
+        }
+
+
         // Don't allow selection if start is in the past
         if (moment().diff(selectInfo.start) > 0) {
+
           return false;
         }
 
@@ -151,6 +161,7 @@
         var duration = moment.duration(moment(selectInfo.end).diff(selectInfo.start));
         if (duration.asMinutes() > this.bookingLengthMax) {
           flash('Max booking length is '+ humanizeDuration(this.bookingLengthMax * 60000), 'warning');
+
           return false;
         }
 
@@ -159,23 +170,43 @@
 
       eventClick(info) {
         if (this.isLoading) {
+
           return false;
         }
 
-        // is it ours and is it in the future
-        if (info.event.extendedProps.userId == this.userCanBook.userId && moment().diff(info.event.start) < 0) {
+        // is it ours and is does it end in the future
+        if (info.event.extendedProps.userId == this.userCanBook.userId && moment().diff(info.event.end) < 0) {
           this.setupCancleConfirmation(info);
         }
       },
 
       eventAllow(dropInfo, draggedEvent) {
         if (this.isLoading) {
+
           return false;
         }
 
-        // check it has not been dropped into the past
-        if (moment().diff(dropInfo.start) > 0) {
-          flash('Bookings can not be in the past', 'warning');
+        if (moment().diff(draggedEvent.start) > 0) {
+          // booking start was already in the past, we only allow resize
+          if (draggedEvent.start.getTime() != dropInfo.start.getTime()) {
+            // you cannot move the start
+            flash('Bookings start cannot be changed', 'warning');
+
+            return false;
+          } else {
+            // this event has been resized
+            // check the end is not in the past now
+            if (moment().diff(dropInfo.end) > 0) {
+              flash('Booking end cannot be in the past', 'warning');
+
+              return false;
+            }
+            // end is still in the future, fall through to length check
+          }
+        } else if (moment().diff(dropInfo.start) > 0) {
+          //check it has not been dropped into the past
+          flash('Bookings cannot be moved into the past', 'warning');
+
           return false;
         }
 
@@ -183,6 +214,7 @@
         var duration = moment.duration(moment(dropInfo.end).diff(dropInfo.start));
         if (duration.asMinutes() > this.bookingLengthMax && draggedEvent.extendedProps.type != 'MAINTENANCE') {
           flash('Max booking length is '+ humanizeDuration(this.bookingLengthMax * 60000), 'warning');
+
           return false;
         }
 
@@ -576,7 +608,12 @@
       mapBookings(booking) {
           booking.className = 'tool-' + booking.type.toLowerCase();
 
-          if (booking.userId == this.userCanBook.userId && moment().diff(booking.start) < 0) {
+          if (booking.userId == this.userCanBook.userId
+            && moment().diff(booking.start) > 0
+            && moment().diff(booking.end) < 0) {
+            // this is our booking under now
+            booking.durationEditable = true;
+          } else if (booking.userId == this.userCanBook.userId && moment().diff(booking.start) < 0) {
             booking.editable = true;
           } else {
             booking.className += ' not-editable';

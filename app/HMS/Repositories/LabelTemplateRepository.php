@@ -9,11 +9,11 @@ interface LabelTemplateRepository
     /**
      * Find a temple in the DB.
      *
-     * @param string $template_name
+     * @param string $templateName
      *
      * @return LabelTemplate|null
      */
-    public function findOneByTemplateName($template_name);
+    public function findOneByTemplateName($templateName);
 
     /**
      * Save temple to the DB.

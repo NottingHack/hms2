@@ -11,6 +11,7 @@ use App\Events\Labels\LabelPrintEventInterface;
 class PrintLabelSubscriber implements ShouldQueue
 {
     use InteractsWithQueue;
+
     /**
      * Printer port.
      *

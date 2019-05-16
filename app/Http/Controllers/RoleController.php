@@ -195,7 +195,7 @@ class RoleController extends Controller
         $formattedList = [];
 
         foreach ($list as $item) {
-            list($category, $name) = explode('.', $item->getName());
+            [$category, $name] = explode('.', $item->getName());
 
             if (! isset($formattedList[$category])) {
                 $formattedList[$category] = [];

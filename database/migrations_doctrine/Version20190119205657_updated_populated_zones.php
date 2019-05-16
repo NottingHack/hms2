@@ -29,7 +29,7 @@ class Version20190119205657_updated_populated_zones extends AbstractMigration
         ];
 
         foreach ($zones as $zone) {
-            list($id, $description, $short_name, $permission_code) = $zone;
+            [$id, $description, $short_name, $permission_code] = $zone;
             $this->addSql(
                 "INSERT INTO zones (id, description, short_name, permission_code) VALUES ($id, '$description', '$short_name', '$permission_code')"
             );

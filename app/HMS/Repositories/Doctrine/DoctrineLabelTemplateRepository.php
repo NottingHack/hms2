@@ -14,13 +14,13 @@ class DoctrineLabelTemplateRepository extends EntityRepository implements LabelT
     /**
      * Find a temple in the DB.
      *
-     * @param string $template_name
+     * @param string $templateName
      *
      * @return LabelTemplate|null
      */
-    public function findOneByTemplateName($template_name)
+    public function findOneByTemplateName($templateName)
     {
-        return parent::findOneByTemplateName($template_name);
+        return parent::findOneByTemplateName($templateName);
     }
 
     /**

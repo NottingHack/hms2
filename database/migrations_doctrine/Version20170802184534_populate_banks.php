@@ -20,7 +20,7 @@ class Version20170802184534_populate_banks extends AbstractMigration
         ];
 
         foreach ($banks as $bank) {
-            list($id, $name, $sort_code, $account_number) = $bank;
+            [$id, $name, $sort_code, $account_number] = $bank;
             $this->addSql(
                 'INSERT INTO banks (id, name, sort_code, account_number) VALUES (\'' . $id . '\', \'' . $name . '\', \'' . $sort_code . '\', \'' . $account_number . '\')'
             );

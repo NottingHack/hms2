@@ -143,7 +143,7 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
                     $expr->eq('tool', $tool),
                     $expr->eq('user', $user),
                     $expr->eq('type', BookingType::NORMAL),
-                    $expr->gte('start', $now)
+                    $expr->gte('end', $now)
                 )
             )
             ->orderBy(['start' => Criteria::ASC]);

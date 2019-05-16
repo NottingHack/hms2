@@ -50,6 +50,10 @@ return [
         'bankTransation.upload',
         'snackspaceTransaction.view.self',
         'snackspaceTransaction.view.all',
+        'snackspace.purchase',              // Can buy stuff either vend or chargeable tool
+        'snackspace.purchase.creditOnly',   // Can buy stuff either vend or chargeable tool but only if there in credit (ex members)
+        'snackspace.payment',               // can make a payment
+        'snackspace.payment.debtOnly',      // can make a payment but only if there in debt (ex members)
         'rfidTags.view.self',
         'rfidTags.view.all',
         'rfidTags.edit.self',
@@ -69,6 +73,9 @@ return [
         'tools.maintainer.grant',           // trustees can grant and revoke maintainer roles on all tools from hms
         'tools.inductor.grant',             // trustees can grant and revoke inductor roles on all tools from hms
         'tools.user.grant',                 // trustees can grant and revoke user roles on all tools from hms
+        'tools.use',                        // can use a tool, if tool is restricted also needs 'tools._TOOL_PERMISSION_NAME_.use'
+        'tools.book',                       // can make a tool booking, , if tool is restricted also needs 'tools._TOOL_PERMISSION_NAME_.book'
+        'tools.beInducted',                 // can be inducted to use a tool
         'gatekeeper.zoneEntry.upstairs',    // these are hard coded here for now, untill we have a GateKeeperManager to generate them
         'gatekeeper.zoneEntry.cncBlueRoom',
         'gatekeeper.zoneEntry.classRoomMetalworking',
@@ -122,9 +129,14 @@ return [
                 'box.printLabel.self',
                 'bankTransactions.view.self',
                 'snackspaceTransaction.view.self',
+                'snackspace.purchase',
+                'snackspace.payment',
                 'rfidTags.view.self',
                 'rfidTags.edit.self',
                 'tools.view',
+                'tools.use',
+                'tools.book',
+                'tools.beInducted',
                 'gatekeeper.zoneEntry.ouside',
                 'gatekeeper.zoneEntry.upstairs',
                 'gatekeeper.zoneEntry.cncBlueRoom',
@@ -143,6 +155,8 @@ return [
                 'link.view',
                 'bankTransactions.view.self',
                 'snackspaceTransaction.view.self',
+                'snackspace.purchase.creditOnly',
+                'snackspace.payment.debtOnly',
                 'rfidTags.view.self',
                 'gatekeeper.zoneEntry.ouside',
             ],
@@ -165,9 +179,14 @@ return [
                 'box.printLabel.self',
                 'bankTransactions.view.self',
                 'snackspaceTransaction.view.self',
+                'snackspace.purchase',
+                'snackspace.payment',
                 'rfidTags.view.self',
                 'rfidTags.edit.self',
                 'tools.view',
+                'tools.use',
+                'tools.book',
+                'tools.beInducted',
                 'gatekeeper.zoneEntry.ouside',
                 'gatekeeper.zoneEntry.upstairs',
                 'gatekeeper.zoneEntry.cncBlueRoom',

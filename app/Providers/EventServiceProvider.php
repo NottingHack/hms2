@@ -60,6 +60,7 @@ class EventServiceProvider extends ServiceProvider
         'App\Listeners\ViMbAdminSubscriber',
         'App\Listeners\RoleUpdateLogger',
         'App\Listeners\PrintLabelSubscriber',
+        'App\Listeners\Tools\NotifyNhToolsSubscriber',
     ];
 
     /**

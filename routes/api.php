@@ -12,7 +12,7 @@
 |
 */
 
-// make all api route names are prefixed
+// All api route names are prefixed with api.
 Route::name('api.')->middleware('auth:api')->group(function () {
     // Search for members
     // api/search/users/matt                    Search term as part of the
@@ -24,6 +24,7 @@ Route::name('api.')->middleware('auth:api')->group(function () {
     Route::apiResource('tools/{tool}/bookings', 'Api\Tools\BookingController');
 });
 
+// All 'client_credentials' api route names are prefixed with client.
 Route::name('client.')->middleware('client')->group(function () {
     // upload new bankTransactions/
     Route::post('bank_transactions/upload', 'Api\TransactionUploadController@upload')

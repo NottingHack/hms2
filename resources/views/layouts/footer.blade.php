@@ -16,6 +16,7 @@
           <span class="d-none d-lg-block d-xl-none">Breakpoint: lg</span>
           <span class="d-none d-xl-block">Breakpoint: xl</span>
         </li>
+        <li>Larvel Version {{ app()->version() }}</li>
         @endif
       </ul>
     </div>

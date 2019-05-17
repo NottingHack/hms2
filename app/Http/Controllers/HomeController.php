@@ -25,6 +25,20 @@ class HomeController extends Controller
     }
 
     /**
+     * Show the application welcome screen.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function welcome()
+    {
+        if (\Auth::check()) {
+            return redirect()->route('home');
+        }
+
+        return view('welcome');
+    }
+
+    /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Http\Response

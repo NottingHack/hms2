@@ -15,13 +15,7 @@
  * All urls should be hyphenated
  */
 
-Route::get('/', function () {
-    if (Auth::check()) {
-        return redirect()->route('home');
-    }
-
-    return view('welcome');
-})->name('index');
+Route::get('/', 'HomeController@welcome')->name('index');
 
 // Auth Routes
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -37,6 +31,12 @@ Route::get('email/verify', 'Auth\VerificationController@show')->name('verificati
 Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
 Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 
+// Static Pages
+Route::view('credits', 'pages.credits')->name('credits');
+Route::view('company-information', 'pages.companyInformation')->name('companyInformation');
+Route::view('contact-us', 'pages.contactUs')->name('contactUs');
+
+// Unrestricted pages
 Route::get('links', 'LinksController@index')->name('links.index');
 Route::get('instrumentation/status', 'Instrumentation\ServiceController@status')
     ->name('instrumentation.status');

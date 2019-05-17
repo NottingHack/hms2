@@ -3,7 +3,6 @@
 @section('pageTitle', 'Admin')
 
 @section('content')
-
 <div class="container">
   <div class="row">
     <div class="container">
@@ -77,8 +76,5 @@
       </div>
     </div>
   </div>
-
-
-
-  @endsection
-
+</div>
+@endsection

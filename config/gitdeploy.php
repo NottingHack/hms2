@@ -173,43 +173,4 @@ return [
      * The key you specified in the pushing client
      */
     'secret_key' => '',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Post Pull Commands
-    |--------------------------------------------------------------------------
-    |
-    | Array of commands to complete after the pull.
-    | All commands will be run from the repo path
-    |
-    | 'commands' => [
-    |     'composer install --no-dev --optimize-autoloader',
-    |     'php artisan migrate --force'
-    |     'npm install --production',
-    |     'npm run production',
-    |     'php artisan config:cache',
-    |     'php artisan route:cache',
-    |     'php artisan view:cache',
-    | ]
-    */
-
-    'commands' => [
-        'git submodule update --recursive',
-        'composer install',
-        'php artisan migrate --force',
-        'php artisan doctrine:migration:migrate --force',
-        'php artisan hms:database:refresh-views',
-        'php artisan hms:database:refresh-procedures',
-        'npm ci',
-        'npm run production',
-        'php artisan config:cache',
-        'php artisan route:cache',
-        'php artisan view:cache',
-        'php artisan doctrine:clear:metadata:cache',
-        'php artisan doctrine:clear:query:cache',
-        'php artisan doctrine:clear:results',
-        'php artisan doctrine:generate:proxies',
-        'php artisan permissions:sync',
-        'php artisan queue:restart'
-    ],
 ];

@@ -5,6 +5,7 @@ namespace HMS\Repositories\Snackspace\Doctrine;
 use HMS\Entities\User;
 use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Snackspace\Transaction;
+use App\Jobs\Snackspace\ProcessTransaction;
 use HMS\Entities\Snackspace\TransactionState;
 use HMS\Repositories\Snackspace\TransactionRepository;
 use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
@@ -48,17 +49,8 @@ class DoctrineTransactionRepository extends EntityRepository implements Transact
         $this->_em->persist($transaction);
         $this->_em->flush();
 
-        return $transaction;
-    }
+        ProcessTransaction::dispatch($transaction);
 
-    /**
-     * Save Transaction to the DB.
-     *
-     * @param Transaction $transaction
-     */
-    public function save(Transaction $transaction)
-    {
-        $this->_em->persist($transaction);
-        $this->_em->flush();
+        return $transaction;
     }
 }

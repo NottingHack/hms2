@@ -55,6 +55,7 @@ return [
         'Members\Box',
         'Snackspace\Product',
         'Snackspace\Transaction',
+        'Snackspace\PurchasePayment',
         'Tools\Tool',
         'Tools\Booking',
         'Instrumentation\Service',

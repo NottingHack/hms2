@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+use App\Listeners\RoleUpdateLogger;
 use Illuminate\Support\Facades\Event;
+use App\Listeners\ViMbAdminSubscriber;
 use Illuminate\Auth\Events\Registered;
+use App\Listeners\PrintLabelSubscriber;
+use App\Listeners\Tools\NotifyNhToolsSubscriber;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -17,38 +21,6 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
-            'App\Listeners\Invites\RevokeInviteOnUserRegistered',
-            'App\Listeners\Membership\ApprovalEmailOnUserRegistered',
-        ],
-        'App\Events\MembershipInterestRegistered' => [
-            'App\Listeners\Invites\MailInvite',
-        ],
-        'Illuminate\Mail\Events\MessageSending' => [
-            'App\Listeners\LogSentMessage',
-        ],
-        'App\Events\Banking\AuditRequest' => [
-            'App\Listeners\Banking\MembershipAudit',
-        ],
-        'App\Events\Banking\NewMembershipPaidFor' => [
-            'App\Listeners\Membership\ApproveNewMembership',
-        ],
-        'App\Events\Banking\MembershipPaymentWarning' => [
-            'App\Listeners\Membership\WarnMembershipMayExpire',
-        ],
-        'App\Events\Banking\NonPaymentOfMembership' => [
-            'App\Listeners\Membership\RevokeMembership',
-        ],
-        'App\Events\Banking\ReinstatementOfMembershipPayment' => [
-            'App\Listeners\Membership\ReinstateMembership',
-        ],
-        'App\Events\Banking\TransactionsUploaded' => [
-            'App\Listeners\Banking\SaveNewTransactions',
-        ],
-        'App\Events\Membership\YoungHackerAuditRequest' => [
-            'App\Listeners\Membership\AuditYoungHackers',
-        ],
-        'App\Events\Users\UserPasswordChanged' => [
-            'App\Listeners\Users\EmailOnPasswordChange',
         ],
     ];
 
@@ -58,10 +30,10 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $subscribe = [
-        'App\Listeners\ViMbAdminSubscriber',
-        'App\Listeners\RoleUpdateLogger',
-        'App\Listeners\PrintLabelSubscriber',
-        'App\Listeners\Tools\NotifyNhToolsSubscriber',
+        ViMbAdminSubscriber::class,
+        RoleUpdateLogger::class,
+        PrintLabelSubscriber::class,
+        NotifyNhToolsSubscriber::class,
     ];
 
     /**
@@ -74,5 +46,15 @@ class EventServiceProvider extends ServiceProvider
         parent::boot();
 
         //
+    }
+
+    /**
+     * Determine if events and listeners should be automatically discovered.
+     *
+     * @return bool
+     */
+    public function shouldDiscoverEvents()
+    {
+        return true;
     }
 }

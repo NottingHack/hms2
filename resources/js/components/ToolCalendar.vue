@@ -497,7 +497,7 @@
           buttons: [
             {
               label: this.defaultView == 'agendaWeek' ? '&nbsp;' : '',
-              class: 'btn-outline-dark',
+              class: 'btn btn-sm btn-outline-dark',
               iconClass: 'fas fa-times',
               cancel: true,
             },
@@ -509,7 +509,7 @@
             {
               label: this.defaultView == 'agendaWeek' ? '&nbsp;Maintenance' : '',
               value: 'MAINTENANCE',
-              class: 'btn-booking-maintenance',
+              class: 'btn btn-sm btn-booking-maintenance',
               iconClass: 'fas fa-wrench',
             }
           );
@@ -520,7 +520,7 @@
             {
               label: this.defaultView == 'agendaWeek' ? '&nbsp;Induction' : '',
               value: 'INDUCTION',
-              class: 'btn-booking-induction',
+              class: 'btn btn-sm btn-booking-induction',
               iconClass: 'fas fa-chalkboard-teacher',
             }
           );
@@ -532,7 +532,7 @@
               {
                 label: this.defaultView == 'agendaWeek' ? '&nbsp;Normal' : '',
                 value: 'NORMAL',
-                class: 'btn-booking-normal',
+                class: 'btn btn-sm btn-booking-normal',
                 iconClass: 'fas fa-check',
               }
             );
@@ -564,8 +564,8 @@
           title: 'Would you like to cancel this booking?',
           popout: true,
           singleton: true,
-          btnOkClass: 'btn-danger',
-          btnCancelClass: 'btn-outline-dark',
+          btnOkClass: 'btn btn-sm btn-danger',
+          btnCancelClass: 'btn btn-sm btn-outline-dark',
           onConfirm(type) {
             $(info.el).removeClass('booking-selected');
             self.cancelBooking(info.event);

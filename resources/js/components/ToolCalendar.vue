@@ -5,11 +5,15 @@
 </template>
 
 <script>
-  import { Calendar } from 'fullcalendar';
-  import 'fullcalendar/dist/plugins/moment-timezone';
+  import { Calendar } from '@fullcalendar/core';
+  import timeGridPlugin from '@fullcalendar/timegrid';
+  import interactionPlugin from '@fullcalendar/interaction';
+  import momentPlugin from '@fullcalendar/moment';
+  import momentTimezonePlugin from '@fullcalendar/moment-timezone';
+  import bootstrapPlugin from '@fullcalendar/bootstrap';
   import moment from 'moment';
   require('bootstrap-confirmation2');
-  const humanizeDuration = require('humanize-duration')
+  const humanizeDuration = require('humanize-duration');
   import Loading from 'vue-loading-overlay';
   import 'vue-loading-overlay/dist/vue-loading.css';
   Vue.use(Loading);
@@ -28,7 +32,7 @@
       return {
         axiosCancle: null,
         calendar: null,
-        defaultView: 'agendaDay',
+        defaultView: 'timeGridDay',
         isLoading: true,
         loader: null,
         interval: null,
@@ -39,9 +43,15 @@
       defaultConfig() {
         const self = this;
         return {
+          plugins: [
+            timeGridPlugin,
+            interactionPlugin,
+            momentPlugin,
+            momentTimezonePlugin,
+            bootstrapPlugin,
+          ],
           locale: 'en-gb',
           timeZone: 'Europe/London',
-          timeZoneImpl: 'moment-timezone',
           firstDay: 1,
           eventSources: [
             {
@@ -69,7 +79,7 @@
           unselectCancel: '.popover',
           eventOverlap: false,
           defaultView: this.defaultView,
-          themeSystem: 'bootstrap4',
+          themeSystem: 'bootstrap',
           header: {
             left:   'prev',
             center: 'today',
@@ -84,8 +94,8 @@
             today:  'Today',
           },
           views: {
-            agenda: {
-              // options apply to agendaWeek and agendaDay views
+            timeGrid: {
+              // options apply to timeGridWeek and timeGridDay views
               allDaySlot: false,
               nowIndicator: true,
               slotDuration: '00:15',
@@ -496,7 +506,7 @@
           },
           buttons: [
             {
-              label: this.defaultView == 'agendaWeek' ? '&nbsp;' : '',
+              label: this.defaultView == 'timeGridWeek' ? '&nbsp;' : '',
               class: 'btn btn-sm btn-outline-dark',
               iconClass: 'fas fa-times',
               cancel: true,
@@ -507,7 +517,7 @@
         if (this.userCanBook.maintenance) {
           options.buttons.splice(0, 0,
             {
-              label: this.defaultView == 'agendaWeek' ? '&nbsp;Maintenance' : '',
+              label: this.defaultView == 'timeGridWeek' ? '&nbsp;Maintenance' : '',
               value: 'MAINTENANCE',
               class: 'btn btn-sm btn-booking-maintenance',
               iconClass: 'fas fa-wrench',
@@ -518,7 +528,7 @@
         if (this.userCanBook.induction) {
           options.buttons.splice(0, 0,
             {
-              label: this.defaultView == 'agendaWeek' ? '&nbsp;Induction' : '',
+              label: this.defaultView == 'timeGridWeek' ? '&nbsp;Induction' : '',
               value: 'INDUCTION',
               class: 'btn btn-sm btn-booking-induction',
               iconClass: 'fas fa-chalkboard-teacher',
@@ -530,7 +540,7 @@
           if (this.userCanBook.normalCurrentCount < this.bookingsMax) {
             options.buttons.splice(0, 0,
               {
-                label: this.defaultView == 'agendaWeek' ? '&nbsp;Normal' : '',
+                label: this.defaultView == 'timeGridWeek' ? '&nbsp;Normal' : '',
                 value: 'NORMAL',
                 class: 'btn btn-sm btn-booking-normal',
                 iconClass: 'fas fa-check',
@@ -594,9 +604,9 @@
         const windowWidth = document.documentElement.clientWidth;
 
         if (windowWidth < 767.98) {
-          this.defaultView = 'agendaDay';
+          this.defaultView = 'timeGridDay';
         } else {
-          this.defaultView = 'agendaWeek';
+          this.defaultView = 'timeGridWeek';
         }
 
         if (this.calendar !== null) {
@@ -651,7 +661,10 @@
 
 <style lang="scss">
 @import '~sass/_variables.scss';
-@import '~fullcalendar/dist/fullcalendar.css';
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
+@import '~@fullcalendar/timegrid/main.css';
+@import '~@fullcalendar/bootstrap/main.css';
 @import '~sass/color-helpers';
 
 // override the bootstrap 4 theme today highlight

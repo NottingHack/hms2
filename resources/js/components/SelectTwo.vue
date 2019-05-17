@@ -5,8 +5,8 @@
 </template>
 
 <script>
-// Componet orignall from https://github.com/godbasin/vue-select2/
-// but we dont need the following imports as we have them else where
+// Component originally from https://github.com/godbasin/vue-select2/
+// but we don't need the following imports as we have them else where
 // import $ from 'jquery';
 // import 'select2';
 // import 'select2/dist/css/select2.min.css'

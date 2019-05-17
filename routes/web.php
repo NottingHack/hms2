@@ -52,6 +52,7 @@ Route::middleware(['ipcheck'])->group(function () {
 // Routes in the following group can only be access once logged-in
 Route::middleware(['auth'])->group(function () {
     Route::view('registration-complete', 'pages.registrationComplete')->name('registrationComplete');
+
     // Users (show, edit, update) to allow users to update there email if they can't verify it
     Route::resource(
         'users',

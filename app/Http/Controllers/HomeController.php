@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use HMS\Entities\Role;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\Members\ProjectRepository;
 
@@ -46,6 +47,10 @@ class HomeController extends Controller
     public function index()
     {
         $user = \Auth::user();
+
+        if ($user->hasRoleByName(Role::MEMBER_APPROVAL)) {
+            return view('pages.awaitingApproval');
+        }
 
         $projectCount = $this->projectRepository->countActiveByUser($user);
 

@@ -11,19 +11,6 @@ use Illuminate\Support\ServiceProvider;
 class AppServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        // helper for formatting pennies
-        \Blade::directive('format_pennies', function ($pennies) {
-            return "<?php setlocale(LC_MONETARY, 'en_GB.UTF-8'); echo money_format('%n', (" . $pennies . ')/100); ?>';
-        });
-    }
-
-    /**
      * Register any application services.
      *
      * @return void
@@ -38,6 +25,19 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton(FakerGenerator::class, function ($app) {
             return FakerFactory::create($app['config']->get('app.faker_locale', 'en_US'));
+        });
+    }
+
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        // helper for formatting pennies
+        \Blade::directive('format_pennies', function ($pennies) {
+            return "<?php setlocale(LC_MONETARY, 'en_GB.UTF-8'); echo money_format('%n', (" . $pennies . ')/100); ?>';
         });
     }
 }

@@ -1,20 +1,95 @@
 <template>
-  <div class="container">
-    <div ref="calendar" id="calendar"></div>
+  <div class="container" ref="calendar">
+    <FullCalendar
+      ref="fullCalendar"
+
+      :plugins="calendarPlugins"
+      locale="en-gb"
+      timeZone="Europe/London"
+      :firstDay=1
+      :eventSources="eventSources"
+
+      @loading="loading"
+      @select="select"
+      @unselect="unselect"
+      :selectAllow="selectAllow"
+      @eventClick="eventClick"
+      :eventAllow="eventAllow"
+      @eventDragStart="removeConfirmation"
+      @eventDrop="eventDrop"
+      @eventResizeStart="removeConfirmation"
+      @eventResize="eventResize"
+      @datesDestroy="removeConfirmation"
+
+      :selectable=true
+      :selectOverlap=false
+      :selectMirror=true
+      unselectCancel=".popover"
+      :eventOverlap=false
+      :defaultView="defaultView"
+      themeSystem="bootstrap"
+      :header="{
+        left:   'prev',
+        center: 'today',
+        right:  'next',
+      }"
+      :footer="{
+        left:   'prev',
+        center: 'today',
+        right:  'next',
+      }"
+      :buttonText="{
+        today:  'Today',
+      }"
+      :views="{
+        timeGrid: {
+          // options apply to timeGridWeek and timeGridDay views
+          allDaySlot: false,
+          nowIndicator: true,
+          slotDuration: '00:15',
+          slotLabelInterval: '01:00',
+          slotLabelFormat: {
+            hour12: false,
+            hour: '2-digit',
+            minute: '2-digit',
+          },
+          // scrollTime: moment().format('HH:mm'),
+          columnHeaderFormat: {
+            weekday: 'narrow',
+            day: '2-digit',
+            month: '2-digit',
+            year: '2-digit',
+          },
+          eventTimeFormat: {
+            hour12: false,
+            hour: '2-digit',
+            minute: '2-digit',
+          },
+        },
+      }"
+      />
   </div>
 </template>
 
 <script>
-  import { Calendar } from 'fullcalendar';
-  import 'fullcalendar/dist/plugins/moment-timezone';
+  import FullCalendar from '@fullcalendar/vue'
+  import timeGridPlugin from '@fullcalendar/timegrid';
+  import interactionPlugin from '@fullcalendar/interaction';
+  import momentPlugin from '@fullcalendar/moment';
+  import momentTimezonePlugin from '@fullcalendar/moment-timezone';
+  import bootstrapPlugin from '@fullcalendar/bootstrap';
   import moment from 'moment';
   require('bootstrap-confirmation2');
-  const humanizeDuration = require('humanize-duration')
+  const humanizeDuration = require('humanize-duration');
   import Loading from 'vue-loading-overlay';
   import 'vue-loading-overlay/dist/vue-loading.css';
   Vue.use(Loading);
 
   export default {
+    components: {
+      FullCalendar, // make the <FullCalendar> tag available
+    },
+
     props: [
       'toolId',
       'bookingLengthMax',
@@ -27,91 +102,26 @@
     data() {
       return {
         axiosCancle: null,
-        calendar: null,
-        defaultView: 'agendaDay',
+        calendarApi: null,
+        defaultView: 'timeGridDay',
         isLoading: true,
         loader: null,
         interval: null,
+        calendarPlugins: [
+          timeGridPlugin,
+          interactionPlugin,
+          momentPlugin,
+          momentTimezonePlugin,
+          bootstrapPlugin,
+        ],
+        eventSources: [
+          {
+            events: this.fetchBookings,
+            id: 'bookings',
+          },
+        ],
       };
     },
-
-    computed: {
-      defaultConfig() {
-        const self = this;
-        return {
-          locale: 'en-gb',
-          timeZone: 'Europe/London',
-          timeZoneImpl: 'moment-timezone',
-          firstDay: 1,
-          eventSources: [
-            {
-              events: this.fetchBookings,
-              id: 'bookings',
-            },
-          ],
-
-          // type callbacks to our methods
-          loading: this.loading,
-          select: this.select,
-          unselect: this.unselect,
-          selectAllow: this.selectAllow,
-          eventClick: this.eventClick,
-          eventAllow: this.eventAllow,
-          eventDragStart: this.removeConfirmation,
-          eventDrop: this.eventDrop,
-          eventResizeStart: this.removeConfirmation,
-          eventResize: this.eventResize,
-          datesDestroy: this.removeConfirmation,
-
-          selectable: true,
-          selectOverlap: false,
-          selectMirror: true,
-          unselectCancel: '.popover',
-          eventOverlap: false,
-          defaultView: this.defaultView,
-          themeSystem: 'bootstrap4',
-          header: {
-            left:   'prev',
-            center: 'today',
-            right:  'next',
-          },
-          footer: {
-            left:   'prev',
-            center: 'today',
-            right:  'next',
-          },
-          buttonText: {
-            today:  'Today',
-          },
-          views: {
-            agenda: {
-              // options apply to agendaWeek and agendaDay views
-              allDaySlot: false,
-              nowIndicator: true,
-              slotDuration: '00:15',
-              slotLabelInterval: '01:00',
-              slotLabelFormat: {
-                hour12: false,
-                hour: '2-digit',
-                minute: '2-digit',
-              },
-              // scrollTime: moment().format('HH:mm'),
-              columnHeaderFormat: {
-                weekday: 'narrow',
-                day: '2-digit',
-                month: '2-digit',
-                year: '2-digit',
-              },
-              eventTimeFormat: {
-                hour12: false,
-                hour: '2-digit',
-                minute: '2-digit',
-              },
-            },
-          },
-        };
-      },
-    }, // end of computed
 
     methods: {
       loading(isLoading) {
@@ -339,8 +349,8 @@
               }
 
               this.removeConfirmation();
-              this.calendar.unselect();
-              this.calendar.addEvent(booking, 'bookings');
+              this.calendarApi.unselect();
+              this.calendarApi.addEvent(booking, 'bookings');
               flash('Booking created');
             } else {
               flash('Error creating booking', 'danger');
@@ -355,7 +365,7 @@
             if (error.response) {
               // if HTTP_UNPROCESSABLE_ENTITY some validation error laravel or us
               // else if HTTP_CONFLICT to many bookings or over lap
-              this.calendar.refetchEvents();  // has some one else booked this slot we should refect to see if they have
+              this.calendarApi.refetchEvents();  // has some one else booked this slot we should refect to see if they have
               // else if HTTP_FORBIDDEN on enough permissions
               console.log('createBooking: Response error', error.response.data, error.response.status, error.response.headers);
 
@@ -393,9 +403,9 @@
               //   this.userCanBook.normalCurrentCount--;
               // }
 
-              // this.calendar.unselect();
-              // // this.calendar.addEvent(booking, 'bookings'); // this is broken until the next release
-              // this.calendar.refetchEvents(); // using this until the above is fixed
+              // this.calendarApi.unselect();
+              // // this.calendarApi.addEvent(booking, 'bookings'); // this is broken until the next release
+              // this.calendarApi.refetchEvents(); // using this until the above is fixed
             } else {
               flash('Error updating booking', 'danger');
               revert();
@@ -411,7 +421,7 @@
             if (error.response) {
               // if HTTP_UNPROCESSABLE_ENTITY some validation error laravel or us
               // else if HTTP_CONFLICT to many bookings or over lap
-              this.calendar.refetchEvents();  // has some one else booked this slot we
+              this.calendarApi.refetchEvents();  // has some one else booked this slot we
               // else if HTTP_FORBIDDEN on enough permissions
               console.log('patchBooking: Response error', error.response.data, error.response.status, error.response.headers);
             } else if (error.request) {
@@ -492,11 +502,11 @@
             self.bookOnConfirm(type, selectionInfo);
           },
           onCancel() {
-            self.calendar.unselect();
+            self.calendarApi.unselect();
           },
           buttons: [
             {
-              label: this.defaultView == 'agendaWeek' ? '&nbsp;' : '',
+              label: this.defaultView == 'timeGridWeek' ? '&nbsp;' : '',
               class: 'btn btn-sm btn-outline-dark',
               iconClass: 'fas fa-times',
               cancel: true,
@@ -507,7 +517,7 @@
         if (this.userCanBook.maintenance) {
           options.buttons.splice(0, 0,
             {
-              label: this.defaultView == 'agendaWeek' ? '&nbsp;Maintenance' : '',
+              label: this.defaultView == 'timeGridWeek' ? '&nbsp;Maintenance' : '',
               value: 'MAINTENANCE',
               class: 'btn btn-sm btn-booking-maintenance',
               iconClass: 'fas fa-wrench',
@@ -518,7 +528,7 @@
         if (this.userCanBook.induction) {
           options.buttons.splice(0, 0,
             {
-              label: this.defaultView == 'agendaWeek' ? '&nbsp;Induction' : '',
+              label: this.defaultView == 'timeGridWeek' ? '&nbsp;Induction' : '',
               value: 'INDUCTION',
               class: 'btn btn-sm btn-booking-induction',
               iconClass: 'fas fa-chalkboard-teacher',
@@ -530,7 +540,7 @@
           if (this.userCanBook.normalCurrentCount < this.bookingsMax) {
             options.buttons.splice(0, 0,
               {
-                label: this.defaultView == 'agendaWeek' ? '&nbsp;Normal' : '',
+                label: this.defaultView == 'timeGridWeek' ? '&nbsp;Normal' : '',
                 value: 'NORMAL',
                 class: 'btn btn-sm btn-booking-normal',
                 iconClass: 'fas fa-check',
@@ -594,13 +604,13 @@
         const windowWidth = document.documentElement.clientWidth;
 
         if (windowWidth < 767.98) {
-          this.defaultView = 'agendaDay';
+          this.defaultView = 'timeGridDay';
         } else {
-          this.defaultView = 'agendaWeek';
+          this.defaultView = 'timeGridWeek';
         }
 
-        if (this.calendar !== null) {
-          this.calendar.changeView(this.defaultView);
+        if (this.calendarApi !== null) {
+          this.calendarApi.changeView(this.defaultView);
           this.removeConfirmation();
         }
       },
@@ -632,13 +642,12 @@
         this.getWindowResize();
       });
 
-      this.calendar = new Calendar(this.$refs.calendar, this.defaultConfig);
-      this.calendar.render();
+      this.calendarApi = this.$refs.fullCalendar.getApi();
 
       // Call refetchEventsevery 15 minutes, so past events are shaded
       this.interval = setInterval(function () {
         // TODO: once we have Echo running only really need to call this if there is an event under now ±15
-        this.calendar.refetchEvents();
+        this.calendarApi.refetchEvents();
       }.bind(this), 900000);
     },
 
@@ -651,7 +660,10 @@
 
 <style lang="scss">
 @import '~sass/_variables.scss';
-@import '~fullcalendar/dist/fullcalendar.css';
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
+@import '~@fullcalendar/timegrid/main.css';
+@import '~@fullcalendar/bootstrap/main.css';
 @import '~sass/color-helpers';
 
 // override the bootstrap 4 theme today highlight

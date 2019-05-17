@@ -194,19 +194,20 @@ return [
     */
 
     'commands' => [
+        'git submodule update --recursive',
         'composer install',
         'php artisan migrate --force',
         'php artisan doctrine:migration:migrate --force',
         'php artisan hms:database:refresh-views',
         'php artisan hms:database:refresh-procedures',
-        'npm install --production',
+        'npm ci',
         'npm run production',
         'php artisan config:cache',
         'php artisan route:cache',
         'php artisan view:cache',
         'php artisan doctrine:clear:metadata:cache',
         'php artisan doctrine:clear:query:cache',
-        'php artisan doctrine:clear:results:cache',
+        'php artisan doctrine:clear:results',
         'php artisan doctrine:generate:proxies',
         'php artisan permissions:sync',
         'php artisan queue:restart'

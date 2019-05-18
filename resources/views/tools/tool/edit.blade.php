@@ -5,7 +5,7 @@
 @section('content')
 <div class="container">
   <form class="form-group" role="form" method="POST" action="{{ route('tools.update', $tool->getId()) }}">
-    {{ csrf_field() }}
+    @csrf
   {{ method_field('PATCH') }}
     <div class="form-group">
       <label for="toolName" class="form-label">Name</label>

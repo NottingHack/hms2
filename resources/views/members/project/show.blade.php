@@ -53,7 +53,7 @@
     <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-sm btn-primary btn-sm-spacing">
       <form action="{{ route('projects.markComplete', $project->getId()) }}" method="POST" style="display: none">
         {{ method_field('PATCH') }}
-        {{ csrf_field() }}
+        @csrf
       </form>
       <i class="fas fa-check fa-lg" aria-hidden="true"></i> Mark Complete
     </a>
@@ -61,7 +61,7 @@
     <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-sm btn-primary btn-sm-spacing">
       <form action="{{ route('projects.markAbandoned', $project->getId()) }}" method="POST" style="display: none">
         {{ method_field('PATCH') }}
-        {{ csrf_field() }}
+        @csrf
       </form>
       <i class="far fa-frown fa-lg" aria-hidden="true"></i> Mark Abandoned
     </a>
@@ -75,7 +75,7 @@
     <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-sm btn-primary btn-sm-spacing">
       <form action="{{ route('projects.markActive', $project->getId()) }}" method="POST" style="display: none">
         {{ method_field('PATCH') }}
-        {{ csrf_field() }}
+        @csrf
       </form>
       <i class="fal fa-play fa-lg" aria-hidden="true"></i> Resume Project
     </a>

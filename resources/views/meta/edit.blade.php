@@ -7,7 +7,7 @@
   <p>Editing value for <strong>{{ $key }}</strong></p>
   <hr>
   <form role="form" method="POST" action="{{ route('metas.update', $key) }}">
-    {{ csrf_field() }}
+    @csrf
     {{ method_field('PATCH') }}
     <div class="form-group">
       <label for="value" class="form-text">Value</label>

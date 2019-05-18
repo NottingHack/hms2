@@ -28,7 +28,7 @@
   </div>
   <hr>
   <form role="form" method="POST" action="{{ route('bank-transactions.update', $bankTransaction->getId()) }}">
-    {{ csrf_field() }}
+    @csrf
     {{ method_field('PATCH') }}
 
     <div class="existing-account-select2">

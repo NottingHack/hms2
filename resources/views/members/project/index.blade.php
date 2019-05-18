@@ -50,7 +50,7 @@ Projects for {{ $user->getFirstname() }}
             <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm btn-sm-spacing">
               <form action="{{ route('projects.markComplete', $project->getId()) }}" method="POST" style="display: none">
                 {{ method_field('PATCH') }}
-                {{ csrf_field() }}
+                @csrf
               </form>
               <i class="fas fa-check" aria-hidden="true"></i> Mark Complete
             </a>
@@ -58,7 +58,7 @@ Projects for {{ $user->getFirstname() }}
             <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm btn-sm-spacing">
               <form action="{{ route('projects.markAbandoned', $project->getId()) }}" method="POST" style="display: none">
                 {{ method_field('PATCH') }}
-                {{ csrf_field() }}
+                @csrf
               </form>
               <i class="far fa-frown" aria-hidden="true"></i> Mark Abandoned
             </a><br>
@@ -68,7 +68,7 @@ Projects for {{ $user->getFirstname() }}
             <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm btn-sm-spacing">
               <form action="{{ route('projects.markActive', $project->getId()) }}" method="POST" style="display: none">
                 {{ method_field('PATCH') }}
-                {{ csrf_field() }}
+                @csrf
               </form>
               <i class="fal fa-play" aria-hidden="true"></i> Resume Project
             </a>

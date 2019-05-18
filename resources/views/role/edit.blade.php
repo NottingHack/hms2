@@ -10,7 +10,7 @@
 
 <div class="container">
   <form role="form" method="POST" action="{{ route('roles.update', $role->getId()) }}">
-    {{ csrf_field() }}
+    @csrf
     {{ method_field('PUT') }}
 
  <div class="form-group">

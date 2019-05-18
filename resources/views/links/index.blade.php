@@ -33,7 +33,7 @@
         <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-danger">
           <form action="{{ route('links.destroy', $link->getId()) }}" method="POST" style="display: none">
             {{ method_field('DELETE') }}
-            {{ csrf_field() }}
+            @csrf
           </form>
           <i class="fas fa-trash" aria-hidden="true"></i> Remove
         </a>

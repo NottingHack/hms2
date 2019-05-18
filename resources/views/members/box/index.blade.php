@@ -65,7 +65,7 @@ Boxes for {{ $user->getFirstname() }}
             <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm">
               <form action="{{ route('boxes.markRemoved', $box->getId()) }}" method="POST" style="display: none">
                 {{ method_field('PATCH') }}
-                {{ csrf_field() }}
+                @csrf
               </form>
               <i class="fas fa-minus-circle" aria-hidden="true"></i> Mark Removed
             </a>
@@ -73,7 +73,7 @@ Boxes for {{ $user->getFirstname() }}
             <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm btn-sm-spacing">
               <form action="{{ route('boxes.markAbandoned', $box->getId()) }}" method="POST" style="display: none">
                 {{ method_field('PATCH') }}
-                {{ csrf_field() }}
+                @csrf
               </form>
               <i class="far fa-frown" aria-hidden="true"></i> Mark Abandoned
             </a><br>
@@ -83,7 +83,7 @@ Boxes for {{ $user->getFirstname() }}
             <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm btn-sm-spacing">
               <form action="{{ route('boxes.markInUse', $box->getId()) }}" method="POST" style="display: none">
                 {{ method_field('PATCH') }}
-                {{ csrf_field() }}
+                @csrf
               </form>
               <i class="fal fa-play" aria-hidden="true"></i> Mark In Use
             </a>

@@ -10,7 +10,7 @@ Confirm issuing a new box
   <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-success">
     <form action="{{ route('boxes.store') }}" method="POST" style="display: none">
       {{ method_field('POST') }}
-      {{ csrf_field() }}
+      @csrf
       <input type="hidden" name="boxUser" value="{{ $boxUser->getId() }}">
     </form>
     <i class="fas fa-check" aria-hidden="true"></i> Confirm issue box

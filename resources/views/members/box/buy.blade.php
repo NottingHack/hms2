@@ -10,7 +10,7 @@ Confirm buying a new box
   <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-success">
   <form action="{{ route('boxes.store') }}" method="POST" style="display: none">
     {{ method_field('POST') }}
-    {{ csrf_field() }}
+    @csrf
   </form>
   <i class="fas fa-check" aria-hidden="true"></i> Confirm buy box
   </a>

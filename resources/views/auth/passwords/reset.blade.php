@@ -7,7 +7,7 @@
   <p>Choose a new password for your HMS account.</p>
 
   <form role="form" method="POST" action="{{ url('/password/reset') }}">
-    {{ csrf_field() }}
+    @csrf
 
     <input type="hidden" name="token" value="{{ $token }}">
 

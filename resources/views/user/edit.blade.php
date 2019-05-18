@@ -10,7 +10,7 @@
     </div>
 
     <form id="user-edit-form" role="form" method="POST" action="{{ route('users.update', $user->getId()) }}">
-      {{ csrf_field() }}
+      @csrf
       {{ method_field('PUT') }}
       <div class="card-body">
         <label>Username</label>

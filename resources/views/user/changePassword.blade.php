@@ -12,7 +12,7 @@
         </div>
 
         <form id="change-password-form" role="form" method="POST" action="{{ route('users.changePassword.update', $user->getId()) }}">
-          {{ csrf_field() }}
+          @csrf
           {{ method_field('PUT') }}
           <div class="card-body">
             <label for="currentPassword" class="form-label">Current Password</label>

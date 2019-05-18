@@ -14,7 +14,7 @@
   <p>Enter the email address you registered with to receive a link which will allow you to reset your password.</p>
 
   <form role="form" method="POST" action="{{ route('password.email') }}">
-    {{ csrf_field() }}
+    @csrf
 
     <div class="form-group">
       <label class="form-label" for="email">E-Mail Address</label>

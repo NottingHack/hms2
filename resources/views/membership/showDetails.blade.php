@@ -82,7 +82,7 @@
           <p>To approve these member details please select if a new bank reference should be created or if this account should be link to another member's account.</p>
 
           <form role="form" method="POST" action="{{ route('membership.approve', $user->getId()) }}">
-            {{ csrf_field() }}
+            @csrf
             <label for="value" class="form-label">Account</label>
             <div class="form-group">
               <div class="form-tickbox-row">
@@ -114,7 +114,7 @@
           <h5 class="modal-title" id="ApproveTitle">Reject Details</h5>
         </div>
         <form role="form" method="POST" action="{{ route('membership.reject', $user->getId()) }}">
-          {{ csrf_field() }}
+          @csrf
           <div class="modal-body">
             <p>To reject these member details please provide the reason why and ask the member to update them using the email box below.</p>
             <label for="reason" class="form-label">Reason</label>

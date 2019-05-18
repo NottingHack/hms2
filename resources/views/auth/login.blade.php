@@ -15,7 +15,7 @@
           <h4>Login</h4>
 
           <form role="form" method="POST" action="{{ url('/login') }}">
-            {{ csrf_field() }}
+            @csrf
 
             <div class="form-group">
               <input id="login" type="text" name="login" value="{{ old('login') }}" class="form-control{{ $errors->has('login') ? ' is-invalid' : '' }}" placeholder="Email address or Username" required autofocus>

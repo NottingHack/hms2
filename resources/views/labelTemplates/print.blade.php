@@ -11,7 +11,7 @@
     </div>
     <div class="card-footer">
       <form role="form" method="POST" action="{{ route('labels.print', $templateName) }}">
-        {{ csrf_field() }}
+        @csrf
         @if ( ! empty($fields))
         <p>This template requires the following information to print.</p>
         @foreach ($fields as $field)

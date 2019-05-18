@@ -67,7 +67,8 @@
           },
         },
       }"
-      />
+      >
+    </FullCalendar>
   </div>
 </template>
 

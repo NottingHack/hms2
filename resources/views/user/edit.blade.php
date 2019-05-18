@@ -11,7 +11,7 @@
 
     <form id="user-edit-form" role="form" method="POST" action="{{ route('users.update', $user->getId()) }}">
       @csrf
-      {{ method_field('PUT') }}
+      @method('PUT')
       <div class="card-body">
         <label>Username</label>
         <h5>{{ old('username', $user->getUsername()) }}</h5>

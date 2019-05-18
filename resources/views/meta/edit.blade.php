@@ -8,7 +8,7 @@
   <hr>
   <form role="form" method="POST" action="{{ route('metas.update', $key) }}">
     @csrf
-    {{ method_field('PATCH') }}
+    @method('PATCH')
     <div class="form-group">
       <label for="value" class="form-text">Value</label>
       <input class="form-control" id="value" type="text" name="value" value="{{ old('value', $value) }}" required autofocus>

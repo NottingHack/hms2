@@ -25,7 +25,7 @@
             <a class="btn btn-primary btn-sm btn-sm-spacing" href="{{ route('labels.edit', $labelTemplate->getTemplateName()) }}"><i class="fas fa-pencil fa-lg" aria-hidden="true"></i> Edit</a>
             <a class="btn btn-danger btn-sm btn-sm-spacing" href="javascript:void(0);" onclick="$(this).find('form').submit();">
               <form action="{{ route('labels.destroy', $labelTemplate->getTemplateName()) }}" method="POST" style="display: inline">
-                {{ method_field('DELETE') }}
+                @method('DELETE')
                 @csrf
               </form>
               <i class="fas fa-trash fa-lg" aria-hidden="true"></i> Remove

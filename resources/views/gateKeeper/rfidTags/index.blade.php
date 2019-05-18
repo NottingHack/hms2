@@ -21,7 +21,7 @@ Rfid cards for {{ $user->getFirstname() }}
         <div class="col-sm">
           <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm btn-sm-spacing ">
             <form action="{{ route('pins.reactivate', $pin->getId()) }}" method="POST" style="display: none">
-              {{ method_field('PATCH') }}
+              @method('PATCH')
               @csrf
             </form>
             <i class="fas fa-sync-alt fa-lg" aria-hidden="true"></i> Reactivate pin for enrolment
@@ -65,7 +65,7 @@ Rfid cards for {{ $user->getFirstname() }}
             @can('rfidTags.destroy')
             <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-danger btn-sm btn-sm-spacing">
               <form action="{{ route('rfid-tags.destroy', $rfidTag->getId()) }}" method="POST" style="display: none">
-                {{ method_field('DELETE') }}
+                @method('DELETE')
                 @csrf
               </form>
               <i class="fas fa-trash fa-lg" aria-hidden="true"></i> Remove

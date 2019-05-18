@@ -7,7 +7,7 @@
 
 <form id="membership-edit-details-form" role="form" method="POST" action="{{ route('membership.update', $user->getId()) }}">
   @csrf
-  {{ method_field('PUT') }}
+  @method('PUT')
 
   <div class="form-container">
     <div class="row">

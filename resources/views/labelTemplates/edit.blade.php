@@ -6,7 +6,7 @@
 <div class="container">
   <form role="form" method="POST" action="{{ route('labels.update', $templateName) }}">
     @csrf
-    {{ method_field('PATCH') }}
+    @method('PATCH')
     @include ('labelTemplates.partials.form', ['submitButtonText' => 'Update template'])
   </form>
 </div>

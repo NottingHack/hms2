@@ -8,7 +8,7 @@ Rfid card for {{ $rfidTag->getUser()->getFirstname() }}
 <div class="container">
   <form role="form" method="POST" action="{{ route('rfid-tags.update', $rfidTag->getId()) }}">
     @csrf
-    {{ method_field('PATCH') }}
+    @method('PATCH')
     <div class="form-group">
       <label for="rfidSerial" class="form-label">Card Serial</label>
       <div class="form-control-plaintext">

@@ -64,7 +64,7 @@ Boxes for {{ $user->getFirstname() }}
             @if ($box->getUser() == \Auth::user())
             <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm">
               <form action="{{ route('boxes.markRemoved', $box->getId()) }}" method="POST" style="display: none">
-                {{ method_field('PATCH') }}
+                @method('PATCH')
                 @csrf
               </form>
               <i class="fas fa-minus-circle" aria-hidden="true"></i> Mark Removed
@@ -72,7 +72,7 @@ Boxes for {{ $user->getFirstname() }}
             @else
             <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm btn-sm-spacing">
               <form action="{{ route('boxes.markAbandoned', $box->getId()) }}" method="POST" style="display: none">
-                {{ method_field('PATCH') }}
+                @method('PATCH')
                 @csrf
               </form>
               <i class="far fa-frown" aria-hidden="true"></i> Mark Abandoned
@@ -82,7 +82,7 @@ Boxes for {{ $user->getFirstname() }}
             @if ($box->getState() != \HMS\Entities\Members\BoxState::INUSE)
             <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm btn-sm-spacing">
               <form action="{{ route('boxes.markInUse', $box->getId()) }}" method="POST" style="display: none">
-                {{ method_field('PATCH') }}
+                @method('PATCH')
                 @csrf
               </form>
               <i class="fal fa-play" aria-hidden="true"></i> Mark In Use

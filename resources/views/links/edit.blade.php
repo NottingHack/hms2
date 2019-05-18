@@ -6,7 +6,7 @@
 <div class="container">
   <form role="form" method="POST" action="{{ route('links.update', $id) }}">
     @csrf
-    {{ method_field('PATCH') }}
+    @method('PATCH')
     @include ('links.partials.form', ['submitButtonText' => 'Update link'])
   </form>
 </div>

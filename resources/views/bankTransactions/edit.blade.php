@@ -29,7 +29,7 @@
   <hr>
   <form role="form" method="POST" action="{{ route('bank-transactions.update', $bankTransaction->getId()) }}">
     @csrf
-    {{ method_field('PATCH') }}
+    @method('PATCH')
 
     <div class="existing-account-select2">
       <select name="existing-account" class="js-data-existing-account-ajax" style="width:100%">

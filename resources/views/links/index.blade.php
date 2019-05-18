@@ -32,7 +32,7 @@
         <a href="{{ route('links.edit', $link->getId()) }}" class="btn btn-primary"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
         <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-danger">
           <form action="{{ route('links.destroy', $link->getId()) }}" method="POST" style="display: none">
-            {{ method_field('DELETE') }}
+            @method('DELETE')
             @csrf
           </form>
           <i class="fas fa-trash" aria-hidden="true"></i> Remove

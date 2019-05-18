@@ -6,7 +6,7 @@
 <div class="container">
   <form class="form-group" role="form" method="POST" action="{{ route('tools.update', $tool->getId()) }}">
     @csrf
-  {{ method_field('PATCH') }}
+  @method('PATCH')
     <div class="form-group">
       <label for="toolName" class="form-label">Name</label>
       <input id="toolName" class="form-control" type="text" name="toolName" placeholder="Name of Tool" value="{{ old('toolName', $tool->getName()) }}" required autofocus>

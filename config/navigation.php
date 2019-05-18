@@ -34,8 +34,8 @@ return [
         ],
         'snackspaceTransactions' => [
             'text'          => 'Snackspace',
-            'route'         => 'transactions.index',
-            'match'         => 'transactions.index',
+            'route'         => 'snackspace.transactions.index',
+            'match'         => 'snackspace.transactions.index',
             'permissions'   => ['snackspaceTransaction.view.self'],
             'links'         => [],
         ],

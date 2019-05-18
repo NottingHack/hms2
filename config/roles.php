@@ -50,6 +50,7 @@ return [
         'bankTransation.upload',
         'snackspaceTransaction.view.self',
         'snackspaceTransaction.view.all',
+        'snackspaceTransaction.create.all', // Trustees and snackspace team can create manual transactions
         'snackspace.purchase',              // Can buy stuff either vend or chargeable tool
         'snackspace.purchase.creditOnly',   // Can buy stuff either vend or chargeable tool but only if there in credit (ex members)
         'snackspace.payment',               // can make a payment
@@ -282,6 +283,7 @@ return [
                 'box.edit.all',
                 'box.printLabel.all',
                 'snackspaceTransaction.view.all',
+                'snackspaceTransaction.create.all',
                 'rfidTags.view.self',
                 'rfidTags.view.all',
                 'rfidTags.edit.self',

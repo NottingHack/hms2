@@ -8,8 +8,8 @@
   <hr>
 
   @can('link.create')
-  <div class="navbar navbar-light bg-secondary">
-    <a href="{{ route('links.create') }}" class="nav-link btn btn-primary"><i class="fas fa-plus" aria-hidden="true"></i> Add new link</a>
+  <div class="card">
+    <a href="{{ route('links.create') }}" class="btn btn-primary"><i class="fas fa-plus" aria-hidden="true"></i> Add new link</a>
   </div>
   <br>
   @endcan

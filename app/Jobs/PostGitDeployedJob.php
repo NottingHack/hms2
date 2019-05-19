@@ -30,7 +30,7 @@ class PostGitDeployedJob implements ShouldQueue
      */
     private $preShellCommands = [
         'git submodule update --recursive',
-        'composer install',
+        'composer install --no-interaction --optimize-autoloader --no-dev',
         'npm ci',
         'npm run production',
     ];
@@ -45,9 +45,11 @@ class PostGitDeployedJob implements ShouldQueue
         'doctrine:migrations:migrate --force',
         'hms:database:refresh-views',
         'hms:database:refresh-procedures',
+        'cache:clear',
         'config:cache',
         'route:cache',
         'view:cache',
+        'auth:clear-resets',
         'doctrine:clear:metadata:cache',
         'doctrine:clear:query:cache',
         'doctrine:clear:result:cache',
@@ -82,7 +84,7 @@ class PostGitDeployedJob implements ShouldQueue
      */
     public function __construct()
     {
-        $this->queue = 'maintance';
+        $this->queue = 'maintenance';
     }
 
     /**

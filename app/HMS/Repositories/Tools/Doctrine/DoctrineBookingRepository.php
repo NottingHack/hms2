@@ -20,7 +20,7 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
      *
      * @return null|Booking
      */
-    public function currnetForTool(Tool $tool)
+    public function currentForTool(Tool $tool)
     {
         $now = Carbon::now();
 

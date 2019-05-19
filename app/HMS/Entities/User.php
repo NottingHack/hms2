@@ -195,7 +195,7 @@ class User implements
      *
      * @return string
      */
-    public function getRememberToken(): string
+    public function getRememberToken()
     {
         return $this->{$this->getRememberTokenName()};
     }

@@ -83,6 +83,7 @@ return [
         'gatekeeper.zoneEntry.teamStrorage',
         'gatekeeper.zoneEntry.downstairsMembersStrorage',
         'gatekeeper.zoneEntry.ouside',
+        'horizon.view',
     ],
 
     /*
@@ -331,6 +332,7 @@ return [
                 'labelTemplate.edit',
                 'labelTemplate.print',
                 'gatekeeper.zoneEntry.teamStrorage',
+                'horizon.view',
             ],
         ],
         'team.finance' => [
@@ -356,6 +358,7 @@ return [
                 'tools.maintainer.grant',
                 'tools.inductor.grant',
                 'gatekeeper.zoneEntry.teamStrorage',
+                'horizon.view',
             ],
         ],
     ],

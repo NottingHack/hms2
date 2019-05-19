@@ -37,6 +37,8 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('auth:clear-resets')
                 ->weekly();
+
+        $schedule->command('horizon:snapshot')->everyFiveMinutes();
     }
 
     /**

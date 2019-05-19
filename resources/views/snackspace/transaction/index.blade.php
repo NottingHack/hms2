@@ -15,7 +15,8 @@ Snackspace account for {{ $user->getFirstname() }}
 
   <br>
   <p>Words about purchases/payments records, credit limit and how to pay off balance in the space at the cash acceptors.</p>
-
+</div>
+<div class="container">
   <div class="table-responsive">
     <table class="table table-bordered table-hover">
       <thead>
@@ -43,4 +44,12 @@ Snackspace account for {{ $user->getFirstname() }}
     {{ $transactions->links() }}
   </div>
 </div>
+@can ('snackspaceTransaction.create.all')
+<div class="container">
+  <div class="card">
+    <a href="{{ route('users.snackspace.transactions.create', $user->getId()) }}"  class="btn btn-primary"><i class="fas fa-plus" aria-hidden="true"></i> Add manual transaction</a>
+  </div>
+</div>
+@endcan
+
 @endsection

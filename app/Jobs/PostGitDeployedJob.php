@@ -55,7 +55,7 @@ class PostGitDeployedJob implements ShouldQueue
         'doctrine:clear:result:cache',
         'doctrine:generate:proxies',
         'permissions:sync',
-        'queue:restart',
+        'horizon:terminate',
     ];
 
     /**

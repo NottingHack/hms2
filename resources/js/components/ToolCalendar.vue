@@ -661,10 +661,6 @@
 
 <style lang="scss">
 @import '~sass/_variables.scss';
-@import '~@fullcalendar/core/main.css';
-@import '~@fullcalendar/daygrid/main.css';
-@import '~@fullcalendar/timegrid/main.css';
-@import '~@fullcalendar/bootstrap/main.css';
 @import '~sass/color-helpers';
 
 // override the bootstrap 4 theme today highlight

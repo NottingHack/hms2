@@ -15,6 +15,12 @@
 @import '~@fortawesome/fontawesome-pro/scss/light';
 @import '~@fortawesome/fontawesome-pro/scss/brands';
 
+//FullCalendar
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
+@import '~@fullcalendar/timegrid/main.css';
+@import '~@fullcalendar/bootstrap/main.css';
+
 /* HMS Custom CSS */
 
 @import 'layout/header';

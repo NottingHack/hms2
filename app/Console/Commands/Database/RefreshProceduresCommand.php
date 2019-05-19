@@ -44,6 +44,8 @@ class RefreshProceduresCommand extends Command
         $hostname = gethostname();
         if ($hostname == 'hmsdev') {
             $hostname = '%';
+        } else {
+            $hostname .= '.lspace';
         }
 
         $proceduresDirectory = config('hms.procedures_directory');

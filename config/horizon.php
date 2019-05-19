@@ -158,5 +158,15 @@ return [
                 'tries' => 3,
             ],
         ],
+
+        'rommie' => [
+            'supervisor-1' => [
+                'connection' => 'redis',
+                'queue' => ['default', 'maintanance'],
+                'balance' => 'simple',
+                'processes' => 3,
+                'tries' => 3,
+            ],
+        ],
     ],
 ];

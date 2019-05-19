@@ -30,7 +30,7 @@ class PostGitDeployedJob implements ShouldQueue
      */
     private $preShellCommands = [
         'git submodule update --recursive',
-        'composer install --no-interaction --optimize-autoloader --no-dev',
+        'composer install --no-interaction --optimize-autoloader',
         'npm ci',
         'npm run production',
     ];

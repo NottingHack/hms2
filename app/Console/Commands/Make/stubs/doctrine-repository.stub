@@ -10,6 +10,7 @@ class DoctrineDummyClassRepository extends EntityRepository implements DummyClas
 {
     /**
      * Save DummyClass to the DB.
+     *
      * @param DummyClass $dummyClass
      */
     public function save(DummyClass $dummyClass)

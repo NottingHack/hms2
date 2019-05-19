@@ -11,7 +11,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "NottingHack/hms2"
-  config.vm.box_version = ">=1.1.0"
+  config.vm.box_version = ">=1.2.0"
   config.vm.hostname = "hmsdev.nottingtest.org.uk"
 
   config.vm.provider :virtualbox do |vb|

@@ -60,11 +60,11 @@ class RefreshProceduresCommand extends Command
 
             $pdo->exec($sql);
 
-            $spname = basename($procedureFile, ".sql");
-            if (substr($spname, 0, 3) == "fn_") {
-              $query = "GRANT EXECUTE ON FUNCTION $spname TO '$databaseUsername'@'$hostname'";
+            $spname = basename($procedureFile, '.sql');
+            if (substr($spname, 0, 3) == 'fn_') {
+                $query = "GRANT EXECUTE ON FUNCTION $spname TO '$databaseUsername'@'$hostname'";
             } else {
-              $query = "GRANT EXECUTE ON PROCEDURE $spname TO '$databaseUsername'@'$hostname'";
+                $query = "GRANT EXECUTE ON PROCEDURE $spname TO '$databaseUsername'@'$hostname'";
             }
 
             DB::unprepared($query);

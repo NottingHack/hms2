@@ -4,6 +4,8 @@ namespace App\Console\Commands\Database;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Database\QueryException;
 
 class RefreshProceduresCommand extends Command
 {
@@ -68,8 +70,11 @@ class RefreshProceduresCommand extends Command
             } else {
                 $query = "GRANT EXECUTE ON PROCEDURE $spname TO '$databaseUsername'@'$hostname'";
             }
-
-            DB::unprepared($query);
+            try {
+                DB::unprepared($query);
+            } catch (QueryException  $e) {
+                Log::warning($e->getMessage());
+            }
         }
     }
 }

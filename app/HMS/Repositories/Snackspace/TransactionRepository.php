@@ -25,11 +25,4 @@ interface TransactionRepository
      * @param Transaction $transaction
      */
     public function saveAndUpdateBalance(Transaction $transaction);
-
-    /**
-     * Save Transaction to the DB.
-     *
-     * @param Transaction $transaction
-     */
-    public function save(Transaction $transaction);
 }

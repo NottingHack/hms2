@@ -6,7 +6,10 @@ use HMS\Entities\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use HMS\Repositories\UserRepository;
+use HMS\Entities\Snackspace\Transaction;
 use Doctrine\ORM\EntityNotFoundException;
+use HMS\Entities\Snackspace\TransactionType;
+use HMS\Factories\Snackspace\TransactionFactory;
 use HMS\Repositories\Snackspace\TransactionRepository;
 
 class TransactionsController extends Controller
@@ -22,17 +25,28 @@ class TransactionsController extends Controller
     protected $userRepository;
 
     /**
+     * @var TransactionFactory
+     */
+    protected $transactionFactory;
+
+    /**
      * Create a new controller instance.
      *
      * @param TransactionRepository $transactionRepository
      * @param UserRepository $userRepository
+     * @param TransactionFactory $transactionFactory
      */
-    public function __construct(TransactionRepository $transactionRepository, UserRepository $userRepository)
-    {
+    public function __construct(
+        TransactionRepository $transactionRepository,
+        UserRepository $userRepository,
+        TransactionFactory $transactionFactory
+    ) {
         $this->transactionRepository = $transactionRepository;
         $this->userRepository = $userRepository;
+        $this->transactionFactory = $transactionFactory;
 
         $this->middleware('can:snackspaceTransaction.view.self')->only(['index']);
+        $this->middleware('can:snackspaceTransaction.create.all')->only(['create', 'store']);
     }
 
     /**
@@ -68,5 +82,46 @@ class TransactionsController extends Controller
 
         return view('snackspace.transaction.index')
             ->with(['user' => $user, 'transactions' => $transactions]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param User $user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create(User $user)
+    {
+        return view('snackspace.transaction.create')
+            ->with('user', $user);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param User $user
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function store(User $user, Request $request)
+    {
+        $validatedData = $request->validate([
+            'description' => 'required|string|max:512',
+            'amount' => 'required|integer',
+        ]);
+
+        $transaction = $this->transactionFactory
+            ->create(
+                $user,
+                $validatedData['amount'],
+                TransactionType::MANUAL,
+                $validatedData['description']
+            );
+        $this->transactionRepository->saveAndUpdateBalance($transaction);
+        flash('Transaction added.')->success();
+
+        return redirect()->route('users.snackspace.transactions', $user->getId());
     }
 }

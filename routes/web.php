@@ -182,13 +182,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Snackspace
     Route::get('users/{user}/snackspace/transactions', 'Snackspace\TransactionsController@index')
         ->name('users.snackspace.transactions');
-    Route::resource(
+    Route::get(
+        'users/{user}/snackspace/transactions/create',
+        'Snackspace\TransactionsController@create'
+    )->name('users.snackspace.transactions.create');
+    Route::post(
+        'users/{user}/snackspace/transactions',
+        'Snackspace\TransactionsController@store'
+    )->name('users.snackspace.transactions.store');
+    Route::get(
         'snackspace/transactions',
-        'Snackspace\TransactionsController',
-        [
-            'except' => ['show', 'store', 'create', 'edit', 'update', 'destroy'],
-        ]
-    );
+        'Snackspace\TransactionsController@index'
+    )->name('snackspace.transactions.index');
 
     // Tools
     Route::resource('tools', 'Tools\ToolController');

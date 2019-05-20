@@ -41,7 +41,7 @@ class RefreshViewsCommand extends Command
         $databaseName = DB::getDatabaseName();
         $dropQuery =
             'SET @views = NULL;' .
-            'SELECT GROUP_CONCAT(table_schema, \'.\', table_name) INTO @views' .
+            'SELECT GROUP_CONCAT(\'`\', table_schema, \'`.\', table_name) INTO @views' .
             ' FROM information_schema.views' .
             ' WHERE table_schema = \'' . $databaseName . '\';' .
             'SET @views = IFNULL(CONCAT(\'DROP VIEW \', @views), \'SELECT \"No Views\"\');' .

@@ -91,6 +91,16 @@ class User implements
     protected $emails;
 
     /**
+     * @var bool
+     */
+    protected $google2faEnable;
+
+    /**
+     * @var string|null
+     */
+    protected $google2faSecret;
+
+    /**
      * User constructor.
      *
      * @param string $firstname
@@ -339,5 +349,45 @@ class User implements
     public function getEmails()
     {
         return $this->emails;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isGoogle2faEnable()
+    {
+        return $this->google2faEnable;
+    }
+
+    /**
+     * @param bool $google2faEnable
+     *
+     * @return self
+     */
+    public function setGoogle2faEnable(bool $google2faEnable)
+    {
+        $this->google2faEnable = $google2faEnable;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getGoogle2faSecret()
+    {
+        return $this->google2faSecret;
+    }
+
+    /**
+     * @param string|null $google2faSecret
+     *
+     * @return self
+     */
+    public function setGoogle2faSecret($google2faSecret)
+    {
+        $this->google2faSecret = $google2faSecret;
+
+        return $this;
     }
 }

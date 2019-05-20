@@ -38,6 +38,13 @@ HMS\Entities\User:
       column: email_verified_at
       type: datetime
       nullable: true
+    google2faEnable:
+      type: boolean
+      options:
+        default: 0
+    google2faSecret:
+      type: string
+      nullable: true
     deletedAt:
       type: datetime
       nullable: true

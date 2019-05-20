@@ -84,7 +84,7 @@ $(".js-data-existing-account-ajax").select2({
               obj.text = obj.fullname;
               return obj;
       });
-      
+
       // indicate that infinite scrolling can be used
       params.page = params.page || 1;
 
@@ -106,8 +106,9 @@ $(".js-data-existing-account-ajax").select2({
 // helpers for the above select2 searches
 function formatUser (user) {
   if (user.loading) return user.text;
+  var lock = user.google2fa ? '&nbsp;<i class="far fa-lock"></i>' : '';
   var markup = '<div class="membersearch">' +
-    '<div class="name"><span class="fullname">' + user.fullname + '</span> <span class="username">' + user.username + '</span></div>' +
+    '<div class="name"><span class="fullname">' + user.fullname + '</span> <span class="username">(' + user.username + ')</span>' + lock + '</div>' +
     '<div class="email">' + user.email + '</div>' +
     '<div class="address">' + user.address1 + ', ' + user.addressPostcode + '</div>' +
     '<div class="paymentref">' + user.paymentRef + '</div>' +

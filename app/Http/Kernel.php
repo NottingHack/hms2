@@ -67,6 +67,7 @@ class Kernel extends HttpKernel
         'entity.bindings' => \LaravelDoctrine\ORM\Middleware\SubstituteBindings::class,
         'json.request' => \App\Http\Middleware\JsonRequestMiddleware::class,
         'client' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
+        '2fa' => \App\Http\Middleware\Google2FAMiddleware::class,
     ];
 
     /**

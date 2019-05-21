@@ -53,8 +53,8 @@ Route::middleware(['ipcheck'])->group(function () {
     Route::post('register-interest', 'RegisterInterestController@registerInterest');
 });
 
-// Routes in the following group can only be access once logged-in
-Route::middleware(['auth'])->group(function () {
+// Routes in the following group can only be access once logged-in and if enabled valid 2fa
+Route::middleware(['auth', '2fa'])->group(function () {
     Route::view('registration-complete', 'pages.registrationComplete')->name('registrationComplete');
 
     // Users (show, edit, update) to allow users to update there email if they can't verify it
@@ -67,17 +67,20 @@ Route::middleware(['auth'])->group(function () {
     );
 });
 
-// Routes in the following group can only be access once logged-in and have verified your email address
-Route::middleware(['auth', 'verified', '2fa'])->group(function () {
-    Route::get('home', 'HomeController@index')->name('home');
-    Route::get('access-codes', 'HomeController@accessCodes')->name('accessCodes');
-
+// Routes in the following group can only be access once logged-in and have verified your email address but do not require 2fa
+Route::middleware(['auth', 'verified'])->group(function () {
     // 2fa Auth
     Route::get('2fa', 'Auth\TwoFactorAuthenticationController@show2faForm')->name('2fa');
     Route::post('2fa/generate2faSecret', 'Auth\TwoFactorAuthenticationController@generate2faSecret')
         ->name('2fa.generate2faSecret');
     Route::post('2fa', 'Auth\TwoFactorAuthenticationController@enable2fa')->name('2fa.enable2fa');
     Route::post('2fa/disable2fa', 'Auth\TwoFactorAuthenticationController@disable2fa')->name('2fa.disable2fa');
+});
+
+// Routes in the following group can only be access once logged-in and have verified your email address and if enabled valid 2fa
+Route::middleware(['auth', 'verified', '2fa'])->group(function () {
+    Route::get('home', 'HomeController@index')->name('home');
+    Route::get('access-codes', 'HomeController@accessCodes')->name('accessCodes');
 
     // ROLE
     Route::get('roles', 'RoleController@index')->name('roles.index');

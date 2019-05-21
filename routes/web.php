@@ -45,8 +45,8 @@ Route::get('instrumentation/{service}/events/', 'Instrumentation\ServiceControll
 
 // Routes in the following group can only be access from inside the hackspace (as defined by the ip range in .env)
 Route::middleware(['ipcheck'])->group(function () {
-    Route::get('/register-interest', 'RegisterInterestController@index')->name('registerInterest');
-    Route::post('/register-interest', 'RegisterInterestController@registerInterest');
+    Route::get('register-interest', 'RegisterInterestController@index')->name('registerInterest');
+    Route::post('register-interest', 'RegisterInterestController@registerInterest');
 });
 
 // Routes in the following group can only be access once logged-in
@@ -67,11 +67,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('access-codes', 'HomeController@accessCodes')->name('accessCodes');
 
     // ROLE
-    Route::get('/roles', 'RoleController@index')->name('roles.index');
-    Route::get('/roles/{role}', 'RoleController@show')->name('roles.show');
-    Route::get('/roles/{role}/edit', 'RoleController@edit')->name('roles.edit');
-    Route::put('/roles/{role}', 'RoleController@update')->name('roles.update');
-    Route::delete('/roles/{role}/users/{user}', 'RoleController@removeUser')->name('roles.removeUser');
+    Route::get('roles', 'RoleController@index')->name('roles.index');
+    Route::get('roles/{role}', 'RoleController@show')->name('roles.show');
+    Route::get('roles/{role}/edit', 'RoleController@edit')->name('roles.edit');
+    Route::put('roles/{role}', 'RoleController@update')->name('roles.update');
+    Route::delete('roles/{role}/users/{user}', 'RoleController@removeUser')->name('roles.removeUser');
     Route::patch('team/{role}/users', 'RoleController@addUsertoTeam')->name('roles.addUsertoTeam');
 
     // USER
@@ -121,14 +121,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('labels', 'LabelTemplateController');
 
     // Membership
-    Route::get('/membership/approval/{user}', 'MembershipController@showDetailsForApproval')
+    Route::get('membership/approval/{user}', 'MembershipController@showDetailsForApproval')
         ->name('membership.approval');
-    Route::post('/membership/approve-details/{user}', 'MembershipController@approveDetails')
+    Route::post('membership/approve-details/{user}', 'MembershipController@approveDetails')
         ->name('membership.approve');
-    Route::post('/membership/reject-details/{user}', 'MembershipController@rejectDetails')
+    Route::post('membership/reject-details/{user}', 'MembershipController@rejectDetails')
         ->name('membership.reject');
-    Route::get('/membership/update-details/{user}', 'MembershipController@editDetails')->name('membership.edit');
-    Route::put('/membership/update-details/{user}', 'MembershipController@updateDetails')->name('membership.update');
+    Route::get('membership/update-details/{user}', 'MembershipController@editDetails')->name('membership.edit');
+    Route::put('membership/update-details/{user}', 'MembershipController@updateDetails')->name('membership.update');
 
     // Members Projects and DNH labels
     Route::get('users/{user}/projects', 'Members\ProjectController@index')->name('users.projects');
@@ -160,6 +160,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
             'except' => ['show', 'edit', 'update', 'destroy'],
         ]
     );
+
+    // Accounts
+    Route::get('accounts/list-joint', 'Banking\AccountController@listJoint')->name('banking.accounts.listJoint');
+    Route::get('accounts/{account}', 'Banking\AccountController@show')->name('banking.accounts.show');
+    Route::patch('accounts/{account}/link-user/', 'Banking\AccountController@linkUser')
+        ->name('banking.accounts.linkUser');
+    Route::patch('accounts/{account}/unlink-user/', 'Banking\AccountController@unlinkUser')
+        ->name('banking.accounts.unlinkUser');
 
     // Bank Transactions
     Route::get('bank-transactions/unmatched', 'Banking\BankTransactionsController@listUnmatched')

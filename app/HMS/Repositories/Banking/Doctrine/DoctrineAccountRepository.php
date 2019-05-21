@@ -5,9 +5,12 @@ namespace HMS\Repositories\Banking\Doctrine;
 use HMS\Entities\Banking\Account;
 use Doctrine\ORM\EntityRepository;
 use HMS\Repositories\Banking\AccountRepository;
+use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 
 class DoctrineAccountRepository extends EntityRepository implements AccountRepository
 {
+    use PaginatesFromRequest;
+
     /**
      * @param $id
      *
@@ -49,6 +52,25 @@ class DoctrineAccountRepository extends EntityRepository implements AccountRepos
           ->getQuery();
 
         return $q->getResult();
+    }
+
+    /**
+     * @param int $perPage
+     * @param string $pageName
+     *
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function paginateJointAccounts($perPage = 15, $pageName = 'page')
+    {
+        $q = parent::createQueryBuilder('a')
+            ->leftJoin('a.users', 'user')
+            ->where('user.account IS NOT NULL')
+            ->groupBy('a.id, a.paymentRef')
+            ->having('COUNT(0) > 1');
+
+        $q = $q->getQuery();
+
+        return $this->paginate($q, $perPage, $pageName);
     }
 
     /**

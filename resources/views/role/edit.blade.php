@@ -80,9 +80,9 @@
 
     <br>
     <hr>
-      <div class="form-group text-center">
-        <input type="submit" class="btn btn-success" name="save" value="Save">
-      </div>
+    <div class="form-group text-center">
+      <input type="submit" class="btn btn-success" name="save" value="Save">
+    </div>
   </form>
 </div>
 @endsection

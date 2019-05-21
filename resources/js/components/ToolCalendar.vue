@@ -1,6 +1,6 @@
 <template>
   <div class="container" ref="calendar">
-    <FullCalendar
+    <full-calendar
       ref="fullCalendar"
 
       :plugins="calendarPlugins"

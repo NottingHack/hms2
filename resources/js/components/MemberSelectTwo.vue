@@ -64,7 +64,7 @@
           data: function (params) {
             return {
               q: params.term, // search term
-              withAccount: self.withAccount,
+              withAccount: self.withAccount ? 1 : 0,
               page: params.page
             };
           },

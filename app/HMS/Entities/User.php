@@ -120,6 +120,7 @@ class User implements
         $this->email = $email;
         $this->roles = new ArrayCollection();
         $this->emails = new ArrayCollection();
+        $this->google2faEnable = false;
     }
 
     /**

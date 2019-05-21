@@ -112,6 +112,13 @@ return [
                     'permissions'   => ['bankTransactions.reconcile'],
                     'links'         => [],
                 ],
+                'horizon'          => [
+                    'text'          => 'Horizon',
+                    'route'         => 'horizon.index',
+                    'match'         => 'horizon.index',
+                    'permissions'   => ['horizon.view'],
+                    'links'         => [],
+                ],
             ],
         ],
     ],

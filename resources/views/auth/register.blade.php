@@ -13,7 +13,7 @@
     </div>
 
     <form id="register-form" role="form" method="POST" action="{{ url('/register') }}">
-      {{ csrf_field() }}
+      @csrf
       <div class="card-body">
         <input type="hidden" name="invite" value="{{ old('invite', $invite) }}">
         @if ($errors->has('invite'))

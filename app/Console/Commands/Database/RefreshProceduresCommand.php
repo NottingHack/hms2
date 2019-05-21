@@ -38,7 +38,6 @@ class RefreshProceduresCommand extends Command
      */
     public function handle()
     {
-        $pdo = DB::getPdo();
         $databaseName = DB::getDatabaseName();
         $databaseUsername = DB::getConfig('username');
         $hostname = gethostname();
@@ -55,21 +54,25 @@ class RefreshProceduresCommand extends Command
 
         foreach ($procedureSqlFiles as $procedureFile) {
             $this->info('Creating procedures: ' . $procedureFile);
-            $sql = file_get_contents($proceduresDirectory . DIRECTORY_SEPARATOR . $procedureFile);
-
-            $sql = str_replace('DELIMITER //', '', $sql);
-            $sql = str_replace(" //\nDELIMITER ;", '', $sql);
-
-            $pdo->exec($sql);
 
             $spname = basename($procedureFile, '.sql');
             if (substr($spname, 0, 3) == 'fn_') {
-                $query = "GRANT EXECUTE ON FUNCTION $spname TO '$databaseUsername'@'$hostname'";
+                $this->info('Skipping FUNCTION');
+                continue; // Bail on functions as they need SUPER
+                $dropQuery = "DROP FUNCTION IF EXISTS $spname";
+                $grantQuery = "GRANT EXECUTE ON FUNCTION $spname TO '$databaseUsername'@'$hostname'";
             } else {
-                $query = "GRANT EXECUTE ON PROCEDURE $spname TO '$databaseUsername'@'$hostname'";
+                $dropQuery = "DROP PROCEDURE IF EXISTS $spname";
+                $grantQuery = "GRANT EXECUTE ON PROCEDURE $spname TO '$databaseUsername'@'$hostname'";
             }
 
-            DB::unprepared($query);
+            $sql = file_get_contents($proceduresDirectory . DIRECTORY_SEPARATOR . $procedureFile);
+            preg_match_all('/CREATE.*END/ms', $sql, $createArray);
+            $createQuery = $createArray[0][0];
+
+            DB::unprepared($dropQuery);
+            DB::unprepared($createQuery);
+            DB::unprepared($grantQuery);
         }
     }
 }

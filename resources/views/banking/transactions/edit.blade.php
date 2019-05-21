@@ -28,8 +28,8 @@
   </div>
   <hr>
   <form role="form" method="POST" action="{{ route('bank-transactions.update', $bankTransaction->getId()) }}">
-    {{ csrf_field() }}
-    {{ method_field('PATCH') }}
+    @csrf
+    @method('PATCH')
 
     <div class="existing-account-select2">
       <member-select-two name="existing-account" :with-account="true" :return-account-id="true"></member-select-two>

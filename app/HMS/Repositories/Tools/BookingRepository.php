@@ -16,7 +16,7 @@ interface BookingRepository
      *
      * @return null|Booking
      */
-    public function currnetForTool(Tool $tool);
+    public function currentForTool(Tool $tool);
 
     /**
      * Get the next booking for a tool.

@@ -15,7 +15,7 @@
           <h4>Register Interest</h4>
 
           <form role="form" method="POST" action="{{ route('registerInterest') }}">
-            {{ csrf_field() }}
+            @csrf
 
             <div class="form-group">
               <input id="email" type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="Email address" required autofocus>

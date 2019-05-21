@@ -12,8 +12,8 @@
         </div>
 
         <form id="change-password-form" role="form" method="POST" action="{{ route('users.changePassword.update', $user->getId()) }}">
-          {{ csrf_field() }}
-          {{ method_field('PUT') }}
+          @csrf
+          @method('PUT')
           <div class="card-body">
             <label for="currentPassword" class="form-label">Current Password</label>
             <input placeholder="Current Password" class="form-control" id="currentPassword" type="password" name="currentPassword" required autofocus autocomplete="current-password">

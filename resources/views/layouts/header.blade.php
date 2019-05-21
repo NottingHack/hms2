@@ -1,5 +1,5 @@
 <!-- header -->
-<header>
+<header id="headerApp">
   <div class="header align-items-center py-3">
     <div class="col-sm-auto">
       <a href="/">

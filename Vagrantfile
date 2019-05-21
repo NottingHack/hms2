@@ -18,6 +18,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ['modifyvm', :id, '--memory', '2048']
     vb.customize ['modifyvm', :id, '--natdnsproxy1', 'on']
     vb.customize ['modifyvm', :id, '--natdnshostresolver1', 'on']
+    vb.customize ['guestproperty', 'set', :id,
+      '/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold', 10000 ]
   end
 
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/nginx.sh"

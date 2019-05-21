@@ -110,7 +110,7 @@
                 <input name="new-account" type="radio" id="No" value="0" class="js-programmatic-enable">
                 <label for="No">Link to an existing account</label>
               </div>
-              <member-select-two class="js-programmatic-state" name="existing-account" :with-account="true" :return-account-id="true" disabled="disabled"></member-select-two>
+              <member-select-two class="js-programmatic-state" name="existing-account" :with-account="true" :return-account-id="true" :disabled="true"></member-select-two>
             </div>
               <div class="modal-footer">
                 <button type="submit" class="btn btn-success">Approve Details</button>

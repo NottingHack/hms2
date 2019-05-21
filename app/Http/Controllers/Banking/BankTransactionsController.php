@@ -115,6 +115,7 @@ class BankTransactionsController extends Controller
      */
     public function edit(BankTransaction $bankTransaction)
     {
+        // TODO: bail if this transaction is all ready matched
         return view('banking.transactions.edit')->with(['bankTransaction' => $bankTransaction]);
     }
 

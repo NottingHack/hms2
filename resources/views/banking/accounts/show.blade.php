@@ -45,7 +45,8 @@ Account {{ $account->getPaymentRef() }}
       @csrf
       <div class="form-group">
         <label>Select a user to link to this account</label>
-        <member-select-two></member-select-two>
+        {{-- TODO: should we limit this to with-account? --}}
+        <member-select-two :with-account="false"></member-select-two>
       </div>
       <div class="form-group text-center">
         <button class="btn btn-success"type="submit"><i class="fas fa-link" aria-hidden="true"></i> Link User</button>

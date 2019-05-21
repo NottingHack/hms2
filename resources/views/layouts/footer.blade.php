@@ -26,6 +26,7 @@
         <li><a href="{{ route('companyInformation') }}">Company Information</a></li>
         <li><a href="{{ route('contactUs') }}">Contact us</a></li>
         <li><a href="https://rules.nottinghack.org.uk/">Rules</a></li>
+        <li><a href="{{ route('instrumentation.status') }}">Instrumentation Status</a></li>
       </ul>
     </div>
     <div class="col-sm-3 d-none d-sm-block">

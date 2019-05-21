@@ -6,7 +6,7 @@ use HMS\Entities\User;
 use HMS\Auth\PasswordStore;
 use Illuminate\Database\Seeder;
 use HMS\Repositories\RoleRepository;
-use LaravelDoctrine\ORM\Facades\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 
 class UserTableSeeder extends Seeder
 {
@@ -36,15 +36,22 @@ class UserTableSeeder extends Seeder
     protected $passwordStore;
 
     /**
+     * @var EntityManagerInterface
+     */
+    protected $entityManager;
+
+    /**
      * Create a new TableSeeder instance.
      *
      * @param RoleRepository $roleRepository
      * @param PasswordStore  $passwordStore
+     * @param EntityManagerInterface $entityManager
      */
-    public function __construct(RoleRepository $roleRepository, PasswordStore $passwordStore)
+    public function __construct(RoleRepository $roleRepository, PasswordStore $passwordStore, EntityManagerInterface $entityManager)
     {
         $this->roleRepository = $roleRepository;
         $this->passwordStore = $passwordStore;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -75,7 +82,7 @@ class UserTableSeeder extends Seeder
             ->each(function ($u) {
                 $u->getRoles()->add($this->roleRepository->findOneByName(Role::MEMBER_CURRENT));
                 $this->passwordStore->add($u->getUsername(), 'password');
-                EntityManager::persist($u);
+                $this->entityManager->persist($u);
             });
 
         // create all the other types
@@ -85,7 +92,7 @@ class UserTableSeeder extends Seeder
                 ->each(function ($u) use ($role) {
                     $u->getRoles()->add($this->roleRepository->findOneByName($role));
                     $this->passwordStore->add($u->getUsername(), 'password');
-                    EntityManager::persist($u);
+                    $this->entityManager->persist($u);
                 });
         }
 
@@ -95,9 +102,9 @@ class UserTableSeeder extends Seeder
             $admin->getRoles()->add($this->roleRepository->findOneByName(Role::SUPERUSER));
             $admin->setEmailVerifiedAt(new Carbon);
             $this->passwordStore->add($admin->getUsername(), 'admin');
-            EntityManager::persist($admin);
+            $this->entityManager->persist($admin);
         }
 
-        EntityManager::flush();
+        $this->entityManager->flush();
     }
 }

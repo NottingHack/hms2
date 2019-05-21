@@ -5,7 +5,7 @@ use HMS\Entities\Profile;
 use Illuminate\Database\Seeder;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
-use LaravelDoctrine\ORM\Facades\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 
 class ProfileTableSeeder extends Seeder
 {
@@ -19,10 +19,23 @@ class ProfileTableSeeder extends Seeder
      */
     protected $userRepository;
 
-    public function __construct(RoleRepository $roleRepository, UserRepository $userRepository)
+    /**
+     * @var EntityManagerInterface
+     */
+    protected $entityManager;
+
+    /**
+     * Create a new TableSeeder instance.
+     *
+     * @param RoleRepository $roleRepository
+     * @param UserRepository $userRepository,
+     * @param EntityManagerInterface $entityManager
+     */
+    public function __construct(RoleRepository $roleRepository, UserRepository $userRepository, EntityManagerInterface $entityManager)
     {
         $this->roleRepository = $roleRepository;
         $this->userRepository = $userRepository;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -52,9 +65,9 @@ class ProfileTableSeeder extends Seeder
                     $p = entity(Profile::class)->make(['user' => $user]);
                     break;
                 }
-                EntityManager::persist($p);
+                $this->entityManager->persist($p);
             }
         }
-        EntityManager::flush();
+        $this->entityManager->flush();
     }
 }

@@ -1,6 +1,13 @@
 <template>
   <div>
-    <select ref="select" class="form-control" :name="name" :placeholder="placeholder" :disabled="disabled"></select>
+    <select
+      ref="select"
+      class="form-control"
+      :name="name"
+      :placeholder="placeholder"
+      :disabled="disabled"
+      >
+    </select>
   </div>
 </template>
 

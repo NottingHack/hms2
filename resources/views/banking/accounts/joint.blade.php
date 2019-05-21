@@ -4,9 +4,9 @@
 
 @section('content')
 <div class="container">
-  {{-- id --}}
-  {{-- paymentRef --}}
-  {{-- Users --}}
+  <p>
+    Words about the accounts below being a list of all current joint accounts.
+  </p>
   <div class="table-responsive">
     <table class="table table-bordered table-hover">
       <thead>
@@ -40,5 +40,8 @@
   <div class="pagination-links">
     {{ $jointAccounts->links() }}
   </div>
+  <hr>
+  <p>Search for an account to view</p>
+  <member-search action="{{ route('banking.accounts.show', ['user' => '_ID_']) }}" placeholder="Search for an Account..." :with-account="true" :return-account-id="true"></member-search>
 </div>
 @endsection

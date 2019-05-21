@@ -54,7 +54,7 @@ class AccountController extends Controller
     public function listJoint()
     {
         $joinAccounts = $this->accountRepository->paginateJointAccounts();
-        dump($joinAccounts[0]->getUsers());
+
         return view('banking.accounts.joint')
             ->with('jointAccounts', $joinAccounts);
     }

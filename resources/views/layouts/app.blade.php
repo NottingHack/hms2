@@ -31,7 +31,7 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-  <div  id="app">
+  <div id="app">
     @include('layouts.header')
 
     @include('cookieConsent::index')

@@ -1,6 +1,14 @@
 <template>
   <div ref="selectDiv">
-    <select-two v-model="value" :name="name" :placeholder="placeholder" :settings="mySettings" @change="myChangeEvent" @select="mySelectEvent" style="width: 100%"></select-two>
+    <select-two
+      v-model="value"
+      :name="name"
+      :placeholder="placeholder"
+      :settings="mySettings"
+      @change="myChangeEvent"
+      @select="mySelectEvent"
+      style="width: 100%"
+      />
   </div>
 </template>
 
@@ -12,20 +20,14 @@
        type: String,
        default: 'user_id'
       },
-      placeholder:  {
+      placeholder: {
         type: String,
         default: 'Search for a member...'
       },
       // Search for only users with an account
-      withAccount: {
-        type: Boolean,
-        default: false,
-      },
+      withAccount: Boolean,
       // Return Account ID instead of User ID
-      returnAccountId: {
-        type: Boolean,
-        default: false,
-      },
+      returnAccountId: Boolean,
     },
 
     model: {

@@ -1,6 +1,12 @@
 <template>
   <form id='member-search' ref="search" role="form" method="get" :action="actionUrl">
-    <member-select-two v-model="myValue" :name="null"></member-select-two>
+    <member-select-two
+      v-model="myValue"
+      :name="null"
+      :placeholder="placeholder"
+      :with-account="withAccount"
+      :return-account-id="returnAccountId"
+      />
   </form>
 </template>
 
@@ -8,6 +14,11 @@
  export default {
     props: {
       action: String,
+      placeholder: String,
+      // Search for only users with an account
+      withAccount: Boolean,
+      // Return Account ID instead of User ID
+      returnAccountId: Boolean,
     },
 
     data() {
@@ -30,6 +41,6 @@
           this.$refs.search.submit();
         });
       },
-    }
+    },
  }
 </script>

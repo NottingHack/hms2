@@ -32,8 +32,7 @@
     @method('PATCH')
 
     <div class="existing-account-select2">
-      <select name="existing-account" class="js-data-existing-account-ajax" style="width:100%">
-      </select>
+      <member-select-two name="existing-account" :with-account="true" :return-account-id="true"></member-select-two>
     </div>
     <br>
     <div class="card">

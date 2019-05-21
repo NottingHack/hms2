@@ -2,6 +2,23 @@
 
 @section('pageTitle', 'New Member Details Review')
 
+@push('scripts')
+<script>
+  {{-- work around to push and run after jQuery is loaded since --}}
+  window.addEventListener('DOMContentLoaded', function() {
+    (function($) {
+      $(".js-programmatic-enable").on("click", function () {
+        $(".js-programmatic-state select").prop("disabled", false);
+      });
+
+      $(".js-programmatic-disable").on("click", function () {
+        $(".js-programmatic-state select").prop("disabled", true);
+      });
+    })(jQuery);
+  });
+</script>
+@endpush
+
 @section('content')
 <div class="container">
   <p>Please review the details below and check they are all sensible.</p>
@@ -93,8 +110,7 @@
                 <input name="new-account" type="radio" id="No" value="0" class="js-programmatic-enable">
                 <label for="No">Link to an existing account</label>
               </div>
-              <select name="existing-account" class="js-data-existing-account-ajax" disabled="disabled" data-width="100%" style="width: 100%">
-              </select>
+              <member-select-two class="js-programmatic-state" name="existing-account" :with-account="true" :return-account-id="true" disabled="disabled"></member-select-two>
             </div>
               <div class="modal-footer">
                 <button type="submit" class="btn btn-success">Approve Details</button>

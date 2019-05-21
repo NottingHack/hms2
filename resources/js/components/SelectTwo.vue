@@ -1,16 +1,19 @@
 <template>
   <div>
-    <select ref="select" class="form-control" :placeholder="placeholder" :disabled="disabled"></select>
+    <select
+      ref="select"
+      class="form-control"
+      :name="name"
+      :placeholder="placeholder"
+      :disabled="disabled"
+      >
+    </select>
   </div>
 </template>
 
 <script>
   // Component originally from https://github.com/godbasin/vue-select2/
-  // but we don't need the following imports as we have them else where
-  // import $ from 'jquery';
-  // import 'select2';
-  // import 'select2/dist/css/select2.min.css'
-  require('select2');
+  import 'select2';
 
   export default {
     // name: 'SelectTwo',
@@ -24,6 +27,10 @@
       prop: 'value'
     },
     props: {
+      name: {
+        type: String,
+        default: ''
+      },
       placeholder: {
         type: String,
         default: ''
@@ -78,10 +85,8 @@
           data: this.options
         })
         .on('select2:select select2:unselect', ev => {
-          const { id, text, selected } = ev['params']['data'];
-          const selectValue = this.select2.val();
-          this.$emit('change', selectValue);
-          this.$emit('select', { id, text, selected });
+          this.$emit('change', this.select2.val());
+          this.$emit('select', ev['params']['data']);
         });
       this.setValue(this.value);
     },

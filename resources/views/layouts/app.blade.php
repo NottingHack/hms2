@@ -38,19 +38,21 @@
 
     <!-- main body -->
     <main class="flex-fill my-3">
-  @include('partials.flash')
+@include('partials.flash')
       <div class="row">
         <div class="col-sm-12">
-  @yield('content')
+@yield('content')
         </div>
       </div>
       <flash message="{{ session('flash') }}"></flash>
     </main>
     <!-- main body end -->
 
-    @include('layouts.footer')
-
   </div>
+  <!-- end of Vue -->
+
+  @include('layouts.footer')
+
   <!-- Scripts stack -->
   @stack('scripts')
   <!-- Scripts stack end -->

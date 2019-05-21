@@ -58,8 +58,8 @@
         <td>
           <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-danger btn-sm" aria-label="delete">
             <form action="{{ route('roles.removeUser', ['roleId' => $role->getId(), 'userId' => $user->getId()]) }}" method="POST" style="display: inline">
-              {{ method_field('DELETE') }}
-              {{ csrf_field() }}
+              @method('DELETE')
+              @csrf
             </form>
             <i class="fas fa-trash" aria-hidden="true"></i> Remove
           </a>

@@ -48,8 +48,8 @@
 <div class="card">
   <button class="btn btn-danger" data-toggle="confirmation" data-placement="bottom">
     <form action="{{ route('tools.destroy', $tool->getId()) }}" method="POST" style="display: inline">
-      {{ method_field('DELETE') }}
-      {{ csrf_field() }}
+      @method('DELETE')
+      @csrf
     </form>
     <i class="fas fa-trash fa-lg" aria-hidden="true"></i> Remove
   </button>

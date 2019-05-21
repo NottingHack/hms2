@@ -5,7 +5,7 @@
 @section('content')
 <div class="container">
   <form class="form-group" role="form" method="POST" action="{{ route('projects.store') }}">
-    {{ csrf_field() }}
+    @csrf
     @include ('members.project.partials.form', ['submitButtonText' => 'Add project'])
   </form>
 </div>

@@ -10,8 +10,8 @@
 
 <div class="container">
   <form role="form" method="POST" action="{{ route('roles.update', $role->getId()) }}">
-    {{ csrf_field() }}
-    {{ method_field('PUT') }}
+    @csrf
+    @method('PUT')
 
  <div class="form-group">
       <label for="displayName" class="form-label">Display Name</label>
@@ -80,9 +80,9 @@
 
     <br>
     <hr>
-      <div class="form-group text-center">
-        <input type="submit" class="btn btn-success" name="save" value="Save">
-      </div>
+    <div class="form-group text-center">
+      <input type="submit" class="btn btn-success" name="save" value="Save">
+    </div>
   </form>
 </div>
 @endsection

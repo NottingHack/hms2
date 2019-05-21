@@ -60,7 +60,7 @@ class RefreshViewsCommand extends Command
         foreach ($viewSqlFiles as $viewFile) {
             $this->info('Creating view: ' . $viewFile);
             $sql = file_get_contents($viewsDirectory . DIRECTORY_SEPARATOR . $viewFile);
-            // dump($sql);
+
             DB::unprepared($sql);
         }
     }

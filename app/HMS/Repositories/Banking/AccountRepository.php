@@ -33,6 +33,22 @@ interface AccountRepository
     public function findLikeByPaymentRef(string $paymentRef);
 
     /**
+     * @param int $perPage
+     * @param string $pageName
+     *
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function paginateAll($perPage = 15, $pageName = 'page');
+
+    /**
+     * @param int $perPage
+     * @param string $pageName
+     *
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function paginateJointAccounts($perPage = 15, $pageName = 'page');
+
+    /**
      * Save Account to the DB.
      *
      * @param Account $account

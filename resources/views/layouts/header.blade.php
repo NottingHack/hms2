@@ -22,7 +22,7 @@
         </div>
 @can('search.users')
         <div class="col-md-10 col-lg-4">
-@include('partials.memberSearch')
+          <member-search action="{{ route('users.show', ['user' => '_ID_']) }}"></member-search>
         </div>
 @endcan
       </div>

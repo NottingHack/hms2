@@ -5,7 +5,7 @@
 @section('content')
 <div class="container">
   <form class="form-group" role="form" method="POST" action="{{ route('tools.store') }}">
-    {{ csrf_field() }}
+    @csrf
     <div class="form-group">
       <label for="toolName" class="form-label">Name</label>
       <input id="toolName" class="form-control" type="text" name="toolName" placeholder="Name of Tool" value="{{ old('toolName') }}" required autofocus>

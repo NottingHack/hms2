@@ -53,7 +53,7 @@ class SearchController extends Controller
                 'address1' => $user->getProfile() ? $user->getProfile()->getAddress1() : null,
                 'addressPostcode' => $user->getProfile() ? $user->getProfile()->getAddressPostcode() : null,
                 'accountId' => $user->getAccount() ? $user->getAccount()->getId() : null,
-                'paymentRef' => $user->getAccount() ? $user->getAccount()->getPaymentRef() : null,
+                'paymentRef' => $user->getAccount() ? $user->getAccount()->getPaymentRef() : '',
                 'google2fa' => $user->isGoogle2faEnable(),
             ];
         }));

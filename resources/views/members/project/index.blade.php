@@ -49,16 +49,16 @@ Projects for {{ $user->getFirstname() }}
             @if ($project->getUser() == \Auth::user())
             <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm btn-sm-spacing">
               <form action="{{ route('projects.markComplete', $project->getId()) }}" method="POST" style="display: none">
-                {{ method_field('PATCH') }}
-                {{ csrf_field() }}
+                @method('PATCH')
+                @csrf
               </form>
               <i class="fas fa-check" aria-hidden="true"></i> Mark Complete
             </a>
             @else
             <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm btn-sm-spacing">
               <form action="{{ route('projects.markAbandoned', $project->getId()) }}" method="POST" style="display: none">
-                {{ method_field('PATCH') }}
-                {{ csrf_field() }}
+                @method('PATCH')
+                @csrf
               </form>
               <i class="far fa-frown" aria-hidden="true"></i> Mark Abandoned
             </a><br>
@@ -67,8 +67,8 @@ Projects for {{ $user->getFirstname() }}
             @if ($project->getState() != \HMS\Entities\Members\ProjectState::ACTIVE)
             <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm btn-sm-spacing">
               <form action="{{ route('projects.markActive', $project->getId()) }}" method="POST" style="display: none">
-                {{ method_field('PATCH') }}
-                {{ csrf_field() }}
+                @method('PATCH')
+                @csrf
               </form>
               <i class="fal fa-play" aria-hidden="true"></i> Resume Project
             </a>

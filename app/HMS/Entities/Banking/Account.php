@@ -22,7 +22,7 @@ class Account
     protected $natwestRef;
 
     /**
-     * @var \HMS\Entities\User
+     * @var \HMS\Entities\User[]
      */
     protected $users;
 
@@ -82,7 +82,7 @@ class Account
     /**
      * Gets the value of users.
      *
-     * @return \HMS\Entities\User
+     * @return \HMS\Entities\User[]
      */
     public function getUsers()
     {
@@ -92,7 +92,7 @@ class Account
     /**
      * Sets the value of users.
      *
-     * @param \HMS\Entities\User $users the users
+     * @param \HMS\Entities\User[] $users the users
      *
      * @return self
      */

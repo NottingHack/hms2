@@ -21,15 +21,6 @@ require('./bootstrap-confirmation2');
 // Negative money values should be red
 $(".money:contains('-')").css("color", "red");
 
-// views/membership/showDetails.blade.php
-$(".js-programmatic-enable").on("click", function () {
-  $(".js-data-existing-account-ajax").prop("disabled", false);
-});
- 
-$(".js-programmatic-disable").on("click", function () {
-  $(".js-data-existing-account-ajax").prop("disabled", true);
-});
-
 // Workaround to reformat submitted date's into ISO if there in UK format
 $("#user-edit-form,#membership-edit-details-form,#register-form").submit(function() {
   var date = $("input[type='date']");

@@ -31,25 +31,21 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-  <div id="app">
-    @include('layouts.header')
+  @include('layouts.header')
 
-    @include('cookieConsent::index')
+  @include('cookieConsent::index')
 
-    <!-- main body -->
-    <main class="flex-fill my-3">
+  <!-- main body -->
+  <main id="app" class="flex-fill my-3">
 @include('partials.flash')
-      <div class="row">
-        <div class="col-sm-12">
+    <div class="row">
+      <div class="col-sm-12">
 @yield('content')
-        </div>
       </div>
-      <flash message="{{ session('flash') }}"></flash>
-    </main>
-    <!-- main body end -->
-
-  </div>
-  <!-- end of Vue -->
+    </div>
+    <flash message="{{ session('flash') }}"></flash>
+  </main>
+  <!-- main body end -->
 
   @include('layouts.footer')
 

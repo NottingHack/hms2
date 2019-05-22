@@ -8,6 +8,7 @@
       @change="myChangeEvent"
       @select="mySelectEvent"
       style="width: 100%"
+      :disabled="disabled"
       />
   </div>
 </template>
@@ -28,6 +29,7 @@
       withAccount: Boolean,
       // Return Account ID instead of User ID
       returnAccountId: Boolean,
+      disabled: Boolean,
     },
 
     model: {
@@ -64,7 +66,7 @@
           data: function (params) {
             return {
               q: params.term, // search term
-              withAccount: self.withAccount,
+              withAccount: self.withAccount ? 1 : 0,
               page: params.page
             };
           },

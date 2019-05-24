@@ -25,16 +25,15 @@ class CarbonType extends DateTimeType
     protected $getFormatString = 'getDateTimeFormatString';
 
     /**
-     * Converts the Datetime to UTC before storing to database
+     * Converts the Datetime to UTC before storing to database.
      *
      * @param mixed $value
      * @param AbstractPlatform $platform
      *
-     * @return mixed|NULL
+     * @return mixed|null
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
-
         if ($value === null) {
             return null;
         }
@@ -51,7 +50,7 @@ class CarbonType extends DateTimeType
     }
 
     /**
-     * Converts the Datetime from UTC to default timezone
+     * Converts the Datetime from UTC to default timezone.
      *
      * @param mixed $value
      * @param AbstractPlatform $platform

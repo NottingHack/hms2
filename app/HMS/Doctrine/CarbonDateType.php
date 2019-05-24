@@ -5,7 +5,7 @@ namespace HMS\Doctrine;
 class CarbonDateType extends CarbonType
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected $getFormatString = 'getDateFormatString';
 }

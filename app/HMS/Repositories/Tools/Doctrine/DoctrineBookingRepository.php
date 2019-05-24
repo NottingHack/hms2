@@ -271,7 +271,6 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
         return $this->matching($criteria)->toArray(); // however this actually does the count on the db side
     }
 
-
     /**
      * Save Booking to the DB.
      *

@@ -61,7 +61,7 @@ HMS\Entities\User:
       mappedBy: user
   oneToMany:
     rfidTags:
-      targetEntity: \HMS\Entities\GateKeeper\rfidTag
+      targetEntity: \HMS\Entities\GateKeeper\RfidTag
       mappedBy: user
   manyToOne:
     account:

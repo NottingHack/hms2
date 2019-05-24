@@ -136,6 +136,25 @@ class BoxController extends Controller
     }
 
     /**
+     * Show a specific Box.
+     *
+     * @param Box $box the Box
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Box $box)
+    {
+        if ($box->getUser() != \Auth::user() && \Gate::denies('box.view.all')) {
+            flash('Unauthorized')->error();
+
+            return redirect()->route('home');
+        }
+
+        return view('members.box.show')
+            ->with('box', $box);
+    }
+
+    /**
      * Show the form for buying a new box.
      *
      * @return \Illuminate\Http\Response

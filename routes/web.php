@@ -147,6 +147,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             'except' => ['destroy'],
         ]
     );
+    // hms1 link
+    Route::get('memberProjects/view/{project}', 'Members\ProjectController@show');
 
     // Members Boxes and labels
     Route::get('users/{user}/boxes', 'Members\BoxController@index')->name('users.boxes');
@@ -159,9 +161,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         'boxes',
         'Members\BoxController',
         [
-            'except' => ['show', 'edit', 'update', 'destroy'],
+            'except' => ['edit', 'update', 'destroy'],
         ]
     );
+    // hms1 link
+    Route::get('memberBoxes/view/{box}', 'Members\BoxController@show');
 
     // Accounts
     Route::get('accounts/list-joint', 'Banking\AccountController@listJoint')->name('banking.accounts.listJoint');

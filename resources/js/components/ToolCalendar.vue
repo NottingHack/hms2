@@ -82,7 +82,6 @@
   require('bootstrap-confirmation2');
   const humanizeDuration = require('humanize-duration');
   import Loading from 'vue-loading-overlay';
-  import 'vue-loading-overlay/dist/vue-loading.css';
   Vue.use(Loading);
 
   export default {
@@ -657,71 +656,3 @@
     },
   }
 </script>
-
-<style lang="scss">
-@import '~sass/_variables.scss';
-@import '~sass/color-helpers';
-
-// override the bootstrap 4 theme today highlight
-.fc-today {
-  background-color:inherit !important;
-}
-
-.fc-past {
-  background: #d7d7d7;
-}
-
-.fc-slats table tbody tr:nth-of-type(odd) {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-.popover{
-    max-width: 100%;
-}
-
-/*
- * Tool related bits
- */
-.tool-normal {
-  border-color: $tool-booking-normal;
-  background-color: $tool-booking-normal !important;
-  &.not-editable {
-    background: repeating-linear-gradient(
-        -45deg,
-        $tool-booking-normal,
-        $tool-booking-normal 10px,
-        tint($tool-booking-normal, 10%) 10px,
-        tint($tool-booking-normal, 10%) 20px
-    );
-  }
-}
-
-.tool-induction {
-  border-color: $tool-booking-induction;
-  background-color: $tool-booking-induction !important;
-  &.not-editable {
-    background: repeating-linear-gradient(
-        -45deg,
-        $tool-booking-induction,
-        $tool-booking-induction 10px,
-        tint($tool-booking-induction, 10%) 10px,
-        tint($tool-booking-induction, 10%) 20px
-    );
-  }
-}
-
-.tool-maintenance {
-  border-color: $tool-booking-maintenance;
-  background-color: $tool-booking-maintenance !important;
-  &.not-editable {
-    background: repeating-linear-gradient(
-        -45deg,
-        $tool-booking-maintenance,
-        $tool-booking-maintenance 10px,
-        tint($tool-booking-maintenance, 10%) 10px,
-        tint($tool-booking-maintenance, 10%) 20px
-    );
-  }
-}
-
-</style>

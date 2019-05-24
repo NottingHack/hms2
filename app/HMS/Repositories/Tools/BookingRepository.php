@@ -117,6 +117,15 @@ interface BookingRepository
     public function findMaintenanceByTool(Tool $tool);
 
     /**
+     * Find bookings for a given user that are either now or in the futuer no matter the tool.
+     *
+     * @param User $user
+     *
+     * @return Booking[]
+     */
+    public function findFutureByUser(User $user);
+
+    /**
      * Save Booking to the DB.
      *
      * @param Booking $booking

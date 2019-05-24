@@ -247,6 +247,31 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
     }
 
     /**
+     * Find bookings for a given user that are either now or in the futuer no matter the tool.
+     *
+     * @param User $user
+     *
+     * @return Booking[]
+     */
+    public function findFutureByUser(User $user)
+    {
+        $now = Carbon::now();
+        dump($now);
+
+        $expr = Criteria::expr();
+        $criteria = Criteria::create()
+            ->where(
+                $expr->andX(
+                    $expr->eq('user', $user),
+                    $expr->gte('end', $now)
+                )
+            )
+            ->orderBy(['start' => Criteria::ASC]);
+
+        return $this->matching($criteria)->toArray(); // however this actually does the count on the db side
+    }
+
+    /**
      * Save Booking to the DB.
      *
      * @param Booking $booking

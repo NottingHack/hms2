@@ -7,6 +7,7 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~select2/dist/css/select2';
 @import '~select2-theme-bootstrap4/dist/select2-bootstrap';
+@import '~vue-loading-overlay/dist/vue-loading';
 
 // Fontawesome
 @import '~@fortawesome/fontawesome-pro/scss/fontawesome';
@@ -16,10 +17,11 @@
 @import '~@fortawesome/fontawesome-pro/scss/brands';
 
 //FullCalendar
-@import '~@fullcalendar/core/main.css';
-@import '~@fullcalendar/daygrid/main.css';
-@import '~@fullcalendar/timegrid/main.css';
-@import '~@fullcalendar/bootstrap/main.css';
+@import '~@fullcalendar/core/main';
+@import '~@fullcalendar/daygrid/main';
+@import '~@fullcalendar/timegrid/main';
+@import '~@fullcalendar/list/main';
+@import '~@fullcalendar/bootstrap/main';
 
 /* HMS Custom CSS */
 
@@ -28,6 +30,10 @@
 @import 'layout/footer';
 @import 'layout/member-search';
 @import 'layout/no-more-tables';
+
+// SCSS for Vue Components
+@import 'vue/_flash';
+@import 'vue/_tool-calendar';
 
 .btn-sm-spacing {
   margin-bottom: 0.10rem;

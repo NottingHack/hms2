@@ -64,8 +64,7 @@ class RoleController extends Controller
         $this->middleware('can:role.edit.all')->only(['edit', 'update']);
 
         $this->middleware('can:role.grant.team')->only('addUserToTeam');
-        $this->middleware('can:role.edit.all')->only('removeUser');
-        $this->middleware('can:profile.edit.all')->only('removeUser');
+        $this->middleware('canOr:role.edit.all,profiel.edit.all')->only('removeUser');
     }
 
     /**

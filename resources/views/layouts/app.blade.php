@@ -28,6 +28,7 @@
   <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
   <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
   <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+  <!-- head end -->
 </head>
 
 <body class="d-flex flex-column min-vh-100">

@@ -7,7 +7,7 @@
         <li><a href="https://github.com/NottingHack/hms2">Get Source</a></li>
         <li><a href="{{ route('credits') }}">Credits</a></li>
         <li><a href="https://nottinghack.org.uk">Nottinghack Website</a></li>
-        <li>© {{ \Carbon\Carbon::now()->year }} Nottinghack</li>
+        <li>© {{ Carbon\Carbon::now()->year }} Nottinghack</li>
         @if (config('app.env') != 'production')
         <li>
           <span class="d-block d-sm-none">Breakpoint: xs</span>
@@ -25,7 +25,8 @@
       <ul>
         <li><a href="{{ route('companyInformation') }}">Company Information</a></li>
         <li><a href="{{ route('contactUs') }}">Contact us</a></li>
-        <li><a href="https://rules.nottinghack.org.uk/">Rules</a></li>
+        <li><a href="{{  Meta::get('rules_html') }}">Rules</a></li>
+        <li><a href="{{  Meta::get('members_guide_html') }}">Members Guide</a></li>
         <li><a href="{{ route('instrumentation.status') }}">Instrumentation Status</a></li>
       </ul>
     </div>

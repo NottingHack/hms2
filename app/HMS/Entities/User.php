@@ -2,8 +2,10 @@
 
 namespace HMS\Entities;
 
+use HMS\Entities\GateKeeper\Pin;
 use HMS\Entities\Banking\Account;
 use Laravel\Passport\HasApiTokens;
+use HMS\Entities\GateKeeper\RfidTag;
 use HMS\Traits\Entities\SoftDeletable;
 use HMS\Traits\Entities\Timestampable;
 use LaravelDoctrine\ACL\Roles\HasRoles;
@@ -91,6 +93,16 @@ class User implements
     protected $emails;
 
     /**
+     * @var null|Pin
+     */
+    protected $pin;
+
+    /**
+     * @var ArrayCollection|RfidTag[]
+     */
+    protected $rfidTags;
+
+    /**
      * User constructor.
      *
      * @param string $firstname
@@ -110,6 +122,7 @@ class User implements
         $this->email = $email;
         $this->roles = new ArrayCollection();
         $this->emails = new ArrayCollection();
+        $this->rfidTags = new ArrayCollection();
     }
 
     /**
@@ -339,5 +352,45 @@ class User implements
     public function getEmails()
     {
         return $this->emails;
+    }
+
+    /**
+     * @return null|HMS\Entities\GateKeeper\Pin
+     */
+    public function getPin()
+    {
+        return $this->pin;
+    }
+
+    /**
+     * @param null|HMS\Entities\GateKeeper\Pin $pin
+     *
+     * @return self
+     */
+    public function setPin(Pin $pin)
+    {
+        $this->pin = $pin;
+
+        return $this;
+    }
+
+    /**
+     * @return RfidTag[]
+     */
+    public function getRfidTags()
+    {
+        return $this->rfidTags;
+    }
+
+    /**
+     * @param ArrayCollection|RfidTag[] $rfidTags
+     *
+     * @return self
+     */
+    public function setRfidTags($rfidTags)
+    {
+        $this->rfidTags = $rfidTags;
+
+        return $this;
     }
 }

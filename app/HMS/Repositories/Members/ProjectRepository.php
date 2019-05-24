@@ -11,10 +11,11 @@ interface ProjectRepository
      * @param User $user
      * @param int $perPage
      * @param string $pageName
+     * @param bool $active
      *
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
-    public function paginateByUser(User $user, $perPage = 15, $pageName = 'page');
+    public function paginateByUser(User $user, $perPage = 15, $pageName = 'page', $active = false);
 
     /**
      * Return number of active projects for a user.

@@ -56,6 +56,13 @@ HMS\Entities\User:
       targetEntity: Profile
       mappedBy: user
       cascade: ["all"]
+    pin:
+      targetEntity: \HMS\Entities\GateKeeper\Pin
+      mappedBy: user
+  oneToMany:
+    rfidTags:
+      targetEntity: \HMS\Entities\GateKeeper\rfidTag
+      mappedBy: user
   manyToOne:
     account:
       targetEntity: \HMS\Entities\Banking\Account

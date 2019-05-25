@@ -45,6 +45,9 @@ HMS\Entities\User:
     google2faSecret:
       type: string
       nullable: true
+    google2faRecoveryCodes:
+      type: string
+      nullable: true
     deletedAt:
       type: datetime
       nullable: true

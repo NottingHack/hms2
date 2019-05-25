@@ -113,6 +113,13 @@ class User implements
     protected $google2faSecret;
 
     /**
+     * Encrypted recovery codes.
+     *
+     * @var string
+     */
+    protected $google2faRecoveryCodes;
+
+    /**
      * User constructor.
      *
      * @param string $firstname
@@ -441,6 +448,26 @@ class User implements
     public function setGoogle2faSecret($google2faSecret)
     {
         $this->google2faSecret = $google2faSecret;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGoogle2faRecoveryCodes()
+    {
+        return $this->google2faRecoveryCodes;
+    }
+
+    /**
+     * @param string $google2faRecoveryCodes
+     *
+     * @return self
+     */
+    public function setGoogle2faRecoveryCodes($google2faRecoveryCodes)
+    {
+        $this->google2faRecoveryCodes = $google2faRecoveryCodes;
 
         return $this;
     }

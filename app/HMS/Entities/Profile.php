@@ -75,6 +75,13 @@ class Profile
     protected $balance;
 
     /**
+     * Has the contactNumber been verified.
+     *
+     * @var bool
+     */
+    protected $contactNumberVerified;
+
+    /**
      * Profile constructor.
      *
      * @param User $user
@@ -86,6 +93,7 @@ class Profile
         // setup defaults.
         $this->creditLimit = 0;
         $this->balance = 0;
+        $this->contactNumberVerified = false;
     }
 
     /**
@@ -304,6 +312,7 @@ class Profile
     public function setContactNumber(?string $contactNumber): self
     {
         $this->contactNumber = $contactNumber;
+        $this->contactNumberVerified = false;
 
         return $this;
     }
@@ -360,6 +369,26 @@ class Profile
     public function updateBalanceByAmount(int $amount): self
     {
         $this->balance += $amount;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isContactNumberVerified(): bool
+    {
+        return $this->contactNumberVerified;
+    }
+
+    /**
+     * @param bool $contactNumberVerified
+     *
+     * @return self
+     */
+    public function setContactNumberVerified(bool $contactNumberVerified): self
+    {
+        $this->contactNumberVerified = $contactNumberVerified;
 
         return $this;
     }

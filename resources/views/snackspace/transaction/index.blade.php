@@ -21,10 +21,10 @@ Snackspace account for {{ $user->getFirstname() }}
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
-          <td>Date</td>
-          <td class="d-none d-md-tabel-cell">Type</td>
-          <td>Description</td>
-          <td>Amount</td>
+          <th>Date</th>
+          <th class="d-none d-md-tabel-cell">Type</th>
+          <th>Description</th>
+          <th>Amount</th>
         </tr>
       </thead>
       <tbody>

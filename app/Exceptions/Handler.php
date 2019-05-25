@@ -76,7 +76,7 @@ class Handler extends ExceptionHandler
             return response()->json(['error' => 'Unauthorized.'], IlluminateResponse::HTTP_FORBIDDEN);
         }
 
-        flash('Unauthorized', 'error');
+        flash('Unauthorized')->error();
 
         return redirect()->route('home');
     }

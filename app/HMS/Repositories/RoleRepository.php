@@ -3,6 +3,7 @@
 namespace HMS\Repositories;
 
 use HMS\Entities\Role;
+use HMS\Entities\User;
 use Doctrine\Common\Collections\ArrayCollection;
 
 interface RoleRepository
@@ -36,6 +37,15 @@ interface RoleRepository
      * @return Role|null
      */
     public function findOneByEmail(string $email);
+
+    /**
+     * Find all the team roles a given user has.
+     *
+     * @param User $user
+     *
+     * @return Roles[]
+     */
+    public function findTeamsForUser(User $user);
 
     /**
      * Store a new user in the DB.

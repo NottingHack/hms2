@@ -75,7 +75,8 @@ class AuditYoungHackers implements ShouldQueue
                 $youngHackerTurnedEighteenNotification = new YoungHackerTurnedEighteen($user);
 
                 $membershipTeamRole = $this->roleRepository->findOneByName(Role::TEAM_MEMBERSHIP);
-                $membershipTeamRole->notify($youngHackerTurnedEighteenNotification);
+                // TODO: decide if we should really send this?
+                // $membershipTeamRole->notify($youngHackerTurnedEighteenNotification);
 
                 $trusteesTeamRole = $this->roleRepository->findOneByName(Role::TEAM_TRUSTEES);
                 $trusteesTeamRole->notify($youngHackerTurnedEighteenNotification);

@@ -52,7 +52,7 @@ class YoungHackerTurnedEighteen extends Notification implements ShouldQueue
             ->subject('Young Hacker Turned 18')
             ->greeting('Hello ' . $notifiable->getDisplayName())
             ->line($this->user->getFullname() . ' has tunred 18 is and now a full member.')
-            ->action('View member', route('user.show', ['user' => $this->user->getId()]));
+            ->action('View member', route('users.admin.show', ['user' => $this->user->getId()]));
     }
 
     /**
@@ -73,7 +73,7 @@ class YoungHackerTurnedEighteen extends Notification implements ShouldQueue
                             ->content('A young hacker has tunred 18 is and now a full member.')
                             ->fallback(
                                 'A young hacker has tunred 18 is and now a full member. <'
-                                . route('user.show', ['user' => $userId])
+                                . route('users.admin.show', ['user' => $userId])
                                 . '|review>'
                             )
                             ->timestamp(Carbon::now());

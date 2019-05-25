@@ -84,6 +84,7 @@ return [
         'gatekeeper.zoneEntry.downstairsMembersStrorage',
         'gatekeeper.zoneEntry.ouside',
         'horizon.view',
+        'team.view',
     ],
 
     /*
@@ -146,6 +147,7 @@ return [
                 'gatekeeper.zoneEntry.downstairsMembersStrorage',
                 'login.shell',
                 'login.spacenet',
+                'team.view',
             ],
         ],
         'member.ex' => [
@@ -196,6 +198,7 @@ return [
                 'gatekeeper.zoneEntry.downstairsMembersStrorage',
                 'login.shell',
                 'login.spacenet',
+                'team.view',
             ],
         ],
         'member.temporarybanned' => [

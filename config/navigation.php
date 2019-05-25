@@ -70,13 +70,13 @@ return [
                     'permissions'   => ['profile.view.all'],
                     'links'         => [],
                 ],
-                'user'         => [
-                    'text'          => 'Members',
-                    'route'         => 'users.index',
-                    'match'         => 'users.index',
-                    'permissions'   => ['profile.view.all'],
-                    'links'         => [],
-                ],
+                // 'user'         => [
+                //     'text'          => 'Members',
+                //     'route'         => 'users.index',
+                //     'match'         => 'users.index',
+                //     'permissions'   => ['profile.view.all'],
+                //     'links'         => [],
+                // ],
                 'roles'         => [
                     'text'          => 'Roles',
                     'route'         => 'roles.index',

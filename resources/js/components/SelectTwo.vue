@@ -22,10 +22,12 @@
         select2: null
       };
     },
+
     model: {
       event: 'change',
       prop: 'value'
     },
+
     props: {
       name: {
         type: String,
@@ -49,6 +51,7 @@
       },
       value: null
     },
+
     watch: {
       options(val) {
         this.setOption(val);
@@ -57,6 +60,7 @@
         this.setValue(val);
       }
     },
+
     methods: {
       setOption(val = []) {
         this.select2.empty();
@@ -76,6 +80,7 @@
         this.select2.trigger('change');
       }
     },
+
     mounted() {
       this.select2 = $(this.$el)
         .find('select')

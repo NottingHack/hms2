@@ -60,12 +60,11 @@ class RoleController extends Controller
         $this->permissionRepository = $permissionRepository;
         $this->userRepository = $userRepository;
 
-        $this->middleware('can:role.view.all')->only(['index', 'show']);
+        $this->middleware('canOr:role.view.all,team.view')->only(['index', 'show']);
         $this->middleware('can:role.edit.all')->only(['edit', 'update']);
 
         $this->middleware('can:role.grant.team')->only('addUserToTeam');
-        $this->middleware('can:role.edit.all')->only('removeUser');
-        $this->middleware('can:profile.edit.all')->only('removeUser');
+        $this->middleware('canOr:role.edit.all,profiel.edit.all')->only('removeUser');
     }
 
     /**

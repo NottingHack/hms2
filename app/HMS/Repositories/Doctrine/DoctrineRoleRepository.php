@@ -3,6 +3,7 @@
 namespace HMS\Repositories\Doctrine;
 
 use HMS\Entities\Role;
+use HMS\Entities\User;
 use Doctrine\ORM\EntityRepository;
 use HMS\Repositories\RoleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -55,6 +56,27 @@ class DoctrineRoleRepository extends EntityRepository implements RoleRepository
     public function findOneByEmail(string $email)
     {
         return parent::findOneByEmail($email);
+    }
+
+    /**
+     * Find all the team roles a given user has.
+     *
+     * @param User $user
+     *
+     * @return Roles[]
+     */
+    public function findTeamsForUser(User $user)
+    {
+        $q = parent::createQueryBuilder('role')
+            ->leftJoin('role.users', 'user')
+            ->where('role.name LIKE :name')
+            ->andWhere('user.id = :user_id');
+
+        $q = $q->setParameter('name', 'team.%')
+            ->setParameter('user_id', $user->getId())
+            ->getQuery();
+
+        return $q->getResult();
     }
 
     /**

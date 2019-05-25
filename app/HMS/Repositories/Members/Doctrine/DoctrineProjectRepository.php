@@ -17,13 +17,20 @@ class DoctrineProjectRepository extends EntityRepository implements ProjectRepos
      * @param User $user
      * @param int $perPage
      * @param string $pageName
+     * @param bool $active
      *
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
-    public function paginateByUser(User $user, $perPage = 15, $pageName = 'page')
+    public function paginateByUser(User $user, $perPage = 15, $pageName = 'page', $active = false)
     {
         $q = parent::createQueryBuilder('project')
             ->where('project.user = :user_id');
+
+        if ($active) {
+            $q->andWhere('project.state = :project_state')
+              ->orderBy('project.startDate', 'DESC')
+              ->setParameter('project_state', ProjectState::ACTIVE);
+        }
 
         $q = $q->setParameter('user_id', $user->getId())->getQuery();
 

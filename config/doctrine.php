@@ -117,8 +117,8 @@ return [
     'custom_types'              => [
         'json' => LaravelDoctrine\ORM\Types\Json::class,
         'datetime' => HMS\Doctrine\CarbonType::class,
-        'date' => HMS\Doctrine\CarbonType::class,
-        'time' => HMS\Doctrine\CarbonType::class,
+        'date' => HMS\Doctrine\CarbonDateType::class,
+        'time' => HMS\Doctrine\CarbonTimeType::class,
     ],
     /*
     |--------------------------------------------------------------------------

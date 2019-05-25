@@ -72,17 +72,15 @@
 </template>
 
 <script>
-  import FullCalendar from '@fullcalendar/vue'
+  import FullCalendar from '@fullcalendar/vue';
   import timeGridPlugin from '@fullcalendar/timegrid';
   import interactionPlugin from '@fullcalendar/interaction';
   import momentPlugin from '@fullcalendar/moment';
   import momentTimezonePlugin from '@fullcalendar/moment-timezone';
   import bootstrapPlugin from '@fullcalendar/bootstrap';
   import moment from 'moment';
-  require('bootstrap-confirmation2');
-  const humanizeDuration = require('humanize-duration');
+  import humanizeDuration from 'humanize-duration';
   import Loading from 'vue-loading-overlay';
-  import 'vue-loading-overlay/dist/vue-loading.css';
   Vue.use(Loading);
 
   export default {
@@ -90,23 +88,28 @@
       FullCalendar, // make the <FullCalendar> tag available
     },
 
-    props: [
-      'toolId',
-      'bookingLengthMax',
-      'bookingsMax',
-      'bookingsUrl',
-      // 'initialBookings',
-      'userCanBook',
-    ],
+    props: {
+      bookingLengthMax: Number,
+      bookingsMax: Number,
+      bookingsUrl: String,
+      // initialBookings: Object,
+      toolId: Number,
+      userCanBook: {
+        type: Object,
+        default: () => ({
+          userId: null,
+          normal: true,
+          normalCurrentCount: 0,
+          induction: 0,
+          maintenance: 0,
+        }),
+      },
+    },
 
     data() {
       return {
         axiosCancle: null,
         calendarApi: null,
-        defaultView: 'timeGridDay',
-        isLoading: true,
-        loader: null,
-        interval: null,
         calendarPlugins: [
           timeGridPlugin,
           interactionPlugin,
@@ -114,13 +117,34 @@
           momentTimezonePlugin,
           bootstrapPlugin,
         ],
-        eventSources: [
+        defaultView: 'timeGridDay',
+        interval: null,
+        isLoading: true,
+        loader: null,
+      };
+    },
+
+    computed: {
+      eventSources() {
+        return [
           {
             events: this.fetchBookings,
             id: 'bookings',
           },
-        ],
-      };
+          {
+            events: [
+              {
+                start: moment().startOf('day').toDate(),
+                end: moment().toDate(),
+                rendering: 'background'
+              },
+            ],
+            id: 'pastEvent',
+            editable: false,
+            overlap: true,
+          },
+        ];
+      },
     },
 
     methods: {
@@ -184,6 +208,11 @@
           return false;
         }
 
+        if (this.userCanBook.userId == null) {
+          console.error('eventClick: userCanBook.userId not set');
+
+          return false;
+        }
         // is it ours and is does it end in the future
         if (info.event.extendedProps.userId == this.userCanBook.userId && moment().diff(info.event.end) < 0) {
           this.setupCancleConfirmation(info);
@@ -616,20 +645,20 @@
       },
 
       mapBookings(booking) {
-          booking.className = 'tool-' + booking.type.toLowerCase();
+        booking.className = 'tool-' + booking.type.toLowerCase();
 
-          if (booking.userId == this.userCanBook.userId
-            && moment().diff(booking.start) > 0
-            && moment().diff(booking.end) < 0) {
+        if (booking.userId == this.userCanBook.userId
+          && moment().diff(booking.start) > 0
+          && moment().diff(booking.end) < 0) {
             // this is our booking under now
-            booking.durationEditable = true;
-          } else if (booking.userId == this.userCanBook.userId && moment().diff(booking.start) < 0) {
-            booking.editable = true;
-          } else {
-            booking.className += ' not-editable';
-          }
+          booking.durationEditable = true;
+        } else if (booking.userId == this.userCanBook.userId && moment().diff(booking.start) < 0) {
+          booking.editable = true;
+        } else {
+          booking.className += ' not-editable';
+        }
 
-          return booking;
+        return booking;
       },
 
     }, // end of methods
@@ -657,71 +686,3 @@
     },
   }
 </script>
-
-<style lang="scss">
-@import '~sass/_variables.scss';
-@import '~sass/color-helpers';
-
-// override the bootstrap 4 theme today highlight
-.fc-today {
-  background-color:inherit !important;
-}
-
-.fc-past {
-  background: #d7d7d7;
-}
-
-.fc-slats table tbody tr:nth-of-type(odd) {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-.popover{
-    max-width: 100%;
-}
-
-/*
- * Tool related bits
- */
-.tool-normal {
-  border-color: $tool-booking-normal;
-  background-color: $tool-booking-normal !important;
-  &.not-editable {
-    background: repeating-linear-gradient(
-        -45deg,
-        $tool-booking-normal,
-        $tool-booking-normal 10px,
-        tint($tool-booking-normal, 10%) 10px,
-        tint($tool-booking-normal, 10%) 20px
-    );
-  }
-}
-
-.tool-induction {
-  border-color: $tool-booking-induction;
-  background-color: $tool-booking-induction !important;
-  &.not-editable {
-    background: repeating-linear-gradient(
-        -45deg,
-        $tool-booking-induction,
-        $tool-booking-induction 10px,
-        tint($tool-booking-induction, 10%) 10px,
-        tint($tool-booking-induction, 10%) 20px
-    );
-  }
-}
-
-.tool-maintenance {
-  border-color: $tool-booking-maintenance;
-  background-color: $tool-booking-maintenance !important;
-  &.not-editable {
-    background: repeating-linear-gradient(
-        -45deg,
-        $tool-booking-maintenance,
-        $tool-booking-maintenance 10px,
-        tint($tool-booking-maintenance, 10%) 10px,
-        tint($tool-booking-maintenance, 10%) 20px
-    );
-  }
-}
-
-</style>

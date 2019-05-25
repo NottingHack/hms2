@@ -89,7 +89,7 @@ class BankTransactionsController extends Controller
         }
 
         if (is_null($user->getAccount())) {
-            flash('No Account for ' . $user->getName())->error();
+            flash('No Account for ' . $user->getFirstname())->error();
 
             return redirect()->route('home');
         }

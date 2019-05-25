@@ -256,7 +256,6 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
     public function findFutureByUser(User $user)
     {
         $now = Carbon::now();
-        dump($now);
 
         $expr = Criteria::expr();
         $criteria = Criteria::create()
@@ -268,7 +267,7 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
             )
             ->orderBy(['start' => Criteria::ASC]);
 
-        return $this->matching($criteria)->toArray(); // however this actually does the count on the db side
+        return $this->matching($criteria)->toArray();
     }
 
     /**

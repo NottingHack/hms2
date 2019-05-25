@@ -5,6 +5,7 @@
 @import 'color-helpers';
 @import 'variables';
 @import '~bootstrap/scss/bootstrap';
+@import "~bootstrap4-card-tables/src/bootstrap4-card-tables";
 @import '~select2/dist/css/select2';
 @import '~select2-theme-bootstrap4/dist/select2-bootstrap';
 @import '~vue-loading-overlay/dist/vue-loading';
@@ -21,6 +22,7 @@
 @import '~@fullcalendar/daygrid/main';
 @import '~@fullcalendar/timegrid/main';
 @import '~@fullcalendar/bootstrap/main';
+@import '~@fullcalendar/list/main';
 
 /* HMS Custom CSS */
 
@@ -31,8 +33,9 @@
 @import 'layout/no-more-tables';
 
 // SCSS for Vue Components
-@import 'vue/_flash';
-@import 'vue/_tool-calendar';
+@import 'vue/flash';
+@import 'vue/tool-calendar';
+@import 'vue/booking-calendar-list';
 
 .btn-sm-spacing {
   margin-bottom: 0.10rem;
@@ -49,5 +52,19 @@
   text-align: center;
   svg {
     margin-bottom: 0.5rem;
+  }
+}
+
+.card-columns {
+  @include media-breakpoint-down(sm) {
+    column-count: 1;
+  }
+
+  @include media-breakpoint-only(md) {
+    column-count: 2;
+  }
+
+  @include media-breakpoint-up(lg) {
+    column-count: 3;
   }
 }

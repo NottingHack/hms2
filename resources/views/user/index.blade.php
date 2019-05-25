@@ -27,7 +27,7 @@
           <td data-title="Name">{{ $user->getFullName() }}</td>
           <td data-title="Email">{{ $user->getEmail() }}</td>
           <td data-title="Actions" class="actions">
-            <a class="btn btn-primary btn-sm btn-sm-spacing" href="{{ route('users.show', $user->getId()) }}"><i class="far fa-eye" aria-hidden="true"></i> View</a>
+            <a class="btn btn-primary btn-sm btn-sm-spacing" href="{{ route('users.admin.show', $user->getId()) }}"><i class="far fa-eye" aria-hidden="true"></i> View</a>
             <a class="btn btn-primary btn-sm btn-sm-spacing" href="{{ route('users.edit', $user->getId()) }}"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
           </td>
         </tr>

@@ -11,7 +11,7 @@ We have just seen a payment from these new members.
 | Name                                       | Email                           | Pin  | Joint Account |
 | ------------------------------------------ | ------------------------------- | ---- | ------------- |
 @forelse ($formattedApproveUsers as $user)
-| [{{ $user['fullName'] }}]({{ route('users.show', $user['id']) }}) | {{ $user['email'] }} | {{ $user['pin'] }} | {{ $user['jointAccount'] }} |
+| [{{ $user['fullName'] }}]({{ route('users.admin.show', $user['id']) }}) | {{ $user['email'] }} | {{ $user['pin'] }} | {{ $user['jointAccount'] }} |
 @empty
 @endforelse
 @endcomponent
@@ -23,7 +23,7 @@ We have not seen a payment from these members in a while, they may soon have the
 | Name                                       | Email                           | Joint Account | Balance | Last payment date | Last visit date |
 | ------------------------------------------ | ------------------------------- | ------------- | ------- | ----------------- | --------------- |
 @forelse ($formattedWarnUsers as $user)
-| [{{ $user['fullName'] }}]({{ route('users.show', $user['id']) }}) | {{ $user['email'] }} | {{ $user['jointAccount'] }} | {{ $user['balance'] }} | {{ $user['lastPaymentDate'] }} | {{ $user['lastVisitDate'] }} |
+| [{{ $user['fullName'] }}]({{ route('users.admin.show', $user['id']) }}) | {{ $user['email'] }} | {{ $user['jointAccount'] }} | {{ $user['balance'] }} | {{ $user['lastPaymentDate'] }} | {{ $user['lastVisitDate'] }} |
 @empty
 @endforelse
 @endcomponent
@@ -39,7 +39,7 @@ These members' last payment was too long ago, so their membership has been revok
 | Name                                       | Email                           | Joint Account | Balance | Last payment date | Last visit date |
 | ------------------------------------------ | ------------------------------- | ------------- | ------- | ----------------- | --------------- |
 @forelse ($formattedRevokeUsers as $user)
-| [{{ $user['fullName'] }}]({{ route('users.show', $user['id']) }}) | {{ $user['email'] }} | {{ $user['jointAccount'] }} | {{ $user['balance'] }} | {{ $user['lastPaymentDate'] }} | {{ $user['lastVisitDate'] }} |
+| [{{ $user['fullName'] }}]({{ route('users.admin.show', $user['id']) }}) | {{ $user['email'] }} | {{ $user['jointAccount'] }} | {{ $user['balance'] }} | {{ $user['lastPaymentDate'] }} | {{ $user['lastVisitDate'] }} |
 @empty
 @endforelse
 @endcomponent
@@ -51,7 +51,7 @@ These ex-members have started paying again, so their membership has been reinsta
 | Name                                       | Email                           | Joint Account | Balance | Date made Ex | Last visit date |
 | ------------------------------------------ | ------------------------------- | ------------- | ------- | ------------ | --------------- |
 @forelse ($formattedReinstateUsers as $user)
-| [{{ $user['fullName'] }}]({{ route('users.show', $user['id']) }}) | {{ $user['email'] }} | {{ $user['jointAccount'] }} | {{ $user['balance'] }} | {{ $user['dateMadeExMember'] }} | {{ $user['lastVisitDate'] }} |
+| [{{ $user['fullName'] }}]({{ route('users.admin.show', $user['id']) }}) | {{ $user['email'] }} | {{ $user['jointAccount'] }} | {{ $user['balance'] }} | {{ $user['dateMadeExMember'] }} | {{ $user['lastVisitDate'] }} |
 @empty
 @endforelse
 @endcomponent

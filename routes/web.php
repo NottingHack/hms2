@@ -77,6 +77,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('team/{role}/users', 'RoleController@addUsertoTeam')->name('roles.addUsertoTeam');
 
     // USER
+    Route::get('users/admin/{user}', 'UserController@show')->name('users.admin.show');
     Route::get('users-by-role/{role}', 'UserController@listUsersByRole')->name('users.byRole');
     Route::get('users', 'UserController@index')->name('users.index');
     Route::get('change-password', 'Auth\ChangePasswordController@edit')->name('users.changePassword');
@@ -147,6 +148,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             'except' => ['destroy'],
         ]
     );
+    // hms1 link
+    Route::get('memberProjects/view/{project}', 'Members\ProjectController@show');
 
     // Members Boxes and labels
     Route::get('users/{user}/boxes', 'Members\BoxController@index')->name('users.boxes');
@@ -159,9 +162,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         'boxes',
         'Members\BoxController',
         [
-            'except' => ['show', 'edit', 'update', 'destroy'],
+            'except' => ['edit', 'update', 'destroy'],
         ]
     );
+    // hms1 link
+    Route::get('memberBoxes/view/{box}', 'Members\BoxController@show');
 
     // Accounts
     Route::get('accounts/list-joint', 'Banking\AccountController@listJoint')->name('banking.accounts.listJoint');

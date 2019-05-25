@@ -32,7 +32,7 @@
       </tbody>
     </table>
   </div>
-
+@can('role.view.all')
   <h2>Permissions</h2>
   <hr>
   @foreach ($role->getPermissions() as $permission)
@@ -73,4 +73,5 @@
       {{ $users->links() }}
   </div>
 </div>
+@endcan
 @endsection

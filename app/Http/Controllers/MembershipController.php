@@ -237,7 +237,7 @@ class MembershipController extends Controller
             'addressCity' => 'required|max:100',
             'addressCounty' => 'required|max:100',
             'addressPostcode' => 'required|max:10',
-            'contactNumber' => 'required|max:50',
+            'contactNumber' => 'required|max:50|phone:GB',
             'dateOfBirth' => 'nullable|date_format:Y-m-d',
         ]);
 

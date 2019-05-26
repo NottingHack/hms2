@@ -6,9 +6,11 @@ use Carbon\Carbon;
 use HMS\Entities\User;
 use HMS\Entities\Profile;
 use Illuminate\Http\Request;
+use libphonenumber\RegionCode;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\UserRepository;
 use HMS\Repositories\ProfileRepository;
+use Propaganistas\LaravelPhone\PhoneNumber;
 
 class ProfileManager
 {
@@ -85,7 +87,8 @@ class ProfileManager
         $profile->setAddressCity($addressCity);
         $profile->setAddressCounty($addressCounty);
         $profile->setAddressPostcode($addressPostcode);
-        $profile->setContactNumber($contactNumber);
+        $e164 = PhoneNumber::make($contactNumber, RegionCode::GB)->formatE164();
+        $profile->setContactNumber($e164);
 
         if (! empty($dateOfBirth)) {
             $profile->setDateOfBirth(new Carbon($dateOfBirth));
@@ -142,7 +145,8 @@ class ProfileManager
         }
 
         if ($request['contactNumber']) {
-            $profile->setContactNumber($request['contactNumber']);
+            $e164 = PhoneNumber::make($request['contactNumber'], RegionCode::GB)->formatE164();
+            $profile->setContactNumber($e164);
         }
 
         // Nullable field

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1c1675b460761dcafe4652e6abbd23d7",
+    "content-hash": "d7ecc5f76279fbb6b6a72253c13faf66",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1331,16 +1331,16 @@
         },
         {
             "name": "egulias/email-validator",
-            "version": "2.1.7",
+            "version": "2.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/egulias/EmailValidator.git",
-                "reference": "709f21f92707308cdf8f9bcfa1af4cb26586521e"
+                "reference": "c26463ff9241f27907112fbcd0c86fa670cfef98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/709f21f92707308cdf8f9bcfa1af4cb26586521e",
-                "reference": "709f21f92707308cdf8f9bcfa1af4cb26586521e",
+                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/c26463ff9241f27907112fbcd0c86fa670cfef98",
+                "reference": "c26463ff9241f27907112fbcd0c86fa670cfef98",
                 "shasum": ""
             },
             "require": {
@@ -1384,7 +1384,7 @@
                 "validation",
                 "validator"
             ],
-            "time": "2018-12-04T22:38:24+00:00"
+            "time": "2019-05-16T22:02:54+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -2199,16 +2199,16 @@
         },
         {
             "name": "laravel-doctrine/orm",
-            "version": "v1.4.10",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/laravel-doctrine/orm.git",
-                "reference": "7b45d97b8345d532747b8b946c36eb0926018fcc"
+                "url": "https://github.com/dpslwk/orm.git",
+                "reference": "c39b12d2e57aac8f2992fb83073015d20c329f1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel-doctrine/orm/zipball/7b45d97b8345d532747b8b946c36eb0926018fcc",
-                "reference": "7b45d97b8345d532747b8b946c36eb0926018fcc",
+                "url": "https://api.github.com/repos/dpslwk/orm/zipball/c39b12d2e57aac8f2992fb83073015d20c329f1d",
+                "reference": "c39b12d2e57aac8f2992fb83073015d20c329f1d",
                 "shasum": ""
             },
             "require": {
@@ -2263,7 +2263,11 @@
                     "src/helpers.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "classmap": [
+                    "tests"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -2281,20 +2285,23 @@
                 "laravel",
                 "orm"
             ],
-            "time": "2019-03-14T08:26:16+00:00"
+            "support": {
+                "source": "https://github.com/dpslwk/orm/tree/hms"
+            },
+            "time": "2019-05-26T05:57:41+00:00"
         },
         {
             "name": "laravel/framework",
-            "version": "v5.8.17",
+            "version": "v5.8.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "33c04dd2a431adeeb49926a4f2b20590cc033ca2"
+                "reference": "9f571be04435883dab6f23ecfadb204273b7f527"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/33c04dd2a431adeeb49926a4f2b20590cc033ca2",
-                "reference": "33c04dd2a431adeeb49926a4f2b20590cc033ca2",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/9f571be04435883dab6f23ecfadb204273b7f527",
+                "reference": "9f571be04435883dab6f23ecfadb204273b7f527",
                 "shasum": ""
             },
             "require": {
@@ -2428,20 +2435,20 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2019-05-14T16:02:41+00:00"
+            "time": "2019-05-21T16:40:34+00:00"
         },
         {
             "name": "laravel/horizon",
-            "version": "v3.1.2",
+            "version": "v3.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/horizon.git",
-                "reference": "32313d787a7a7575c1866e8ed12ec944c1513b7f"
+                "reference": "a9204280f72a1c6d3874e0f98b68e354b212311a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/horizon/zipball/32313d787a7a7575c1866e8ed12ec944c1513b7f",
-                "reference": "32313d787a7a7575c1866e8ed12ec944c1513b7f",
+                "url": "https://api.github.com/repos/laravel/horizon/zipball/a9204280f72a1c6d3874e0f98b68e354b212311a",
+                "reference": "a9204280f72a1c6d3874e0f98b68e354b212311a",
                 "shasum": ""
             },
             "require": {
@@ -2497,7 +2504,64 @@
                 "laravel",
                 "queue"
             ],
-            "time": "2019-04-30T15:20:11+00:00"
+            "time": "2019-05-21T19:58:03+00:00"
+        },
+        {
+            "name": "laravel/nexmo-notification-channel",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/nexmo-notification-channel.git",
+                "reference": "eaa29b552307c4866bfc40f33f440ee78a9ac9ec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/nexmo-notification-channel/zipball/eaa29b552307c4866bfc40f33f440ee78a9ac9ec",
+                "reference": "eaa29b552307c4866bfc40f33f440ee78a9ac9ec",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/notifications": "~5.8.0",
+                "nexmo/client": "^1.0",
+                "php": "^7.1.3"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Illuminate\\Notifications\\NexmoChannelServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Illuminate\\Notifications\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Nexmo Notification Channel for laravel.",
+            "keywords": [
+                "laravel",
+                "nexmo",
+                "notifications"
+            ],
+            "time": "2019-02-26T16:11:35+00:00"
         },
         {
             "name": "laravel/passport",
@@ -2691,32 +2755,29 @@
         },
         {
             "name": "lcobucci/jwt",
-            "version": "3.2.5",
+            "version": "3.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lcobucci/jwt.git",
-                "reference": "82be04b4753f8b7693b62852b7eab30f97524f9b"
+                "reference": "a11ec5f4b4d75d1fcd04e133dede4c317aac9e18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lcobucci/jwt/zipball/82be04b4753f8b7693b62852b7eab30f97524f9b",
-                "reference": "82be04b4753f8b7693b62852b7eab30f97524f9b",
+                "url": "https://api.github.com/repos/lcobucci/jwt/zipball/a11ec5f4b4d75d1fcd04e133dede4c317aac9e18",
+                "reference": "a11ec5f4b4d75d1fcd04e133dede4c317aac9e18",
                 "shasum": ""
             },
             "require": {
+                "ext-mbstring": "*",
                 "ext-openssl": "*",
-                "php": ">=5.5"
+                "php": "^5.6 || ^7.0"
             },
             "require-dev": {
-                "mdanter/ecc": "~0.3.1",
                 "mikey179/vfsstream": "~1.5",
                 "phpmd/phpmd": "~2.2",
                 "phpunit/php-invoker": "~1.1",
-                "phpunit/phpunit": "~4.5",
+                "phpunit/phpunit": "^5.7 || ^7.3",
                 "squizlabs/php_codesniffer": "~2.3"
-            },
-            "suggest": {
-                "mdanter/ecc": "Required to use Elliptic Curves based algorithms."
             },
             "type": "library",
             "extra": {
@@ -2737,7 +2798,7 @@
                 {
                     "name": "Luís Otávio Cobucci Oblonczyk",
                     "email": "lcobucci@gmail.com",
-                    "role": "developer"
+                    "role": "Developer"
                 }
             ],
             "description": "A simple library to work with JSON Web Token and JSON Web Signature",
@@ -2745,7 +2806,7 @@
                 "JWS",
                 "jwt"
             ],
-            "time": "2018-11-11T12:22:26+00:00"
+            "time": "2019-05-24T18:30:49+00:00"
         },
         {
             "name": "league/event",
@@ -2799,16 +2860,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.51",
+            "version": "1.0.52",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "755ba7bf3fb9031e6581d091db84d78275874396"
+                "reference": "c5a5097156387970e6f0ccfcdf03f752856f3391"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/755ba7bf3fb9031e6581d091db84d78275874396",
-                "reference": "755ba7bf3fb9031e6581d091db84d78275874396",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/c5a5097156387970e6f0ccfcdf03f752856f3391",
+                "reference": "c5a5097156387970e6f0ccfcdf03f752856f3391",
                 "shasum": ""
             },
             "require": {
@@ -2879,7 +2940,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2019-03-30T13:22:34+00:00"
+            "time": "2019-05-20T20:21:14+00:00"
         },
         {
             "name": "league/oauth2-server",
@@ -3245,16 +3306,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.2.1",
+            "version": "v4.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "5221f49a608808c1e4d436df32884cbc1b821ac0"
+                "reference": "1bd73cc04c3843ad8d6b0bfc0956026a151fc420"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/5221f49a608808c1e4d436df32884cbc1b821ac0",
-                "reference": "5221f49a608808c1e4d436df32884cbc1b821ac0",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/1bd73cc04c3843ad8d6b0bfc0956026a151fc420",
+                "reference": "1bd73cc04c3843ad8d6b0bfc0956026a151fc420",
                 "shasum": ""
             },
             "require": {
@@ -3292,7 +3353,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2019-02-16T20:54:15+00:00"
+            "time": "2019-05-25T20:07:01+00:00"
         },
         {
             "name": "ocramius/package-versions",
@@ -9433,10 +9494,18 @@
             "time": "2018-12-25T11:19:39+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.4.x-dev",
+            "alias_normalized": "1.4.9999999.9999999-dev",
+            "version": "9999999-dev",
+            "package": "laravel-doctrine/orm"
+        }
+    ],
     "minimum-stability": "dev",
     "stability-flags": {
         "brainrepo/carbon-normalizer": 20,
+        "laravel-doctrine/orm": 20,
         "orphans/git-deploy-laravel": 20,
         "laracasts/behat-laravel-extension": 20
     },

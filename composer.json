@@ -17,7 +17,7 @@
         "laravel-doctrine/acl": "1.0.*",
         "laravel-doctrine/extensions": "^1.0",
         "laravel-doctrine/migrations": "1.2.*",
-        "laravel-doctrine/orm": "1.4.*",
+        "laravel-doctrine/orm": "dev-master as 1.4.x-dev",
         "laravel/framework": "5.8.*",
         "laravel/horizon": "^3.1",
         "laravel/nexmo-notification-channel": "^2.0",
@@ -46,6 +46,12 @@
         "nunomaduro/collision": "^3.0",
         "phpunit/phpunit": "^7.5"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/dpslwk/orm"
+        }
+    ],
     "autoload": {
         "classmap": [
             "database/seeds",

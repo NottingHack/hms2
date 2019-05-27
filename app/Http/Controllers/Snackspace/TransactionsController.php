@@ -45,8 +45,8 @@ class TransactionsController extends Controller
         $this->userRepository = $userRepository;
         $this->transactionFactory = $transactionFactory;
 
-        $this->middleware('can:snackspaceTransaction.view.self')->only(['index']);
-        $this->middleware('can:snackspaceTransaction.create.all')->only(['create', 'store']);
+        $this->middleware('can:snackspace.transaction.view.self')->only(['index']);
+        $this->middleware('can:snackspace.transaction.create.all')->only(['create', 'store']);
     }
 
     /**
@@ -64,7 +64,7 @@ class TransactionsController extends Controller
                 throw EntityNotFoundException::fromClassNameAndIdentifier(User::class, ['id' => $request->user]);
             }
 
-            if ($user != \Auth::user() && \Gate::denies('snackspaceTransaction.view.all')) {
+            if ($user != \Auth::user() && \Gate::denies('snackspace.transaction.view.all')) {
                 flash('Unauthorized')->error();
 
                 return redirect()->route('home');

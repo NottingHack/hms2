@@ -14,6 +14,14 @@ interface ProductRepository
     public function findAll();
 
     /**
+     * @param int $perPage
+     * @param string $pageName
+     *
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function paginateAll($perPage = 15, $pageName = 'page');
+
+    /**
      * Save Product to the DB.
      *
      * @param Product $product

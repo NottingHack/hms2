@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Snackspace;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use HMS\Entities\Snackspace\Product;
+use HMS\Factories\Snackspace\ProductFactory;
 use HMS\Repositories\Snackspace\ProductRepository;
 
 class ProductController extends Controller
@@ -15,15 +16,22 @@ class ProductController extends Controller
     protected $productRepository;
 
     /**
+     * @var ProductFactory
+     */
+    protected $productFactory;
+
+    /**
      * Create a new controller instance.
      *
      * @param ProductRepository $productRepository
+     * @param ProductFactory $productFactory
      */
-    public function __construct(ProductRepository $productRepository)
+    public function __construct(ProductRepository $productRepository, ProductFactory $productFactory)
     {
         $this->productRepository = $productRepository;
+        $this->productFactory = $productFactory;
 
-        $this->middleware('can:snackspace.product.view')->only(['index']);
+        $this->middleware('can:snackspace.product.view')->only(['index', 'show']);
         $this->middleware('can:snackspace.product.edit')->only(['create', 'store', 'edit', 'update']);
     }
 
@@ -34,7 +42,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = $this->productRepository->paginateAll();
+
+        return view('snackspace.products.index')
+            ->with('products', $products);
     }
 
     /**
@@ -44,7 +55,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('snackspace.products.create');
     }
 
     /**
@@ -56,7 +67,28 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'shortDescription' => 'required|string|max:255',
+            'longDescription' => 'sometimes|nullable|string',
+            'barcode' => 'sometimes|nullable|string|max:255',
+            'price' => 'required|integer|min:1',
+
+        ]);
+
+        $product = $this->productFactory->create(
+            $validatedData['price'],
+            $validatedData['shortDescription'],
+            $validatedData['longDescription']
+        );
+
+        if (array_key_exists('barcode', $validatedData)) {
+            $product->setBarcode($validatedData['barcode']);
+        }
+        $this->productRepository->save($product);
+
+        flash('New product added');
+
+        return redirect()->route('snackspace.products.show', $product->getId());
     }
 
     /**
@@ -68,7 +100,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return view('snackspace.products.show')
+            ->with('product', $product);
     }
 
     /**
@@ -80,7 +113,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('snackspace.products.edit')
+            ->with('product', $product);
     }
 
     /**
@@ -93,6 +127,25 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $validatedData = $request->validate([
+            'shortDescription' => 'required|string|max:255',
+            'longDescription' => 'sometimes|nullable|string',
+            'barcode' => 'sometimes|nullable|string|max255',
+            'price' => 'required|integer|min:1',
+
+        ]);
+
+        $product->setPrice($validatedData['price']);
+        $product->setShortDescription($validatedData['shortDescription']);
+        $product->setLongDescription($validatedData['longDescription']);
+
+        if (array_key_exists('barcode', $validatedData)) {
+            $product->setBarcode($validatedData['barcode']);
+        }
+
+        $this->productRepository->save($product);
+        flash('Product updated')->success();
+
+        return redirect()->route('snackspace.products.show', $product->getId());
     }
 }

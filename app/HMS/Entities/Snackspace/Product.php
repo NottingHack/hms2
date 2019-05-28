@@ -34,7 +34,7 @@ class Product
     protected $shortDescription;
 
     /**
-     * @var string
+     * @var null|string
      */
     protected $longDescription;
 
@@ -129,7 +129,7 @@ class Product
     }
 
     /**
-     * @return string
+     * @return null|string
      */
     public function getLongDescription()
     {
@@ -137,7 +137,7 @@ class Product
     }
 
     /**
-     * @param string $longDescription
+     * @param null|string $longDescription
      *
      * @return self
      */

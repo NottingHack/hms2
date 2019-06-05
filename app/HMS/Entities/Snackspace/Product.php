@@ -2,6 +2,8 @@
 
 namespace HMS\Entities\Snackspace;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class Product
 {
     // avaliblity
@@ -37,6 +39,19 @@ class Product
      * @var null|string
      */
     protected $longDescription;
+
+    /**
+     * @var ArrayCollection|VendingLoaction[]
+     */
+    protected $vendingLoactions;
+
+    /**
+     * Product constructor.
+     */
+    public function __construct()
+    {
+        $this->vendingLoactions = new ArrayCollection();
+    }
 
     /**
      * Gets the value of id.
@@ -144,6 +159,26 @@ class Product
     public function setLongDescription($longDescription)
     {
         $this->longDescription = $longDescription;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection|VendingLoaction
+     */
+    public function getVendingLoaction()
+    {
+        return $this->vendingLoactions;
+    }
+
+    /**
+     * @param ArrayCollection|VendingLoaction $vendingLoactions
+     *
+     * @return self
+     */
+    public function setVendingLoaction($vendingLoactions)
+    {
+        $this->vendingLoactions = $vendingLoactions;
 
         return $this;
     }

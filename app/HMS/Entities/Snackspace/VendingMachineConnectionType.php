@@ -2,7 +2,7 @@
 
 namespace HMS\Entities\Snackspace;
 
-abstract class VendingMachineConnection
+abstract class VendingMachineConnectionType
 {
     /**
      * A vending machine.

@@ -12,6 +12,18 @@ class DoctrineProductRepository extends EntityRepository implements ProductRepos
     use PaginatesFromRequest;
 
     /**
+     * Find a Product.
+     *
+     * @param $id
+     *
+     * @return null|Product
+     */
+    public function findOneById($id)
+    {
+        return parent::findOneById($id);
+    }
+
+    /**
      * Finds all entities in the repository.
      *
      * @return Product[]

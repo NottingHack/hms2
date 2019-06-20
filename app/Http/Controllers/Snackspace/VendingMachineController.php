@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use HMS\Entities\Snackspace\VendingMachine;
 use HMS\Entities\Snackspace\VendingLocation;
+use HMS\Entities\Snackspace\VendingMachineType;
 use HMS\Repositories\Snackspace\ProductRepository;
 use HMS\Repositories\Snackspace\VendingMachineRepository;
 use HMS\Repositories\Snackspace\VendingLocationRepository;
@@ -30,8 +31,8 @@ class VendingMachineController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @param VendingMachineRepository $vendingMachineRepository,
-     * @param VendingLocationRepository $vendingLocationRepository,
+     * @param VendingMachineRepository $vendingMachineRepository
+     * @param VendingLocationRepository $vendingLocationRepository
      * @param ProductRepository $productRepository
      */
     public function __construct(
@@ -45,7 +46,7 @@ class VendingMachineController extends Controller
 
         $this->middleware('can:snackspace.vendingMachine.view')->only(['index']);
         $this->middleware('can:snackspace.vendingMachine.edit')->only(['edit', 'update']);
-        $this->middleware('can:snackspace.vendingMachine.productSetup')->only(['locations', 'locationAssign']);
+        $this->middleware('can:snackspace.vendingMachine.locations.assign')->only(['locations', 'locationAssign']);
     }
 
     /**
@@ -55,7 +56,12 @@ class VendingMachineController extends Controller
      */
     public function index()
     {
-        //
+        $vendingMachines = $this->vendingMachineRepository->findByType(VendingMachineType::VEND);
+        $paymentMachines = $this->vendingMachineRepository->findByType(VendingMachineType::NOTE);
+
+        return view('snackspace.vendingMachine.index')
+            ->with('vendingMachines', $vendingMachines)
+            ->with('paymentMachines', $paymentMachines);
     }
 
     /**
@@ -104,7 +110,48 @@ class VendingMachineController extends Controller
      */
     public function locations(VendingMachine $vendingMachine)
     {
-        //
+        $locations = $this->vendingLocationRepository->findByVendingMachine($vendingMachine);
+        // map for VendingLocation.vue
+        $locations = array_map(function ($location) {
+            $product = $location->getProduct();
+            if (is_null($product)) {
+                $productArray = [
+                    'id' => -1,
+                    'shortDescription' => 'Empty',
+                    'price' => null,
+                ];
+            } else {
+                $productArray = [
+                    'id' => $product->getId(),
+                    'shortDescription' => $product->getShortDescription(),
+                    'price' => money_format('%n', $product->getPrice()/100),
+                ];
+            }
+
+            return [
+                'id' => $location->getId(),
+                'name' => $location->getName(),
+                'product' => $productArray,
+            ];
+        }, $locations);
+
+        $products = $this->productRepository->findAll();
+        // map for select two usage
+        $products = array_map(function ($product) {
+            return [
+                'id' => $product->getId(),
+                'text' => $product->getShortDescription() . ' (' . money_format('%n', $product->getPrice()/100) . ')',
+            ];
+        }, $products);
+        array_unshift($products, [
+            'id' => -1,
+            'text' => 'Empty',
+        ]);
+
+        return view('snackspace.vendingMachine.locations')
+            ->with('vendingMachine', $vendingMachine)
+            ->with('locations', $locations)
+            ->with('products', $products);
     }
 
     /**
@@ -118,6 +165,22 @@ class VendingMachineController extends Controller
      */
     public function locationAssign(Request $request, VendingMachine $vendingMachine, VendingLocation $vendingLocation)
     {
-        dump($request->all());
+        // TODO: test this
+        $validatedData = $request->validate([
+            'productId' => 'nullable|exists:HMS\Entities\Snackspace\Product,id',
+        ]);
+
+        if ($validatedData['productId'] == -1) {
+            $newProduct = null;
+        } else {
+            $newProduct = $this->productRepository->findOneById($validatedData['productId']);
+        }
+
+        $vendingLocation->setProduct($newProduct);
+        $this->vendingLocationRepository->save($vendingLocation);
+        flash('Location updated')->success();
+
+        return redirect()
+            ->route('snackspace.vendingMachine.locations', $vendingMachine->getId());
     }
 }

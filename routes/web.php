@@ -206,6 +206,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             'users/{user}/snackspace/transactions',
             'TransactionsController@store'
         )->name('users.snackspace.transactions.store');
+
         Route::prefix('snackspace')->name('snackspace.')->group(function () {
             Route::get(
                 'transactions',

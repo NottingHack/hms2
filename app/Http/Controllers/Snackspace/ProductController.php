@@ -44,7 +44,7 @@ class ProductController extends Controller
     {
         $products = $this->productRepository->paginateAll();
 
-        return view('snackspace.products.index')
+        return view('snackspace.product.index')
             ->with('products', $products);
     }
 
@@ -55,7 +55,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('snackspace.products.create');
+        return view('snackspace.product.create');
     }
 
     /**
@@ -100,7 +100,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('snackspace.products.show')
+        return view('snackspace.product.show')
             ->with('product', $product);
     }
 
@@ -113,7 +113,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('snackspace.products.edit')
+        return view('snackspace.product.edit')
             ->with('product', $product);
     }
 

@@ -7,6 +7,15 @@ use HMS\Entities\Snackspace\Product;
 interface ProductRepository
 {
     /**
+     * Find a Product.
+     *
+     * @param $id
+     *
+     * @return null|Product
+     */
+    public function findOneById($id);
+
+    /**
      * Finds all entities in the repository.
      *
      * @return Product[]

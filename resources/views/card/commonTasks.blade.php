@@ -3,7 +3,7 @@
     <div class="card-header">
       Common Tasks
     </div>
-    <div class="list-group">
+    <div class="list-group list-group-flush">
       <a href="{{ route('users.show', $user->getId()) }}" class="list-group-item list-group-item-action">Update Details</a>
       <a href="{{ route('users.changePassword') }}" class="list-group-item list-group-item-action">Change Password</a>
       <a href="{{ route('bank-transactions.index') }}" class="list-group-item list-group-item-action">Standing Order details</a>

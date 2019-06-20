@@ -28,6 +28,11 @@ class Role implements RoleContract
     const TEAM_FINANCE = 'team.finance';
 
     /**
+     * Length of the trimmed description.
+     */
+    const TRIMMED_LENGHT = 100;
+
+    /**
      * @var int
      */
     protected $id;
@@ -129,6 +134,18 @@ class Role implements RoleContract
      */
     public function getDescription(): string
     {
+        return $this->description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescriptionTrimed()
+    {
+        if (strlen($this->description) > self::TRIMMED_LENGHT) {
+            return substr($this->description, 0, self::TRIMMED_LENGHT) . '...';
+        }
+
         return $this->description;
     }
 

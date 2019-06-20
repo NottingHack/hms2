@@ -46,6 +46,7 @@ class RoleController extends Controller
      * @param RoleRepository       $roleRepository
      * @param UserManager          $userManager
      * @param PermissionRepository $permissionRepository
+     * @param UserRepository $userRepository
      */
     public function __construct(
         RoleManager $roleManager,

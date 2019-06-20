@@ -37,6 +37,22 @@ class DoctrineRoleRepository extends EntityRepository implements RoleRepository
     }
 
     /**
+     * Finds all entities in the repository.
+     *
+     * @return Role[]
+     */
+    public function findAllTeams()
+    {
+        $q = parent::createQueryBuilder('role')
+            ->where('role.name LIKE :name');
+
+        $q = $q->setParameter('name', 'team.%')
+            ->getQuery();
+
+        return $q->getResult();
+    }
+
+    /**
      * Finds a role based on the role name.
      *
      * @param string $roleName name of the role we want

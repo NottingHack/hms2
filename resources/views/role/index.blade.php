@@ -22,7 +22,7 @@
         <tr>
           <td data-title="Role"><a href="{{ route('roles.show', $role->getId()) }}">{{ $role->getDisplayName() }}</a></td>
           <td data-title="Code">{{ $role->getName() }}</td>
-          <td data-title="Description">{{ $role->getDescription() }}</td>
+          <td data-title="Description" class="w-35">{{ $role->getDescriptionTrimed() }}</td>
           <td data-title="Actions" class="actions">
             @can('role.edit.all')
             <a class="btn btn-primary" href="{{ route('roles.edit', $role->getId()) }}"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>

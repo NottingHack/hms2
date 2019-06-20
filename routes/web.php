@@ -74,7 +74,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('roles/{role}/edit', 'RoleController@edit')->name('roles.edit');
     Route::put('roles/{role}', 'RoleController@update')->name('roles.update');
     Route::delete('roles/{role}/users/{user}', 'RoleController@removeUser')->name('roles.removeUser');
-    Route::patch('team/{role}/users', 'RoleController@addUsertoTeam')->name('roles.addUsertoTeam');
 
     // USER
     Route::get('users/admin/{user}', 'UserController@show')->name('users.admin.show');
@@ -249,6 +248,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
         'Tools\BookingController',
         [
             'except' => ['show', 'create', 'store', 'edit', 'update', 'destroy'], // turned off for now
+        ]
+    );
+
+    // Teams
+    Route::patch('teams/{role}/users', 'RoleController@addUsertoTeam')->name('roles.addUsertoTeam');
+    Route::get('teams/how-to-join', 'TeamController@howToJoin')->name('teams.how-to-join');
+    Route::resource(
+        'teams',
+        'TeamController',
+        [
+            'except' => ['create', 'store', 'destroy'],
         ]
     );
 });

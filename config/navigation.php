@@ -46,6 +46,12 @@ return [
             'permissions'   => ['tools.view'],
             'links'         => [],
         ],
+        'teams' => [
+            'text'          => 'Teams',
+            'route'         => 'teams.index',
+            'permissions'   => ['team.view'],
+            'links'         => [],
+        ],
         'codes' => [
             'text'          => 'Access Codes',
             'route'         => 'accessCodes',

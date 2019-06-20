@@ -193,20 +193,54 @@ Route::middleware(['auth', 'verified'])->group(function () {
     );
 
     // Snackspace
-    Route::get('users/{user}/snackspace/transactions', 'Snackspace\TransactionsController@index')
-        ->name('users.snackspace.transactions');
-    Route::get(
-        'users/{user}/snackspace/transactions/create',
-        'Snackspace\TransactionsController@create'
-    )->name('users.snackspace.transactions.create');
-    Route::post(
-        'users/{user}/snackspace/transactions',
-        'Snackspace\TransactionsController@store'
-    )->name('users.snackspace.transactions.store');
-    Route::get(
-        'snackspace/transactions',
-        'Snackspace\TransactionsController@index'
-    )->name('snackspace.transactions.index');
+    Route::namespace('Snackspace')->group(function () {
+        Route::get(
+            'users/{user}/snackspace/transactions',
+            'TransactionsController@index'
+        )->name('users.snackspace.transactions');
+        Route::get(
+            'users/{user}/snackspace/transactions/create',
+            'TransactionsController@create'
+        )->name('users.snackspace.transactions.create');
+        Route::post(
+            'users/{user}/snackspace/transactions',
+            'TransactionsController@store'
+        )->name('users.snackspace.transactions.store');
+
+        Route::prefix('snackspace')->name('snackspace.')->group(function () {
+            Route::get(
+                'transactions',
+                'TransactionsController@index'
+            )->name('transactions.index');
+
+            // Snackspace Vending Machine
+            Route::resource(
+                'products',
+                'ProductController',
+                [
+                    'except' => ['destroy'],
+                ]
+            );
+            Route::resource(
+                'vending-machines',
+                'VendingMachineController',
+                [
+                    'except' => ['create', 'store', 'destroy'],
+                    'parameters' => [
+                        'vending-machines' => 'vendingMachine',
+                    ],
+                ]
+            );
+            Route::get(
+                'vending-machines/{vendingMachine}/locations',
+                'VendingMachineController@locations'
+            )->name('vending-machines.locations.index');
+            Route::patch(
+                'vending-machines/{vendingMachine}/locations/{vendingLocation}',
+                'VendingMachineController@locationAssign'
+            )->name('vending-machines.locations.assign');
+        });
+    });
 
     // Tools
     Route::resource('tools', 'Tools\ToolController');

@@ -36,7 +36,7 @@ return [
             'text'          => 'Snackspace',
             'route'         => 'snackspace.transactions.index',
             'match'         => 'snackspace.transactions.index',
-            'permissions'   => ['snackspaceTransaction.view.self'],
+            'permissions'   => ['snackspace.transaction.view.self'],
             'links'         => [],
         ],
         'tools' => [
@@ -58,6 +58,26 @@ return [
             'match'         => 'links.index',
             'permissions'   => [],
             'links'         => [],
+        ],
+        'vending' => [
+            'text'          => 'Vending',
+            'permissions'   => [],
+            'links'         => [
+                'vendingMachines'          => [
+                    'text'          => 'Machines',
+                    'route'         => 'snackspace.vending-machines.index',
+                    'match'         => 'snackspace.vending-machines.index',
+                    'permissions'   => ['snackspace.vendingMachine.view'],
+                    'links'         => [],
+                ],
+                'products'      => [
+                    'text'          => 'Products',
+                    'route'         => 'snackspace.products.index',
+                    'match'         => 'snackspace.products.index',
+                    'permissions'   => ['snackspace.product.view'],
+                    'links'         => [],
+                ],
+            ],
         ],
         'admin' => [
             'text'          => 'Admin',

@@ -416,7 +416,7 @@
         let booking = {
           start: moment(event.start).toISOString(true),
           end: moment(event.end).toISOString(true),
-        }
+        };
 
         this.loading(true);
 

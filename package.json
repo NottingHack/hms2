@@ -19,7 +19,7 @@
     "@fullcalendar/moment-timezone": "^4.1.0",
     "@fullcalendar/timegrid": "^4.1.0",
     "@fullcalendar/vue": "^4.1.0",
-    "axios": "^0.18",
+    "axios": "^0.19",
     "bootstrap": "^4.3.1",
     "bootstrap-confirmation2": "^4.1.0",
     "bootstrap4-card-tables": "^1.1.1",

@@ -44,7 +44,7 @@ Snackspace account for {{ $user->getFirstname() }}
     {{ $transactions->links() }}
   </div>
 </div>
-@can ('snackspaceTransaction.create.all')
+@can ('snackspace.transaction.create.all')
 <div class="container">
   <div class="card">
     <a href="{{ route('users.snackspace.transactions.create', $user->getId()) }}"  class="btn btn-primary"><i class="fas fa-plus" aria-hidden="true"></i> Add manual transaction</a>

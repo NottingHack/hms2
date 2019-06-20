@@ -22,7 +22,10 @@ HMS\Entities\Snackspace\Product:
       nullable: true
     shortDescription:
       type: string
-      nullable: true
     longDescription:
       type: text
       nullable: true
+oneToMany:
+  vendingLocations:
+      targetEntity: \HMS\Entities\Snackspace\VendingLocation
+      mappedBy: product

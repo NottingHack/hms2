@@ -1,6 +1,5 @@
 <?php
 
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,6 +20,13 @@ Route::name('api.')->middleware('auth:api')->group(function () {
     Route::get('search/users/{searchQuery?}', 'Api\SearchController@users')
         ->name('search.users');
 
+    // Snackspace
+    Route::patch(
+        'snackspace/vending-machines/{vendingMachine}/locations',
+        'Api\Snackspace\VendingMachineController@locationAssign'
+    )->name('snackspace.vending-machines.locations.assign');
+
+    // Tools
     Route::apiResource('tools/{tool}/bookings', 'Api\Tools\BookingController');
 });
 

@@ -89,7 +89,7 @@ class VendingMachine
      */
     public function getConnectionString()
     {
-        return VendingMachineConnection::CONNECTION_STRING[$this->connection];
+        return VendingMachineConnectionType::CONNECTION_STRING[$this->connection];
     }
 
     /**

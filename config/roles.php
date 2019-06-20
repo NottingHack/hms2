@@ -90,6 +90,7 @@ return [
         'gatekeeper.zoneEntry.ouside',
         'horizon.view',
         'team.view',
+        'team.edit.description',
     ],
 
     /*
@@ -109,6 +110,7 @@ return [
                 'profile.edit.self',
                 'link.view',
                 'membership.updateDetails',
+                'team.view',
             ],
         ],
         'member.payment' => [
@@ -118,6 +120,7 @@ return [
                 'profile.view.self',
                 'profile.edit.self',
                 'link.view',
+                'team.view',
             ],
         ],
         'member.young' => [
@@ -126,6 +129,7 @@ return [
             'permissions' => [
                 'profile.view.self',
                 'profile.edit.self',
+                'accessCodes.view',
                 'link.view',
                 'project.create.self',
                 'project.view.self',
@@ -153,6 +157,7 @@ return [
                 'login.shell',
                 'login.spacenet',
                 'team.view',
+                'team.edit.description',
             ],
         ],
         'member.ex' => [
@@ -168,6 +173,7 @@ return [
                 'snackspace.payment.debtOnly',
                 'rfidTags.view.self',
                 'gatekeeper.zoneEntry.ouside',
+                'team.view',
             ],
         ],
         'member.current' => [
@@ -204,6 +210,7 @@ return [
                 'login.shell',
                 'login.spacenet',
                 'team.view',
+                'team.edit.description',
             ],
         ],
         'member.temporarybanned' => [
@@ -221,6 +228,7 @@ return [
                 'rfidTags.view.self',
                 'rfidTags.edit.self',
                 'gatekeeper.zoneEntry.ouside',
+                'team.view',
             ],
         ],
         'member.banned' => [
@@ -237,6 +245,7 @@ return [
                 'snackspace.transaction.view.self',
                 'rfidTags.view.self',
                 'gatekeeper.zoneEntry.ouside',
+                'team.view',
             ],
         ],
         'user.super' => [
@@ -314,6 +323,7 @@ return [
                 'tools.user.grant',
                 'role.grant.team',
                 'gatekeeper.zoneEntry.teamStrorage',
+                'team.edit.description',
             ],
         ],
         'team.software' => [

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="vue-remove">
     <button type="button" class="btn btn-primary" @click="showModal"><i class="fas fa-plus fa-lg" aria-hidden="true"></i> Add User To Team</button>
 
     <!-- Modal -->
@@ -45,7 +45,7 @@
 
     computed: {
       actionUrl() {
-        return "team/" + this.roleId + "/users";
+        return "/teams/" + this.roleId + "/users";
       },
     }, // end of computed
 
@@ -58,7 +58,13 @@
     },
 
     mounted() {
+      this.$nextTick(function () {
+        // remove unwanted element all other is work jQuery required
+        $('.vue-remove').contents().unwrap();
+      });
+
       $(this.$refs.selectModal).modal('handleUpdate');
+
     }
   }
 </script>

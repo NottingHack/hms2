@@ -297,7 +297,7 @@ return [
                 'snackspace.product.edit',
                 'snackspace.vendingMachine.view',
                 'snackspace.vendingMachine.edit',
-                'snackspace.vendingMachine.locations.edit',
+                'snackspace.vendingMachine.locations.assign',
                 'rfidTags.view.self',
                 'rfidTags.view.all',
                 'rfidTags.edit.self',

@@ -6,7 +6,6 @@ use HMS\Entities\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use HMS\Repositories\UserRepository;
-use HMS\Entities\Snackspace\Transaction;
 use Doctrine\ORM\EntityNotFoundException;
 use HMS\Entities\Snackspace\TransactionType;
 use HMS\Factories\Snackspace\TransactionFactory;

@@ -76,7 +76,7 @@ class VendingMachineController extends Controller
             $productArray = [
                 'id' => $product->getId(),
                 'shortDescription' => $product->getShortDescription(),
-                'price' => money_format('%n', $product->getPrice()/100),
+                'price' => money_format('%n', $product->getPrice() / 100),
             ];
         }
 

@@ -17,7 +17,7 @@ interface VendingLocationRepository
     public function findOneById($id);
 
     /**
-     * Find all locations for a given VendingMachine
+     * Find all locations for a given VendingMachine.
      *
      * @param VendingMachine $vendingMachine
      *

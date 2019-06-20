@@ -7,7 +7,6 @@ Locations for {{ $vendingMachine->getDescription() }}
 @section('content')
 <div class="container">
   <p>Words about how to setup products per location</p>
-  <p> build are more gird like view of loactions and products</p>
 </div>
 <vending-locations
   assign-url="{{  route('api.snackspace.vending-machines.locations.assign', ['vendingMachine' => $vendingMachine->getID()]) }}"

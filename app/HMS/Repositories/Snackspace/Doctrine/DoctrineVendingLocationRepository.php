@@ -22,7 +22,7 @@ class DoctrineVendingLocationRepository extends EntityRepository implements Vend
     }
 
     /**
-     * Find all locations for a given VendingMachine
+     * Find all locations for a given VendingMachine.
      *
      * @param VendingMachine $vendingMachine
      *

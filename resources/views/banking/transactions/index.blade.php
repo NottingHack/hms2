@@ -12,21 +12,24 @@ Membership Payments for {{ $user->getFirstname() }}
       <p>Setting up standing order and importance of using the right reference words go here.</p>
       <dl>
         <dt>Account number</dt>
-        <dd id="accountNo">
+        <dd>
           <span class="align-middle">
-            {{ $accountNo }}&nbsp;<button class="btn btn-light btn-sm btn-sm-spacing" onclick="copyToClipboard('#accountNo')"><i class="far fa-copy "></i></button>
+            <span id="accountNo">{{ $accountNo }}</span>&nbsp;
+            <button class="btn btn-light btn-sm btn-sm-spacing" onclick="copyToClipboard('#accountNo')"><i class="far fa-copy "></i></button>
           </span>
         </dd>
         <dt>Sort Code</dt>
-        <dd id="sortCode">
+        <dd>
           <span class="align-middle">
-            {{ $sortCode }}&nbsp;<button class="btn btn-light btn-sm btn-sm-spacing" onclick="copyToClipboard('#sortCode')"><i class="far fa-copy "></i></button>
+            <span id="sortCode">{{ $sortCode }}</span>&nbsp;
+            <button class="btn btn-light btn-sm btn-sm-spacing" onclick="copyToClipboard('#sortCode')"><i class="far fa-copy "></i></button>
           </span>
         </dd>
         <dt>Reference</dt>
-        <dd id="paymentRef">
+        <dd>
           <span class="align-middle">
-            {{ $paymentRef }}&nbsp;<button class="btn btn-light btn-sm btn-sm-spacing" onclick="copyToClipboard('#paymentRef')"><i class="far fa-copy "></i></button>
+            <span id="paymentRef">{{ $paymentRef }}</span>&nbsp;
+            <button class="btn btn-light btn-sm btn-sm-spacing" onclick="copyToClipboard('#paymentRef')"><i class="far fa-copy "></i></button>
           </span>
         </dd>
       </dl>

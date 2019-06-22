@@ -5,7 +5,6 @@ namespace HMS\User;
 use Carbon\Carbon;
 use HMS\Entities\User;
 use HMS\Entities\Profile;
-use Illuminate\Http\Request;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\UserRepository;
 use HMS\Repositories\ProfileRepository;
@@ -107,46 +106,46 @@ class ProfileManager
      * Update the user form a form request.
      *
      * @param User $user User to update
-     * @param Illuminate\Http\Request $request
+     * @param array $request
      *
      * @return User
      */
-    public function updateUserProfileFromRequest(User $user, Request $request)
+    public function updateUserProfileFromRequest(User $user, array $request)
     {
         $profile = $user->getProfile();
 
-        if ($request['address1']) {
+        if (isset($request['address1'])) {
             $profile->setAddress1($request['address1']);
         }
 
         // Nullable field
-        if ($request->exists('address2')) {
+        if (array_key_exists('address2', $request)) {
             $profile->setAddress2($request['address2']);
         }
 
         // Nullable field
-        if ($request->exists('address3')) {
+        if (array_key_exists('address3', $request)) {
             $profile->setAddress3($request['address3']);
         }
 
-        if ($request['addressCity']) {
+        if (isset($request['addressCity'])) {
             $profile->setAddressCity($request['addressCity']);
         }
 
-        if ($request['addressCounty']) {
+        if (isset($request['addressCounty'])) {
             $profile->setAddressCounty($request['addressCounty']);
         }
 
-        if ($request['addressPostcode']) {
+        if (isset($request['addressPostcode'])) {
             $profile->setAddressPostcode($request['addressPostcode']);
         }
 
-        if ($request['contactNumber']) {
+        if (isset($request['contactNumber'])) {
             $profile->setContactNumber($request['contactNumber']);
         }
 
         // Nullable field
-        if ($request->exists('dateOfBirth')) {
+        if (array_key_exists('dateOfBirth', $request)) {
             if (is_null($request['dateOfBirth'])) {
                 $profile->setDateOfBirth(null);
             } else {
@@ -154,11 +153,11 @@ class ProfileManager
             }
         }
 
-        if ($request['creditLimit']) {
+        if (isset($request['creditLimit'])) {
             $profile->setCreditLimit($request['creditLimit']);
         }
 
-        if ($request['unlockText']) {
+        if (isset($request['unlockText'])) {
             $profile->setUnlockText($request['unlockText']);
         }
 

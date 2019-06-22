@@ -74,7 +74,6 @@ class DoctrineRoleRepository extends EntityRepository implements RoleRepository
         return parent::findOneByEmail($email);
     }
 
-
     /**
      * Find the member role of a given user.
      *

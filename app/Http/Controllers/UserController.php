@@ -109,7 +109,7 @@ class UserController extends Controller
             return redirect()->route('home');
         }
 
-        $this->validate($request, [
+        $validatedData = $request->validate([
             'firstname' => 'required|max:255',
             'lastname' => 'required|max:255',
             'email' => 'required|email|max:255|unique:HMS\Entities\User,email,' . $user->getId(),
@@ -124,8 +124,8 @@ class UserController extends Controller
             'unlockText' => 'sometimes|nullable|max:95',
         ]);
 
-        $user = $this->userManager->updateFromRequest($user, $request);
-        $user = $this->profileManager->updateUserProfileFromRequest($user, $request);
+        $user = $this->userManager->updateFromRequest($user, $validatedData);
+        $user = $this->profileManager->updateUserProfileFromRequest($user, $validatedData);
 
         return redirect()->route('users.show', ['user' => $user->getId()]);
     }

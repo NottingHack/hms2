@@ -23,7 +23,7 @@ Membership Payments for {{ $user->getFirstname() }}
 
   <br>
   <p>Words about matched payments we have received.</p>
-
+  @if( Auth::user() == $user || Gate::allows('bankTransactions.view.all'))
   <div class="table-responsive">
     <table class="table table-bordered table-hover">
       <thead>
@@ -48,5 +48,13 @@ Membership Payments for {{ $user->getFirstname() }}
   <div class="pagination-links">
     {{ $bankTransactions->links() }}
   </div>
+  @elseif(Auth::user() != $user && Gate::allows('bankTransactions.view.limited'))
+  @isset($bankTransactions)
+  <div class="card">
+    <h5 class="card-header">Last Payment Date:</h5>
+    <div class="card-body">{{ $bankTransactions[0]->getTransactionDate()->toDateString() }}</div>
+  </div>
+  @endisset
+  @endif
 </div>
 @endsection

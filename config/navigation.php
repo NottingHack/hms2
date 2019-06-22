@@ -128,7 +128,7 @@ return [
                     'text'          => 'Join Accounts',
                     'route'         => 'banking.accounts.listJoint',
                     'match'         => 'banking.accounts.listJoint',
-                    'permissions'   => ['profile.view.all'],
+                    'permissions'   => ['profile.view.limited', 'profile.view.all'],
                     'links'         => [],
                 ],
                 'bankTransactions' => [

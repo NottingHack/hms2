@@ -31,6 +31,7 @@ class AccountController extends Controller
      * Create a new controller instance.
      *
      * @param AccountRepository $accountRepository
+     * @param AccountFactory $accountFactory
      * @param UserRepository $userRepository
      */
     public function __construct(
@@ -42,8 +43,8 @@ class AccountController extends Controller
         $this->accountFactory = $accountFactory;
         $this->userRepository = $userRepository;
 
-        $this->middleware('can:profile.view.all')->only(['listJoint', 'show']);
-        $this->middleware('can:profile.edit.all')->only(['linkUser', 'unlinkUser']);
+        $this->middleware('canOr:profile.view.limited,profile.view.all')->only(['listJoint', 'show']);
+        $this->middleware('canOr:profile.edit.limited,profile.edit.all')->only(['linkUser', 'unlinkUser']);
     }
 
     /**

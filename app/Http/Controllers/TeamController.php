@@ -80,6 +80,11 @@ class TeamController extends Controller
      */
     public function edit(Role $team)
     {
+        if (! Auth::user()->has($team) || Gate::denies('role.edit.all')) {
+            flash('Unauthorized')->error();
+
+            return redirect()->route('home');
+        }
         return view('team.edit')->with('team', $team);
     }
 
@@ -93,6 +98,12 @@ class TeamController extends Controller
      */
     public function update(Role $team, Request $request)
     {
+        if (! Auth::user()->has($team) || Gate::denies('role.edit.all')) {
+            flash('Unauthorized')->error();
+
+            return redirect()->route('home');
+        }
+
         $validatedData = $request->validate([
             'description'   => 'required',
         ]);

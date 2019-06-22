@@ -11,7 +11,7 @@
     This normally takes no more the 48 hours.
   </p>
   <p>
-    <a class="btn btn-primary" href="{{ route('users.show', Auth::user()->getId()) }}">Update Details</a>
+    <a class="btn btn-primary" href="{{ route('membership.edit', Auth::user()->getId()) }}">Update Details</a>
   </p>
 </div>
 @endsection

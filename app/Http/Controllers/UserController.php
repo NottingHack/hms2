@@ -96,7 +96,7 @@ class UserController extends Controller
 
     /**
      * Show the form for editing the specified user.
-     * This route is for admins and should have the verified middleware
+     * This route is for admins and should have the verified middleware.
      *
      * @param User $user
      *

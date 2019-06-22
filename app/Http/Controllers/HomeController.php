@@ -68,7 +68,7 @@ class HomeController extends Controller
      *
      * @param Booking $booking
      *
-     * @return Array
+     * @return array
      */
     protected function mapBookings(Booking $booking)
     {

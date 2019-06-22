@@ -85,6 +85,7 @@ class TeamController extends Controller
 
             return redirect()->route('home');
         }
+
         return view('team.edit')->with('team', $team);
     }
 

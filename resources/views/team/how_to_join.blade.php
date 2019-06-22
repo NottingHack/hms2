@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('pageTitle', 'How to Joing a Team')
+@section('pageTitle', 'How to Join a Team')
 
 @section('content')
 <div class="container">

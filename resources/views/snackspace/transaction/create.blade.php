@@ -20,7 +20,7 @@ Add Snackspace transaction for {{ $user->getFirstname() }}
     </div>
 
     <div class="form-group">
-      <label for="amount" class="form-label">Amount in pence</label>
+      <label for="amount" class="form-label">Amount in pence (TODO: Note about credit vs debit)</label>
       <input id="amount" class="form-control" type="number" name="amount" placeholder="in pence" value="{{ old('amount') }}" required>
       @if ($errors->has('amount'))
       <p class="help-text">

@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-<p>To add a booking, select and drag below.</p>
+<p>To add a booking, select and drag below. (add more detailed words)</p>
 </div>
 
 <tool-calendar

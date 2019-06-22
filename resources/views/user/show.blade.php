@@ -4,6 +4,7 @@
 
 @section('content')
 <div class="container">
+  <p>Words about keeping your details uo to date, words about how we use theses details</p>
   <div class="table-responsive">
     <table class="table table-bordered">
       <tbody>

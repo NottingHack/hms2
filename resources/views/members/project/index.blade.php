@@ -5,6 +5,10 @@ Projects for {{ $user->getFirstname() }}
 @endsection
 
 @section('content')
+<div class="container">
+  <p>Words about creating a project and printing a DNH label</p>
+  <p>Words about mark complete vs resume</p>
+</div>
 @can('project.create.self')
 <div class="container">
   <div class="card">

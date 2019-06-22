@@ -239,8 +239,8 @@
       },
 
       viewSkeletonRender(info) {
-        // FullCalendar's bootstrap them uses card on there fc-list-view class
-        // this causes a card in side a card
+        // FullCalendar's bootstrap theme uses card on there fc-list-view class
+        // this causes a card inside a card
         if (this.removeCardClass) {
           $(info.el).removeClass(['card', 'fc-list-view'])
         }
@@ -266,7 +266,6 @@
 
     beforeDestroy() {
       clearInterval(this.interval);
-      window.removeEventListener('resize', this.getWindowResize);
     },
   }
 </script>

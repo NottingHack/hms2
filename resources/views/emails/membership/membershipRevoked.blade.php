@@ -1,7 +1,7 @@
 @component('mail::message')
 # Hello {{ $fullname }}
 
-We are sorry to see you go but as you have not made a payment recently your Nottingham Hackspace membership has been revoked and your access to the space has been suspended.
+We are sorry to see you go, but as you have not made a payment recently your Nottingham Hackspace membership has been revoked and your access to the space has been suspended.
 
 If you do wish to reinstate your membership you will need to setup your standing order again.
 

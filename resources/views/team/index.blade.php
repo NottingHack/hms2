@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-  <p>Words about all the teams that exist to help people getting involved in runing the space</p>
+  <p>Words about all the teams that exist to help people getting involved in running the space (link to how to join)</p>
   @foreach ($teams as $team)
   <div class="card mb-3">
     <h5 class="card-header">{{ $team->getDisplayName() }}

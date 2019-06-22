@@ -27,6 +27,7 @@
       unselectCancel=".popover"
       :eventOverlap=false
       :defaultView="defaultView"
+      noEventsMessage="No bookings to display"
       themeSystem="bootstrap"
       :header="{
         left:   'prev',

@@ -12,7 +12,7 @@
       <thead>
         <tr>
           <th>ID</th>
-          <th>Payment Refrence</th>
+          <th>Payment Reference</th>
           <th>Users</th>
           <th>Actions</th>
         </tr>

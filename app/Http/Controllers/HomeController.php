@@ -45,6 +45,7 @@ class HomeController extends Controller
      * @param BoxRepository $boxRepository
      * @param TransactionRepository $transactionRepository
      * @param RoleRepository $roleRepository
+     * @param BookingRepository $bookingRepository
      *
      * @return void
      */
@@ -62,6 +63,13 @@ class HomeController extends Controller
         $this->bookingRepository = $bookingRepository;
     }
 
+    /**
+     * Helper for array_map to prepare bookings for BookingCalendarList.vue.
+     *
+     * @param Booking $booking
+     *
+     * @return Array
+     */
     protected function mapBookings(Booking $booking)
     {
         // TODO: swap out for Fractal

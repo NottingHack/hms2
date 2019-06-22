@@ -46,11 +46,20 @@ interface RoleRepository
     public function findOneByEmail(string $email);
 
     /**
+     * Find the member role of a given user.
+     *
+     * @param User $user
+     *
+     * @return Role|null
+     */
+    public function findMemberStatusForUser(User $user);
+
+    /**
      * Find all the team roles a given user has.
      *
      * @param User $user
      *
-     * @return Roles[]
+     * @return Role[]
      */
     public function findTeamsForUser(User $user);
 

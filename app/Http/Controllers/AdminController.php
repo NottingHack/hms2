@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use HMS\Entities\Role;
+use HMS\Entities\User;
 use HMS\Entities\Tools\Booking;
-use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
+use HMS\Repositories\Tools\ToolRepository;
 use HMS\Repositories\Members\BoxRepository;
 use HMS\Repositories\Tools\BookingRepository;
 use HMS\Repositories\Members\ProjectRepository;
 use HMS\Repositories\Snackspace\TransactionRepository;
+use HMS\Repositories\Banking\BankTransactionRepository;
 
-class HomeController extends Controller
+class AdminController extends Controller
 {
     /**
      * @var ProjectRepository
@@ -39,6 +40,16 @@ class HomeController extends Controller
     protected $bookingRepository;
 
     /**
+     * @var ToolRepository
+     */
+    protected $toolRepository;
+
+    /**
+     * @var BankTransactionRepository
+     */
+    protected $bankTransactionRepository;
+
+    /**
      * Create a new controller instance.
      *
      * @param ProjectRepository $projectRepository
@@ -46,6 +57,8 @@ class HomeController extends Controller
      * @param TransactionRepository $transactionRepository
      * @param RoleRepository $roleRepository
      * @param BookingRepository $bookingRepository
+     * @param ToolRepository $toolRepository
+     * @param BankTransactionRepository $bankTransactionRepository
      *
      * @return void
      */
@@ -54,13 +67,19 @@ class HomeController extends Controller
         BoxRepository $boxRepository,
         TransactionRepository $transactionRepository,
         RoleRepository $roleRepository,
-        BookingRepository $bookingRepository
+        BookingRepository $bookingRepository,
+        ToolRepository $toolRepository,
+        BankTransactionRepository $bankTransactionRepository
     ) {
         $this->projectRepository = $projectRepository;
         $this->boxRepository = $boxRepository;
         $this->transactionRepository = $transactionRepository;
         $this->roleRepository = $roleRepository;
         $this->bookingRepository = $bookingRepository;
+        $this->toolRepository = $toolRepository;
+        $this->bankTransactionRepository = $bankTransactionRepository;
+
+        $this->middleware('canOr:profile.view.limited,profile.view.all')->only(['userOverview']);
     }
 
     /**
@@ -84,68 +103,44 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application welcome screen.
+     * Admin home page.
      *
      * @return \Illuminate\Http\Response
      */
-    public function welcome()
+    public function admin()
     {
-        if (\Auth::check()) {
-            return redirect()->route('home');
-        }
-
-        return view('welcome');
+        return view('pages.admin');
     }
 
     /**
-     * Show the application dashboard.
+     * Overview page of a given user.
+     *
+     * @param User $user
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function userOverview(User $user)
     {
-        $user = \Auth::user();
-
-        if ($user->hasRoleByName(Role::MEMBER_APPROVAL)) {
-            return view('pages.awaitingApproval');
-        }
-
         $projects = $this->projectRepository->paginateByUser($user, 5, 'page', true);
         $boxCount = $this->boxRepository->countInUseByUser($user);
         $snackspaceTransactions = $this->transactionRepository->paginateByUser($user, 3);
         $teams = $this->roleRepository->findTeamsForUser($user);
         $bookings = $this->bookingRepository->findFutureByUser($user);
         $mappedBookings = array_map([$this, 'mapBookings'], $bookings);
+        $tools = $this->toolRepository->findAll();
+        $memberStatus = $this->roleRepository->findMemberStatusForUser($user);
+        $bankTransactions = $this->bankTransactionRepository->paginateByAccount($user->getAccount(), 3);
 
-        return view('home')->with([
+        return view('admin.user_overview')->with([
             'user' => $user,
             'projects' => $projects,
             'boxCount' => $boxCount,
             'snackspaceTransactions' => $snackspaceTransactions,
             'teams' => $teams,
             'bookings' => $mappedBookings,
+            'tools' => $tools,
+            'memberStatus' => $memberStatus,
+            'bankTransactions' => $bankTransactions,
         ]);
-    }
-
-    /**
-     * Show the Hacksapce access codes.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function accessCodes(MetaRepository $metaRepository)
-    {
-        if (! \Gate::allows('accessCodes.view')) {
-            return redirect()->route('home');
-        }
-        $accessCodes = [
-            'outerDoorCode' => $metaRepository->get('access_street_door'),
-            'innerDoorCode' => $metaRepository->get('access_inner_door'),
-            'wifiSsid' => $metaRepository->get('access_wifi_ssid'),
-            'wifiPass' => $metaRepository->get('access_wifi_password'),
-            'guestWifiSsid' => $metaRepository->get('access_guest_wifi_ssid'),
-            'guestWifiPass' => $metaRepository->get('access_guest_wifi_password'),
-        ];
-
-        return view('pages.access')->with($accessCodes);
     }
 }

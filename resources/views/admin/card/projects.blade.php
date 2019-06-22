@@ -1,4 +1,4 @@
-@can('project.view.self')
+@can('project.view.all')
 <div class="card">
   <div class="card-header">Active Projects</div>
   <ul class="list-group list-group-flush">
@@ -20,8 +20,10 @@
     <li class="list-group-item">No Projects yet.</li>
     @endforelse
   </ul>
+  @can('project.create.all')
   <div class="card-footer">
     <a href="{{ route('projects.create') }}" class="btn btn-primary">Add a Project</a>
   </div>
-</div>
+  @endcan
+  </div>
 @endcan

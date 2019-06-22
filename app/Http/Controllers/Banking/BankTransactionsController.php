@@ -79,7 +79,7 @@ class BankTransactionsController extends Controller
                 throw EntityNotFoundException::fromClassNameAndIdentifier(User::class, ['id' => $request->user]);
             }
 
-            if ($user != \Auth::user() && \Gate::denies('bankTransactions.view.all')) {
+            if ($user != \Auth::user() && \Gate::denies('bankTransactions.view.all') && \Gate::denies('bankTransactions.view.limited')) {
                 flash('Unauthorized')->error();
 
                 return redirect()->route('home');

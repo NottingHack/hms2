@@ -5,13 +5,11 @@
 @section('content')
 <div class="container">
   <div class="card">
-    <div class="card-header">
-      <h5>Its important to keep all you contact details up to date.</h5>
-    </div>
-
+    <h5 class="card-header">Its important to keep all you contact details up to date.</h5>
     <form id="user-edit-form" role="form" method="POST" action="{{ route('users.update', $user->getId()) }}">
       @csrf
-      @method('PUT')
+      @method('PATCH')
+
       <div class="card-body">
         <label>Username</label>
         <h5>{{ old('username', $user->getUsername()) }}</h5>
@@ -20,8 +18,8 @@
         <hr>
 
         <div class="form-group">
-          <label for="firstname" class="form-label">Forename</label>
-          <input placeholder="Forename" class="form-control" id="firstname" type="text" name="firstname" value="{{ old('firstname', $user->getFirstname()) }}" required autofocus>
+          <label for="firstname" class="form-label">First name</label>
+          <input placeholder="First name" class="form-control" id="firstname" type="text" name="firstname" value="{{ old('firstname', $user->getFirstname()) }}" required autofocus>
           @if ($errors->has('firstname'))
           <span class="help-block">
             <strong>{{ $errors->first('firstname') }}</strong>
@@ -30,8 +28,8 @@
         </div>
 
         <div class="form-group">
-          <label for="lastname" class="form-label">Surname</label>
-          <input placeholder="Surname" class="form-control" id="lastname" type="text" name="lastname" value="{{ old('lastname', $user->getLastname()) }}" required>
+          <label for="lastname" class="form-label">Last name</label>
+          <input placeholder="Last name" class="form-control" id="lastname" type="text" name="lastname" value="{{ old('lastname', $user->getLastname()) }}" required>
           @if ($errors->has('lastname'))
           <span class="help-block">
             <strong>{{ $errors->first('lastname') }}</strong>
@@ -47,9 +45,9 @@
             <strong>{{ $errors->first('email') }}</strong>
           </span>
           @endif
-          @if ($user->getProfile())
         </div>
 
+        @if ($user->getProfile())
         <hr>
 
         <div class="form-group">
@@ -148,13 +146,12 @@
           </p>
           @endif
         </div>
-
+        @endif {{-- userProfile() --}}
       </div>
       <div class="card-footer">
-        <button type="submit" class="btn btn-success btn-block"> Update</button>
+        <button type="submit" class="btn btn-success btn-block">Update</button>
       </div>
     </form>
-    @endif
   </div>
 </div>
 @endsection

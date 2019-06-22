@@ -29,7 +29,7 @@
         <hr>
 
         <div class="form-group">
-          <input placeholder="Forename" class="form-control{{  $errors->has('firstname') ? ' is-invalid' : '' }}" id="firstname" type="text" name="firstname" value="{{ old('firstname') }}" required autofocus>
+          <input placeholder="First name" class="form-control{{  $errors->has('firstname') ? ' is-invalid' : '' }}" id="firstname" type="text" name="firstname" value="{{ old('firstname') }}" required autofocus>
           @if ($errors->has('firstname'))
           <span class="invalid-feedback">
             <strong>{{ $errors->first('firstname') }}</strong>
@@ -38,7 +38,7 @@
         </div>
 
         <div class="form-group">
-          <input placeholder="Surname" class="form-control{{  $errors->has('lastname') ? ' is-invalid' : '' }}" id="lastname" type="text" name="lastname" value="{{ old('lastname') }}" required>
+          <input placeholder="Last name" class="form-control{{  $errors->has('lastname') ? ' is-invalid' : '' }}" id="lastname" type="text" name="lastname" value="{{ old('lastname') }}" required>
           @if ($errors->has('lastname'))
           <span class="invalid-feedback">
             <strong>{{ $errors->first('lastname') }}</strong>

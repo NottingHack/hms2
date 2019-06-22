@@ -12,18 +12,30 @@ Membership Payments for {{ $user->getFirstname() }}
       <p>Setting up standing order and importance of using the right reference words go here.</p>
       <dl>
         <dt>Account number</dt>
-        <dd>{{ $accountNo }}</dd>
+        <dd id="accountNo">
+          <span class="align-middle">
+            {{ $accountNo }}&nbsp;<button class="btn btn-light btn-sm btn-sm-spacing" onclick="copyToClipboard('#accountNo')"><i class="far fa-copy "></i></button>
+          </span>
+        </dd>
         <dt>Sort Code</dt>
-        <dd>{{ $sortCode }}</dd>
+        <dd id="sortCode">
+          <span class="align-middle">
+            {{ $sortCode }}&nbsp;<button class="btn btn-light btn-sm btn-sm-spacing" onclick="copyToClipboard('#sortCode')"><i class="far fa-copy "></i></button>
+          </span>
+        </dd>
         <dt>Reference</dt>
-        <dd>{{ $paymentRef }}</dd>
+        <dd id="paymentRef">
+          <span class="align-middle">
+            {{ $paymentRef }}&nbsp;<button class="btn btn-light btn-sm btn-sm-spacing" onclick="copyToClipboard('#paymentRef')"><i class="far fa-copy "></i></button>
+          </span>
+        </dd>
       </dl>
     </div>
   </div>
 
   <br>
   <p>Words about matched payments we have received.</p>
-
+  @if( Auth::user() == $user || Gate::allows('bankTransactions.view.all'))
   <div class="table-responsive">
     <table class="table table-bordered table-hover">
       <thead>
@@ -48,5 +60,13 @@ Membership Payments for {{ $user->getFirstname() }}
   <div class="pagination-links">
     {{ $bankTransactions->links() }}
   </div>
+  @elseif(Auth::user() != $user && Gate::allows('bankTransactions.view.limited'))
+  @isset($bankTransactions)
+  <div class="card">
+    <h5 class="card-header">Last Payment Date:</h5>
+    <div class="card-body">{{ $bankTransactions[0]->getTransactionDate()->toDateString() }}</div>
+  </div>
+  @endisset
+  @endif
 </div>
 @endsection

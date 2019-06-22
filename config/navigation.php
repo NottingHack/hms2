@@ -89,13 +89,13 @@ return [
             'text'          => 'Admin',
             'permissions'   => [],
             'links'         => [
-                'dashboard'         => [
-                    'text'          => 'Dashboard',
-                    'route'         => 'admin',
-                    'match'         => 'admin',
-                    'permissions'   => ['profile.view.all'],
-                    'links'         => [],
-                ],
+                // 'dashboard'         => [
+                //     'text'          => 'Dashboard',
+                //     'route'         => 'admin',
+                //     'match'         => 'admin',
+                //     'permissions'   => ['profile.view.all'],
+                //     'links'         => [],
+                // ],
                 // 'user'         => [
                 //     'text'          => 'Members',
                 //     'route'         => 'users.index',
@@ -128,7 +128,7 @@ return [
                     'text'          => 'Join Accounts',
                     'route'         => 'banking.accounts.listJoint',
                     'match'         => 'banking.accounts.listJoint',
-                    'permissions'   => ['profile.view.all'],
+                    'permissions'   => ['profile.view.limited', 'profile.view.all'],
                     'links'         => [],
                 ],
                 'bankTransactions' => [

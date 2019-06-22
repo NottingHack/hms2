@@ -22,6 +22,7 @@
       :eventOverlap=false
       defaultView="bookingList"
       themeSystem="bootstrap"
+      noEventsMessage="No bookings to display"
       :header="false"
       :footer="false"
       :visibleRange="visibleRange"
@@ -248,7 +249,14 @@
 
     mounted() {
       this.calendarApi = this.$refs.fullCalendar.getApi();
-      // Call refetchEventsevery 15 minutes, so past events are shaded
+
+      // workaround for wierd height issue ($nextTick is to soon)
+      // migt be related https://github.com/fullcalendar/fullcalendar/issues/4650
+      setTimeout(() => {
+        this.calendarApi.updateSize();
+      }, 10);
+
+      // Call checkBookings minute, so past events are shaded
       this.interval = setInterval(function () {
         // TODO: once we have Echo running only really need to call this if there is an event under now ±15
         this.checkBookings()

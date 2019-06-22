@@ -12,12 +12,14 @@ return [
     */
     'permissions' => [
         'profile.view.self',
+        'profile.view.limited',
         'profile.view.all',
         'role.view.all',
         'role.edit.all',
         'role.grant.all',
         'role.grant.team',
         'profile.edit.self',
+        'profile.edit.limited',
         'profile.edit.all',
         'accessCodes.view',
         'meta.view',
@@ -33,6 +35,7 @@ return [
         'labelTemplate.print',
         'search.users',
         'project.create.self',
+        'project.create.all',
         'project.view.self',
         'project.view.all',
         'project.edit.self',
@@ -47,10 +50,10 @@ return [
         'box.edit.all',
         'box.printLabel.self',
         'box.printLabel.all',
-        'bankTransation.upload',
+        'bankTransation.upload',    // used by oauth client
         'snackspace.transaction.view.self',
         'snackspace.transaction.view.all',
-        'snackspace.transaction.create.all', // Trustees and snackspace team can create manual transactions
+        'snackspace.transaction.create.all', // Trustees, finance and snackspace team can create manual transactions
         'snackspace.purchase',              // Can buy stuff either vend or chargeable tool
         'snackspace.purchase.creditOnly',   // Can buy stuff either vend or chargeable tool but only if there in credit (ex members)
         'snackspace.payment',               // can make a payment
@@ -70,6 +73,7 @@ return [
         'login.shell',
         'login.spacenet',
         'bankTransactions.view.self',
+        'bankTransactions.view.limited',
         'bankTransactions.view.all',
         'bankTransactions.reconcile',
         'tools.view',                       // can view tools
@@ -82,12 +86,12 @@ return [
         'tools.use',                        // can use a tool, if tool is restricted also needs 'tools._TOOL_PERMISSION_NAME_.use'
         'tools.book',                       // can make a tool booking, , if tool is restricted also needs 'tools._TOOL_PERMISSION_NAME_.book'
         'tools.beInducted',                 // can be inducted to use a tool
-        'gatekeeper.zoneEntry.upstairs',    // these are hard coded here for now, untill we have a GateKeeperManager to generate them
+        'gatekeeper.zoneEntry.upstairs',    // these are hard coded here for now, until we have a GateKeeperManager to generate them
         'gatekeeper.zoneEntry.cncBlueRoom',
         'gatekeeper.zoneEntry.classRoomMetalworking',
         'gatekeeper.zoneEntry.teamStrorage',
         'gatekeeper.zoneEntry.downstairsMembersStrorage',
-        'gatekeeper.zoneEntry.ouside',
+        'gatekeeper.zoneEntry.outside',
         'horizon.view',
         'team.view',
         'team.edit.description',
@@ -149,7 +153,7 @@ return [
                 'tools.use',
                 'tools.book',
                 'tools.beInducted',
-                'gatekeeper.zoneEntry.ouside',
+                'gatekeeper.zoneEntry.outside',
                 'gatekeeper.zoneEntry.upstairs',
                 'gatekeeper.zoneEntry.cncBlueRoom',
                 'gatekeeper.zoneEntry.classRoomMetalworking',
@@ -157,7 +161,6 @@ return [
                 'login.shell',
                 'login.spacenet',
                 'team.view',
-                'team.edit.description',
             ],
         ],
         'member.ex' => [
@@ -172,7 +175,7 @@ return [
                 'snackspace.purchase.creditOnly',
                 'snackspace.payment.debtOnly',
                 'rfidTags.view.self',
-                'gatekeeper.zoneEntry.ouside',
+                'gatekeeper.zoneEntry.outside',
                 'team.view',
             ],
         ],
@@ -202,7 +205,7 @@ return [
                 'tools.use',
                 'tools.book',
                 'tools.beInducted',
-                'gatekeeper.zoneEntry.ouside',
+                'gatekeeper.zoneEntry.outside',
                 'gatekeeper.zoneEntry.upstairs',
                 'gatekeeper.zoneEntry.cncBlueRoom',
                 'gatekeeper.zoneEntry.classRoomMetalworking',
@@ -210,7 +213,6 @@ return [
                 'login.shell',
                 'login.spacenet',
                 'team.view',
-                'team.edit.description',
             ],
         ],
         'member.temporarybanned' => [
@@ -227,7 +229,7 @@ return [
                 'snackspace.transaction.view.self',
                 'rfidTags.view.self',
                 'rfidTags.edit.self',
-                'gatekeeper.zoneEntry.ouside',
+                'gatekeeper.zoneEntry.outside',
                 'team.view',
             ],
         ],
@@ -244,7 +246,7 @@ return [
                 'bankTransactions.view.self',
                 'snackspace.transaction.view.self',
                 'rfidTags.view.self',
-                'gatekeeper.zoneEntry.ouside',
+                'gatekeeper.zoneEntry.outside',
                 'team.view',
             ],
         ],
@@ -261,7 +263,8 @@ return [
             'email' => 'membership@nottinghack.org.uk',
             'slackChannel' => '#membership',
             'permissions' => [
-                'profile.view.all',
+                'profile.view.limited',
+                'profile.edit.limited',
                 'membership.approval',
                 'search.users',
                 'project.view.all',
@@ -277,8 +280,9 @@ return [
                 'rfidTags.edit.all',
                 'pins.view.all',
                 'pins.reactivate',
-                'bankTransactions.view.all',
+                'bankTransactions.view.limited',
                 'gatekeeper.zoneEntry.teamStrorage',
+                'team.edit.description',
             ],
         ],
         'team.trustees' => [
@@ -314,6 +318,9 @@ return [
                 'rfidTags.destroy',
                 'pins.view.all',
                 'pins.reactivate',
+                'link.view',
+                'link.create',
+                'link.edit',
                 'bankTransactions.view.all',
                 'tools.view',
                 'tools.create',
@@ -356,6 +363,7 @@ return [
                 'labelTemplate.print',
                 'gatekeeper.zoneEntry.teamStrorage',
                 'horizon.view',
+                'team.edit.description',
             ],
         ],
         'team.finance' => [
@@ -363,7 +371,13 @@ return [
             'description' => 'Finance Team',
             'email' => 'accounts@nottinghack.org.uk',
             'permissions' => [
+                'search.users',
+                'profile.view.limited',
+                'bankTransactions.view.all',
+                'bankTransactions.reconcile',
+                'snackspace.transaction.create.all',
                 'gatekeeper.zoneEntry.teamStrorage',
+                'team.edit.description',
             ],
         ],
         'team.network' => [
@@ -382,6 +396,7 @@ return [
                 'tools.inductor.grant',
                 'gatekeeper.zoneEntry.teamStrorage',
                 'horizon.view',
+                'team.edit.description',
             ],
         ],
     ],

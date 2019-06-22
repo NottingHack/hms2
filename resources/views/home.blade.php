@@ -9,10 +9,6 @@
     </div>
   </div>
   <div class="card-columns">
-    {{-- @component('card.user', ['user' => $user])
-    @endcomponent --}}
-    {{-- @component('card.profile', ['user' => $user])
-    @endcomponent --}}
     @component('card.projects', ['user' => $user, 'projects' => $projects])
     @endcomponent
     @component('card.teams', ['user' => $user, 'teams' => $teams])
@@ -28,6 +24,5 @@
     @component('card.access', ['user' => $user])
     @endcomponent
   </div>
-
 </div>
 @endsection

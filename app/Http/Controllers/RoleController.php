@@ -180,7 +180,7 @@ class RoleController extends Controller
     {
         $this->userManager->removeRoleFromUser($user, $role);
 
-        return redirect()->route('roles.show', ['role' => $role->getId()]);
+        return back();
     }
 
     /**

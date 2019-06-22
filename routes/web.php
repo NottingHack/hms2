@@ -76,14 +76,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('roles/{role}/users/{user}', 'RoleController@removeUser')->name('roles.removeUser');
 
     // USER
-    Route::get('users/admin/{user}', 'UserController@show')->name('users.admin.show');
+    Route::get('admin/users/{user}', 'AdminController@userOverview')->name('users.admin.show');
+    Route::get('admin/users/{user}/edit', 'UserController@editAdmin')->name('users.admin.edit');
+    Route::get('admin/users/{user}/edit_email', 'UserController@editEmail')->name('users.admin.edit-email');
+    Route::patch('admin/users/{user}', 'UserController@updateEmail')->name('users.admin.update-email');
     Route::get('users-by-role/{role}', 'UserController@listUsersByRole')->name('users.byRole');
     Route::get('users', 'UserController@index')->name('users.index');
     Route::get('change-password', 'Auth\ChangePasswordController@edit')->name('users.changePassword');
     Route::put('change-password', 'Auth\ChangePasswordController@update')->name('users.changePassword.update');
 
     // Admin
-    Route::get('admin', 'HomeController@admin')->name('admin');
+    Route::get('admin', 'AdminController@admin')->name('admin');
 
     // Meta area covers various setting for HMS
     Route::resource(

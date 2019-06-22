@@ -89,13 +89,13 @@ return [
             'text'          => 'Admin',
             'permissions'   => [],
             'links'         => [
-                'dashboard'         => [
-                    'text'          => 'Dashboard',
-                    'route'         => 'admin',
-                    'match'         => 'admin',
-                    'permissions'   => ['profile.view.all'],
-                    'links'         => [],
-                ],
+                // 'dashboard'         => [
+                //     'text'          => 'Dashboard',
+                //     'route'         => 'admin',
+                //     'match'         => 'admin',
+                //     'permissions'   => ['profile.view.all'],
+                //     'links'         => [],
+                // ],
                 // 'user'         => [
                 //     'text'          => 'Members',
                 //     'route'         => 'users.index',

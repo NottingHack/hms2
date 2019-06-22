@@ -19,6 +19,18 @@ class Role implements RoleContract
     const MEMBER_PAYMENT = 'member.payment';
     const MEMBER_YOUNG = 'member.young';
     const MEMBER_EX = 'member.ex';
+    const MEMBER_TEMPORARYBANNED = 'member.temporarybanned';
+    const MEMBER_BANNED = 'member.banned';
+
+    const MEMBER_ROLES = [
+        self::MEMBER_CURRENT,
+        self::MEMBER_APPROVAL,
+        self::MEMBER_PAYMENT,
+        self::MEMBER_YOUNG,
+        self::MEMBER_EX,
+        self::MEMBER_TEMPORARYBANNED,
+        self::MEMBER_BANNED,
+    ];
 
     const SUPERUSER = 'user.super';
 

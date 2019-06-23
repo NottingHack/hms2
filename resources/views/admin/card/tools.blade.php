@@ -7,9 +7,9 @@
     :initial-bookings="{{ json_encode($bookings) }}"
     :remove-card-class="true"
     ></booking-calendar-list>
-  <div class="card-footer">
+ {{--  <div class="card-footer">
     <a href="#" class="btn btn-primary mb-1" target="_blank"><i class="far fa-clock" aria-hidden="true"></i> Schedule an Induction</a>
-  </div>
+  </div> --}}
 </div>
 <div class="card">
   <div class="card-header">Tool Access</div>

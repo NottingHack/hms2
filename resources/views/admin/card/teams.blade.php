@@ -26,10 +26,10 @@
     <li class="list-group-item">Not on any teams.</li>
     @endforelse
   </ul>
-  @can('role.grant.team')
+{{--   @can('role.grant.team')
   <div class="card-footer">
     <a href="#" class="btn btn-primary mb-1"><i class="fas fa-plus" aria-hidden="true"></i> Add to a Team</a>
   </div>
-  @endcan
+  @endcan --}}
 </div>
 @endcan

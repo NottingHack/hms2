@@ -113,13 +113,17 @@
 
       formatUser (user) {
         if (user.loading) return user.text;
-        var markup = $('<div class="membersearch">' +
+        var markup = '<div class="membersearch">' +
           '<div class="name"><span class="fullname">' + user.fullname + '</span> <span class="username">' + user.username + '</span></div>' +
-          '<div class="email">' + user.email + '</div>' +
-          '<div class="address">' + user.address1 + ', ' + user.addressPostcode + '</div>' +
-          '<div class="paymentref">' + user.paymentRef + '</div>' +
-          '</div>');
-        return markup;
+          '<div class="email">' + user.email + '</div>';
+
+        if(user.address1) {
+          markup += '<div class="address">' + user.address1 + ', ' + user.addressPostcode + '</div>';
+        }
+
+        markup += '<div class="paymentref">' + user.paymentRef + '</div>' +
+          '</div>';
+        return $(markup);
       },
 
       formatUserSelection (user) {

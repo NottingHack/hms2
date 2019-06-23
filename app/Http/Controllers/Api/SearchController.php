@@ -56,16 +56,23 @@ class SearchController extends Controller
         $users = $this->userRepository->searchLike($searchQuery, $request->input('withAccount', null), true, 30);
 
         $users->setCollection($users->getCollection()->map(function ($user) {
-            return [
+            $ret = [
                 'id' => $user->getId(),
                 'fullname' => $user->getFullname(),
                 'username' => $user->getUsername(),
                 'email' => $user->getEmail(),
-                'address1' => $user->getProfile() ? $user->getProfile()->getAddress1() : null,
-                'addressPostcode' => $user->getProfile() ? $user->getProfile()->getAddressPostcode() : null,
                 'accountId' => $user->getAccount() ? $user->getAccount()->getId() : null,
                 'paymentRef' => $user->getAccount() ? $user->getAccount()->getPaymentRef() : '',
             ];
+
+            if (\Gate::allows('profile.view.all')) {
+                $ret = array_merge($ret, [
+                    'address1' => $user->getProfile() ? $user->getProfile()->getAddress1() : null,
+                    'addressPostcode' => $user->getProfile() ? $user->getProfile()->getAddressPostcode() : null,
+                ]);
+            }
+
+            return $ret;
         }));
 
         return response()->json($users);

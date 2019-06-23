@@ -52,8 +52,8 @@ class AccountController extends Controller
         $this->userRepository = $userRepository;
         $this->bankTransactionRepository = $bankTransactionRepository;
 
-        $this->middleware('canOr:profile.view.limited,profile.view.all')->only(['listJoint', 'show']);
-        $this->middleware('canOr:profile.edit.limited,profile.edit.all')->only(['linkUser', 'unlinkUser']);
+        $this->middleware('canAny:profile.view.limited,profile.view.all')->only(['listJoint', 'show']);
+        $this->middleware('canAny:profile.edit.limited,profile.edit.all')->only(['linkUser', 'unlinkUser']);
     }
 
     /**

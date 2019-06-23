@@ -126,6 +126,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('labels', 'LabelTemplateController');
 
     // Membership
+    Route::get('membership', 'MembershipController@index')->name('membership.index');
     Route::get('membership/approval/{user}', 'MembershipController@showDetailsForApproval')
         ->name('membership.approval');
     Route::post('membership/approve-details/{user}', 'MembershipController@approveDetails')

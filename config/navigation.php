@@ -144,6 +144,12 @@ return [
                     'permissions'   => ['search.invites'],
                     'links'         => [],
                 ],
+                'membershipApprovals' => [
+                    'text'          => 'Review Approvals',
+                    'route'         => 'membership.index',
+                    'permissions'   => ['membership.approval'],
+                    'links'         => [],
+                ],
                 'horizon'          => [
                     'text'          => 'Horizon',
                     'route'         => 'horizon.index',

@@ -102,9 +102,23 @@ class MembershipController extends Controller
         $this->bankRepository = $bankRepository;
 
         $this->middleware('can:membership.approval')
-            ->only(['showDetailsForApproval', 'approveDetails', 'rejectDetails']);
+            ->only(['index', 'showDetailsForApproval', 'approveDetails', 'rejectDetails']);
         $this->middleware('can:membership.updateDetails')->only(['editDetails', 'updateDetails']);
         $this->middleware('can:search.invites')->only(['invitesResend']);
+    }
+
+    /**
+     * Show a list of members awating approval.
+     *
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     */
+    public function index()
+    {
+        $approvalRole = $this->roleRepository->findOneByName(Role::MEMBER_APPROVAL);
+        $users = $this->userRepository->paginateUsersWithRole($approvalRole);
+
+        return view('membership.index')
+            ->with('users', $users);
     }
 
     /**
@@ -170,9 +184,15 @@ class MembershipController extends Controller
         // notify the user
         \Mail::to($user)->send(new MembershipDetailsApproved($user, $this->metaRepository, $this->bankRepository));
 
+        if (! $request['new-account']) {
+            // TODO: fire event to do the audit steps needed if this has been linked to a active account
+        }
+
+        // TODO: if Role::MEMBER_APPROVAL users count is now 0 notify membship slack
+
         flash('Member approved, thank you.')->success();
 
-        return redirect()->route('home');
+        return redirect()->route('membership.index');
     }
 
     /**
@@ -198,7 +218,7 @@ class MembershipController extends Controller
 
         flash('Member notified, thank you.')->success();
 
-        return redirect()->route('home');
+        return redirect()->route('membership.index');
     }
 
     /**

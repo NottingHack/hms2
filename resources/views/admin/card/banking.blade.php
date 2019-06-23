@@ -25,7 +25,7 @@
   @can('bankTransactions.view.all')
   @forelse ($bankTransactions as $transaction)
   @if ($loop->first)
-  <table class="table table-borderless">
+  <table class="table">
     <thead>
       <tr>
         <th>Date</th>

@@ -11,16 +11,18 @@
         </div>
       </span>
     </li>
-    @can('bankTransactions.view.limited')
-    @isset($bankTransactions)
-    <li class="list-group-item">Last Payment Date: {{ $bankTransactions[0]->getTransactionDate()->toDateString() }}</li>
-    @else
-    <li class="list-group-item">No payments yet.</li>
-    @endisset
-    @endcan
     @if(count($user->getAccount()->getUsers()) > 1)
     <li class="list-group-item">This is a Joint Accont</li>
     @endif
+    @cannot('bankTransactions.view.all')
+    @can('bankTransactions.view.limited')
+    @if($bankTransactions->count() > 0)
+    <li class="list-group-item">Last Payment Date: {{ $bankTransactions[0]->getTransactionDate()->toDateString() }}</li>
+    @else
+    <li class="list-group-item">No payments yet.</li>
+    @endif
+    @endcan
+    @endcannot
   </ul>
   @can('bankTransactions.view.all')
   @forelse ($bankTransactions as $transaction)
@@ -49,7 +51,7 @@
   @endforelse
   @endcan
   <div class="card-footer">
-    <a href="{{ route('banking.accounts.show', $user->getId()) }}" class="btn btn-primary  mb-1"><i class="far fa-eye" aria-hidden="true"></i> View Account</a>
+    <a href="{{ route('banking.accounts.show', $user->getAccount()->getId()) }}" class="btn btn-primary  mb-1"><i class="far fa-eye" aria-hidden="true"></i> View Account</a>
   </div>
 </div>
 @endif

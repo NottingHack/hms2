@@ -19,8 +19,10 @@
     When your payment does show, you'll receive an email confirming membership, you'll get the door codes and an invitation to collect your RFID card at a Wednesday Open Hack Night.<br>
     Once you've collected your card, you are free to visit at any time, twenty four hours a day.
   </p>
+  <hr>
+  <h4>A few important details:</h4>
   <p>
-    A few important details: Nottingham Hackspace is incorporated as a non-profit company, registration number 07766826.<br>
+    Nottingham Hackspace is incorporated as a non-profit company, registration number 07766826.<br>
     Everyone who works on stuff for the hackspace is a volunteer; the hackspace has no staff, just members.<br>
     So far, it has also been entirely funded and is self-sustaining through members contributions rather than grants.
   </p>

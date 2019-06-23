@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('pageTitle', 'New Member Details Review')
+@section('pageTitle', 'New Member Details for Review')
 
 @push('scripts')
 <script>

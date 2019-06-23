@@ -1,4 +1,4 @@
-@canany('profile.view.limited', 'profile.view.all')
+@canany(['profile.view.limited', 'profile.view.all'])
 <div class="card">
   <div class="card-header">Tool Bookings</div>
   <booking-calendar-list
@@ -8,7 +8,7 @@
     :remove-card-class="true"
     ></booking-calendar-list>
   <div class="card-footer">
-    <a href="#" class="btn btn-primary mb-1" target="_blank"><i class="far fa-clock" aria-hidden="true"></i> Schedule an Indcution</a>
+    <a href="#" class="btn btn-primary mb-1" target="_blank"><i class="far fa-clock" aria-hidden="true"></i> Schedule an Induction</a>
   </div>
 </div>
 <div class="card">
@@ -18,7 +18,7 @@
       @foreach($tools as $tool)
       <tr>
         <th scope="row">{{ $tool->getName() }}</th>
-        <td>UMI</td>
+        <td>U I M</td>
       </tr>
       @endforeach
     </tbody>

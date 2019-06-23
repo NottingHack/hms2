@@ -1,3 +1,4 @@
+@can('accessCodes.view')
 <div class="card">
   <div class="card-header">Space access</div>
   <ul class="list-group list-group-flush">
@@ -14,3 +15,4 @@
     @endcan
   </div>
 </div>
+@endcan

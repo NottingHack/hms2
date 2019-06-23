@@ -34,6 +34,7 @@ return [
         'labelTemplate.edit',
         'labelTemplate.print',
         'search.users',
+        'search.invites',
         'project.create.self',
         'project.create.all',
         'project.view.self',
@@ -283,6 +284,7 @@ return [
                 'bankTransactions.view.limited',
                 'gatekeeper.zoneEntry.teamStrorage',
                 'team.edit.description',
+                'search.invites',
             ],
         ],
         'team.trustees' => [
@@ -331,6 +333,7 @@ return [
                 'role.grant.team',
                 'gatekeeper.zoneEntry.teamStrorage',
                 'team.edit.description',
+                'search.invites',
             ],
         ],
         'team.software' => [

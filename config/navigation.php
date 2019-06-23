@@ -12,7 +12,7 @@ return [
     |
     */
     'main' => [
-        'news' => [
+        'home' => [
             'text'          => 'Home',
             'route'         => 'index',
             'permissions'   => [],
@@ -136,6 +136,12 @@ return [
                     'route'         => 'bank-transactions.unmatched',
                     'match'         => 'bank-transactions.unmatched',
                     'permissions'   => ['bankTransactions.reconcile'],
+                    'links'         => [],
+                ],
+                'inviteSearch' => [
+                    'text'          => 'Resend Invite',
+                    'route'         => 'admin.invites',
+                    'permissions'   => ['search.invites'],
                     'links'         => [],
                 ],
                 'horizon'          => [

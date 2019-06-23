@@ -87,6 +87,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Admin
     Route::get('admin', 'AdminController@admin')->name('admin');
+    Route::view('admin/invites', 'pages.invite_search')
+        ->middleware('can:search.invites')
+        ->name('admin.invites');
+    Route::post('admin/invites/{invite}', 'AdminController@invitesResend')->name('admin.invites.resend');
 
     // Meta area covers various setting for HMS
     Route::resource(

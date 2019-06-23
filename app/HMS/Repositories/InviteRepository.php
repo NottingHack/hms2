@@ -26,6 +26,23 @@ interface InviteRepository
     public function findOneByEmail($email);
 
     /**
+     * Find an invite by partial email.
+     *
+     * @param string $searchQuery
+     * @param bool $paginate
+     * @param int $perPage
+     * @param string $pageName
+     *
+     * @return Invite[]|array|\Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function searchLike(
+        string $searchQuery,
+        bool $paginate = false,
+        $perPage = 15,
+        $pageName = 'page'
+    );
+
+    /**
      * Find an invite by token.
      *
      * @param string $token

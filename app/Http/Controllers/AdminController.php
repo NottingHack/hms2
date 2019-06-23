@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use HMS\Entities\User;
+use HMS\Entities\Invite;
 use HMS\Entities\Tools\Booking;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\Tools\ToolRepository;
 use HMS\Repositories\Members\BoxRepository;
+use App\Events\MembershipInterestRegistered;
 use HMS\Repositories\Tools\BookingRepository;
 use HMS\Repositories\Members\ProjectRepository;
 use HMS\Repositories\Snackspace\TransactionRepository;
@@ -80,6 +82,7 @@ class AdminController extends Controller
         $this->bankTransactionRepository = $bankTransactionRepository;
 
         $this->middleware('canOr:profile.view.limited,profile.view.all')->only(['userOverview']);
+        $this->middleware('can:search.invites')->only(['invitesResend']);
     }
 
     /**
@@ -142,5 +145,21 @@ class AdminController extends Controller
             'memberStatus' => $memberStatus,
             'bankTransactions' => $bankTransactions,
         ]);
+    }
+
+    /**
+     * Resend an invite.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     */
+    public function invitesResend(Invite $invite)
+    {
+        event(new MembershipInterestRegistered($invite));
+
+        flash('Invite resent.')->success();
+
+        return back();
     }
 }

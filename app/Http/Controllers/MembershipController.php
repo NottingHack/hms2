@@ -251,7 +251,7 @@ class MembershipController extends Controller
             return redirect()->route('home');
         }
 
-        $this->validate($request, [
+        $validatedData = $request->validate([
             'firstname' => 'required|max:255',
             'lastname' => 'required|max:255',
             'address1' => 'required|max:100',
@@ -264,8 +264,8 @@ class MembershipController extends Controller
             'dateOfBirth' => 'nullable|date_format:Y-m-d',
         ]);
 
-        $user = $this->userManager->updateFromRequest($user, $request);
-        $user = $this->profileManager->updateUserProfileFromRequest($user, $request);
+        $user = $this->userManager->updateFromRequest($user, $validatedData);
+        $user = $this->profileManager->updateUserProfileFromRequest($user, $validatedData);
 
         $membershipTeamRole = $this->roleRepository->findOneByName(Role::TEAM_MEMBERSHIP);
         $membershipTeamRole->notify(new NewMemberApprovalNeeded($user, true));

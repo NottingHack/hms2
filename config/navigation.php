@@ -140,7 +140,7 @@ return [
                 ],
                 'inviteSearch' => [
                     'text'          => 'Resend Invite',
-                    'route'         => 'admin.invites',
+                    'route'         => 'membership.invites',
                     'permissions'   => ['search.invites'],
                     'links'         => [],
                 ],

@@ -87,10 +87,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Admin
     Route::get('admin', 'AdminController@admin')->name('admin');
-    Route::view('admin/invites', 'pages.invite_search')
-        ->middleware('can:search.invites')
-        ->name('admin.invites');
-    Route::post('admin/invites/{invite}', 'AdminController@invitesResend')->name('admin.invites.resend');
 
     // Meta area covers various setting for HMS
     Route::resource(
@@ -138,6 +134,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('membership.reject');
     Route::get('membership/update-details/{user}', 'MembershipController@editDetails')->name('membership.edit');
     Route::put('membership/update-details/{user}', 'MembershipController@updateDetails')->name('membership.update');
+    Route::view('membership/invites', 'pages.invite_search')
+        ->middleware('can:search.invites')
+        ->name('membership.invites');
+    Route::post('membership/invites/{invite}', 'MembershipController@invitesResend')->name('membership.invites.resend');
 
     // Members Projects and DNH labels
     Route::get('users/{user}/projects', 'Members\ProjectController@index')->name('users.projects');

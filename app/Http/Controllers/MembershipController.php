@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use HMS\Entities\Role;
 use HMS\Entities\User;
+use HMS\Entities\Invite;
 use HMS\User\UserManager;
 use HMS\User\ProfileManager;
 use Illuminate\Http\Request;
@@ -14,6 +15,7 @@ use HMS\User\Permissions\RoleManager;
 use App\Mail\MembershipDetailsApproved;
 use App\Mail\MembershipDetailsRejected;
 use HMS\Factories\Banking\AccountFactory;
+use App\Events\MembershipInterestRegistered;
 use HMS\Repositories\Banking\BankRepository;
 use App\Notifications\NewMemberApprovalNeeded;
 use HMS\Repositories\Banking\AccountRepository;
@@ -102,6 +104,7 @@ class MembershipController extends Controller
         $this->middleware('can:membership.approval')
             ->only(['showDetailsForApproval', 'approveDetails', 'rejectDetails']);
         $this->middleware('can:membership.updateDetails')->only(['editDetails', 'updateDetails']);
+        $this->middleware('can:search.invites')->only(['invitesResend']);
     }
 
     /**
@@ -250,5 +253,21 @@ class MembershipController extends Controller
         flash('Your details have been updated and another review requested, thank you.')->success();
 
         return redirect()->route('home');
+    }
+
+    /**
+     * Resend an invite.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     */
+    public function invitesResend(Invite $invite)
+    {
+        event(new MembershipInterestRegistered($invite));
+
+        flash('Invite re-sent.')->success();
+
+        return back();
     }
 }

@@ -7,6 +7,6 @@
   <p>
     Words about the searching for an invite to resend.
   </p>
-  <invite-search action="{{ route('admin.invites.resend', ['invite' => '_ID_']) }}"></invite-search>
+  <invite-search action="{{ route('membership.invites.resend', ['invite' => '_ID_']) }}"></invite-search>
 </div>
 @endsection

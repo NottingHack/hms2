@@ -80,7 +80,7 @@ class TeamController extends Controller
      */
     public function edit(Role $team)
     {
-        if (! \Auth::user()->has($team) || \Gate::denies('role.edit.all')) {
+        if (! (\Auth::user()->hasRole($team) || \Gate::allows('role.edit.all'))) {
             flash('Unauthorized')->error();
 
             return redirect()->route('home');
@@ -99,7 +99,7 @@ class TeamController extends Controller
      */
     public function update(Role $team, Request $request)
     {
-        if (! \Auth::user()->has($team) || \Gate::denies('role.edit.all')) {
+        if (! (\Auth::user()->hasRole($team) || \Gate::allows('role.edit.all'))) {
             flash('Unauthorized')->error();
 
             return redirect()->route('home');

@@ -397,7 +397,7 @@ class MigrateInstrumentaionCommand extends Command
      */
     public function handle()
     {
-         $this->info('Please provide details for connecting to the instrumentation database.');
+        $this->info('Please provide details for connecting to the instrumentation database.');
         $instrumentationHost = $this->anticipate('Host? [127.0.0.1]', ['127.0.0.1']) ?: '127.0.0.1';
         $instrumentationDatabase = $this->anticipate('Database name? [instrumentation]', ['instrumentation']) ?: 'instrumentation';
         $instrumentationUser = $this->anticipate('User? [hms]', ['hms']) ?: 'hms';

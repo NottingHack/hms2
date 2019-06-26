@@ -45,6 +45,8 @@
         <li>Nottingham Hackspace Ltd</li>
         <li>No. 07766826</li>
         <li>Reg. in England & Wales</li>
+        <li><a href="{{ route('privacy-and-terms') }}">Privacy & Terms</a></li>
+        <li><a href="{{ route('cookie-policy') }}">Cookie Policy</a></li>
       </ul>
     </div>
     <div class="w-100"><hr></div>

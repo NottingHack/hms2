@@ -35,6 +35,8 @@ Route::get('email/resend', 'Auth\VerificationController@resend')->name('verifica
 Route::view('credits', 'pages.credits')->name('credits');
 Route::view('company-information', 'pages.companyInformation')->name('companyInformation');
 Route::view('contact-us', 'pages.contactUs')->name('contactUs');
+Route::view('privacy-and-terms', 'pages.privacy_and_terms')->name('privacy-and-terms');
+Route::view('cookie-policy', 'pages.cookie_policy')->name('cookie-policy');
 
 // Unrestricted pages
 Route::get('links', 'LinksController@index')->name('links.index');

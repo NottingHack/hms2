@@ -930,10 +930,20 @@ class MigrateInstrumentaionCommand extends Command
 
         DB::statement("TRUNCATE TABLE $newTableName;");
 
+        if ($newTableName == 'zones') {
+            $mode = DB::select('select @@sql_mode as sql_mode')[0];
+            DB::statement("SET sql_mode='$mode->sql_mode,NO_AUTO_VALUE_ON_ZERO'");
+        };
+
         $dataChunks = array_chunk($newData->toArray(), 1000, true);
         foreach ($dataChunks as $dataChunk) {
             DB::table($newTableName)->insert($dataChunk);
         }
+
+        if ($newTableName == 'zones') {
+            DB::statement("SET sql_mode='$mode->sql_mode'");
+        };
+
         $this->info($startTime->diff(Carbon::now())->format('took: %H:%i:%s'));
     }
 }

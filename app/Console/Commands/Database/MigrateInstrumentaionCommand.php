@@ -922,13 +922,6 @@ class MigrateInstrumentaionCommand extends Command
                     if ($newTableName == 'bank_transactions' && $newName == 'amount') {
                         $newRow[$newName] *= 100;
                     }
-
-                    // zone id's need to be increase by one
-                    if (strpos($newName, 'zone_id') !== false) {
-                        $newRow[$newName] += 1;
-                    } elseif ($newTableName == 'zones' && $newName == 'id') {
-                        $newRow[$newName] += 1;
-                    }
                 }
             }
 

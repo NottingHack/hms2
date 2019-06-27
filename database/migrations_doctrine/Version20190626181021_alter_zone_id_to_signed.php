@@ -32,7 +32,7 @@ class Version20190626181021_alter_zone_id_to_signed extends AbstractMigration
         $this->addSql('ALTER TABLE doors ADD CONSTRAINT FK_5E5B762A49451B7F FOREIGN KEY (side_b_zone_id) REFERENCES zones (id)');
 
         // shift zone id's down by one
-        $this->addSql('UPDATE zones SET id = id-1');
+        $this->addSql('UPDATE zones SET id = id-1 ORDER BY id ASC');
         $this->addSql('UPDATE zone_occupancy_logs SET zone_id = zone_id-1');
         $this->addSql('UPDATE zone_occupants SET zone_id = zone_id-1');
         $this->addSql('UPDATE doors SET side_a_zone_id = side_a_zone_id-1 WHERE side_a_zone_id IS NOT NULL');
@@ -51,7 +51,7 @@ class Version20190626181021_alter_zone_id_to_signed extends AbstractMigration
         $this->addSql('SET foreign_key_checks = 0');
 
         // shift zone id's down by one
-        $this->addSql('UPDATE zones SET id = id+1');
+        $this->addSql('UPDATE zones SET id = id+1 ORDER BY id DESC');
         $this->addSql('UPDATE zone_occupancy_logs SET zone_id = zone_id+1');
         $this->addSql('UPDATE zone_occupants SET zone_id = zone_id+1');
         $this->addSql('UPDATE doors SET side_a_zone_id = side_a_zone_id+1 WHERE side_a_zone_id IS NOT NULL');
@@ -71,7 +71,6 @@ class Version20190626181021_alter_zone_id_to_signed extends AbstractMigration
         $this->addSql('ALTER TABLE zone_occupancy_logs ADD CONSTRAINT FK_59ADE3689F2C3FAB FOREIGN KEY (zone_id) REFERENCES zones (id)');
         $this->addSql('ALTER TABLE doors ADD CONSTRAINT FK_5E5B762A70C827BA FOREIGN KEY (side_a_zone_id) REFERENCES zones (id)');
         $this->addSql('ALTER TABLE doors ADD CONSTRAINT FK_5E5B762A49451B7F FOREIGN KEY (side_b_zone_id) REFERENCES zones (id)');
-
 
         $this->addSql('SET foreign_key_checks = 1');
     }

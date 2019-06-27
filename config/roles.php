@@ -126,6 +126,7 @@ return [
                 'profile.edit.self',
                 'link.view',
                 'team.view',
+                'bankTransactions.view.self',
             ],
         ],
         'member.young' => [

@@ -109,7 +109,7 @@ class HomeController extends Controller
         if ($user->hasRoleByName(Role::MEMBER_APPROVAL)) {
             return view('pages.awaitingApproval');
         } elseif ($user->hasRoleByName(Role::MEMBER_PAYMENT)) {
-            return view('pages.awaitingPayement');
+            return view('pages.awaitingPayment');
         }
 
         $projects = $this->projectRepository->paginateByUser($user, 5, 'page', true);

@@ -51,6 +51,7 @@ class MembershipMayBeRevoked extends Mailable implements ShouldQueue
      * @param User $user
      * @param MetaRepository $metaRepository
      * @param BankRepository $bankRepository
+     * @param BoxRepository $boxRepository
      */
     public function __construct(
         User $user,

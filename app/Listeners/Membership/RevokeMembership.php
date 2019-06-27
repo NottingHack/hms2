@@ -7,6 +7,7 @@ use HMS\Repositories\MetaRepository;
 use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
 use App\Mail\Membership\MembershipRevoked;
+use HMS\Repositories\Members\BoxRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use HMS\Repositories\Banking\BankRepository;
 use App\Events\Banking\NonPaymentOfMembership;
@@ -38,28 +39,32 @@ class RevokeMembership implements ShouldQueue
      * @var BankRepository
      */
     protected $bankRepository;
+    protected $boxRepository;
 
     /**
      * Create the event listener.
      *
-     * @param UserRepository                         $userRepository
-     * @param RoleManager                            $roleManager
+     * @param UserRepository $userRepository
+     * @param RoleManager $roleManager
      * @param MembershipStatusNotificationRepository $membershipStatusNotificationRepository
-     * @param MetaRepository                         $metaRepository
-     * @param BankRepository                         $bankRepository
+     * @param MetaRepository $metaRepository
+     * @param BankRepository $bankRepository
+     * @param BoxRepository $boxRepository
      */
     public function __construct(
         UserRepository $userRepository,
         RoleManager $roleManager,
         MembershipStatusNotificationRepository $membershipStatusNotificationRepository,
         MetaRepository $metaRepository,
-        BankRepository $bankRepository
+        BankRepository $bankRepository,
+        BoxRepository $boxRepository
     ) {
         $this->userRepository = $userRepository;
         $this->roleManager = $roleManager;
         $this->membershipStatusNotificationRepository = $membershipStatusNotificationRepository;
         $this->metaRepository = $metaRepository;
         $this->bankRepository = $bankRepository;
+        $this->boxRepository = $boxRepository;
     }
 
     /**
@@ -98,6 +103,13 @@ class RevokeMembership implements ShouldQueue
         }
 
         // emial user
-        \Mail::to($user)->send(new MembershipRevoked($user, $this->metaRepository, $this->bankRepository));
+        \Mail::to($user)->send(
+            new MembershipRevoked(
+                $user,
+                $this->metaRepository,
+                $this->bankRepository,
+                $this->boxRepository
+            )
+        );
     }
 }

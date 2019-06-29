@@ -152,7 +152,7 @@ return [
         'local' => [
             'supervisor-1' => [
                 'connection' => 'redis',
-                'queue' => ['default', 'maintanance'],
+                'queue' => ['default', 'maintenance'],
                 'balance' => 'simple',
                 'processes' => 3,
                 'tries' => 3,
@@ -162,7 +162,7 @@ return [
         'rommie' => [
             'supervisor-1' => [
                 'connection' => 'redis',
-                'queue' => ['default', 'maintanance'],
+                'queue' => ['default', 'maintenance'],
                 'balance' => 'simple',
                 'processes' => 3,
                 'tries' => 3,

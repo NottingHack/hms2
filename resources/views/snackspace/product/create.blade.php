@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-  <p>Words about what needs to be set for a product</p>
+  <p>To add a new Snackspace product, please fill in the short description, full description, and price. Make certain they're clear and easy to understand, especially in a list of transactions.</p>
 </div>
 <div class="container">
   <form role="form" method="POST" action="{{ route('snackspace.products.store') }}">

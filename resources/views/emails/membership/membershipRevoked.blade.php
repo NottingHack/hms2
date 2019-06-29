@@ -11,7 +11,7 @@ Please also empty your members box.<br>
 We request that you settle your snackspace balance of @format_pennies($snackspaceBalance)<br>
 @endif
 
-If you do wish to reinstate your membership you will need to setup your standing order again.
+If you do wish to reinstate your membership you will need to set up your standing order again.
 
 Here are the details you need to set up a standing order:
 

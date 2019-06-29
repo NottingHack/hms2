@@ -22,7 +22,7 @@
             <strong>{{ $errors->first('email') }}</strong>
           </span>
           @endif
-          <p id="emailHelp" class="form-text text-muted">The user will be required to verify thier email address.</p>
+          <p id="emailHelp" class="form-text text-muted">The user will be required to verify their email address.</p>
         </div>
       </div>
       <div class="card-footer">

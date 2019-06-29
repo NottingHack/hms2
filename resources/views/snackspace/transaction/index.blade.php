@@ -15,7 +15,7 @@ Snackspace account for {{ $user->getFirstname() }}
 
   <br>
   <p>Please use the note or coin acceptors located in the first floor members box room to add money to your Snackspace account.</p>
-  <p>Details of your Snackspace and Tool usagae transactions are shown below.</p>
+  <p>Details of your Snackspace and Tool Usage transactions are shown below.</p>
 
   </div>
 <div class="container">

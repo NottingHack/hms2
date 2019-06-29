@@ -8,16 +8,15 @@ Projects for {{ $user->getFirstname() }}
 <div class="container">
   <p>It is important that all projects left at the hackspace display a Do-Not-Hack label. This is so we know who it belongs to and that it is being actively worked on.</p>
   
-  <p>Please use the [Add new project] button to add details about the project.</p>
+  <p>Please use the Add New Project button to start your project. From there, you can fill out the details of your project.</p>
   
-  <p>Once you've added details of your project you can then print Do-Not-Hack labels for it. Please note you must be in the hackspace and connected to the hackpace WiFi for the print button to show.</p>
+  <p>Once you've added details of your project you can then print Do-Not-Hack labels for it. Please note: you must be in the hackspace and connected to the hackpace WiFi in order to print off a label.</p>
   
-  <p>Please manually update the date on the label as/when you work on the project, this is so others can see it is an active project and has not been abandon. Abandonded projects may be disposed of, but the label should allow us to contact you first if this should become necessary.</p>
+  <p>Please manually update the date on the label as/when you work on the project. This is so others can see it is an active project and has not been abandoned. Abandonded projects may be disposed of, but the label should allow us to contact you first if this should become necessary.</p>
   
-  <p>When you have completed your project please click [Mark Complete]</p>
+  <p>When you have completed your project, please click the Mark Complete button.</p>
   
-  <p>Completed projects can be restarted by clicking on [Resume Project]</p>
-    
+  <p>If you need to resume your project and don't want to start it as a new project, you can restart it by clicking Resume Project.</p>
 </div>
 @can('project.create.self')
 <div class="container">

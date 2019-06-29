@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-  <p>The hackspace is run entirely by teams of volunteers. </p>
+  <p>The hackspace is run <strong>entirely</strong> by teams of volunteers. </p>
   <p>Please consider joining a team and helping with the running of the hackspace.</p>
   <a href="{{ route('teams.how-to-join') }}" class="btn btn-primary">How to join a Team</a></p>
   @foreach ($teams as $team)

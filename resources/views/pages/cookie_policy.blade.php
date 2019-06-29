@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('pageTitle', 'Cokkie Policy')
+@section('pageTitle', 'Cookie Policy')
 
 @section('content')
 <div class="container">

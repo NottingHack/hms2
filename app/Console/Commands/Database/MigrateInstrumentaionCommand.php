@@ -61,36 +61,36 @@ class MigrateInstrumentaionCommand extends Command
         //         'account_number' => 'account_number',
         //     ],
         // ],
-        'bells' => [
-            'newTableName' => 'bells',
-            'columns' => [
-                'bell_id' => 'id',
-                'bell_description' => 'description',
-                'bell_topic' => 'topic',
-                'bell_message' => 'message',
-                'bell_enabled' => 'enabled',
-            ],
-        ],
-        'door_bells' => [
-            'newTableName' => 'door_bell',
-            'columns' => [
-                'door_id' => 'door_id',
-                'bell_id' => 'bell_id',
-            ],
-        ],
-        'doors' => [
-            'newTableName' => 'doors',
-            'columns' => [
-                'door_id' => 'id',
-                'door_description' => 'description',
-                'door_short_name' => 'short_name',
-                'door_state' => 'state',
-                'door_state_change' => 'state_change',
-                // 'permission_code' => 'permission_code',
-                'side_a_zone_id' => 'side_a_zone_id',
-                'side_b_zone_id' => 'side_b_zone_id',
-            ],
-        ],
+        // 'bells' => [
+        //     'newTableName' => 'bells',
+        //     'columns' => [
+        //         'bell_id' => 'id',
+        //         'bell_description' => 'description',
+        //         'bell_topic' => 'topic',
+        //         'bell_message' => 'message',
+        //         'bell_enabled' => 'enabled',
+        //     ],
+        // ],
+        // 'door_bells' => [
+        //     'newTableName' => 'door_bell',
+        //     'columns' => [
+        //         'door_id' => 'door_id',
+        //         'bell_id' => 'bell_id',
+        //     ],
+        // ],
+        // 'doors' => [
+        //     'newTableName' => 'doors',
+        //     'columns' => [
+        //         'door_id' => 'id',
+        //         'door_description' => 'description',
+        //         'door_short_name' => 'short_name',
+        //         'door_state' => 'state',
+        //         'door_state_change' => 'state_change',
+        //         // 'permission_code' => 'permission_code',
+        //         'side_a_zone_id' => 'side_a_zone_id',
+        //         'side_b_zone_id' => 'side_b_zone_id',
+        //     ],
+        // ],
         'emails' => [
             'newTableName' => 'snackspace_emails',
             'columns' => [
@@ -347,15 +347,15 @@ class MigrateInstrumentaionCommand extends Command
                 'time_entered' => 'time_entered',
             ],
         ],
-        'zones' => [
-            'newTableName' => 'zones',
-            'columns' => [
-                'zone_id' => 'id',
-                'zone_description' => 'description',
-                'zone_short_name' => 'short_name',
-                'permission_code' => 'permission_code',
-            ],
-        ],
+        // 'zones' => [
+        //     'newTableName' => 'zones',
+        //     'columns' => [
+        //         'zone_id' => 'id',
+        //         'zone_description' => 'description',
+        //         'zone_short_name' => 'short_name',
+        //         'permission_code' => 'permission_code',
+        //     ],
+        // ],
     ];
 
     /**

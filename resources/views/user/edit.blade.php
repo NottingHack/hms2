@@ -125,19 +125,6 @@
         <hr>
 
         <div class="form-group">
-          <label for="dateOfBirth" class="form-label">Date Of Birth</label>
-          <input placeholder="yyyy-mm-dd" class="form-control" id="dateOfBirth" type="date" name="dateOfBirth" value="{{ old('dateOfBirth', $user->getProfile()->getDateOfBirth() ? $user->getProfile()->getDateOfBirth()->toDateString() : '') }}">
-          @if ($errors->has('dateOfBirth'))
-          <p class="help-text">
-            <strong>{{ $errors->first('dateOfBirth') }}</strong>
-          </p>
-          @endif
-          <small id="dateOfBirthHelp" class="form-text text-muted">Date of birth is not required unless you are under 18.</small>
-        </div>
-
-        <hr>
-
-        <div class="form-group">
           <label for="unlockText" class="form-label">Unlock Text</label>
           <input class="form-control" id="unlockText" type="text" name="unlockText" value="{{ old('unlockText', $user->getProfile()->getUnlockText()) }}">
           @if ($errors->has('unlockText'))

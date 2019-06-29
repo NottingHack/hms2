@@ -69,10 +69,6 @@
           <th>Contact Number:</th>
           <td>{{ $user->getProfile()->getContactNumber() }}</td>
         </tr>
-        <tr>
-          <th>Date of Birth:</th>
-          <td>@if($user->getProfile()->getDateOfBirth()){{ $user->getProfile()->getDateOfBirth()->toDateString() }}@endif</td>
-        </tr>
       </tbody>
     </table>
   </div>

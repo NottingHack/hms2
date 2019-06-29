@@ -254,7 +254,7 @@
       // migt be related https://github.com/fullcalendar/fullcalendar/issues/4650
       setTimeout(() => {
         this.calendarApi.updateSize();
-      }, 10);
+      }, 100);
 
       // Call checkBookings minute, so past events are shaded
       this.interval = setInterval(function () {

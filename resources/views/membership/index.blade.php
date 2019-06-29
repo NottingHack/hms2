@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-  <p>Words about the list of new members below that are awaiting the details reviewed</p>
+  <p>New members awaiting review and approval</p>
 
   @forelse ($users as $user)
   @if ($loop->first)

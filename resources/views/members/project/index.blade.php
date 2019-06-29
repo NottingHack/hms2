@@ -6,8 +6,18 @@ Projects for {{ $user->getFirstname() }}
 
 @section('content')
 <div class="container">
-  <p>Words about creating a project and printing a DNH label</p>
-  <p>Words about mark complete vs resume</p>
+  <p>It is important that all projects left at the hackspace display a Do-Not-Hack label. This is so we know who it belongs to and that it is being actively worked on.</p>
+  
+  <p>Please use the [Add new project] button to add details about the project.</p>
+  
+  <p>Once you've added details of your project you can then print Do-Not-Hack labels for it. Please note you must be in the hackspace and connected to the hackpace WiFi for the print button to show.</p>
+  
+  <p>Please manually update the date on the label as/when you work on the project, this is so others can see it is an active project and has not been abandon. Abandonded projects may be disposed of, but the label should allow us to contact you first if this should become necessary.</p>
+  
+  <p>When you have completed your project please click [Mark Complete]</p>
+  
+  <p>Completed projects can be restarted by clicking on [Resume Project]</p>
+    
 </div>
 @can('project.create.self')
 <div class="container">

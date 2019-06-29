@@ -14,8 +14,10 @@ Snackspace account for {{ $user->getFirstname() }}
   </div>
 
   <br>
-  <p>Words about purchases/payments records, credit limit and how to pay off balance in the space at the cash acceptors.</p>
-</div>
+  <p>Please use the note or coin acceptors located in the first floor members box room to add money to your Snackspace account.</p>
+  <p>Details of your Snackspace and Tool usagae transactions are shown below.</p>
+
+  </div>
 <div class="container">
   <div class="table-responsive">
     <table class="table table-bordered table-hover">

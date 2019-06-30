@@ -17,17 +17,13 @@ Boxes for {{ $user->getFirstname() }}
 @if ($user == \Auth::user())
 @can('box.buy.self')
 <div class="container">
-  <div class="card">
-    <a href="{{ route('boxes.create') }}" class="btn btn-primary"><i class="fas fa-shopping-cart" aria-hidden="true"></i> Buy new box</a>
-  </div>
+  <a href="{{ route('boxes.create') }}" class="btn btn-primary btn-block"><i class="fas fa-shopping-cart" aria-hidden="true"></i> Buy new box</a>
 </div>
 @endcan
 @else
 @can('box.issue.all')
 <div class="container">
-  <div class="card">
-    <a href="{{ route('users.boxes.issue', $user->getId()) }}" class="btn btn-primary"><i class="fas fa-plus" aria-hidden="true"></i> Issue new box</a>
-  </div>
+  <a href="{{ route('users.boxes.issue', $user->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-plus" aria-hidden="true"></i> Issue new box</a>
 </div>
 @endcan
 @endif

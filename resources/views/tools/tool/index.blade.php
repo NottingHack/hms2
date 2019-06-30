@@ -51,9 +51,7 @@
 @can('tools.create')
 <br>
 <div class="container">
-  <div class="card">
-    <a href="{{ route('tools.create') }}" class="btn btn-primary"><i class="fas fa-plus" aria-hidden="true"></i> Add new tool</a>
-  </div>
+  <a href="{{ route('tools.create') }}" class="btn btn-primary btn-block"><i class="fas fa-plus" aria-hidden="true"></i> Add new tool</a>
 </div>
 @endcan
 @endsection

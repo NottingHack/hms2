@@ -4,7 +4,7 @@
 We are sorry to see you go, but as you have not made a payment recently your Nottingham Hackspace membership has been revoked and your access to the space has been suspended.
 
 @if($boxCount > 0)
-Please also empty your members box.<br>
+Our records show that you have left a members box at the space please arange to collect it on a Wednesday Open Hack Night.<br>
 @endif
 
 @if($snackspaceBalance < 0)

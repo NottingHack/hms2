@@ -41,9 +41,7 @@
   <br>
   <br>
   @can('role.edit.all')
-  <div class="card">
-    <a href="{{ route('roles.edit', $role->getId()) }}" class="btn btn-info"> <i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
-  </div>
+  <a href="{{ route('roles.edit', $role->getId()) }}" class="btn btn-info btn-block"> <i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
   <br>
   @endcan
 

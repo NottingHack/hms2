@@ -29,11 +29,7 @@ Add Snackspace transaction for {{ $user->getFirstname() }}
       @endif
     </div>
 
-    <div class="form-group">
-      <div class="card">
-        <button type="submit" class="btn btn-primary">Add Transaction</button>
-      </div>
-    </div>
+    <button type="submit" class="btn btn-primary btn-block">Add Transaction</button>
   </form>
 </div>
 @endsection

@@ -10,9 +10,10 @@
   </p>
   <p>
     Once it's all checked and accounted for, you will get the Nottingham Hackspace bank details, as well as a unique payment reference for your account.<br>
-    Use these details to set up a standing order for your membership fee. <br>
-    The reference must be used exactly as is when setting up your standing order for our automated systems to recognise your membership payments.</p>
-    <p>
+    Use these details to set up a standing order for your membership fee.<br>
+    The reference must be used exactly as is when setting up your standing order for our automated systems to recognise your membership payments.
+  </p>
+  <p>
     Membership is pay-what-it's-worth-to-you on a monthly basis, and you can always change the amount you're paying if you find yourself using the space more or less than you first thought.
   </p>
   <p>

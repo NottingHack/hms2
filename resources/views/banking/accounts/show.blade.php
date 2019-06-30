@@ -6,10 +6,8 @@ Account {{ $account->getPaymentRef() }}
 
 @section('content')
 <div class="container">
-  <p>
-  These are the details for this joint account.</p>
-  <p>To view the individual member's details, please click the eye icon next to the member's name.
-  </p>
+  <p>These are the details for this joint account.</p>
+  <p>To view the individual member's details, please click the eye icon next to the member's name.</p>
   <p>To unlink a member from this joint account, please click the Un-Link button. This will produce a new reference code or the individual user.</p>
   <p>To add a member to this joint account, please search for the member in the search bar below, and click Link User.</p>
 

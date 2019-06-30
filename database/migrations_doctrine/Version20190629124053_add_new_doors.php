@@ -22,6 +22,9 @@ class Version20190629124053_add_new_doors extends AbstractMigration
         $this->addSql(
             "UPDATE zones SET permission_code = 'gatekeeper.zoneEntry.downstairsMembersStorage' WHERE short_name = 'Zone 4'"
         );
+        $this->addSql(
+            "UPDATE zones SET permission_code = 'gatekeeper.zoneEntry.teamStorage' WHERE short_name = 'Zone 3'"
+        );
 
         foreach ($this->doors as [$id, $description, $short_name, $state, $side_a_zone_id, $side_b_zone_id]) {
             $this->addSql(

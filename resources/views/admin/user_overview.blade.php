@@ -15,6 +15,8 @@
     @endcomponent
     @component('admin.card.banking', ['user' => $user, 'bankTransactions' => $bankTransactions])
     @endcomponent
+    @component('admin.card.access', ['user' => $user])
+    @endcomponent
     @component('admin.card.projects', ['user' => $user, 'projects' => $projects])
     @endcomponent
     @component('admin.card.teams', ['user' => $user, 'teams' => $teams])
@@ -24,8 +26,6 @@
     @component('admin.card.tools', ['user' => $user, 'bookings' => $bookings, 'tools' => $tools])
     @endcomponent
     @component('admin.card.boxes', ['user' => $user, 'boxCount' => $boxCount])
-    @endcomponent
-    @component('admin.card.access', ['user' => $user])
     @endcomponent
   </div>
 </div>

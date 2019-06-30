@@ -87,7 +87,7 @@
           <a class="nav-link" href="{{ route('users.changePassword') }}">Change Password</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('bank-transactions.index') }}">Standing Order details</a>
+          <a class="nav-link" href="{{ route('bank-transactions.index') }}">Standing Order Details</a>
         </li>
         <li class="nav-item"><hr class="border-top-3"></li>
         <li class="nav-item">

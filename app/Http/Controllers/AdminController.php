@@ -79,7 +79,7 @@ class AdminController extends Controller
         $this->toolRepository = $toolRepository;
         $this->bankTransactionRepository = $bankTransactionRepository;
 
-        $this->middleware('canOr:profile.view.limited,profile.view.all')->only(['userOverview']);
+        $this->middleware('canAny:profile.view.limited,profile.view.all')->only(['userOverview']);
     }
 
     /**

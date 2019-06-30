@@ -1,4 +1,4 @@
-@canany('profile.view.limited', 'profile.view.all')
+@canany(['profile.view.limited', 'profile.view.all'])
 <div class="card">
   <div class="card-header">Basic details</div>
   <table class="table">

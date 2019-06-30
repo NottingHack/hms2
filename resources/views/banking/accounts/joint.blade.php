@@ -5,14 +5,14 @@
 @section('content')
 <div class="container">
   <p>
-    Words about the accounts below being a list of all current joint accounts.
+    These are all the current joint accounts. To make any changes to a single joint account, please click the View button.
   </p>
   <div class="table-responsive">
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
           <th>ID</th>
-          <th>Payment Refrence</th>
+          <th>Payment Reference</th>
           <th>Users</th>
           <th>Actions</th>
         </tr>

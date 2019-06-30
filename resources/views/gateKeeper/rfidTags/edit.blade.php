@@ -47,13 +47,7 @@ Rfid card for {{ $rfidTag->getUser()->getFirstname() }}
       @endif
     </div>
 
-    <div class="form-group">
-      <div class="card">
-        <button type="submit" class="btn btn-success">
-          Update
-        </button>
-      </div>
-    </div>
+    <button type="submit" class="btn btn-success btn-block">Update</button>
   </form>
 </div>
 @endsection

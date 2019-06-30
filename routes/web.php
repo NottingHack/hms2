@@ -35,6 +35,8 @@ Route::get('email/resend', 'Auth\VerificationController@resend')->name('verifica
 Route::view('credits', 'pages.credits')->name('credits');
 Route::view('company-information', 'pages.companyInformation')->name('companyInformation');
 Route::view('contact-us', 'pages.contactUs')->name('contactUs');
+Route::view('privacy-and-terms', 'pages.privacy_and_terms')->name('privacy-and-terms');
+Route::view('cookie-policy', 'pages.cookie_policy')->name('cookie-policy');
 
 // Unrestricted pages
 Route::get('links', 'LinksController@index')->name('links.index');
@@ -126,6 +128,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('labels', 'LabelTemplateController');
 
     // Membership
+    Route::get('membership', 'MembershipController@index')->name('membership.index');
     Route::get('membership/approval/{user}', 'MembershipController@showDetailsForApproval')
         ->name('membership.approval');
     Route::post('membership/approve-details/{user}', 'MembershipController@approveDetails')
@@ -134,6 +137,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('membership.reject');
     Route::get('membership/update-details/{user}', 'MembershipController@editDetails')->name('membership.edit');
     Route::put('membership/update-details/{user}', 'MembershipController@updateDetails')->name('membership.update');
+    Route::view('membership/invites', 'pages.invite_search')
+        ->middleware('can:search.invites')
+        ->name('membership.invites');
+    Route::post('membership/invites/{invite}', 'MembershipController@invitesResend')->name('membership.invites.resend');
 
     // Members Projects and DNH labels
     Route::get('users/{user}/projects', 'Members\ProjectController@index')->name('users.projects');

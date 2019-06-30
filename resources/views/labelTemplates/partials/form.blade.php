@@ -19,11 +19,5 @@
     @endif
   </div>
 
-  <div class="form-group">
-    <div class="card">
-      <button type="submit" class="btn btn-success">
-        {{ $submitButtonText }}
-      </button>
-    </div>
-  </div>
+  <button type="submit" class="btn btn-success btn-block">{{ $submitButtonText }}</button>
 </div>

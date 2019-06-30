@@ -42,7 +42,7 @@ class TeamController extends Controller
         $this->userRepository = $userRepository;
 
         $this->middleware('can:team.view')->only(['index', 'show', 'howToJoin']);
-        $this->middleware('canOr:team.edit.description,role.edit.all')->only(['edit', 'update']);
+        $this->middleware('canAny:team.edit.description,role.edit.all')->only(['edit', 'update']);
     }
 
     /**
@@ -80,7 +80,7 @@ class TeamController extends Controller
      */
     public function edit(Role $team)
     {
-        if (! Auth::user()->has($team) || Gate::denies('role.edit.all')) {
+        if (! (\Auth::user()->hasRole($team) || \Gate::allows('role.edit.all'))) {
             flash('Unauthorized')->error();
 
             return redirect()->route('home');
@@ -99,7 +99,7 @@ class TeamController extends Controller
      */
     public function update(Role $team, Request $request)
     {
-        if (! Auth::user()->has($team) || Gate::denies('role.edit.all')) {
+        if (! (\Auth::user()->hasRole($team) || \Gate::allows('role.edit.all'))) {
             flash('Unauthorized')->error();
 
             return redirect()->route('home');

@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-  <p>Words about how to setup vending machine</p>
+  <p>Here you can set up vending machines as needed.</p>
   <h2>Vending Machines</h2>
   <div class="table-responsive no-more-tables">
     <table class="table table-bordered table-hover">

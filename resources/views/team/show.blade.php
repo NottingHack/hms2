@@ -38,7 +38,6 @@
     @endif
   </div>
   <p>{!! $team->getDescription() !!}</p>
-  @if(Auth::user()->hasRole($team) || Gate::allows('role.view.all'))
   <hr>
   <h2>Members:</h2>
   <ul class="d-inline-block list-group">
@@ -64,6 +63,5 @@
   <div classs="pagination-links center">
     {{ $users->links() }}
   </div>
-  @endif
 </div>
 @endsection

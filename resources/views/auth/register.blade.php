@@ -152,19 +152,6 @@
           @endif
         </div>
 
-        <hr>
-
-        <div class="form-group mb-0">
-          <label for="dateOfBirth" class="form-label">Date Of Birth</label>
-          <input placeholder="yyyy-mm-dd" class="form-control{{  $errors->has('dateOfBirth') ? ' is-invalid' : '' }}" id="dateOfBirth" type="date" name="dateOfBirth" value="{{ old('dateOfBirth') }}">
-          @if ($errors->has('dateOfBirth'))
-          <span class="invalid-feedback">
-            <strong>{{ $errors->first('dateOfBirth') }}</strong>
-          </span>
-          @endif
-          <small id="dateOfBirthHelp" class="form-text text-muted">Date of birth is not required unless you are under 18.</small>
-        </div>
-
       </div>
       <div class="card-footer">
         <button type="submit" class="btn btn-success btn-block">Register</button>

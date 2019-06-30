@@ -18,10 +18,4 @@
   @endif
 </div>
 
-<div class="form-group">
-  <div class="card">
-    <button type="submit" class="btn btn-primary">
-      {{ $submitButtonText }}
-    </button>
-  </div>
-</div>
+<button type="submit" class="btn btn-primary btn-block">{{ $submitButtonText }}</button>

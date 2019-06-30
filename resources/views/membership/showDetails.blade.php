@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('pageTitle', 'New Member Details Review')
+@section('pageTitle', 'New Member Details for Review')
 
 @push('scripts')
 <script>
@@ -68,10 +68,6 @@
         <tr>
           <th>Contact Number:</th>
           <td>{{ $user->getProfile()->getContactNumber() }}</td>
-        </tr>
-        <tr>
-          <th>Date of Birth:</th>
-          <td>@if($user->getProfile()->getDateOfBirth()){{ $user->getProfile()->getDateOfBirth()->toDateString() }}@endif</td>
         </tr>
       </tbody>
     </table>

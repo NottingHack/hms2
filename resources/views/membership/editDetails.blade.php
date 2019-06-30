@@ -106,19 +106,6 @@
           </p>
           @endif
         </div>
-
-        <hr>
-
-        <div class="form-group">
-          <label for="dateOfBirth" class="form-label">Date Of Birth</label>
-          <input placeholder="yyyy-mm-dd" class="form-control" id="dateOfBirth" type="date" name="dateOfBirth" value="{{ old('dateOfBirth', $user->getProfile()->getDateOfBirth() ? $user->getProfile()->getDateOfBirth()->toDateString() : '') }}">
-          @if ($errors->has('dateOfBirth'))
-          <p class="help-text">
-            <strong>{{ $errors->first('dateOfBirth') }}</strong>
-          </p>
-          @endif
-          <small id="dateOfBirthHelp" class="form-text text-muted">Date of birth is not required unless you are under 18.</small>
-        </div>
       </div>
       <div class="card-footer">
         <button type="submit" class="btn btn-success btn-block">Update and request review</button>

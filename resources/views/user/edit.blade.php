@@ -5,7 +5,7 @@
 @section('content')
 <div class="container">
   <div class="card">
-    <h5 class="card-header">Its important to keep all you contact details up to date.</h5>
+    <h5 class="card-header">It is important to keep all your contact details up to date.</h5>
     <form id="user-edit-form" role="form" method="POST" action="{{ route('users.update', $user->getId()) }}">
       @csrf
       @method('PATCH')
@@ -13,7 +13,7 @@
       <div class="card-body">
         <label>Username</label>
         <h5>{{ old('username', $user->getUsername()) }}</h5>
-        <small id="userName" class="form-text text-muted">Username cannot be changed.</small>
+        <small id="userName" class="form-text text-muted">Your username cannot be changed.</small>
 
         <hr>
 
@@ -38,7 +38,7 @@
         </div>
 
         <div class="form-group">
-          <label for="email" class="form-label">Email Address</label>
+          <label for="email" class="form-label">Email address</label>
           <input placeholder="Email Address" class="form-control" id="email" type="email" name="email" value="{{ old('email', $user->getEmail()) }}" required>
           @if ($errors->has('email'))
           <span class="help-block">
@@ -120,19 +120,6 @@
             <strong>{{ $errors->first('contactNumber') }}</strong>
           </p>
           @endif
-        </div>
-
-        <hr>
-
-        <div class="form-group">
-          <label for="dateOfBirth" class="form-label">Date Of Birth</label>
-          <input placeholder="yyyy-mm-dd" class="form-control" id="dateOfBirth" type="date" name="dateOfBirth" value="{{ old('dateOfBirth', $user->getProfile()->getDateOfBirth() ? $user->getProfile()->getDateOfBirth()->toDateString() : '') }}">
-          @if ($errors->has('dateOfBirth'))
-          <p class="help-text">
-            <strong>{{ $errors->first('dateOfBirth') }}</strong>
-          </p>
-          @endif
-          <small id="dateOfBirthHelp" class="form-text text-muted">Date of birth is not required unless you are under 18.</small>
         </div>
 
         <hr>

@@ -4,7 +4,9 @@
 
 @section('content')
 <div class="container">
-  <p>Words about all the teams that exist to help people getting involved in runing the space</p>
+  <p>The hackspace is run <strong>entirely</strong> by teams of volunteers.</p>
+  <p>Please consider joining a team and helping with the running of the hackspace.</p>
+  <p><a href="{{ route('teams.how-to-join') }}" class="btn btn-primary">How to join a Team</a></p>
   @foreach ($teams as $team)
   <div class="card mb-3">
     <h5 class="card-header">{{ $team->getDisplayName() }}

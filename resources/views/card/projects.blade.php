@@ -21,7 +21,7 @@
     @endforelse
   </ul>
   <div class="card-footer">
-    <a href="{{ route('projects.create') }}" class="btn btn-primary">Add a Project</a>
+    <a href="{{ route('projects.create') }}" class="btn btn-primary"><i class="fas fa-plus" aria-hidden="true"></i> Add a Project</a>
   </div>
 </div>
 @endcan

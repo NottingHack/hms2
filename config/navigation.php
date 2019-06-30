@@ -12,7 +12,7 @@ return [
     |
     */
     'main' => [
-        'news' => [
+        'home' => [
             'text'          => 'Home',
             'route'         => 'index',
             'permissions'   => [],
@@ -125,7 +125,7 @@ return [
                     'links'         => [],
                 ],
                 'joinAccounts' => [
-                    'text'          => 'Join Accounts',
+                    'text'          => 'Joint Accounts',
                     'route'         => 'banking.accounts.listJoint',
                     'match'         => 'banking.accounts.listJoint',
                     'permissions'   => ['profile.view.limited', 'profile.view.all'],
@@ -136,6 +136,18 @@ return [
                     'route'         => 'bank-transactions.unmatched',
                     'match'         => 'bank-transactions.unmatched',
                     'permissions'   => ['bankTransactions.reconcile'],
+                    'links'         => [],
+                ],
+                'inviteSearch' => [
+                    'text'          => 'Resend Invite',
+                    'route'         => 'membership.invites',
+                    'permissions'   => ['search.invites'],
+                    'links'         => [],
+                ],
+                'membershipApprovals' => [
+                    'text'          => 'Review Approvals',
+                    'route'         => 'membership.index',
+                    'permissions'   => ['membership.approval'],
                     'links'         => [],
                 ],
                 'horizon'          => [

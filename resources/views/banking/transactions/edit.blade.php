@@ -35,9 +35,7 @@
       <member-select-two name="existing-account" :with-account="true" :return-account-id="true"></member-select-two>
     </div>
     <br>
-    <div class="card">
-      <button type="submit" class="btn btn-success"><i class="fas fa-check fa-lg" aria-hidden="true"></i> Match Transaction</button>
-    </div>
+    <button type="submit" class="btn btn-success btn-block"><i class="fas fa-check fa-lg" aria-hidden="true"></i> Match Transaction</button>
   </form>
 </div>
 @endsection

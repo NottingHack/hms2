@@ -1,3 +1,4 @@
+@can('snackspace.transaction.view.self')
 <div class="card">
   <div class="card-header">Snackspace account</div>
   <ul class="list-group list-group-flush">
@@ -34,3 +35,4 @@
     {{-- <a href="#" class="btn btn-primary mb-1">Make a Payment</a> --}} {{-- Vue/Stripe --}}
   </div>
 </div>
+@endcan

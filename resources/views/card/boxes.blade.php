@@ -1,3 +1,4 @@
+@can('box.view.self')
 <div class="card">
   <div class="card-header">Members Boxes</div>
   <ul class="list-group list-group-flush">
@@ -18,3 +19,4 @@
     <a href="{{ route('users.boxes', $user->getId()) }}" class="btn btn-primary mb-1">Manage Boxes</a>
   </div>
 </div>
+@endcan

@@ -61,36 +61,36 @@ class MigrateInstrumentaionCommand extends Command
         //         'account_number' => 'account_number',
         //     ],
         // ],
-        'bells' => [
-            'newTableName' => 'bells',
-            'columns' => [
-                'bell_id' => 'id',
-                'bell_description' => 'description',
-                'bell_topic' => 'topic',
-                'bell_message' => 'message',
-                'bell_enabled' => 'enabled',
-            ],
-        ],
-        'door_bells' => [
-            'newTableName' => 'door_bell',
-            'columns' => [
-                'door_id' => 'door_id',
-                'bell_id' => 'bell_id',
-            ],
-        ],
-        'doors' => [
-            'newTableName' => 'doors',
-            'columns' => [
-                'door_id' => 'id',
-                'door_description' => 'description',
-                'door_short_name' => 'short_name',
-                'door_state' => 'state',
-                'door_state_change' => 'state_change',
-                'permission_code' => 'permission_code',
-                'side_a_zone_id' => 'side_a_zone_id',
-                'side_b_zone_id' => 'side_b_zone_id',
-            ],
-        ],
+        // 'bells' => [
+        //     'newTableName' => 'bells',
+        //     'columns' => [
+        //         'bell_id' => 'id',
+        //         'bell_description' => 'description',
+        //         'bell_topic' => 'topic',
+        //         'bell_message' => 'message',
+        //         'bell_enabled' => 'enabled',
+        //     ],
+        // ],
+        // 'door_bells' => [
+        //     'newTableName' => 'door_bell',
+        //     'columns' => [
+        //         'door_id' => 'door_id',
+        //         'bell_id' => 'bell_id',
+        //     ],
+        // ],
+        // 'doors' => [
+        //     'newTableName' => 'doors',
+        //     'columns' => [
+        //         'door_id' => 'id',
+        //         'door_description' => 'description',
+        //         'door_short_name' => 'short_name',
+        //         'door_state' => 'state',
+        //         'door_state_change' => 'state_change',
+        //         // 'permission_code' => 'permission_code',
+        //         'side_a_zone_id' => 'side_a_zone_id',
+        //         'side_b_zone_id' => 'side_b_zone_id',
+        //     ],
+        // ],
         'emails' => [
             'newTableName' => 'snackspace_emails',
             'columns' => [
@@ -255,22 +255,22 @@ class MigrateInstrumentaionCommand extends Command
                 'vmc_address' => 'address',
             ],
         ],
-        'vmc_ref' => [
-            'newTableName' => 'vending_locations',
-            'columns' => [
-                'vmc_ref_id' => 'id',
-                'vmc_id' => 'vending_machine_id',
-                'loc_encoded' => 'encoding',
-                'loc_name' => 'name',
-            ],
-        ],
-        'vmc_state' => [
-            'newTableName' => 'product_vending_location',
-            'columns' => [
-                'vmc_ref_id' => 'vending_location_id',
-                'product_id' => 'product_id',
-            ],
-        ],
+        // 'vmc_ref' => [
+        //     'newTableName' => 'vending_locations',
+        //     'columns' => [
+        //         'vmc_ref_id' => 'id',
+        //         'vmc_id' => 'vending_machine_id',
+        //         'loc_encoded' => 'encoding',
+        //         'loc_name' => 'name',
+        //     ],
+        // ],
+        // 'vmc_state' => [
+        //     'newTableName' => 'product_vending_location',
+        //     'columns' => [
+        //         'vmc_ref_id' => 'vending_location_id',
+        //         'product_id' => 'product_id',
+        //     ],
+        // ],
         'transactions' => [
             'newTableName' => 'transactions',
             'columns' => [
@@ -347,15 +347,15 @@ class MigrateInstrumentaionCommand extends Command
                 'time_entered' => 'time_entered',
             ],
         ],
-        'zones' => [
-            'newTableName' => 'zones',
-            'columns' => [
-                'zone_id' => 'id',
-                'zone_description' => 'description',
-                'zone_short_name' => 'short_name',
-                'permission_code' => 'permission_code',
-            ],
-        ],
+        // 'zones' => [
+        //     'newTableName' => 'zones',
+        //     'columns' => [
+        //         'zone_id' => 'id',
+        //         'zone_description' => 'description',
+        //         'zone_short_name' => 'short_name',
+        //         'permission_code' => 'permission_code',
+        //     ],
+        // ],
     ];
 
     /**
@@ -397,11 +397,11 @@ class MigrateInstrumentaionCommand extends Command
      */
     public function handle()
     {
-        // TODO get from user
-        $instrumentationHost = '127.0.0.1';
-        $instrumentationDatabase = 'instrumentation';
-        $instrumentationUser = 'hms';
-        $instrumentationPassword = 'secret';
+        $this->info('Please provide details for connecting to the instrumentation database.');
+        $instrumentationHost = $this->anticipate('Host? [127.0.0.1]', ['127.0.0.1']) ?: '127.0.0.1';
+        $instrumentationDatabase = $this->anticipate('Database name? [instrumentation]', ['instrumentation']) ?: 'instrumentation';
+        $instrumentationUser = $this->anticipate('User? [hms]', ['hms']) ?: 'hms';
+        $instrumentationPassword = $this->secret('Password? [secret]') ?: 'secret';
 
         $start = Carbon::now();
         config(['database.connections.instrumentation' => [
@@ -432,6 +432,7 @@ class MigrateInstrumentaionCommand extends Command
         $this->migrateTools();
         $this->migrateMemberTools();
         $this->migrateHmsEmails();
+        $this->migrateVeningLocations();
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         $this->info('Total run took ' . $start->diff(Carbon::now())->format('%H:%i:%s'));
@@ -855,6 +856,45 @@ class MigrateInstrumentaionCommand extends Command
         $this->info($startTime->diff(Carbon::now())->format('took: %H:%i:%s'));
     }
 
+    protected function migrateVeningLocations()
+    {
+        $oldTableName = 'vmc_ref';
+        $newTableName = 'vending_locations';
+        $columns = [
+            'vmc_ref_id' => 'id',
+            'vmc_id' => 'vending_machine_id',
+            'loc_encoded' => 'encoding',
+            'loc_name' => 'name',
+        ];
+
+        $this->info('Migrating ' . $oldTableName);
+        $startTime = Carbon::now();
+        $oldData = DB::connection('instrumentation')->table($oldTableName)->get();
+
+        $newData = $oldData->map(function ($row, $key) use ($columns, $newTableName) {
+            $newRow = [];
+            foreach ($columns as $oldName => $newName) {
+                $newRow[$newName] = $row->$oldName;
+            }
+
+            // From old state for find product_id for $newRow['id']
+            $state = DB::connection('instrumentation')->table('vmc_state')->where('vmc_ref_id', $row->vmc_ref_id)->first();
+
+            $newRow['product_id'] = $state->product_id;
+
+            return $newRow;
+        });
+
+        DB::statement("TRUNCATE TABLE $newTableName;");
+
+        $dataChunks = array_chunk($newData->toArray(), 1000, true);
+        foreach ($dataChunks as $dataChunk) {
+            DB::table($newTableName)->insert($dataChunk);
+        }
+
+        $this->info($startTime->diff(Carbon::now())->format('took: %H:%i:%s'));
+    }
+
     protected function migrateSimpleMappings()
     {
         $simpleStart = Carbon::now();
@@ -882,13 +922,6 @@ class MigrateInstrumentaionCommand extends Command
                     if ($newTableName == 'bank_transactions' && $newName == 'amount') {
                         $newRow[$newName] *= 100;
                     }
-
-                    // zone id's need to be increase by one
-                    if (strpos($newName, 'zone_id') !== false) {
-                        $newRow[$newName] += 1;
-                    } elseif ($newTableName == 'zones' && $newName == 'id') {
-                        $newRow[$newName] += 1;
-                    }
                 }
             }
 
@@ -897,10 +930,20 @@ class MigrateInstrumentaionCommand extends Command
 
         DB::statement("TRUNCATE TABLE $newTableName;");
 
+        if ($newTableName == 'zones') {
+            $mode = DB::select('select @@sql_mode as sql_mode')[0];
+            DB::statement("SET sql_mode='$mode->sql_mode,NO_AUTO_VALUE_ON_ZERO'");
+        }
+
         $dataChunks = array_chunk($newData->toArray(), 1000, true);
         foreach ($dataChunks as $dataChunk) {
             DB::table($newTableName)->insert($dataChunk);
         }
+
+        if ($newTableName == 'zones') {
+            DB::statement("SET sql_mode='$mode->sql_mode'");
+        }
+
         $this->info($startTime->diff(Carbon::now())->format('took: %H:%i:%s'));
     }
 }

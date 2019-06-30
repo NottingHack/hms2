@@ -239,8 +239,8 @@
       },
 
       viewSkeletonRender(info) {
-        // FullCalendar's bootstrap them uses card on there fc-list-view class
-        // this causes a card in side a card
+        // FullCalendar's bootstrap theme uses card on there fc-list-view class
+        // this causes a card inside a card
         if (this.removeCardClass) {
           $(info.el).removeClass(['card', 'fc-list-view'])
         }
@@ -254,7 +254,7 @@
       // migt be related https://github.com/fullcalendar/fullcalendar/issues/4650
       setTimeout(() => {
         this.calendarApi.updateSize();
-      }, 10);
+      }, 100);
 
       // Call checkBookings minute, so past events are shaded
       this.interval = setInterval(function () {
@@ -266,7 +266,6 @@
 
     beforeDestroy() {
       clearInterval(this.interval);
-      window.removeEventListener('resize', this.getWindowResize);
     },
   }
 </script>

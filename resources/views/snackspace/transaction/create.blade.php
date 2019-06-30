@@ -20,7 +20,7 @@ Add Snackspace transaction for {{ $user->getFirstname() }}
     </div>
 
     <div class="form-group">
-      <label for="amount" class="form-label">Amount in pence</label>
+      <label for="amount" class="form-label">Amount in pence (use positive number to add credit, negative number to debit)</label>
       <input id="amount" class="form-control" type="number" name="amount" placeholder="in pence" value="{{ old('amount') }}" required>
       @if ($errors->has('amount'))
       <p class="help-text">
@@ -29,11 +29,7 @@ Add Snackspace transaction for {{ $user->getFirstname() }}
       @endif
     </div>
 
-    <div class="form-group">
-      <div class="card">
-        <button type="submit" class="btn btn-primary">Add Transaction</button>
-      </div>
-    </div>
+    <button type="submit" class="btn btn-primary btn-block">Add Transaction</button>
   </form>
 </div>
 @endsection

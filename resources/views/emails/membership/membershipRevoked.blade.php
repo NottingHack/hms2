@@ -1,9 +1,17 @@
 @component('mail::message')
 # Hello {{ $fullname }}
 
-We are sorry to see you go but as you have not made a payment recently your Nottingham Hackspace membership has been revoked and your access to the space has been suspended.
+We are sorry to see you go, but as you have not made a payment recently your Nottingham Hackspace membership has been revoked and your access to the space has been suspended.
 
-If you do wish to reinstate your membership you will need to setup your standing order again.
+@if($boxCount > 0)
+Our records show that you have left a members box at the space please arange to collect it on a Wednesday Open Hack Night.<br>
+@endif
+
+@if($snackspaceBalance < 0)
+We request that you settle your snackspace balance of @format_pennies($snackspaceBalance)<br>
+@endif
+
+If you do wish to reinstate your membership you will need to set up your standing order again.
 
 Here are the details you need to set up a standing order:
 

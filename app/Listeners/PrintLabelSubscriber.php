@@ -128,6 +128,7 @@ class PrintLabelSubscriber implements ShouldQueue
         }
 
         socket_close($socket);
+
         return true;
     }
 

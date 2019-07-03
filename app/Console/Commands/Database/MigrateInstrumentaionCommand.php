@@ -377,6 +377,16 @@ class MigrateInstrumentaionCommand extends Command
      */
     protected $description = 'Migrate data form old instrumentation database';
 
+   /**
+     * @var null|\DateTimeZone
+     */
+    private static $utc = null;
+
+   /**
+     * @var null|\DateTimeZone
+     */
+    private static $gmt = null;
+
     /**
      * Create a new command instance.
      *
@@ -397,6 +407,13 @@ class MigrateInstrumentaionCommand extends Command
      */
     public function handle()
     {
+        if (is_null(self::$utc)) {
+            self::$utc = new \DateTimeZone('UTC');
+        }
+        if (is_null(self::$gmt)) {
+            self::$gmt = new \DateTimeZone('Europe/London');
+        }
+
         $this->info('Please provide details for connecting to the instrumentation database.');
         $instrumentationHost = $this->anticipate('Host? [127.0.0.1]', ['127.0.0.1']) ?: '127.0.0.1';
         $instrumentationDatabase = $this->anticipate('Database name? [instrumentation]', ['instrumentation']) ?: 'instrumentation';
@@ -475,6 +492,16 @@ class MigrateInstrumentaionCommand extends Command
         $roleUpdates = [];
 
         foreach ($oldData as $row) {
+            // convert timestamp column from Europe/London to UTC
+            $converted = Carbon::createFromFormat(
+                'Y-m-d H:i:s',
+                $row->timestamp,
+                self::$gmt
+            );
+
+            $converted->setTimezone(self::$utc);
+            $row->timestamp = $converted->toDateTimeString();
+
             // deal with old status first
             if ($row->old_status > 2) {
                 $roleUpdates[] = [
@@ -560,8 +587,8 @@ class MigrateInstrumentaionCommand extends Command
                 'lastname' => $row->surname,
                 'username' => $row->username,
                 'email' => $row->email,
-                'created_at' => $row->join_date != '0000-00-00' ? $row->join_date : Carbon::now(),
-                'updated_at' => Carbon::now(),
+                'created_at' => $row->join_date != '0000-00-00' ? $row->join_date : Carbon::now(self::$utc),
+                'updated_at' => Carbon::now(self::$utc),
                 'account_id' => $row->account_id,
             ];
             $profile = [
@@ -574,8 +601,8 @@ class MigrateInstrumentaionCommand extends Command
                 'address_city' => $row->address_city,
                 'address_postcode' => $row->address_postcode,
                 'contact_number' => $row->contact_number,
-                'created_at' => $row->join_date != '0000-00-00' ? $row->join_date : Carbon::now(),
-                'updated_at' => Carbon::now(),
+                'created_at' => $row->join_date != '0000-00-00' ? $row->join_date : Carbon::now(self::$utc),
+                'updated_at' => Carbon::now(self::$utc),
                 'balance' => $row->balance,
             ];
 
@@ -737,6 +764,16 @@ class MigrateInstrumentaionCommand extends Command
         $roleUsers = [];
         $roleUpdates = [];
         foreach ($oldData as $row) {
+            // convert mt_date_inducted column from Europe/London to UTC
+            $converted = Carbon::createFromFormat(
+                'Y-m-d H:i:s',
+                $row->mt_date_inducted,
+                self::$gmt
+            );
+
+            $converted->setTimezone(self::$utc);
+            $row->mt_date_inducted = $converted->toDateTimeString();
+
             switch ($row->mt_access_level) {
                 case 'MAINTAINER':
                     $roleUsers[] = [
@@ -817,6 +854,16 @@ class MigrateInstrumentaionCommand extends Command
         });
 
         $newData = $filteredData->map(function ($row, $key) use ($columns, $newTableName, &$emailUser) {
+            // convert timestamp column from Europe/London to UTC
+            $converted = Carbon::createFromFormat(
+                'Y-m-d H:i:s',
+                $row->timestamp,
+                self::$gmt
+            );
+
+            $converted->setTimezone(self::$utc);
+            $row->timestamp = $converted->toDateTimeString();
+
             $newRow = [];
             foreach ($columns as $oldName => $newName) {
                 $newRow[$newName] = $row->$oldName;
@@ -912,7 +959,12 @@ class MigrateInstrumentaionCommand extends Command
         $startTime = Carbon::now();
         $oldData = DB::connection('instrumentation')->table($oldTableName)->get();
 
-        $newData = $oldData->map(function ($row, $key) use ($mapping, $newTableName) {
+        $column_types = [];
+        foreach ($mapping['columns'] as $oldName => $newName) {
+            $column_types[$oldName] = DB::connection('instrumentation')->getSchemaBuilder()->getColumnType($oldTableName, $oldName);
+        }
+
+        $newData = $oldData->map(function ($row, $key) use ($mapping, $newTableName, $column_types) {
             $newRow = [];
             foreach ($mapping['columns'] as $oldName => $newName) {
                 if (array_key_exists($oldName, $row)) {
@@ -921,6 +973,27 @@ class MigrateInstrumentaionCommand extends Command
                     // bank transactions
                     if ($newTableName == 'bank_transactions' && $newName == 'amount') {
                         $newRow[$newName] *= 100;
+                    }
+
+                    if ($column_types[$oldName] == 'datetime') {
+                        // convert datatime columns from Europe/London to UTC
+                        if (is_null($newRow[$newName])){
+                            // skipp null
+                        } else if (strlen($newRow[$newName]) == 10) {
+                            // skip date only fields
+                        } else if (strlen($newRow[$newName]) == 19) {
+                            // ah date and time
+                            $converted = Carbon::createFromFormat(
+                                'Y-m-d H:i:s',
+                                $newRow[$newName],
+                                self::$gmt
+                            );
+                            $converted->setTimezone(self::$utc);
+                            $newRow[$newName] = $converted->toDateTimeString();
+                        } else {
+                            // hmm time only field?
+                            dd($newRow[$newName]);
+                        }
                     }
                 }
             }

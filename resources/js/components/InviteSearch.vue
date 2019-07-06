@@ -82,7 +82,7 @@
             return {
               results: data.data,
               pagination: {
-                more: (params.page * data._per_page) < data.total
+                more: (params.page * data.per_page) < data.total
               }
             };
           },

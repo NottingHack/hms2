@@ -82,6 +82,8 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
             $q = $q->andWhere('user.account IS NOT NULL');
         }
 
+        $q = $q->orderBy('user.name', 'ASC');
+
         $q = $q->setParameter('keyword', '%' . $searchQuery . '%')
             ->getQuery();
 

@@ -96,7 +96,7 @@ class ViMbAdminSubscriber implements ShouldQueue
     {
         if ($event->role->getEmail()) {
             $alias = $this->getAliasForRole($event->role);
-            $email = $event->user->getEmail();
+            $email = strtolower($event->user->getEmail());
 
             if ($event->role->getName() == Role::TEAM_TRUSTEES) {
                 $email = strtolower(
@@ -135,7 +135,7 @@ class ViMbAdminSubscriber implements ShouldQueue
     {
         if ($event->role->getEmail()) {
             $alias = $this->getAliasForRole($event->role);
-            $email = $event->user->getEmail();
+            $email = strtolower($event->user->getEmail());
 
             if ($event->role->getName() == Role::TEAM_TRUSTEES) {
                 $email = strtolower(
@@ -209,8 +209,8 @@ class ViMbAdminSubscriber implements ShouldQueue
             }
             if ($role->getEmail()) {
                 $alias = $this->getAliasForRole($role);
-                $alias->removeForwardAddress($event->oldEmail);
-                $alias->addForwardAddress($user->getEmail());
+                $alias->removeForwardAddress(strtolower($event->oldEmail));
+                $alias->addForwardAddress(strtolower($user->getEmail()));
 
                 // save the updated alias back to the external API
                 $response = $this->client->updateAlias($alias);

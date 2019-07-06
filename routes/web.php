@@ -53,6 +53,7 @@ Route::middleware(['ipcheck'])->group(function () {
 
 // Routes in the following group can only be access once logged-in
 Route::middleware(['auth'])->group(function () {
+    Route::get('home', 'HomeController@index')->name('home');
     Route::view('registration-complete', 'pages.registrationComplete')->name('registrationComplete');
 
     // Users (show, edit, update) to allow users to update there email if they can't verify it
@@ -67,7 +68,6 @@ Route::middleware(['auth'])->group(function () {
 
 // Routes in the following group can only be access once logged-in and have verified your email address
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('home', 'HomeController@index')->name('home');
     Route::get('access-codes', 'HomeController@accessCodes')->name('accessCodes');
 
     // ROLE

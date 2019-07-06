@@ -144,7 +144,7 @@ return [
                 'connection' => 'redis',
                 'queue' => ['default', 'maintenance'],
                 'balance' => 'simple',
-                'processes' => 10,
+                'processes' => 5,
                 'tries' => 3,
             ],
         ],

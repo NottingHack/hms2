@@ -63,7 +63,7 @@
         </tr>
         <tr>
           <th>Post Code:</th>
-          <td>{{ $user->getProfile()->getAddressPostCode() }}</td>
+          <td>{{ $user->getProfile()->getAddressPostCode() }}&nbsp;<a href="https://www.openstreetmap.org/search?query={{ $user->getProfile()->getAddressPostCode() }}" target="_blank">Check on OpenStreetMap</a></td>
         </tr>
         <tr>
           <th>Contact Number:</th>

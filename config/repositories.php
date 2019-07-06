@@ -53,6 +53,7 @@ return [
         'Banking\MembershipStatusNotification',
         'Members\Project',
         'Members\Box',
+        'Snackspace\Debt',
         'Snackspace\Product',
         'Snackspace\Transaction',
         'Snackspace\PurchasePayment',

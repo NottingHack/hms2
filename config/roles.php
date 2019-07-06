@@ -95,6 +95,7 @@ return [
         'gatekeeper.zoneEntry.outside',
         'horizon.view',
         'team.view',
+        'team.create',
         'team.edit.description',
     ],
 

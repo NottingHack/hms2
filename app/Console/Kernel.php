@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\Snackspace\LogDebtJob;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -39,6 +40,8 @@ class Kernel extends ConsoleKernel
                 ->weekly();
 
         $schedule->command('horizon:snapshot')->everyFiveMinutes();
+
+        $schedule->job(new LogDebtJob)->daily();
     }
 
     /**

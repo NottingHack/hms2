@@ -590,6 +590,7 @@ class MigrateInstrumentaionCommand extends Command
                 'created_at' => $row->join_date != '0000-00-00' ? $row->join_date : Carbon::now(self::$utc),
                 'updated_at' => Carbon::now(self::$utc),
                 'account_id' => $row->account_id,
+                'email_verified_at' => Carbon::now(self::$utc),
             ];
             $profile = [
                 'user_id' => $row->member_id,

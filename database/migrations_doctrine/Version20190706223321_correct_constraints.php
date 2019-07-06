@@ -2,8 +2,8 @@
 
 namespace Database\Migrations;
 
-use Doctrine\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema as Schema;
+use Doctrine\Migrations\AbstractMigration;
 
 class Version20190706223321_correct_constraints extends AbstractMigration
 {

@@ -377,12 +377,12 @@ class MigrateInstrumentaionCommand extends Command
      */
     protected $description = 'Migrate data form old instrumentation database';
 
-   /**
+    /**
      * @var null|\DateTimeZone
      */
     private static $utc = null;
 
-   /**
+    /**
      * @var null|\DateTimeZone
      */
     private static $gmt = null;
@@ -978,11 +978,11 @@ class MigrateInstrumentaionCommand extends Command
 
                     if ($column_types[$oldName] == 'datetime') {
                         // convert datatime columns from Europe/London to UTC
-                        if (is_null($newRow[$newName])){
+                        if (is_null($newRow[$newName])) {
                             // skipp null
-                        } else if (strlen($newRow[$newName]) == 10) {
+                        } elseif (strlen($newRow[$newName]) == 10) {
                             // skip date only fields
-                        } else if (strlen($newRow[$newName]) == 19) {
+                        } elseif (strlen($newRow[$newName]) == 19) {
                             // ah date and time
                             $converted = Carbon::createFromFormat(
                                 'Y-m-d H:i:s',

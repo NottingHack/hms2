@@ -106,7 +106,6 @@ class DoctrineProfileRepository extends EntityRepository implements ProfileRepos
      */
     public function totalCreditForExMembers()
     {
-
         $q = parent::createQueryBuilder('profile');
 
         $q->where('profile.balance > 0')
@@ -119,6 +118,7 @@ class DoctrineProfileRepository extends EntityRepository implements ProfileRepos
 
         return (int) $q->getQuery()->getSingleScalarResult() ?? 0;
     }
+
     /**
      * Save Profile to the DB.
      *

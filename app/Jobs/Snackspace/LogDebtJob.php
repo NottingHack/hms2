@@ -6,8 +6,8 @@ use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use HMS\Entities\Snackspace\Debt;
 use Illuminate\Support\Facades\Log;
-use HMS\Repositories\ProfileRepository;
 use Illuminate\Queue\SerializesModels;
+use HMS\Repositories\ProfileRepository;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -47,14 +47,14 @@ class LogDebtJob //implements ShouldQueue
         $debtRepository->save($debt);
 
         Log::info(
-            'TotalDebt: £' . $debt->getTotalDebt()/100
-            . ', Current: £' . $debt->getCurrentDebt()/100
-            . ', Ex: £' . $debt->getExDebt()/100
+            'TotalDebt: £' . $debt->getTotalDebt() / 100
+            . ', Current: £' . $debt->getCurrentDebt() / 100
+            . ', Ex: £' . $debt->getExDebt() / 100
         );
         Log::info(
-            'TotalCredit: £' . $debt->getTotalCredit()/100
-            . ', Current: £' . $debt->getCurrentCredit()/100
-            . ', Ex: £' . $debt->getExCredit()/100
+            'TotalCredit: £' . $debt->getTotalCredit() / 100
+            . ', Current: £' . $debt->getCurrentCredit() / 100
+            . ', Ex: £' . $debt->getExCredit() / 100
         );
     }
 }

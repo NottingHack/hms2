@@ -16,6 +16,7 @@
       @csrf
       <div class="card-body">
         <input type="hidden" name="invite" value="{{ old('invite', $invite) }}">
+        <input type="hidden" name="dateOfBirth" value="">
         @if ($errors->has('invite'))
         <div>
           <span class="from-text">

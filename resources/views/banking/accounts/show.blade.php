@@ -66,7 +66,9 @@ Account {{ $account->getPaymentRef() }}
   </form>
   <hr>
   @if(Gate::allows('bankTransactions.view.all'))
-  <p>Words about matched payments we have received.</p>
+  @forelse ($bankTransactions as $bankTransaction)
+  @if ($loop->first)
+  <p>Any payments that have been matched to this account ar listed below.</p>
   <div class="table-responsive">
     <table class="table table-bordered table-hover">
       <thead>
@@ -77,13 +79,13 @@ Account {{ $account->getPaymentRef() }}
         </tr>
       </thead>
       <tbody>
-        @foreach ($bankTransactions as $bankTransaction)
+  @endif
         <tr>
           <td>{{ $bankTransaction->getTransactionDate()->toDateString() }}</td>
           <td><span class="money">@format_pennies($bankTransaction->getAmount())</span></td>
           <td>{{ $bankTransaction->getBank()->getName() }}</td>
         </tr>
-        @endforeach
+  @if ($loop->last)
       </tbody>
     </table>
   </div>
@@ -91,13 +93,19 @@ Account {{ $account->getPaymentRef() }}
   <div class="pagination-links">
     {{ $bankTransactions->links() }}
   </div>
+  @endif
+  @empty
+  <p>No payments matched to this account.</p>
+  @endforelse
   @elseif(Auth::user() != $user && Gate::allows('bankTransactions.view.limited'))
-  @isset($bankTransactions)
+  @if($bankTransactions->count() > 0)
   <div class="card">
     <h5 class="card-header">Last Payment Date:</h5>
     <div class="card-body">{{ $bankTransactions[0]->getTransactionDate()->toDateString() }}</div>
   </div>
-  @endisset
+  @else
+  <p>No payments matched to this account.</p>
+  @endif
   @endif
 </div>
 @endsection

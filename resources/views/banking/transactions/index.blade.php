@@ -42,6 +42,8 @@ Membership Payments for {{ $user->getFirstname() }}
   <p>These are the transactions we have received from you.</p>
   <p>If a transaction has not appeared, please check with your bank that you have entered in the right account number, sort code, and reference code.  <strong>We cannot automatically match your transactions with your HMS account unless you use the correct reference code.</strong></p>
   @if( Auth::user() == $user || Gate::allows('bankTransactions.view.all'))
+  @forelse ($bankTransactions as $bankTransaction)
+  @if ($loop->first)
   <div class="table-responsive">
     <table class="table table-bordered table-hover">
       <thead>
@@ -52,13 +54,13 @@ Membership Payments for {{ $user->getFirstname() }}
         </tr>
       </thead>
       <tbody>
-        @foreach ($bankTransactions as $bankTransaction)
+  @endif
         <tr>
           <td>{{ $bankTransaction->getTransactionDate()->toDateString() }}</td>
           <td><span class="money">@format_pennies($bankTransaction->getAmount())</span></td>
           <td>{{ $bankTransaction->getBank()->getName() }}</td>
         </tr>
-        @endforeach
+  @if ($loop->last)
       </tbody>
     </table>
   </div>
@@ -66,13 +68,19 @@ Membership Payments for {{ $user->getFirstname() }}
   <div class="pagination-links">
     {{ $bankTransactions->links() }}
   </div>
+  @endif
+  @empty
+  <p>No payments matched to this account.</p>
+  @endforelse
   @elseif(Auth::user() != $user && Gate::allows('bankTransactions.view.limited'))
-  @isset($bankTransactions)
+  @if($bankTransactions->count() > 0)
   <div class="card">
     <h5 class="card-header">Last Payment Date:</h5>
     <div class="card-body">{{ $bankTransactions[0]->getTransactionDate()->toDateString() }}</div>
   </div>
-  @endisset
+  @else
+  <p>No payments yet for this account.</p>
+  @endif
   @endif
 </div>
 @endsection

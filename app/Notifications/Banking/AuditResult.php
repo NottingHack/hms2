@@ -97,7 +97,7 @@ class AuditResult extends Notification implements ShouldQueue
                 'fullName' => $user->getFullname(),
                 'email' => $user->getEmail(),
                 'jointAccount' => count($user->getAccount()->getUsers()) > 1 ? 'yes' : 'no',
-                'balance' => 'TODO',
+                'balance' => $user->getProfile()->getBalance(),
                 'lastPaymentDate' => $bankTransactionRepository
                     ->findLatestTransactionByAccount($user->getAccount())
                     ->getTransactionDate()
@@ -120,7 +120,7 @@ class AuditResult extends Notification implements ShouldQueue
                 'fullName' => $user->getFullname(),
                 'email' => $user->getEmail(),
                 'jointAccount' => count($user->getAccount()->getUsers()) > 1 ? 'yes' : 'no',
-                'balance' => 'TODO',
+                'balance' => $user->getProfile()->getBalance(),
                 'lastPaymentDate' => $bankTransactionRepository
                     ->findLatestTransactionByAccount($user->getAccount())
                     ->getTransactionDate()
@@ -152,7 +152,7 @@ class AuditResult extends Notification implements ShouldQueue
                 'fullName' => $user->getFullname(),
                 'email' => $user->getEmail(),
                 'jointAccount' => count($user->getAccount()->getUsers()) > 1 ? 'yes' : 'no',
-                'balance' => 'TODO',
+                'balance' => $user->getProfile()->getBalance(),
                 'dateMadeExMember' => $dateMadeExMember,
                 'lastVisitDate' => $lastAccess,
             ];

@@ -125,7 +125,6 @@ class RoleManager
         return $roleEntity;
     }
 
-
     /**
      * Update a specific role.
      *

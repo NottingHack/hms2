@@ -72,7 +72,7 @@ class TeamController extends Controller
         return view('team.show')->with('team', $team)->with('users', $users);
     }
 
-     /**
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -109,6 +109,7 @@ class TeamController extends Controller
 
         return redirect()->route('teams.index');
     }
+
     /**
      * Show the edit description form for a team.
      *

@@ -11,10 +11,10 @@
         <div class="card-body">
           <dl>
             <dt class="h5">Street Door</dt>
-            <h4><span class="badge badge-primary">{{ $outerDoorCode }}</span></h4>
+            <h4><span class="badge badge-primary">{{  Meta::get(access_street_door) }}</span></h4>
             <hr>
             <dt class="h5">Inner Door</dt>
-            <h4><span class="badge badge-primary">{{ $innerDoorCode }}</span></h4>
+            <h4><span class="badge badge-primary">{{  Meta::get(access_inner_door) }}</span></h4>
           </dl>
         </div>
       </div>
@@ -26,10 +26,10 @@
         <div class="card-body">
           <dl>
             <dt class="h5">SSID</dt>
-            <h4><span class="badge badge-primary">{{ $wifiSsid }}</span></h4>
+            <h4><span class="badge badge-primary">{{  Meta::get(access_wifi_ssid) }}</span></h4>
             <hr>
             <dt class="h5">Password (PSK)</dt>
-            <h4><span class="badge badge-primary">{{ $wifiPass }}</span></h4>
+            <h4><span class="badge badge-primary">{{  Meta::get(access_wifi_password) }}</span></h4>
           </dl>
         </div>
       </div>
@@ -41,10 +41,10 @@
         <div class="card-body">
           <dl>
             <dt class="h5">SSID</dt>
-            <h4><span class="badge badge-primary">{{ $guestWifiSsid }}</span></h4>
+            <h4><span class="badge badge-primary">{{  Meta::get(access_guest_wifi_ssid) }}</span></h4>
             <hr>
             <dt class="h5">Password (PSK)</dt>
-            <h4><span class="badge badge-primary">{{ $guestWifiPass }}</span></h4>
+            <h4><span class="badge badge-primary">{{  Meta::get(access_guest_wifi_password) }}</span></h4>
           </dl>
         </div>
       </div>

@@ -128,26 +128,4 @@ class HomeController extends Controller
             'bookings' => $mappedBookings,
         ]);
     }
-
-    /**
-     * Show the Hacksapce access codes.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function accessCodes(MetaRepository $metaRepository)
-    {
-        if (! \Gate::allows('accessCodes.view')) {
-            return redirect()->route('home');
-        }
-        $accessCodes = [
-            'outerDoorCode' => $metaRepository->get('access_street_door'),
-            'innerDoorCode' => $metaRepository->get('access_inner_door'),
-            'wifiSsid' => $metaRepository->get('access_wifi_ssid'),
-            'wifiPass' => $metaRepository->get('access_wifi_password'),
-            'guestWifiSsid' => $metaRepository->get('access_guest_wifi_ssid'),
-            'guestWifiPass' => $metaRepository->get('access_guest_wifi_password'),
-        ];
-
-        return view('pages.access')->with($accessCodes);
-    }
 }

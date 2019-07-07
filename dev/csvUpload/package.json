@@ -12,9 +12,11 @@
   "author": "Matt Lloyd",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.19.0",
+    "axios-oauth-client": "^1.1.1",
+    "axios-token-interceptor": "^0.1.0",
     "commander": "^2.18.0",
-    "csvtojson": "^2.0.8",
-    "requests": "^0.2.2"
+    "csvtojson": "^2.0.8"
   },
   "private": true
 }

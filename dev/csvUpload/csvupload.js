@@ -8,14 +8,12 @@ const oauth = require('axios-oauth-client');
 const tokenProvider = require('axios-token-interceptor');
 
 const pkg = require('./package.json');
-const cerfile = require('../nottinghack-ca.crt.pem');
-const casigningcert = fs.readFileSync(cerfile)
 
 program
   .version(pkg.version)
   .description('Programmatic upload CSV to hms2.')
   .arguments('<client_id> <client_secret> <in_csv>')
-  .action(function (client_id, client_secret) {
+  .action(function (client_id, client_secret, in_csv) {
      clientIdValue = client_id;
      clientSecretValue = client_secret;
      inCSVValue = in_csv;
@@ -39,30 +37,37 @@ if (typeof inCSVValue === 'undefined') {
 csv()
 .fromFile(inCSVValue)
 .then((jsonObj)=>{
-    transactions = jsonObj.map(function (transaction) {
-        if (transaction['Debit Amount'] != '') {
-            amount = '-' . transaction['Debit Amount'];
-        } else {
-            amount = transaction['Credit Amount'];
-        }
+  console.log("First transaction from CSV");
+  console.log(jsonObj[0]);
 
-        const txnDate = new Date(transaction['Transaction Date']. + ' UTC');
+  transactions = jsonObj.map(function (transaction) {
+    if (transaction['Debit Amount'] != '') {
+      amount = '-' . transaction['Debit Amount'];
+    } else {
+      amount = transaction['Credit Amount'];
+    }
 
-        return {
-            'sortCode' : transaction['Sort Code'].replace('\'', ''),
-            'accountNumber' : transaction['Account Number'],
-            'date' : txnDate->toJSON(),
-            'description' : transaction['Transaction Description'],
-            'amount' : amount
-            }
-    });
-    uplaodJsonTransactions(transactions);
+    const dateParts = transaction['Transaction Date'].split('/');
+    const formatedDate = dateParts.reverse().join('-');
+    const txnDate = new Date(formatedDate + ' UTC');
+
+    return {
+      'sortCode' : transaction['Sort Code'].replace('\'', ''),
+      'accountNumber' : transaction['Account Number'],
+      'date' : txnDate.toJSON(),
+      'description' : transaction['Transaction Description'],
+      'amount' : amount
+    }
+  });
+  uplaodJsonTransactions(transactions);
 });
 
 function uplaodJsonTransactions(transactions)
 {
-  console.log(transactions);
-  program.exit(0);
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+  console.log("First transaction for upload")
+  console.log(transactions[0]);
+
   // setup oauth and axios
   const getOwnerCredentials = oauth.client(axios.create(), {
     url: 'https://hmsdev/oauth/token',
@@ -86,5 +91,6 @@ function uplaodJsonTransactions(transactions)
   })
   .catch(function (error) {
     console.log(error);
+    process.exit(1);
   });
 }

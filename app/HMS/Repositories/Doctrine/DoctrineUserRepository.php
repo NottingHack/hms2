@@ -71,8 +71,7 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
         $q = parent::createQueryBuilder('user')
             ->leftJoin('user.profile', 'profile')->addSelect('profile')
             ->leftJoin('user.account', 'account')->addSelect('account')
-            ->where('user.name LIKE :keyword')
-            ->orWhere('user.lastname LIKE :keyword')
+            ->where('CONCAT(user.name, \' \', user.lastname) LIKE :keyword')
             ->orWhere('user.username LIKE :keyword')
             ->orWhere('user.email LIKE :keyword')
             ->orWhere('profile.addressPostcode LIKE :keyword')
@@ -82,7 +81,7 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
             $q = $q->andWhere('user.account IS NOT NULL');
         }
 
-        $q = $q->orderBy('user.name', 'ASC');
+        $q = $q->orderBy('CONCAT(user.name, \' \', user.lastname)', 'ASC');
 
         $q = $q->setParameter('keyword', '%' . $searchQuery . '%')
             ->getQuery();

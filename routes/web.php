@@ -268,7 +268,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         'teams',
         'TeamController',
         [
-            'except' => ['create', 'store', 'destroy'],
+            'except' => ['destroy'],
         ]
     );
 });

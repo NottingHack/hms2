@@ -33,5 +33,9 @@
     </div>
   </div>
   @endforeach
+  @can('team.create')
+  <hr>
+  <a href="{{ route('teams.create') }}" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Add New Team</a>
+  @endcan
 </div>
 @endsection

@@ -44,7 +44,8 @@ class DoctrineRoleRepository extends EntityRepository implements RoleRepository
     public function findAllTeams()
     {
         $q = parent::createQueryBuilder('role')
-            ->where('role.name LIKE :name');
+            ->where('role.name LIKE :name')
+            ->orderBy('role.displayName', 'ASC');
 
         $q = $q->setParameter('name', 'team.%')
             ->getQuery();

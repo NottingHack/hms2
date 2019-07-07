@@ -96,6 +96,7 @@ return [
         'horizon.view',
         'team.view',
         'team.edit.description',
+        'team.create',
     ],
 
     /*
@@ -333,6 +334,7 @@ return [
                 'role.grant.team',
                 'gatekeeper.zoneEntry.teamStorage',
                 'team.edit.description',
+                'team.create',
                 'search.invites',
             ],
         ],
@@ -396,4 +398,17 @@ return [
         ],
     ],
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Team default Permissions.
+    |--------------------------------------------------------------------------
+    |
+    | Default permissions when creating new teams.
+    |
+    */
+    'defaultTeamPermissions' => [
+        'gatekeeper.zoneEntry.teamStorage',
+        'team.edit.description',
+    ],
 ];

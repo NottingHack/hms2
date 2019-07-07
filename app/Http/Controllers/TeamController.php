@@ -42,6 +42,7 @@ class TeamController extends Controller
         $this->userRepository = $userRepository;
 
         $this->middleware('can:team.view')->only(['index', 'show', 'howToJoin']);
+        $this->middleware('can:team.create')->only(['create', 'store']);
         $this->middleware('canAny:team.edit.description,role.edit.all')->only(['edit', 'update']);
     }
 
@@ -71,6 +72,43 @@ class TeamController extends Controller
         return view('team.show')->with('team', $team)->with('users', $users);
     }
 
+     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('team.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name'          => 'required|string',
+            'displayName'   => 'required|string',
+            'description'   => 'required|string',
+            'email'         => 'nullable|string',
+            'slackChannel'  => 'nullable|string',
+        ]);
+
+        $this->roleManager->createTeam(
+            'team.' . $validatedData['name'],
+            $validatedData['displayName'],
+            $validatedData['description'],
+            $validatedData['email'] . '@nottinghack.org.uk',
+            '#' . $validatedData['slackChannel']
+        );
+
+        return redirect()->route('teams.index');
+    }
     /**
      * Show the edit description form for a team.
      *

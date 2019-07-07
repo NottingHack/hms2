@@ -63,15 +63,15 @@ class TransactionTableSeeder extends Seeder
     private function generateTransactionsForUsers(Collection $users)
     {
         foreach ($users as $user) {
-            $vends = rand(1, 3);
-            for ($i = 0; $i < $vends; $i++) {
-                $t = entity(Transaction::class, 'vend')->make(['user' => $user, 'products' => $this->products]);
-                $this->transactionRepository->saveAndUpdateBalance($t);
-            }
-
-            if (rand(1, 5) == 2) {
+            if (rand(1, 2) == 2) {
                 $t = entity(Transaction::class, 'payment')->make(['user' => $user, 'products' => $this->products]);
                 $this->transactionRepository->saveAndUpdateBalance($t);
+
+                $vends = rand(1, 3);
+                for ($i = 0; $i < $vends; $i++) {
+                    $t = entity(Transaction::class, 'vend')->make(['user' => $user, 'products' => $this->products]);
+                    $this->transactionRepository->saveAndUpdateBalance($t);
+                }
             }
         }
     }

@@ -4,8 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Access\Gate;
+use Illuminate\Auth\Access\AuthorizationException;
 
-class AuthorizeOr
+class AuthorizeAny
 {
     /**
      * The gate instance.
@@ -40,8 +41,11 @@ class AuthorizeOr
      */
     public function handle($request, Closure $next, ...$abilities)
     {
-        $this->gate->any($abilities);
+        $result = $this->gate->any($abilities);
+        if ($result) {
+            return $next($request);
+        }
 
-        return $next($request);
+        throw new AuthorizationException('This action is unauthorized.');
     }
 }

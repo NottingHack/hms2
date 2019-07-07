@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('pageTitle', 'New Member Details Review')
+@section('pageTitle', 'New Member Details for Review')
 
 @push('scripts')
 <script>
@@ -63,15 +63,11 @@
         </tr>
         <tr>
           <th>Post Code:</th>
-          <td>{{ $user->getProfile()->getAddressPostCode() }}</td>
+          <td>{{ $user->getProfile()->getAddressPostCode() }}&nbsp;<a href="https://www.openstreetmap.org/search?query={{ $user->getProfile()->getAddressPostCode() }}" target="_blank">Check on OpenStreetMap</a></td>
         </tr>
         <tr>
           <th>Contact Number:</th>
           <td>{{ $user->getProfile()->getContactNumber() }}</td>
-        </tr>
-        <tr>
-          <th>Date of Birth:</th>
-          <td>@if($user->getProfile()->getDateOfBirth()){{ $user->getProfile()->getDateOfBirth()->toDateString() }}@endif</td>
         </tr>
       </tbody>
     </table>

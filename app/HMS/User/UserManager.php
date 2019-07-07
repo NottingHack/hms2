@@ -5,7 +5,6 @@ namespace HMS\User;
 use HMS\Entities\Role;
 use HMS\Entities\User;
 use HMS\Auth\PasswordStore;
-use Illuminate\Http\Request;
 use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
 use App\Events\Users\UserEmailChanged;
@@ -80,21 +79,21 @@ class UserManager
      * Update the user form a form request.
      *
      * @param User $user User to update
-     * @param Illuminate\Http\Request $request
+     * @param array $request
      *
      * @return User
      */
-    public function updateFromRequest(User $user, Request $request): User
+    public function updateFromRequest(User $user, array $request): User
     {
-        if ($request['firstname']) {
+        if (isset($request['firstname'])) {
             $user->setFirstname($request['firstname']);
         }
 
-        if ($request['lastname']) {
+        if (isset($request['lastname'])) {
             $user->setLastname($request['lastname']);
         }
 
-        if ($request['email'] && $request['email'] != $user->getEmail()) {
+        if (isset($request['email']) && $request['email'] != $user->getEmail()) {
             $oldEmail = $user->getEmail();
             $user->setEmail($request['email']);
             if ($user instanceof MustVerifyEmail) {

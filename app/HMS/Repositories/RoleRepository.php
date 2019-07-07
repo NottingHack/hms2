@@ -23,6 +23,13 @@ interface RoleRepository
     public function findAll();
 
     /**
+     * Finds all team roles in the repository.
+     *
+     * @return Role[]
+     */
+    public function findAllTeams();
+
+    /**
      * Finds a role based on the role name.
      *
      * @param string $roleName name of the role we want
@@ -39,11 +46,20 @@ interface RoleRepository
     public function findOneByEmail(string $email);
 
     /**
+     * Find the member role of a given user.
+     *
+     * @param User $user
+     *
+     * @return Role|null
+     */
+    public function findMemberStatusForUser(User $user);
+
+    /**
      * Find all the team roles a given user has.
      *
      * @param User $user
      *
-     * @return Roles[]
+     * @return Role[]
      */
     public function findTeamsForUser(User $user);
 

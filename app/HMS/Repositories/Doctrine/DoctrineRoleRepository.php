@@ -37,6 +37,23 @@ class DoctrineRoleRepository extends EntityRepository implements RoleRepository
     }
 
     /**
+     * Finds all entities in the repository.
+     *
+     * @return Role[]
+     */
+    public function findAllTeams()
+    {
+        $q = parent::createQueryBuilder('role')
+            ->where('role.name LIKE :name')
+            ->orderBy('role.displayName', 'ASC');
+
+        $q = $q->setParameter('name', 'team.%')
+            ->getQuery();
+
+        return $q->getResult();
+    }
+
+    /**
      * Finds a role based on the role name.
      *
      * @param string $roleName name of the role we want
@@ -59,11 +76,34 @@ class DoctrineRoleRepository extends EntityRepository implements RoleRepository
     }
 
     /**
+     * Find the member role of a given user.
+     *
+     * @param User $user
+     *
+     * @return Role|null
+     */
+    public function findMemberStatusForUser(User $user)
+    {
+        $q = parent::createQueryBuilder('role')
+            ->leftJoin('role.users', 'user')
+            ->where('role.name LIKE :name')
+            ->andWhere('user.id = :user_id');
+
+        $q = $q->setParameter('name', 'member.%')
+            ->setParameter('user_id', $user->getId())
+            ->getQuery();
+
+        $roles = $q->getResult();
+
+        return $roles ? $roles[0] : null;
+    }
+
+    /**
      * Find all the team roles a given user has.
      *
      * @param User $user
      *
-     * @return Roles[]
+     * @return Role[]
      */
     public function findTeamsForUser(User $user)
     {

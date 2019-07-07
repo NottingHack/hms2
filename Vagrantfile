@@ -34,6 +34,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.trigger.after :up, :resume, :reload do |trigger|
       trigger.info = "Restaring Nginx & PHP"
       trigger.run_remote = {inline: "sudo systemctl restart nginx php7.2-fpm"}
+      trigger.run_remote = {inline: "php /vagrant/artisan horizon:terminate"}
   end
 
 end

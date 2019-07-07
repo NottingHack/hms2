@@ -22,6 +22,7 @@
       :eventOverlap=false
       defaultView="bookingList"
       themeSystem="bootstrap"
+      noEventsMessage="No bookings to display"
       :header="false"
       :footer="false"
       :visibleRange="visibleRange"
@@ -238,8 +239,8 @@
       },
 
       viewSkeletonRender(info) {
-        // FullCalendar's bootstrap them uses card on there fc-list-view class
-        // this causes a card in side a card
+        // FullCalendar's bootstrap theme uses card on there fc-list-view class
+        // this causes a card inside a card
         if (this.removeCardClass) {
           $(info.el).removeClass(['card', 'fc-list-view'])
         }
@@ -248,7 +249,14 @@
 
     mounted() {
       this.calendarApi = this.$refs.fullCalendar.getApi();
-      // Call refetchEventsevery 15 minutes, so past events are shaded
+
+      // workaround for wierd height issue ($nextTick is to soon)
+      // migt be related https://github.com/fullcalendar/fullcalendar/issues/4650
+      setTimeout(() => {
+        this.calendarApi.updateSize();
+      }, 100);
+
+      // Call checkBookings minute, so past events are shaded
       this.interval = setInterval(function () {
         // TODO: once we have Echo running only really need to call this if there is an event under now ±15
         this.checkBookings()
@@ -258,7 +266,6 @@
 
     beforeDestroy() {
       clearInterval(this.interval);
-      window.removeEventListener('resize', this.getWindowResize);
     },
   }
 </script>

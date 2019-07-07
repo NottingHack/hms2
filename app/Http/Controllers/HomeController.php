@@ -45,6 +45,7 @@ class HomeController extends Controller
      * @param BoxRepository $boxRepository
      * @param TransactionRepository $transactionRepository
      * @param RoleRepository $roleRepository
+     * @param BookingRepository $bookingRepository
      *
      * @return void
      */
@@ -62,6 +63,13 @@ class HomeController extends Controller
         $this->bookingRepository = $bookingRepository;
     }
 
+    /**
+     * Helper for array_map to prepare bookings for BookingCalendarList.vue.
+     *
+     * @param Booking $booking
+     *
+     * @return array
+     */
     protected function mapBookings(Booking $booking)
     {
         // TODO: swap out for Fractal
@@ -100,6 +108,8 @@ class HomeController extends Controller
 
         if ($user->hasRoleByName(Role::MEMBER_APPROVAL)) {
             return view('pages.awaitingApproval');
+        } elseif ($user->hasRoleByName(Role::MEMBER_PAYMENT)) {
+            return view('pages.awaitingPayment');
         }
 
         $projects = $this->projectRepository->paginateByUser($user, 5, 'page', true);
@@ -139,15 +149,5 @@ class HomeController extends Controller
         ];
 
         return view('pages.access')->with($accessCodes);
-    }
-
-    /**
-     * Admin home page.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function admin()
-    {
-        return view('pages.admin');
     }
 }

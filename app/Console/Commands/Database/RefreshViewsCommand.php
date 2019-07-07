@@ -38,6 +38,10 @@ class RefreshViewsCommand extends Command
      */
     public function handle()
     {
+        // disable strict mode for now
+        config()->set('database.connections.mysql.strict', false);
+        DB::reconnect();
+
         $databaseName = DB::getDatabaseName();
         $dropQuery =
             'SET @views = NULL;' .
@@ -63,5 +67,9 @@ class RefreshViewsCommand extends Command
 
             DB::unprepared($sql);
         }
+
+        // now changing back the strict ON
+        config()->set('database.connections.mysql.strict', true);
+        DB::reconnect();
     }
 }

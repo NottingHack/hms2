@@ -79,12 +79,7 @@
       @endif
     </div>
 
-    <div class="form-group">
-      <div class="card">
-        <button type="submit" class="btn btn-primary">Update Tool</button>
-      </div>
-    </div>
-
+    <button type="submit" class="btn btn-primary btn-block">Update Tool</button>
   </form>
 </div>
 @endsection

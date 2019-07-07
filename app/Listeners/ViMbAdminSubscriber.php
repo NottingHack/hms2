@@ -96,7 +96,24 @@ class ViMbAdminSubscriber implements ShouldQueue
     {
         if ($event->role->getEmail()) {
             $alias = $this->getAliasForRole($event->role);
-            $alias->addForwardAddress($event->user->getEmail());
+            $email = strtolower($event->user->getEmail());
+
+            if ($event->role->getName() == Role::TEAM_TRUSTEES) {
+                $email = strtolower(
+                    $event->user->getFirstname()
+                    . '.' . $event->user->getLastname()
+                    . '@nottinghack.org.uk'
+                );
+                // TODO: check $email is now valid (utf8?)
+
+                // TODO: check if there is a mailbox with address $trusteeEmail
+                // if not then create one
+                    // need to emial password to $user with link ot change it
+                    // https://vba.lwk.me/auth/change-password
+                    // or add a new view to allow password change from hms
+            }
+
+            $alias->addForwardAddress($email);
 
             // save the updated alias back to the external API
             $response = $this->client->updateAlias($alias);
@@ -118,7 +135,18 @@ class ViMbAdminSubscriber implements ShouldQueue
     {
         if ($event->role->getEmail()) {
             $alias = $this->getAliasForRole($event->role);
-            $alias->removeForwardAddress($event->user->getEmail());
+            $email = strtolower($event->user->getEmail());
+
+            if ($event->role->getName() == Role::TEAM_TRUSTEES) {
+                $email = strtolower(
+                    $event->user->getFirstname()
+                    . '.' . $event->user->getLastname()
+                    . '@nottinghack.org.uk'
+                );
+                // TODO: check $email is now valid (utf8?)
+            }
+
+            $alias->removeForwardAddress($email);
 
             // save the updated alias back to the external API
             $response = $this->client->updateAlias($alias);
@@ -175,10 +203,14 @@ class ViMbAdminSubscriber implements ShouldQueue
         $roles = $user->getRoles();
 
         foreach ($roles as $role) {
+            if ($event->role->getName() == Role::TEAM_TRUSTEES) {
+                // skip as they have first.last emial boxes
+                continue;
+            }
             if ($role->getEmail()) {
                 $alias = $this->getAliasForRole($role);
-                $alias->removeForwardAddress($event->oldEmail);
-                $alias->addForwardAddress($user->getEmail());
+                $alias->removeForwardAddress(strtolower($event->oldEmail));
+                $alias->addForwardAddress(strtolower($user->getEmail()));
 
                 // save the updated alias back to the external API
                 $response = $this->client->updateAlias($alias);

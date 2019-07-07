@@ -61,36 +61,36 @@ class MigrateInstrumentaionCommand extends Command
         //         'account_number' => 'account_number',
         //     ],
         // ],
-        'bells' => [
-            'newTableName' => 'bells',
-            'columns' => [
-                'bell_id' => 'id',
-                'bell_description' => 'description',
-                'bell_topic' => 'topic',
-                'bell_message' => 'message',
-                'bell_enabled' => 'enabled',
-            ],
-        ],
-        'door_bells' => [
-            'newTableName' => 'door_bell',
-            'columns' => [
-                'door_id' => 'door_id',
-                'bell_id' => 'bell_id',
-            ],
-        ],
-        'doors' => [
-            'newTableName' => 'doors',
-            'columns' => [
-                'door_id' => 'id',
-                'door_description' => 'description',
-                'door_short_name' => 'short_name',
-                'door_state' => 'state',
-                'door_state_change' => 'state_change',
-                'permission_code' => 'permission_code',
-                'side_a_zone_id' => 'side_a_zone_id',
-                'side_b_zone_id' => 'side_b_zone_id',
-            ],
-        ],
+        // 'bells' => [
+        //     'newTableName' => 'bells',
+        //     'columns' => [
+        //         'bell_id' => 'id',
+        //         'bell_description' => 'description',
+        //         'bell_topic' => 'topic',
+        //         'bell_message' => 'message',
+        //         'bell_enabled' => 'enabled',
+        //     ],
+        // ],
+        // 'door_bells' => [
+        //     'newTableName' => 'door_bell',
+        //     'columns' => [
+        //         'door_id' => 'door_id',
+        //         'bell_id' => 'bell_id',
+        //     ],
+        // ],
+        // 'doors' => [
+        //     'newTableName' => 'doors',
+        //     'columns' => [
+        //         'door_id' => 'id',
+        //         'door_description' => 'description',
+        //         'door_short_name' => 'short_name',
+        //         'door_state' => 'state',
+        //         'door_state_change' => 'state_change',
+        //         // 'permission_code' => 'permission_code',
+        //         'side_a_zone_id' => 'side_a_zone_id',
+        //         'side_b_zone_id' => 'side_b_zone_id',
+        //     ],
+        // ],
         'emails' => [
             'newTableName' => 'snackspace_emails',
             'columns' => [
@@ -255,22 +255,22 @@ class MigrateInstrumentaionCommand extends Command
                 'vmc_address' => 'address',
             ],
         ],
-        'vmc_ref' => [
-            'newTableName' => 'vending_locations',
-            'columns' => [
-                'vmc_ref_id' => 'id',
-                'vmc_id' => 'vending_machine_id',
-                'loc_encoded' => 'encoding',
-                'loc_name' => 'name',
-            ],
-        ],
-        'vmc_state' => [
-            'newTableName' => 'product_vending_location',
-            'columns' => [
-                'vmc_ref_id' => 'vending_location_id',
-                'product_id' => 'product_id',
-            ],
-        ],
+        // 'vmc_ref' => [
+        //     'newTableName' => 'vending_locations',
+        //     'columns' => [
+        //         'vmc_ref_id' => 'id',
+        //         'vmc_id' => 'vending_machine_id',
+        //         'loc_encoded' => 'encoding',
+        //         'loc_name' => 'name',
+        //     ],
+        // ],
+        // 'vmc_state' => [
+        //     'newTableName' => 'product_vending_location',
+        //     'columns' => [
+        //         'vmc_ref_id' => 'vending_location_id',
+        //         'product_id' => 'product_id',
+        //     ],
+        // ],
         'transactions' => [
             'newTableName' => 'transactions',
             'columns' => [
@@ -347,15 +347,15 @@ class MigrateInstrumentaionCommand extends Command
                 'time_entered' => 'time_entered',
             ],
         ],
-        'zones' => [
-            'newTableName' => 'zones',
-            'columns' => [
-                'zone_id' => 'id',
-                'zone_description' => 'description',
-                'zone_short_name' => 'short_name',
-                'permission_code' => 'permission_code',
-            ],
-        ],
+        // 'zones' => [
+        //     'newTableName' => 'zones',
+        //     'columns' => [
+        //         'zone_id' => 'id',
+        //         'zone_description' => 'description',
+        //         'zone_short_name' => 'short_name',
+        //         'permission_code' => 'permission_code',
+        //     ],
+        // ],
     ];
 
     /**
@@ -378,6 +378,16 @@ class MigrateInstrumentaionCommand extends Command
     protected $description = 'Migrate data form old instrumentation database';
 
     /**
+     * @var null|\DateTimeZone
+     */
+    private static $utc = null;
+
+    /**
+     * @var null|\DateTimeZone
+     */
+    private static $gmt = null;
+
+    /**
      * Create a new command instance.
      *
      * @param ToolManager $toolManager
@@ -397,11 +407,18 @@ class MigrateInstrumentaionCommand extends Command
      */
     public function handle()
     {
-        // TODO get from user
-        $instrumentationHost = '127.0.0.1';
-        $instrumentationDatabase = 'instrumentation';
-        $instrumentationUser = 'hms';
-        $instrumentationPassword = 'secret';
+        if (is_null(self::$utc)) {
+            self::$utc = new \DateTimeZone('UTC');
+        }
+        if (is_null(self::$gmt)) {
+            self::$gmt = new \DateTimeZone('Europe/London');
+        }
+
+        $this->info('Please provide details for connecting to the instrumentation database.');
+        $instrumentationHost = $this->anticipate('Host? [127.0.0.1]', ['127.0.0.1']) ?: '127.0.0.1';
+        $instrumentationDatabase = $this->anticipate('Database name? [instrumentation]', ['instrumentation']) ?: 'instrumentation';
+        $instrumentationUser = $this->anticipate('User? [hms]', ['hms']) ?: 'hms';
+        $instrumentationPassword = $this->secret('Password? [secret]') ?: 'secret';
 
         $start = Carbon::now();
         config(['database.connections.instrumentation' => [
@@ -432,6 +449,7 @@ class MigrateInstrumentaionCommand extends Command
         $this->migrateTools();
         $this->migrateMemberTools();
         $this->migrateHmsEmails();
+        $this->migrateVeningLocations();
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         $this->info('Total run took ' . $start->diff(Carbon::now())->format('%H:%i:%s'));
@@ -474,6 +492,16 @@ class MigrateInstrumentaionCommand extends Command
         $roleUpdates = [];
 
         foreach ($oldData as $row) {
+            // convert timestamp column from Europe/London to UTC
+            $converted = Carbon::createFromFormat(
+                'Y-m-d H:i:s',
+                $row->timestamp,
+                self::$gmt
+            );
+
+            $converted->setTimezone(self::$utc);
+            $row->timestamp = $converted->toDateTimeString();
+
             // deal with old status first
             if ($row->old_status > 2) {
                 $roleUpdates[] = [
@@ -559,9 +587,10 @@ class MigrateInstrumentaionCommand extends Command
                 'lastname' => $row->surname,
                 'username' => $row->username,
                 'email' => $row->email,
-                'created_at' => $row->join_date != '0000-00-00' ? $row->join_date : Carbon::now(),
-                'updated_at' => Carbon::now(),
+                'created_at' => $row->join_date != '0000-00-00' ? $row->join_date : Carbon::now(self::$utc),
+                'updated_at' => Carbon::now(self::$utc),
                 'account_id' => $row->account_id,
+                'email_verified_at' => Carbon::now(self::$utc),
             ];
             $profile = [
                 'user_id' => $row->member_id,
@@ -573,8 +602,8 @@ class MigrateInstrumentaionCommand extends Command
                 'address_city' => $row->address_city,
                 'address_postcode' => $row->address_postcode,
                 'contact_number' => $row->contact_number,
-                'created_at' => $row->join_date != '0000-00-00' ? $row->join_date : Carbon::now(),
-                'updated_at' => Carbon::now(),
+                'created_at' => $row->join_date != '0000-00-00' ? $row->join_date : Carbon::now(self::$utc),
+                'updated_at' => Carbon::now(self::$utc),
                 'balance' => $row->balance,
             ];
 
@@ -736,6 +765,16 @@ class MigrateInstrumentaionCommand extends Command
         $roleUsers = [];
         $roleUpdates = [];
         foreach ($oldData as $row) {
+            // convert mt_date_inducted column from Europe/London to UTC
+            $converted = Carbon::createFromFormat(
+                'Y-m-d H:i:s',
+                $row->mt_date_inducted,
+                self::$gmt
+            );
+
+            $converted->setTimezone(self::$utc);
+            $row->mt_date_inducted = $converted->toDateTimeString();
+
             switch ($row->mt_access_level) {
                 case 'MAINTAINER':
                     $roleUsers[] = [
@@ -816,6 +855,16 @@ class MigrateInstrumentaionCommand extends Command
         });
 
         $newData = $filteredData->map(function ($row, $key) use ($columns, $newTableName, &$emailUser) {
+            // convert timestamp column from Europe/London to UTC
+            $converted = Carbon::createFromFormat(
+                'Y-m-d H:i:s',
+                $row->timestamp,
+                self::$gmt
+            );
+
+            $converted->setTimezone(self::$utc);
+            $row->timestamp = $converted->toDateTimeString();
+
             $newRow = [];
             foreach ($columns as $oldName => $newName) {
                 $newRow[$newName] = $row->$oldName;
@@ -855,6 +904,45 @@ class MigrateInstrumentaionCommand extends Command
         $this->info($startTime->diff(Carbon::now())->format('took: %H:%i:%s'));
     }
 
+    protected function migrateVeningLocations()
+    {
+        $oldTableName = 'vmc_ref';
+        $newTableName = 'vending_locations';
+        $columns = [
+            'vmc_ref_id' => 'id',
+            'vmc_id' => 'vending_machine_id',
+            'loc_encoded' => 'encoding',
+            'loc_name' => 'name',
+        ];
+
+        $this->info('Migrating ' . $oldTableName);
+        $startTime = Carbon::now();
+        $oldData = DB::connection('instrumentation')->table($oldTableName)->get();
+
+        $newData = $oldData->map(function ($row, $key) use ($columns, $newTableName) {
+            $newRow = [];
+            foreach ($columns as $oldName => $newName) {
+                $newRow[$newName] = $row->$oldName;
+            }
+
+            // From old state for find product_id for $newRow['id']
+            $state = DB::connection('instrumentation')->table('vmc_state')->where('vmc_ref_id', $row->vmc_ref_id)->first();
+
+            $newRow['product_id'] = $state->product_id;
+
+            return $newRow;
+        });
+
+        DB::statement("TRUNCATE TABLE $newTableName;");
+
+        $dataChunks = array_chunk($newData->toArray(), 1000, true);
+        foreach ($dataChunks as $dataChunk) {
+            DB::table($newTableName)->insert($dataChunk);
+        }
+
+        $this->info($startTime->diff(Carbon::now())->format('took: %H:%i:%s'));
+    }
+
     protected function migrateSimpleMappings()
     {
         $simpleStart = Carbon::now();
@@ -872,7 +960,12 @@ class MigrateInstrumentaionCommand extends Command
         $startTime = Carbon::now();
         $oldData = DB::connection('instrumentation')->table($oldTableName)->get();
 
-        $newData = $oldData->map(function ($row, $key) use ($mapping, $newTableName) {
+        $column_types = [];
+        foreach ($mapping['columns'] as $oldName => $newName) {
+            $column_types[$oldName] = DB::connection('instrumentation')->getSchemaBuilder()->getColumnType($oldTableName, $oldName);
+        }
+
+        $newData = $oldData->map(function ($row, $key) use ($mapping, $newTableName, $column_types) {
             $newRow = [];
             foreach ($mapping['columns'] as $oldName => $newName) {
                 if (array_key_exists($oldName, $row)) {
@@ -883,11 +976,25 @@ class MigrateInstrumentaionCommand extends Command
                         $newRow[$newName] *= 100;
                     }
 
-                    // zone id's need to be increase by one
-                    if (strpos($newName, 'zone_id') !== false) {
-                        $newRow[$newName] += 1;
-                    } elseif ($newTableName == 'zones' && $newName == 'id') {
-                        $newRow[$newName] += 1;
+                    if ($column_types[$oldName] == 'datetime') {
+                        // convert datatime columns from Europe/London to UTC
+                        if (is_null($newRow[$newName])) {
+                            // skipp null
+                        } elseif (strlen($newRow[$newName]) == 10) {
+                            // skip date only fields
+                        } elseif (strlen($newRow[$newName]) == 19) {
+                            // ah date and time
+                            $converted = Carbon::createFromFormat(
+                                'Y-m-d H:i:s',
+                                $newRow[$newName],
+                                self::$gmt
+                            );
+                            $converted->setTimezone(self::$utc);
+                            $newRow[$newName] = $converted->toDateTimeString();
+                        } else {
+                            // hmm time only field?
+                            dd($newRow[$newName]);
+                        }
                     }
                 }
             }
@@ -897,10 +1004,20 @@ class MigrateInstrumentaionCommand extends Command
 
         DB::statement("TRUNCATE TABLE $newTableName;");
 
+        if ($newTableName == 'zones') {
+            $mode = DB::select('select @@sql_mode as sql_mode')[0];
+            DB::statement("SET sql_mode='$mode->sql_mode,NO_AUTO_VALUE_ON_ZERO'");
+        }
+
         $dataChunks = array_chunk($newData->toArray(), 1000, true);
         foreach ($dataChunks as $dataChunk) {
             DB::table($newTableName)->insert($dataChunk);
         }
+
+        if ($newTableName == 'zones') {
+            DB::statement("SET sql_mode='$mode->sql_mode'");
+        }
+
         $this->info($startTime->diff(Carbon::now())->format('took: %H:%i:%s'));
     }
 }

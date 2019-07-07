@@ -116,8 +116,8 @@ class MigrateGoogle
             $description = json_decode($event->getDescription());
 
             $bookings[] = [
-                'start' => new Carbon($event->getStart()->getDateTime(), 'Europe/London'),
-                'end' => new Carbon($event->getEnd()->getDateTime(), 'Europe/London'),
+                'start' => (new Carbon($event->getStart()->getDateTime(), 'Europe/London'))->setTimeZone('UTC'),
+                'end' => (new Carbon($event->getEnd()->getDateTime(), 'Europe/London'))->setTimeZone('UTC'),
                 'type' => strtoupper($description->type),
                 'user_id' => (int) $description->member,
                 'tool_id' => $tool->id,

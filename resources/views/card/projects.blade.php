@@ -1,12 +1,10 @@
 @can('project.view.self')
-<div {{-- class="col-lg-4 mb-3" --}}>
-  <div class="card">
-    <div class="card-header">
-      Active Projects
-    </div>
-    <ul class="list-group list-group-flush">
-      @forelse ($projects as $project)
-      <li class="list-group-item">
+<div class="card">
+  <div class="card-header">Active Projects</div>
+  <ul class="list-group list-group-flush">
+    @forelse ($projects as $project)
+    <li class="list-group-item">
+      <span class="align-middle">
         {{ $project->getProjectName() }}&nbsp;
         <div class="btn-group float-right" role="group" aria-label="Manage Project">
           <a href="{{ route('projects.show', $project->getId()) }}" class="btn btn-primary btn-sm btn-sm-spacing"><i class="far fa-eye" aria-hidden="true"></i></a>
@@ -16,14 +14,14 @@
           @endif
           @endcan
         </div>
-      </li>
-      @empty
-      <li class="list-group-item">No Projects yet</li>
-      @endforelse
-    </ul>
-    <div class="card-footer">
-      <a href="{{ route('projects.create') }}" class="btn btn-primary">Add a Project</a>
-    </div>
+      </span>
+    </li>
+    @empty
+    <li class="list-group-item">No Projects yet.</li>
+    @endforelse
+  </ul>
+  <div class="card-footer">
+    <a href="{{ route('projects.create') }}" class="btn btn-primary"><i class="fas fa-plus" aria-hidden="true"></i> Add a Project</a>
   </div>
 </div>
 @endcan

@@ -67,7 +67,7 @@
           <div class="dropdown-menu dropdown-menu-right">
             <a class="dropdown-item" href="{{ route('users.show', Auth::user()->getId()) }}">Update Details</a>
             <a class="dropdown-item" href="{{ route('users.changePassword') }}">Change Password</a>
-            <a class="dropdown-item" href="{{ route('bank-transactions.index') }}">Standing Order details</a>
+            <a class="dropdown-item" href="{{ route('bank-transactions.index') }}">Standing Order Details</a>
             <a class="dropdown-item" href="{{ route('2fa') }}">Two Factor Auth</a>
           </div>
         </li>
@@ -88,7 +88,7 @@
           <a class="nav-link" href="{{ route('users.changePassword') }}">Change Password</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('bank-transactions.index') }}">Standing Order details</a>
+          <a class="nav-link" href="{{ route('bank-transactions.index') }}">Standing Order Details</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ route('2fa') }}">Two Factor Auth</a>

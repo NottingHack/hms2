@@ -4,7 +4,9 @@
 
 @section('content')
 <div class="container">
-<p>To add a booking, select and drag below.</p>
+<p>To add a booking, select and drag on the calendar below.</p>
+<p>To re-schedule the booking, click and move the booking to a new time.</p>
+<p>To cancel a booking, click on the booking then confirm cancellation. </p>
 </div>
 
 <tool-calendar

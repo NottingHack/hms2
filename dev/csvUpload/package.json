@@ -1,0 +1,22 @@
+{
+  "name": "csvupload",
+  "version": "1.0.0",
+  "description": "Bank transaction CSV uploader helper for HMS2",
+  "main": "csvupload.js",
+  "bin": {
+    "csvupload": "./csvupload.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matt Lloyd",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "axios-oauth-client": "^1.1.1",
+    "axios-token-interceptor": "^0.1.0",
+    "commander": "^2.18.0",
+    "csvtojson": "^2.0.8"
+  },
+  "private": true
+}

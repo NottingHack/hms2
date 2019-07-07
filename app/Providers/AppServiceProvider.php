@@ -35,9 +35,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // Globally set the money format
+        setlocale(LC_MONETARY, 'en_GB.UTF-8');
+
         // helper for formatting pennies
         \Blade::directive('format_pennies', function ($pennies) {
-            return "<?php setlocale(LC_MONETARY, 'en_GB.UTF-8'); echo money_format('%n', (" . $pennies . ')/100); ?>';
+            return "<?php echo money_format('%n', (" . $pennies . ')/100); ?>';
         });
     }
 }

@@ -12,7 +12,7 @@ return [
     |
     */
     'main' => [
-        'news' => [
+        'home' => [
             'text'          => 'Home',
             'route'         => 'index',
             'permissions'   => [],
@@ -36,7 +36,7 @@ return [
             'text'          => 'Snackspace',
             'route'         => 'snackspace.transactions.index',
             'match'         => 'snackspace.transactions.index',
-            'permissions'   => ['snackspaceTransaction.view.self'],
+            'permissions'   => ['snackspace.transaction.view.self'],
             'links'         => [],
         ],
         'tools' => [
@@ -44,6 +44,12 @@ return [
             'route'         => 'tools.index',
             'match'         => 'tools.index',
             'permissions'   => ['tools.view'],
+            'links'         => [],
+        ],
+        'teams' => [
+            'text'          => 'Teams',
+            'route'         => 'teams.index',
+            'permissions'   => ['team.view'],
             'links'         => [],
         ],
         'codes' => [
@@ -59,17 +65,37 @@ return [
             'permissions'   => [],
             'links'         => [],
         ],
+        'vending' => [
+            'text'          => 'Vending',
+            'permissions'   => [],
+            'links'         => [
+                'vendingMachines'          => [
+                    'text'          => 'Machines',
+                    'route'         => 'snackspace.vending-machines.index',
+                    'match'         => 'snackspace.vending-machines.index',
+                    'permissions'   => ['snackspace.vendingMachine.view'],
+                    'links'         => [],
+                ],
+                'products'      => [
+                    'text'          => 'Products',
+                    'route'         => 'snackspace.products.index',
+                    'match'         => 'snackspace.products.index',
+                    'permissions'   => ['snackspace.product.view'],
+                    'links'         => [],
+                ],
+            ],
+        ],
         'admin' => [
             'text'          => 'Admin',
             'permissions'   => [],
             'links'         => [
-                'dashboard'         => [
-                    'text'          => 'Dashboard',
-                    'route'         => 'admin',
-                    'match'         => 'admin',
-                    'permissions'   => ['profile.view.all'],
-                    'links'         => [],
-                ],
+                // 'dashboard'         => [
+                //     'text'          => 'Dashboard',
+                //     'route'         => 'admin',
+                //     'match'         => 'admin',
+                //     'permissions'   => ['profile.view.all'],
+                //     'links'         => [],
+                // ],
                 // 'user'         => [
                 //     'text'          => 'Members',
                 //     'route'         => 'users.index',
@@ -99,10 +125,10 @@ return [
                     'links'         => [],
                 ],
                 'joinAccounts' => [
-                    'text'          => 'Join Accounts',
+                    'text'          => 'Joint Accounts',
                     'route'         => 'banking.accounts.listJoint',
                     'match'         => 'banking.accounts.listJoint',
-                    'permissions'   => ['profile.view.all'],
+                    'permissions'   => ['profile.view.limited', 'profile.view.all'],
                     'links'         => [],
                 ],
                 'bankTransactions' => [
@@ -110,6 +136,18 @@ return [
                     'route'         => 'bank-transactions.unmatched',
                     'match'         => 'bank-transactions.unmatched',
                     'permissions'   => ['bankTransactions.reconcile'],
+                    'links'         => [],
+                ],
+                'inviteSearch' => [
+                    'text'          => 'Resend Invite',
+                    'route'         => 'membership.invites',
+                    'permissions'   => ['search.invites'],
+                    'links'         => [],
+                ],
+                'membershipApprovals' => [
+                    'text'          => 'Review Approvals',
+                    'route'         => 'membership.index',
+                    'permissions'   => ['membership.approval'],
                     'links'         => [],
                 ],
                 'horizon'          => [

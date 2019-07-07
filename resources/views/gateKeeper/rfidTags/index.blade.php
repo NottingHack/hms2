@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('pageTitle')
-Rfid cards for {{ $user->getFirstname() }}
+RFID cards for {{ $user->getFirstname() }}
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@ Rfid cards for {{ $user->getFirstname() }}
     <li class="list-group-item">
       <div class="row">
         <div class="col-sm">
-          <div>Rfid card enrolment pin: <b>{{ $pin->getPin() }}</b> is currently set to <i>{{ $pin->getStateString() }}</i></div>
+          <div>RFID card enrolment PIN: <b>{{ $pin->getPin() }}</b> is currently set to <i>{{ $pin->getStateString() }}</i></div>
         </div>
         @if ($pin->getState() == \HMS\Entities\GateKeeper\PinState::CANCELLED)
         @can('pins.reactivate')
@@ -24,7 +24,7 @@ Rfid cards for {{ $user->getFirstname() }}
               @method('PATCH')
               @csrf
             </form>
-            <i class="fas fa-sync-alt fa-lg" aria-hidden="true"></i> Reactivate pin for enrolment
+            <i class="fas fa-sync-alt fa-lg" aria-hidden="true"></i> Reactivate PIN for enrolment
           </a>
         </div>
         @endcan

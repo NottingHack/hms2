@@ -10,16 +10,16 @@
     Below is a lists various of ways of getting in touch with us.
   </p>
   <dl>
-    <dt><a href="https://groups.google.com/group/nottinghack?hl=en">Google Groups</a></dt>
+    <dt><a href="https://groups.google.com/group/nottinghack?hl=en" target="_blank">Google Groups</a></dt>
     <dd>Community mailing list for ...</dd>
 
-    <dt><a href="http://slack.nottinghack.org.uk/">Slack</a></dt>
+    <dt><a href="http://slack.nottinghack.org.uk/" target="_blank">Slack</a></dt>
     <dd>Team Slack for ...</dd>
 
-    <dt><a href="mailto:membership@nottinghack.org.uk">Membership Team Email</a></dt>
+    <dt><a href="mailto:membership@nottinghack.org.uk" target="_blank">Membership Team Email</a></dt>
     <dd>Email to the membership team for ...</dd>
 
-    <dt><a href="mailto:trustees@nottinghack.org.uk">Trustees Email</a></dt>
+    <dt><a href="mailto:trustees@nottinghack.org.uk" target="_blank">Trustees Email</a></dt>
     <dd>Email the trustees</dd>
   </ul>
 </div>

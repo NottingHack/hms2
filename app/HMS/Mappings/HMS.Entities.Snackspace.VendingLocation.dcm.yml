@@ -23,6 +23,6 @@ HMS\Entities\Snackspace\VendingLocation:
   manyToOne:
     vendingMachine:
       targetEntity: \HMS\Entities\Snackspace\VendingMachine
-  manyToMany:
-    products:
+    product:
       targetEntity: \HMS\Entities\Snackspace\Product
+      inversedBy: vendingLocations

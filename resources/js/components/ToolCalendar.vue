@@ -27,6 +27,7 @@
       unselectCancel=".popover"
       :eventOverlap=false
       :defaultView="defaultView"
+      noEventsMessage="No bookings to display"
       themeSystem="bootstrap"
       :header="{
         left:   'prev',
@@ -175,7 +176,7 @@
           return false;
         }
 
-        if (! (this.userCanBook.maintenance && this.userCanBook.induction && this.userCanBook.normal)) {
+        if (! (this.userCanBook.normal || this.userCanBook.induction || this.userCanBook.maintenance)) {
           // we dont have permissino to even make a booking
           flash('This tool requires an induction for use', 'warning');
 
@@ -416,7 +417,7 @@
         let booking = {
           start: moment(event.start).toISOString(true),
           end: moment(event.end).toISOString(true),
-        }
+        };
 
         this.loading(true);
 
@@ -566,10 +567,16 @@
         }
 
         if (this.userCanBook.normal) {
+          var normalLabel = '&nbsp;Normal';
+          if (! (this.userCanBook.maintenance || this.userCanBook.induction)) {
+            // Don't need to include the text if this is the only type of booking you can make
+            normalLabel = '&nbsp;';
+          }
+
           if (this.userCanBook.normalCurrentCount < this.bookingsMax) {
             options.buttons.splice(0, 0,
               {
-                label: this.defaultView == 'timeGridWeek' ? '&nbsp;Normal' : '',
+                label: this.defaultView == 'timeGridWeek' ? normalLabel : '',
                 value: 'NORMAL',
                 class: 'btn btn-sm btn-booking-normal',
                 iconClass: 'fas fa-check',

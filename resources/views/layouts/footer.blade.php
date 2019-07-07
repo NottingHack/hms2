@@ -4,9 +4,9 @@
     <div class="col-sm-3">
       <h5>HMS {{ $version }}</h5>
       <ul>
-        <li><a href="https://github.com/NottingHack/hms2">Get Source</a></li>
+        <li><a href="https://github.com/NottingHack/hms2" target="_blank">Get Source</a></li>
         <li><a href="{{ route('credits') }}">Credits</a></li>
-        <li><a href="https://nottinghack.org.uk">Nottinghack Website</a></li>
+        <li><a href="https://nottinghack.org.uk" target="_blank">Nottinghack Website</a></li>
         <li>© {{ Carbon\Carbon::now()->year }} Nottinghack</li>
         @if (config('app.env') != 'production')
         <li>
@@ -25,8 +25,8 @@
       <ul>
         <li><a href="{{ route('companyInformation') }}">Company Information</a></li>
         <li><a href="{{ route('contactUs') }}">Contact us</a></li>
-        <li><a href="{{  Meta::get('rules_html') }}">Rules</a></li>
-        <li><a href="{{  Meta::get('members_guide_html') }}">Members Guide</a></li>
+        <li><a href="{{  Meta::get('rules_html') }}" target="_blank">Rules</a></li>
+        <li><a href="{{  Meta::get('members_guide_html') }}" target="_blank">Members Guide</a></li>
         <li><a href="{{ route('instrumentation.status') }}">Instrumentation Status</a></li>
       </ul>
     </div>
@@ -45,15 +45,17 @@
         <li>Nottingham Hackspace Ltd</li>
         <li>No. 07766826</li>
         <li>Reg. in England & Wales</li>
+        <li><a href="{{ route('privacy-and-terms') }}">Privacy & Terms</a></li>
+        <li><a href="{{ route('cookie-policy') }}">Cookie Policy</a></li>
       </ul>
     </div>
     <div class="w-100"><hr></div>
     <div class="col social-networks">
-      <a href="https://twitter.com/HSNOTTS" class="twitter"><i class="fab fa-twitter"></i></a>
-      <a href="https://www.facebook.com/nottinghack/" class="facebook"><i class="fab fa-facebook"></i></a>
-      <a href="https://groups.google.com/group/nottinghack?hl=en" class="google"><i class="fab fa-google-plus-g"></i></a>
-      <a href="https://www.flickr.com/photos/nottinghack" class="flickr"><i class="fab fa-flickr"></i></a>
-      <a href="https://www.youtube.com/user/nottinghack" class="youtube"><i class="fab fa-youtube"></i></a>
+      <a href="https://twitter.com/HSNOTTS" class="twitter" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="https://www.facebook.com/nottinghack/" class="facebook" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="https://groups.google.com/group/nottinghack?hl=en" class="google" target="_blank"><i class="fab fa-google-plus-g"></i></a>
+      <a href="https://www.flickr.com/photos/nottinghack" class="flickr" target="_blank"><i class="fab fa-flickr"></i></a>
+      <a href="https://www.youtube.com/user/nottinghack" class="youtube" target="_blank"><i class="fab fa-youtube"></i></a>
     </div>
   </div>
 </footer>

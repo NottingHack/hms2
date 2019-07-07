@@ -46,6 +46,7 @@ class RoleController extends Controller
      * @param RoleRepository       $roleRepository
      * @param UserManager          $userManager
      * @param PermissionRepository $permissionRepository
+     * @param UserRepository $userRepository
      */
     public function __construct(
         RoleManager $roleManager,
@@ -60,11 +61,11 @@ class RoleController extends Controller
         $this->permissionRepository = $permissionRepository;
         $this->userRepository = $userRepository;
 
-        $this->middleware('canOr:role.view.all,team.view')->only(['index', 'show']);
+        $this->middleware('canAny:role.view.all,team.view')->only(['index', 'show']);
         $this->middleware('can:role.edit.all')->only(['edit', 'update']);
 
         $this->middleware('can:role.grant.team')->only('addUserToTeam');
-        $this->middleware('canOr:role.edit.all,profiel.edit.all')->only('removeUser');
+        $this->middleware('canAny:role.edit.all,profiel.edit.all')->only('removeUser');
     }
 
     /**
@@ -179,7 +180,7 @@ class RoleController extends Controller
     {
         $this->userManager->removeRoleFromUser($user, $role);
 
-        return redirect()->route('roles.show', ['role' => $role->getId()]);
+        return back();
     }
 
     /**

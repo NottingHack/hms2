@@ -6,8 +6,6 @@ HMS\Entities\GateKeeper\Zone:
   id:
     id:
       type: integer
-      options:
-        unsigned: true
       generator:
         strategy: AUTO
   fields:

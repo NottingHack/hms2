@@ -44,7 +44,7 @@ class BankTransactionFactory
         $_bankTransaction->setDescription($description);
         $_bankTransaction->setAmount($amount);
 
-        if (preg_match('/HSNTSB\S{10}(?= )/', $description, $matches) == 1) {
+        if (preg_match('/HSNTSB\S{10}/', $description, $matches) == 1) {
             $account = $this->accountRepository->findOneByPaymentRef($matches[0]);
             $_bankTransaction->setAccount($account);
         }

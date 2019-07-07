@@ -6,7 +6,7 @@ Your details have now been approved by the Membership Team.
 
 The next step in setting up your hackspace membership is for you to set up a bank standing order to Nottingham Hackspace using the details below.
 
-Please note it is very important that you use the reference code exactly as provided.
+**Please note it is very important that you use the reference code exactly as provided.**
 
 @component('mail::panel')
 Account number: {{ $accountNo }}<br>

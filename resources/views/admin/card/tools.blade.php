@@ -11,7 +11,7 @@
     <a href="#" class="btn btn-primary mb-1" target="_blank"><i class="far fa-clock" aria-hidden="true"></i> Schedule an Induction</a>
   </div> --}}
 </div>
-<div class="card">
+{{-- <div class="card">
   <div class="card-header">Tool Access</div>
   <table class="table">
     <tbody>
@@ -23,5 +23,5 @@
       @endforeach
     </tbody>
   </table>
-</div>
+</div> --}}
 @endcanany

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Carbon\Carbon;
 use HMS\Auth\PasswordStore;
+use Illuminate\Support\Str;
 use HMS\Auth\HmsUserProvider;
 use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +19,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
+        // 'App\Model' => 'App\Policies\ModelPolicy',
     ];
 
     /**
@@ -36,6 +37,7 @@ class AuthServiceProvider extends ServiceProvider
 
         // Passport bits.
         Passport::routes();
+        Passport::cookie(Str::slug(config('app.name'), '_') . '_passport');
         Passport::tokensExpireIn(Carbon::now()->addDays(config('hms.passport_token_expire_days')));
         Passport::refreshTokensExpireIn(Carbon::now()->addDays(config('hms.passport_refresh_token_expire_days')));
     }

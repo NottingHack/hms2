@@ -3,13 +3,12 @@
 namespace HMS\Entities;
 
 use Carbon\Carbon;
-use HMS\Traits\Entities\SoftDeletable;
 use HMS\Traits\Entities\Timestampable;
 use LaravelDoctrine\ORM\Notifications\Notifiable;
 
 class Invite
 {
-    use Notifiable, SoftDeletable, Timestampable;
+    use Notifiable, Timestampable;
 
     /**
      * @var int
@@ -31,6 +30,7 @@ class Invite
      * Invite Token is auto generated.
      *
      * @param $email
+     *
      * @return Invite
      */
     public function create($email)
@@ -64,6 +64,7 @@ class Invite
 
     /**
      * Get the token value.
+     *
      * @return null|string
      */
     public function getInviteToken(): ?string

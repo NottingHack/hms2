@@ -9,16 +9,18 @@ use HMS\Repositories\Banking\BankRepository;
 class DoctrineBankRepository extends EntityRepository implements BankRepository
 {
     /**
-     * @param  $id
+     * @param $id
+     *
      * @return null|Bank
      */
-    public function find($id)
+    public function findOneById($id)
     {
-        return parent::find($id);
+        return parent::findOneById($id);
     }
 
     /**
-     * @param  string $accountNumber
+     * @param string $accountNumber
+     *
      * @return null|Bank
      */
     public function findOneByAccountNumber(string $accountNumber)
@@ -27,8 +29,9 @@ class DoctrineBankRepository extends EntityRepository implements BankRepository
     }
 
     /**
-     * save Bank to the DB.
-     * @param  Bank $bank
+     * Save Bank to the DB.
+     *
+     * @param Bank $bank
      */
     public function save(Bank $bank)
     {

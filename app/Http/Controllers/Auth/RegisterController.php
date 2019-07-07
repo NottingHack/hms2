@@ -30,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/registration-complete';
 
     /**
      * @var UserManager
@@ -53,9 +53,11 @@ class RegisterController extends Controller
      * @param Validator $validator
      * @param UserManager $userManager
      */
-    public function __construct(Validator $validator,
-        UserManager $userManager, ProfileManager $profileManager)
-    {
+    public function __construct(
+        Validator $validator,
+        UserManager $userManager,
+        ProfileManager $profileManager
+    ) {
         $this->middleware('guest');
         $this->validator = $validator;
         $this->userManager = $userManager;
@@ -65,7 +67,8 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param array $data
+     *
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -91,7 +94,8 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data called via RegistersUsers trait, passes in $request->all()
+     * @param array $data called via RegistersUsers trait, passes in $request->all()
+     *
      * @return User
      */
     protected function create(array $data)

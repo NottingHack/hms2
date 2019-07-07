@@ -10,8 +10,10 @@ use Illuminate\Http\Response as IlluminateResponse;
 class TransactionUploadController extends Controller
 {
     /**
-     * upload new bank transacions via json.
-     * @param  Request $request
+     * Upload new bank transacions via json.
+     *
+     * @param Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function upload(Request $request)
@@ -24,14 +26,14 @@ class TransactionUploadController extends Controller
          *         "accountNumber" : "13007568",
          *         "date" : "2017-07-17",
          *         "description" : "Edward Murphy HSNTSBBPRK86CWPV 4",
-         *         "amount" : 5.00
+         *         "amount" : 500
          *     },
          *     {
          *         "sortCode" : "77-22-24",
          *         "accountNumber" : "13007568",
          *         "date" : "2017-07-16",
          *         "description" : "Gordon Johnson HSNTSB27496WPB2M 53",
-         *         "amount" : 7.00
+         *         "amount" : 700
          *     },
          *     {
          *         "sortCode" : "77-22-24",
@@ -53,7 +55,7 @@ class TransactionUploadController extends Controller
             '*.accountNumber' => 'required|exists:HMS\Entities\Banking\Bank,accountNumber',
             '*.date' => 'required|date',
             '*.description' => 'required|string',
-            '*.amount' => 'required|numeric',
+            '*.amount' => 'required|integer',
         ]);
 
         event(new TransactionsUploaded($request->input()));

@@ -55,12 +55,15 @@ class Transaction
     /**
      * Create a new transaction as User and ammount can not be changes later.
      *
-     * @param User   $user
-     * @param int    $amount
+     * @param User $user
+     * @param int $amount
      * @param string $status
      */
-    public function __construct(User $user, int $amount, string $status = TransactionState::PENDING)
-    {
+    public function __construct(
+        User $user,
+        int $amount,
+        string $status = TransactionState::PENDING
+    ) {
         $this->user = $user;
         $this->amount = $amount;
         $this->status = $status;
@@ -118,6 +121,18 @@ class Transaction
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTypeString()
+    {
+        if ($this->type == TransactionType::VEND && $this->amount > 0) {
+            return TransactionType::TYPE_STRINGS[TransactionType::CASH_PAYMENT];
+        }
+
+        return TransactionType::TYPE_STRINGS[$this->type];
     }
 
     /**

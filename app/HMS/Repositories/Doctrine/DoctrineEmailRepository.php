@@ -11,16 +11,18 @@ use HMS\Repositories\EmailRepository;
 class DoctrineEmailRepository extends EntityRepository implements EmailRepository
 {
     /**
-     * @param  $id
+     * @param $id
+     *
      * @return null|Email
      */
-    public function find($id)
+    public function findOneById($id)
     {
-        return parent::find($id);
+        return parent::findOneById($id);
     }
 
     /**
-     * @param  Role $role
+     * @param Role $role
+     *
      * @return array
      */
     public function findByRole(Role $role)
@@ -29,8 +31,9 @@ class DoctrineEmailRepository extends EntityRepository implements EmailRepositor
     }
 
     /**
-     * save Email to the DB.
-     * @param  Email $email
+     * Save Email to the DB.
+     *
+     * @param Email $email
      */
     public function save(Email $email)
     {

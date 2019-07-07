@@ -7,8 +7,9 @@ use HMS\Entities\GateKeeper\Zone;
 interface ZoneRepository
 {
     /**
-     * save Zone to the DB.
-     * @param  Zone $zone
+     * Save Zone to the DB.
+     *
+     * @param Zone $zone
      */
     public function save(Zone $zone);
 }

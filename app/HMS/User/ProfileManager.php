@@ -5,7 +5,6 @@ namespace HMS\User;
 use Carbon\Carbon;
 use HMS\Entities\User;
 use HMS\Entities\Profile;
-use Illuminate\Http\Request;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\UserRepository;
 use HMS\Repositories\ProfileRepository;
@@ -29,12 +28,16 @@ class ProfileManager
 
     /**
      * ProfileManager constructor.
+     *
      * @param ProfileRepository $profileRepository
-     * @param UserRepository    $userRepository
-     * @param MetaRepository    $metaRepository
+     * @param UserRepository $userRepository
+     * @param MetaRepository $metaRepository
      */
-    public function __construct(ProfileRepository $profileRepository, UserRepository $userRepository, MetaRepository $metaRepository)
-    {
+    public function __construct(
+        ProfileRepository $profileRepository,
+        UserRepository $userRepository,
+        MetaRepository $metaRepository
+    ) {
         $this->profileRepository = $profileRepository;
         $this->userRepository = $userRepository;
         $this->metaRepository = $metaRepository;
@@ -42,6 +45,7 @@ class ProfileManager
 
     /**
      * Bulk populate a user profile, used on registration.
+     *
      * @param User $user
      * @param string $address1
      * @param null|string $address2
@@ -51,19 +55,29 @@ class ProfileManager
      * @param string $addressPostcode
      * @param string $contactNumber
      * @param null|string $dateOfBirth
+     *
      * @return User
      */
-    public function create(User $user, string $address1, ?string $address2, ?string $address3, string $addressCity, string $addressCounty, string $addressPostcode, string $contactNumber, ?string $dateOfBirth): User
-    {
+    public function create(
+        User $user,
+        string $address1,
+        ?string $address2,
+        ?string $address3,
+        string $addressCity,
+        string $addressCounty,
+        string $addressPostcode,
+        string $contactNumber,
+        ?string $dateOfBirth
+    ): User {
         $profile = new Profile($user);
 
         $profile->setAddress1($address1);
 
-        if ( ! empty($address2)) {
+        if (! empty($address2)) {
             $profile->setAddress2($address2);
         }
 
-        if ( ! empty($address3)) {
+        if (! empty($address3)) {
             $profile->setAddress3($address3);
         }
 
@@ -72,7 +86,7 @@ class ProfileManager
         $profile->setAddressPostcode($addressPostcode);
         $profile->setContactNumber($contactNumber);
 
-        if ( ! empty($dateOfBirth)) {
+        if (! empty($dateOfBirth)) {
             $profile->setDateOfBirth(new Carbon($dateOfBirth));
         }
 
@@ -89,47 +103,49 @@ class ProfileManager
     }
 
     /**
-     * update the user form a form request.
-     * @param  User    $user    user to update
-     * @param  Illuminate\Http\Request $request
+     * Update the user form a form request.
+     *
+     * @param User $user User to update
+     * @param array $request
+     *
      * @return User
      */
-    public function updateUserProfileFromRequest(User $user, Request $request)
+    public function updateUserProfileFromRequest(User $user, array $request)
     {
         $profile = $user->getProfile();
 
-        if ($request['address1']) {
+        if (isset($request['address1'])) {
             $profile->setAddress1($request['address1']);
         }
 
         // Nullable field
-        if ($request->exists('address2')) {
+        if (array_key_exists('address2', $request)) {
             $profile->setAddress2($request['address2']);
         }
 
         // Nullable field
-        if ($request->exists('address3')) {
+        if (array_key_exists('address3', $request)) {
             $profile->setAddress3($request['address3']);
         }
 
-        if ($request['addressCity']) {
+        if (isset($request['addressCity'])) {
             $profile->setAddressCity($request['addressCity']);
         }
 
-        if ($request['addressCounty']) {
+        if (isset($request['addressCounty'])) {
             $profile->setAddressCounty($request['addressCounty']);
         }
 
-        if ($request['addressPostcode']) {
+        if (isset($request['addressPostcode'])) {
             $profile->setAddressPostcode($request['addressPostcode']);
         }
 
-        if ($request['contactNumber']) {
+        if (isset($request['contactNumber'])) {
             $profile->setContactNumber($request['contactNumber']);
         }
 
         // Nullable field
-        if ($request->exists('dateOfBirth')) {
+        if (array_key_exists('dateOfBirth', $request)) {
             if (is_null($request['dateOfBirth'])) {
                 $profile->setDateOfBirth(null);
             } else {
@@ -137,11 +153,11 @@ class ProfileManager
             }
         }
 
-        if ($request['creditLimit']) {
+        if (isset($request['creditLimit'])) {
             $profile->setCreditLimit($request['creditLimit']);
         }
 
-        if ($request['unlockText']) {
+        if (isset($request['unlockText'])) {
             $profile->setUnlockText($request['unlockText']);
         }
 

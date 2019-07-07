@@ -1,6 +1,5 @@
 <?php
 
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -12,15 +11,31 @@
 |
 */
 
-Route::middleware('auth:api')->group(function () {
+// All api route names are prefixed with api.
+Route::name('api.')->middleware('auth:api')->group(function () {
     // Search for members
     // api/search/users/matt                    Search term as part of the
-    // api/search/users?q=matt                  Search term as a parametre
-    // api/search/users?q=matt&withAccount=true Only search for memebrs with Accounts
-    Route::name('search.users')->get('search/users/{searchQuery?}', 'Api\SearchController@users');
+    // api/search/users?q=matt                  Search term as a parameter
+    // api/search/users?q=matt&withAccount=true Only search for members with Accounts
+    Route::get('search/users/{searchQuery?}', 'Api\SearchController@users')
+        ->name('search.users');
+
+    Route::get('search/invites/{searchQuery?}', 'Api\SearchController@invites')
+        ->name('search.invites');
+
+    // Snackspace
+    Route::patch(
+        'snackspace/vending-machines/{vendingMachine}/locations',
+        'Api\Snackspace\VendingMachineController@locationAssign'
+    )->name('snackspace.vending-machines.locations.assign');
+
+    // Tools
+    Route::apiResource('tools/{tool}/bookings', 'Api\Tools\BookingController');
 });
 
-Route::middleware('client')->group(function () {
+// All 'client_credentials' api route names are prefixed with client.
+Route::name('client.')->middleware('client')->group(function () {
     // upload new bankTransactions/
-    Route::name('bankTransactions.upload')->post('bank_transactions/upload', 'Api\TransactionUploadController@upload');
+    Route::post('bank_transactions/upload', 'Api\TransactionUploadController@upload')
+        ->name('bankTransactions.upload');
 });

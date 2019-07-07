@@ -1,0 +1,24 @@
+# HMS.Entities.Instrumentation.LightLevel.dcm.yml 
+HMS\Entities\Instrumentation\LightLevel:
+  type: entity
+  repositoryClass: HMS\Repositories\Instrumentation\Doctrine\DoctrineLightLevelRepository
+  table: light_level
+  id:
+    sensor:
+      type: string
+      length: 30
+      generator:
+        strategy: NONE
+  fields:
+    name:
+      type: string
+      length: 100
+      nullable: true
+    reading:
+      type: integer
+      nullable: true
+    time:
+      column: "`time`"
+      type: datetime
+      options:
+        default: CURRENT_TIMESTAMP

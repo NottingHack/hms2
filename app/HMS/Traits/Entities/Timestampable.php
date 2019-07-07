@@ -19,7 +19,8 @@ trait Timestampable
     /**
      * Sets createdAt.
      *
-     * @param  Carbon $createdAt
+     * @param Carbon $createdAt
+     *
      * @return $this
      */
     public function setCreatedAt(Carbon $createdAt)
@@ -42,7 +43,8 @@ trait Timestampable
     /**
      * Sets updatedAt.
      *
-     * @param  Carbon $updatedAt
+     * @param Carbon $updatedAt
+     *
      * @return $this
      */
     public function setUpdatedAt(Carbon $updatedAt)

@@ -54,7 +54,7 @@ class Version20161222000655_add_meta extends AbstractMigration
 
         foreach ($settings as $key => $value) {
             $this->addSql(
-                'INSERT INTO meta (`key`, `value`, deleted_at, created_at, updated_at) VALUES (\''.$key.'\', \''.$value.'\', null, \''.$now.'\', \''.$now.'\')'
+                'INSERT INTO meta (`key`, `value`, deleted_at, created_at, updated_at) VALUES (\'' . $key . '\', \'' . $value . '\', null, \'' . $now . '\', \'' . $now . '\')'
             );
         }
     }

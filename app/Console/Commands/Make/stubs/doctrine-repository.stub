@@ -9,8 +9,9 @@ use NamespacedDummyRepositoryInterface;
 class DoctrineDummyClassRepository extends EntityRepository implements DummyClassRepository
 {
     /**
-     * save DummyClass to the DB. 
-     * @param  DummyClass $dummyClass
+     * Save DummyClass to the DB.
+     *
+     * @param DummyClass $dummyClass
      */
     public function save(DummyClass $dummyClass)
     {

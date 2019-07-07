@@ -6,10 +6,6 @@ HMS\Entities\Invite:
   indexes:
     email_index:
       columns: [ email ]
-  gedmo:
-    soft_deleteable:
-      field_name: deletedAt
-      time_aware: false
   id:
     id:
       type: integer
@@ -25,9 +21,6 @@ HMS\Entities\Invite:
       column: invite_token
       type: string
       length: 100
-      nullable: true
-    deletedAt:
-      type: datetime
       nullable: true
     createdAt:
       type: datetime

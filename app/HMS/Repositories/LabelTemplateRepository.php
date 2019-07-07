@@ -7,26 +7,30 @@ use HMS\Entities\LabelTemplate;
 interface LabelTemplateRepository
 {
     /**
-     * find a temple in the DB.
-     * @param  mixed $template_name
-     * @return object|null The entity instance or NULL if the entity can not be found.
+     * Find a temple in the DB.
+     *
+     * @param string $templateName
+     *
+     * @return LabelTemplate|null
      */
-    public function find($template_name);
+    public function findOneByTemplateName($templateName);
 
     /**
-     * save temple to the DB.
-     * @param  LabelTemplate $labelTemplate
+     * Save temple to the DB.
+     *
+     * @param LabelTemplate $labelTemplate
      */
     public function save(LabelTemplate $labelTemplate);
 
     /**
-     * remove a temple from the DB.
-     * @param  LabelTemplate $labelTemplate
+     * Remove a temple from the DB.
+     *
+     * @param LabelTemplate $labelTemplate
      */
     public function remove(LabelTemplate $labelTemplate);
 
     /**
-     * @param int    $perPage
+     * @param int $perPage
      * @param string $pageName
      *
      * @return \Illuminate\Pagination\LengthAwarePaginator

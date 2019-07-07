@@ -1,0 +1,42 @@
+# HMS.Entities.Tools.Tool.dcm.yml
+HMS\Entities\Tools\Tool:
+  type: entity
+  repositoryClass: HMS\Repositories\Tools\Doctrine\DoctrineToolRepository
+  table: tools
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+      length: 20
+      unique: true
+    status:
+      type: string
+      length: 20
+    restrictions:
+      type: string
+      length: 20
+    statusText:
+      column: status_text
+      type: string
+      nullable: true
+    pph:
+      type: integer
+    bookingLength:
+      column: booking_length
+      type: integer
+    lengthMax:
+      column: length_max
+      type: integer
+    bookingsMax:
+      column: bookings_max
+      type: integer
+  oneToMany:
+    bookings:
+      targetEntity: \HMS\Entities\Tools\Booking
+      mappedBy: tool

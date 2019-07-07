@@ -73,7 +73,7 @@ class MembershipComplete extends Mailable implements ShouldQueue
     /**
      * Create a new message instance.
      *
-     * @param User           $user
+     * @param User $user
      * @param MetaRepository $metaRepository
      * @param RoleRepository $roleRepository
      */
@@ -81,15 +81,15 @@ class MembershipComplete extends Mailable implements ShouldQueue
     {
         $this->fullname = $user->getFullname();
 
-        $this->membersGuideHTML = $metaRepository->get('link_Members Guide');
+        $this->membersGuideHTML = $metaRepository->get('members_guide_html');
         $this->membersGuidePDF = $metaRepository->get('members_guide_pdf');
         $this->outerDoorCode = $metaRepository->get('access_street_door');
         $this->innerDoorCode = $metaRepository->get('access_inner_door');
         $this->wifiSsid = $metaRepository->get('access_wifi_ssid');
         $this->wifiPass = $metaRepository->get('access_wifi_password');
-        $this->groupLink = $metaRepository->get('link_Google Group');
-        $this->rulesHTML = $metaRepository->get('link_Hackspace Rules');
-        $this->wikiLink = $metaRepository->get('link_Wiki');
+        $this->groupLink = $metaRepository->get('google_group_html');
+        $this->rulesHTML = $metaRepository->get('rules_html');
+        $this->wikiLink = $metaRepository->get('wiki_html');
 
         $this->membershipTeamEmail = $roleRepository->findOneByName(Role::TEAM_MEMBERSHIP)->getEmail();
     }

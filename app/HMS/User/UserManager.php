@@ -5,10 +5,10 @@ namespace HMS\User;
 use HMS\Entities\Role;
 use HMS\Entities\User;
 use HMS\Auth\PasswordStore;
-use Illuminate\Http\Request;
 use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
 use App\Events\Users\UserEmailChanged;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class UserManager
 {
@@ -29,13 +29,16 @@ class UserManager
 
     /**
      * UserManager constructor.
+     *
      * @param UserRepository $userRepository
      * @param RoleManager $roleManager
      * @param PasswordStore $passwordStore
      */
-    public function __construct(UserRepository $userRepository,
-        RoleManager $roleManager, PasswordStore $passwordStore)
-    {
+    public function __construct(
+        UserRepository $userRepository,
+        RoleManager $roleManager,
+        PasswordStore $passwordStore
+    ) {
         $this->userRepository = $userRepository;
         $this->roleManager = $roleManager;
         $this->passwordStore = $passwordStore;
@@ -56,6 +59,7 @@ class UserManager
      * @param string $username
      * @param string $email
      * @param string $password
+     *
      * @return User
      */
     public function create(string $firstname, string $lastname, string $username, string $email, string $password)
@@ -72,24 +76,30 @@ class UserManager
     }
 
     /**
-     * update the user form a form request.
-     * @param  User    $user    user to update
-     * @param  Illuminate\Http\Request $request
+     * Update the user form a form request.
+     *
+     * @param User $user User to update
+     * @param array $request
+     *
      * @return User
      */
-    public function updateFromRequest(User $user, Request $request): User
+    public function updateFromRequest(User $user, array $request): User
     {
-        if ($request['firstname']) {
+        if (isset($request['firstname'])) {
             $user->setFirstname($request['firstname']);
         }
 
-        if ($request['lastname']) {
+        if (isset($request['lastname'])) {
             $user->setLastname($request['lastname']);
         }
 
-        if ($request['email']) {
+        if (isset($request['email']) && $request['email'] != $user->getEmail()) {
             $oldEmail = $user->getEmail();
             $user->setEmail($request['email']);
+            if ($user instanceof MustVerifyEmail) {
+                $user->setEmailVerifiedAt(null);
+                $user->sendEmailVerificationNotification();
+            }
             event(new UserEmailChanged($user, $oldEmail));
         }
 

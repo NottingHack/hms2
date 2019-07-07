@@ -42,11 +42,12 @@ class SaveNewTransactions implements ShouldQueue
      * @param BankTransactionRepository $bankTransactionRepository
      * @param RoleRepository $roleRepository
      */
-    public function __construct(BankRepository $bankRepository,
+    public function __construct(
+        BankRepository $bankRepository,
         BankTransactionFactory $bankTransactionFactory,
         BankTransactionRepository $bankTransactionRepository,
-        RoleRepository $roleRepository)
-    {
+        RoleRepository $roleRepository
+    ) {
         $this->bankRepository = $bankRepository;
         $this->bankTransactionFactory = $bankTransactionFactory;
         $this->bankTransactionRepository = $bankTransactionRepository;
@@ -56,19 +57,20 @@ class SaveNewTransactions implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  TransactionsUploaded  $event
+     * @param TransactionsUploaded $event
+     *
      * @return void
      */
     public function handle(TransactionsUploaded $event)
     {
         /**
-         * each transaction should be in the following form
+         * Each transaction should be in the following form
          * {
          *     "sortCode" : "77-22-24",
          *     "accountNumber" : "13007568",
          *     "date" : "2017-07-17",
          *     "description" : "Edward Murphy HSNTSBBPRK86CWPV 4",
-         *     "amount" : 5.00
+         *     "amount" : 500
          * }.
          */
         $unmatchedBank = [];
@@ -82,7 +84,13 @@ class SaveNewTransactions implements ShouldQueue
 
             $transactionDate = new Carbon($transaction['date']);
 
-            $bankTransaction = $this->bankTransactionFactory->create($bank, $transactionDate, $transaction['description'], $transaction['amount']);
+            $bankTransaction = $this->bankTransactionFactory
+                ->create(
+                    $bank,
+                    $transactionDate,
+                    $transaction['description'],
+                    $transaction['amount']
+                );
 
             // now see if we already have this transaction on record? before saving it
             $bankTransaction = $this->bankTransactionRepository->findOrSave($bankTransaction);

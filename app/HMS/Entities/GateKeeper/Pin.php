@@ -135,6 +135,16 @@ class Pin
     }
 
     /**
+     * Gets the value of state.
+     *
+     * @return string
+     */
+    public function getStateString()
+    {
+        return PinState::STATE_STRINGS[$this->state];
+    }
+
+    /**
      * Sets the value of state.
      *
      * @param int $state the state

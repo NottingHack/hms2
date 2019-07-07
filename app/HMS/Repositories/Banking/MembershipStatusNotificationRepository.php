@@ -8,28 +8,34 @@ use HMS\Entities\Banking\MembershipStatusNotification;
 interface MembershipStatusNotificationRepository
 {
     /**
-     * find outstanding notifications.
+     * Find outstanding notifications.
+     *
      * @return MembershipStatusNotification[]
      */
     public function findOutstandingNotifications();
 
     /**
-     * find outstanding notifications for a given user.
-     * @param  User $user
+     * Find outstanding notifications for a given user.
+     *
+     * @param User $user
+     *
      * @return MembershipStatusNotification[]
      */
     public function findOutstandingNotificationsByUser(User $user);
 
     /**
-     * find by user.
-     * @param  User $user
+     * Find by user.
+     *
+     * @param User $user
+     *
      * @return MembershipStatusNotification[]
      */
     public function findByUser(User $user);
 
     /**
-     * save MembershipStatusNotification to the DB.
-     * @param  MembershipStatusNotification $membershipStatusNotification
+     * Save MembershipStatusNotification to the DB.
+     *
+     * @param MembershipStatusNotification $membershipStatusNotification
      */
     public function save(MembershipStatusNotification $membershipStatusNotification);
 }

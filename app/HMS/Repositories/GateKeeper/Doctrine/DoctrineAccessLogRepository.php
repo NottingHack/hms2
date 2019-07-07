@@ -10,7 +10,8 @@ use HMS\Repositories\GateKeeper\AccessLogRepository;
 class DoctrineAccessLogRepository extends EntityRepository implements AccessLogRepository
 {
     /**
-     * @param  User $user
+     * @param User $user
+     *
      * @return AccessLog[]
      */
     public function findByUser(User $user)
@@ -19,7 +20,8 @@ class DoctrineAccessLogRepository extends EntityRepository implements AccessLogR
     }
 
     /**
-     * @param  User $user
+     * @param User $user
+     *
      * @return null|AccessLog
      */
     public function findLatestByUser(User $user)
@@ -28,8 +30,9 @@ class DoctrineAccessLogRepository extends EntityRepository implements AccessLogR
     }
 
     /**
-     * save AccessLog to the DB.
-     * @param  AccessLog $accessLog
+     * Save AccessLog to the DB.
+     *
+     * @param AccessLog $accessLog
      */
     public function save(AccessLog $accessLog)
     {

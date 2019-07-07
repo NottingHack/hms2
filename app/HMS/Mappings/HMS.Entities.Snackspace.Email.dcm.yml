@@ -1,0 +1,45 @@
+# HMS.Entities.Snackspace.Email.dcm.yml
+HMS\Entities\Snackspace\Email:
+  type: entity
+  repositoryClass: HMS\Repositories\Snackspace\Doctrine\DoctrineEmailRepository
+  table: snackspace_emails
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    to:
+      type: string
+      nullable: true
+    cc:
+      type: string
+      nullable: true
+    bcc:
+      type: string
+      nullable: true
+    subject:
+      type: string
+      nullable: true
+    body:
+      type: text
+      nullable: true
+    bodyAlt:
+      type: text
+      nullable: true
+    status:
+      type: string
+      length: 16
+      nullable: true
+    date:
+      type: datetime
+      options:
+        default: CURRENT_TIMESTAMP
+    link:
+      type: integer
+      nullable: true
+  manyToOne:
+    user:
+      targetEntity: \HMS\Entities\User

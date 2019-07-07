@@ -14,16 +14,23 @@ class DoctrineProjectRepository extends EntityRepository implements ProjectRepos
     use PaginatesFromRequest;
 
     /**
-     * @param User   $user
-     * @param int    $perPage
+     * @param User $user
+     * @param int $perPage
      * @param string $pageName
+     * @param bool $active
      *
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
-    public function paginateByUser(User $user, $perPage = 15, $pageName = 'page')
+    public function paginateByUser(User $user, $perPage = 15, $pageName = 'page', $active = false)
     {
         $q = parent::createQueryBuilder('project')
             ->where('project.user = :user_id');
+
+        if ($active) {
+            $q->andWhere('project.state = :project_state')
+              ->orderBy('project.startDate', 'DESC')
+              ->setParameter('project_state', ProjectState::ACTIVE);
+        }
 
         $q = $q->setParameter('user_id', $user->getId())->getQuery();
 
@@ -32,7 +39,8 @@ class DoctrineProjectRepository extends EntityRepository implements ProjectRepos
 
     /**
      * Return number of active projects for a user.
-     * @param  User   $user
+     *
+     * @param User $user
      *
      * @return int
      */
@@ -50,8 +58,9 @@ class DoctrineProjectRepository extends EntityRepository implements ProjectRepos
     }
 
     /**
-     * save Project to the DB.
-     * @param  Project $project
+     * Save Project to the DB.
+     *
+     * @param Project $project
      */
     public function save(Project $project)
     {

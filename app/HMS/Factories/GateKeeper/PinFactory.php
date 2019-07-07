@@ -25,7 +25,8 @@ class PinFactory
     /**
      * Create a new Pin for rfid card enrollment.
      *
-     * @param  User $user
+     * @param User $user
+     *
      * @return Pin
      */
     public function createNewEnrollPinForUser(User $user)

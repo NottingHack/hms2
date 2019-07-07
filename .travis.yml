@@ -2,27 +2,30 @@ language: php
 
 dist: trusty
 
-php:
-  - 7.1
-
 matrix:
   fast_finish: true
-
-sudo: false
+  include: 
+   - php: 7.2
 
 cache:
   directories:
     - $HOME/.composer/cache
 
+addons:
+  mariadb: '10.2'
+
 services:
-  - mariadb
+  - memcached
+  - redis-server
 
 before_install:
-  - if [[ $TRAVIS_PHP_VERSION != 7.1 ]] ; then phpenv config-rm xdebug.ini; fi
+  - phpenv config-rm xdebug.ini || true
   - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - travis_retry composer self-update
   - cp .env.behat .env
-  - mysql -utravis -e "CREATE DATABASE hms_test"
+  - mysql -e 'SELECT version();'
+  - mysql -e "CREATE DATABASE hms_test"
+  - mysql -e 'grant all on *.* to travis@localhost;'
 
 install: travis_retry composer install --no-interaction --prefer-dist --no-suggest
 

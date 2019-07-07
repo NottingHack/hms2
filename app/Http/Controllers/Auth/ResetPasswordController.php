@@ -24,7 +24,16 @@ class ResetPasswordController extends Controller
 
     use ResetsPasswords;
 
-    /** @var PasswordStore */
+    /**
+     * Where to redirect users after resetting their password.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/home';
+
+    /**
+     * @var PasswordStore
+     */
     protected $passwordStore;
 
     /**
@@ -43,7 +52,8 @@ class ResetPasswordController extends Controller
      * Note: this is overridden from the ResetPasswords trait as no mechanism is provided to customise the validation
      * rules, see: https://github.com/laravel/framework/issues/15086.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function reset(Request $request)
@@ -58,7 +68,8 @@ class ResetPasswordController extends Controller
         // will update the password on an actual user model and persist it to the
         // database. Otherwise we will parse the error and return the response.
         $response = $this->broker()->reset(
-            $this->credentials($request), function ($user, $password) {
+            $this->credentials($request),
+            function ($user, $password) {
                 $this->resetPassword($user, $password);
             }
         );

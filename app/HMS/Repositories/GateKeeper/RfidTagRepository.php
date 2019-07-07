@@ -13,14 +13,15 @@ interface RfidTagRepository
     public function findAll();
 
     /**
-     * @param  User $user
+     * @param User $user
+     *
      * @return RfidTag[]
      */
     public function findByUser(User $user);
 
     /**
-     * @param User   $user
-     * @param int    $perPage
+     * @param User $user
+     * @param int $perPage
      * @param string $pageName
      *
      * @return \Illuminate\Pagination\LengthAwarePaginator
@@ -28,13 +29,15 @@ interface RfidTagRepository
     public function paginateByUser(User $user, $perPage = 15, $pageName = 'page');
 
     /**
-     * save RfidTag to the DB.
-     * @param  RfidTag $rfidTag
+     * Save RfidTag to the DB.
+     *
+     * @param RfidTag $rfidTag
      */
     public function save(RfidTag $rfidTag);
 
     /**
-     * remove a RfidTag from the DB.
+     * Remove a RfidTag from the DB.
+     *
      * @param RfidTag $rfidTag
      */
     public function remove(RfidTag $rfidTag);

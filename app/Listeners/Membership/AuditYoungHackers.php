@@ -36,11 +36,14 @@ class AuditYoungHackers implements ShouldQueue
      * Create the event listener.
      *
      * @param RoleRepository $roleRepository
-     * @param RoleManager    $roleManager
+     * @param RoleManager $roleManager
      * @param UserRepository $userRepository
      */
-    public function __construct(RoleRepository $roleRepository, RoleManager $roleManager, UserRepository $userRepository)
-    {
+    public function __construct(
+        RoleRepository $roleRepository,
+        RoleManager $roleManager,
+        UserRepository $userRepository
+    ) {
         $this->roleRepository = $roleRepository;
         $this->roleManager = $roleManager;
         $this->userRepository = $userRepository;
@@ -49,7 +52,7 @@ class AuditYoungHackers implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  YoungHackerAuditRequest  $event
+     * @param YoungHackerAuditRequest $event
      */
     public function handle(YoungHackerAuditRequest $event)
     {
@@ -72,7 +75,8 @@ class AuditYoungHackers implements ShouldQueue
                 $youngHackerTurnedEighteenNotification = new YoungHackerTurnedEighteen($user);
 
                 $membershipTeamRole = $this->roleRepository->findOneByName(Role::TEAM_MEMBERSHIP);
-                $membershipTeamRole->notify($youngHackerTurnedEighteenNotification);
+                // TODO: decide if we should really send this?
+                // $membershipTeamRole->notify($youngHackerTurnedEighteenNotification);
 
                 $trusteesTeamRole = $this->roleRepository->findOneByName(Role::TEAM_TRUSTEES);
                 $trusteesTeamRole->notify($youngHackerTurnedEighteenNotification);

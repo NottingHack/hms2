@@ -11,7 +11,7 @@
 
   <div class="form-group">
     <label for="template" class="form-label">Template</label>
-    <textarea class="form-control" id="template" name="template" rows="10" required >{{ old('template', $template) }}</textarea>
+    <textarea class="form-control" id="template" name="template" rows="10" required v-pre>{{ old('template', $template) }}</textarea>
     @if ($errors->has('template'))
     <p class="help-text">
       <strong>{{ $errors->first('template') }}</strong>
@@ -19,11 +19,5 @@
     @endif
   </div>
 
-  <div class="form-group">
-    <div class="card">
-      <button type="submit" class="btn btn-success">
-        {{ $submitButtonText }}
-      </button>
-    </div>
-  </div>
+  <button type="submit" class="btn btn-success btn-block">{{ $submitButtonText }}</button>
 </div>

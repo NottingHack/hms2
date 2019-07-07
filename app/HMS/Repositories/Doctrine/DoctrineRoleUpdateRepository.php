@@ -11,16 +11,18 @@ use HMS\Repositories\RoleUpdateRepository;
 class DoctrineRoleUpdateRepository extends EntityRepository implements RoleUpdateRepository
 {
     /**
-     * @param  $id
-     * @return null|Role
+     * @param $id
+     *
+     * @return null|RoleUpdate
      */
-    public function find($id)
+    public function findOneById($id)
     {
-        return parent::find($id);
+        return parent::findOneById($id);
     }
 
     /**
-     * @param  User   $user
+     * @param User $user
+     *
      * @return array
      */
     public function findByUser(User $user)
@@ -29,9 +31,11 @@ class DoctrineRoleUpdateRepository extends EntityRepository implements RoleUpdat
     }
 
     /**
-     * find the lastest roleUpdate when this User was give the Role.
-     * @param  Role  $role
-     * @param  User  $user
+     * Find the lastest roleUpdate when this User was give the Role.
+     *
+     * @param Role $role
+     * @param User $user
+     *
      * @return null|RoleUpdate
      */
     public function findLatestRoleAddedByUser(Role $role, User $user)
@@ -40,8 +44,9 @@ class DoctrineRoleUpdateRepository extends EntityRepository implements RoleUpdat
     }
 
     /**
-     * save RoleUpdate to the DB.
-     * @param  RoleUpdate $roleUpdate
+     * Save RoleUpdate to the DB.
+     *
+     * @param RoleUpdate $roleUpdate
      */
     public function save(RoleUpdate $roleUpdate)
     {

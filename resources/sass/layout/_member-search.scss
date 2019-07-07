@@ -1,0 +1,26 @@
+/*
+ * Member search result styles
+ */
+.membersearch {
+  .name {
+    .fullname {
+      font-weight: bold;
+    }
+
+    .username {
+      font-style: italic;
+
+      &::before {
+        content: '(';
+      }
+
+      &::after {
+        content: ')';
+      }
+    }
+  }
+
+  .email, .address, .paymentref {
+    font-size: 0.8rem;
+  }
+}

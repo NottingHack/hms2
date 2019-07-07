@@ -11,9 +11,11 @@ use App\Events\Labels\LabelPrintEventInterface;
 class PrintLabelSubscriber implements ShouldQueue
 {
     use InteractsWithQueue;
+
     /**
-     * printer port.
-     * @var  int
+     * Printer port.
+     *
+     * @var int
      */
     private $port = 9100;
 
@@ -29,12 +31,21 @@ class PrintLabelSubscriber implements ShouldQueue
 
     /**
      * LabelTemplate Reposistry.
+     *
      * @var LabelTemplateRepository
      */
     protected $labelTemplateRepository;
 
-    public function __construct(LabelTemplateRepository $labelTemplateRepository, MetaRepository $metaRepository)
-    {
+    /**
+     * Create event listner.
+     *
+     * @param LabelTemplateRepository $labelTemplateRepository
+     * @param MetaRepository $metaRepository
+     */
+    public function __construct(
+        LabelTemplateRepository $labelTemplateRepository,
+        MetaRepository $metaRepository
+    ) {
         $this->metaRepository = $metaRepository;
         $this->labelTemplateRepository = $labelTemplateRepository;
     }
@@ -42,10 +53,11 @@ class PrintLabelSubscriber implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  LabelPrintEventInterface $event
+     * @param LabelPrintEventInterface $event
+     *
      * @return void
      */
-    public function handlePrint(LabelPrintEventInterface $event)
+    public function printEvent(LabelPrintEventInterface $event)
     {
         for ($i = 0; $i < $event->getCopiesToPrint(); $i++) {
             $this->printLabel(
@@ -60,18 +72,23 @@ class PrintLabelSubscriber implements ShouldQueue
     /**
      * Register the listeners for the subscriber.
      *
-     * @param  Illuminate\Events\Dispatcher  $events
+     * @param Illuminate\Events\Dispatcher $events
      */
     public function subscribe($events)
     {
         $events->listen(
             'App\Events\Labels\ManualPrint',
-            'App\Listeners\PrintLabelSubscriber@handlePrint'
+            'App\Listeners\PrintLabelSubscriber@printEvent'
         );
 
         $events->listen(
             'App\Events\Labels\ProjectPrint',
-            'App\Listeners\PrintLabelSubscriber@handlePrint'
+            'App\Listeners\PrintLabelSubscriber@printEvent'
+        );
+
+        $events->listen(
+            'App\Events\Labels\BoxPrint',
+            'App\Listeners\PrintLabelSubscriber@printEvent'
         );
     }
 
@@ -81,11 +98,12 @@ class PrintLabelSubscriber implements ShouldQueue
      *
      * @param string $templateName
      * @param array $substitutions
+     *
      * @return bool
      */
     private function printLabel($templateName, $substitutions = [])
     {
-        $template = $this->labelTemplateRepository->find($templateName);
+        $template = $this->labelTemplateRepository->findOneByTemplateName($templateName);
         if ($template == null) {
             return false;
         }
@@ -98,22 +116,29 @@ class PrintLabelSubscriber implements ShouldQueue
             return false;
         }
 
-        $result = socket_connect($socket, $this->getHost(), $this->port);
-        if ($result === false) {
-            return false;
+        try {
+            $result = socket_connect($socket, $this->getHost(), $this->port);
+            if ($result === false) {
+                return false;
+            }
+
+            socket_write($socket, $label, strlen($label));
+        } catch (\Exception $e) {
+            //
         }
 
-        socket_write($socket, $label, strlen($label));
         socket_close($socket);
 
         return true;
     }
 
     /**
-     * Render Blade template with given substitutions
+     * Render Blade template with given substitutions.
      * borrowed from https://laracasts.com/index.php/discuss/channels/general-discussion/render-template-from-blade-template-in-database .
-     * @param  string $template blade template to render
-     * @param  array $substitutions
+     *
+     * @param string $template blade template to render
+     * @param array $substitutions
+     *
      * @return string
      */
     private function renderTemplate($template, $substitutions)
@@ -141,6 +166,7 @@ class PrintLabelSubscriber implements ShouldQueue
 
     /**
      * Get the IP of the label printer.
+     *
      * @return string
      */
     public function getHost()

@@ -1,0 +1,39 @@
+/*
+ * Header
+ */
+header {
+  @extend .container-fluid;
+  box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.5);
+}
+
+.header {
+  @include make-row();
+  background-color: $header-background-colour;
+  color: $header-text-colour;
+
+  h1 {
+    text-shadow: $black 1px 1px 1px;
+
+    &.tiny-header {
+      font-weight: bold;
+      font-size: $h4-font-size;
+    }
+  }
+
+  h2 {
+    text-shadow: $black 2px 2px 2px;
+
+    &.big-header {
+      font-weight: bold;
+      font-size: $h1-font-size;
+    }
+  }
+
+  #logo-path {
+    fill: $hackspace-grey;
+  }
+
+  a {
+    color: $header-text-colour;
+  }
+}

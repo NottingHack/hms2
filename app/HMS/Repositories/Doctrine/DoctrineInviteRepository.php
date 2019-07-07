@@ -7,19 +7,23 @@ use Hms\Entities\Invite;
 use Doctrine\ORM\EntityRepository;
 use HMS\Repositories\InviteRepository;
 use Doctrine\Common\Collections\Criteria;
+use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 
 class DoctrineInviteRepository extends EntityRepository implements InviteRepository
 {
+    use PaginatesFromRequest;
+
     /**
      * Create a new invite if not found.
      *
-     * @param  string $email
+     * @param string $email
+     *
      * @return Invite
      */
     public function findOrCreateByEmail($email)
     {
         $invite = $this->findOneByEmail($email);
-        if ( ! $invite) {
+        if (! $invite) {
             // Don't have a previous invite so create one
             $invite = new Invite();
             $invite->create($email);
@@ -31,10 +35,11 @@ class DoctrineInviteRepository extends EntityRepository implements InviteReposit
     }
 
     /**
-     * find an invite by emial.
+     * Find an invite by emial.
      *
-     * @param  string $email
-     * @return Invite
+     * @param string $email
+     *
+     * @return null|Invite
      */
     public function findOneByEmail($email)
     {
@@ -42,10 +47,40 @@ class DoctrineInviteRepository extends EntityRepository implements InviteReposit
     }
 
     /**
-     * find an invite by token.
+     * Find an invite by partial email.
      *
-     * @param  string $token
-     * @return Invite
+     * @param string $searchQuery
+     * @param bool $paginate
+     * @param int $perPage
+     * @param string $pageName
+     *
+     * @return Invite[]|array|\Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function searchLike(
+        string $searchQuery,
+        bool $paginate = false,
+        $perPage = 15,
+        $pageName = 'page'
+    ) {
+        $q = parent::createQueryBuilder('invite')
+            ->where('invite.email LIKE :keyword');
+
+        $q = $q->setParameter('keyword', '%' . $searchQuery . '%')
+            ->getQuery();
+
+        if ($paginate) {
+            return $this->paginate($q, $perPage, $pageName);
+        }
+
+        return $q->getResult();
+    }
+
+    /**
+     * Find an invite by token.
+     *
+     * @param string $token
+     *
+     * @return null|Invite
      */
     public function findOneByInviteToken($token)
     {
@@ -53,8 +88,10 @@ class DoctrineInviteRepository extends EntityRepository implements InviteReposit
     }
 
     /**
-     * remove all invites older than a given date.
-     * @param  Carbon $date
+     * Remove all invites older than a given date.
+     *
+     * @param Carbon $date
+     *
      * @return array
      */
     public function removeAllOlderThan(Carbon $date)
@@ -71,8 +108,9 @@ class DoctrineInviteRepository extends EntityRepository implements InviteReposit
     }
 
     /**
-     * remove a single invites.
-     * @param  Invite $invite
+     * Remove a single invites.
+     *
+     * @param Invite $invite
      */
     public function remove(Invite $invite)
     {

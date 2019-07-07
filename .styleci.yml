@@ -1,14 +1,13 @@
 preset: laravel
 
 enabled:
-    - not_operator_with_space
+    - concat_with_spaces
 
 disabled:
     - phpdoc_no_package
     - concat_without_spaces
-    - not_operator_with_successor_space
     - simplified_null_return
-    
+
 finder:
     not-path:
         - "public/index.php"

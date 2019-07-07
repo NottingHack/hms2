@@ -42,8 +42,12 @@ class RoleUpdateLogger implements ShouldQueue
      *
      * @param RoleUpdateRepository $roleUpdateRepository
      */
-    public function __construct(RoleUpdateRepository $roleUpdateRepository, EntityManagerInterface $entityManager, UserRepository $userRepository, RoleRepository $roleRepository)
-    {
+    public function __construct(
+        RoleUpdateRepository $roleUpdateRepository,
+        EntityManagerInterface $entityManager,
+        UserRepository $userRepository,
+        RoleRepository $roleRepository
+    ) {
         $this->roleUpdateRepository = $roleUpdateRepository;
         $this->entityManager = $entityManager;
         $this->userRepository = $userRepository;
@@ -53,7 +57,7 @@ class RoleUpdateLogger implements ShouldQueue
     /**
      * Handle user added to role events.
      *
-     * @param  UserAddedToRole $event
+     * @param UserAddedToRole $event
      */
     public function onUserAddedToRole(UserAddedToRole $event)
     {
@@ -61,29 +65,31 @@ class RoleUpdateLogger implements ShouldQueue
             return;
         }
 
-        $user = $this->userRepository->find($event->user->getId());
-        $role = $this->roleRepository->find($event->role->getId());
-        $roleUpdate = new RoleUpdate($user, $role);
+        $user = $this->userRepository->findOneById($event->user->getId());
+        $role = $this->roleRepository->findOneById($event->role->getId());
+        $updateBy = is_null($event->updateBy) ? null : $this->userRepository->findOneById($event->updateBy->getId());
+        $roleUpdate = new RoleUpdate($user, $role, null, $updateBy);
         $this->roleUpdateRepository->save($roleUpdate);
     }
 
     /**
      * Handle user removed from role events.
      *
-     * @param  UserRemovedFromRole $event
+     * @param UserRemovedFromRole $event
      */
     public function onUserRemovedFromRole(UserRemovedFromRole $event)
     {
-        $user = $this->userRepository->find($event->user->getId());
-        $role = $this->roleRepository->find($event->role->getId());
-        $roleUpdate = new RoleUpdate($user, null, $role);
+        $user = $this->userRepository->findOneById($event->user->getId());
+        $role = $this->roleRepository->findOneById($event->role->getId());
+        $updateBy = is_null($event->updateBy) ? null : $this->userRepository->findOneById($event->updateBy->getId());
+        $roleUpdate = new RoleUpdate($user, null, $role, $updateBy);
         $this->roleUpdateRepository->save($roleUpdate);
     }
 
     /**
      * Register the listeners for the subscriber.
      *
-     * @param  Illuminate\Events\Dispatcher  $events
+     * @param Illuminate\Events\Dispatcher $events
      */
     public function subscribe($events)
     {

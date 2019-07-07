@@ -7,7 +7,7 @@
 /vendor
 /.idea
 /.vscode
-/.vagrant
+/.vagrant*
 Homestead.json
 Homestead.yaml
 npm-debug.log
@@ -28,6 +28,8 @@ Thumbs.db
 
 /public/css
 /public/js
+/public/fonts/vendor
 mixwatch.log
 /public/mix-manifest.json
 /storage/proxies
+/version

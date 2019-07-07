@@ -10,37 +10,60 @@ interface InviteRepository
     /**
      * Create a new invite if not found.
      *
-     * @param  string $email
+     * @param string $email
+     *
      * @return Invite
      */
     public function findOrCreateByEmail($email);
 
     /**
-     * find an invite by emial.
+     * Find an invite by emial.
      *
-     * @param  string $email
-     * @return Invite
+     * @param string $email
+     *
+     * @return null|Invite
      */
     public function findOneByEmail($email);
 
     /**
-     * find an invite by token.
+     * Find an invite by partial email.
      *
-     * @param  string $token
-     * @return Invite
+     * @param string $searchQuery
+     * @param bool $paginate
+     * @param int $perPage
+     * @param string $pageName
+     *
+     * @return Invite[]|array|\Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function searchLike(
+        string $searchQuery,
+        bool $paginate = false,
+        $perPage = 15,
+        $pageName = 'page'
+    );
+
+    /**
+     * Find an invite by token.
+     *
+     * @param string $token
+     *
+     * @return null|Invite
      */
     public function findOneByInviteToken($token);
 
     /**
-     * remove all invites older than a given date.
-     * @param  Carbon $date
+     * Remove all invites older than a given date.
+     *
+     * @param Carbon $date
+     *
      * @return array
      */
     public function removeAllOlderThan(Carbon $date);
 
     /**
-     * remove a single invites.
-     * @param  Invite $invite
+     * Remove a single invites.
+     *
+     * @param Invite $invite
      */
     public function remove(Invite $invite);
 }

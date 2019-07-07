@@ -7,19 +7,21 @@ use HMS\Entities\Link;
 interface LinkRepository
 {
     /**
-     * save Link to the DB.
-     * @param  Link $link
+     * Save Link to the DB.
+     *
+     * @param Link $link
      */
     public function save(Link $link);
 
     /**
-     * remove a Link from the DB.
-     * @param  Link $link
+     * Remove a Link from the DB.
+     *
+     * @param Link $link
      */
     public function remove(Link $link);
 
     /**
-     * @param int    $perPage
+     * @param int $perPage
      * @param string $pageName
      *
      * @return \Illuminate\Pagination\LengthAwarePaginator

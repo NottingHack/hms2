@@ -58,7 +58,7 @@ class RfidTagTableSeeder extends Seeder
                 }
 
                 // generate HEX serial
-                list($rfidSerial, $rfidSerialLegacy) = $this->generateRfid();
+                [$rfidSerial, $rfidSerialLegacy] = $this->generateRfid();
 
                 // rand generate legacy version
                 if (random_int(1, 10) > 4) {
@@ -75,7 +75,7 @@ class RfidTagTableSeeder extends Seeder
                 $rfidTag->setUser($user);
                 $this->rfidTagRepository->save($rfidTag);
                 if ($rfidTag->getState() != RfidTagState::ACTIVE and random_int(1, 3) >= 2) {
-                    list($rfidSerial, $rfidSerialLegacy) = $this->generateRfid();
+                    [$rfidSerial, $rfidSerialLegacy] = $this->generateRfid();
                     $rfidTag = new RfidTag($rfidSerial);
                     $rfidTag->setState(RfidTagState::ACTIVE);
                     $rfidTag->setUser($user);

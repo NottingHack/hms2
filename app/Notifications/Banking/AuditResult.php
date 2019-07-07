@@ -58,7 +58,8 @@ class AuditResult extends Notification implements ShouldQueue
      * @param RoleUpdateRepository      $roleUpdateRepository
      * @param RoleRepository            $roleRepository
      */
-    public function __construct($approveUsers,
+    public function __construct(
+        $approveUsers,
         $warnUsers,
         $revokeUsers,
         $reinstateUsers,
@@ -67,8 +68,8 @@ class AuditResult extends Notification implements ShouldQueue
         BankTransactionRepository $bankTransactionRepository,
         PinRepository $pinRepository,
         RoleUpdateRepository $roleUpdateRepository,
-        RoleRepository $roleRepository)
-    {
+        RoleRepository $roleRepository
+    ) {
         $this->paymentNotificationsClearCount = $paymentNotificationsClearCount;
 
         $this->formattedApproveUsers = [];
@@ -85,7 +86,7 @@ class AuditResult extends Notification implements ShouldQueue
         $this->formattedWarnUsers = [];
         foreach ($warnUsers as $user) {
             $accessLog = $accessLogRepository->findLatestByUser($user);
-            if ( ! is_null($accessLog)) {
+            if (! is_null($accessLog)) {
                 $lastAccess = $accessLog->getAccessTime()->toDateTimeString();
             } else {
                 $lastAccess = 'Never Visited';
@@ -96,8 +97,11 @@ class AuditResult extends Notification implements ShouldQueue
                 'fullName' => $user->getFullname(),
                 'email' => $user->getEmail(),
                 'jointAccount' => count($user->getAccount()->getUsers()) > 1 ? 'yes' : 'no',
-                'balance' => 'TODO',
-                'lastPaymentDate' => $bankTransactionRepository->findLatestTransactionByAccount($user->getAccount())->getTransactionDate()->toDateTimeString(),
+                'balance' => $user->getProfile()->getBalance(),
+                'lastPaymentDate' => $bankTransactionRepository
+                    ->findLatestTransactionByAccount($user->getAccount())
+                    ->getTransactionDate()
+                    ->toDateTimeString(),
                 'lastVisitDate' => $lastAccess,
             ];
         }
@@ -105,7 +109,7 @@ class AuditResult extends Notification implements ShouldQueue
         $this->formattedRevokeUsers = [];
         foreach ($revokeUsers as $user) {
             $accessLog = $accessLogRepository->findLatestByUser($user);
-            if ( ! is_null($accessLog)) {
+            if (! is_null($accessLog)) {
                 $lastAccess = $accessLog->getAccessTime()->toDateTimeString();
             } else {
                 $lastAccess = 'Never Visited';
@@ -116,8 +120,11 @@ class AuditResult extends Notification implements ShouldQueue
                 'fullName' => $user->getFullname(),
                 'email' => $user->getEmail(),
                 'jointAccount' => count($user->getAccount()->getUsers()) > 1 ? 'yes' : 'no',
-                'balance' => 'TODO',
-                'lastPaymentDate' => $bankTransactionRepository->findLatestTransactionByAccount($user->getAccount())->getTransactionDate()->toDateString(),
+                'balance' => $user->getProfile()->getBalance(),
+                'lastPaymentDate' => $bankTransactionRepository
+                    ->findLatestTransactionByAccount($user->getAccount())
+                    ->getTransactionDate()
+                    ->toDateString(),
                 'lastVisitDate' => $lastAccess,
             ];
         }
@@ -125,7 +132,7 @@ class AuditResult extends Notification implements ShouldQueue
         $this->formattedReinstateUsers = [];
         foreach ($reinstateUsers as $user) {
             $accessLog = $accessLogRepository->findLatestByUser($user);
-            if ( ! is_null($accessLog)) {
+            if (! is_null($accessLog)) {
                 $lastAccess = $accessLog->getAccessTime()->toDateTimeString();
             } else {
                 $lastAccess = 'Never Visited';
@@ -145,7 +152,7 @@ class AuditResult extends Notification implements ShouldQueue
                 'fullName' => $user->getFullname(),
                 'email' => $user->getEmail(),
                 'jointAccount' => count($user->getAccount()->getUsers()) > 1 ? 'yes' : 'no',
-                'balance' => 'TODO',
+                'balance' => $user->getProfile()->getBalance(),
                 'dateMadeExMember' => $dateMadeExMember,
                 'lastVisitDate' => $lastAccess,
             ];
@@ -155,7 +162,8 @@ class AuditResult extends Notification implements ShouldQueue
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return array
      */
     public function via($notifiable)
@@ -166,14 +174,16 @@ class AuditResult extends Notification implements ShouldQueue
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
         return (new MailMessage)
             ->subject('HMS Audit results')
-            ->markdown('emails.banking.auditResults',
+            ->markdown(
+                'emails.banking.auditResults',
                 [
                 'teamName' => ($notifiable instanceof Role) ? $notifiable->getDisplayName() : $notifiable->getName(),
                 'formattedApproveUsers' => $this->formattedApproveUsers,
@@ -188,7 +198,8 @@ class AuditResult extends Notification implements ShouldQueue
     /**
      * Get the Slack representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return \Illuminate\Notifications\Messages\SlackMessage
      */
     public function toSlack($notifiable)

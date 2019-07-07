@@ -1,0 +1,4 @@
+[submodule "database/database"]
+	path = database/database
+	url = https://github.com/NottingHack/database.git
+	branch = hms2

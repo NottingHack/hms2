@@ -9,7 +9,9 @@ use HMS\Entities\GateKeeper\Pin;
 use App\Http\Controllers\Controller;
 use HMS\Entities\GateKeeper\RfidTag;
 use HMS\Repositories\UserRepository;
+use HMS\Entities\GateKeeper\PinState;
 use Doctrine\ORM\EntityNotFoundException;
+use HMS\Entities\GateKeeper\RfidTagState;
 use HMS\Repositories\GateKeeper\PinRepository;
 use HMS\Repositories\GateKeeper\RfidTagRepository;
 
@@ -32,12 +34,16 @@ class RfidTagsController extends Controller
 
     /**
      * Create a new controller instance.
+     *
      * @param RfidTagRepository $rfidTagRepository
-     * @param UserRepository    $userRepository
-     * @param PinRepository     $pinRepository
+     * @param UserRepository $userRepository
+     * @param PinRepository $pinRepository
      */
-    public function __construct(RfidTagRepository $rfidTagRepository, UserRepository $userRepository, PinRepository $pinRepository)
-    {
+    public function __construct(
+        RfidTagRepository $rfidTagRepository,
+        UserRepository $userRepository,
+        PinRepository $pinRepository
+    ) {
         $this->rfidTagRepository = $rfidTagRepository;
         $this->userRepository = $userRepository;
         $this->pinRepository = $pinRepository;
@@ -51,13 +57,14 @@ class RfidTagsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
         if ($request->user) {
-            $user = $this->userRepository->find($request->user);
+            $user = $this->userRepository->findOneById($request->user);
             if (is_null($user)) {
                 throw EntityNotFoundException::fromClassNameAndIdentifier(User::class, ['id' => $request->user]);
             }
@@ -81,7 +88,8 @@ class RfidTagsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  RfidTag  $rfidTag
+     * @param RfidTag $rfidTag
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(RfidTag $rfidTag)
@@ -99,8 +107,9 @@ class RfidTagsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  RfidTag  $rfidTag
+     * @param \Illuminate\Http\Request $request
+     * @param RfidTag $rfidTag
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, RfidTag $rfidTag)
@@ -116,7 +125,7 @@ class RfidTagsController extends Controller
             'friendlyName' => 'nullable|string|max:128',
             'state' => [
                 'required',
-                Rule::in(array_keys($rfidTag->statusStrings)),
+                Rule::in(array_keys(RfidTagState::STATE_STRINGS)),
             ],
         ]);
 
@@ -131,14 +140,15 @@ class RfidTagsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  RfidTag  $rfidTag
+     * @param RfidTag $rfidTag
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(RfidTag $rfidTag)
     {
         $this->rfidTagRepository->remove($rfidTag);
 
-        flash()->success('RfidTag \''.$rfidTag->getBestRfidSerial().'\' removed.');
+        flash()->success('RfidTag \'' . $rfidTag->getBestRfidSerial() . '\' removed.');
 
         return redirect()->route('rfid-tags.index', ['user' => $rfidTag->getUser()->getId()]);
     }
@@ -146,22 +156,23 @@ class RfidTagsController extends Controller
     /**
      * Reactivate a Pin for gatekeeper rfid card enrolment.
      *
-     * @param  Pin    $pin
+     * @param Pin $pin
+     *
      * @return \Illuminate\Http\Response
      */
     public function reactivatePin(Pin $pin)
     {
-        if ($pin->getState() != Pin::STATE_CANCELLED) {
+        if ($pin->getState() != PinState::CANCELLED) {
             flash('Pin state can not be changed')->error();
 
             return redirect()->route('rfid-tags.index', ['user' => $pin->getUser()->getId()]);
         }
 
-        $pin->setStateEnrol();
+        $pin->setStateEnroll();
         $this->pinRepository->save($pin);
 
-        flash()->success('Pin \''.$pin->getPin().'\' set to Enrol');
+        flash()->success('Pin \'' . $pin->getPin() . '\' set to Enrol');
 
-        return redirect()->route('rfid-tags.index', ['user' => $pin->getUser()->getId()]);
+        return back();
     }
 }

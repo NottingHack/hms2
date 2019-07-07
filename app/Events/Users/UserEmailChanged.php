@@ -22,7 +22,7 @@ class UserEmailChanged
     /**
      * Create a new event instance.
      *
-     * @param User   $user
+     * @param User $user
      * @param string $oldEmail
      */
     public function __construct(User $user, string $oldEmail)

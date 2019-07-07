@@ -24,10 +24,10 @@ $factory->defineAs(Transaction::class, 'payment', function (Faker\Generator $fak
 
     return [
         'user' => $attributes['user'],
-        'transactionDatetime' => Carbon::now(),
+        'transactionDatetime' => $attributes['user']->getProfile()->getJoinDate(),
         'amount' => $amount,
         'type' => TransactionType::VEND,
         'status' => TransactionState::COMPLETE,
-        'description' => 'Note payment - £'.$amount / 100,
+        'description' => 'Note payment - £' . $amount / 100,
     ];
 });

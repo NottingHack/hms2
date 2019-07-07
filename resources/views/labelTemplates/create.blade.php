@@ -4,7 +4,7 @@
 
 @section('content')
 <form role="form" method="POST" action="{{ route('labels.store') }}">
-  {{ csrf_field() }}
+  @csrf
   @include ('labelTemplates.partials.form', ['submitButtonText' => 'Add template'])
 </form>
 @endsection

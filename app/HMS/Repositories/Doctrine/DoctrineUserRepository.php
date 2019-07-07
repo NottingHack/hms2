@@ -13,16 +13,18 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     use PaginatesFromRequest;
 
     /**
-     * @param  $id
+     * @param $id
+     *
      * @return null|User
      */
-    public function find($id)
+    public function findOneById($id)
     {
-        return parent::find($id);
+        return parent::findOneById($id);
     }
 
     /**
-     * @param  string $username
+     * @param string $username
+     *
      * @return array
      */
     public function findByUsername(string $username)
@@ -31,7 +33,8 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     }
 
     /**
-     * @param  string $email
+     * @param string $email
+     *
      * @return array
      */
     public function findByEmail(string $email)
@@ -40,7 +43,8 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     }
 
     /**
-     * @param  string $email
+     * @param string $email
+     *
      * @return User|null
      */
     public function findOneByEmail(string $email)
@@ -52,21 +56,22 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
      * @param string $searchQuery
      * @param null|bool $hasAccount limit to users with associated accounts
      * @param bool $paginate
-     * @param int    $perPage
+     * @param int $perPage
      * @param string $pageName
+     *
      * @return User[]|array|\Illuminate\Pagination\LengthAwarePaginator
      */
-    public function searchLike(string $searchQuery,
+    public function searchLike(
+        string $searchQuery,
         ?bool $hasAccount = false,
         bool $paginate = false,
         $perPage = 15,
-        $pageName = 'page')
-    {
+        $pageName = 'page'
+    ) {
         $q = parent::createQueryBuilder('user')
             ->leftJoin('user.profile', 'profile')->addSelect('profile')
             ->leftJoin('user.account', 'account')->addSelect('account')
-            ->where('user.name LIKE :keyword')
-            ->orWhere('user.lastname LIKE :keyword')
+            ->where('CONCAT(user.name, \' \', user.lastname) LIKE :keyword')
             ->orWhere('user.username LIKE :keyword')
             ->orWhere('user.email LIKE :keyword')
             ->orWhere('profile.addressPostcode LIKE :keyword')
@@ -76,7 +81,9 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
             $q = $q->andWhere('user.account IS NOT NULL');
         }
 
-        $q = $q->setParameter('keyword', '%'.$searchQuery.'%')
+        $q = $q->orderBy('CONCAT(user.name, \' \', user.lastname)', 'ASC');
+
+        $q = $q->setParameter('keyword', '%' . $searchQuery . '%')
             ->getQuery();
 
         if ($paginate) {
@@ -87,8 +94,9 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     }
 
     /**
-     * save User to the DB.
-     * @param  User $user
+     * Save User to the DB.
+     *
+     * @param User $user
      */
     public function save(User $user)
     {
@@ -98,7 +106,7 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
 
     /**
      * @param Role $role
-     * @param int    $perPage
+     * @param int $perPage
      * @param string $pageName
      *
      * @return \Illuminate\Pagination\LengthAwarePaginator

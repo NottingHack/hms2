@@ -41,24 +41,31 @@ class RoleController extends Controller
 
     /**
      * Create a new controller instance.
+     *
+     * @param RoleManager          $roleManager
+     * @param RoleRepository       $roleRepository
+     * @param UserManager          $userManager
+     * @param PermissionRepository $permissionRepository
+     * @param UserRepository $userRepository
      */
-    public function __construct(RoleManager $roleManager,
+    public function __construct(
+        RoleManager $roleManager,
         RoleRepository $roleRepository,
         UserManager $userManager,
         PermissionRepository $permissionRepository,
-        UserRepository $userRepository)
-    {
+        UserRepository $userRepository
+    ) {
         $this->roleManager = $roleManager;
         $this->roleRepository = $roleRepository;
         $this->userManager = $userManager;
         $this->permissionRepository = $permissionRepository;
         $this->userRepository = $userRepository;
 
-        $this->middleware('can:role.view.all')->only(['index', 'show']);
+        $this->middleware('canAny:role.view.all,team.view')->only(['index', 'show']);
         $this->middleware('can:role.edit.all')->only(['edit', 'update']);
 
-        $this->middleware('can:role.edit.all')->only('removeUser');
-        $this->middleware('can:profile.edit.all')->only('removeUser');
+        $this->middleware('can:role.grant.team')->only('addUserToTeam');
+        $this->middleware('canAny:role.edit.all,profiel.edit.all')->only('removeUser');
     }
 
     /**
@@ -79,6 +86,7 @@ class RoleController extends Controller
      * Show a specific role.
      *
      * @param Role $role the Role
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Role $role)
@@ -92,6 +100,7 @@ class RoleController extends Controller
      * Show the edit form for a role.
      *
      * @param Role $role the Role
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Role $role)
@@ -108,6 +117,7 @@ class RoleController extends Controller
      *
      * @param Role $role the Role
      * @param Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Role $role, Request $request)
@@ -124,23 +134,60 @@ class RoleController extends Controller
     }
 
     /**
+     * Add a specific user to a a specific team role.
+     *
+     * @param Role $role the role
+     * @param User $user the user
+     */
+    public function addUserToTeam(Role $role, Request $request)
+    {
+        $request['role_name'] = $role->getName();
+        $userRepository = $this->userRepository;
+
+        $this->validate($request, [
+            'user_id' => [
+                'required',
+                'exists:HMS\Entities\User,id',
+                'bail',
+                function ($attribute, $value, $fail) use ($userRepository, $role) {
+                    $user = $userRepository->findOneById($value);
+                    if ($user->hasRole($role)) {
+                        $fail('User is already on the team.');
+                    }
+                },
+            ],
+            'role_name' => 'starts_with:team.',
+        ]);
+
+        $user = $userRepository->findOneById($request->user_id);
+
+        $this->roleManager->addUserToRole($user, $role);
+
+        flash($user->getFullname() . ' added to ' . $role->getDisplayName())->success();
+
+        return back();
+    }
+
+    /**
      * Remove a specific user from a specific role.
      *
      * @param Role $role the role
      * @param User $user the user
+     *
      * @return \Illuminate\Http\Response
      */
     public function removeUser(Role $role, User $user)
     {
         $this->userManager->removeRoleFromUser($user, $role);
 
-        return redirect()->route('roles.show', ['role' => $role->getId()]);
+        return back();
     }
 
     /**
      * Remove a specific user from a specific role.
      *
      * @param ArrayCollection|array $list
+     *
      * @return array
      */
     private function formatDotNotationList($list)
@@ -148,9 +195,9 @@ class RoleController extends Controller
         $formattedList = [];
 
         foreach ($list as $item) {
-            list($category, $name) = explode('.', $item->getName());
+            [$category, $name] = explode('.', $item->getName());
 
-            if ( ! isset($formattedList[$category])) {
+            if (! isset($formattedList[$category])) {
                 $formattedList[$category] = [];
             }
 

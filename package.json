@@ -10,18 +10,34 @@
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "devDependencies": {
-    "axios": "^0.18",
-    "bootstrap": "^4.0.0",
+    "@fortawesome/fontawesome-pro": "^5.8.2",
+    "@fullcalendar/bootstrap": "^4.1.0",
+    "@fullcalendar/core": "^4.1.0",
+    "@fullcalendar/interaction": "^4.1.0",
+    "@fullcalendar/list": "^4.1.0",
+    "@fullcalendar/moment": "^4.1.0",
+    "@fullcalendar/moment-timezone": "^4.1.0",
+    "@fullcalendar/timegrid": "^4.1.0",
+    "@fullcalendar/vue": "^4.1.0",
+    "axios": "^0.19",
+    "bootstrap": "^4.3.1",
+    "bootstrap-confirmation2": "^4.1.0",
+    "bootstrap4-card-tables": "^1.1.1",
     "cross-env": "^5.1",
-    "jquery": "^3.2",
-    "laravel-mix": "^2.0",
+    "humanize-duration": "^3.18.0",
+    "jquery": "^3.4.1",
+    "laravel-mix": "^4.0.15",
     "lodash": "^4.17.5",
-    "popper.js": "^1.12",
-    "select2": "latest",
-    "select2-foundation": "https://github.com/egemensarica/select2-foundation.git#v6",
-    "vue": "^2.5.7"
-  },
-  "dependencies": {
-    "select2-foundation_theme": "https://github.com/egemensarica/select2-foundation.git#v6"
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.25",
+    "popper.js": "^1.15.0",
+    "resolve-url-loader": "^2.3.2",
+    "sass": "^1.20.1",
+    "sass-loader": "^7.1.0",
+    "select2": "^4.0.7",
+    "select2-theme-bootstrap4": "^0.2.0-beta.3",
+    "vue": "^2.6.10",
+    "vue-loading-overlay": "^3.2.0",
+    "vue-template-compiler": "^2.6.10"
   }
 }

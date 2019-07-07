@@ -6,8 +6,6 @@ HMS\Entities\GateKeeper\Zone:
   id:
     id:
       type: integer
-      options:
-        unsigned: true
       generator:
         strategy: AUTO
   fields:
@@ -19,5 +17,12 @@ HMS\Entities\GateKeeper\Zone:
       length: 10
     permissionCode:
       type: string
-      length: 16
+      length: 100
       nullable: true
+  oneToMany:
+    zoneOccupancts:
+      targetEntity: \HMS\Entities\GateKeeper\ZoneOccupant
+      mappedBy: zone
+    zoneOccupancyLogs:
+      targetEntity: \HMS\Entities\GateKeeper\ZoneOccupancyLog
+      mappedBy: zone

@@ -22,17 +22,22 @@ class LabelTemplateController extends Controller
     protected $labelTemplateFactory;
 
     /**
+     * Create a new controller instance.
+     *
      * @param LabelTemplateRepository $labelTemplateRepository
+     * @param LabelTemplateFactory $labelTemplateFactory
      */
-    public function __construct(LabelTemplateRepository $labelTemplateRepository, LabelTemplateFactory $labelTemplateFactory)
-    {
+    public function __construct(
+        LabelTemplateRepository $labelTemplateRepository,
+        LabelTemplateFactory $labelTemplateFactory
+    ) {
         $this->labelTemplateRepository = $labelTemplateRepository;
+        $this->labelTemplateFactory = $labelTemplateFactory;
 
         $this->middleware('can:labelTemplate.view')->only(['index', 'show']);
         $this->middleware('can:labelTemplate.create')->only(['create', 'store']);
         $this->middleware('can:labelTemplate.edit')->only(['edit', 'update', 'destroy']);
         $this->middleware('can:labelTemplate.print')->only(['showPrint', 'print']);
-        $this->labelTemplateFactory = $labelTemplateFactory;
     }
 
     /**
@@ -51,6 +56,7 @@ class LabelTemplateController extends Controller
      * Show a specific resource.
      *
      * @param LabelTemplate $label
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(LabelTemplate $label)
@@ -73,14 +79,15 @@ class LabelTemplateController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(LabelTemplateRequest $request)
     {
         $label = $this->labelTemplateFactory->createFromRequest($request);
         $this->labelTemplateRepository->save($label);
-        flash()->success('Label Template \''.$label->getTemplateName().'\' created.');
+        flash()->success('Label Template \'' . $label->getTemplateName() . '\' created.');
 
         return redirect()->route('labels.show', ['label' => $label->getTemplateName()]);
     }
@@ -88,7 +95,8 @@ class LabelTemplateController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  LabelTemplate  $label
+     * @param LabelTemplate $label
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(LabelTemplate $label)
@@ -99,15 +107,16 @@ class LabelTemplateController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  LabelTemplate  $label
+     * @param \Illuminate\Http\Request $request
+     * @param LabelTemplate $label
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(LabelTemplateRequest $request, LabelTemplate $label)
     {
         $label->updateWithRequest($request);
         $this->labelTemplateRepository->save($label);
-        flash()->success('Label Template \''.$label->getTemplateName().'\' updated.');
+        flash()->success('Label Template \'' . $label->getTemplateName() . '\' updated.');
 
         return redirect()->route('labels.show', ['label' => $label->getTemplateName()]);
     }
@@ -115,13 +124,14 @@ class LabelTemplateController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  LabelTemplate  $label
+     * @param LabelTemplate $label
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(LabelTemplate $label)
     {
         $this->labelTemplateRepository->remove($label);
-        flash()->success('Label Template \''.$label->getTemplateName().'\' removed.');
+        flash()->success('Label Template \'' . $label->getTemplateName() . '\' removed.');
 
         return redirect()->route('labels.index');
     }
@@ -130,7 +140,8 @@ class LabelTemplateController extends Controller
      * Preper a label template for printing,
      * A label template may require some user provided field.
      *
-     * @param  LabelTemplate $label
+     * @param LabelTemplate $label
+     *
      * @return \Illuminate\Http\Response
      */
     public function showPrint(LabelTemplate $label)
@@ -146,8 +157,9 @@ class LabelTemplateController extends Controller
     /**
      * Send a label off for printing.
      *
-     * @param  Request       $request
-     * @param  LabelTemplate $label
+     * @param Request $request
+     * @param LabelTemplate $label
+     *
      * @return \Illuminate\Http\Response
      */
     public function print(Request $request, LabelTemplate $label)
@@ -159,14 +171,15 @@ class LabelTemplateController extends Controller
         $input = $request->all();
         unset($input['_token']);
         unset($input['copiesToPrint']);
-        event(new ManualPrint(
-            $label->getTemplateName(),
-            $input,
-            (int) $request->input('copiesToPrint')
+        event(
+            new ManualPrint(
+                $label->getTemplateName(),
+                $input,
+                (int) $request->input('copiesToPrint')
             )
         );
 
-        flash()->success('Label Template \''.$label->getTemplateName().'\' sent to printer.');
+        flash()->success('Label Template \'' . $label->getTemplateName() . '\' sent to printer.');
 
         return redirect()->route('labels.show', ['label' => $label->getTemplateName()]);
     }

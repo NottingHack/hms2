@@ -8,7 +8,7 @@ HMS\Entities\LabelTemplate:
       field_name: deletedAt
       time_aware: false
   id:
-    template_name:
+    templateName:
       type: string
       length: 200
       generator:

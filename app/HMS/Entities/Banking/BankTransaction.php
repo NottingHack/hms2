@@ -22,7 +22,7 @@ class BankTransaction
     protected $description;
 
     /**
-     * @var float
+     * @var int
      */
     protected $amount;
 
@@ -87,7 +87,7 @@ class BankTransaction
     }
 
     /**
-     * @return float
+     * @return int
      */
     public function getAmount()
     {
@@ -95,7 +95,7 @@ class BankTransaction
     }
 
     /**
-     * @param float $amount
+     * @param int $amount
      *
      * @return self
      */

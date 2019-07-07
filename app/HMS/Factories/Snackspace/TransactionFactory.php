@@ -24,10 +24,11 @@ class TransactionFactory
     /**
      * Function to instantiate a new Transaction from given params.
      *
-     * @param  User   $user
-     * @param  int    $amount
-     * @param  string $type
-     * @param  string $description
+     * @param User $user
+     * @param int $amount
+     * @param string $type
+     * @param string $description
+     *
      * @return Transaction
      */
     public function create(User $user, int $amount, string $type, string $description)

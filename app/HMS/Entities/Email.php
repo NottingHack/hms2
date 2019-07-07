@@ -49,13 +49,18 @@ class Email
 
     /**
      * Create a new email record.
-     * @param array  $toAddress      Array of to adddress in format [ email => name]
+     *
+     * @param array $toAddress Array of to adddress in format [ email => name]
      * @param string $subject
      * @param string $body
      * @param string $fullString
      */
-    public function __construct(array $toAddress, string $subject, string $body, string $fullString)
-    {
+    public function __construct(
+        array $toAddress,
+        string $subject,
+        string $body,
+        string $fullString
+    ) {
         $this->toAddress = $toAddress;
         $this->subject = $subject;
         $this->body = $body;

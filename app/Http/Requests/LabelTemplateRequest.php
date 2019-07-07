@@ -29,7 +29,7 @@ class LabelTemplateRequest extends FormRequest
         ];
 
         if ($this->isMethod('post')) {
-            $rules['templateName'] = 'required|unique:HMS\Entities\LabelTemplate,template_name';
+            $rules['templateName'] = 'required|unique:HMS\Entities\LabelTemplate,templateName';
         }
 
         return $rules;

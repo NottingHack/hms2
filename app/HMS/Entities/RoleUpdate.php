@@ -31,12 +31,30 @@ class RoleUpdate
      */
     protected $createdAt;
 
-    public function __construct(User $user, ?Role $roleAdded = null, ?Role $roleRemoved = null)
-    {
+    /**
+     * @var User|null
+     */
+    protected $updateBy;
+
+    /**
+     * Construct a new Role Update.
+     *
+     * @param User $user
+     * @param Role|null $roleAdded
+     * @param Role|null $roleRemoved
+     * @param User|null $updateBy
+     */
+    public function __construct(
+        User $user,
+        ?Role $roleAdded = null,
+        ?Role $roleRemoved = null,
+        ?User $updateBy = null
+    ) {
         $this->user = $user;
         $this->roleAdded = $roleAdded;
         $this->roleRemoved = $roleRemoved;
         $this->createdAt = Carbon::now();
+        $this->updateBy = $updateBy;
     }
 
     /**
@@ -87,5 +105,13 @@ class RoleUpdate
     public function getCreatedAt(): Carbon
     {
         return $this->createdAt;
+    }
+
+    /**
+     * @return User|null
+     */
+    public function getUpdateBy()
+    {
+        return $this->updateBy;
     }
 }

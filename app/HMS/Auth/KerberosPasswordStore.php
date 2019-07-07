@@ -6,52 +6,85 @@ class KerberosPasswordStore implements PasswordStore
 {
     /**
      * The KADM5 connection to use.
+     *
      * @var KADM5.
      */
-    private $__krbConn;
+    private $krbConn;
 
     /**
      * The relm to use.
+     *
      * @var string
      */
-    private $__realm;
+    private $realm;
 
     /**
      * If true, we're in debug mode and shouldn't actually take any action.
+     *
      * @var bool
      */
-    private $__debug;
+    private $debug;
+
+    /**
+     * Username for use with KADM5.
+     *
+     * @var string
+     */
+    protected $username;
+
+    /**
+     * Keytab file path.
+     *
+     * @var string
+     */
+    protected $keytab;
 
     /**
      * Constructor.
+     *
+     * @param \Illuminate\Foundation\Application $app
      */
     public function __construct($app)
     {
         $config = $app['config']->get('passwordstore.kerberos', []);
 
-        $this->__debug = $config['debug'];
-        $this->__realm = $config['realm'];
-        $this->__krbConn = new \KADM5($config['username'], $config['keytab'], true); // use keytab=true
+        $this->debug = $config['debug'];
+        $this->realm = $config['realm'];
+        $this->username = $config['username'];
+        $this->keytab = $config['keytab'];
+    }
+
+    /**
+     * Lazy initialize the KADM5 connection as it leaks sockets.
+     */
+    protected function initAdmin()
+    {
+        if (is_null($this->krbConn)) {
+            $this->krbConn = new \KADM5($this->username, $this->keytab, true); // use keytab=true
+        }
     }
 
     /**
      * Add a new identity with the specified username and password.
      *
-     * @param  string $username
-     * @param  string $password
+     * @param string $username
+     * @param string $password
+     *
      * @return void
      */
     public function add($username, $password)
     {
+        $this->initAdmin();
+
         /* Just incase some smartarse appends /admin to their handle
         * in an attempt to become a krb admin... */
         if (stristr($username, '/admin') === false) {
             try {
                 $princ = new \KADM5Principal(strtolower($username));
-                $this->__krbConn->createPrincipal($princ, $password);
+                $this->krbConn->createPrincipal($princ, $password);
             } catch (\Exception $e) {
-                if ($this->__debug) {
-                    echo "$e\n";
+                if ($this->debug) {
+                    \Log::warning('KerberosPasswordStore@add: ' . $e->getMessage());
                 }
 
                 return false;
@@ -59,8 +92,8 @@ class KerberosPasswordStore implements PasswordStore
 
             return true;
         } else {
-            if ($this->__debug) {
-                echo 'Attempt to create admin user stopped.';
+            if ($this->debug) {
+                \Log::warning('KerberosPasswordStore@add: Attempt to create admin user stopped.');
             }
 
             return false;
@@ -70,17 +103,20 @@ class KerberosPasswordStore implements PasswordStore
     /**
      * Remove the specified identity.
      *
-     * @param  string $username
+     * @param string $username
+     *
      * @return void
      */
     public function remove($username)
     {
+        $this->initAdmin();
+
         try {
-            $princ = $this->__krbConn->getPrincipal(strtolower($username));
+            $princ = $this->krbConn->getPrincipal(strtolower($username));
             $princ->delete();
         } catch (\Exception $e) {
-            if ($this->__debug) {
-                echo "$e\n";
+            if ($this->debug) {
+                \Log::warning('KerberosPasswordStore@remove: ' . $e->getMessage());
             }
 
             return false;
@@ -92,13 +128,16 @@ class KerberosPasswordStore implements PasswordStore
     /**
      * Check if a specified identity exists.
      *
-     * @param  string $username
+     * @param string $username
+     *
      * @return bool
      */
     public function exists($username)
     {
+        $this->initAdmin();
+
         try {
-            $this->__krbConn->getPrincipal(strtolower($username));
+            $this->krbConn->getPrincipal(strtolower($username));
         } catch (\Exception $e) {
             if ($e->getMessage() == 'Principal does not exist') {
                 return false;
@@ -113,18 +152,22 @@ class KerberosPasswordStore implements PasswordStore
     /**
      * Set the password for a specified identity.
      *
-     * @param  string $username
-     * @param  string $password
+     * @param string $username
+     * @param string $password
+     *
      * @return void
      */
     public function setPassword($username, $password)
     {
+        $this->initAdmin();
+
         try {
-            $princ = $this->__krbConn->getPrincipal(strtolower($username));
+            $princ = $this->krbConn->getPrincipal(strtolower($username));
             $princ->changePassword($password);
         } catch (\Exception $e) {
-            if ($this->__debug) {
-                echo "$e\n";
+            // TODO: if 'Principal does not exist' should we add the missing account?
+            if ($this->debug) {
+                \Log::warning('KerberosPasswordStore@setPassword: ' . $e->getMessage());
             }
 
             return false;
@@ -136,18 +179,20 @@ class KerberosPasswordStore implements PasswordStore
     /**
      * Check the password for a specified identity is correct.
      *
-     * @param  string $username
-     * @param  string $password
+     * @param string $username
+     * @param string $password
+     *
      * @return bool
      */
     public function checkPassword($username, $password)
     {
         $ticket = new \KRB5CCache();
+
         try {
-            $ticket->initPassword(strtolower($username) . '@' . $this->__realm, $password);
+            $ticket->initPassword(strtolower($username) . '@' . $this->realm, $password);
         } catch (\Exception $e) {
-            if ($this->__debug) {
-                echo "$e\n";
+            if ($this->debug) {
+                \Log::warning('KerberosPasswordStore@checkPassword: ' . $e->getMessage());
             }
 
             return false;

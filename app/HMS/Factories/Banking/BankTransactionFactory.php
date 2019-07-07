@@ -20,20 +20,23 @@ class BankTransactionFactory
      * @param BankTransactionRepository $bankTransactionRepository
      * @param AccountRepository $accountRepository
      */
-    public function __construct(BankTransactionRepository $bankTransactionRepository, AccountRepository $accountRepository)
-    {
+    public function __construct(
+        BankTransactionRepository $bankTransactionRepository,
+        AccountRepository $accountRepository
+    ) {
         $this->bankTransactionRepository = $bankTransactionRepository;
         $this->accountRepository = $accountRepository;
     }
 
     /**
      * Function to instantiate a new BankTransaction from given params.
+     *
      * @param Bank $bank
      * @param Carbon $transactionDate
      * @param string $description
-     * @param float $amount
+     * @param int $amount
      */
-    public function create(Bank $bank, Carbon $transactionDate, string $description, float $amount)
+    public function create(Bank $bank, Carbon $transactionDate, string $description, int $amount)
     {
         $_bankTransaction = new BankTransaction();
         $_bankTransaction->setBank($bank);
@@ -41,7 +44,7 @@ class BankTransactionFactory
         $_bankTransaction->setDescription($description);
         $_bankTransaction->setAmount($amount);
 
-        if (preg_match('/HSNTSB\S{10}(?= )/', $description, $matches) == 1) {
+        if (preg_match('/HSNTSB\S{10}/', $description, $matches) == 1) {
             $account = $this->accountRepository->findOneByPaymentRef($matches[0]);
             $_bankTransaction->setAccount($account);
         }

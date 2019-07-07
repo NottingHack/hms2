@@ -2,27 +2,45 @@
 
 namespace HMS\Entities;
 
+use HMS\Entities\GateKeeper\Pin;
 use HMS\Entities\Banking\Account;
 use Laravel\Passport\HasApiTokens;
+use HMS\Entities\GateKeeper\RfidTag;
 use HMS\Traits\Entities\SoftDeletable;
 use HMS\Traits\Entities\Timestampable;
 use LaravelDoctrine\ACL\Roles\HasRoles;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Doctrine\Common\Collections\ArrayCollection;
+use HMS\Traits\Entities\DoctrineMustVerifyEmail;
 use LaravelDoctrine\ORM\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use LaravelDoctrine\ACL\Permissions\HasPermissions;
 use LaravelDoctrine\ACL\Contracts\HasRoles as HasRoleContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use LaravelDoctrine\ACL\Contracts\HasPermissions as HasPermissionsContract;
 
-class User implements AuthenticatableContract, CanResetPasswordContract, HasRoleContract, HasPermissionsContract, AuthorizableContract
+class User implements
+    AuthenticatableContract,
+    CanResetPasswordContract,
+    HasRoleContract,
+    HasPermissionsContract,
+    AuthorizableContract,
+    MustVerifyEmailContract
 {
-    use CanResetPassword, Notifiable, HasRoles, HasPermissions, SoftDeletable, Timestampable, Authorizable, HasApiTokens;
+    use CanResetPassword,
+        Notifiable,
+        HasRoles,
+        HasPermissions,
+        SoftDeletable,
+        Timestampable,
+        Authorizable,
+        HasApiTokens,
+        DoctrineMustVerifyEmail;
 
-    const MIN_PASSWORD_LENGTH = 3;
+    const MIN_PASSWORD_LENGTH = 8;
 
     /**
      * @var int
@@ -75,20 +93,36 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     protected $emails;
 
     /**
+     * @var null|Pin
+     */
+    protected $pin;
+
+    /**
+     * @var ArrayCollection|RfidTag[]
+     */
+    protected $rfidTags;
+
+    /**
      * User constructor.
+     *
      * @param string $firstname
      * @param string $lastname
      * @param string $username
      * @param string $email
      */
-    public function __construct(string $firstname, string $lastname, string $username, string $email)
-    {
+    public function __construct(
+        string $firstname,
+        string $lastname,
+        string $username,
+        string $email
+    ) {
         $this->name = $firstname;
         $this->lastname = $lastname;
         $this->username = $username;
         $this->email = $email;
         $this->roles = new ArrayCollection();
         $this->emails = new ArrayCollection();
+        $this->rfidTags = new ArrayCollection();
     }
 
     /**
@@ -161,18 +195,20 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
 
     /**
      * Get the password for the user.
+     *
      * @return string
      */
     public function getAuthPassword()
     {
-        throw new Exception('Not Supported');
+        throw new \Exception('Not Supported');
     }
 
     /**
      * Get the token value for the "remember me" session.
+     *
      * @return string
      */
-    public function getRememberToken(): string
+    public function getRememberToken()
     {
         return $this->{$this->getRememberTokenName()};
     }
@@ -193,6 +229,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
 
     /**
      * Get the column name for the "remember me" token.
+     *
      * @return string
      */
     public function getRememberTokenName(): string
@@ -227,6 +264,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
 
     /**
      * @param null|Profile $profile
+     *
      * @return self
      */
     public function setProfile(?Profile $profile): self
@@ -246,6 +284,7 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
 
     /**
      * @param null|Account $account
+     *
      * @return self
      */
     public function setAccount(?Account $account): self
@@ -256,7 +295,8 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     }
 
     /**
-     * use by passport.
+     * Use by passport.
+     *
      * @return int
      */
     public function getKey()
@@ -312,5 +352,45 @@ class User implements AuthenticatableContract, CanResetPasswordContract, HasRole
     public function getEmails()
     {
         return $this->emails;
+    }
+
+    /**
+     * @return null|HMS\Entities\GateKeeper\Pin
+     */
+    public function getPin()
+    {
+        return $this->pin;
+    }
+
+    /**
+     * @param null|HMS\Entities\GateKeeper\Pin $pin
+     *
+     * @return self
+     */
+    public function setPin(Pin $pin)
+    {
+        $this->pin = $pin;
+
+        return $this;
+    }
+
+    /**
+     * @return RfidTag[]
+     */
+    public function getRfidTags()
+    {
+        return $this->rfidTags;
+    }
+
+    /**
+     * @param ArrayCollection|RfidTag[] $rfidTags
+     *
+     * @return self
+     */
+    public function setRfidTags($rfidTags)
+    {
+        $this->rfidTags = $rfidTags;
+
+        return $this;
     }
 }

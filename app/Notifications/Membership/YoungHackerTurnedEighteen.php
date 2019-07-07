@@ -30,7 +30,8 @@ class YoungHackerTurnedEighteen extends Notification implements ShouldQueue
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return array
      */
     public function via($notifiable)
@@ -41,22 +42,24 @@ class YoungHackerTurnedEighteen extends Notification implements ShouldQueue
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
         return (new MailMessage)
             ->subject('Young Hacker Turned 18')
-            ->greeting('Hello '.$notifiable->getgetDisplayName())
-            ->line($this->user->getFullname().' has tunred 18 is and now a full member.')
-            ->action('View member', route('user.show', ['user' => $this->user->getId()]));
+            ->greeting('Hello ' . $notifiable->getDisplayName())
+            ->line($this->user->getFullname() . ' has tunred 18 is and now a full member.')
+            ->action('View member', route('users.admin.show', ['user' => $this->user->getId()]));
     }
 
     /**
      * Get the Slack representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return \Illuminate\Notifications\Messages\SlackMessage
      */
     public function toSlack($notifiable)
@@ -68,7 +71,11 @@ class YoungHackerTurnedEighteen extends Notification implements ShouldQueue
             ->attachment(function ($attachment) use ($userId) {
                 $attachment->title('Young Hacker Turned 18', route('user.show', ['user' => $userId]))
                             ->content('A young hacker has tunred 18 is and now a full member.')
-                            ->fallback('A young hacker has tunred 18 is and now a full member. <'.route('user.show', ['user' => $userId]).'|review>')
+                            ->fallback(
+                                'A young hacker has tunred 18 is and now a full member. <'
+                                . route('users.admin.show', ['user' => $userId])
+                                . '|review>'
+                            )
                             ->timestamp(Carbon::now());
             });
     }

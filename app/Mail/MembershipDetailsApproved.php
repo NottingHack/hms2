@@ -8,6 +8,7 @@ use Illuminate\Mail\Mailable;
 use HMS\Repositories\MetaRepository;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use HMS\Repositories\Banking\BankRepository;
 
 class MembershipDetailsApproved extends Mailable implements ShouldQueue
 {
@@ -38,11 +39,16 @@ class MembershipDetailsApproved extends Mailable implements ShouldQueue
      *
      * @param User $user
      * @param MetaRepostiory $metaRepository
+     * @param BankRepository $bankRepository
      */
-    public function __construct(User $user, MetaRepository $metaRepository)
-    {
-        $this->accountNo = $metaRepository->get('so_accountNumber');
-        $this->sortCode = $metaRepository->get('so_sortCode');
+    public function __construct(
+        User $user,
+        MetaRepository $metaRepository,
+        BankRepository $bankRepository
+    ) {
+        $bank = $bankRepository->find($metaRepository->get('so_bank_id'));
+        $this->accountNo = $bank->getAccountNumber();
+        $this->sortCode = $bank->getSortCode();
         $this->fullname = $user->getFullname();
         $this->paymentRef = $user->getAccount()->getPaymentRef();
     }

@@ -95,6 +95,7 @@
       bookingsUrl: String,
       // initialBookings: Object,
       toolId: Number,
+      toolRestricted: Boolean,
       userCanBook: {
         type: Object,
         default: () => ({
@@ -176,7 +177,7 @@
           return false;
         }
 
-        if (! (this.userCanBook.normal || this.userCanBook.induction || this.userCanBook.maintenance)) {
+        if (this.toolRestricted && ! (this.userCanBook.normal || this.userCanBook.induction || this.userCanBook.maintenance)) {
           // we dont have permissino to even make a booking
           flash('This tool requires an induction for use', 'warning');
 
@@ -566,7 +567,7 @@
           );
         }
 
-        if (this.userCanBook.normal) {
+        if (this.userCanBook.normal || ! this.toolRestricted) {
           var normalLabel = '&nbsp;Normal';
           if (! (this.userCanBook.maintenance || this.userCanBook.induction)) {
             // Don't need to include the text if this is the only type of booking you can make

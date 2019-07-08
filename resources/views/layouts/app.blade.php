@@ -29,7 +29,6 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=XBJgQp70gw">
   <link rel="manifest" href="/site.webmanifest?v=XBJgQp70gw">
   <link rel="mask-icon" href="/safari-pinned-tab.svg?v=XBJgQp70gw" color="#195905">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="HMS">
   <meta name="application-name" content="HMS">
   <meta name="msapplication-TileColor" content="#195905">

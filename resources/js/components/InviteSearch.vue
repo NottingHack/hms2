@@ -14,7 +14,7 @@
           />
     </div>
     <div class="form-group text-center">
-      <button class="btn btn-success"type="submit"><i class="fas fa-paper-plane" aria-hidden="true"></i> Resend Invite</button>
+      <button class="btn btn-primary"type="submit"><i class="fas fa-paper-plane" aria-hidden="true"></i> Resend Invite</button>
     </div>
   </form>
 </template>

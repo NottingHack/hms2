@@ -2,6 +2,7 @@
 
 use App\Jobs\PostGitDeployedJob;
 use Illuminate\Foundation\Inspiring;
+use App\Jobs\GateKeeper\ZoneOccupantResetJob;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,7 @@ Artisan::command('inspire', function () {
 Artisan::command('hms:auto-deploy', function () {
     PostGitDeployedJob::dispatchNow();
 })->describe('Run the GitDeployedJob');
+
+Artisan::command('hms:reset-zones', function () {
+    ZoneOccupantResetJob::dispatchNow();
+})->describe('Run the ZoneOccupantResetJob');

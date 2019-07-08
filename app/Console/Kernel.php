@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Jobs\Snackspace\LogDebtJob;
 use Illuminate\Console\Scheduling\Schedule;
+use App\Jobs\GateKeeper\ZoneOccupantResetJob;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
@@ -42,6 +43,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('horizon:snapshot')->everyFiveMinutes();
 
         $schedule->job(new LogDebtJob)->daily();
+        $schedule->job(new ZoneOccupantResetJob)->twiceDaily();
     }
 
     /**

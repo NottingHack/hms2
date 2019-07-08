@@ -4,6 +4,8 @@ namespace HMS\Entities\GateKeeper;
 
 class Zone
 {
+    const OFF_SITE = 'Off-site';
+
     /**
      * @var int
      */

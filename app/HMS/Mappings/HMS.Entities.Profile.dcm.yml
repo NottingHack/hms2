@@ -60,7 +60,9 @@ HMS\Entities\Profile:
       nullable: true
     contactNumberVerified:
       type: boolean
-      default: false
+      nullable: false
+      options:
+          default: false
     dateOfBirth:
       type: date
       column: date_of_birth

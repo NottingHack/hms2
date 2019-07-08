@@ -4,6 +4,10 @@
 
 @section('content')
 <div class="container">
+  <p>
+    To book a tool click on the <span style="color: #195905"><i class="fal fa-calendar-alt" aria-hidden="true"></i></span> or name.<br>
+    Use of some tools is restricted and needs and induction first.
+  </p>
   <div class="table-responsive no-more-tables">
     <table class="table table-striped table-hover">
       <thead>
@@ -21,8 +25,8 @@
       <tbody>
         @foreach($tools as $tool)
         <tr>
-          <td class="d-none d-md-table-cell" style="width:25px"><span style="color: #195905"><i class="fal fa-calendar-alt" aria-hidden="true"></i></span></td>
-          <td data-title="Tool"><a href="{{ route('bookings.index', $tool->getId()) }}">{{ $tool->getName() }}</a></td>
+          <td class="d-none d-md-table-cell" style="width:25px"><a href="{{ route('bookings.index', $tool->getId()) }}"><span style="color: #195905"><i class="fal fa-calendar-alt" aria-hidden="true"></i></span></a></td>
+          <td data-title="Tool"><a href="{{ route('bookings.index', $tool->getId()) }}"><span class="d-md-none" style="color: #195905"><i class="fal fa-calendar-alt" aria-hidden="true"></i>&nbsp;</span>{{ $tool->getName() }}</a></td>
           <td data-title="Status">
             {{ $tool->getStatusString() }}
             @if($tool->getStatus() == \HMS\Entities\Tools\ToolState::DISABLED && ! is_null($tool->getStatusText()))
@@ -39,6 +43,11 @@
             {{-- @can('tools.maintainer.grant')
             <a class="btn btn-primary btn-sm mb-1" href=""><i class="fas fa-plus" aria-hidden="true"></i> Appoint Maintainer</a>
             @endcan --}}
+            @if($tool->isRestricted())
+            @cannot('tools.' . $tool->getPermissionName() . '.use')
+            <a class="btn btn-primary btn-sm mb-1" href="{{ Meta::get('induction_request_html') }}" target="_blank">Request an Induction</a>
+            @endcannot
+            @endif
           </td>
           @endcanany
         </tr>

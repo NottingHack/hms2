@@ -47,6 +47,8 @@ return [
         'GateKeeper\RfidTag',
         'GateKeeper\Door',
         'GateKeeper\Zone',
+        'GateKeeper\ZoneOccupant',
+        'GateKeeper\ZoneOccupancyLog',
         'GateKeeper\AccessLog',
         'Banking\Bank',
         'Banking\BankTransaction',

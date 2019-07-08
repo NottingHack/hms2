@@ -55,7 +55,7 @@ class BookingController extends Controller
 
         $userCanBook = [
             'userId' => $user->getId(),
-            'normal' => $user->can('tools.' . $tool->getPermissionName() . '.book'), // TODO: true for an unrestriced tool
+            'normal' => $user->can('tools.' . $tool->getPermissionName() . '.book'),
             'normalCurrentCount' => $this->bookingRepository->countNormalByToolAndUser($tool, $user),
             'induction' => $user->can('tools.' . $tool->getPermissionName() . '.book.induction'),
             'maintenance' => $user->can('tools.' . $tool->getPermissionName() . '.book.maintenance'),

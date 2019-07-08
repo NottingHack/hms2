@@ -7,7 +7,7 @@
         {{ $team->getDisplayName() }}&nbsp;
         <div class="btn-group float-right" role="group">
           @can('team.view')
-          <a href="{{ route('teams.show', $team->getId()) }}" class="btn btn-primary btn-sm btn-sm-spacing"><i class="far fa-eye" aria-hidden="true"></i></a>
+          <a href="{{ route('teams.show', $team->getId()) }}" class="btn btn-primary btn-sm"><i class="far fa-eye" aria-hidden="true"></i></a>
           @endcan
         </div>
       </span>

@@ -19,7 +19,7 @@
         <tr>
           <td data-title="Name">{{ $user->getFullname() }}</td>
           <td data-title="Actions" class="actions">
-            <a href="{{ route('membership.approval', $user->getId()) }}" class="btn btn-primary btn-sm btn-sm-spacing"><i class="far fa-eye" aria-hidden="true"></i> Review</a>
+            <a href="{{ route('membership.approval', $user->getId()) }}" class="btn btn-primary btn-sm"><i class="far fa-eye" aria-hidden="true"></i> Review</a>
           </td>
         </tr>
   @if ($loop->last)

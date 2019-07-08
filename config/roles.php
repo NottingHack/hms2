@@ -51,7 +51,7 @@ return [
         'box.edit.all',
         'box.printLabel.self',
         'box.printLabel.all',
-        'bankTransation.upload',    // used by oauth client
+        'bankTransactions.upload',   // used by oauth client
         'snackspace.transaction.view.self',
         'snackspace.transaction.view.all',
         'snackspace.transaction.create.all', // Trustees, finance and snackspace team can create manual transactions

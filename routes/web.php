@@ -82,7 +82,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 // Routes in the following group can only be access once logged-in and have verified your email address and if enabled valid 2fa
 Route::middleware(['auth', 'verified', '2fa'])->group(function () {
-    Route::get('access-codes', 'HomeController@accessCodes')->name('accessCodes');
+    Route::view('access-codes', 'pages.access')->middleware('can:accessCodes.view')->name('accessCodes');
 
     // ROLE
     Route::get('roles', 'RoleController@index')->name('roles.index');

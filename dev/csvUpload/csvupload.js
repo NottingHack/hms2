@@ -83,8 +83,9 @@ function uplaodJsonTransactions(transactions)
     // until the token expires
     oauth.interceptor(tokenProvider, getOwnerCredentials)
   );
+  instance.defaults.headers.common['Accept'] = 'application/json';
 
-  instance.post('https://hmsdev/api/bank_transactions/upload', transactions)
+  instance.post('https://hmsdev/api/bank-transactions/upload', transactions)
   .then(function (response) {
     console.log('Transactions Uploaded');
     // console.log(response);

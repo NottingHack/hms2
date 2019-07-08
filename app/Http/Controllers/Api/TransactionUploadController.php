@@ -10,7 +10,7 @@ use Illuminate\Http\Response as IlluminateResponse;
 class TransactionUploadController extends Controller
 {
     /**
-     * Upload new bank transacions via json.
+     * Upload new bank transactions via json.
      *
      * @param Request $request
      *
@@ -20,27 +20,31 @@ class TransactionUploadController extends Controller
     {
         /*
          * example JSON for request
+         * make sure headers are
+         * Accept: application/json
+         * Content-Type: application/json
+         * body =
          * [
          *     {
          *         "sortCode" : "77-22-24",
          *         "accountNumber" : "13007568",
-         *         "date" : "2017-07-17",
+         *         "date" : "2017-07-17T00:00:00.000Z",
          *         "description" : "Edward Murphy HSNTSBBPRK86CWPV 4",
          *         "amount" : 500
          *     },
          *     {
          *         "sortCode" : "77-22-24",
          *         "accountNumber" : "13007568",
-         *         "date" : "2017-07-16",
+         *         "date" : "2017-07-16T00:00:00.000Z",
          *         "description" : "Gordon Johnson HSNTSB27496WPB2M 53",
          *         "amount" : 700
          *     },
          *     {
          *         "sortCode" : "77-22-24",
          *         "accountNumber" : "13007568",
-         *         "date" : "2017-07-16",
+         *         "date" : "2017-07-16T00:00:00.000Z",
          *         "description" : "BIZSPACE",
-         *         "amount" : -2389.63
+         *         "amount" : -238963
          *     }
          * ]
          */

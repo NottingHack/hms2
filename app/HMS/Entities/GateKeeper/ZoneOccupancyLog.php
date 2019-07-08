@@ -73,4 +73,52 @@ class ZoneOccupancyLog
     {
         return $this->timeEntered;
     }
+
+    /**
+     * @param Zone $zone
+     *
+     * @return self
+     */
+    public function setZone(Zone $zone)
+    {
+        $this->zone = $zone;
+
+        return $this;
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return self
+     */
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @param Carbon $timeExited
+     *
+     * @return self
+     */
+    public function setTimeExited(Carbon $timeExited)
+    {
+        $this->timeExited = $timeExited;
+
+        return $this;
+    }
+
+    /**
+     * @param Carbon $timeEntered
+     *
+     * @return self
+     */
+    public function setTimeEntered(Carbon $timeEntered)
+    {
+        $this->timeEntered = $timeEntered;
+
+        return $this;
+    }
 }

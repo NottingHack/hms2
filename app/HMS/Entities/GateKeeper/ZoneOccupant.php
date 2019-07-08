@@ -23,16 +23,6 @@ class ZoneOccupant
     protected $timeEntered;
 
     /**
-     * Gets the value of id.
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
      * @return User
      */
     public function getUser()
@@ -54,5 +44,41 @@ class ZoneOccupant
     public function getTimeEntered()
     {
         return $this->timeEntered;
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return self
+     */
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @param Zone $zone
+     *
+     * @return self
+     */
+    public function setZone(Zone $zone)
+    {
+        $this->zone = $zone;
+
+        return $this;
+    }
+
+    /**
+     * @param Carbon $timeEntered
+     *
+     * @return self
+     */
+    public function setTimeEntered(Carbon $timeEntered)
+    {
+        $this->timeEntered = $timeEntered;
+
+        return $this;
     }
 }

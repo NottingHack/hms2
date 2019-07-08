@@ -10,7 +10,7 @@
   <div class="card-footer">
     {{-- TODO: only if inducted on any tool --}}
     <a href="{{ route('tools.index') }}" class="btn btn-primary mb-1">Add Booking</a>
-    <a href="https://goo.gl/Jl59IM" class="btn btn-primary mb-1" target="_blank">Request an Induction</a>
+    <a href="{{ Meta::get('induction_request_html') }}" class="btn btn-primary mb-1" target="_blank">Request an Induction</a>
   </div>
 </div>
 @endcan

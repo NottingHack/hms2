@@ -9,6 +9,28 @@ use HMS\Repositories\GateKeeper\ZoneRepository;
 class DoctrineZoneRepository extends EntityRepository implements ZoneRepository
 {
     /**
+     * Find all zones.
+     *
+     * @return Zone[]
+     */
+    public function findAll()
+    {
+        return parent::findAll();
+    }
+
+    /**
+     * Find one zone by short name
+     *
+     * @param string $shortName
+     *
+     * @return Zone
+     */
+    public function findOneByShortName(string $shortName)
+    {
+        return parent::findOneByShortName($shortName);
+    }
+
+    /**
      * Save Zone to the DB.
      *
      * @param Zone $zone

@@ -48,17 +48,17 @@ Projects for {{ $user->getFirstname() }}
           <td data-title="State">{{ $project->getStateString() }}</td>
           <td data-title="Actions" class="actions">
             @can('project.view.self')
-            <a href="{{ route('projects.show', $project->getId()) }}" class="btn btn-primary btn-sm btn-sm-spacing"><i class="far fa-eye" aria-hidden="true"></i> View Project</a><br>
+            <a href="{{ route('projects.show', $project->getId()) }}" class="btn btn-primary btn-sm mb-1"><i class="far fa-eye" aria-hidden="true"></i> View Project</a><br>
             @endcan
             @can('project.printLabel.self')
             @if (SiteVisitor::inTheSpace() && $project->getState() == \HMS\Entities\Members\ProjectState::ACTIVE)
-            <a href="{{ route('projects.print', $project->getId()) }}" class="btn btn-primary btn-sm btn-sm-spacing"><i class="fas fa-print" aria-hidden="true"></i> Print Do-Not-Hack Label</a><br>
+            <a href="{{ route('projects.print', $project->getId()) }}" class="btn btn-primary btn-sm mb-1"><i class="fas fa-print" aria-hidden="true"></i> Print Do-Not-Hack Label</a><br>
             @endif
             @endcan
             @can('project.edit.self')
             @if ($project->getState() == \HMS\Entities\Members\ProjectState::ACTIVE)
             @if ($project->getUser() == \Auth::user())
-            <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm btn-sm-spacing">
+            <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm mb-1">
               <form action="{{ route('projects.markComplete', $project->getId()) }}" method="POST" style="display: none">
                 @method('PATCH')
                 @csrf
@@ -66,7 +66,7 @@ Projects for {{ $user->getFirstname() }}
               <i class="fas fa-check" aria-hidden="true"></i> Mark Complete
             </a>
             @else
-            <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm btn-sm-spacing">
+            <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm mb-1">
               <form action="{{ route('projects.markAbandoned', $project->getId()) }}" method="POST" style="display: none">
                 @method('PATCH')
                 @csrf
@@ -76,7 +76,7 @@ Projects for {{ $user->getFirstname() }}
             @endif
             @endif
             @if ($project->getState() != \HMS\Entities\Members\ProjectState::ACTIVE)
-            <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm btn-sm-spacing">
+            <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm mb-1">
               <form action="{{ route('projects.markActive', $project->getId()) }}" method="POST" style="display: none">
                 @method('PATCH')
                 @csrf

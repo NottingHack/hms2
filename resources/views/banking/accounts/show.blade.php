@@ -27,7 +27,7 @@ Account {{ $account->getPaymentRef() }}
             <span class="align-middle">
               {{ $user->getFullname() }}
               <div class="btn-group float-right" role="group" aria-label="View User">
-                <a href="{{ route('users.admin.show', $user->getId()) }}" class="btn btn-primary btn-sm btn-sm-spacing"><i class="far fa-eye" aria-hidden="true"></i></a>
+                <a href="{{ route('users.admin.show', $user->getId()) }}" class="btn btn-primary btn-sm"><i class="far fa-eye" aria-hidden="true"></i></a>
                 </div>
             </span>
           </td>

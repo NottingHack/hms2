@@ -156,7 +156,7 @@ class BookingManager
         }
 
         // Maintenance slot length can be to the end of the day
-        $maxLength = $start->diffInMinutes($start->copy()->endOfDay());
+        $maxLength = $start->diffInMinutes($start->copy()->endOfDay()->addMinutes(1));
 
         $basicChecks = $this->basicTimeChecks($start, $end, $maxLength);
         if (is_string($basicChecks)) {
@@ -213,7 +213,7 @@ class BookingManager
 
         if ($booking->getType() == BookingType::MAINTENANCE) {
             // Maintenance slot length can be to the end of the day
-            $maxLength = $start->diffInMinutes($start->copy()->endOfDay());
+            $maxLength = $start->diffInMinutes($start->copy()->endOfDay()->addMinutes(1));
         } else {
             $maxLength = $tool->getLengthMax();
         }

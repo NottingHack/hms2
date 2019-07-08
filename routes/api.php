@@ -11,6 +11,10 @@
 |
 */
 
+/*
+ * All urls should be hyphenated
+ */
+
 // All api route names are prefixed with api.
 Route::name('api.')->middleware('auth:api')->group(function () {
     // Search for members
@@ -36,6 +40,6 @@ Route::name('api.')->middleware('auth:api')->group(function () {
 // All 'client_credentials' api route names are prefixed with client.
 Route::name('client.')->middleware('client')->group(function () {
     // upload new bankTransactions/
-    Route::post('bank_transactions/upload', 'Api\TransactionUploadController@upload')
+    Route::post('bank-transactions/upload', 'Api\TransactionUploadController@upload')
         ->name('bankTransactions.upload');
 });

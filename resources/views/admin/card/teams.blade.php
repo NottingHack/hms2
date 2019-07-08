@@ -8,10 +8,10 @@
         {{ $team->getDisplayName() }}&nbsp;
         <div class="btn-group float-right" role="group">
           @can('team.view')
-          <a href="{{ route('teams.show', $team->getId()) }}" class="btn btn-primary btn-sm btn-sm-spacing"><i class="far fa-eye" aria-hidden="true"></i></a>
+          <a href="{{ route('teams.show', $team->getId()) }}" class="btn btn-primary btn-sm"><i class="far fa-eye" aria-hidden="true"></i></a>
           @endcan
           @can('role.grant.team')
-          <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-danger btn-sm btn-sm-spacing" aria-label="delete">
+          <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-danger btn-sm" aria-label="delete">
             <form action="{{ route('roles.removeUser', ['role' => $team->getId(), 'user' => $user->getId()]) }}" method="POST" style="display: inline">
               @method('DELETE')
               @csrf
@@ -28,7 +28,7 @@
   </ul>
 {{--   @can('role.grant.team')
   <div class="card-footer">
-    <a href="#" class="btn btn-primary mb-1"><i class="fas fa-plus" aria-hidden="true"></i> Add to a Team</a>
+    <a href="#" class="btn btn-primary"><i class="fas fa-plus" aria-hidden="true"></i> Add to a Team</a>
   </div>
   @endcan --}}
 </div>

@@ -7,7 +7,7 @@
       <span class="align-middle">
         Refrence: <span id="paymentRef">{{ $user->getAccount()->getPaymentRef() }}</span>&nbsp;
         <div class="btn-group float-right" role="group" aria-label="View Account">
-          <button class="btn btn-light btn-sm btn-sm-spacing" onclick="copyToClipboard('#paymentRef')"><i class="far fa-copy "></i></button>
+          <button class="btn btn-light btn-sm" onclick="copyToClipboard('#paymentRef')"><i class="far fa-copy "></i></button>
         </div>
       </span>
     </li>
@@ -51,7 +51,7 @@
   @endforelse
   @endcan
   <div class="card-footer">
-    <a href="{{ route('banking.accounts.show', $user->getAccount()->getId()) }}" class="btn btn-primary  mb-1"><i class="far fa-eye" aria-hidden="true"></i> View Account</a>
+    <a href="{{ route('banking.accounts.show', $user->getAccount()->getId()) }}" class="btn btn-primary"><i class="far fa-eye" aria-hidden="true"></i> View Account</a>
   </div>
 </div>
 @endif

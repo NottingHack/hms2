@@ -17,21 +17,21 @@ Membership Payments for {{ $user->getFirstname() }}
         <dd>
           <span class="align-middle">
             <span id="accountNo">{{ $accountNo }}</span>&nbsp;
-            <button class="btn btn-light btn-sm btn-sm-spacing" onclick="copyToClipboard('#accountNo')"><i class="far fa-copy "></i></button>
+            <button class="btn btn-light btn-sm" onclick="copyToClipboard('#accountNo')"><i class="far fa-copy "></i></button>
           </span>
         </dd>
         <dt>Sort Code</dt>
         <dd>
           <span class="align-middle">
             <span id="sortCode">{{ $sortCode }}</span>&nbsp;
-            <button class="btn btn-light btn-sm btn-sm-spacing" onclick="copyToClipboard('#sortCode')"><i class="far fa-copy "></i></button>
+            <button class="btn btn-light btn-sm" onclick="copyToClipboard('#sortCode')"><i class="far fa-copy "></i></button>
           </span>
         </dd>
         <dt>Reference</dt>
         <dd>
           <span class="align-middle">
             <span id="paymentRef">{{ $paymentRef }}</span>&nbsp;
-            <button class="btn btn-light btn-sm btn-sm-spacing" onclick="copyToClipboard('#paymentRef')"><i class="far fa-copy "></i></button>
+            <button class="btn btn-light btn-sm" onclick="copyToClipboard('#paymentRef')"><i class="far fa-copy "></i></button>
           </span>
         </dd>
       </dl>

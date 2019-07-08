@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use HMS\Entities\Role;
 use HMS\Entities\Tools\Booking;
-use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\Members\BoxRepository;
 use HMS\Repositories\Tools\BookingRepository;

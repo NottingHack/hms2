@@ -9,7 +9,6 @@ use HMS\Repositories\RoleRepository;
 use HMS\Repositories\RoleUpdateRepository;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use HMS\Repositories\GateKeeper\PinRepository;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackMessage;
 use HMS\Repositories\GateKeeper\AccessLogRepository;
@@ -54,7 +53,6 @@ class AuditResult extends Notification implements ShouldQueue
      * @param int                       $paymentNotificationsClearCount
      * @param AccessLogRepository       $accessLogRepository
      * @param BankTransactionRepository $bankTransactionRepository
-     * @param PinRepository             $pinRepository
      * @param RoleUpdateRepository      $roleUpdateRepository
      * @param RoleRepository            $roleRepository
      */
@@ -66,7 +64,6 @@ class AuditResult extends Notification implements ShouldQueue
         $paymentNotificationsClearCount,
         AccessLogRepository $accessLogRepository,
         BankTransactionRepository $bankTransactionRepository,
-        PinRepository $pinRepository,
         RoleUpdateRepository $roleUpdateRepository,
         RoleRepository $roleRepository
     ) {
@@ -78,7 +75,7 @@ class AuditResult extends Notification implements ShouldQueue
                 'id' => $user->getId(),
                 'fullName' => $user->getFullname(),
                 'email' => $user->getEmail(),
-                'pin' => $pinRepository->findByUser($user)[0]->getPin(),
+                'pin' => $user->getPin(),
                 'jointAccount' => count($user->getAccount()->getUsers()) > 1 ? 'yes' : 'no',
             ];
         }

@@ -15,7 +15,6 @@ use HMS\Repositories\RoleUpdateRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Events\Banking\NewMembershipPaidFor;
 use App\Events\Banking\NonPaymentOfMembership;
-use HMS\Repositories\GateKeeper\PinRepository;
 use App\Events\Banking\MembershipPaymentWarning;
 use HMS\Repositories\GateKeeper\AccessLogRepository;
 use HMS\Repositories\Banking\BankTransactionRepository;
@@ -57,11 +56,6 @@ class MembershipAudit implements ShouldQueue
     protected $roleUpdateRepository;
 
     /**
-     * @var PinRepository
-     */
-    protected $pinRepository;
-
-    /**
      * Create a new event listener.
      *
      * @param BankTransactionRepository              $bankTransactionRepository
@@ -70,7 +64,6 @@ class MembershipAudit implements ShouldQueue
      * @param RoleRepository                         $roleRepository
      * @param AccessLogRepository                    $accessLogRepository
      * @param RoleUpdateRepository                   $roleUpdateRepository
-     * @param PinRepository                          $pinRepository
      */
     public function __construct(
         BankTransactionRepository $bankTransactionRepository,
@@ -78,8 +71,7 @@ class MembershipAudit implements ShouldQueue
         MetaRepository $metaRepository,
         RoleRepository $roleRepository,
         AccessLogRepository $accessLogRepository,
-        RoleUpdateRepository $roleUpdateRepository,
-        PinRepository $pinRepository
+        RoleUpdateRepository $roleUpdateRepository
     ) {
         $this->bankTransactionRepository = $bankTransactionRepository;
         $this->membershipStatusNotificationRepository = $membershipStatusNotificationRepository;
@@ -87,7 +79,6 @@ class MembershipAudit implements ShouldQueue
         $this->roleRepository = $roleRepository;
         $this->accessLogRepository = $accessLogRepository;
         $this->roleUpdateRepository = $roleUpdateRepository;
-        $this->pinRepository = $pinRepository;
     }
 
     /**
@@ -289,7 +280,6 @@ class MembershipAudit implements ShouldQueue
             count($notificationPaymentUsers),
             $this->accessLogRepository,
             $this->bankTransactionRepository,
-            $this->pinRepository,
             $this->roleUpdateRepository,
             $this->roleRepository
         );

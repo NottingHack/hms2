@@ -7,6 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use HMS\Repositories\MetaRepository;
 use Illuminate\Queue\SerializesModels;
+use HMS\Repositories\Members\BoxRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use HMS\Repositories\Banking\BankRepository;
 

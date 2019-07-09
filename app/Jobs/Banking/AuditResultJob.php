@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Banking;
 
 use HMS\Entities\Role;
 use HMS\Entities\User;

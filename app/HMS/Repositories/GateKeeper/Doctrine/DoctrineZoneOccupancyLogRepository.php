@@ -2,8 +2,8 @@
 
 namespace HMS\Repositories\GateKeeper\Doctrine;
 
-use HMS\Entities\GateKeeper\ZoneOccupancyLog;
 use Doctrine\ORM\EntityRepository;
+use HMS\Entities\GateKeeper\ZoneOccupancyLog;
 use HMS\Repositories\GateKeeper\ZoneOccupancyLogRepository;
 
 class DoctrineZoneOccupancyLogRepository extends EntityRepository implements ZoneOccupancyLogRepository

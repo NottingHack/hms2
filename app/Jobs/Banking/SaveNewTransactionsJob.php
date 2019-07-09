@@ -1,68 +1,55 @@
 <?php
 
-namespace App\Listeners\Banking;
+namespace App\Jobs\Banking;
 
 use Carbon\Carbon;
 use HMS\Entities\Role;
+use Illuminate\Bus\Queueable;
 use HMS\Repositories\RoleRepository;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Events\Banking\TransactionsUploaded;
+use Illuminate\Foundation\Bus\Dispatchable;
 use HMS\Repositories\Banking\BankRepository;
 use HMS\Factories\Banking\BankTransactionFactory;
 use App\Notifications\Banking\UnmatchedTransaction;
 use HMS\Repositories\Banking\BankTransactionRepository;
 
-class SaveNewTransactions implements ShouldQueue
+class SaveNewTransactionsJob implements ShouldQueue
 {
-    /**
-     * @var BankRepository
-     */
-    protected $bankRepository;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
-     * @var BankTransactionFactory
+     * @var array
      */
-    protected $bankTransactionFactory;
+    protected $transactions;
 
     /**
-     * @var BankTransactionRepository
+     * Create a new job instance.
+     *
+     * @return void
      */
-    protected $bankTransactionRepository;
+    public function __construct(array $transactions)
+    {
+        $this->transactions = $transactions;
+    }
 
     /**
-     * @var RoleRepository
-     */
-    protected $roleRepository;
-
-    /**
-     * Create the event listener.
+     * Execute the job.
      *
      * @param BankRepository $bankRepository
      * @param BankTransactionFactory $bankTransactionFactory
      * @param BankTransactionRepository $bankTransactionRepository
      * @param RoleRepository $roleRepository
+     *
+     * @return void
      */
-    public function __construct(
+    public function handle(
         BankRepository $bankRepository,
         BankTransactionFactory $bankTransactionFactory,
         BankTransactionRepository $bankTransactionRepository,
         RoleRepository $roleRepository
     ) {
-        $this->bankRepository = $bankRepository;
-        $this->bankTransactionFactory = $bankTransactionFactory;
-        $this->bankTransactionRepository = $bankTransactionRepository;
-        $this->roleRepository = $roleRepository;
-    }
-
-    /**
-     * Handle the event.
-     *
-     * @param TransactionsUploaded $event
-     *
-     * @return void
-     */
-    public function handle(TransactionsUploaded $event)
-    {
         /**
          * Each transaction should be in the following form
          * {
@@ -76,15 +63,15 @@ class SaveNewTransactions implements ShouldQueue
         $unmatchedBank = [];
         $unmatchedTransaction = [];
 
-        foreach ($event->transactions as $transaction) {
-            $bank = $this->bankRepository->findOneByAccountNumber($transaction['accountNumber']);
+        foreach ($this->transactions as $transaction) {
+            $bank = $bankRepository->findOneByAccountNumber($transaction['accountNumber']);
             if (is_null($bank)) {
                 $unmatchedBank[] = $transaction;
             }
 
             $transactionDate = new Carbon($transaction['date']);
 
-            $bankTransaction = $this->bankTransactionFactory
+            $bankTransaction = $bankTransactionFactory
                 ->create(
                     $bank,
                     $transactionDate,
@@ -93,7 +80,7 @@ class SaveNewTransactions implements ShouldQueue
                 );
 
             // now see if we already have this transaction on record? before saving it
-            $bankTransaction = $this->bankTransactionRepository->findOrSave($bankTransaction);
+            $bankTransaction = $bankTransactionRepository->findOrSave($bankTransaction);
 
             // if this transaction has no account add it to our unmatched list
             if (is_null($bankTransaction->getAccount())) {
@@ -103,7 +90,7 @@ class SaveNewTransactions implements ShouldQueue
 
         // email finance team
         if (count($unmatchedBank) || count($unmatchedTransaction)) {
-            $financeRole = $this->roleRepository->findOneByName(Role::TEAM_FINANCE);
+            $financeRole = $roleRepository->findOneByName(Role::TEAM_FINANCE);
 
             $financeRole->notify(new UnmatchedTransaction($unmatchedTransaction, $unmatchedBank));
         }

@@ -1,62 +1,50 @@
 <?php
 
-namespace App\Listeners\Membership;
+namespace App\Jobs\Membership;
 
 use Carbon\Carbon;
 use HMS\Entities\Role;
+use Illuminate\Bus\Queueable;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
+use Illuminate\Support\Facades\Mail;
 use HMS\User\Permissions\RoleManager;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
 use App\Mail\Membership\EighteenCongratulations;
-use App\Events\Membership\YoungHackerAuditRequest;
 use App\Notifications\Membership\YoungHackerTurnedEighteen;
 
-class AuditYoungHackers implements ShouldQueue
+class AuditYoungHackersJob implements ShouldQueue
 {
-    use InteractsWithQueue;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
-     * @var RoleRepository
+     * Create a new job instance.
+     *
+     * @return void
      */
-    protected $roleRepository;
+    public function __construct()
+    {
+        //
+    }
 
     /**
-     * @var RoleManager
-     */
-    protected $roleManager;
-
-    /**
-     * @var UserRepository
-     */
-    protected $userRepository;
-
-    /**
-     * Create the event listener.
+     * Execute the job.
      *
      * @param RoleRepository $roleRepository
      * @param RoleManager $roleManager
      * @param UserRepository $userRepository
+     *
+     * @return void
      */
-    public function __construct(
+    public function handle(
         RoleRepository $roleRepository,
         RoleManager $roleManager,
         UserRepository $userRepository
     ) {
-        $this->roleRepository = $roleRepository;
-        $this->roleManager = $roleManager;
-        $this->userRepository = $userRepository;
-    }
-
-    /**
-     * Handle the event.
-     *
-     * @param YoungHackerAuditRequest $event
-     */
-    public function handle(YoungHackerAuditRequest $event)
-    {
-        $youngMembers = $this->roleRepository->findOneByName(Role::MEMBER_YOUNG)->getUsers();
+        $youngMembers = $roleRepository->findOneByName(Role::MEMBER_YOUNG)->getUsers();
 
         foreach ($youngMembers as $user) {
             $dob = $user->getProfile()->getDateOfBirth();
@@ -65,20 +53,20 @@ class AuditYoungHackers implements ShouldQueue
                 // TODO: email someone about it
                 continue;
             } elseif ($dob->diffInYears(Carbon::now()) >= 18) { //TODO: meta constants
-                $this->roleManager->addUserToRoleByName($user, Role::MEMBER_CURRENT);
-                $this->roleManager->removeUserFromRoleByName($user, Role::MEMBER_YOUNG);
+                $roleManager->addUserToRoleByName($user, Role::MEMBER_CURRENT);
+                $roleManager->removeUserFromRoleByName($user, Role::MEMBER_YOUNG);
 
                 // email  user
-                \Mail::to($user)->send(new EighteenCongratulations($user));
+                Mail::to($user)->send(new EighteenCongratulations($user));
 
                 // now email the audit results
                 $youngHackerTurnedEighteenNotification = new YoungHackerTurnedEighteen($user);
 
-                $membershipTeamRole = $this->roleRepository->findOneByName(Role::TEAM_MEMBERSHIP);
+                $membershipTeamRole = $roleRepository->findOneByName(Role::TEAM_MEMBERSHIP);
                 // TODO: decide if we should really send this?
                 // $membershipTeamRole->notify($youngHackerTurnedEighteenNotification);
 
-                $trusteesTeamRole = $this->roleRepository->findOneByName(Role::TEAM_TRUSTEES);
+                $trusteesTeamRole = $roleRepository->findOneByName(Role::TEAM_TRUSTEES);
                 $trusteesTeamRole->notify($youngHackerTurnedEighteenNotification);
             }
         }

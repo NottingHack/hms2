@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Banking;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Events\Banking\TransactionsUploaded;
+use App\Jobs\Banking\SaveNewTransactionsJob;
 use Illuminate\Http\Response as IlluminateResponse;
 
 class TransactionUploadController extends Controller
@@ -62,7 +62,7 @@ class TransactionUploadController extends Controller
             '*.amount' => 'required|integer',
         ]);
 
-        event(new TransactionsUploaded($request->input()));
+        SaveNewTransactionsJob::dispatch($request->input());
 
         return response()->json([], IlluminateResponse::HTTP_ACCEPTED);
     }

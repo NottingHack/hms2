@@ -1,97 +1,58 @@
 <?php
 
-namespace App\Listeners\Banking;
+namespace App\Jobs\Banking;
 
 use Carbon\Carbon;
 use HMS\Entities\Role;
 use Carbon\CarbonInterval;
-use App\Events\Banking\AuditRequest;
+use App\Jobs\AuditResultJob;
+use Illuminate\Bus\Queueable;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Notifications\Banking\AuditIssues;
-use App\Notifications\Banking\AuditResult;
-use HMS\Repositories\RoleUpdateRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
 use App\Events\Banking\NewMembershipPaidFor;
 use App\Events\Banking\NonPaymentOfMembership;
 use App\Events\Banking\MembershipPaymentWarning;
-use HMS\Repositories\GateKeeper\AccessLogRepository;
 use HMS\Repositories\Banking\BankTransactionRepository;
 use App\Events\Banking\ReinstatementOfMembershipPayment;
 use HMS\Repositories\Banking\MembershipStatusNotificationRepository;
 
-class MembershipAudit implements ShouldQueue
+class MembershipAuditJob implements ShouldQueue
 {
-    use InteractsWithQueue;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
-     * @var BankTransactionRepository
+     * Create a new job instance.
+     *
+     * @return void
      */
-    protected $bankTransactionRepository;
+    public function __construct()
+    {
+        //
+    }
 
     /**
-     * @var MembershipStatusNotificationRepository
-     */
-    protected $membershipStatusNotificationRepository;
-
-    /**
-     * @var MetaRepository
-     */
-    protected $metaRepository;
-
-    /**
-     * @var RoleRepository
-     */
-    protected $roleRepository;
-
-    /**
-     * @var AccessLogRepository
-     */
-    protected $accessLogRepository;
-
-    /**
-     * @var RoleUpdateRepository
-     */
-    protected $roleUpdateRepository;
-
-    /**
-     * Create a new event listener.
+     * Execute the job.
      *
      * @param BankTransactionRepository              $bankTransactionRepository
      * @param MembershipStatusNotificationRepository $membershipStatusNotificationRepository
      * @param MetaRepository                         $metaRepository
      * @param RoleRepository                         $roleRepository
-     * @param AccessLogRepository                    $accessLogRepository
-     * @param RoleUpdateRepository                   $roleUpdateRepository
+     *
+     * @return void
      */
-    public function __construct(
+    public function handle(
         BankTransactionRepository $bankTransactionRepository,
         MembershipStatusNotificationRepository $membershipStatusNotificationRepository,
         MetaRepository $metaRepository,
-        RoleRepository $roleRepository,
-        AccessLogRepository $accessLogRepository,
-        RoleUpdateRepository $roleUpdateRepository
+        RoleRepository $roleRepository
     ) {
-        $this->bankTransactionRepository = $bankTransactionRepository;
-        $this->membershipStatusNotificationRepository = $membershipStatusNotificationRepository;
-        $this->metaRepository = $metaRepository;
-        $this->roleRepository = $roleRepository;
-        $this->accessLogRepository = $accessLogRepository;
-        $this->roleUpdateRepository = $roleUpdateRepository;
-    }
-
-    /**
-     * Handle the event.
-     *
-     * @param AuditRequest $event
-     *
-     * @return mixed
-     */
-    public function handle(AuditRequest $event)
-    {
         // get the latest transaction date for all accounts, store in $latestTransactionForAccounts
-        $bts = $this->bankTransactionRepository->findLatestTransactionForAllAccounts();
+        $bts = $bankTransactionRepository->findLatestTransactionForAllAccounts();
         /*
             Results data format
             [account_id] => transaction_date
@@ -102,7 +63,7 @@ class MembershipAudit implements ShouldQueue
         }
 
         // need to grab a list of all members with current notifications
-        $outstandingNotifications = $this->membershipStatusNotificationRepository->findOutstandingNotifications();
+        $outstandingNotifications = $membershipStatusNotificationRepository->findOutstandingNotifications();
         /*
             Results data format
             [user_id, ...]
@@ -113,10 +74,10 @@ class MembershipAudit implements ShouldQueue
         }
 
         // grab the users in each of the various role states we need to audit
-        $awatingMembers = $this->roleRepository->findOneByName(Role::MEMBER_PAYMENT)->getUsers();
-        $currentMembers = $this->roleRepository->findOneByName(Role::MEMBER_CURRENT)->getUsers();
-        $youngMembers = $this->roleRepository->findOneByName(Role::MEMBER_YOUNG)->getUsers();
-        $exMembers = $this->roleRepository->findOneByName(Role::MEMBER_EX)->getUsers();
+        $awatingMembers = $roleRepository->findOneByName(Role::MEMBER_PAYMENT)->getUsers();
+        $currentMembers = $roleRepository->findOneByName(Role::MEMBER_CURRENT)->getUsers();
+        $youngMembers = $roleRepository->findOneByName(Role::MEMBER_YOUNG)->getUsers();
+        $exMembers = $roleRepository->findOneByName(Role::MEMBER_EX)->getUsers();
 
         // now we have the data we need from the DB setup some working vars
         $approveUsers = [];
@@ -131,10 +92,10 @@ class MembershipAudit implements ShouldQueue
         $dateNow = Carbon::now();
         $dateNow->setTime(0, 0, 0);
         $warnDate = clone $dateNow;
-        $warnDate->sub(CarbonInterval::instance(new \DateInterval($this->metaRepository->get('audit_warn_interval'))));
+        $warnDate->sub(CarbonInterval::instance(new \DateInterval($metaRepository->get('audit_warn_interval'))));
         $revokeDate = clone $dateNow;
         $revokeDate->sub(
-            CarbonInterval::instance(new \DateInterval($this->metaRepository->get('audit_revoke_interval')))
+            CarbonInterval::instance(new \DateInterval($metaRepository->get('audit_revoke_interval')))
         );
 
         foreach ($awatingMembers as $user) {
@@ -256,38 +217,28 @@ class MembershipAudit implements ShouldQueue
         }
 
         if (count($ohCrapUsers) != 0) {
-            $softwareTeamRole = $this->roleRepository->findOneByName(Role::TEAM_SOFTWARE);
+            $softwareTeamRole = $roleRepository->findOneByName(Role::TEAM_SOFTWARE);
             $softwareTeamRole->notify(new AuditIssues($ohCrapUsers));
         }
 
         // before sending out team emails clean up the warnings for people that have now paid us
         foreach ($notificationPaymentUsers as $user) {
-            $userNotifications = $this->membershipStatusNotificationRepository
+            $userNotifications = $membershipStatusNotificationRepository
                 ->findOutstandingNotificationsByUser($user);
 
             foreach ($userNotifications as $notification) {
                 $notification->clearNotificationsByPayment();
-                $this->membershipStatusNotificationRepository->save($notification);
+                $membershipStatusNotificationRepository->save($notification);
             }
         }
 
-        // now email the audit results
-        $auditResultNotification = new AuditResult(
+        // need to delay the results processing to make sure NewMembershipPaidFor events have been processed and new users have pins, using a job to help with the delay
+        AuditResultJob::dispatch(
             $approveUsers,
             $warnUsers,
             $revokeUsers,
             $reinstateUsers,
-            count($notificationPaymentUsers),
-            $this->accessLogRepository,
-            $this->bankTransactionRepository,
-            $this->roleUpdateRepository,
-            $this->roleRepository
-        );
-
-        $membershipTeamRole = $this->roleRepository->findOneByName(Role::TEAM_MEMBERSHIP);
-        $membershipTeamRole->notify($auditResultNotification);
-
-        $trusteesTeamRole = $this->roleRepository->findOneByName(Role::TEAM_TRUSTEES);
-        $trusteesTeamRole->notify($auditResultNotification);
+            count($notificationPaymentUsers)
+        )->delay(now()->addMinutes(1));
     }
 }

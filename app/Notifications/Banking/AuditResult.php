@@ -4,15 +4,12 @@ namespace App\Notifications\Banking;
 
 use Carbon\Carbon;
 use HMS\Entities\Role;
+use HMS\Entities\User;
 use Illuminate\Bus\Queueable;
-use HMS\Repositories\RoleRepository;
-use HMS\Repositories\RoleUpdateRepository;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackMessage;
-use HMS\Repositories\GateKeeper\AccessLogRepository;
-use HMS\Repositories\Banking\BankTransactionRepository;
 
 class AuditResult extends Notification implements ShouldQueue
 {
@@ -46,114 +43,24 @@ class AuditResult extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      *
-     * @param User[]                    $approveUsers
-     * @param User[]                    $warnUsers
-     * @param User[]                    $revokeUsers
-     * @param User[]                    $reinstateUsers
+     * @param User[]                    $formatedApproveUsers
+     * @param User[]                    $formatedWarnUsers
+     * @param User[]                    $formatedRevokeUsers
+     * @param User[]                    $formatedReinstateUsers
      * @param int                       $paymentNotificationsClearCount
-     * @param AccessLogRepository       $accessLogRepository
-     * @param BankTransactionRepository $bankTransactionRepository
-     * @param RoleUpdateRepository      $roleUpdateRepository
-     * @param RoleRepository            $roleRepository
      */
     public function __construct(
-        $approveUsers,
-        $warnUsers,
-        $revokeUsers,
-        $reinstateUsers,
-        $paymentNotificationsClearCount,
-        AccessLogRepository $accessLogRepository,
-        BankTransactionRepository $bankTransactionRepository,
-        RoleUpdateRepository $roleUpdateRepository,
-        RoleRepository $roleRepository
+        $formatedApproveUsers,
+        $formatedWarnUsers,
+        $formatedRevokeUsers,
+        $formatedReinstateUsers,
+        $paymentNotificationsClearCount
     ) {
+        $this->formattedApproveUsers = $formatedApproveUsers;
+        $this->formattedWarnUsers = $formatedWarnUsers;
+        $this->formattedRevokeUsers = $formatedRevokeUsers;
+        $this->formattedReinstateUsers = $formatedReinstateUsers;
         $this->paymentNotificationsClearCount = $paymentNotificationsClearCount;
-
-        $this->formattedApproveUsers = [];
-        foreach ($approveUsers as $user) {
-            $this->formattedApproveUsers[] = [
-                'id' => $user->getId(),
-                'fullName' => $user->getFullname(),
-                'email' => $user->getEmail(),
-                'pin' => $user->getPin(),
-                'jointAccount' => count($user->getAccount()->getUsers()) > 1 ? 'yes' : 'no',
-            ];
-        }
-
-        $this->formattedWarnUsers = [];
-        foreach ($warnUsers as $user) {
-            $accessLog = $accessLogRepository->findLatestByUser($user);
-            if (! is_null($accessLog)) {
-                $lastAccess = $accessLog->getAccessTime()->toDateTimeString();
-            } else {
-                $lastAccess = 'Never Visited';
-            }
-
-            $this->formattedWarnUsers[] = [
-                'id' => $user->getId(),
-                'fullName' => $user->getFullname(),
-                'email' => $user->getEmail(),
-                'jointAccount' => count($user->getAccount()->getUsers()) > 1 ? 'yes' : 'no',
-                'balance' => $user->getProfile()->getBalance(),
-                'lastPaymentDate' => $bankTransactionRepository
-                    ->findLatestTransactionByAccount($user->getAccount())
-                    ->getTransactionDate()
-                    ->toDateTimeString(),
-                'lastVisitDate' => $lastAccess,
-            ];
-        }
-
-        $this->formattedRevokeUsers = [];
-        foreach ($revokeUsers as $user) {
-            $accessLog = $accessLogRepository->findLatestByUser($user);
-            if (! is_null($accessLog)) {
-                $lastAccess = $accessLog->getAccessTime()->toDateTimeString();
-            } else {
-                $lastAccess = 'Never Visited';
-            }
-
-            $this->formattedRevokeUsers[] = [
-                'id' => $user->getId(),
-                'fullName' => $user->getFullname(),
-                'email' => $user->getEmail(),
-                'jointAccount' => count($user->getAccount()->getUsers()) > 1 ? 'yes' : 'no',
-                'balance' => $user->getProfile()->getBalance(),
-                'lastPaymentDate' => $bankTransactionRepository
-                    ->findLatestTransactionByAccount($user->getAccount())
-                    ->getTransactionDate()
-                    ->toDateString(),
-                'lastVisitDate' => $lastAccess,
-            ];
-        }
-
-        $this->formattedReinstateUsers = [];
-        foreach ($reinstateUsers as $user) {
-            $accessLog = $accessLogRepository->findLatestByUser($user);
-            if (! is_null($accessLog)) {
-                $lastAccess = $accessLog->getAccessTime()->toDateTimeString();
-            } else {
-                $lastAccess = 'Never Visited';
-            }
-
-            $exRole = $roleRepository->findOneByName(Role::MEMBER_EX);
-            $madeExRoleUpdate = $roleUpdateRepository->findLatestRoleAddedByUser($exRole, $user);
-            if (is_null($madeExRoleUpdate)) {
-                // crap, should not get here.
-                $dateMadeExMember = 'Never, Tell the Software team';
-            } else {
-                $dateMadeExMember = $madeExRoleUpdate->getCreatedAt()->toDateString();
-            }
-
-            $this->formattedReinstateUsers[] = [
-                'id' => $user->getId(),
-                'fullName' => $user->getFullname(),
-                'email' => $user->getEmail(),
-                'jointAccount' => count($user->getAccount()->getUsers()) > 1 ? 'yes' : 'no',
-                'balance' => $user->getProfile()->getBalance(),
-                'dateMadeExMember' => $dateMadeExMember,
-                'lastVisitDate' => $lastAccess,
-            ];
-        }
     }
 
     /**

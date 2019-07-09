@@ -42,6 +42,7 @@
       :buttonText="{
         today:  'Today',
       }"
+      :aspectRatio="aspectRatio"
       :views="{
         timeGrid: {
           // options apply to timeGridWeek and timeGridDay views
@@ -120,6 +121,9 @@
           bootstrapPlugin,
         ],
         defaultView: 'timeGridDay',
+        dayAspectRatio: 0.8,
+        weekAspectRatio: 1.35, // full calender default
+        aspectRatio: this.dayAspectRatio,
         interval: null,
         isLoading: true,
         loader: null,
@@ -642,8 +646,10 @@
 
         if (windowWidth < 767.98) {
           this.defaultView = 'timeGridDay';
+          this.aspectRatio = this.dayAspectRatio;
         } else {
           this.defaultView = 'timeGridWeek';
+          this.aspectRatio = this.weeAspecctRatio;
         }
 
         if (this.calendarApi !== null) {

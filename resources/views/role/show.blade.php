@@ -48,13 +48,18 @@
   <h2>Users</h2>
   <hr>
   <div class="table-responsive">
-    <table class="table table-bordered table-sm table-hover">
+    <table class="table table-bordered table-sm w-50">
+        <thead>
+          <th>Name</th>
+          <th>Action</th>
+        </thead>
       <tbody>
       @foreach ($users as $user)
       <tr>
         <td>{{ $user->getFullName() }}</td>
         <td>
-          <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-danger btn-sm" aria-label="delete">
+          <a href="{{ route('users.admin.show', $user->getId()) }}" class="btn btn-primary btn-sm mb-1"><i class="far fa-eye" aria-hidden="true"></i> View</a>
+          <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-danger btn-sm mb-1" aria-label="delete">
             <form action="{{ route('roles.removeUser', ['role' => $role->getId(), 'user' => $user->getId()]) }}" method="POST" style="display: inline">
               @method('DELETE')
               @csrf

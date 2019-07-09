@@ -13,7 +13,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use HMS\Repositories\Snackspace\DebtRepository;
 
-class LogDebtJob //implements ShouldQueue
+class LogDebtJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 

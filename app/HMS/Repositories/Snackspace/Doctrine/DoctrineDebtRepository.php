@@ -42,6 +42,16 @@ class DoctrineDebtRepository extends EntityRepository implements DebtRepository
     }
 
     /**
+     * Find lastest entry.
+     *
+     * @return null|Debt
+     */
+    public function findLatest()
+    {
+        return parent::findOneBy([], ['auditTime' => 'DESC'], 1);
+    }
+
+    /**
      * Save Debt to the DB.
      *
      * @param Debt $debt

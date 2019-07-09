@@ -262,7 +262,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     );
 
     // Teams
-    Route::patch('teams/{role}/users', 'RoleController@addUsertoTeam')->name('roles.addUsertoTeam');
+    Route::patch('teams/{role}/users', 'RoleController@addUserToTeam')->name('roles.addUserToTeam');
+    Route::delete('teams/{role}/users/{user}', 'RoleController@removeUserFromTeam')->name('roles.removeUserFromTeam');
     Route::get('teams/how-to-join', 'TeamController@howToJoin')->name('teams.how-to-join');
     Route::resource(
         'teams',

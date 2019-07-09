@@ -63,9 +63,10 @@ class RoleController extends Controller
 
         $this->middleware('canAny:role.view.all,team.view')->only(['index', 'show']);
         $this->middleware('can:role.edit.all')->only(['edit', 'update']);
+        $this->middleware('can:role.edit.all')->only('removeUser');
 
         $this->middleware('can:role.grant.team')->only('addUserToTeam');
-        $this->middleware('canAny:role.edit.all,profiel.edit.all')->only('removeUser');
+        $this->middleware('can:role.grant.team')->only('removeUserFromTeam');
     }
 
     /**
@@ -179,6 +180,29 @@ class RoleController extends Controller
     public function removeUser(Role $role, User $user)
     {
         $this->userManager->removeRoleFromUser($user, $role);
+        flash($user->getFullname() . ' removed from ' . $role->getDisplayName())->success();
+
+        return back();
+    }
+
+    /**
+     * Remove a specific user from a specific team role.
+     *
+     * @param Role $role the role
+     * @param User $user the user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function removeUserFromTeam(Role $role, User $user)
+    {
+        $request['role_name'] = $role->getName();
+
+        $this->validate($request, [
+            'role_name' => 'starts_with:team.',
+        ]);
+
+        $this->userManager->removeRoleFromUser($user, $role);
+        flash($user->getFullname() . ' removed from ' . $role->getDisplayName())->success();
 
         return back();
     }

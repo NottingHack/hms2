@@ -250,7 +250,6 @@
 
       echoInit() {
         this.toolIds.forEach(function (toolId) {
-          console.log('echoInit: ' + toolId);
           Echo.channel('tools.' + toolId + '.bookings')
             .listen('Tools.NewBooking', this.newBookingEvent)
             .listen('Tools.BookingChanged', this.bookingChangedEvent)
@@ -265,7 +264,7 @@
       },
 
       newBookingEvent(newBooking) {
-        console.log('Echo sent newBooking event', newBooking);
+        // console.log('Echo sent newBooking event', newBooking);
         if (newBooking.booking.userId != this.userId) {
           return;
         }
@@ -278,7 +277,7 @@
       },
 
       bookingChangedEvent(bookingChanged) {
-        console.log('Echo sent bookingChanged event', bookingChanged);
+        // console.log('Echo sent bookingChanged event', bookingChanged);
         if (bookingChanged.booking.userId != this.userId) {
           return;
         }
@@ -291,7 +290,7 @@
       },
 
       bookingCancelledEvent(bookingCancelled) {
-        console.log('Echo sent bookingCancelled event', bookingCancelled);
+        // console.log('Echo sent bookingCancelled event', bookingCancelled);
         const event = this.calendarApi.getEventById(bookingCancelled.bookingId);
         if (event) {
           event.remove();

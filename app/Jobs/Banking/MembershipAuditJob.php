@@ -5,7 +5,6 @@ namespace App\Jobs\Banking;
 use Carbon\Carbon;
 use HMS\Entities\Role;
 use Carbon\CarbonInterval;
-use App\Jobs\Banking\AuditResultJob;
 use Illuminate\Bus\Queueable;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;

@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class ExMemberDebt extends Notification
+class ExMemberDebt extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -82,8 +82,7 @@ class ExMemberDebt extends Notification
                 [
                     'fullname' => $notifiable->getFullname(),
                     'snackspaceBalance' => $notifiable->getProfile()->getBalance(),
-                    'paymentRef' =>
-                        'SNACKSPACE-EX' . $notifiable->getId()
+                    'paymentRef' => 'SNACKSPACE-EX' . $notifiable->getId()
                         . $notifiable->getFirstname()[0] . $notifiable->getLastname()[0],
                     'latetsTotalDebt' => $this->latetsTotalDebt,
                     'latetsExDebt' => $this->latetsExDebt,

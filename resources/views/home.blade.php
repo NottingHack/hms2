@@ -15,7 +15,7 @@
     @endcomponent
     @component('card.snackspace', ['user' => $user, 'snackspaceTransactions' => $snackspaceTransactions])
     @endcomponent
-    @component('card.tools', ['user' => $user, 'bookings' => $bookings])
+    @component('card.tools', ['user' => $user, 'bookings' => $bookings, 'toolIds' => $toolIds])
     @endcomponent
     @component('card.boxes', ['user' => $user, 'boxCount' => $boxCount])
     @endcomponent

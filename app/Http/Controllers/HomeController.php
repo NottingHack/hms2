@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use HMS\Entities\Role;
 use HMS\Entities\Tools\Booking;
 use HMS\Repositories\RoleRepository;
+use HMS\Repositories\Tools\ToolRepository;
 use HMS\Repositories\Members\BoxRepository;
 use HMS\Repositories\Tools\BookingRepository;
 use HMS\Repositories\Members\ProjectRepository;
@@ -38,6 +39,11 @@ class HomeController extends Controller
     protected $bookingRepository;
 
     /**
+     * @var ToolRepository
+     */
+    protected $toolRepository;
+
+    /**
      * Create a new controller instance.
      *
      * @param ProjectRepository $projectRepository
@@ -45,6 +51,7 @@ class HomeController extends Controller
      * @param TransactionRepository $transactionRepository
      * @param RoleRepository $roleRepository
      * @param BookingRepository $bookingRepository
+     * @param ToolRepository $toolRepository
      *
      * @return void
      */
@@ -53,13 +60,15 @@ class HomeController extends Controller
         BoxRepository $boxRepository,
         TransactionRepository $transactionRepository,
         RoleRepository $roleRepository,
-        BookingRepository $bookingRepository
+        BookingRepository $bookingRepository,
+        ToolRepository $toolRepository
     ) {
         $this->projectRepository = $projectRepository;
         $this->boxRepository = $boxRepository;
         $this->transactionRepository = $transactionRepository;
         $this->roleRepository = $roleRepository;
         $this->bookingRepository = $bookingRepository;
+        $this->toolRepository = $toolRepository;
     }
 
     /**
@@ -96,6 +105,10 @@ class HomeController extends Controller
         $snackspaceTransactions = $this->transactionRepository->paginateByUser($user, 3);
         $teams = $this->roleRepository->findTeamsForUser($user);
         $bookings = $this->bookingRepository->findFutureByUser($user);
+        $tools = $this->toolRepository->findAll();
+        $toolIds = array_map(function ($tool) {
+            return $tool->getId();
+        }, $tools);
 
         return view('home')->with([
             'user' => $user,
@@ -104,6 +117,7 @@ class HomeController extends Controller
             'snackspaceTransactions' => $snackspaceTransactions,
             'teams' => $teams,
             'bookings' => $bookings,
+            'toolIds' => $toolIds,
         ]);
     }
 }

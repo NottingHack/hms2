@@ -97,6 +97,9 @@ class AdminController extends Controller
         $teams = $this->roleRepository->findTeamsForUser($user);
         $bookings = $this->bookingRepository->findFutureByUser($user);
         $tools = $this->toolRepository->findAll();
+        $toolIds = array_map(function ($tool) {
+            return $tool->getId();
+        }, $tools);
         $memberStatus = $this->roleRepository->findMemberStatusForUser($user);
         $bankTransactions = $this->bankTransactionRepository->paginateByAccount($user->getAccount(), 3);
 
@@ -108,6 +111,7 @@ class AdminController extends Controller
             'teams' => $teams,
             'bookings' => $bookings,
             'tools' => $tools,
+            'toolIds' => $toolIds,
             'memberStatus' => $memberStatus,
             'bankTransactions' => $bankTransactions,
         ]);

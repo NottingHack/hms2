@@ -27,19 +27,6 @@ class BookingController extends Controller
         $this->middleware('can:tools.view')->only(['index']);
     }
 
-    protected function mapBookings(Booking $booking)
-    {
-        // TODO: swap out for Fractal
-        return [
-            'id' => $booking->getId(),
-            'start' => $booking->getStart()->toAtomString(),
-            'end' => $booking->getEnd()->toAtomString(),
-            'title' => $booking->getUser()->getFullName(),
-            'type' => $booking->getType(),
-            'toolId' => $booking->getTool()->getId(),
-        ];
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -51,7 +38,6 @@ class BookingController extends Controller
     {
         $user = \Auth::user();
         $bookingsThisWeek = $this->bookingRepository->findByToolForThisWeek($tool);
-        $mappedBookingsThisWeek = array_map([$this, 'mapBookings'], $bookingsThisWeek);
 
         $userCanBook = [
             'userId' => $user->getId(),
@@ -64,7 +50,7 @@ class BookingController extends Controller
         return view('tools.booking.index')
             ->with('tool', $tool)
             ->with('userCanBook', $userCanBook)
-            ->with('bookingsThisWeek', $mappedBookingsThisWeek);
+            ->with('bookingsThisWeek', $bookingsThisWeek);
     }
 
     /**

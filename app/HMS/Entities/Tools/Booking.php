@@ -2,11 +2,14 @@
 
 namespace HMS\Entities\Tools;
 
+use JsonSerializable;
 use Carbon\Carbon;
 use HMS\Entities\User;
+use HMS\Traits\Entities\Arrayable;
 use LaravelDoctrine\Extensions\Timestamps\Timestamps;
+use Illuminate\Contracts\Support\Arrayable as ArrayableContract;
 
-class Booking
+class Booking implements ArrayableContract, JsonSerializable
 {
     use Timestamps;
 
@@ -156,5 +159,26 @@ class Booking
         $this->tool = $tool;
 
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'start' => $this->start->toAtomString(),
+            'end' => $this->end->toAtomString(),
+            'title' => $this->user->getFullName(),
+            'type' => $this->type,
+            'toolId' => $this->tool->getId(),
+            'userId' => $this->user->getId(),
+        ];
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->toArray();
     }
 }

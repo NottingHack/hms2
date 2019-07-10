@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Tools;
 
 use HMS\Entities\Tools\Tool;
 use Illuminate\Http\Request;
-use HMS\Entities\Tools\Booking;
 use App\Http\Controllers\Controller;
 use HMS\Repositories\Tools\BookingRepository;
 

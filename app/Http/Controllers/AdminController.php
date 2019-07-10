@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use HMS\Entities\User;
-use HMS\Entities\Tools\Booking;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\Tools\ToolRepository;
 use HMS\Repositories\Members\BoxRepository;

@@ -2,10 +2,9 @@
 
 namespace HMS\Entities\Tools;
 
-use JsonSerializable;
 use Carbon\Carbon;
+use JsonSerializable;
 use HMS\Entities\User;
-use HMS\Traits\Entities\Arrayable;
 use LaravelDoctrine\Extensions\Timestamps\Timestamps;
 use Illuminate\Contracts\Support\Arrayable as ArrayableContract;
 

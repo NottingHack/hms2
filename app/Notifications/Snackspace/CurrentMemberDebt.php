@@ -29,7 +29,6 @@ class CurrentMemberDebt extends Notification implements ShouldQueue
         $this->latetsTotalDebt = $latetsTotalDebt;
     }
 
-
     /**
      * Get the notification's delivery channels.
      *

@@ -10,11 +10,13 @@ You can view your full purchase/payment history using the 'Snackspace' tab on HM
 View your Snackspace history
 @endcomponent
 
-For the first 8 years of Nottinghack we allowed members up to £20 credit, however in 2019 this became unsustainable when the combined debt of all Members, current and ex, surpassed £2,500. In July 2019 that credit limit was reduced to zero. As of today the space is still owed **@format_pennies(-$latetsTotalDebt)**.
+For the first eight years of Nottingham Hackspace, we allowed members up to £20 credit. However in 2019, this became unsustainable when the combined debt of all members, current and former, surpassed £2,500.
+
+In July 2019, that credit limit was reduced to zero. As of today the space is still owed **@format_pennies(-$latetsTotalDebt)**.
 
 
 ## Payment Instructions
-At present we can only take cash payments, please use the cash acceptors in the members box storage room to pay your snackspace credit
+At present we can only take cash payments. Please use the cash acceptors in the members box storage room to pay your snackspace credit. You can pay in notes and coins.
 
 To use a cash acceptor, simply scan your membership card against the 'H' on the front, and then insert cash. The machine will record your payment and credit your account.<br>
 If you have any issues with the acceptor, please let the snackspace team know via the #snackspace channel on slack.

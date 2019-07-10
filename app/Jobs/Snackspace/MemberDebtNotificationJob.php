@@ -66,7 +66,7 @@ class MemberDebtNotificationJob implements ShouldQueue
             . ' Current members notified about their outstanding balance'
         );
 
-        // Notification::send($currentMembersInDebt->toArray(), new CurrentMemberDebt($latetsTotalDebt));
+        Notification::send($currentMembersInDebt->toArray(), new CurrentMemberDebt($latetsTotalDebt));
 
         $exMembersInDebt = $exRole->getUsers()->filter(function ($user, $key) {
             return $user->getProfile()->getBalance() < 0;

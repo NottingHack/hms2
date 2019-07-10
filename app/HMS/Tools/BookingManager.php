@@ -245,7 +245,7 @@ class BookingManager
      *
      * @param Booking $booking
      *
-     * @return bool|string
+     * @return array|string
      */
     public function cancel(Booking $booking)
     {
@@ -262,7 +262,10 @@ class BookingManager
 
         event(new BookingCancelled($tool, $bookingId));
 
-        return true;
+        return [
+            'bookingId' => $bookingId,
+            'toolId' => $tool->getId(),
+        ];
     }
 
     /**

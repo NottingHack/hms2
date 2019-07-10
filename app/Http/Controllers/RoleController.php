@@ -195,11 +195,11 @@ class RoleController extends Controller
      */
     public function removeUserFromTeam(Role $role, User $user)
     {
-        $request['role_name'] = $role->getName();
+        if (substr($role->getName(), 0, 5) != 'team.') {
+            flash('Not a team role')->warning();
 
-        $this->validate($request, [
-            'role_name' => 'starts_with:team.',
-        ]);
+            return redirect()->route('home');
+        }
 
         $this->userManager->removeRoleFromUser($user, $role);
         flash($user->getFullname() . ' removed from ' . $role->getDisplayName())->success();

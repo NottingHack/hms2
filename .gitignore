@@ -33,3 +33,5 @@ mixwatch.log
 /public/mix-manifest.json
 /storage/proxies
 /version
+/laravel-echo-server.json
+laravel-echo-server.lock

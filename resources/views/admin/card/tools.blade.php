@@ -5,6 +5,7 @@
     classs="card-body"
     bookings-url="{{ route('api.bookings.index', ['tool' => '_ID_']) }}"
     :initial-bookings="{{ json_encode($bookings) }}"
+    :tool-ids="{{ json_encode($toolIds) }}"
     :remove-card-class="true"
     ></booking-calendar-list>
  {{--  <div class="card-footer">

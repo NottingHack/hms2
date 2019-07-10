@@ -87,9 +87,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('change-password', 'Auth\ChangePasswordController@edit')->name('users.changePassword');
     Route::put('change-password', 'Auth\ChangePasswordController@update')->name('users.changePassword.update');
 
-    // Admin
-    Route::get('admin', 'AdminController@admin')->name('admin');
-
     // Meta area covers various setting for HMS
     Route::resource(
         'metas',

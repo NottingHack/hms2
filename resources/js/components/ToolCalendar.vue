@@ -379,13 +379,17 @@
             if (response.status == '201') { // HTTP_CREATED
               const booking = this.mapBookings(response.data);
 
-              if (booking.type === 'NORMAL') {
-                this.userCanBook.normalCurrentCount += 1;
-              }
-
               this.removeConfirmation();
               this.calendarApi.unselect();
-              this.calendarApi.addEvent(booking, 'bookings');
+              const event = this.calendarApi.getEventById(booking.id);
+              if (! event) { // make sure the event has not already been added via newBookingEvent
+                if (booking.type === 'NORMAL') {
+                  this.userCanBook.normalCurrentCount += 1;
+                }
+
+                this.calendarApi.addEvent(booking, 'bookings');
+              }
+
               flash('Booking created');
             } else {
               flash('Error creating booking', 'danger');
@@ -485,11 +489,14 @@
               flash('Booking cancelled');
               console.log('cancelBooking', 'Booking deleted');
 
-              if (event.extendedProps.type == "NORMAL") {
-                this.userCanBook.normalCurrentCount -= 1;
-              }
+              const foundEvent = this.calendarApi.getEventById(event.id);
+              if (foundEvent) { // make sure the event has not already been removed via bookingCancelledEvent
+                if (event.extendedProps.type == "NORMAL") {
+                  this.userCanBook.normalCurrentCount -= 1;
+                }
 
-              event.remove();
+                event.remove();
+              }
             } else {
               flash('Error cancelling booking', 'danger');
               console.log('cancelBooking', response.data);
@@ -675,6 +682,54 @@
         return booking;
       },
 
+      echoInit() {
+        Echo.channel('tools.' + this.toolId + '.bookings')
+          .listen('Tools.NewBooking', this.newBookingEvent)
+          .listen('Tools.BookingChanged', this.bookingChangedEvent)
+          .listen('Tools.BookingCancelled', this.bookingCancelledEvent);
+      },
+
+      echoDeInit() {
+        Echo.leave('tools.' + this.toolId + '.bookings');
+      },
+
+      newBookingEvent(newBooking) {
+        // console.log('Echo sent newBooking event', newBooking);
+        const booking = this.mapBookings(newBooking.booking);
+        const event = this.calendarApi.getEventById(booking.id);
+        if (event) { // make sure the event has not already been added via createBooking
+          return;
+        }
+
+        if (booking.type === 'NORMAL') {
+          this.userCanBook.normalCurrentCount += 1;
+        }
+
+        this.calendarApi.addEvent(booking, 'bookings');
+      },
+
+      bookingChangedEvent(bookingChanged) {
+        // console.log('Echo sent bookingChanged event', bookingChanged);
+        const oldEvet = this.calendarApi.getEventById(bookingChanged.booking.id);
+        if (oldEvet) {
+          oldEvet.remove();
+        }
+
+        const booking = this.mapBookings(bookingChanged.booking);
+        this.calendarApi.addEvent(booking, 'bookings');
+      },
+
+      bookingCancelledEvent(bookingCancelled) {
+        // console.log('Echo sent bookingCancelled event', bookingCancelled);
+        const event = this.calendarApi.getEventById(bookingCancelled.bookingId);
+        if (event) {
+          if (event.extendedProps.type == "NORMAL") {
+            this.userCanBook.normalCurrentCount -= 1;
+          }
+
+          event.remove();
+        }
+      },
     }, // end of methods
 
     mounted() {
@@ -692,11 +747,14 @@
         // TODO: once we have Echo running only really need to call this if there is an event under now ±15
         this.calendarApi.refetchEvents();
       }.bind(this), 900000);
+
+      this.echoInit();
     },
 
     beforeDestroy() {
       clearInterval(this.interval);
       window.removeEventListener('resize', this.getWindowResize);
+      this.echoDeInit();
     },
   }
 </script>

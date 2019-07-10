@@ -10,7 +10,7 @@
   <p>This normally takes no more than 48 hours.</p>
   @unless(Auth::user()->hasVerifiedEmail())
   <p>
-    You have not verifiyed your emial address yet. Please check your in-box for a 'Verify Email Address' mail and give the link a quick click.
+    You have not verified your email address yet. Please check your in-box for a 'Verify Email Address' mail and give the link a quick click.
   </p>
   @endunless
   <p>

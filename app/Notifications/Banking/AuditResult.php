@@ -116,7 +116,7 @@ class AuditResult extends Notification implements ShouldQueue
         return (new SlackMessage)
             ->to($notifiable->getSlackChannel())
             ->attachment(function ($attachment) use ($approveCount, $warnCount, $revokeCount, $reinstateCount) {
-                $attachment->title('Membership Auidt Results')
+                $attachment->title('Membership Audit Results')
                             ->fields([
                                 'New Members' => $approveCount,
                                 'Notified Members' => $warnCount,

@@ -6,7 +6,7 @@
     Thank you for registering with Nottingham Hackspace. Here are the next steps.
   </h4>
   <p>
-    You will have just received an email with a link to verify you emial address. Please check your in-box and give the link a quick click.
+    You will have just received an email with a link to verify you email address. Please check your in-box and give the link a quick click.
   </p>
   <p>
     Now you have filled in your details, our membership admins will be notified. They'll give your information a quick check, and if all is well they'll move your membership on to the next stage. If there is an issue, they will send you an email with details of what needs correcting.

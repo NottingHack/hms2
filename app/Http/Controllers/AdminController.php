@@ -83,16 +83,6 @@ class AdminController extends Controller
     }
 
     /**
-     * Admin home page.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function admin()
-    {
-        return view('pages.admin');
-    }
-
-    /**
      * Overview page of a given user.
      *
      * @param User $user

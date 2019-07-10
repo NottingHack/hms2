@@ -675,6 +675,45 @@
         return booking;
       },
 
+      echoInit() {
+        Echo.channel('tools.' + this.toolId + '.bookings')
+          .listen('Tools.NewBooking', this.newBookingEvent)
+          .listen('Tools.BookingChanged', this.bookingChangedEvent)
+          .listen('Tools.BookingCancelled', this.bookingCancelledEvent);
+      },
+
+      echoDeInit() {
+        Echo.leave('tools.' + this.toolId + '.bookings');
+      },
+
+      newBookingEvent(newBooking) {
+        console.log('Echo sent newBooking event', newBooking);
+        const event = this.calendarApi.getEventById(newBooking.booking.id);
+        if (event) {
+          return;
+        }
+        const booking = this.mapBookings(newBooking.booking);
+        this.calendarApi.addEvent(booking, 'bookings');
+      },
+
+      bookingChangedEvent(bookingChanged) {
+        console.log('Echo sent bookingChanged event', bookingChanged);
+        console.log(this.calendarApi.getEventById(bookingChanged.booking.id));
+        const oldEvet = this.calendarApi.getEventById(bookingChanged.booking.id);
+        if (oldEvet) {
+          oldEvet.remove();
+        }
+        const booking = this.mapBookings(bookingChanged.booking);
+        this.calendarApi.addEvent(booking, 'bookings');
+      },
+
+      bookingCancelledEvent(bookingCancelled) {
+        console.log('Echo sent bookingCancelled event', bookingCancelled);
+        const event = this.calendarApi.getEventById(bookingCancelled.bookingId);
+        if (event) {
+          event.remove();
+        }
+      },
     }, // end of methods
 
     mounted() {
@@ -692,11 +731,14 @@
         // TODO: once we have Echo running only really need to call this if there is an event under now ±15
         this.calendarApi.refetchEvents();
       }.bind(this), 900000);
+
+      this.echoInit();
     },
 
     beforeDestroy() {
       clearInterval(this.interval);
       window.removeEventListener('resize', this.getWindowResize);
+      this.echoDeInit();
     },
   }
 </script>

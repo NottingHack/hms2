@@ -74,6 +74,7 @@ Account {{ $account->getPaymentRef() }}
       <thead>
         <tr>
           <th>Date</th>
+          <th>Description</th>
           <th>Amount</th>
           <th>Bank Account</th>
         </tr>
@@ -82,6 +83,7 @@ Account {{ $account->getPaymentRef() }}
   @endif
         <tr>
           <td>{{ $bankTransaction->getTransactionDate()->toDateString() }}</td>
+          <td>{{ $bankTransaction->getDescription() }}</td>
           <td><span class="money">@format_pennies($bankTransaction->getAmount())</span></td>
           <td>{{ $bankTransaction->getBank()->getName() }}</td>
         </tr>

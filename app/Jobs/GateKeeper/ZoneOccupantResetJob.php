@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use HMS\Repositories\MetaRepository;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
+use App\Jobs\ZoneOccupantCountPublishJob;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use HMS\Entities\GateKeeper\ZoneOccupancyLog;
@@ -60,6 +61,7 @@ class ZoneOccupantResetJob implements ShouldQueue
                 continue;
             }
             $zoneOccupants = $zone->getZoneOccupancts();
+            $currentCount = $zoneOccupants->count();
 
             foreach ($zoneOccupants as $zoneOccupant) {
                 if ($zoneOccupant->getTimeEntered()->lessThan($resetIfBeforeDate)) {
@@ -82,9 +84,14 @@ class ZoneOccupantResetJob implements ShouldQueue
                     $zoneOccupancyLogRepository->save($zoneOccupancyLog);
 
                     $resetUserCount++;
+                    $currentCount--;
                 }
             }
+
+            // MQTT pub this zone
+            ZoneOccupantCountPublishJob::dispatch($zone, $currentCount);
         }
+
         Log::info('ZoneOccupantResetJob: Reset Zone for ' . $resetUserCount . ' users.');
     }
 }

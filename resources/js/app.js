@@ -18,6 +18,9 @@ require('./select2');
 // Inlcude our bootstrap-confirmation2 related Javascript
 require('./bootstrap-confirmation2');
 
+// Include our summernote WYSIWYG editor related Javascript
+require('./summernote.js');
+
 // Negative money values should be red
 $(".money:contains('-')").css("color", "red");
 

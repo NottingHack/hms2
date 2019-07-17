@@ -97,6 +97,7 @@ return [
         'team.view',
         'team.edit.description',
         'team.create',
+        'email.allMembers',
     ],
 
     /*
@@ -336,6 +337,7 @@ return [
                 'team.edit.description',
                 'team.create',
                 'search.invites',
+                'email.allMembers',
             ],
         ],
         'team.software' => [

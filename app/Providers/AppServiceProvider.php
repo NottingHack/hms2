@@ -42,5 +42,12 @@ class AppServiceProvider extends ServiceProvider
         \Blade::directive('format_pennies', function ($pennies) {
             return "<?php echo money_format('%n', (" . $pennies . ')/100); ?>';
         });
+
+        // setup Guzzle6 for mailgun batch sender
+        $this->app->bind('mailgun.client', function () {
+            return \Http\Adapter\Guzzle6\Client::createWithConfig([
+                // your Guzzle6 configuration
+            ]);
+        });
     }
 }

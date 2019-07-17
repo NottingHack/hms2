@@ -269,4 +269,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
             'except' => ['destroy'],
         ]
     );
+
+    // Email to all Members
+    Route::get('email-members', 'EmailController@draft')->name('email-members.draft');
+    Route::post('email-members', 'EmailController@review')->name('email-members.review');
+    Route::get('email-members/review', 'EmailController@reviewHtml')->name('email-members.preview');
+    Route::put('email-members', 'EmailController@send')->name('email-members.send');
 });

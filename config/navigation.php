@@ -144,6 +144,12 @@ return [
                     'permissions'   => ['search.invites'],
                     'links'         => [],
                 ],
+                'emailMembers' => [
+                    'text'          => 'Email All Members',
+                    'route'         => 'email-members.draft',
+                    'permissions'   => ['email.allMembers'],
+                    'links'         => [],
+                ],
                 'membershipApprovals' => [
                     'text'          => 'Review Approvals',
                     'route'         => 'membership.index',

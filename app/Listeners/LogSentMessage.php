@@ -29,6 +29,10 @@ class LogSentMessage implements ShouldQueue
     /**
      * Create the event listener.
      *
+     * @param EmailRepository $emailRepository
+     * @param UserRepository $userRepository
+     * @param RoleRepository $roleRepository
+     *
      * @return void
      */
     public function __construct(

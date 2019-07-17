@@ -119,14 +119,20 @@ class EmailCurrentMembersJob implements ShouldQueue
 
         $trusteesMgEmail = preg_replace('/@/m', '@mg.', $trusteesEmail);
         $subject = $this->subject;
-        $mailgun->send($views, $data, function ($message) use ($subject, $trusteesEmail, $trusteesMgEmail, $to) {
-            $message
-                ->trackOpens(true)
-                ->subject($subject)
-                ->header('sender', 'Nottingham Hackspace Trustees <' . $trusteesMgEmail . '>')
-                ->replyTo($trusteesEmail, 'Nottingham Hackspace Trustees')
-                ->from($trusteesMgEmail, 'Nottingham Hackspace Trustees')
-                ->to($to);
-        });
+        $response = $mailgun->send(
+            $views,
+            $data,
+            function ($message) use ($subject, $trusteesEmail, $trusteesMgEmail, $to) {
+                $message
+                    ->trackOpens(true)
+                    ->subject($subject)
+                    ->header('sender', 'Nottingham Hackspace Trustees <' . $trusteesMgEmail . '>')
+                    ->replyTo($trusteesEmail, 'Nottingham Hackspace Trustees')
+                    ->from($trusteesMgEmail, 'Nottingham Hackspace Trustees')
+                    ->to($to);
+            }
+        );
+
+        LogSentMailgunMessageJob::dispatch($to, $subject, $data['htmlContent'], $response->id);
     }
 }

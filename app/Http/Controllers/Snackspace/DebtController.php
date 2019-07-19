@@ -14,7 +14,7 @@ class DebtController extends Controller
      */
     protected $debtRepository;
 
-     /**
+    /**
      * Create a new controller instance.
      *
      * @param DebtRepository $debtRepository

@@ -104,7 +104,7 @@ return [
                     'links'         => [],
                 ],
                 'debt'      => [
-                    'text'          => 'Debt Graphs',
+                    'text'          => 'Snackspace Debt Graphs',
                     'route'         => 'snackspace.debt-graph',
                     'match'         => 'snackspace.debt-graph',
                     'permissions'   => ['snackspace.debt.view'],

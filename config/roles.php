@@ -372,6 +372,7 @@ return [
                 'profile.view.limited',
                 'bankTransactions.view.all',
                 'bankTransactions.reconcile',
+                'snackspace.debt.view',
                 'snackspace.transaction.view.all',
                 'snackspace.transaction.create.all',
                 'gatekeeper.zoneEntry.teamStorage',

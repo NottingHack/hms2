@@ -83,6 +83,13 @@ return [
                     'permissions'   => ['snackspace.product.view'],
                     'links'         => [],
                 ],
+                'debt'      => [
+                    'text'          => 'Debt Graphs',
+                    'route'         => 'snackspace.debt-graph',
+                    'match'         => 'snackspace.debt-graph',
+                    'permissions'   => ['snackspace.debt.view'],
+                    'links'         => [],
+                ],
             ],
         ],
         'admin' => [

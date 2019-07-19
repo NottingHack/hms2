@@ -52,6 +52,7 @@ return [
         'box.printLabel.self',
         'box.printLabel.all',
         'bankTransactions.upload',   // used by oauth client
+        'snackspace.debt.view',
         'snackspace.transaction.view.self',
         'snackspace.transaction.view.all',
         'snackspace.transaction.create.all', // Trustees, finance and snackspace team can create manual transactions
@@ -338,6 +339,7 @@ return [
                 'team.create',
                 'search.invites',
                 'email.allMembers',
+                'snackspace.debt.view',
             ],
         ],
         'team.software' => [

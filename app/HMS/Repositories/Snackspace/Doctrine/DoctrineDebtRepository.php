@@ -27,7 +27,7 @@ class DoctrineDebtRepository extends EntityRepository implements DebtRepository
      *
      * @return Debt[]
      */
-    public function findBetweeenAudtiTimes(Carbon $start, Carbon $end)
+    public function findBetweeenAuditTimes(Carbon $start, Carbon $end)
     {
         $q = parent::createQueryBuilder('debt');
 

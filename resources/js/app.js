@@ -8,6 +8,7 @@
 require('./bootstrap');
 
 // HMS JavaScript
+import Chart from 'chart.js';
 
 // Inclue all our Vue bits
 require('./vue');

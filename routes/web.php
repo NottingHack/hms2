@@ -245,6 +245,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 'vending-machines/{vendingMachine}/locations/{vendingLocation}',
                 'VendingMachineController@locationAssign'
             )->name('vending-machines.locations.assign');
+
+            Route::get('debt-graph', 'DebtController@debtGraph')->name('debt-graph');
         });
     });
 

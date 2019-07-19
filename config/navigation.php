@@ -83,6 +83,26 @@ return [
                     'permissions'   => ['snackspace.product.view'],
                     'links'         => [],
                 ],
+            ],
+        ],
+        'finance' => [
+            'text' => 'Finances',
+            'permissions'   => [],
+            'links'         => [
+                'joinAccounts' => [
+                    'text'          => 'Joint Accounts',
+                    'route'         => 'banking.accounts.listJoint',
+                    'match'         => 'banking.accounts.listJoint',
+                    'permissions'   => ['profile.view.limited', 'profile.view.all'],
+                    'links'         => [],
+                ],
+                'bankTransactions' => [
+                    'text'          => 'Reconcile Bank Transaction',
+                    'route'         => 'bank-transactions.unmatched',
+                    'match'         => 'bank-transactions.unmatched',
+                    'permissions'   => ['bankTransactions.reconcile'],
+                    'links'         => [],
+                ],
                 'debt'      => [
                     'text'          => 'Debt Graphs',
                     'route'         => 'snackspace.debt-graph',
@@ -129,20 +149,6 @@ return [
                     'route'         => 'labels.index',
                     'match'         => 'labels.index',
                     'permissions'   => ['labelTemplate.view'],
-                    'links'         => [],
-                ],
-                'joinAccounts' => [
-                    'text'          => 'Joint Accounts',
-                    'route'         => 'banking.accounts.listJoint',
-                    'match'         => 'banking.accounts.listJoint',
-                    'permissions'   => ['profile.view.limited', 'profile.view.all'],
-                    'links'         => [],
-                ],
-                'bankTransactions' => [
-                    'text'          => 'Reconcile Bank Transaction',
-                    'route'         => 'bank-transactions.unmatched',
-                    'match'         => 'bank-transactions.unmatched',
-                    'permissions'   => ['bankTransactions.reconcile'],
                     'links'         => [],
                 ],
                 'inviteSearch' => [

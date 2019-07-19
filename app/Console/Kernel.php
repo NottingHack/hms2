@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\EmailTeamReminderJob;
 use App\Jobs\Snackspace\LogDebtJob;
 use App\Jobs\Banking\MembershipAuditJob;
 use Illuminate\Console\Scheduling\Schedule;
@@ -48,6 +49,7 @@ class Kernel extends ConsoleKernel
         $schedule->job(new LogDebtJob)->daily();
         $schedule->job(new ZoneOccupantResetJob)->twiceDaily();
         $schedule->job(new MemberDebtNotificationJob)->monthlyOn(1, '7:00');
+        $schedule->job(new EmailTeamReminderJob)->weeklyOn(2, '7:27');
     }
 
     /**

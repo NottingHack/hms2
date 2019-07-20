@@ -62,6 +62,7 @@ class CSVDownloadController extends Controller
             }
             fclose($file);
         };
+
         return response()->streamDownload($callback, 'currentMemberEmails-' . date('d-m-Y-H:i:s') . '.csv', $headers);
     }
 
@@ -91,7 +92,6 @@ class CSVDownloadController extends Controller
                     $lowPayer->toArray()
                 );
             }
-
             fclose($file);
         };
 

@@ -91,6 +91,7 @@ class CSVDownloadController extends Controller
                     $lowPayer->toArray()
                 );
             }
+
             fclose($file);
         };
 

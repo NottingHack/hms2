@@ -169,6 +169,12 @@ return [
                     'permissions'   => ['membership.approval'],
                     'links'         => [],
                 ],
+                'csvDownload' => [
+                    'text'          => 'CSV Downlaods',
+                    'route'         => 'csv-download.index',
+                    'permissions'   => ['profile.view.all'],
+                    'links'         => [],
+                ],
                 'horizon'          => [
                     'text'          => 'Horizon',
                     'route'         => 'horizon.index',

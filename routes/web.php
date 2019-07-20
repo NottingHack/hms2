@@ -277,4 +277,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('email-members', 'EmailController@review')->name('email-members.review');
     Route::get('email-members/review', 'EmailController@reviewHtml')->name('email-members.preview');
     Route::put('email-members', 'EmailController@send')->name('email-members.send');
+
+    // CSV downlaods
+    Route::get('csv-download', 'CSVDownloadController@index')->name('csv-download.index');
+    Route::get('csv-download/opa-csv', 'CSVDownloadController@currentMemberEmails')->name('csv-download.opa-csv');
+    Route::get('csv-download/low-payers', 'CSVDownloadController@lowPayers')->name('csv-download.low-payers');
 });

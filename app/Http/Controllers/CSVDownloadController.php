@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use HMS\Entities\Role;
 use HMS\Views\LowPayer;
-use Illuminate\Http\Request;
 use HMS\Repositories\RoleRepository;
 
 class CSVDownloadController extends Controller
@@ -47,7 +46,7 @@ class CSVDownloadController extends Controller
             'Content-type' => 'text/csv',
             'Pragma' => 'no-cache',
             'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
-            'Expires' => '0'
+            'Expires' => '0',
         ];
 
         $members = $this->roleRepository->findOneByName(Role::MEMBER_CURRENT)->getUsers();
@@ -77,7 +76,7 @@ class CSVDownloadController extends Controller
             'Content-type' => 'text/csv',
             'Pragma' => 'no-cache',
             'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
-            'Expires' => '0'
+            'Expires' => '0',
         ];
 
         $lowPayers = LowPayer::all();

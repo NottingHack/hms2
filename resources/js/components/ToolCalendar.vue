@@ -19,7 +19,7 @@
       @eventDrop="eventDrop"
       @eventResizeStart="removeConfirmation"
       @eventResize="eventResize"
-      @datesDestroy="removeConfirmation"
+      :datesDestroy="removeConfirmation"
 
       :selectable=true
       :selectOverlap=false
@@ -741,6 +741,13 @@
       });
 
       this.calendarApi = this.$refs.fullCalendar.getApi();
+
+      // workaround for wierd height issue ($nextTick is to soon)
+      // migt be related https://github.com/fullcalendar/fullcalendar/issues/4650
+      setTimeout(() => {
+        this.calendarApi.updateSize();
+        this.calendarApi.scrollToTime("06:00");
+      }, 100);
 
       // Call refetchEventsevery 15 minutes, so past events are shaded
       this.interval = setInterval(function () {

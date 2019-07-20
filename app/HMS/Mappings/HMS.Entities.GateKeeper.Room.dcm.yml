@@ -1,0 +1,24 @@
+# HMS.Entities.GateKeeper.Room.dcm.yml
+HMS\Entities\GateKeeper\Room:
+  type: entity
+  repositoryClass: HMS\Repositories\GateKeeper\Doctrine\DoctrineRoomRepository
+  table: rooms
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+  oneToMany:
+    lights:
+      targetEntity: \HMS\Entities\Lighting\Light
+      mappedBy: room
+  manyToOne:
+    floor:
+      targetEntity: \HMS\Entities\GateKeeper\Floor
+      inversedBy: rooms
+      cascade: ['persist']

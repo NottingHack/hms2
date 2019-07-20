@@ -1,0 +1,18 @@
+# HMS.Entities.Lighting.LightPattern.dcm.yml
+HMS\Entities\Lighting\LightPattern:
+  type: entity
+  repositoryClass: HMS\Repositories\Lighting\Doctrine\DoctrineLightPatternRepository
+  table: light_lighting_pattern
+  id:
+    light:
+      associationKey: true
+    pattern:
+      associationKey: true
+  fields:
+    state:
+      type: string
+  manyToOne:
+    light:
+      targetEntity: \HMS\Entities\Lighting\Light
+    pattern:
+      targetEntity: \HMS\Entities\Lighting\Pattern

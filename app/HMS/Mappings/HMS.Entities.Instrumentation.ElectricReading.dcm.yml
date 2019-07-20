@@ -1,0 +1,21 @@
+# HMS.Entities.Instrumentation.ElectricReading.dcm.yml
+HMS\Entities\Instrumentation\ElectricReading:
+  type: entity
+  repositoryClass: HMS\Repositories\Instrumentation\Doctrine\DoctrineElectricReadingRepository
+  table: electric_readings
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    reading:
+      type: integer
+    date:
+      type: date
+  manyToOne:
+    meter:
+      targetEntity: \HMS\Entities\Instrumentation\ElectricMeter
+      inversedBy: readings

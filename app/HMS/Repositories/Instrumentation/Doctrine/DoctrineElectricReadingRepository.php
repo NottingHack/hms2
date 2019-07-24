@@ -33,7 +33,7 @@ class DoctrineElectricReadingRepository extends EntityRepository implements Elec
     }
 
     /**
-     * Return a Chart of all readings;
+     * Return a Chart of all readings;.
      *
      * @param ElectricMeter[] $meters
      *

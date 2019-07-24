@@ -29,6 +29,7 @@ class DoctrineElectricMeterRepository extends EntityRepository implements Electr
     {
         return parent::findOneById($id);
     }
+
     /**
      * Save ElectricMeter to the DB.
      *

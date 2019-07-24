@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Instrumentation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Charts\ElectricReadingsChart;
 use HMS\Entities\Instrumentation\ElectricReading;
 use HMS\Repositories\Instrumentation\ElectricMeterRepository;
 use HMS\Repositories\Instrumentation\ElectricReadingRepository;
@@ -37,6 +36,7 @@ class ElectricController extends Controller
         $meterOptions = collect($meters)->map(function ($meter) {
             $lastReading = $this->electricReadingRepository->findLatestReadingForMeter($meter);
             $lastReadingValue = $lastReading ? ', Last reading: ' . $lastReading->getReading() : ', No readings yet';
+
             return [
                 'id' => $meter->getId(),
                 'text' => $meter->getName() . $lastReadingValue,

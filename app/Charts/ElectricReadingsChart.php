@@ -26,7 +26,7 @@ class ElectricReadingsChart extends Chart
                         'scaleLabel' => [
                             'display' => true,
                             'labelString' => 'kW Hours used',
-                        ]
+                        ],
                     ],
                 ],
             ],
@@ -55,7 +55,6 @@ class ElectricReadingsChart extends Chart
                     $reading['date']->toDateString() => $unitsUsed,
                 ];
             });
-
 
             $rand_color = '#' . substr(str_shuffle('ABCDEF0123456789'), 0, 6);
 

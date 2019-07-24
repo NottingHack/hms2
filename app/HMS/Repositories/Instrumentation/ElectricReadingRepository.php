@@ -25,7 +25,7 @@ interface ElectricReadingRepository
     public function findLatestReadingForMeter(ElectricMeter $meter);
 
     /**
-     * Return a Chart of all readings;
+     * Return a Chart of all readings;.
      *
      * @param ElectricMeter[] $meters
      *

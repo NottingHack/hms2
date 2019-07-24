@@ -2,7 +2,7 @@
 
 namespace App\Charts;
 
-use ConsoleTVs\Charts\Classes\ChartJs\Chart;
+use ConsoleTVs\Charts\Classes\Chartjs\Chart;
 
 class ElectricReadingsChart extends Chart
 {

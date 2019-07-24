@@ -65,6 +65,19 @@ return [
             'permissions'   => [],
             'links'         => [],
         ],
+        'statistics' => [
+            'text' => 'Statistics',
+            'permissions'   => [],
+            'links'         => [
+                'electric' => [
+                    'text'          => 'Electric',
+                    'route'         => 'instrumentation.electric.index',
+                    'match'         => 'instrumentation.electric.index',
+                    'permissions'   => [],
+                    'links'         => [],
+                ],
+            ],
+        ],
         'vending' => [
             'text'          => 'Vending',
             'permissions'   => [],

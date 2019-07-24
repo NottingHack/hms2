@@ -14,6 +14,15 @@ interface ElectricMeterRepository
     public function findAll();
 
     /**
+     * Finds one entitiy in the repository.
+     *
+     * @param int $id
+     *
+     * @return ElectricMeter|null
+     */
+    public function findOneById(int $id);
+
+    /**
      * Save ElectricMeter to the DB.
      *
      * @param ElectricMeter $electricMeter

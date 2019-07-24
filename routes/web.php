@@ -44,6 +44,10 @@ Route::get('instrumentation/status', 'Instrumentation\ServiceController@status')
     ->name('instrumentation.status');
 Route::get('instrumentation/{service}/events/', 'Instrumentation\ServiceController@eventsForService')
     ->name('instrumentation.service.events');
+// Instrumentation/Electric
+Route::namespace('Instrumentation')->prefix('instrumentation')->name('instrumentation.')->group(function () {
+    Route::get('electric', 'ElectricController@index')->name('electric.index');
+});
 
 // Routes in the following group can only be access from inside the hackspace (as defined by the ip range in .env)
 Route::middleware(['ipcheck'])->group(function () {
@@ -282,4 +286,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('csv-download', 'CSVDownloadController@index')->name('csv-download.index');
     Route::get('csv-download/opa-csv', 'CSVDownloadController@currentMemberEmails')->name('csv-download.opa-csv');
     Route::get('csv-download/low-payers', 'CSVDownloadController@lowPayers')->name('csv-download.low-payers');
+
+    // Instrumentation/Electric
+    Route::namespace('Instrumentation')->prefix('instrumentation')->name('instrumentation.')->group(function () {
+        // Route::get('electric', 'ElectricController@index')->name('electric.index');
+        Route::post('electric/readings', 'ElectricController@store')->name('electric.readings.store');
+    });
 });

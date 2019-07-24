@@ -1,0 +1,24 @@
+# HMS.Entities.Lighting.Pattern.dcm.yml
+HMS\Entities\Lighting\Pattern:
+  type: entity
+  repositoryClass: HMS\Repositories\Lighting\Doctrine\DoctrinePatternRepository
+  table: lighting_patterns
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+    timeout:
+      type: integer
+      nullable: true
+  oneToOne:
+    nextPattern:
+      targetEntity: Pattern
+      joinColumns:
+          next_pattern_id:
+              referencedColumnName: id

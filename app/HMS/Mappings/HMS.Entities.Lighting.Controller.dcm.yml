@@ -1,0 +1,18 @@
+# HMS.Entities.Lighting.Controller.dcm.yml
+HMS\Entities\Lighting\Controller:
+  type: entity
+  repositoryClass: HMS\Repositories\Lighting\Doctrine\DoctrineControllerRepository
+  table: lighting_controllers
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+  manyToOne:
+    room:
+      targetEntity: \HMS\Entities\GateKeeper\Room

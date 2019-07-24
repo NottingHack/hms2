@@ -1,0 +1,24 @@
+# HMS.Entities.Lighting.Light.dcm.yml
+HMS\Entities\Lighting\Light:
+  type: entity
+  repositoryClass: HMS\Repositories\Lighting\Doctrine\DoctrineLightRepository
+  table: lights
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+      nullable: true
+  manyToOne:
+    outputChannel:
+      targetEntity: \HMS\Entities\Lighting\OutputChannel
+      inversedBy: lights
+      cascade: ['persist']
+    room:
+      targetEntity: \HMS\Entities\GateKeeper\Room
+      inversedBy: lights

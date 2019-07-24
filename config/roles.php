@@ -99,6 +99,7 @@ return [
         'team.edit.description',
         'team.create',
         'email.allMembers',
+        'instrumentation.electric.addReading',
     ],
 
     /*
@@ -377,6 +378,7 @@ return [
                 'snackspace.transaction.create.all',
                 'gatekeeper.zoneEntry.teamStorage',
                 'team.edit.description',
+                'instrumentation.electric.addReading',
             ],
         ],
         'team.network' => [

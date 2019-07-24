@@ -183,7 +183,7 @@ return [
                     'links'         => [],
                 ],
                 'csvDownload' => [
-                    'text'          => 'CSV Downlaods',
+                    'text'          => 'CSV Downloads',
                     'route'         => 'csv-download.index',
                     'permissions'   => ['profile.view.all'],
                     'links'         => [],

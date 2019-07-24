@@ -33,3 +33,5 @@ When re-provisioning the box (`vagrnat up`) you must make sure that the `.env` f
 
 If the `mailserver.mailbox` tables it empty you can do a datebase reset and reseed with `dev/reseed.sh`
 
+## Serving 
+ngrok http https://hmsdev:443

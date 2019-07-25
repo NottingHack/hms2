@@ -8,7 +8,8 @@
 require('./bootstrap');
 
 // HMS JavaScript
-import Chart from 'chart.js';
+window.Highcharts = require('highcharts');
+require('highcharts/modules/exporting')(Highcharts);
 
 // Inclue all our Vue bits
 require('./vue');

@@ -2,7 +2,7 @@
 
 namespace App\Charts;
 
-use ConsoleTVs\Charts\Classes\Chartjs\Chart;
+use ConsoleTVs\Charts\Classes\Highcharts\Chart;
 
 class ElectricReadingsChart extends Chart
 {
@@ -18,18 +18,26 @@ class ElectricReadingsChart extends Chart
     {
         parent::__construct();
 
+        $this->height = 600;
+        $this->title('Electricity usage');
+        $this->label('kW Hours');
+
         $this->options([
-            'scales' => [
-                'yAxes' => [
-                    [
-                        'stacked' => true,
-                        'scaleLabel' => [
-                            'display' => true,
-                            'labelString' => 'kW Hours used',
-                        ],
-                    ],
-                ],
+            'chart' => [
+                'zoomType' => 'x',
             ],
+            'subtitle' => [
+                'text' => 'kW hours since previous reading.',
+            ],
+            'tooltip' => [
+                'split' => true,
+                'valueSuffix' => ' kW Hours',
+            ],
+            'plotOptions' => [
+                'area' => [
+                    'stacking' => 'normal',
+                ]
+            ]
         ]);
 
         $readings = collect($readings);
@@ -56,10 +64,7 @@ class ElectricReadingsChart extends Chart
                 ];
             });
 
-            $rand_color = '#' . substr(str_shuffle('ABCDEF0123456789'), 0, 6);
-
-            $this->dataset($meter->getName(), 'line', $meterReadings->values())
-                ->color($rand_color);
+            $this->dataset($meter->getName(), 'area', $meterReadings->values());
         }
     }
 }

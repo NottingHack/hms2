@@ -4,9 +4,7 @@
 
 @section('content')
 <div class="container">
-  <div class=row>
-    {!! $readingsChart->container() !!}
-  </div>
+  {!! $readingsChart->container() !!}
 </div>
 @can('instrumentation.electric.addReading')
 <div class="container">

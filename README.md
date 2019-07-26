@@ -26,3 +26,12 @@ To run an artisan command on the VM, (for example if you don't have PHP installe
 Simply pass it the artisan command you want to run, e.g:
 
 ```./dev/php-artisan make:controller```
+
+## Vagrant re-provisioning notes
+
+When re-provisioning the box (`vagrnat up`) you must make sure that the `.env` file has `QUEUE_CONNECTION=sync` in order the to the `db:seed` to correctly populate the `mailserver` database entries.
+
+If the `mailserver.mailbox` tables it empty you can do a datebase reset and reseed with `dev/reseed.sh`
+
+## Serving 
+ngrok http https://hmsdev:443

@@ -40,20 +40,6 @@ class BookingController extends Controller
         $this->middleware('can:tools.book')->only(['store', 'show',  'update', 'destroy']);
     }
 
-    protected function mapBookings(Booking $booking)
-    {
-        // TODO: swap out for Fractal
-        return [
-            'id' => $booking->getId(),
-            'start' => $booking->getStart()->toAtomString(),
-            'end' => $booking->getEnd()->toAtomString(),
-            'title' => $booking->getUser()->getFullName(),
-            'type' => $booking->getType(),
-            'toolId' => $booking->getTool()->getId(),
-            'userId' => $booking->getUser()->getId(),
-        ];
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -73,9 +59,8 @@ class BookingController extends Controller
         $end = new Carbon($request->end);
 
         $bookings = $this->bookingRepository->findByToolBetween($tool, $start, $end);
-        $mappedBookings = array_map([$this, 'mapBookings'], $bookings);
 
-        return response()->json($mappedBookings);
+        return response()->json($bookings);
     }
 
     /**
@@ -117,7 +102,7 @@ class BookingController extends Controller
             return response()->json($response, IlluminateResponse::HTTP_UNPROCESSABLE_ENTITY);
         } else {
             // response is the new booking object
-            return response()->json($this->mapBookings($response), IlluminateResponse::HTTP_CREATED);
+            return response()->json($response, IlluminateResponse::HTTP_CREATED);
         }
     }
 
@@ -159,7 +144,7 @@ class BookingController extends Controller
             return response()->json($response, IlluminateResponse::HTTP_UNPROCESSABLE_ENTITY);
         } else {
             // response is the new booking object
-            return response()->json($this->mapBookings($response), IlluminateResponse::HTTP_OK);
+            return response()->json($response, IlluminateResponse::HTTP_OK);
         }
     }
 

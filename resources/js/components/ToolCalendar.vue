@@ -19,7 +19,7 @@
       @eventDrop="eventDrop"
       @eventResizeStart="removeConfirmation"
       @eventResize="eventResize"
-      @datesDestroy="removeConfirmation"
+      :datesDestroy="removeConfirmation"
 
       :selectable=true
       :selectOverlap=false
@@ -27,6 +27,7 @@
       unselectCancel=".popover"
       :eventOverlap=false
       :defaultView="defaultView"
+      noEventsMessage="No bookings to display"
       themeSystem="bootstrap"
       :header="{
         left:   'prev',
@@ -41,6 +42,7 @@
       :buttonText="{
         today:  'Today',
       }"
+      :aspectRatio="aspectRatio"
       :views="{
         timeGrid: {
           // options apply to timeGridWeek and timeGridDay views
@@ -94,6 +96,7 @@
       bookingsUrl: String,
       // initialBookings: Object,
       toolId: Number,
+      toolRestricted: Boolean,
       userCanBook: {
         type: Object,
         default: () => ({
@@ -118,6 +121,9 @@
           bootstrapPlugin,
         ],
         defaultView: 'timeGridDay',
+        dayAspectRatio: 0.8,
+        weekAspectRatio: 1.35, // full calender default
+        aspectRatio: this.dayAspectRatio,
         interval: null,
         isLoading: true,
         loader: null,
@@ -175,7 +181,7 @@
           return false;
         }
 
-        if (! (this.userCanBook.maintenance && this.userCanBook.induction && this.userCanBook.normal)) {
+        if (this.toolRestricted && ! (this.userCanBook.normal || this.userCanBook.induction || this.userCanBook.maintenance)) {
           // we dont have permissino to even make a booking
           flash('This tool requires an induction for use', 'warning');
 
@@ -373,13 +379,17 @@
             if (response.status == '201') { // HTTP_CREATED
               const booking = this.mapBookings(response.data);
 
-              if (booking.type === 'NORMAL') {
-                this.userCanBook.normalCurrentCount += 1;
-              }
-
               this.removeConfirmation();
               this.calendarApi.unselect();
-              this.calendarApi.addEvent(booking, 'bookings');
+              const event = this.calendarApi.getEventById(booking.id);
+              if (! event) { // make sure the event has not already been added via newBookingEvent
+                if (booking.type === 'NORMAL') {
+                  this.userCanBook.normalCurrentCount += 1;
+                }
+
+                this.calendarApi.addEvent(booking, 'bookings');
+              }
+
               flash('Booking created');
             } else {
               flash('Error creating booking', 'danger');
@@ -416,7 +426,7 @@
         let booking = {
           start: moment(event.start).toISOString(true),
           end: moment(event.end).toISOString(true),
-        }
+        };
 
         this.loading(true);
 
@@ -479,11 +489,14 @@
               flash('Booking cancelled');
               console.log('cancelBooking', 'Booking deleted');
 
-              if (event.extendedProps.type == "NORMAL") {
-                this.userCanBook.normalCurrentCount -= 1;
-              }
+              const foundEvent = this.calendarApi.getEventById(event.id);
+              if (foundEvent) { // make sure the event has not already been removed via bookingCancelledEvent
+                if (event.extendedProps.type == "NORMAL") {
+                  this.userCanBook.normalCurrentCount -= 1;
+                }
 
-              event.remove();
+                event.remove();
+              }
             } else {
               flash('Error cancelling booking', 'danger');
               console.log('cancelBooking', response.data);
@@ -565,11 +578,17 @@
           );
         }
 
-        if (this.userCanBook.normal) {
+        if (this.userCanBook.normal || ! this.toolRestricted) {
+          var normalLabel = '&nbsp;Normal';
+          if (! (this.userCanBook.maintenance || this.userCanBook.induction)) {
+            // Don't need to include the text if this is the only type of booking you can make
+            normalLabel = '&nbsp;';
+          }
+
           if (this.userCanBook.normalCurrentCount < this.bookingsMax) {
             options.buttons.splice(0, 0,
               {
-                label: this.defaultView == 'timeGridWeek' ? '&nbsp;Normal' : '',
+                label: this.defaultView == 'timeGridWeek' ? normalLabel : '',
                 value: 'NORMAL',
                 class: 'btn btn-sm btn-booking-normal',
                 iconClass: 'fas fa-check',
@@ -634,8 +653,10 @@
 
         if (windowWidth < 767.98) {
           this.defaultView = 'timeGridDay';
+          this.aspectRatio = this.dayAspectRatio;
         } else {
           this.defaultView = 'timeGridWeek';
+          this.aspectRatio = this.weeAspecctRatio;
         }
 
         if (this.calendarApi !== null) {
@@ -661,6 +682,54 @@
         return booking;
       },
 
+      echoInit() {
+        Echo.channel('tools.' + this.toolId + '.bookings')
+          .listen('Tools.NewBooking', this.newBookingEvent)
+          .listen('Tools.BookingChanged', this.bookingChangedEvent)
+          .listen('Tools.BookingCancelled', this.bookingCancelledEvent);
+      },
+
+      echoDeInit() {
+        Echo.leave('tools.' + this.toolId + '.bookings');
+      },
+
+      newBookingEvent(newBooking) {
+        // console.log('Echo sent newBooking event', newBooking);
+        const booking = this.mapBookings(newBooking.booking);
+        const event = this.calendarApi.getEventById(booking.id);
+        if (event) { // make sure the event has not already been added via createBooking
+          return;
+        }
+
+        if (booking.type === 'NORMAL') {
+          this.userCanBook.normalCurrentCount += 1;
+        }
+
+        this.calendarApi.addEvent(booking, 'bookings');
+      },
+
+      bookingChangedEvent(bookingChanged) {
+        // console.log('Echo sent bookingChanged event', bookingChanged);
+        const oldEvet = this.calendarApi.getEventById(bookingChanged.booking.id);
+        if (oldEvet) {
+          oldEvet.remove();
+        }
+
+        const booking = this.mapBookings(bookingChanged.booking);
+        this.calendarApi.addEvent(booking, 'bookings');
+      },
+
+      bookingCancelledEvent(bookingCancelled) {
+        // console.log('Echo sent bookingCancelled event', bookingCancelled);
+        const event = this.calendarApi.getEventById(bookingCancelled.bookingId);
+        if (event) {
+          if (event.extendedProps.type == "NORMAL") {
+            this.userCanBook.normalCurrentCount -= 1;
+          }
+
+          event.remove();
+        }
+      },
     }, // end of methods
 
     mounted() {
@@ -673,16 +742,26 @@
 
       this.calendarApi = this.$refs.fullCalendar.getApi();
 
+      // workaround for wierd height issue ($nextTick is to soon)
+      // migt be related https://github.com/fullcalendar/fullcalendar/issues/4650
+      setTimeout(() => {
+        this.calendarApi.updateSize();
+        this.calendarApi.scrollToTime("06:00");
+      }, 100);
+
       // Call refetchEventsevery 15 minutes, so past events are shaded
       this.interval = setInterval(function () {
         // TODO: once we have Echo running only really need to call this if there is an event under now ±15
         this.calendarApi.refetchEvents();
       }.bind(this), 900000);
+
+      this.echoInit();
     },
 
     beforeDestroy() {
       clearInterval(this.interval);
       window.removeEventListener('resize', this.getWindowResize);
+      this.echoDeInit();
     },
   }
 </script>

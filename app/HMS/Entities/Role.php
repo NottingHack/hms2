@@ -4,9 +4,9 @@ namespace HMS\Entities;
 
 use HMS\Traits\Entities\SoftDeletable;
 use HMS\Traits\Entities\Timestampable;
-use Illuminate\Notifications\Notifiable;
 use LaravelDoctrine\ACL\Contracts\Permission;
 use Doctrine\Common\Collections\ArrayCollection;
+use LaravelDoctrine\ORM\Notifications\Notifiable;
 use LaravelDoctrine\ACL\Permissions\HasPermissions;
 use LaravelDoctrine\ACL\Contracts\Role as RoleContract;
 
@@ -19,6 +19,18 @@ class Role implements RoleContract
     const MEMBER_PAYMENT = 'member.payment';
     const MEMBER_YOUNG = 'member.young';
     const MEMBER_EX = 'member.ex';
+    const MEMBER_TEMPORARYBANNED = 'member.temporarybanned';
+    const MEMBER_BANNED = 'member.banned';
+
+    const MEMBER_ROLES = [
+        self::MEMBER_CURRENT,
+        self::MEMBER_APPROVAL,
+        self::MEMBER_PAYMENT,
+        self::MEMBER_YOUNG,
+        self::MEMBER_EX,
+        self::MEMBER_TEMPORARYBANNED,
+        self::MEMBER_BANNED,
+    ];
 
     const SUPERUSER = 'user.super';
 
@@ -26,6 +38,11 @@ class Role implements RoleContract
     const TEAM_TRUSTEES = 'team.trustees';
     const TEAM_SOFTWARE = 'team.software';
     const TEAM_FINANCE = 'team.finance';
+
+    /**
+     * Length of the trimmed description.
+     */
+    const TRIMMED_LENGHT = 100;
 
     /**
      * @var int
@@ -129,6 +146,18 @@ class Role implements RoleContract
      */
     public function getDescription(): string
     {
+        return $this->description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescriptionTrimed()
+    {
+        if (strlen($this->description) > self::TRIMMED_LENGHT) {
+            return substr($this->description, 0, self::TRIMMED_LENGHT) . '...';
+        }
+
         return $this->description;
     }
 
@@ -282,7 +311,7 @@ class Role implements RoleContract
     public function routeNotificationForSlack(): ?string
     {
         if ($this->name == self::TEAM_TRUSTEES) {
-            return config('hms.trustee_slack_webhook');
+            return config('hms.trustees_slack_webhook');
         } else {
             return config('hms.team_slack_webhook');
         }

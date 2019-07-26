@@ -5,9 +5,24 @@ namespace HMS\Repositories\Snackspace\Doctrine;
 use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Snackspace\Product;
 use HMS\Repositories\Snackspace\ProductRepository;
+use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 
 class DoctrineProductRepository extends EntityRepository implements ProductRepository
 {
+    use PaginatesFromRequest;
+
+    /**
+     * Find a Product.
+     *
+     * @param $id
+     *
+     * @return null|Product
+     */
+    public function findOneById($id)
+    {
+        return parent::findOneById($id);
+    }
+
     /**
      * Finds all entities in the repository.
      *

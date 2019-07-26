@@ -100,4 +100,14 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Email Verification
+    |--------------------------------------------------------------------------
+    |
+    | Specify an override to the default validation period of the link
+     */
+    'verification' => [
+        'expire' => 120, // 2 hours, default is 60 minutes.
+    ],
 ];

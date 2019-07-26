@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('pageTitle', 'Instrumentaion Services')
+@section('pageTitle', 'Instrumentation Services')
 
 @section('content')
 <div class="container">
@@ -22,7 +22,7 @@
           <td data-title="Status">{{ $service->getStatusString() }}</td>
           <td data-title="Last response">{{ $service->getReplyTime()->toDateTimeString() }}</td>
           <td data-title="Last restart">{{ $service->getRestartTime() ? $service->getRestartTime()->toDateTimeString() : '(unknown)' }}</td>
-          <td class="actions"><a class="btn btn-primary btn-sm btn-sm-spacing" href="{{ route('instrumentation.service.events', $service->getName() ) }}"><i class="far fa-eye" aria-hidden="true"></i> View Events</a>
+          <td class="actions"><a class="btn btn-primary btn-sm" href="{{ route('instrumentation.service.events', $service->getName() ) }}"><i class="far fa-eye" aria-hidden="true"></i> View Events</a>
           </td>
         </tr>
         @endforeach

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('pageTitle')
-Rfid cards for {{ $user->getFirstname() }}
+RFID cards for {{ $user->getFirstname() }}
 @endsection
 
 @section('content')
@@ -14,17 +14,17 @@ Rfid cards for {{ $user->getFirstname() }}
     <li class="list-group-item">
       <div class="row">
         <div class="col-sm">
-          <div>Rfid card enrolment pin: <b>{{ $pin->getPin() }}</b> is currently set to <i>{{ $pin->getStateString() }}</i></div>
+          <div>RFID card enrolment PIN: <b>{{ $pin->getPin() }}</b> is currently set to <i>{{ $pin->getStateString() }}</i></div>
         </div>
         @if ($pin->getState() == \HMS\Entities\GateKeeper\PinState::CANCELLED)
         @can('pins.reactivate')
         <div class="col-sm">
-          <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm btn-sm-spacing ">
+          <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm">
             <form action="{{ route('pins.reactivate', $pin->getId()) }}" method="POST" style="display: none">
               @method('PATCH')
               @csrf
             </form>
-            <i class="fas fa-sync-alt fa-lg" aria-hidden="true"></i> Reactivate pin for enrolment
+            <i class="fas fa-sync-alt fa-lg" aria-hidden="true"></i> Reactivate PIN for enrolment
           </a>
         </div>
         @endcan
@@ -60,10 +60,10 @@ Rfid cards for {{ $user->getFirstname() }}
           <td data-title="State">{{ $rfidTag->getStateString() }}</td>
           <td class="actions">
             @can('rfidTags.edit.self')
-            <a href="{{ route('rfid-tags.edit', $rfidTag->getId()) }}" class="btn btn-primary btn-sm btn-sm-spacing"><i class="fas fa-pencil fa-lg" aria-hidden="true"></i> Edit</a><br>
+            <a href="{{ route('rfid-tags.edit', $rfidTag->getId()) }}" class="btn btn-primary btn-sm mb-1"><i class="fas fa-pencil fa-lg" aria-hidden="true"></i> Edit</a><br>
             @endcan
             @can('rfidTags.destroy')
-            <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-danger btn-sm btn-sm-spacing">
+            <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-danger btn-sm mb-1">
               <form action="{{ route('rfid-tags.destroy', $rfidTag->getId()) }}" method="POST" style="display: none">
                 @method('DELETE')
                 @csrf

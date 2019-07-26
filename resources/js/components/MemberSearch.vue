@@ -1,5 +1,5 @@
 <template>
-  <form id='member-search' ref="search" role="form" method="get" :action="actionUrl">
+  <form id='member-search' ref="search" role="form" method="GET" :action="actionUrl">
     <member-select-two
       v-model="myValue"
       :name="null"

@@ -7,9 +7,12 @@ use Hms\Entities\Invite;
 use Doctrine\ORM\EntityRepository;
 use HMS\Repositories\InviteRepository;
 use Doctrine\Common\Collections\Criteria;
+use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 
 class DoctrineInviteRepository extends EntityRepository implements InviteRepository
 {
+    use PaginatesFromRequest;
+
     /**
      * Create a new invite if not found.
      *
@@ -41,6 +44,35 @@ class DoctrineInviteRepository extends EntityRepository implements InviteReposit
     public function findOneByEmail($email)
     {
         return parent::findOneByEmail($email);
+    }
+
+    /**
+     * Find an invite by partial email.
+     *
+     * @param string $searchQuery
+     * @param bool $paginate
+     * @param int $perPage
+     * @param string $pageName
+     *
+     * @return Invite[]|array|\Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function searchLike(
+        string $searchQuery,
+        bool $paginate = false,
+        $perPage = 15,
+        $pageName = 'page'
+    ) {
+        $q = parent::createQueryBuilder('invite')
+            ->where('invite.email LIKE :keyword');
+
+        $q = $q->setParameter('keyword', '%' . $searchQuery . '%')
+            ->getQuery();
+
+        if ($paginate) {
+            return $this->paginate($q, $perPage, $pageName);
+        }
+
+        return $q->getResult();
     }
 
     /**

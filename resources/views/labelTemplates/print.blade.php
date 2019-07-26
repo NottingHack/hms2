@@ -39,9 +39,7 @@
           @endif
         </div>
         <hr>
-        <div class="card">
-          <button type="submit" class="btn btn-success"><i class="fas fa-print" aria-hidden="true"></i> Print</button>
-        </div>
+        <button type="submit" class="btn btn-success btn-block"><i class="fas fa-print" aria-hidden="true"></i> Print</button>
         @else
         <div class="row">
           <p>Labels can only be printed from within the space.</p>

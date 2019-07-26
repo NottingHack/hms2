@@ -173,6 +173,6 @@ class RfidTagsController extends Controller
 
         flash()->success('Pin \'' . $pin->getPin() . '\' set to Enrol');
 
-        return redirect()->route('rfid-tags.index', ['user' => $pin->getUser()->getId()]);
+        return back();
     }
 }

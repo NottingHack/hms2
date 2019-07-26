@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use HMS\Entities\Meta;
 use Illuminate\Http\Request;
 use HMS\Repositories\MetaRepository;
 

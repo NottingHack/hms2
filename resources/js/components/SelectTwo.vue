@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="invalidStyle">
     <select
       ref="select"
       class="form-control"
@@ -8,6 +8,7 @@
       :disabled="disabled"
       >
     </select>
+    <div v-if="invalid" class="d-none form-control is-invalid"></div>
   </div>
 </template>
 
@@ -49,7 +50,17 @@
         type: Object,
         default: () => {}
       },
-      value: null
+      value: null,
+      invalid: {
+        type: Boolean,
+        default: false
+      },
+    },
+
+    computed: {
+      invalidStyle() {
+        return this.invalid ? "is-invalid" : "";
+      },
     },
 
     watch: {
@@ -86,6 +97,7 @@
         .find('select')
         .select2({
           theme: 'bootstrap',
+          placeholder: this.placeholder,
           ...this.settings,
           data: this.options
         })

@@ -21,9 +21,9 @@
 
           <td>
             @can('labelTemplate.edit')
-            <a class="btn btn-primary btn-sm btn-sm-spacing" href="{{ route('labels.show', $labelTemplate->getTemplateName()) }}"><i class="far fa-eye" aria-hidden="true"></i> View</a>
-            <a class="btn btn-primary btn-sm btn-sm-spacing" href="{{ route('labels.edit', $labelTemplate->getTemplateName()) }}"><i class="fas fa-pencil fa-lg" aria-hidden="true"></i> Edit</a>
-            <a class="btn btn-danger btn-sm btn-sm-spacing" href="javascript:void(0);" onclick="$(this).find('form').submit();">
+            <a class="btn btn-primary btn-sm mb-1" href="{{ route('labels.show', $labelTemplate->getTemplateName()) }}"><i class="far fa-eye" aria-hidden="true"></i> View</a>
+            <a class="btn btn-primary btn-sm mb-1" href="{{ route('labels.edit', $labelTemplate->getTemplateName()) }}"><i class="fas fa-pencil fa-lg" aria-hidden="true"></i> Edit</a>
+            <a class="btn btn-danger btn-sm mb-1" href="javascript:void(0);" onclick="$(this).find('form').submit();">
               <form action="{{ route('labels.destroy', $labelTemplate->getTemplateName()) }}" method="POST" style="display: inline">
                 @method('DELETE')
                 @csrf
@@ -33,7 +33,7 @@
             @endcan
             @if (SiteVisitor::inTheSpace())
             @can('labelTemplate.print')
-            <a class="btn btn-primary btn-sm btn-sm-spacing" href="{{ route('labels.showPrint', $labelTemplate->getTemplateName()) }}"><i class="fas fa-print" aria-hidden="true"></i> Print</a>
+            <a class="btn btn-primary btn-sm mb-1" href="{{ route('labels.showPrint', $labelTemplate->getTemplateName()) }}"><i class="fas fa-print" aria-hidden="true"></i> Print</a>
             @endcan
             @endif
           </td>
@@ -43,9 +43,7 @@
     </table>
   </div>
   @can('labelTemplate.create')
-  <div class="card">
-    <a class="btn btn-primary" href="{{ route('labels.create') }}"><i class="fas fa-plus" aria-hidden="true"></i> Add new template</a>
-  </div>
+  <a class="btn btn-primary btn-block" href="{{ route('labels.create') }}"><i class="fas fa-plus" aria-hidden="true"></i> Add new template</a>
   @endcan
   <div classs="pagination-links">
     {{ $labelTemplates->links() }}

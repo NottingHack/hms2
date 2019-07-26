@@ -2,6 +2,9 @@
 
 use App\Jobs\PostGitDeployedJob;
 use Illuminate\Foundation\Inspiring;
+use App\Jobs\Banking\MembershipAuditJob;
+use App\Jobs\GateKeeper\ZoneOccupantResetJob;
+use App\Jobs\Membership\AuditYoungHackersJob;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +24,15 @@ Artisan::command('inspire', function () {
 Artisan::command('hms:auto-deploy', function () {
     PostGitDeployedJob::dispatchNow();
 })->describe('Run the GitDeployedJob');
+
+Artisan::command('hms:reset-zones', function () {
+    ZoneOccupantResetJob::dispatchNow();
+})->describe('Audit Zone Occupant and reset people back to Off-site');
+
+Artisan::command('hms:members:audit', function () {
+    MembershipAuditJob::dispatch();
+})->describe('Audit the members against current banking records');
+
+Artisan::command('hms:members:youngHackerAudit', function () {
+    AuditYoungHackersJob::dispatchNow();
+})->describe('Audit young hackers for any that have turned 18');

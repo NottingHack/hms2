@@ -14,11 +14,11 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
+        \App\Http\Middleware\TrustProxies::class,
         \App\Http\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \App\Http\Middleware\TrustProxies::class,
     ];
 
     /**
@@ -67,8 +67,8 @@ class Kernel extends HttpKernel
         'entity.bindings' => \LaravelDoctrine\ORM\Middleware\SubstituteBindings::class,
         'json.request' => \App\Http\Middleware\JsonRequestMiddleware::class,
         'client' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
-        'canOr' => \App\Http\Middleware\AuthorizeOr::class,
-        'canAnd' => \App\Http\Middleware\AuthorizeAnd::class,
+        'canAny' => \App\Http\Middleware\AuthorizeAny::class,
+        'canAll' => \App\Http\Middleware\AuthorizeAll::class,
     ];
 
     /**

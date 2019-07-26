@@ -16,6 +16,7 @@
       @csrf
       <div class="card-body">
         <input type="hidden" name="invite" value="{{ old('invite', $invite) }}">
+        <input type="hidden" name="dateOfBirth" value="">
         @if ($errors->has('invite'))
         <div>
           <span class="from-text">
@@ -29,7 +30,7 @@
         <hr>
 
         <div class="form-group">
-          <input placeholder="Forename" class="form-control{{  $errors->has('firstname') ? ' is-invalid' : '' }}" id="firstname" type="text" name="firstname" value="{{ old('firstname') }}" required autofocus>
+          <input placeholder="First name" class="form-control{{  $errors->has('firstname') ? ' is-invalid' : '' }}" id="firstname" type="text" name="firstname" value="{{ old('firstname') }}" required autofocus>
           @if ($errors->has('firstname'))
           <span class="invalid-feedback">
             <strong>{{ $errors->first('firstname') }}</strong>
@@ -38,7 +39,7 @@
         </div>
 
         <div class="form-group">
-          <input placeholder="Surname" class="form-control{{  $errors->has('lastname') ? ' is-invalid' : '' }}" id="lastname" type="text" name="lastname" value="{{ old('lastname') }}" required>
+          <input placeholder="Last name" class="form-control{{  $errors->has('lastname') ? ' is-invalid' : '' }}" id="lastname" type="text" name="lastname" value="{{ old('lastname') }}" required>
           @if ($errors->has('lastname'))
           <span class="invalid-feedback">
             <strong>{{ $errors->first('lastname') }}</strong>
@@ -150,19 +151,6 @@
             <strong>{{ $errors->first('contactNumber') }}</strong>
           </span>
           @endif
-        </div>
-
-        <hr>
-
-        <div class="form-group mb-0">
-          <label for="dateOfBirth" class="form-label">Date Of Birth</label>
-          <input placeholder="yyyy-mm-dd" class="form-control{{  $errors->has('dateOfBirth') ? ' is-invalid' : '' }}" id="dateOfBirth" type="date" name="dateOfBirth" value="{{ old('dateOfBirth') }}">
-          @if ($errors->has('dateOfBirth'))
-          <span class="invalid-feedback">
-            <strong>{{ $errors->first('dateOfBirth') }}</strong>
-          </span>
-          @endif
-          <small id="dateOfBirthHelp" class="form-text text-muted">Date of birth is not required unless you are under 18.</small>
         </div>
 
       </div>

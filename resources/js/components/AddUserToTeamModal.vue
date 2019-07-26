@@ -1,15 +1,15 @@
 <template>
-  <div>
+  <div class="vue-remove">
     <button type="button" class="btn btn-primary" @click="showModal"><i class="fas fa-plus fa-lg" aria-hidden="true"></i> Add User To Team</button>
 
     <!-- Modal -->
-    <div ref="selectModal" class="modal fade" id="addUserToTeamModal" tabindex="false" role="dialog" aria-labelledby="addUserToTeamlLabel" aria-hidden="true">
+    <div ref="selectModal" class="modal fade" id="addUserToTeamModal" tabindex="false" role="dialog" aria-labelledby="addUserToTeamLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <form class="modal-content" method="POST" :action="actionUrl">
           <input type="hidden" name="_token" :value="csrf">
           <input type="hidden" name="_method" value="PATCH">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Add User to {{ roleName }}</h5>
+            <h5 class="modal-title" id="addUserToTeamLabel">Add User to {{ roleName }}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -45,7 +45,7 @@
 
     computed: {
       actionUrl() {
-        return "team/" + this.roleId + "/users";
+        return "/teams/" + this.roleId + "/users";
       },
     }, // end of computed
 
@@ -58,7 +58,13 @@
     },
 
     mounted() {
+      this.$nextTick(function () {
+        // remove unwanted element all other is work jQuery required
+        $('.vue-remove').contents().unwrap();
+      });
+
       $(this.$refs.selectModal).modal('handleUpdate');
+
     }
   }
 </script>

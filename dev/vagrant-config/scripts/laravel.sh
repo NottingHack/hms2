@@ -14,6 +14,7 @@ cd /vagrant
 composer install --no-progress --no-suggest
 
 # Set up DB
+php artisan key:generate
 php artisan doctrine:migration:refresh
 php artisan migrate
 php artisan hms:database:refresh-views

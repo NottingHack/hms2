@@ -1,0 +1,33 @@
+# HMS.Entities.Snackspace.Debt.dcm.yml
+HMS\Entities\Snackspace\Debt:
+  type: entity
+  repositoryClass: HMS\Repositories\Snackspace\Doctrine\DoctrineDebtRepository
+  table: snackspace_debts
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    auditTime:
+      type: datetime
+    totalDebt:
+      type: integer
+      nullable: true
+    currentDebt:
+      type: integer
+      nullable: true
+    exDebt:
+      type: integer
+      nullable: true
+    totalCredit:
+      type: integer
+      nullable: true
+    currentCredit:
+      type: integer
+      nullable: true
+    exCredit:
+      type: integer
+      nullable: true

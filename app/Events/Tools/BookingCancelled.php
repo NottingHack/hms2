@@ -3,12 +3,15 @@
 namespace App\Events\Tools;
 
 use HMS\Entities\Tools\Tool;
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class BookingCancelled
+class BookingCancelled implements ShouldBroadcast
 {
-    use Dispatchable, SerializesModels;
+    use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
      * @var Tool
@@ -31,5 +34,23 @@ class BookingCancelled
     {
         $this->tool = $tool;
         $this->bookingId = $bookingId;
+    }
+
+    /**
+     * Get the channels the event should broadcast on.
+     *
+     * @return \Illuminate\Broadcasting\Channel|array
+     */
+    public function broadcastOn()
+    {
+        return new Channel('tools.' . $this->tool->getId() . '.bookings');
+    }
+
+    public function broadcastWith()
+    {
+        return [
+            'bookingId' => $this->bookingId,
+            'toolId' => $this->tool->getId(),
+        ];
     }
 }

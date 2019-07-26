@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use HMS\Repositories\UserRepository;
 use HMS\Factories\Banking\AccountFactory;
 use HMS\Repositories\Banking\AccountRepository;
+use HMS\Repositories\Banking\BankTransactionRepository;
 
 class AccountController extends Controller
 {
@@ -28,22 +29,31 @@ class AccountController extends Controller
     private $userRepository;
 
     /**
+     * @var BankTransactionRepository
+     */
+    protected $bankTransactionRepository;
+
+    /**
      * Create a new controller instance.
      *
      * @param AccountRepository $accountRepository
+     * @param AccountFactory $accountFactory
      * @param UserRepository $userRepository
+     * @param BankTransactionRepository $bankTransactionRepository
      */
     public function __construct(
         AccountRepository $accountRepository,
         AccountFactory $accountFactory,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        BankTransactionRepository $bankTransactionRepository
     ) {
         $this->accountRepository = $accountRepository;
         $this->accountFactory = $accountFactory;
         $this->userRepository = $userRepository;
+        $this->bankTransactionRepository = $bankTransactionRepository;
 
-        $this->middleware('can:profile.view.all')->only(['listJoint', 'show']);
-        $this->middleware('can:profile.edit.all')->only(['linkUser', 'unlinkUser']);
+        $this->middleware('canAny:profile.view.limited,profile.view.all')->only(['listJoint', 'show']);
+        $this->middleware('canAny:profile.edit.limited,profile.edit.all')->only(['linkUser', 'unlinkUser']);
     }
 
     /**
@@ -68,10 +78,11 @@ class AccountController extends Controller
      */
     public function show(Account $account)
     {
-        // $bankTransactions = $this->bankTransactionRepository->paginateByAccount($user->getAccount(), 10);
+        $bankTransactions = $this->bankTransactionRepository->paginateByAccount($account, 10);
 
         return view('banking.accounts.show')
-            ->with('account', $account);
+            ->with('account', $account)
+            ->with('bankTransactions', $bankTransactions);
     }
 
     /**
@@ -101,6 +112,8 @@ class AccountController extends Controller
         $this->userRepository->save($user);
 
         // TODO: fire some user account changed event?
+
+        // TODO: run audit job for new linked user
 
         flash($user->getFullname() . ' linked to Account.')->success();
 
@@ -138,6 +151,8 @@ class AccountController extends Controller
         $this->userRepository->save($user);
 
         // TODO: fire some user account changed event?
+
+        // TODO: should we run audit job for unlinked user?
 
         flash($user->getFullname() . ' un-linked from Account.')->success();
 

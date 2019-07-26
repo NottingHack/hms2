@@ -46,6 +46,7 @@ class RoleController extends Controller
      * @param RoleRepository       $roleRepository
      * @param UserManager          $userManager
      * @param PermissionRepository $permissionRepository
+     * @param UserRepository $userRepository
      */
     public function __construct(
         RoleManager $roleManager,
@@ -60,11 +61,12 @@ class RoleController extends Controller
         $this->permissionRepository = $permissionRepository;
         $this->userRepository = $userRepository;
 
-        $this->middleware('can:role.view.all')->only(['index', 'show']);
+        $this->middleware('canAny:role.view.all,team.view')->only(['index', 'show']);
         $this->middleware('can:role.edit.all')->only(['edit', 'update']);
+        $this->middleware('can:role.edit.all')->only('removeUser');
 
         $this->middleware('can:role.grant.team')->only('addUserToTeam');
-        $this->middleware('canOr:role.edit.all,profiel.edit.all')->only('removeUser');
+        $this->middleware('can:role.grant.team')->only('removeUserFromTeam');
     }
 
     /**
@@ -178,8 +180,31 @@ class RoleController extends Controller
     public function removeUser(Role $role, User $user)
     {
         $this->userManager->removeRoleFromUser($user, $role);
+        flash($user->getFullname() . ' removed from ' . $role->getDisplayName())->success();
 
-        return redirect()->route('roles.show', ['role' => $role->getId()]);
+        return back();
+    }
+
+    /**
+     * Remove a specific user from a specific team role.
+     *
+     * @param Role $role the role
+     * @param User $user the user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function removeUserFromTeam(Role $role, User $user)
+    {
+        if (substr($role->getName(), 0, 5) != 'team.') {
+            flash('Not a team role')->warning();
+
+            return redirect()->route('home');
+        }
+
+        $this->userManager->removeRoleFromUser($user, $role);
+        flash($user->getFullname() . ' removed from ' . $role->getDisplayName())->success();
+
+        return back();
     }
 
     /**

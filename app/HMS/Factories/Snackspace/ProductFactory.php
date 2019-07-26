@@ -3,23 +3,9 @@
 namespace HMS\Factories\Snackspace;
 
 use HMS\Entities\Snackspace\Product;
-use HMS\Repositories\Snackspace\ProductRepository;
 
 class ProductFactory
 {
-    /**
-     * @var ProductRepository
-     */
-    protected $productRepository;
-
-    /**
-     * @param ProductRepository $productRepository
-     */
-    public function __construct(ProductRepository $productRepository)
-    {
-        $this->productRepository = $productRepository;
-    }
-
     /**
      * Function to instantiate a new Product from given params.
      *

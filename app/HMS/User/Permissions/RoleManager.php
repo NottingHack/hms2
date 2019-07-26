@@ -88,6 +88,44 @@ class RoleManager
     }
 
     /**
+     * Create a new team Role.
+     *
+     * @param string $name
+     * @param string $displayName
+     * @param string $description
+     * @param null|string $email
+     * @param null|string $slackChannel
+     *
+     * @return Role new team role object
+     */
+    public function createTeam(
+        string $name,
+        string $displayName,
+        string $description,
+        ?string $email = null,
+        ?string $slackChannel = null
+    ) {
+        $roleEntity = new Role($name, $displayName, $description);
+
+        if (isset($email)) {
+            $roleEntity->setEmail($email);
+        }
+        if (isset($slackChannel)) {
+            $roleEntity->setSlackChannel($slackChannel);
+        }
+
+        $defaultPermissions = config('roles.defaultTeamPermissions');
+        foreach ($defaultPermissions as $permissionName) {
+            $roleEntity->addPermission($this->permissionRepository->findOneByName($permissionName));
+        }
+
+        $this->roleRepository->save($roleEntity);
+        event(new RoleCreated($roleEntity));
+
+        return $roleEntity;
+    }
+
+    /**
      * Update a specific role.
      *
      * @param Role $role the Role we want to update

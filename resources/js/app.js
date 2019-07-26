@@ -8,6 +8,7 @@
 require('./bootstrap');
 
 // HMS JavaScript
+import Chart from 'chart.js';
 
 // Inclue all our Vue bits
 require('./vue');
@@ -17,6 +18,9 @@ require('./select2');
 
 // Inlcude our bootstrap-confirmation2 related Javascript
 require('./bootstrap-confirmation2');
+
+// Include our summernote WYSIWYG editor related Javascript
+require('./summernote.js');
 
 // Negative money values should be red
 $(".money:contains('-')").css("color", "red");
@@ -28,3 +32,13 @@ $("#user-edit-form,#membership-edit-details-form,#register-form").submit(functio
     date.val(date.val().split('/').reverse().join('-'));
   }
 });
+
+// https://codepen.io/shaikmaqsood/pen/XmydxJ
+// https://stackoverflow.com/a/30905277
+window.copyToClipboard = function (element) {
+  var $temp = $("<input>");
+  $("body").append($temp);
+  $temp.val($(element).text()).select();
+  document.execCommand("copy");
+  $temp.remove();
+}

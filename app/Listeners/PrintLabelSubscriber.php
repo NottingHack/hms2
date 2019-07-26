@@ -57,7 +57,7 @@ class PrintLabelSubscriber implements ShouldQueue
      *
      * @return void
      */
-    public function handlePrint(LabelPrintEventInterface $event)
+    public function printEvent(LabelPrintEventInterface $event)
     {
         for ($i = 0; $i < $event->getCopiesToPrint(); $i++) {
             $this->printLabel(
@@ -78,17 +78,17 @@ class PrintLabelSubscriber implements ShouldQueue
     {
         $events->listen(
             'App\Events\Labels\ManualPrint',
-            'App\Listeners\PrintLabelSubscriber@handlePrint'
+            'App\Listeners\PrintLabelSubscriber@printEvent'
         );
 
         $events->listen(
             'App\Events\Labels\ProjectPrint',
-            'App\Listeners\PrintLabelSubscriber@handlePrint'
+            'App\Listeners\PrintLabelSubscriber@printEvent'
         );
 
         $events->listen(
             'App\Events\Labels\BoxPrint',
-            'App\Listeners\PrintLabelSubscriber@handlePrint'
+            'App\Listeners\PrintLabelSubscriber@printEvent'
         );
     }
 
@@ -116,12 +116,17 @@ class PrintLabelSubscriber implements ShouldQueue
             return false;
         }
 
-        $result = socket_connect($socket, $this->getHost(), $this->port);
-        if ($result === false) {
-            return false;
+        try {
+            $result = socket_connect($socket, $this->getHost(), $this->port);
+            if ($result === false) {
+                return false;
+            }
+
+            socket_write($socket, $label, strlen($label));
+        } catch (\Exception $e) {
+            //
         }
 
-        socket_write($socket, $label, strlen($label));
         socket_close($socket);
 
         return true;

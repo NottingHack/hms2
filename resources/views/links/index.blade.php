@@ -8,9 +8,7 @@
   <hr>
 
   @can('link.create')
-  <div class="card">
-    <a href="{{ route('links.create') }}" class="btn btn-primary"><i class="fas fa-plus" aria-hidden="true"></i> Add new link</a>
-  </div>
+  <a href="{{ route('links.create') }}" class="btn btn-primary btn-block"><i class="fas fa-plus" aria-hidden="true"></i> Add new link</a>
   <br>
   @endcan
 

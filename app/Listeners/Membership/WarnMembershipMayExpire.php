@@ -5,6 +5,7 @@ namespace App\Listeners\Membership;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
+use HMS\Repositories\Members\BoxRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use HMS\Repositories\Banking\BankRepository;
 use App\Mail\Membership\MembershipMayBeRevoked;
@@ -45,6 +46,11 @@ class WarnMembershipMayExpire implements ShouldQueue
     protected $bankRepository;
 
     /**
+     * @var BoxRepository
+     */
+    protected $boxRepository;
+
+    /**
      * Create the event listener.
      *
      * @param UserRepository                         $userRepository
@@ -53,6 +59,7 @@ class WarnMembershipMayExpire implements ShouldQueue
      * @param MembershipStatusNotificationRepository $membershipStatusNotificationRepository
      * @param MetaRepository                         $metaRepository
      * @param BankRepository                         $bankRepository
+     * @param BoxRepository                          $boxRepository
      */
     public function __construct(
         UserRepository $userRepository,
@@ -60,7 +67,8 @@ class WarnMembershipMayExpire implements ShouldQueue
         MembershipStatusNotificationFactory $membershipStatusNotificationFactory,
         MembershipStatusNotificationRepository $membershipStatusNotificationRepository,
         MetaRepository $metaRepository,
-        BankRepository $bankRepository
+        BankRepository $bankRepository,
+        BoxRepository $boxRepository
     ) {
         $this->userRepository = $userRepository;
         $this->roleManager = $roleManager;
@@ -68,6 +76,7 @@ class WarnMembershipMayExpire implements ShouldQueue
         $this->membershipStatusNotificationRepository = $membershipStatusNotificationRepository;
         $this->metaRepository = $metaRepository;
         $this->bankRepository = $bankRepository;
+        $this->boxRepository = $boxRepository;
     }
 
     /**
@@ -86,6 +95,6 @@ class WarnMembershipMayExpire implements ShouldQueue
         $this->membershipStatusNotificationRepository->save($membershipStatusNotification);
 
         // email user
-        \Mail::to($user)->send(new MembershipMayBeRevoked($user, $this->metaRepository, $this->bankRepository));
+        \Mail::to($user)->send(new MembershipMayBeRevoked($user, $this->metaRepository, $this->bankRepository, $this->boxRepository));
     }
 }

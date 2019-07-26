@@ -5,23 +5,21 @@
 @section('content')
 <div class="container">
   <div class="card">
-    <div class="card-header">
-      <h5>Its important to keep all you contact details up to date.</h5>
-    </div>
-
+    <h5 class="card-header">It is important to keep all your contact details up to date.</h5>
     <form id="user-edit-form" role="form" method="POST" action="{{ route('users.update', $user->getId()) }}">
       @csrf
-      @method('PUT')
+      @method('PATCH')
+
       <div class="card-body">
         <label>Username</label>
         <h5>{{ old('username', $user->getUsername()) }}</h5>
-        <small id="userName" class="form-text text-muted">Username cannot be changed.</small>
+        <small id="userName" class="form-text text-muted">Your username cannot be changed.</small>
 
         <hr>
 
         <div class="form-group">
-          <label for="firstname" class="form-label">Forename</label>
-          <input placeholder="Forename" class="form-control" id="firstname" type="text" name="firstname" value="{{ old('firstname', $user->getFirstname()) }}" required autofocus>
+          <label for="firstname" class="form-label">First name</label>
+          <input placeholder="First name" class="form-control" id="firstname" type="text" name="firstname" value="{{ old('firstname', $user->getFirstname()) }}" required autofocus>
           @if ($errors->has('firstname'))
           <span class="help-block">
             <strong>{{ $errors->first('firstname') }}</strong>
@@ -30,8 +28,8 @@
         </div>
 
         <div class="form-group">
-          <label for="lastname" class="form-label">Surname</label>
-          <input placeholder="Surname" class="form-control" id="lastname" type="text" name="lastname" value="{{ old('lastname', $user->getLastname()) }}" required>
+          <label for="lastname" class="form-label">Last name</label>
+          <input placeholder="Last name" class="form-control" id="lastname" type="text" name="lastname" value="{{ old('lastname', $user->getLastname()) }}" required>
           @if ($errors->has('lastname'))
           <span class="help-block">
             <strong>{{ $errors->first('lastname') }}</strong>
@@ -40,16 +38,16 @@
         </div>
 
         <div class="form-group">
-          <label for="email" class="form-label">Email Address</label>
+          <label for="email" class="form-label">Email address</label>
           <input placeholder="Email Address" class="form-control" id="email" type="email" name="email" value="{{ old('email', $user->getEmail()) }}" required>
           @if ($errors->has('email'))
           <span class="help-block">
             <strong>{{ $errors->first('email') }}</strong>
           </span>
           @endif
-          @if ($user->getProfile())
         </div>
 
+        @if ($user->getProfile())
         <hr>
 
         <div class="form-group">
@@ -127,19 +125,6 @@
         <hr>
 
         <div class="form-group">
-          <label for="dateOfBirth" class="form-label">Date Of Birth</label>
-          <input placeholder="yyyy-mm-dd" class="form-control" id="dateOfBirth" type="date" name="dateOfBirth" value="{{ old('dateOfBirth', $user->getProfile()->getDateOfBirth() ? $user->getProfile()->getDateOfBirth()->toDateString() : '') }}">
-          @if ($errors->has('dateOfBirth'))
-          <p class="help-text">
-            <strong>{{ $errors->first('dateOfBirth') }}</strong>
-          </p>
-          @endif
-          <small id="dateOfBirthHelp" class="form-text text-muted">Date of birth is not required unless you are under 18.</small>
-        </div>
-
-        <hr>
-
-        <div class="form-group">
           <label for="unlockText" class="form-label">Unlock Text</label>
           <input class="form-control" id="unlockText" type="text" name="unlockText" value="{{ old('unlockText', $user->getProfile()->getUnlockText()) }}">
           @if ($errors->has('unlockText'))
@@ -148,13 +133,12 @@
           </p>
           @endif
         </div>
-
+        @endif {{-- userProfile() --}}
       </div>
       <div class="card-footer">
-        <button type="submit" class="btn btn-success btn-block"> Update</button>
+        <button type="submit" class="btn btn-success btn-block">Update</button>
       </div>
     </form>
-    @endif
   </div>
 </div>
 @endsection

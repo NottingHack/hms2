@@ -84,8 +84,7 @@ class KerberosPasswordStore implements PasswordStore
                 $this->krbConn->createPrincipal($princ, $password);
             } catch (\Exception $e) {
                 if ($this->debug) {
-                    // TODO: log the correctly
-                    echo $e . '\n';
+                    \Log::warning('KerberosPasswordStore@add: ' . $e->getMessage());
                 }
 
                 return false;
@@ -94,8 +93,7 @@ class KerberosPasswordStore implements PasswordStore
             return true;
         } else {
             if ($this->debug) {
-                // TODO: log the correctly
-                echo 'Attempt to create admin user stopped.';
+                \Log::warning('KerberosPasswordStore@add: Attempt to create admin user stopped.');
             }
 
             return false;
@@ -118,8 +116,7 @@ class KerberosPasswordStore implements PasswordStore
             $princ->delete();
         } catch (\Exception $e) {
             if ($this->debug) {
-                // TODO: log the correctly
-                echo $e . '\n';
+                \Log::warning('KerberosPasswordStore@remove: ' . $e->getMessage());
             }
 
             return false;
@@ -168,9 +165,9 @@ class KerberosPasswordStore implements PasswordStore
             $princ = $this->krbConn->getPrincipal(strtolower($username));
             $princ->changePassword($password);
         } catch (\Exception $e) {
+            // TODO: if 'Principal does not exist' should we add the missing account?
             if ($this->debug) {
-                // TODO: log the correctly
-                echo $e . '\n';
+                \Log::warning('KerberosPasswordStore@setPassword: ' . $e->getMessage());
             }
 
             return false;
@@ -195,8 +192,7 @@ class KerberosPasswordStore implements PasswordStore
             $ticket->initPassword(strtolower($username) . '@' . $this->realm, $password);
         } catch (\Exception $e) {
             if ($this->debug) {
-                // TODO: log the correctly
-                echo $e . '\n';
+                \Log::warning('KerberosPasswordStore@checkPassword: ' . $e->getMessage());
             }
 
             return false;

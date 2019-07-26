@@ -35,14 +35,14 @@
 
   <div class="card border-light">
     @if ( ($project->getUser() == \Auth::user() && \Auth::user()->can('project.edit.self')) || ($project->getUser() != \Auth::user() && \Auth::user()->can('project.edit.all')) )
-    <a href="{{ route('projects.edit', $project->getId()) }}" class="btn btn-sm btn-primary btn-sm-spacing"><i class="fas fa-pencil fg-la" aria-hidden="true"></i> Edit Project</a>
+    <a href="{{ route('projects.edit', $project->getId()) }}" class="btn btn-sm btn-primary mb-1"><i class="fas fa-pencil fg-la" aria-hidden="true"></i> Edit Project</a>
     @endif
   </div>
 
   <div class="card border-light">
     @if ( ($project->getUser() == \Auth::user() && \Auth::user()->can('project.printLabel.self')) || ($project->getUser() != \Auth::user() && \Auth::user()->can('project.printLabel.all')) )
     @if (SiteVisitor::inTheSpace() && $project->getState() == \HMS\Entities\Members\ProjectState::ACTIVE)
-    <a href="{{ route('projects.print', $project->getId()) }}" class="btn btn-sm btn-primary btn-sm-spacing"><i class="fas fa-print fa-lg" aria-hidden="true"></i> Print Do-Not-Hack Label</a>
+    <a href="{{ route('projects.print', $project->getId()) }}" class="btn btn-sm btn-primary mb-1"><i class="fas fa-print fa-lg" aria-hidden="true"></i> Print Do-Not-Hack Label</a>
     @endif
     @endif
   </div>
@@ -50,7 +50,7 @@
   <div class="card border-light">
     @if ($project->getState() == \HMS\Entities\Members\ProjectState::ACTIVE)
     @if ($project->getUser() == \Auth::user() && \Auth::user()->can('project.edit.self'))
-    <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-sm btn-primary btn-sm-spacing">
+    <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-sm btn-primary mb-1">
       <form action="{{ route('projects.markComplete', $project->getId()) }}" method="POST" style="display: none">
         @method('PATCH')
         @csrf
@@ -58,7 +58,7 @@
       <i class="fas fa-check fa-lg" aria-hidden="true"></i> Mark Complete
     </a>
     @elseif (\Auth::user()->can('project.edit.all'))
-    <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-sm btn-primary btn-sm-spacing">
+    <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-sm btn-primary mb-1">
       <form action="{{ route('projects.markAbandoned', $project->getId()) }}" method="POST" style="display: none">
         @method('PATCH')
         @csrf
@@ -72,7 +72,7 @@
   <div class="card border-light">
     @if ( ($project->getUser() == \Auth::user() && \Auth::user()->can('project.printLabel.self')) || ($project->getUser() != \Auth::user() && \Auth::user()->can('project.printLabel.all')) )
     @if ($project->getState() != \HMS\Entities\Members\ProjectState::ACTIVE)
-    <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-sm btn-primary btn-sm-spacing">
+    <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-sm btn-primary mb-1">
       <form action="{{ route('projects.markActive', $project->getId()) }}" method="POST" style="display: none">
         @method('PATCH')
         @csrf

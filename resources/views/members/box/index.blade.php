@@ -17,17 +17,13 @@ Boxes for {{ $user->getFirstname() }}
 @if ($user == \Auth::user())
 @can('box.buy.self')
 <div class="container">
-  <div class="card">
-    <a href="{{ route('boxes.create') }}" class="btn btn-primary"><i class="fas fa-shopping-cart" aria-hidden="true"></i> Buy new box</a>
-  </div>
+  <a href="{{ route('boxes.create') }}" class="btn btn-primary btn-block"><i class="fas fa-shopping-cart" aria-hidden="true"></i> Buy new box</a>
 </div>
 @endcan
 @else
 @can('box.issue.all')
 <div class="container">
-  <div class="card">
-    <a href="{{ route('users.boxes.issue', $user->getId()) }}" class="btn btn-primary"><i class="fas fa-plus" aria-hidden="true"></i> Issue new box</a>
-  </div>
+  <a href="{{ route('users.boxes.issue', $user->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-plus" aria-hidden="true"></i> Issue new box</a>
 </div>
 @endcan
 @endif
@@ -56,7 +52,7 @@ Boxes for {{ $user->getFirstname() }}
           <td data-title="Actions" class="actions">
             @can('box.printLabel.self')
             @if (SiteVisitor::inTheSpace() && $box->getState() == \HMS\Entities\Members\BoxState::INUSE)
-            <a href="{{ route('boxes.print', $box->getId()) }}" class="btn btn-primary btn-sm btn-sm-spacing"><i class="fas fa-print" aria-hidden="true"></i> Print Box Label</a><br>
+            <a href="{{ route('boxes.print', $box->getId()) }}" class="btn btn-primary btn-sm mb-1"><i class="fas fa-print" aria-hidden="true"></i> Print Box Label</a><br>
             @endif
             @endcan
             @can('box.edit.self')
@@ -70,7 +66,7 @@ Boxes for {{ $user->getFirstname() }}
               <i class="fas fa-minus-circle" aria-hidden="true"></i> Mark Removed
             </a>
             @else
-            <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm btn-sm-spacing">
+            <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm mb-1">
               <form action="{{ route('boxes.markAbandoned', $box->getId()) }}" method="POST" style="display: none">
                 @method('PATCH')
                 @csrf
@@ -80,7 +76,7 @@ Boxes for {{ $user->getFirstname() }}
             @endif
             @endif
             @if ($box->getState() != \HMS\Entities\Members\BoxState::INUSE)
-            <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm btn-sm-spacing">
+            <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary btn-sm mb-1">
               <form action="{{ route('boxes.markInUse', $box->getId()) }}" method="POST" style="display: none">
                 @method('PATCH')
                 @csrf

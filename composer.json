@@ -13,7 +13,7 @@
         "garygreen/pretty-routes": "^1.0",
         "gedmo/doctrine-extensions": "^2.4",
         "guzzlehttp/guzzle": "^6.3",
-        "karpy47/php-mqtt-client": "dev-master",
+        "karpy47/php-mqtt-client": "^1.0.4",
         "laracasts/flash": "^3.0",
         "laravel-doctrine/acl": "1.0.*",
         "laravel-doctrine/extensions": "^1.0",

@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use HMS\Entities\Role;
 use HMS\Entities\User;
 use HMS\User\UserManager;
+use Carbon\CarbonInterval;
 use Illuminate\Http\Request;
+use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
 use HMS\Repositories\PermissionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use HMS\Repositories\Banking\BankTransactionRepository;
 
 class RoleController extends Controller
 {
@@ -40,6 +44,16 @@ class RoleController extends Controller
     protected $userRepository;
 
     /**
+     * @var BankTransactionRepository
+     */
+    protected $bankTransactionRepository;
+
+    /**
+     * @var MetaRepository
+     */
+    protected $metaRepository;
+
+    /**
      * Create a new controller instance.
      *
      * @param RoleManager          $roleManager
@@ -47,19 +61,25 @@ class RoleController extends Controller
      * @param UserManager          $userManager
      * @param PermissionRepository $permissionRepository
      * @param UserRepository $userRepository
+     * @param BankTransactionRepository $bankTransactionRepository
+     * @param MetaRepository $metaRepository
      */
     public function __construct(
         RoleManager $roleManager,
         RoleRepository $roleRepository,
         UserManager $userManager,
         PermissionRepository $permissionRepository,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        BankTransactionRepository $bankTransactionRepository,
+        MetaRepository $metaRepository
     ) {
         $this->roleManager = $roleManager;
         $this->roleRepository = $roleRepository;
         $this->userManager = $userManager;
         $this->permissionRepository = $permissionRepository;
         $this->userRepository = $userRepository;
+        $this->bankTransactionRepository = $bankTransactionRepository;
+        $this->metaRepository = $metaRepository;
 
         $this->middleware('canAny:role.view.all,team.view')->only(['index', 'show']);
         $this->middleware('can:role.edit.all')->only(['edit', 'update']);
@@ -67,6 +87,8 @@ class RoleController extends Controller
 
         $this->middleware('can:role.grant.team')->only('addUserToTeam');
         $this->middleware('can:role.grant.team')->only('removeUserFromTeam');
+
+        $this->middleware('can:membership.banMember')->only(['reinstateUser', 'temporaryBanUser', 'banUser']);
     }
 
     /**
@@ -238,5 +260,119 @@ class RoleController extends Controller
         ksort($formattedList);
 
         return $formattedList;
+    }
+
+    /**
+     * Reinstate a specific user.
+     * Depending on their payment status this could move them back to Current or Ex.
+     *
+     * @param User $user the user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function reinstateUser(User $user)
+    {
+        // remove either MEMBER_TEMPORARYBANNED or MEMBER_BANNED role
+        if ($user->hasRoleByName(Role::MEMBER_TEMPORARYBANNED)) {
+            $this->roleManager->removeUserFromRoleByName($user, Role::MEMBER_TEMPORARYBANNED);
+        }
+
+        if ($user->hasRoleByName(Role::MEMBER_BANNED)) {
+            $this->roleManager->removeUserFromRoleByName($user, Role::MEMBER_BANNED);
+        }
+
+        // now need to work out if we should reinstate as current or ex Member
+        $latestTransaction = $this->bankTransactionRepository->findLatestTransactionByAccount($user->getAccount());
+
+        if (is_null($latestTransaction)) {
+            $this->roleManager->addUserToRoleByName($user, Role::MEMBER_PAYMENT);
+
+            flash($user->getFullname() . ' reinstated as Awaiting Payment')->success();
+
+            return redirect()->route('users.admin.show', $user->getId());
+        }
+
+        $transactionDate = $latestTransaction->getTransactionDate();
+
+        $revokeDate = Carbon::now();
+        $revokeDate->sub(
+            CarbonInterval::instance(new \DateInterval($this->metaRepository->get('audit_revoke_interval')))
+        );
+
+        if ($transactionDate > $revokeDate) {
+            // reinstate as current
+            $dob = $user->getProfile()->getDateOfBirth();
+            if (is_null($dob)) {
+                // no dob assume old enough
+                $this->roleManager->addUserToRoleByName($user, Role::MEMBER_CURRENT);
+            } elseif ($dob->diffInYears(Carbon::now()) >= 18) { //TODO: meta constants
+                $this->roleManager->addUserToRoleByName($user, Role::MEMBER_CURRENT);
+            } elseif ($dob->diffInYears(Carbon::now()) >= 16) {
+                $this->roleManager->addUserToRoleByName($user, Role::MEMBER_YOUNG);
+            } else {
+                // should not be here to young
+                // TODO: email some one about it
+                flash($user->getFullname() . ' not reinstated')->error();
+
+                return redirect()->route('users.admin.show', $user->getId());
+            }
+
+            flash($user->getFullname() . ' reinstated as Current Member')->success();
+        } else {
+            // reinstate as ex
+            $this->roleManager->addUserToRoleByName($user, Role::MEMBER_EX);
+
+            flash($user->getFullname() . ' reinstated as Ex Member')->success();
+        }
+
+        return redirect()->route('users.admin.show', $user->getId());
+    }
+
+    /**
+     * Temporary Ban a specific user.
+     *
+     * @param User $user the user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function temporaryBanUser(User $user)
+    {
+        // remove all non retained roles (this will include MEMBER_CURRENT and MEMBER_YOUNG)
+        foreach ($user->getRoles() as $role) {
+            if (! $role->getRetained()) {
+                $this->roleManager->removeUserFromRole($user, $role);
+            }
+        }
+
+        // make temporary banned member
+        $this->roleManager->addUserToRoleByName($user, Role::MEMBER_TEMPORARYBANNED);
+
+        flash($user->getFullname() . ' temporarily banned')->success();
+
+        return redirect()->route('users.admin.show', $user->getId());
+    }
+
+    /**
+     * Ban a specific user.
+     *
+     * @param User $user the user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function banUser(User $user)
+    {
+        // remove all non retained roles (this will include MEMBER_CURRENT and MEMBER_YOUNG)
+        foreach ($user->getRoles() as $role) {
+            if (! $role->getRetained()) {
+                $this->roleManager->removeUserFromRole($user, $role);
+            }
+        }
+
+        // make banned member
+        $this->roleManager->addUserToRoleByName($user, Role::MEMBER_BANNED);
+
+        flash($user->getFullname() . ' banned')->success();
+
+        return redirect()->route('users.admin.show', $user->getId());
     }
 }

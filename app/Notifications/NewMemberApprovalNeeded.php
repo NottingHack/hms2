@@ -61,7 +61,7 @@ class NewMemberApprovalNeeded extends Notification implements ShouldQueue
                         ->line('A member has updated there details and asked for another review')
                         ->action(
                             'Review and approve member',
-                            route('membership.approval', ['user' => $this->user->getId()])
+                            route('membership.index')
                         );
         }
 
@@ -92,7 +92,7 @@ class NewMemberApprovalNeeded extends Notification implements ShouldQueue
                                 ->content('A member has updated there details and asked for another review.')
                                 ->fallback(
                                     'A member has updated there details and asked for another review. <'
-                                    . route('membership.approval', ['user' => $userId])
+                                    . route('membership.index')
                                     . '|review>'
                                 )
                                 ->timestamp(Carbon::now());

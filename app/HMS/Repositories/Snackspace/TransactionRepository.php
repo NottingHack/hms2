@@ -23,6 +23,8 @@ interface TransactionRepository
      * Save Transaction to the DB and update the users balance.
      *
      * @param Transaction $transaction
+     *
+     * @return Transaction
      */
     public function saveAndUpdateBalance(Transaction $transaction);
 }

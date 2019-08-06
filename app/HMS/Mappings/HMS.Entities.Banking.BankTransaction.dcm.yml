@@ -26,3 +26,5 @@ HMS\Entities\Banking\BankTransaction:
       targetEntity: \HMS\Entities\Banking\Bank
     account:
       targetEntity: \HMS\Entities\Banking\Account
+    transaction:
+      targetEntity: \HMS\Entities\Snackspace\Transaction

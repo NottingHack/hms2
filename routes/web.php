@@ -80,6 +80,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('roles/{role}/edit', 'RoleController@edit')->name('roles.edit');
     Route::put('roles/{role}', 'RoleController@update')->name('roles.update');
     Route::delete('roles/{role}/users/{user}', 'RoleController@removeUser')->name('roles.removeUser');
+    Route::patch('admin/users/{user}/reinstate', 'RoleController@reinstateUser')
+        ->name('users.admin.reinstate');
+    Route::patch('admin/users/{user}/temporary-ban', 'RoleController@temporaryBanUser')
+        ->name('users.admin.temporaryBan');
+    Route::patch('admin/users/{user}/ban', 'RoleController@banUser')
+        ->name('users.admin.ban');
 
     // USER
     Route::get('admin/users/{user}', 'AdminController@userOverview')->name('users.admin.show');

@@ -27,6 +27,8 @@
     @endcomponent
     @component('admin.card.boxes', ['user' => $user, 'boxCount' => $boxCount])
     @endcomponent
+    @component('admin.card.ban', ['user' => $user])
+    @endcomponent
   </div>
 </div>
 @endsection

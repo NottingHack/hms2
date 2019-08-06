@@ -39,6 +39,11 @@ abstract class TransactionType
      */
     const DD_PAYMENT = 'DDPAYMENT';
 
+    /*
+     * Payment received by Bank Transfer (direct).
+     */
+    const BANK_PAYMENT = 'BANKPAYMENT';
+
     /**
      * String representation of types for display.
      */
@@ -50,5 +55,6 @@ abstract class TransactionType
         self::CASH_PAYMENT => 'Cash Payment',
         self::ONLINE_PAYMENT => 'Online Payment',
         self::DD_PAYMENT => 'Direct Debit Payment',
+        self::BANK_PAYMENT => 'Bank Transfer',
     ];
 }

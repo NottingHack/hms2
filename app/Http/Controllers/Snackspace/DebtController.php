@@ -48,33 +48,12 @@ class DebtController extends Controller
 
         $chart = new SnackspaceDebtChart;
         $chart->labels($keys);
-        $chart->dataset('Total Debt', 'line', $debt->values())
+        $chart->dataset('Total Debt', 'area', $debt->values())
             ->color('#ff0000');
-        $chart->dataset('Total Credit', 'line', $credit->values())
-            ->color('#00ff00');
-
-        $dataRecent = collect($this->debtRepository->findBetweeenAuditTimes(Carbon::now()->subYear(), Carbon::now()));
-        $dataRecent = $dataRecent->map(function ($debt) {
-            return [
-                'td' => $debt->getTotalDebt() / 100,
-                'tc' => $debt->getTotalCredit() / 100,
-                'audit_time' => $debt->getAuditTime()->toDateString(),
-            ];
-        });
-
-        $debt = $dataRecent->pluck('td', 'audit_time');
-        $credit = $dataRecent->pluck('tc', 'audit_time');
-        $keys = $debt->keys();
-
-        $chartRecent = new SnackspaceDebtChart;
-        $chartRecent->labels($keys);
-        $chartRecent->dataset('Total Debt', 'line', $debt->values())
-            ->color('#ff0000');
-        $chartRecent->dataset('Total Credit', 'line', $credit->values())
+        $chart->dataset('Total Credit', 'area', $credit->values())
             ->color('#00ff00');
 
         return view('snackspace.debt_graph')
-            ->with('chartAll', $chart)
-            ->with('recent', $chartRecent);
+            ->with('chartAll', $chart);
     }
 }

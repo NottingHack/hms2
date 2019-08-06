@@ -75,6 +75,10 @@ class ExMemberDebt extends Notification implements ShouldQueue
      */
     public function toMail(User $notifiable)
     {
+        $paymentRef = 'SNACK-EX' . $notifiable->getId()
+                        . $notifiable->getFirstname()[0] . $notifiable->getLastname()[0];
+        $paymentRef = preg_replace('/[^-a-zA-Z0-9]/', '', $paymentRef);
+
         return (new MailMessage)
             ->subject('Nottingham Hackspace: Outstanding Snackspace/Tool-Usage balance')
             ->markdown(
@@ -82,8 +86,7 @@ class ExMemberDebt extends Notification implements ShouldQueue
                 [
                     'fullname' => $notifiable->getFullname(),
                     'snackspaceBalance' => $notifiable->getProfile()->getBalance(),
-                    'paymentRef' => 'SNACKSPACE-EX' . $notifiable->getId()
-                        . $notifiable->getFirstname()[0] . $notifiable->getLastname()[0],
+                    'paymentRef' => $paymentRef,
                     'latetsTotalDebt' => $this->latetsTotalDebt,
                     'latetsExDebt' => $this->latetsExDebt,
                     'accountNo' => $this->accountNo,

@@ -3,6 +3,7 @@
 namespace HMS\Entities\Banking;
 
 use Carbon\Carbon;
+use HMS\Entities\Snackspace\Transaction;
 
 class BankTransaction
 {
@@ -35,6 +36,11 @@ class BankTransaction
      * @var null|Account
      */
     protected $account;
+
+    /**
+     * @var null|Transaction
+     */
+    protected $transaction;
 
     /**
      * Gets the value of id.
@@ -142,6 +148,26 @@ class BankTransaction
     public function setAccount(?Account $account)
     {
         $this->account = $account;
+
+        return $this;
+    }
+
+    /**
+     * @return null|Transaction
+     */
+    public function getTransaction()
+    {
+        return $this->transaction;
+    }
+
+    /**
+     * @param null|Transaction $transaction
+     *
+     * @return self
+     */
+    public function setTransaction($transaction)
+    {
+        $this->transaction = $transaction;
 
         return $this;
     }

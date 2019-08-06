@@ -36,8 +36,8 @@ class ElectricReadingsChart extends Chart
             'plotOptions' => [
                 'area' => [
                     'stacking' => 'normal',
-                ]
-            ]
+                ],
+            ],
         ]);
 
         $readings = collect($readings);

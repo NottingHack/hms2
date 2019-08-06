@@ -32,10 +32,11 @@
     @method('PATCH')
 
     <div class="existing-account-select2">
-      <member-select-two name="existing-account" :with-account="true" :return-account-id="true"></member-select-two>
+      <member-select-two name="user_id" :with-account="true"></member-select-two>
     </div>
     <br>
-    <button type="submit" class="btn btn-success btn-block"><i class="fas fa-check fa-lg" aria-hidden="true"></i> Match Transaction</button>
+    <button type="submit" class="btn btn-primary btn-block" name="action" value="membership"><i class="fas fa-check fa-lg" aria-hidden="true"></i> Match Membership Transaction</button>
+    <button type="submit" class="btn btn-primary btn-block" name="action" value="snackspace"><i class="fas fa-check fa-lg" aria-hidden="true"></i> Create Snackspace Transaction</button>
   </form>
 </div>
 @endsection

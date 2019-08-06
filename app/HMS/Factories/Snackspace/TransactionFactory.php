@@ -4,23 +4,9 @@ namespace HMS\Factories\Snackspace;
 
 use HMS\Entities\User;
 use HMS\Entities\Snackspace\Transaction;
-use HMS\Repositories\Snackspace\TransactionRepository;
 
 class TransactionFactory
 {
-    /**
-     * @var TransactionRepository
-     */
-    protected $transactionRepository;
-
-    /**
-     * @param TransactionRepository $transactionRepository
-     */
-    public function __construct(TransactionRepository $transactionRepository)
-    {
-        $this->transactionRepository = $transactionRepository;
-    }
-
     /**
      * Function to instantiate a new Transaction from given params.
      *

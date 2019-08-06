@@ -53,7 +53,8 @@ class DoctrineBankTransactionRepository extends EntityRepository implements Bank
     {
         $q = parent::createQueryBuilder('bankTransaction');
         if (is_null($account)) {
-            $q = $q->where('bankTransaction.account IS NULL');
+            $q = $q->where('bankTransaction.account IS NULL')
+                ->andWhere('bankTransaction.transaction IS NULL');
         } else {
             $q = $q->where('bankTransaction.account = :account_id');
             $q = $q->setParameter('account_id', $account->getId());
@@ -66,7 +67,7 @@ class DoctrineBankTransactionRepository extends EntityRepository implements Bank
     }
 
     /**
-     * Find a matching tranaction in the db or save this one.
+     * Find a matching transaction in the db or save this one.
      *
      * @param BankTransaction $bankTransaction
      *

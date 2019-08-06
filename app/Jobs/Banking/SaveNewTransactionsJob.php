@@ -83,7 +83,7 @@ class SaveNewTransactionsJob implements ShouldQueue
             $bankTransaction = $bankTransactionRepository->findOrSave($bankTransaction);
 
             // if this transaction has no account add it to our unmatched list
-            if (is_null($bankTransaction->getAccount())) {
+            if (is_null($bankTransaction->getAccount()) && is_null($bankTransaction->getTransaction())) {
                 $unmatchedTransaction[] = $bankTransaction;
             }
         }

@@ -52,7 +52,7 @@ class EmailTeamReminderJob implements ShouldQueue
         foreach ($teams as $team) {
             $to = [['email' => $team->getEmail(), 'name' => $team->getDisplayName()]];
 
-            Mail::to($to)->send(new TeamReminder($name));
+            Mail::to($to)->send(new TeamReminder($team->getDisplayName()));
         }
     }
 }

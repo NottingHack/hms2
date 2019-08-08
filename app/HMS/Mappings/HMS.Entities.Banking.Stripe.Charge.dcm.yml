@@ -34,6 +34,8 @@ HMS\Entities\Banking\Stripe\Charge:
         timestampable:
           on: update
   manyToOne:
+    user:
+      targetEntity: \HMS\Entities\User
     transaction:
       targetEntity: \HMS\Entities\Snackspace\Transaction
     refundTransaction:

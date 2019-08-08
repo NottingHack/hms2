@@ -3,16 +3,22 @@
 namespace App\Jobs\Banking\Stripe\Webhooks;
 
 use Stripe\Event;
+use HMS\Entities\Role;
 use Illuminate\Bus\Queueable;
 use Stripe\Charge as StripeCharge;
-use HMS\Repositories\UserRepository;
+use HMS\Repositories\RoleRepository;
 use Illuminate\Queue\SerializesModels;
+use HMS\Entities\Banking\Stripe\Charge;
 use Illuminate\Queue\InteractsWithQueue;
 use HMS\Entities\Banking\Stripe\ChargeType;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use HMS\Entities\Snackspace\TransactionType;
 use Spatie\WebhookClient\Models\WebhookCall;
 use HMS\Factories\Snackspace\TransactionFactory;
+use App\Notifications\Banking\Stripe\DonationRefund;
+use HMS\Repositories\Banking\Stripe\ChargeRepository;
+use App\Notifications\Banking\Stripe\SnackspaceRefund;
 use HMS\Repositories\Snackspace\TransactionRepository;
 
 class HandleChargeRefundedJob implements ShouldQueue
@@ -71,7 +77,7 @@ class HandleChargeRefundedJob implements ShouldQueue
         TransactionRepository $transactionRepository,
         RoleRepository $roleRepository
     ) {
-        $this->userRepository = $userRepository;
+        $this->chargeRepository = $chargeRepository;
         $this->transactionFactory = $transactionFactory;
         $this->transactionRepository = $transactionRepository;
         $this->roleRepository = $roleRepository;
@@ -81,6 +87,7 @@ class HandleChargeRefundedJob implements ShouldQueue
 
         if (! $stripeCharge->refunded) {
             // should not be here
+            \Log::error('HandleChargeRefundedJob: not refunded? :/');
             return;
         }
 
@@ -88,8 +95,14 @@ class HandleChargeRefundedJob implements ShouldQueue
 
         if (is_null($charge)) {
             // TODO: bugger should we create one?
+            \Log::error('HandleChargeRefundedJob: Charge not found');
             return;
         }
+
+        $charge->setRefundId($stripeCharge->refunds->data[0]->id);
+        dump($charge);
+        $charge = $this->chargeRepository->save($charge);
+        dump($charge);
 
         switch ($charge->getType()) {
             case ChargeType::SNACKSPACE:
@@ -101,6 +114,7 @@ class HandleChargeRefundedJob implements ShouldQueue
                 break;
 
             default:
+                \Log::warning('HandleChargeRefundedJob: UnknownChargeType');
                 break;
         }
     }
@@ -113,6 +127,7 @@ class HandleChargeRefundedJob implements ShouldQueue
      */
     public function snackspacePayment(StripeCharge $stripeCharge, Charge $charge)
     {
+        dump($charge);
         $user = $charge->getUser();
 
         $amount = -$stripeCharge->amount_refunded;
@@ -125,11 +140,22 @@ class HandleChargeRefundedJob implements ShouldQueue
 
         $transaction = $this->transactionRepository->saveAndUpdateBalance($transaction);
 
+        $charge->setRefundTransaction($transaction);
+        $charge = $this->chargeRepository->save($charge);
+
+        $snackspaceRefundNotification = new SnackspaceRefund($charge, $amount);
+
         // notify User
         // snackspace payment has been refunded
+        $user->notify($snackspaceRefundNotification);
 
         // notify TEAM_TRUSTEES TEAM_FINANCE
         // a user snackspace payment has been refunded :(
+        $financeTeamRole = $this->roleRepository->findOneByName(Role::TEAM_FINANCE);
+        $financeTeamRole->notify($snackspaceRefundNotification);
+
+        $trusteesTeamRole = $this->roleRepository->findOneByName(Role::TEAM_TRUSTEES);
+        $trusteesTeamRole->notify($snackspaceRefundNotification);
     }
 
     /**
@@ -141,11 +167,20 @@ class HandleChargeRefundedJob implements ShouldQueue
     public function donationPayment(StripeCharge $stripeCharge, Charge $charge)
     {
         $user = $charge->getUser();
+        $amount = -$stripeCharge->amount_refunded;
+
+        $donationRefundNotification = new DonationRefund($charge, $amount);
 
         // notify User
         // your donation has been refunded
+        $user->notify($donationRefundNotification);
 
         // notify TEAM_TRUSTEES TEAM_FINANCE
         // donation has been refunded :(
+        $financeTeamRole = $this->roleRepository->findOneByName(Role::TEAM_FINANCE);
+        $financeTeamRole->notify($donationRefundNotification);
+
+        $trusteesTeamRole = $this->roleRepository->findOneByName(Role::TEAM_TRUSTEES);
+        $trusteesTeamRole->notify($donationRefundNotification);
     }
 }

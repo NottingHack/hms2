@@ -3,6 +3,7 @@
 namespace App\Jobs\Banking\Stripe\Webhooks;
 
 use Stripe\Event;
+use HMS\Entities\Role;
 use Illuminate\Bus\Queueable;
 use HMS\Repositories\RoleRepository;
 use Illuminate\Queue\SerializesModels;
@@ -10,9 +11,12 @@ use Illuminate\Queue\InteractsWithQueue;
 use HMS\Entities\Banking\Stripe\ChargeType;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use HMS\Entities\Snackspace\TransactionType;
 use Spatie\WebhookClient\Models\WebhookCall;
 use HMS\Factories\Snackspace\TransactionFactory;
+use HMS\Repositories\Banking\Stripe\ChargeRepository;
 use HMS\Repositories\Snackspace\TransactionRepository;
+use App\Notifications\Banking\Stripe\DisputeSnackspaceFundsReinstated;
 
 class HandleChargeDisputeFundsReinstatedJob implements ShouldQueue
 {
@@ -79,16 +83,30 @@ class HandleChargeDisputeFundsReinstatedJob implements ShouldQueue
             $transactionRepository->saveAndUpdateBalance($transaction);
 
             $charge->setReinstatedTransaction($transaction);
-            $chargeRepository->save($charge);
+            $charge = $chargeRepository->save($charge);
 
-        // Notify User
-            // there is a dispute over one of your online snackspace payments the funds have been reinstated
+            $disputeSnackspaceFundsReinstatedNotification =
+                new DisputeSnackspaceFundsReinstated($charge, $stripeDispute);
+
+            // Notify User
+            // a dispute has been raised over one of your online snackspace payments the funds have been reinstanted
+            $charge->getUser()->notify($disputeSnackspaceFundsReinstatedNotification);
 
             // notify TEAM_TRUSTEES TEAM_FINANCE
-            //
+            $financeTeamRole = $roleRepository->findOneByName(Role::TEAM_FINANCE);
+            $financeTeamRole->notify($disputeSnackspaceFundsReinstatedNotification);
+
+            $trusteesTeamRole = $roleRepository->findOneByName(Role::TEAM_TRUSTEES);
+            $trusteesTeamRole->notify($disputeSnackspaceFundsReinstatedNotification);
         } else {
+            $disputeDonationFundsReinstatedNotification = new DisputeDonationFundsReinstated($charge, $stripeDispute);
+
             // notify TEAM_TRUSTEES TEAM_FINANCE
-            //
+            $financeTeamRole = $roleRepository->findOneByName(Role::TEAM_FINANCE);
+            $financeTeamRole->notify($disputeDonationFundsReinstatedNotification);
+
+            $trusteesTeamRole = $roleRepository->findOneByName(Role::TEAM_TRUSTEES);
+            $trusteesTeamRole->notify($disputeDonationFundsReinstatedNotification);
         }
     }
 }

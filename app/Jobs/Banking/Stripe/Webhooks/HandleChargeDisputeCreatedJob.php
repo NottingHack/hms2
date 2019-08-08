@@ -2,9 +2,8 @@
 
 namespace App\Jobs\Banking\Stripe\Webhooks;
 
-use DateTimeZone;
 use Stripe\Event;
-use Carbon\Carbon;
+use HMS\Entities\Role;
 use Illuminate\Bus\Queueable;
 use HMS\Repositories\RoleRepository;
 use Illuminate\Queue\SerializesModels;
@@ -12,6 +11,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Spatie\WebhookClient\Models\WebhookCall;
+use App\Notifications\Banking\Stripe\DisputeCreated;
 use HMS\Repositories\Banking\Stripe\ChargeRepository;
 
 class HandleChargeDisputeCreatedJob implements ShouldQueue
@@ -60,14 +60,15 @@ class HandleChargeDisputeCreatedJob implements ShouldQueue
         }
 
         $charge->setDisputeId($stripeDispute->id);
-        $chargeRepository->save($charge);
+        $charge = $chargeRepository->save($charge);
 
-        // evidenceDueBy in our timezone
-        $evidenceDueBy = Carbon::createFromTimestamp($stripeDispute->evidence_details->due_by)
-            ->setTimezone(new DateTimeZone(date_default_timezone_get()));
-
-        $reason = $stripeDispute->reason;
+        $disputeCreatedNotification = new DisputeCreated($charge, $stripeDispute);
 
         // notify TEAM_TRUSTEES TEAM_FINANCE
+        $financeTeamRole = $roleRepository->findOneByName(Role::TEAM_FINANCE);
+        $financeTeamRole->notify($disputeCreatedNotification);
+
+        $trusteesTeamRole = $roleRepository->findOneByName(Role::TEAM_TRUSTEES);
+        $trusteesTeamRole->notify($disputeCreatedNotification);
     }
 }

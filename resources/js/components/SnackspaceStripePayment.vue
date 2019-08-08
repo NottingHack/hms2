@@ -149,7 +149,7 @@
       createIntent() {
         let intent = {
           amount: this.amount,
-          type: 'snackspace',
+          type: 'SNACKSPACE',
         };
 
         this.loading(true);
@@ -198,7 +198,7 @@
         let intent = {
           intentId: this.intentId,
           amount: this.amount,
-          type: 'snackspace',
+          type: 'SNACKSPACE',
         };
 
         this.loading(true);
@@ -356,7 +356,7 @@
         let intent = {
           intentId: this.intentId,
           amount: this.amount,
-          type: 'snackspace',
+          type: 'SNACKSPACE',
         };
 
         this.loading(true);

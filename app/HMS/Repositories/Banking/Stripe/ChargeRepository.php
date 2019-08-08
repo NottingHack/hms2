@@ -19,6 +19,8 @@ interface ChargeRepository
      * Save Charge to the DB.
      *
      * @param Charge $charge
+     *
+     * @return Charge
      */
     public function save(Charge $charge);
 }

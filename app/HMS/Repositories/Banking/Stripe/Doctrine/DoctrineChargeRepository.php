@@ -17,17 +17,21 @@ class DoctrineChargeRepository extends EntityRepository implements ChargeReposit
      */
     public function findOneById(string $id)
     {
-        return parrent::findOneById($string);
+        return parent::findOneById($id);
     }
 
     /**
      * Save Charge to the DB.
      *
      * @param Charge $charge
+     *
+     * @return Charge
      */
     public function save(Charge $charge)
     {
         $this->_em->persist($charge);
         $this->_em->flush();
+
+        return $charge;
     }
 }

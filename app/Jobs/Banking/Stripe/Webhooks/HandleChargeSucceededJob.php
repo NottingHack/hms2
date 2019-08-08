@@ -3,6 +3,7 @@
 namespace App\Jobs\Banking\Stripe\Webhooks;
 
 use Stripe\Event;
+use HMS\Entities\Role;
 use Illuminate\Bus\Queueable;
 use Stripe\Charge as StripeCharge;
 use HMS\Repositories\RoleRepository;
@@ -10,14 +11,17 @@ use HMS\Repositories\UserRepository;
 use Illuminate\Queue\SerializesModels;
 use HMS\Entities\Banking\Stripe\Charge;
 use Illuminate\Queue\InteractsWithQueue;
+use HMS\Entities\Banking\Stripe\ChargeType;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use HMS\Entities\Snackspace\TransactionType;
 use Spatie\WebhookClient\Models\WebhookCall;
 use HMS\Factories\Banking\Stripe\ChargeFactory;
 use HMS\Factories\Snackspace\TransactionFactory;
+use App\Notifications\Banking\Stripe\DonationPayment;
 use HMS\Repositories\Banking\Stripe\ChargeRepository;
 use HMS\Repositories\Snackspace\TransactionRepository;
+use App\Notifications\Banking\Stripe\SnackspacePayment;
 
 class HandleChargeSucceededJob implements ShouldQueue
 {
@@ -93,17 +97,17 @@ class HandleChargeSucceededJob implements ShouldQueue
 
         $event = Event::constructFrom($this->webhookCall->payload);
         $stripeCharge = $event->data->object;
-        $type = $stripeCharge->metadata->type;
+        $type = strtoupper($stripeCharge->metadata->type);
 
         $charge = $chargeFactory->create($stripeCharge->id, $stripeCharge->amount, $type);
         $this->chargeRepository->save($charge);
 
         switch ($type) {
-            case 'snackspace':
+            case ChargeType::SNACKSPACE:
                 $this->snackspacePayment($stripeCharge, $charge);
                 break;
 
-            case 'donation':
+            case ChargeType::DONATION:
                 $this->snackspacePayment($stripeCharge, $charge);
                 break;
 
@@ -135,9 +139,10 @@ class HandleChargeSucceededJob implements ShouldQueue
 
         $charge->setUser($user);
         $charge->setTransaction($transaction);
-        $this->chargeRepository->save($charge);
+        $charge = $this->chargeRepository->save($charge);
 
         // notify User
+        $user->notify(new SnackspacePayment($charge));
     }
 
     /**
@@ -152,12 +157,19 @@ class HandleChargeSucceededJob implements ShouldQueue
         $user = $this->userRepository->findOneById($userId);
 
         $charge->setUser($user);
-        $this->chargeRepository->save($charge);
+        $charge = $this->chargeRepository->save($charge);
+
+        $donationPaymentNotification = new DonationPayment($charge);
 
         // notify User
-        // thanks for your donation
+        $user->notify($donationPaymentNotification);
 
         // notify TEAM_TRUSTEES TEAM_FINANCE
         // someone has just made a donation to the space :)
+        $financeTeamRole = $this->roleRepository->findOneByName(Role::TEAM_FINANCE);
+        $financeTeamRole->notify($donationPaymentNotification);
+
+        $trusteesTeamRole = $this->roleRepository->findOneByName(Role::TEAM_TRUSTEES);
+        $trusteesTeamRole->notify($donationPaymentNotification);
     }
 }

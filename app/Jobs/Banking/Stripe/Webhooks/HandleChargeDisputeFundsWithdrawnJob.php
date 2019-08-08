@@ -3,6 +3,7 @@
 namespace App\Jobs\Banking\Stripe\Webhooks;
 
 use Stripe\Event;
+use HMS\Entities\Role;
 use Illuminate\Bus\Queueable;
 use HMS\Repositories\RoleRepository;
 use Illuminate\Queue\SerializesModels;
@@ -10,9 +11,13 @@ use Illuminate\Queue\InteractsWithQueue;
 use HMS\Entities\Banking\Stripe\ChargeType;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use HMS\Entities\Snackspace\TransactionType;
 use Spatie\WebhookClient\Models\WebhookCall;
 use HMS\Factories\Snackspace\TransactionFactory;
+use HMS\Repositories\Banking\Stripe\ChargeRepository;
 use HMS\Repositories\Snackspace\TransactionRepository;
+use App\Notifications\Banking\Stripe\DisputeDonationFundsWithdrawn;
+use App\Notifications\Banking\Stripe\DisputeSnackspaceFundsWithdrawn;
 
 class HandleChargeDisputeFundsWithdrawnJob implements ShouldQueue
 {
@@ -79,16 +84,29 @@ class HandleChargeDisputeFundsWithdrawnJob implements ShouldQueue
             $transaction = $transactionRepository->saveAndUpdateBalance($transaction);
 
             $charge->setWithdrawnTransaction($transaction);
-            $chargeRepository->save($charge);
+            $charge = $chargeRepository->save($charge);
 
-        // Notify User
+            $disputeSnackspaceFundsWithdrawnNotification = new DisputeSnackspaceFundsWithdrawn($charge, $stripeDispute);
+
+            // Notify User
             // a dispute has been raised over one of your online snackspace payments the funds have been withdrawn
+            $charge->getUser()->notify($disputeSnackspaceFundsWithdrawnNotification);
 
             // notify TEAM_TRUSTEES TEAM_FINANCE
-            //
+            $financeTeamRole = $roleRepository->findOneByName(Role::TEAM_FINANCE);
+            $financeTeamRole->notify($disputeSnackspaceFundsWithdrawnNotification);
+
+            $trusteesTeamRole = $roleRepository->findOneByName(Role::TEAM_TRUSTEES);
+            $trusteesTeamRole->notify($disputeSnackspaceFundsWithdrawnNotification);
         } else {
+            $disputeDonationFundsWithdrawnNotification = new DisputeDonationFundsWithdrawn($charge, $stripeDispute);
+
             // notify TEAM_TRUSTEES TEAM_FINANCE
-            //
+            $financeTeamRole = $roleRepository->findOneByName(Role::TEAM_FINANCE);
+            $financeTeamRole->notify($disputeDonationFundsWithdrawnNotification);
+
+            $trusteesTeamRole = $roleRepository->findOneByName(Role::TEAM_TRUSTEES);
+            $trusteesTeamRole->notify($disputeDonationFundsWithdrawnNotification);
         }
     }
 }

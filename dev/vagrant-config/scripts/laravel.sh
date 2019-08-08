@@ -22,6 +22,7 @@ php artisan hms:database:refresh-procedures
 php artisan permission:defaults
 php artisan db:seed
 php artisan passport:install
+php artisan ziggy:generate "resources/js/ziggy.js"
 
 # Setup task scheduler cron
 line="* * * * * php /vagrant/artisan schedule:run >> /dev/null 2>&1"

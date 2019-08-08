@@ -6,7 +6,6 @@ use Stripe\Dispute;
 use Illuminate\Bus\Queueable;
 use HMS\Entities\Banking\Stripe\Charge;
 use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
 class DisputeDonationFundsWithdrawn extends Notification

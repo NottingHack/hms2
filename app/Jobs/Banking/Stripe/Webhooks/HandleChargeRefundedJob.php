@@ -88,6 +88,7 @@ class HandleChargeRefundedJob implements ShouldQueue
         if (! $stripeCharge->refunded) {
             // should not be here
             \Log::error('HandleChargeRefundedJob: not refunded? :/');
+
             return;
         }
 
@@ -96,6 +97,7 @@ class HandleChargeRefundedJob implements ShouldQueue
         if (is_null($charge)) {
             // TODO: bugger should we create one?
             \Log::error('HandleChargeRefundedJob: Charge not found');
+
             return;
         }
 

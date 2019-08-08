@@ -13,7 +13,6 @@ use Illuminate\Notifications\Messages\MailMessage;
 
 class DisputeSnackspaceFundsWithdrawn extends Notification implements ShouldQueue
 {
-
     use Queueable;
 
     /**

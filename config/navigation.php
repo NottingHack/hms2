@@ -13,7 +13,7 @@ return [
     */
     'main' => [
         'home' => [
-            'text'          => 'Home',
+            'text'          => '<i class="fas fa-home fa-lg"></i>',
             'route'         => 'index',
             'permissions'   => [],
             'links'         => [],
@@ -66,7 +66,7 @@ return [
             'links'         => [],
         ],
         'statistics' => [
-            'text' => 'Statistics',
+            'text' => '<i class="fas fa-chart-line fa-lg"></i>',
             'permissions'   => [],
             'links'         => [
                 'electric' => [
@@ -99,7 +99,7 @@ return [
             ],
         ],
         'finance' => [
-            'text' => 'Finances',
+            'text' => '<i class="far fa-money-bill fa-lg"></i>',
             'permissions'   => [],
             'links'         => [
                 'joinAccounts' => [
@@ -126,7 +126,7 @@ return [
             ],
         ],
         'admin' => [
-            'text'          => 'Admin',
+            'text'          => '<i class="fas fa-toolbox fa-lg"></i>',
             'permissions'   => [],
             'links'         => [
                 // 'dashboard'         => [

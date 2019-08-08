@@ -12,8 +12,8 @@
       @loading="loading"
       @unselect="unselect"
       @eventClick="eventClick"
-      @datesDestroy="removeConfirmation"
-      @viewSkeletonRender="viewSkeletonRender"
+      :datesDestroy="removeConfirmation"
+      :viewSkeletonRender="viewSkeletonRender"
 
       :selectable=true
       :selectOverlap=false

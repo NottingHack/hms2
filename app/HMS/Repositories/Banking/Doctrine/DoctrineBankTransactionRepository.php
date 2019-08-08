@@ -13,6 +13,16 @@ class DoctrineBankTransactionRepository extends EntityRepository implements Bank
     use PaginatesFromRequest;
 
     /**
+     * Find all transactions.
+     *
+     * @return array
+     */
+    public function findAll()
+    {
+        return parent::findAll();
+    }
+
+    /**
      * Find the latest transaction for each account.
      *
      * @return array

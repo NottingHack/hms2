@@ -203,7 +203,7 @@ class ViMbAdminSubscriber implements ShouldQueue
         $roles = $user->getRoles();
 
         foreach ($roles as $role) {
-            if ($event->role->getName() == Role::TEAM_TRUSTEES) {
+            if ($role->getName() == Role::TEAM_TRUSTEES) {
                 // skip as they have first.last emial boxes
                 continue;
             }

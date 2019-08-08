@@ -15,6 +15,12 @@
     @can('profile.view.all')
     <li><a href="{{ route('csv-download.low-payers') }}" target="_blank">Download CSV for Low Payer audits</a></li>
     @endcan
+    @can('profile.view.all')
+    <li><a href="{{ route('csv-download.payment-change') }}" target="_blank">Download CSV for Membership Payment Changes</a></li>
+    @endcan
+    @can('profile.view.all')
+    <li><a href="{{ route('csv-download.member-payments') }}" target="_blank">Download CSV for All Matched Payments</a></li>
+    @endcan
   </ul>
 </div>
 @endsection

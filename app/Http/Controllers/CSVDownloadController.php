@@ -175,4 +175,48 @@ class CSVDownloadController extends Controller
 
         return response()->streamDownload($callback, 'payment-change-' . date('d-m-Y-H:i:s') . '.csv', $headers);
     }
+
+    /**
+     * Download a csv of members payments that have change.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function memberPayments()
+    {
+        $headers = [
+            'Content-type' => 'text/csv',
+            'Pragma' => 'no-cache',
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires' => '0',
+        ];
+
+        $transactions = $this->bankTransactionRepository->findAll();
+        $csvData = collect();
+
+        foreach ($transactions as $transaction) {
+            if ($transaction->getAccount()) {
+                $csvData[] = [
+                    'Date' => $transaction->getTransactionDate()->toDateString(),
+                    'Amount' => $transaction->getAmount(),
+                    'Account Id' => $transaction->getAccount()->getId(),
+                    'Linked Count' => count($transaction->getAccount()->getUsers()),
+                ];
+            }
+        }
+
+        $callback = function () use ($csvData) {
+            $file = fopen('php://output', 'w');
+
+            fputcsv($file, array_keys($csvData->first()));
+            foreach ($csvData as $row) {
+                fputcsv(
+                    $file,
+                    $row
+                );
+            }
+            fclose($file);
+        };
+
+        return response()->streamDownload($callback, 'member-payments-' . date('d-m-Y-H:i:s') . '.csv', $headers);
+    }
 }

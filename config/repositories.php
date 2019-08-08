@@ -53,6 +53,7 @@ return [
         'Banking\Bank',
         'Banking\BankTransaction',
         'Banking\MembershipStatusNotification',
+        'Banking\Stripe\Charge',
         'Members\Project',
         'Members\Box',
         'Snackspace\Debt',

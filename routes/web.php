@@ -292,6 +292,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('csv-download', 'CSVDownloadController@index')->name('csv-download.index');
     Route::get('csv-download/opa-csv', 'CSVDownloadController@currentMemberEmails')->name('csv-download.opa-csv');
     Route::get('csv-download/low-payers', 'CSVDownloadController@lowPayers')->name('csv-download.low-payers');
+    Route::get('csv-download/payment-change', 'CSVDownloadController@paymentChange')
+        ->name('csv-download.payment-change');
+    Route::get('csv-download/member-payments', 'CSVDownloadController@memberPayments')
+        ->name('csv-download.member-payments');
 
     // Instrumentation/Electric
     Route::namespace('Instrumentation')->prefix('instrumentation')->name('instrumentation.')->group(function () {

@@ -8,6 +8,13 @@ use HMS\Entities\Banking\BankTransaction;
 interface BankTransactionRepository
 {
     /**
+     * Find all transactions.
+     *
+     * @return array
+     */
+    public function findAll();
+
+    /**
      * Find the latest transaction for each account.
      *
      * @return array

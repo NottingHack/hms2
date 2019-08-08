@@ -43,3 +43,7 @@ Route::name('client.')->middleware('client')->group(function () {
     Route::post('bank-transactions/upload', 'Api\Banking\TransactionUploadController@upload')
         ->name('bankTransactions.upload');
 });
+
+Route::name('webhook.')->group(function () {
+    Route::stripeWebhooks('stripe/webhook')->name('stripe');
+});

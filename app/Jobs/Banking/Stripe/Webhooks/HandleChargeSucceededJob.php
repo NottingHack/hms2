@@ -108,7 +108,7 @@ class HandleChargeSucceededJob implements ShouldQueue
                 break;
 
             case ChargeType::DONATION:
-                $this->snackspacePayment($stripeCharge, $charge);
+                $this->donationPayment($stripeCharge, $charge);
                 break;
 
             default:

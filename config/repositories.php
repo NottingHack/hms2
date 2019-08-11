@@ -65,5 +65,7 @@ return [
         'Tools\Booking',
         'Instrumentation\Service',
         'Instrumentation\Event',
+        'Instrumentation\ElectricMeter',
+        'Instrumentation\ElectricReading',
     ],
 ];

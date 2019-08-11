@@ -23,9 +23,11 @@
     @endcomponent
     @component('admin.card.snackspace', ['user' => $user, 'snackspaceTransactions' => $snackspaceTransactions])
     @endcomponent
-    @component('admin.card.tools', ['user' => $user, 'bookings' => $bookings, 'tools' => $tools])
+    @component('admin.card.tools', ['user' => $user, 'bookings' => $bookings, 'toolIds' => $toolIds, 'tools' => $tools])
     @endcomponent
     @component('admin.card.boxes', ['user' => $user, 'boxCount' => $boxCount])
+    @endcomponent
+    @component('admin.card.ban', ['user' => $user])
     @endcomponent
   </div>
 </div>

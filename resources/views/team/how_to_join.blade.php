@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-  <p>If you would like to join a team, the first step is to join Slack which you can do at <a href="http://slack.nottignhack.org.uk" target="_blank">slack.nottinghack.org.uk</a></p>
+  <p>If you would like to join a team, the first step is to join Slack which you can do at <a href="http://slack.nottinghack.org.uk" target="_blank">slack.nottinghack.org.uk</a></p>
 
   <p>Once you're on Slack, add yourself to the channels that are of interest, then post a message announcing yourself and offering to help.</p>
 

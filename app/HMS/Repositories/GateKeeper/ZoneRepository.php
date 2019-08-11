@@ -14,7 +14,7 @@ interface ZoneRepository
     public function findAll();
 
     /**
-     * Find one zone by short name
+     * Find one zone by short name.
      *
      * @param string $shortName
      *

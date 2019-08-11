@@ -26,6 +26,7 @@ return [
         'meta.edit',
         'membership.approval',
         'membership.updateDetails',
+        'membership.banMember',
         'link.view',
         'link.create',
         'link.edit',
@@ -52,6 +53,7 @@ return [
         'box.printLabel.self',
         'box.printLabel.all',
         'bankTransactions.upload',   // used by oauth client
+        'snackspace.debt.view',
         'snackspace.transaction.view.self',
         'snackspace.transaction.view.all',
         'snackspace.transaction.create.all', // Trustees, finance and snackspace team can create manual transactions
@@ -97,6 +99,8 @@ return [
         'team.view',
         'team.edit.description',
         'team.create',
+        'email.allMembers',
+        'instrumentation.electric.addReading',
     ],
 
     /*
@@ -224,14 +228,12 @@ return [
             'retained' => true,
             'permissions' => [
                 'profile.view.self',
-                'profile.edit.self',
                 'link.view',
                 'project.view.self',
                 'box.view.self',
                 'bankTransactions.view.self',
                 'snackspace.transaction.view.self',
                 'rfidTags.view.self',
-                'rfidTags.edit.self',
                 'gatekeeper.zoneEntry.outside',
                 'team.view',
             ],
@@ -242,7 +244,6 @@ return [
             'retained' => true,
             'permissions' => [
                 'profile.view.self',
-                'profile.edit.self',
                 'link.view',
                 'project.view.self',
                 'box.view.self',
@@ -336,6 +337,8 @@ return [
                 'team.edit.description',
                 'team.create',
                 'search.invites',
+                'email.allMembers',
+                'snackspace.debt.view',
             ],
         ],
         'team.software' => [
@@ -368,10 +371,12 @@ return [
                 'profile.view.limited',
                 'bankTransactions.view.all',
                 'bankTransactions.reconcile',
+                'snackspace.debt.view',
                 'snackspace.transaction.view.all',
                 'snackspace.transaction.create.all',
                 'gatekeeper.zoneEntry.teamStorage',
                 'team.edit.description',
+                'instrumentation.electric.addReading',
             ],
         ],
         'team.network' => [

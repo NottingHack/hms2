@@ -77,7 +77,7 @@ class RegisterController extends Controller
             'invite' => 'required|exists:HMS\Entities\Invite,inviteToken',
             'firstname' => 'required|max:255',
             'lastname' => 'required|max:255',
-            'username' => 'required|max:255|unique:HMS\Entities\User|unique:HMS\Entities\BlacklistUsername',
+            'username' => 'required|alpha_dash|max:255|unique:HMS\Entities\User|unique:HMS\Entities\BlacklistUsername',
             'email' => 'required|email|max:255|unique:HMS\Entities\User',
             'password' => 'required|min:' . User::MIN_PASSWORD_LENGTH . '|confirmed',
             'address1' => 'required|max:100',

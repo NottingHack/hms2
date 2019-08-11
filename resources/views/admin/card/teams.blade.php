@@ -12,7 +12,7 @@
           @endcan
           @can('role.grant.team')
           <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-danger btn-sm" aria-label="delete">
-            <form action="{{ route('roles.removeUser', ['role' => $team->getId(), 'user' => $user->getId()]) }}" method="POST" style="display: inline">
+            <form action="{{ route('roles.removeUserFromTeam', ['role' => $team->getId(), 'user' => $user->getId()]) }}" method="POST" style="display: inline">
               @method('DELETE')
               @csrf
             </form>

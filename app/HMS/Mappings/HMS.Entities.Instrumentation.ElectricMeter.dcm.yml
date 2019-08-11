@@ -1,0 +1,22 @@
+# HMS.Entities.Instrumentation.ElectricMeter.dcm.yml
+HMS\Entities\Instrumentation\ElectricMeter:
+  type: entity
+  repositoryClass: HMS\Repositories\Instrumentation\Doctrine\DoctrineElectricMeterRepository
+  table: electric_meters
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+  oneToMany:
+    readings:
+      targetEntity: \HMS\Entities\Instrumentation\ElectricReading
+      mappedBy: meter
+  manyToOne:
+    room:
+      targetEntity: \HMS\Entities\GateKeeper\Room

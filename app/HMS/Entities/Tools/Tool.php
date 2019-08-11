@@ -2,6 +2,7 @@
 
 namespace HMS\Entities\Tools;
 
+use Illuminate\Support\Str;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class Tool
@@ -283,7 +284,7 @@ class Tool
      */
     public function getPermissionName()
     {
-        return camel_case($this->name);
+        return Str::camel($this->name);
     }
 
     /**

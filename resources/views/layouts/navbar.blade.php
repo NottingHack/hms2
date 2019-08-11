@@ -34,7 +34,7 @@
       @foreach ($mainNav as $link)
       @if (count($link['links']) > 0)
       <li class="nav-item {!! $link['active'] ? 'active' : '' !!} dropdown">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopups="true" aria-expanded="false" href="{{ $link['url'] }}">{{ $link['text'] }}</a>
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopups="true" aria-expanded="false" href="{{ $link['url'] }}">{!! $link['text'] !!}</a>
         <div class="dropdown-menu">
           @foreach ($link['links'] as $subLink)
           <a class="dropdown-item {!! $subLink['active'] ? 'active' : '' !!}" href="{{ $subLink['url'] }}">{{ $subLink['text'] }}</a>
@@ -43,7 +43,7 @@
       </li>
       @else
       <li class="nav-item {!! $link['active'] ? 'active' : '' !!}">
-        <a class="nav-link" href="{{ $link['url'] }}">{{ $link['text'] }}</a>
+        <a class="nav-link" href="{{ $link['url'] }}">{!! $link['text'] !!}</a>
       </li>
       @endif
       @endforeach
@@ -69,13 +69,12 @@
             <a class="dropdown-item" href="{{ route('users.changePassword') }}">Change Password</a>
             <a class="dropdown-item" href="{{ route('bank-transactions.index') }}">Standing Order Details</a>
             <a class="dropdown-item" href="{{ route('2fa') }}">Two Factor Auth</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+              @csrf
+            </form>
           </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-          </form>
         </li>
     </ul>
 

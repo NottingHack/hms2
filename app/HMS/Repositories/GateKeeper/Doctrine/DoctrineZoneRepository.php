@@ -19,7 +19,7 @@ class DoctrineZoneRepository extends EntityRepository implements ZoneRepository
     }
 
     /**
-     * Find one zone by short name
+     * Find one zone by short name.
      *
      * @param string $shortName
      *

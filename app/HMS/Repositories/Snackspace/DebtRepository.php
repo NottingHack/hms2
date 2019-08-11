@@ -22,7 +22,14 @@ interface DebtRepository
      *
      * @return Debt[]
      */
-    public function findBetweeenAudtiTimes(Carbon $start, Carbon $end);
+    public function findBetweeenAuditTimes(Carbon $start, Carbon $end);
+
+    /**
+     * Find lastest entry.
+     *
+     * @return null|Debt
+     */
+    public function findLatest();
 
     /**
      * Save Debt to the DB.

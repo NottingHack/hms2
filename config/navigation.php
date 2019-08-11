@@ -13,7 +13,7 @@ return [
     */
     'main' => [
         'home' => [
-            'text'          => 'Home',
+            'text'          => '<i class="fas fa-home fa-lg"></i>',
             'route'         => 'index',
             'permissions'   => [],
             'links'         => [],
@@ -65,6 +65,19 @@ return [
             'permissions'   => [],
             'links'         => [],
         ],
+        'statistics' => [
+            'text' => '<i class="fas fa-chart-line fa-lg"></i>',
+            'permissions'   => [],
+            'links'         => [
+                'electric' => [
+                    'text'          => 'Electric',
+                    'route'         => 'instrumentation.electric.index',
+                    'match'         => 'instrumentation.electric.index',
+                    'permissions'   => [],
+                    'links'         => [],
+                ],
+            ],
+        ],
         'vending' => [
             'text'          => 'Vending',
             'permissions'   => [],
@@ -85,8 +98,35 @@ return [
                 ],
             ],
         ],
+        'finance' => [
+            'text' => '<i class="far fa-money-bill fa-lg"></i>',
+            'permissions'   => [],
+            'links'         => [
+                'joinAccounts' => [
+                    'text'          => 'Joint Accounts',
+                    'route'         => 'banking.accounts.listJoint',
+                    'match'         => 'banking.accounts.listJoint',
+                    'permissions'   => ['profile.view.limited', 'profile.view.all'],
+                    'links'         => [],
+                ],
+                'bankTransactions' => [
+                    'text'          => 'Reconcile Bank Transaction',
+                    'route'         => 'bank-transactions.unmatched',
+                    'match'         => 'bank-transactions.unmatched',
+                    'permissions'   => ['bankTransactions.reconcile'],
+                    'links'         => [],
+                ],
+                'debt'      => [
+                    'text'          => 'Snackspace Debt Graphs',
+                    'route'         => 'snackspace.debt-graph',
+                    'match'         => 'snackspace.debt-graph',
+                    'permissions'   => ['snackspace.debt.view'],
+                    'links'         => [],
+                ],
+            ],
+        ],
         'admin' => [
-            'text'          => 'Admin',
+            'text'          => '<i class="fas fa-toolbox fa-lg"></i>',
             'permissions'   => [],
             'links'         => [
                 // 'dashboard'         => [
@@ -124,30 +164,28 @@ return [
                     'permissions'   => ['labelTemplate.view'],
                     'links'         => [],
                 ],
-                'joinAccounts' => [
-                    'text'          => 'Joint Accounts',
-                    'route'         => 'banking.accounts.listJoint',
-                    'match'         => 'banking.accounts.listJoint',
-                    'permissions'   => ['profile.view.limited', 'profile.view.all'],
-                    'links'         => [],
-                ],
-                'bankTransactions' => [
-                    'text'          => 'Reconcile Bank Transaction',
-                    'route'         => 'bank-transactions.unmatched',
-                    'match'         => 'bank-transactions.unmatched',
-                    'permissions'   => ['bankTransactions.reconcile'],
-                    'links'         => [],
-                ],
                 'inviteSearch' => [
                     'text'          => 'Resend Invite',
                     'route'         => 'membership.invites',
                     'permissions'   => ['search.invites'],
                     'links'         => [],
                 ],
+                'emailMembers' => [
+                    'text'          => 'Email All Members',
+                    'route'         => 'email-members.draft',
+                    'permissions'   => ['email.allMembers'],
+                    'links'         => [],
+                ],
                 'membershipApprovals' => [
                     'text'          => 'Review Approvals',
                     'route'         => 'membership.index',
                     'permissions'   => ['membership.approval'],
+                    'links'         => [],
+                ],
+                'csvDownload' => [
+                    'text'          => 'CSV Downloads',
+                    'route'         => 'csv-download.index',
+                    'permissions'   => ['profile.view.all'],
                     'links'         => [],
                 ],
                 'horizon'          => [

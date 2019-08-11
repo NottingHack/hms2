@@ -48,6 +48,10 @@ Route::get('instrumentation/status', 'Instrumentation\ServiceController@status')
     ->name('instrumentation.status');
 Route::get('instrumentation/{service}/events/', 'Instrumentation\ServiceController@eventsForService')
     ->name('instrumentation.service.events');
+// Instrumentation/Electric
+Route::namespace('Instrumentation')->prefix('instrumentation')->name('instrumentation.')->group(function () {
+    Route::get('electric', 'ElectricController@index')->name('electric.index');
+});
 
 // Routes in the following group can only be access from inside the hackspace (as defined by the ip range in .env)
 Route::middleware(['ipcheck'])->group(function () {
@@ -90,6 +94,12 @@ Route::middleware(['auth', 'verified', '2fa'])->group(function () {
     Route::get('roles/{role}/edit', 'RoleController@edit')->name('roles.edit');
     Route::put('roles/{role}', 'RoleController@update')->name('roles.update');
     Route::delete('roles/{role}/users/{user}', 'RoleController@removeUser')->name('roles.removeUser');
+    Route::patch('admin/users/{user}/reinstate', 'RoleController@reinstateUser')
+        ->name('users.admin.reinstate');
+    Route::patch('admin/users/{user}/temporary-ban', 'RoleController@temporaryBanUser')
+        ->name('users.admin.temporaryBan');
+    Route::patch('admin/users/{user}/ban', 'RoleController@banUser')
+        ->name('users.admin.ban');
 
     // USER
     Route::get('admin/users/{user}', 'AdminController@userOverview')->name('users.admin.show');
@@ -100,9 +110,6 @@ Route::middleware(['auth', 'verified', '2fa'])->group(function () {
     Route::get('users', 'UserController@index')->name('users.index');
     Route::get('change-password', 'Auth\ChangePasswordController@edit')->name('users.changePassword');
     Route::put('change-password', 'Auth\ChangePasswordController@update')->name('users.changePassword.update');
-
-    // Admin
-    Route::get('admin', 'AdminController@admin')->name('admin');
 
     // Meta area covers various setting for HMS
     Route::resource(
@@ -262,6 +269,8 @@ Route::middleware(['auth', 'verified', '2fa'])->group(function () {
                 'vending-machines/{vendingMachine}/locations/{vendingLocation}',
                 'VendingMachineController@locationAssign'
             )->name('vending-machines.locations.assign');
+
+            Route::get('debt-graph', 'DebtController@debtGraph')->name('debt-graph');
         });
     });
 
@@ -276,7 +285,8 @@ Route::middleware(['auth', 'verified', '2fa'])->group(function () {
     );
 
     // Teams
-    Route::patch('teams/{role}/users', 'RoleController@addUsertoTeam')->name('roles.addUsertoTeam');
+    Route::patch('teams/{role}/users', 'RoleController@addUserToTeam')->name('roles.addUserToTeam');
+    Route::delete('teams/{role}/users/{user}', 'RoleController@removeUserFromTeam')->name('roles.removeUserFromTeam');
     Route::get('teams/how-to-join', 'TeamController@howToJoin')->name('teams.how-to-join');
     Route::resource(
         'teams',
@@ -285,4 +295,25 @@ Route::middleware(['auth', 'verified', '2fa'])->group(function () {
             'except' => ['destroy'],
         ]
     );
+
+    // Email to all Members
+    Route::get('email-members', 'EmailController@draft')->name('email-members.draft');
+    Route::post('email-members', 'EmailController@review')->name('email-members.review');
+    Route::get('email-members/review', 'EmailController@reviewHtml')->name('email-members.preview');
+    Route::put('email-members', 'EmailController@send')->name('email-members.send');
+
+    // CSV downlaods
+    Route::get('csv-download', 'CSVDownloadController@index')->name('csv-download.index');
+    Route::get('csv-download/opa-csv', 'CSVDownloadController@currentMemberEmails')->name('csv-download.opa-csv');
+    Route::get('csv-download/low-payers', 'CSVDownloadController@lowPayers')->name('csv-download.low-payers');
+    Route::get('csv-download/payment-change', 'CSVDownloadController@paymentChange')
+        ->name('csv-download.payment-change');
+    Route::get('csv-download/member-payments', 'CSVDownloadController@memberPayments')
+        ->name('csv-download.member-payments');
+
+    // Instrumentation/Electric
+    Route::namespace('Instrumentation')->prefix('instrumentation')->name('instrumentation.')->group(function () {
+        // Route::get('electric', 'ElectricController@index')->name('electric.index');
+        Route::post('electric/readings', 'ElectricController@store')->name('electric.readings.store');
+    });
 });

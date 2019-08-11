@@ -4,9 +4,9 @@ namespace HMS\Entities;
 
 use HMS\Traits\Entities\SoftDeletable;
 use HMS\Traits\Entities\Timestampable;
-use Illuminate\Notifications\Notifiable;
 use LaravelDoctrine\ACL\Contracts\Permission;
 use Doctrine\Common\Collections\ArrayCollection;
+use LaravelDoctrine\ORM\Notifications\Notifiable;
 use LaravelDoctrine\ACL\Permissions\HasPermissions;
 use LaravelDoctrine\ACL\Contracts\Role as RoleContract;
 
@@ -312,7 +312,7 @@ class Role implements RoleContract
     public function routeNotificationForSlack(): ?string
     {
         if ($this->name == self::TEAM_TRUSTEES) {
-            return config('hms.trustee_slack_webhook');
+            return config('hms.trustees_slack_webhook');
         } else {
             return config('hms.team_slack_webhook');
         }

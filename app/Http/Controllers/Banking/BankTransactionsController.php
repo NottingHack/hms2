@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Banking;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\UserRepository;
 use HMS\Entities\Banking\BankTransaction;
+use HMS\Entities\Snackspace\TransactionType;
 use HMS\Repositories\Banking\BankRepository;
 use HMS\Repositories\Banking\AccountRepository;
+use HMS\Factories\Snackspace\TransactionFactory;
+use HMS\Repositories\Snackspace\TransactionRepository;
 use HMS\Repositories\Banking\BankTransactionRepository;
 
 class BankTransactionsController extends Controller
@@ -39,22 +43,38 @@ class BankTransactionsController extends Controller
     public $sortCode;
 
     /**
+     * @var TransactionFactory
+     */
+    protected $transactionFactory;
+
+    /**
+     * @var TransactionRepository
+     */
+    protected $transactionRepository;
+
+    /**
      * @param BankTransactionRepository $bankTransactionRepository
      * @param UserRepository $userRepository
      * @param AccountRepository $accountRepository
      * @param MetaRepository $metaRepository
      * @param BankRepository $bankRepository
+     * @param TransactionFactory $transactionFactory
+     * @param TransactionRepository $transactionRepository
      */
     public function __construct(
         BankTransactionRepository $bankTransactionRepository,
         UserRepository $userRepository,
         AccountRepository $accountRepository,
         MetaRepository $metaRepository,
-        BankRepository $bankRepository
+        BankRepository $bankRepository,
+        TransactionFactory $transactionFactory,
+        TransactionRepository $transactionRepository
     ) {
         $this->bankTransactionRepository = $bankTransactionRepository;
         $this->userRepository = $userRepository;
         $this->accountRepository = $accountRepository;
+        $this->transactionFactory = $transactionFactory;
+        $this->transactionRepository = $transactionRepository;
 
         $bank = $bankRepository->find($metaRepository->get('so_bank_id'));
         $this->accountNo = $bank->getAccountNumber();
@@ -79,7 +99,10 @@ class BankTransactionsController extends Controller
                 throw EntityNotFoundException::fromClassNameAndIdentifier(User::class, ['id' => $request->user]);
             }
 
-            if ($user != \Auth::user() && \Gate::denies('bankTransactions.view.all') && \Gate::denies('bankTransactions.view.limited')) {
+            if ($user != \Auth::user() &&
+                \Gate::denies('bankTransactions.view.all') &&
+                \Gate::denies('bankTransactions.view.limited')
+            ) {
                 flash('Unauthorized')->error();
 
                 return redirect()->route('home');
@@ -129,10 +152,36 @@ class BankTransactionsController extends Controller
      */
     public function update(Request $request, BankTransaction $bankTransaction)
     {
-        $account = $this->accountRepository->findOneById($request['existing-account']);
-        $bankTransaction->setAccount($account);
-        $this->bankTransactionRepository->save($bankTransaction);
+        $validatedData = $request->validate([
+            'action' => [
+                'required',
+                Rule::in(['membership', 'snackspace']),
+            ],
+            'user_id' => 'required|exists:HMS\Entities\User,id',
+        ]);
 
+        $user = $this->userRepository->findOneById($validatedData['user_id']);
+
+        if ($validatedData['action'] == 'membership') {
+            $bankTransaction->setAccount($user->getAccount());
+        } elseif ($validatedData['action'] == 'snackspace') {
+            // create a new snackspace transaction
+            $amount = $bankTransaction->getAmount();
+            $stringAmount = money_format('%n', $amount / 100);
+
+            $snackspaceTransaction = $this->transactionFactory->create(
+                $user,
+                $amount,
+                TransactionType::BANK_PAYMENT,
+                'Bank Transfer : ' . $stringAmount
+            );
+
+            $snackspaceTransaction = $this->transactionRepository->saveAndUpdateBalance($snackspaceTransaction);
+
+            $bankTransaction->setTransaction($snackspaceTransaction);
+        }
+
+        $this->bankTransactionRepository->save($bankTransaction);
         flash('Transaction updated')->success();
 
         return redirect()->route('bank-transactions.unmatched');

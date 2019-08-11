@@ -2,9 +2,13 @@
 
 namespace App\Console;
 
+use App\Jobs\EmailTeamReminderJob;
 use App\Jobs\Snackspace\LogDebtJob;
+use App\Jobs\Banking\MembershipAuditJob;
 use Illuminate\Console\Scheduling\Schedule;
 use App\Jobs\GateKeeper\ZoneOccupantResetJob;
+use App\Jobs\Membership\AuditYoungHackersJob;
+use App\Jobs\Snackspace\MemberDebtNotificationJob;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
@@ -30,11 +34,11 @@ class Kernel extends ConsoleKernel
         $schedule->command('invites:purge')
                  ->daily();
 
-        $schedule->command('hms:members:audit')
+        $schedule->job(new MembershipAuditJob)
                  ->weekdays()
                  ->dailyAt('23:55');
 
-        $schedule->command('hms:members:youngHackerAudit')
+        $schedule->job(new AuditYoungHackersJob)
                 ->dailyAt('06:00');
 
         $schedule->command('auth:clear-resets')
@@ -44,6 +48,8 @@ class Kernel extends ConsoleKernel
 
         $schedule->job(new LogDebtJob)->daily();
         $schedule->job(new ZoneOccupantResetJob)->twiceDaily();
+        $schedule->job(new MemberDebtNotificationJob)->monthlyOn(1, '7:00');
+        $schedule->job(new EmailTeamReminderJob)->weeklyOn(2, '7:27');
     }
 
     /**

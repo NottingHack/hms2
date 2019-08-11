@@ -12,8 +12,8 @@
       @loading="loading"
       @unselect="unselect"
       @eventClick="eventClick"
-      @datesDestroy="removeConfirmation"
-      @viewSkeletonRender="viewSkeletonRender"
+      :datesDestroy="removeConfirmation"
+      :viewSkeletonRender="viewSkeletonRender"
 
       :selectable=true
       :selectOverlap=false
@@ -60,7 +60,9 @@
 
     props: {
       bookingsUrl: String,
+      userId: Number,
       initialBookings: Array,
+      toolIds: Array,
       removeCardClass: Boolean,
     },
 
@@ -245,6 +247,55 @@
           $(info.el).removeClass(['card', 'fc-list-view'])
         }
       },
+
+      echoInit() {
+        this.toolIds.forEach(function (toolId) {
+          Echo.channel('tools.' + toolId + '.bookings')
+            .listen('Tools.NewBooking', this.newBookingEvent)
+            .listen('Tools.BookingChanged', this.bookingChangedEvent)
+            .listen('Tools.BookingCancelled', this.bookingCancelledEvent);
+        }, this);
+      },
+
+      echoDeInit() {
+        this.toolIds.forEach(function (toolId) {
+          Echo.leave('tools.' + toolId + '.bookings');
+        });
+      },
+
+      newBookingEvent(newBooking) {
+        // console.log('Echo sent newBooking event', newBooking);
+        if (newBooking.booking.userId != this.userId) {
+          return;
+        }
+        const event = this.calendarApi.getEventById(newBooking.booking.id);
+        if (event) {
+          return;
+        }
+        const booking = this.mapBookings(newBooking.booking);
+        this.calendarApi.addEvent(booking, 'bookings');
+      },
+
+      bookingChangedEvent(bookingChanged) {
+        // console.log('Echo sent bookingChanged event', bookingChanged);
+        if (bookingChanged.booking.userId != this.userId) {
+          return;
+        }
+        const oldEvet = this.calendarApi.getEventById(bookingChanged.booking.id);
+        if (oldEvet) {
+          oldEvet.remove();
+        }
+        const booking = this.mapBookings(bookingChanged.booking);
+        this.calendarApi.addEvent(booking, 'bookings');
+      },
+
+      bookingCancelledEvent(bookingCancelled) {
+        // console.log('Echo sent bookingCancelled event', bookingCancelled);
+        const event = this.calendarApi.getEventById(bookingCancelled.bookingId);
+        if (event) {
+          event.remove();
+        }
+      },
     }, // end of methods
 
     mounted() {
@@ -261,11 +312,15 @@
         // TODO: once we have Echo running only really need to call this if there is an event under now ±15
         this.checkBookings()
       }.bind(this), 60000); // 900000
+
+      this.echoInit();
+
       this.isLoading = false;
     },
 
     beforeDestroy() {
       clearInterval(this.interval);
+      this.echoDeInit();
     },
   }
 </script>

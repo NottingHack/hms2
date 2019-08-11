@@ -29,6 +29,10 @@ class LogSentMessage implements ShouldQueue
     /**
      * Create the event listener.
      *
+     * @param EmailRepository $emailRepository
+     * @param UserRepository $userRepository
+     * @param RoleRepository $roleRepository
+     *
      * @return void
      */
     public function __construct(
@@ -51,12 +55,13 @@ class LogSentMessage implements ShouldQueue
     public function handle(MessageSending $event)
     {
         // grab the various bits of info from the Swift_Message
+        $messageId = $event->message->getHeaders()->get('message-id')->getId();
         $toAddresses = $event->message->getHeaders()->get('to')->getNameAddresses();
         $subject = $event->message->getHeaders()->get('subject')->getValue();
         $body = $event->message->getBody();
         $fullString = $event->message->toString();
 
-        $email = new Email($toAddresses, $subject, $body, $fullString);
+        $email = new Email($toAddresses, $subject, $body, $fullString, $messageId);
 
         // now work out the asscications for the users / roles
         foreach ($toAddresses as $address => $name) {

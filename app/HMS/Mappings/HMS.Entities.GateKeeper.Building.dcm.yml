@@ -1,0 +1,19 @@
+# HMS.Entities.GateKeeper.Building.dcm.yml
+HMS\Entities\GateKeeper\Building:
+  type: entity
+  repositoryClass: HMS\Repositories\GateKeeper\Doctrine\DoctrineBuildingRepository
+  table: buildings
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+  oneToMany:
+    floors:
+      targetEntity: \HMS\Entities\GateKeeper\Floor
+      mappedBy: building

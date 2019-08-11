@@ -40,6 +40,6 @@ Route::name('api.')->middleware('auth:api')->group(function () {
 // All 'client_credentials' api route names are prefixed with client.
 Route::name('client.')->middleware('client')->group(function () {
     // upload new bankTransactions/
-    Route::post('bank-transactions/upload', 'Api\TransactionUploadController@upload')
+    Route::post('bank-transactions/upload', 'Api\Banking\TransactionUploadController@upload')
         ->name('bankTransactions.upload');
 });

@@ -8,6 +8,13 @@ use HMS\Entities\Banking\BankTransaction;
 interface BankTransactionRepository
 {
     /**
+     * Find all transactions.
+     *
+     * @return array
+     */
+    public function findAll();
+
+    /**
      * Find the latest transaction for each account.
      *
      * @return array
@@ -36,7 +43,7 @@ interface BankTransactionRepository
     public function paginateByAccount(?Account $account, $perPage = 15, $pageName = 'page');
 
     /**
-     * Find a matching tranaction in the db or save this one.
+     * Find a matching transaction in the db or save this one.
      *
      * @param BankTransaction $bankTransaction
      *

@@ -51,7 +51,7 @@ These ex-members have started paying again, so their membership has been reinsta
 | Name                                       | Joint Account | Balance | Date made Ex | Last visit date |
 | ------------------------------------------ | ------------- | ------- | ------------ | --------------- |
 @forelse ($formattedReinstateUsers as $user)
-| [{{ $user['fullName'] }}]({{ route('users.admin.show', $user['id']) }}) | {{ $user['email'] }} | {{ $user['jointAccount'] }} | @format_pennies($user['balance']) | {{ $user['dateMadeExMember'] }} | {{ $user['lastVisitDate'] }} |
+| [{{ $user['fullName'] }}]({{ route('users.admin.show', $user['id']) }}) | {{ $user['jointAccount'] }} | @format_pennies($user['balance']) | {{ $user['dateMadeExMember'] }} | {{ $user['lastVisitDate'] }} |
 @empty
 @endforelse
 @endcomponent

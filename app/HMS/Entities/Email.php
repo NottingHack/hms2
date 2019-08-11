@@ -48,18 +48,25 @@ class Email
     protected $role;
 
     /**
+     * @var string
+     */
+    protected $messageId;
+
+    /**
      * Create a new email record.
      *
      * @param array $toAddress Array of to adddress in format [ email => name]
      * @param string $subject
      * @param string $body
      * @param string $fullString
+     * @param string $messageId
      */
     public function __construct(
         array $toAddress,
         string $subject,
         string $body,
-        string $fullString
+        string $fullString,
+        string $messageId
     ) {
         $this->toAddress = $toAddress;
         $this->subject = $subject;
@@ -67,6 +74,7 @@ class Email
         $this->fullString = $fullString;
         $this->users = new ArrayCollection();
         $this->sentAt = Carbon::now();
+        $this->messageId = $messageId;
     }
 
     /**
@@ -229,6 +237,26 @@ class Email
     public function setRole(?Role $role): self
     {
         $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessageId()
+    {
+        return $this->messageId;
+    }
+
+    /**
+     * @param string $messageId
+     *
+     * @return self
+     */
+    public function setMessageId($messageId)
+    {
+        $this->messageId = $messageId;
 
         return $this;
     }

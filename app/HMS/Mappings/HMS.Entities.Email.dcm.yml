@@ -24,6 +24,8 @@ HMS\Entities\Email:
       gedmo:
         timestampable:
           on: create
+    messageId:
+      type: string
   manyToOne:
     role:
       targetEntity: Role

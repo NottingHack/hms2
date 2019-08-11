@@ -27,7 +27,7 @@ class DoctrineDebtRepository extends EntityRepository implements DebtRepository
      *
      * @return Debt[]
      */
-    public function findBetweeenAudtiTimes(Carbon $start, Carbon $end)
+    public function findBetweeenAuditTimes(Carbon $start, Carbon $end)
     {
         $q = parent::createQueryBuilder('debt');
 
@@ -39,6 +39,16 @@ class DoctrineDebtRepository extends EntityRepository implements DebtRepository
             ->getQuery();
 
         return $q->getResult();
+    }
+
+    /**
+     * Find lastest entry.
+     *
+     * @return null|Debt
+     */
+    public function findLatest()
+    {
+        return parent::findOneBy([], ['auditTime' => 'DESC'], 1);
     }
 
     /**

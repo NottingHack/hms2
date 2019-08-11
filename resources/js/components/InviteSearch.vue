@@ -3,15 +3,15 @@
     <input type="hidden" name="_token" :value="csrf">
     <div class="form-group" ref="selectDiv">
       <label for="invite">Search for an Invite to resend</label>
-        <select-two
-          id="invite"
-          v-model="value"
-          :name="null"
-          :placeholder="placeholder"
-          :settings="mySettings"
-          style="width: 100%"
-          :disabled="disabled"
-          />
+      <select-two
+        id="invite"
+        v-model="value"
+        :name="null"
+        :placeholder="placeholder"
+        :settings="mySettings"
+        style="width: 100%"
+        :disabled="disabled"
+        />
     </div>
     <div class="form-group text-center">
       <button class="btn btn-primary"type="submit"><i class="fas fa-paper-plane" aria-hidden="true"></i> Resend Invite</button>

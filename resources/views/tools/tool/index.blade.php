@@ -6,7 +6,7 @@
 <div class="container">
   <p>
     To book a tool click on the <span style="color: #195905"><i class="fal fa-calendar-alt" aria-hidden="true"></i></span> or name.<br>
-    Use of some tools is restricted and needs and induction first.
+    Use of some tools is restricted and needs an induction first.
   </p>
   <div class="table-responsive no-more-tables">
     <table class="table table-striped table-hover">

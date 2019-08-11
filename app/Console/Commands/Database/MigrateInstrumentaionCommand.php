@@ -4,6 +4,7 @@ namespace App\Console\Commands\Database;
 
 use Carbon\Carbon;
 use HMS\Tools\ToolManager;
+use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
@@ -741,13 +742,13 @@ class MigrateInstrumentaionCommand extends Command
         foreach ($tools as $tool) {
             $toolRoleIds[$tool->id] = [
                 'MAINTAINER'    => DB::table('roles')
-                                        ->where('name', 'LIKE', 'tools.' . camel_case($tool->name) . '.maintainer')
+                                        ->where('name', 'LIKE', 'tools.' . Str::camel($tool->name) . '.maintainer')
                                         ->value('id'),
                 'INDUCTOR'      => DB::table('roles')
-                                        ->where('name', 'LIKE', 'tools.' . camel_case($tool->name) . '.inductor')
+                                        ->where('name', 'LIKE', 'tools.' . Str::camel($tool->name) . '.inductor')
                                         ->value('id'),
                 'USER'          => DB::table('roles')
-                                        ->where('name', 'LIKE', 'tools.' . camel_case($tool->name) . '.user')
+                                        ->where('name', 'LIKE', 'tools.' . Str::camel($tool->name) . '.user')
                                         ->value('id'),
             ];
         }

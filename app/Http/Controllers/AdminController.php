@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use HMS\Entities\User;
-use HMS\Entities\Tools\Booking;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\Tools\ToolRepository;
 use HMS\Repositories\Members\BoxRepository;
@@ -83,36 +82,6 @@ class AdminController extends Controller
     }
 
     /**
-     * Helper for array_map to prepare bookings for BookingCalendarList.vue.
-     *
-     * @param Booking $booking
-     *
-     * @return array
-     */
-    protected function mapBookings(Booking $booking)
-    {
-        // TODO: swap out for Fractal
-        return [
-            'id' => $booking->getId(),
-            'start' => $booking->getStart()->toAtomString(),
-            'end' => $booking->getEnd()->toAtomString(),
-            'title' => $booking->getTool()->getName(),
-            'type' => $booking->getType(),
-            'toolId' => $booking->getTool()->getId(),
-        ];
-    }
-
-    /**
-     * Admin home page.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function admin()
-    {
-        return view('pages.admin');
-    }
-
-    /**
      * Overview page of a given user.
      *
      * @param User $user
@@ -126,8 +95,10 @@ class AdminController extends Controller
         $snackspaceTransactions = $this->transactionRepository->paginateByUser($user, 3);
         $teams = $this->roleRepository->findTeamsForUser($user);
         $bookings = $this->bookingRepository->findFutureByUser($user);
-        $mappedBookings = array_map([$this, 'mapBookings'], $bookings);
         $tools = $this->toolRepository->findAll();
+        $toolIds = array_map(function ($tool) {
+            return $tool->getId();
+        }, $tools);
         $memberStatus = $this->roleRepository->findMemberStatusForUser($user);
         $bankTransactions = $this->bankTransactionRepository->paginateByAccount($user->getAccount(), 3);
 
@@ -137,8 +108,9 @@ class AdminController extends Controller
             'boxCount' => $boxCount,
             'snackspaceTransactions' => $snackspaceTransactions,
             'teams' => $teams,
-            'bookings' => $mappedBookings,
+            'bookings' => $bookings,
             'tools' => $tools,
+            'toolIds' => $toolIds,
             'memberStatus' => $memberStatus,
             'bankTransactions' => $bankTransactions,
         ]);

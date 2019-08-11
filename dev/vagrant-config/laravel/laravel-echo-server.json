@@ -1,0 +1,31 @@
+{
+	"authHost": "https://hmsdev",
+	"authEndpoint": "/broadcasting/auth",
+	"clients": [],
+	"database": "redis",
+	"databaseConfig": {
+		"redis": {},
+		"sqlite": {
+			"databasePath": "/database/laravel-echo-server.sqlite"
+		}
+	},
+	"devMode": false,
+	"host": null,
+	"port": "6001",
+	"protocol": "https",
+	"socketio": {},
+	"sslCertPath": "/etc/nginx/ssl/hmsdev.crt.pem",
+	"sslKeyPath": "/etc/nginx/ssl/hmsdev.key.pem",
+	"sslCertChainPath": "",
+	"sslPassphrase": "",
+	"subscribers": {
+		"http": true,
+		"redis": true
+	},
+	"apiOriginAllow": {
+		"allowCors": false,
+		"allowOrigin": "",
+		"allowMethods": "",
+		"allowHeaders": ""
+	}
+}

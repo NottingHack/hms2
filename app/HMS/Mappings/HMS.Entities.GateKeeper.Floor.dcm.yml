@@ -1,0 +1,26 @@
+# HMS.Entities.GateKeeper.Floor.dcm.yml
+HMS\Entities\GateKeeper\Floor:
+  type: entity
+  repositoryClass: HMS\Repositories\GateKeeper\Doctrine\DoctrineFloorRepository
+  table: floors
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+    level:
+      type: integer
+  oneToMany:
+    rooms:
+      targetEntity: \HMS\Entities\GateKeeper\Room
+      mappedBy: floor
+  manyToOne:
+    building:
+      targetEntity: \HMS\Entities\GateKeeper\Building
+      inversedBy: floors
+      cascade: ['persist']

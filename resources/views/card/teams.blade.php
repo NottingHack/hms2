@@ -1,3 +1,4 @@
+@can('team.view')
 <div class="card">
   <div class="card-header">Your Teams</div>
   <ul class="list-group list-group-flush">
@@ -21,3 +22,4 @@
     <a href="{{ route('teams.index') }}" class="btn btn-primary mb-1">View all teams</a>
   </div>
 </div>
+@endcan

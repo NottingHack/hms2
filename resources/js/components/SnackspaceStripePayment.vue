@@ -13,7 +13,10 @@
             </button>
           </div>
           <div ref="modalBody" class="modal-body">
-            <p>To add money to your snack space account please select an amount, then enter your card details.</p>
+            <p>
+              To add money to your snack space account please select an amount, then enter your card details.<br>
+              Due to processing fees, it is not economical for us to offer other amounts.
+            </p>
             <div class="form-group text-center">
               <div class="btn-group btn-group-toggle">
                 <label :class="amount === 1000 ? 'btn btn-lg btn-success active': 'btn btn-lg btn-success'">

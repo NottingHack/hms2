@@ -56,6 +56,11 @@ class HandleChargeDisputeCreatedJob implements ShouldQueue
 
         if (is_null($charge)) {
             // TODO: bugger should we create one?
+            // for now log it and tell software team
+            \Log::error('HandleChargeRefundedJob: Charge not found');
+            $softwareTeamRole = $roleRepository->findOneByName(ROLE::SOFTWARE_TEAM);
+            $softwareTeamRole->notify(new ProcessingIssue($this->webhookCall, 'Dispute Created'));
+
             return;
         }
 

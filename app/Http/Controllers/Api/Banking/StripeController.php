@@ -31,10 +31,11 @@ class StripeController extends Controller
         $user = \Auth::user();
 
         if (is_null($user)) {
-            // TODO: guest user
+            // TODO: guest user, send bad request until we implement something here
+            return response()->json([], IlluminateResponse::HTTP_BAD_REQUEST);
         }
 
-        if ($validatedData['type'] == 'snackspace') {
+        if ($validatedData['type'] == 'SNACKSPACE') {
             $descriptor = 'Snackspace';
         } else {
             $descriptor = 'Donation';
@@ -86,7 +87,8 @@ class StripeController extends Controller
         $user = \Auth::user();
 
         if (is_null($user)) {
-            // TODO: guest user
+            // TODO: guest user, send bad request until we implement something here
+            return response()->json([], IlluminateResponse::HTTP_BAD_REQUEST);
         }
 
         $intent = PaymentIntent::update(
@@ -127,7 +129,7 @@ class StripeController extends Controller
             'type' => 'required|string',
         ]);
 
-        // TODO: should we find or create pi_ in a table
+        // As we are not recording anything until we see the charge.success web-hook nothing to do here
 
         return response(null, IlluminateResponse::HTTP_NO_CONTENT);
     }

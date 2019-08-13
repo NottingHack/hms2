@@ -31,8 +31,8 @@
           </div>
           <div ref="modalBody" class="modal-body">
             <p>Your have entered <strong>£{{ intentAmount / 100 }}</strong> as your donation amount.</p>
-            <button :class="['btn btn-primary btn-block mb-3', changingAmount ? 'd-none' : '']" @click="changeAmount">Change Amount?</button>
-            <div :class="['form-group', changingAmount ? '' : 'd-none']">1111
+            <button :class="['btn btn-primary btn-block mb-3', changingAmount ? 'd-none' : '']" @click="changeAmount">Change Amount</button>
+            <div :class="['form-group', changingAmount ? '' : 'd-none']">
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">£</span>

@@ -117,7 +117,7 @@ class HandleChargeSucceededJob implements ShouldQueue
     }
 
     /**
-     * Handel Snackspace Payment.
+     * Handle Snackspace Payment.
      *
      * @param StripeCharge $stripeCharge Stripe/Charge instance
      * @param Charge $chargen Our Banking instance
@@ -146,7 +146,7 @@ class HandleChargeSucceededJob implements ShouldQueue
     }
 
     /**
-     * Handel Donation.
+     * Handle Donation.
      *
      * @param StripeCharge $stripeCharge Stripe/Charge instance
      * @param Charge $chargen Our Banking instance

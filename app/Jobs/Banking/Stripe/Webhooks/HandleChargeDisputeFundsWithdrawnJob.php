@@ -14,6 +14,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use HMS\Entities\Snackspace\TransactionType;
 use Spatie\WebhookClient\Models\WebhookCall;
 use HMS\Factories\Snackspace\TransactionFactory;
+use App\Notifications\Banking\Stripe\ProcessingIssue;
 use HMS\Repositories\Banking\Stripe\ChargeRepository;
 use HMS\Repositories\Snackspace\TransactionRepository;
 use App\Notifications\Banking\Stripe\DisputeDonationFundsWithdrawn;
@@ -65,11 +66,17 @@ class HandleChargeDisputeFundsWithdrawnJob implements ShouldQueue
 
         if (is_null($charge)) {
             // TODO: bugger should we create one?
+            // for now log it and tell software team
+            \Log::error('HandleChargeRefundedJob: Charge not found');
+            $softwareTeamRole = $roleRepository->findOneByName(ROLE::SOFTWARE_TEAM);
+            $softwareTeamRole->notify(new ProcessingIssue($this->webhookCall, 'Dispute Funds Withdrawn'));
+
             return;
         }
 
         if ($charge->getType() == ChargeType::SNACKSPACE) {
-            $amount = -$stripeDispute->amount;
+            // negate the amount
+            $amount = -1 * 1 * $stripeDispute->amount;
 
             $stringAmount = money_format('%n', $amount / 100);
             $description = 'Dispute online card payment (funds withdrawn) : ' . $stringAmount;

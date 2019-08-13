@@ -42,6 +42,7 @@ class HandleChargeDisputeUpdatedJob implements ShouldQueue
     public function handle(
         ChargeRepository $chargeRepository
     ) {
+        // We don't yet have any real need for this event so just log it out for now
         $event = Event::constructFrom($this->webhookCall->payload);
         $stripeDispute = $event->data->object;
         \Log::info('HandleChargeDisputeUpdatedJob');

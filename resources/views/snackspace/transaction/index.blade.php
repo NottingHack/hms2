@@ -22,7 +22,10 @@ Snackspace account for {{ $user->getFirstname() }}
     @endif
   </p>
   <hr>
-  <p>Details of your Snackspace and Tool Usage transactions are shown below.</p>
+  <p>
+    Details of your Snackspace and Tool Usage transactions are shown below.<br>
+    We do not store card detials and only ever see the last 4 digits.
+  </p>
 </div>
 
 <div class="container">

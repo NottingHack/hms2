@@ -17,6 +17,7 @@ use HMS\Entities\Snackspace\TransactionType;
 use Spatie\WebhookClient\Models\WebhookCall;
 use HMS\Factories\Snackspace\TransactionFactory;
 use App\Notifications\Banking\Stripe\DonationRefund;
+use App\Notifications\Banking\Stripe\ProcessingIssue;
 use HMS\Repositories\Banking\Stripe\ChargeRepository;
 use App\Notifications\Banking\Stripe\SnackspaceRefund;
 use HMS\Repositories\Snackspace\TransactionRepository;
@@ -96,15 +97,16 @@ class HandleChargeRefundedJob implements ShouldQueue
 
         if (is_null($charge)) {
             // TODO: bugger should we create one?
+            // for now log it and tell software team
             \Log::error('HandleChargeRefundedJob: Charge not found');
+            $softwareTeamRole = $roleRepository->findOneByName(ROLE::SOFTWARE_TEAM);
+            $softwareTeamRole->notify(new ProcessingIssue($this->webhookCall, 'Charge Refunded'));
 
             return;
         }
 
         $charge->setRefundId($stripeCharge->refunds->data[0]->id);
-        dump($charge);
         $charge = $this->chargeRepository->save($charge);
-        dump($charge);
 
         switch ($charge->getType()) {
             case ChargeType::SNACKSPACE:
@@ -122,17 +124,17 @@ class HandleChargeRefundedJob implements ShouldQueue
     }
 
     /**
-     * Handel Snackspace Payment.
+     * Handle Snackspace Payment.
      *
      * @param StripeCharge $stripeCharge Stripe/Charge instance
      * @param Charge $chargen Our Banking instance
      */
     public function snackspacePayment(StripeCharge $stripeCharge, Charge $charge)
     {
-        dump($charge);
         $user = $charge->getUser();
 
-        $amount = -$stripeCharge->amount_refunded;
+        // negate the amount
+        $amount = -1 * $stripeCharge->amount_refunded;
         $last4 = $stripeCharge->payment_method_details->card->last4;
 
         $stringAmount = money_format('%n', $amount / 100);
@@ -161,7 +163,7 @@ class HandleChargeRefundedJob implements ShouldQueue
     }
 
     /**
-     * Handel Donation.
+     * Handle Donation.
      *
      * @param StripeCharge $stripeCharge Stripe/Charge instance
      * @param Charge $chargen Our Banking instance
@@ -169,7 +171,8 @@ class HandleChargeRefundedJob implements ShouldQueue
     public function donationPayment(StripeCharge $stripeCharge, Charge $charge)
     {
         $user = $charge->getUser();
-        $amount = -$stripeCharge->amount_refunded;
+        // negate the amount
+        $amount = -1 * $stripeCharge->amount_refunded;
 
         $donationRefundNotification = new DonationRefund($charge, $amount);
 

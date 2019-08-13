@@ -14,6 +14,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use HMS\Entities\Snackspace\TransactionType;
 use Spatie\WebhookClient\Models\WebhookCall;
 use HMS\Factories\Snackspace\TransactionFactory;
+use App\Notifications\Banking\Stripe\ProcessingIssue;
 use HMS\Repositories\Banking\Stripe\ChargeRepository;
 use HMS\Repositories\Snackspace\TransactionRepository;
 use App\Notifications\Banking\Stripe\DisputeSnackspaceFundsReinstated;
@@ -64,6 +65,11 @@ class HandleChargeDisputeFundsReinstatedJob implements ShouldQueue
 
         if (is_null($charge)) {
             // TODO: bugger should we create one?
+            // for now log it and tell software team
+            \Log::error('HandleChargeRefundedJob: Charge not found');
+            $softwareTeamRole = $roleRepository->findOneByName(ROLE::SOFTWARE_TEAM);
+            $softwareTeamRole->notify(new ProcessingIssue($this->webhookCall, 'Dispute Funds Reinstated'));
+
             return;
         }
 

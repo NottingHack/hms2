@@ -58,6 +58,11 @@ HMS\Entities\Profile:
       column: contact_number
       length: 50
       nullable: true
+    contactNumberVerified:
+      type: boolean
+      nullable: false
+      options:
+          default: false
     dateOfBirth:
       type: date
       column: date_of_birth

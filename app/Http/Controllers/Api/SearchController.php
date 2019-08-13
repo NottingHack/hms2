@@ -63,6 +63,7 @@ class SearchController extends Controller
                 'email' => $user->getEmail(),
                 'accountId' => $user->getAccount() ? $user->getAccount()->getId() : null,
                 'paymentRef' => $user->getAccount() ? $user->getAccount()->getPaymentRef() : '',
+                'google2fa' => $user->isGoogle2faEnable(),
             ];
 
             if (\Gate::allows('profile.view.all')) {

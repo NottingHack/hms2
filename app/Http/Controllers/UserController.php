@@ -136,7 +136,7 @@ class UserController extends Controller
             'addressCity' => 'sometimes|required|max:100',
             'addressCounty' => 'sometimes|required|max:100',
             'addressPostcode' => 'sometimes|required|max:10',
-            'contactNumber' => 'sometimes|required|max:50',
+            'contactNumber' => 'sometimes|required|max:50|phone:GB',
             'dateOfBirth' => 'sometimes|nullable|date_format:Y-m-d',
             'unlockText' => 'sometimes|nullable|max:95',
         ]);

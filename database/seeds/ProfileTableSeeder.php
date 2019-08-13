@@ -2,10 +2,14 @@
 
 use HMS\Entities\Role;
 use HMS\Entities\Profile;
+use libphonenumber\RegionCode;
 use Illuminate\Database\Seeder;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
-use LaravelDoctrine\ORM\Facades\EntityManager;
+use Faker\Generator as FakerGenerator;
+use Doctrine\ORM\EntityManagerInterface;
+use libphonenumber\NumberParseException;
+use Propaganistas\LaravelPhone\PhoneNumber;
 
 class ProfileTableSeeder extends Seeder
 {
@@ -19,10 +23,34 @@ class ProfileTableSeeder extends Seeder
      */
     protected $userRepository;
 
-    public function __construct(RoleRepository $roleRepository, UserRepository $userRepository)
-    {
+    /**
+     * @var EntityManagerInterface
+     */
+    protected $entityManager;
+
+    /**
+     * @var FakerGenerator
+     */
+    protected $faker;
+
+    /**
+     * Create a new TableSeeder instance.
+     *
+     * @param RoleRepository $roleRepository
+     * @param UserRepository $userRepository
+     * @param EntityManagerInterface $entityManager
+     * @param FakerGenerator $faker
+     */
+    public function __construct(
+        RoleRepository $roleRepository,
+        UserRepository $userRepository,
+        EntityManagerInterface $entityManager,
+        FakerGenerator $faker
+    ) {
         $this->roleRepository = $roleRepository;
         $this->userRepository = $userRepository;
+        $this->entityManager = $entityManager;
+        $this->faker = $faker;
     }
 
     /**
@@ -52,9 +80,21 @@ class ProfileTableSeeder extends Seeder
                     $p = entity(Profile::class)->make(['user' => $user]);
                     break;
                 }
-                EntityManager::persist($p);
+
+                // validate and format phoneNumbers
+                $e164 = null;
+                do {
+                    try {
+                        $e164 = PhoneNumber::make($this->faker->phoneNumber, RegionCode::GB)->formatE164();
+                    } catch (NumberParseException $e) {
+                        //
+                    }
+                } while ($e164 == null);
+                $p->setContactNumber($e164);
+
+                $this->entityManager->persist($p);
             }
         }
-        EntityManager::flush();
+        $this->entityManager->flush();
     }
 }

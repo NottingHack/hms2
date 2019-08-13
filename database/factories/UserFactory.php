@@ -23,5 +23,6 @@ $factory->define(HMS\Entities\User::class, function (Faker\Generator $faker) {
         'rememberToken' => str_random(10),
         'roles' => new ArrayCollection(),
         'emailVerifiedAt' => Carbon::now(),
+        'google2faEnable' => false,
     ];
 });

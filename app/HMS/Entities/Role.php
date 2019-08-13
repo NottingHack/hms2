@@ -102,6 +102,7 @@ class Role implements RoleContract
         $this->displayName = $displayName;
         $this->description = $description;
         $this->permissions = new ArrayCollection();
+        $this->users = new ArrayCollection();
         $this->retained = false;
     }
 

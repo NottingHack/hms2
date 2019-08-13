@@ -103,6 +103,23 @@ class User implements
     protected $rfidTags;
 
     /**
+     * @var bool
+     */
+    protected $google2faEnable;
+
+    /**
+     * @var string|null
+     */
+    protected $google2faSecret;
+
+    /**
+     * Encrypted recovery codes.
+     *
+     * @var string
+     */
+    protected $google2faRecoveryCodes;
+
+    /**
      * User constructor.
      *
      * @param string $firstname
@@ -123,6 +140,7 @@ class User implements
         $this->roles = new ArrayCollection();
         $this->emails = new ArrayCollection();
         $this->rfidTags = new ArrayCollection();
+        $this->google2faEnable = false;
     }
 
     /**
@@ -392,5 +410,77 @@ class User implements
         $this->rfidTags = $rfidTags;
 
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isGoogle2faEnable()
+    {
+        return $this->google2faEnable;
+    }
+
+    /**
+     * @param bool $google2faEnable
+     *
+     * @return self
+     */
+    public function setGoogle2faEnable(bool $google2faEnable)
+    {
+        $this->google2faEnable = $google2faEnable;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getGoogle2faSecret()
+    {
+        return $this->google2faSecret;
+    }
+
+    /**
+     * @param string|null $google2faSecret
+     *
+     * @return self
+     */
+    public function setGoogle2faSecret($google2faSecret)
+    {
+        $this->google2faSecret = $google2faSecret;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGoogle2faRecoveryCodes()
+    {
+        return $this->google2faRecoveryCodes;
+    }
+
+    /**
+     * @param string $google2faRecoveryCodes
+     *
+     * @return self
+     */
+    public function setGoogle2faRecoveryCodes($google2faRecoveryCodes)
+    {
+        $this->google2faRecoveryCodes = $google2faRecoveryCodes;
+
+        return $this;
+    }
+
+    /**
+     * Route notifications for the Nexmo channel.
+     *
+     * @param \Illuminate\Notifications\Notification $notification
+     *
+     * @return string
+     */
+    public function routeNotificationForNexmo($notification)
+    {
+        return $this->profile->getContactNumber();
     }
 }

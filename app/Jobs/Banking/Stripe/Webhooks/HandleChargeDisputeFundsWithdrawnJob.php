@@ -76,7 +76,7 @@ class HandleChargeDisputeFundsWithdrawnJob implements ShouldQueue
 
         if ($charge->getType() == ChargeType::SNACKSPACE) {
             // negate the amount
-            $amount = -1 * 1 * $stripeDispute->amount;
+            $amount = -1 * $stripeDispute->amount;
 
             $stringAmount = money_format('%n', $amount / 100);
             $description = 'Dispute online card payment (funds withdrawn) : ' . $stringAmount;

@@ -32,6 +32,9 @@
         "predis/predis": "^1.1",
         "soundasleep/html2text": "^1.1",
         "spatie/laravel-cookie-consent": "^2.0",
+        "spatie/laravel-stripe-webhooks": "^2.0",
+        "stripe/stripe-php": "^6.35",
+        "tightenco/ziggy": "^0.7.1",
         "tremby/laravel-git-version": "^1.1"
     },
     "require-dev": {

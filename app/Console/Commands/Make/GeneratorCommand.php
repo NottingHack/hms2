@@ -108,11 +108,19 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
     protected function getNamespacedRepositoryImplementation($name)
     {
         $name = str_replace($this->getDefaultNamespace($name) . '\\', '', $name);
-        $implementation = config('repositories.repository_namespace') . '\\' .
-                (strpos($name, '\\') ? explode('\\', $name)[0] . '\\' : '') .
-                'Doctrine\\Doctrine' .
-                (strpos($name, '\\') ? explode('\\', $name)[1] : $name) .
-                'Repository';
+        preg_match('/(.*?)(\\\\)*([^\\\\]+)$/', $name, $matches);
+        if (isset($matches[2])) {
+            $implementation = config('repositories.repository_namespace') . '\\' .
+            $matches[1] .
+            'Doctrine\\Doctrine' .
+            $matches[3] .
+            'Repository';
+        } else {
+            $implementation = config('repositories.repository_namespace') . '\\' .
+            '\\Doctrine\\Doctrine' .
+            $matches[3] .
+            'Repository';
+        }
 
         return $implementation;
     }

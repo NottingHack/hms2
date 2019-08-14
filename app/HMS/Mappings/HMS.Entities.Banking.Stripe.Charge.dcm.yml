@@ -1,0 +1,46 @@
+# HMS.Entities.Banking.Stripe.Charge.dcm.yml
+HMS\Entities\Banking\Stripe\Charge:
+  type: entity
+  repositoryClass: HMS\Repositories\Banking\Doctrine\DoctrineChargeRepository
+  table: stripe_charges
+  id:
+    id:
+      type: string
+      length: 140
+      generator:
+        strategy: NONE
+  fields:
+    paymentIntentId:
+      type: string
+      nullable: true
+    refundId:
+      type: string
+      nullable: true
+    disputeId:
+      type: string
+      nullable: true
+    type:
+      type: string
+    amount:
+      type: integer
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+  manyToOne:
+    user:
+      targetEntity: \HMS\Entities\User
+    transaction:
+      targetEntity: \HMS\Entities\Snackspace\Transaction
+    refundTransaction:
+      targetEntity: \HMS\Entities\Snackspace\Transaction
+    withdrawnTransaction:
+      targetEntity: \HMS\Entities\Snackspace\Transaction
+    reinstatedTransaction:
+      targetEntity: \HMS\Entities\Snackspace\Transaction

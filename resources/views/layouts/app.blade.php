@@ -14,6 +14,7 @@
   <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
 
   <!-- Scripts -->
+  <script src="https://js.stripe.com/v3/"></script>{{-- Stripe.JS can not be webpacked--}}
   <script src="{{ mix('/js/manifest.js') }}" defer></script>
   <script src="{{ mix('/js/vendor.js') }}" defer></script>
   <script src="{{ mix('/js/app.js') }}" defer></script>

@@ -32,7 +32,9 @@
   @endforelse
   <div class="card-footer">
     <a href="{{ route('users.snackspace.transactions', $user->getId()) }}" class="btn btn-primary mb-1"><i class="far fa-eye" aria-hidden="true"></i> View Transactions</a>
-    {{-- <a href="#" class="btn btn-primary mb-1">Make a Payment</a> --}} {{-- Vue/Stripe --}}
+    @if(null !== config('services.stripe.key'))
+    <snackspace-stripe-payment></snackspace-stripe-payment>
+    @endif
   </div>
 </div>
 @endcan

@@ -29,14 +29,24 @@ class RepositoryServiceProvider extends ServiceProvider
         foreach (config('repositories.repositories') as $repository) {
             $entity = config('repositories.entity_namespace') . '\\' . $repository;
             $interface = config('repositories.repository_namespace') . '\\' . $repository . 'Repository';
-            $implmentation = config('repositories.repository_namespace') . '\\' .
-                (strpos($repository, '\\') ? explode('\\', $repository)[0] . '\\' : '') .
-                'Doctrine\\Doctrine' .
-                (strpos($repository, '\\') ? explode('\\', $repository)[1] : $repository) .
-                'Repository';
 
-            $this->app->singleton($interface, function ($app) use ($implmentation, $entity) {
-                return new $implmentation($app['em'], $app['em']->getClassMetaData($entity));
+            preg_match('/(.*?)(\\\\)*([^\\\\]+)$/', $repository, $matches);
+
+            if ($matches[2]) {
+                $implementation = config('repositories.repository_namespace') . '\\' .
+                $matches[1] .
+                '\\Doctrine\\Doctrine' .
+                $matches[3] .
+                'Repository';
+            } else {
+                $implementation = config('repositories.repository_namespace') . '\\' .
+                'Doctrine\\Doctrine' .
+                $matches[3] .
+                'Repository';
+            }
+
+            $this->app->singleton($interface, function ($app) use ($implementation, $entity) {
+                return new $implementation($app['em'], $app['em']->getClassMetaData($entity));
             });
         }
 

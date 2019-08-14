@@ -33,7 +33,6 @@ class PostGitDeployedJob implements ShouldQueue
         'git submodule update --recursive',
         'composer install --no-interaction --optimize-autoloader',
         'npm ci',
-        'npm run production',
     ];
 
     /**
@@ -57,6 +56,7 @@ class PostGitDeployedJob implements ShouldQueue
         'doctrine:generate:proxies',
         'permissions:sync',
         'horizon:terminate',
+        'ziggy:generate "resources/js/ziggy.js"',
     ];
 
     /**
@@ -65,7 +65,7 @@ class PostGitDeployedJob implements ShouldQueue
      * @var array
      */
     private $postShellCommands = [
-        //
+        'npm run production',
     ];
 
     /**

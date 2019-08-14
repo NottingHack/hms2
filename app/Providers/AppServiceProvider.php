@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Stripe\Stripe;
 use HMS\Auth\PasswordStore;
 use Faker\Factory as FakerFactory;
 use HMS\Auth\PasswordStoreManager;
@@ -49,5 +50,9 @@ class AppServiceProvider extends ServiceProvider
                 // your Guzzle6 configuration
             ]);
         });
+
+        if (config('services.stripe.secret')) {
+            Stripe::setApiKey(config('services.stripe.secret'));
+        }
     }
 }

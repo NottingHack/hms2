@@ -10,6 +10,17 @@ window.flash = function (message, level = 'success') {
     window.events.$emit('flash', { message, level });
 };
 
+import {Ziggy} from './ziggy';
+import route from '../../vendor/tightenco/ziggy/src/js/route';
+
+window.Ziggy = Ziggy; // this was missing from your setup
+
+Vue.mixin({
+    methods: {
+        route: route
+    }
+});
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

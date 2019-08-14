@@ -23,6 +23,7 @@
     @endcomponent
     @component('card.access', ['user' => $user])
     @endcomponent
+    <donation-stripe-payment></donation-stripe-payment>
   </div>
 </div>
 @endsection

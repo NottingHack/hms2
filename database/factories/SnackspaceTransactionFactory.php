@@ -26,7 +26,7 @@ $factory->defineAs(Transaction::class, 'payment', function (Faker\Generator $fak
         'user' => $attributes['user'],
         'transactionDatetime' => $attributes['user']->getProfile()->getJoinDate(),
         'amount' => $amount,
-        'type' => TransactionType::VEND,
+        'type' => TransactionType::CASH_PAYMENT,
         'status' => TransactionState::COMPLETE,
         'description' => 'Note payment - £' . $amount / 100,
     ];

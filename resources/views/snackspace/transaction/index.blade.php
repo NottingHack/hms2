@@ -14,10 +14,20 @@ Snackspace account for {{ $user->getFirstname() }}
   </div>
 
   <br>
-  <p>Please use the note or coin acceptors located in the first floor members box room to add money to your Snackspace account.</p>
-  <p>Details of your Snackspace and Tool Usage transactions are shown below.</p>
+  <p>
+    Please use the note or coin acceptors located in the first floor members box room to add money to your Snackspace account.<br>
+    @if (Auth::user() == $user && null !== config('services.stripe.key'))
+    Or click the button below to add money using a card.<br>
+    <snackspace-stripe-payment></snackspace-stripe-payment>
+    @endif
+  </p>
+  <hr>
+  <p>
+    Details of your Snackspace and Tool Usage transactions are shown below.<br>
+    We do not store card detials and only ever see the last 4 digits.
+  </p>
+</div>
 
-  </div>
 <div class="container">
   <div class="table-responsive">
     <table class="table table-bordered table-hover">
@@ -46,10 +56,13 @@ Snackspace account for {{ $user->getFirstname() }}
     {{ $transactions->links() }}
   </div>
 </div>
+
 @can ('snackspace.transaction.create.all')
+@unless (Auth::user() == $user)
 <div class="container">
+  <hr>
   <a href="{{ route('users.snackspace.transactions.create', $user->getId()) }}"  class="btn btn-primary btn-block"><i class="fas fa-plus" aria-hidden="true"></i> Add manual transaction</a>
 </div>
+@endunless
 @endcan
-
 @endsection

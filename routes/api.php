@@ -35,6 +35,11 @@ Route::name('api.')->middleware('auth:api')->group(function () {
 
     // Tools
     Route::apiResource('tools/{tool}/bookings', 'Api\Tools\BookingController');
+
+    // Stripe
+    Route::post('stripe/intent/make', 'Api\Banking\StripeController@makeIntent')->name('stripe.make-intent');
+    Route::post('stripe/intent/update', 'Api\Banking\StripeController@updateIntent')->name('stripe.update-intent');
+    Route::post('stripe/intent/success', 'Api\Banking\StripeController@intentSuccess')->name('stripe.intent-success');
 });
 
 // All 'client_credentials' api route names are prefixed with client.
@@ -42,4 +47,8 @@ Route::name('client.')->middleware('client')->group(function () {
     // upload new bankTransactions/
     Route::post('bank-transactions/upload', 'Api\Banking\TransactionUploadController@upload')
         ->name('bankTransactions.upload');
+});
+
+Route::name('webhook.')->group(function () {
+    Route::stripeWebhooks('stripe/webhook')->name('stripe');
 });

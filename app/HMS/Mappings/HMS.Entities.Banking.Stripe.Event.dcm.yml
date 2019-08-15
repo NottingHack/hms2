@@ -1,0 +1,25 @@
+# HMS.Entities.Banking.Stripe.Event.dcm.yml
+HMS\Entities\Banking\Stripe\Event:
+  type: entity
+  repositoryClass: HMS\Repositories\Banking\Stripe\Doctrine\DoctrineEventRepository
+  table: stripe_events
+  id:
+    id:
+      type: string
+      length: 140
+      generator:
+        strategy: NONE
+  fields:
+    handledAt:
+      type: datetime
+      nullable: true
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update

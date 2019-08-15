@@ -2,107 +2,43 @@
 
 namespace App\Jobs\Banking\Stripe\Webhooks;
 
-use Stripe\Event;
 use HMS\Entities\Role;
-use Illuminate\Bus\Queueable;
 use Stripe\Charge as StripeCharge;
-use HMS\Repositories\RoleRepository;
-use Illuminate\Queue\SerializesModels;
 use HMS\Entities\Banking\Stripe\Charge;
-use Illuminate\Queue\InteractsWithQueue;
 use HMS\Entities\Banking\Stripe\ChargeType;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
 use HMS\Entities\Snackspace\TransactionType;
-use Spatie\WebhookClient\Models\WebhookCall;
-use HMS\Factories\Snackspace\TransactionFactory;
 use App\Notifications\Banking\Stripe\DonationRefund;
 use App\Notifications\Banking\Stripe\ProcessingIssue;
-use HMS\Repositories\Banking\Stripe\ChargeRepository;
 use App\Notifications\Banking\Stripe\SnackspaceRefund;
-use HMS\Repositories\Snackspace\TransactionRepository;
 
-class HandleChargeRefundedJob implements ShouldQueue
+class HandleChargeRefundedJob extends EventHandler
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
     /**
-     * @var WebhookCall
-     */
-    protected $webhookCall;
-
-    /**
-     * @var UserRepository
-     */
-    protected $userRepository;
-
-    /**
-     * @var TransactionFactory
-     */
-    protected $transactionFactory;
-
-    /**
-     * @var TransactionRepository
-     */
-    protected $transactionRepository;
-
-    /**
-     * @var RoleRepository
-     */
-    protected $roleRepository;
-
-    /**
-     * Create a new job instance.
+     * Handle this event.
      *
-     * @param WebhookCall $webhookCall
-     *
-     * @return void
+     * @return bool Is this event handling complete.
      */
-    public function __construct(WebhookCall $webhookCall)
+    protected function run()
     {
-        $this->webhookCall = $webhookCall;
-    }
-
-    /**
-     * Execute the job.
-     *
-     * @param ChargeRepository $chargeRepository
-     * @param TransactionRepository $transactionRepository
-     * @param RoleRepository $roleRepository
-     *
-     * @return void
-     */
-    public function handle(
-        ChargeRepository $chargeRepository,
-        TransactionFactory $transactionFactory,
-        TransactionRepository $transactionRepository,
-        RoleRepository $roleRepository
-    ) {
-        $this->chargeRepository = $chargeRepository;
-        $this->transactionFactory = $transactionFactory;
-        $this->transactionRepository = $transactionRepository;
-        $this->roleRepository = $roleRepository;
-
-        $event = Event::constructFrom($this->webhookCall->payload);
-        $stripeCharge = $event->data->object;
+        $stripeCharge = $this->stripeEvent->data->object;
 
         if (! $stripeCharge->refunded) {
             // should not be here
             \Log::error('HandleChargeRefundedJob: not refunded? :/');
 
-            return;
+            return true;
         }
 
-        $charge = $chargeRepository->findOneById($stripeCharge->id);
+        $charge = $this->chargeRepository->findOneById($stripeCharge->id);
 
         if (is_null($charge)) {
             // TODO: bugger should we create one?
             // for now log it and tell software team
             \Log::error('HandleChargeRefundedJob: Charge not found');
-            $softwareTeamRole = $roleRepository->findOneByName(ROLE::SOFTWARE_TEAM);
+            $softwareTeamRole = $this->roleRepository->findOneByName(Role::SOFTWARE_TEAM);
             $softwareTeamRole->notify(new ProcessingIssue($this->webhookCall, 'Charge Refunded'));
 
-            return;
+            return true;
         }
 
         $charge->setRefundId($stripeCharge->refunds->data[0]->id);
@@ -110,17 +46,20 @@ class HandleChargeRefundedJob implements ShouldQueue
 
         switch ($charge->getType()) {
             case ChargeType::SNACKSPACE:
-                $this->snackspacePayment($stripeCharge, $charge);
+                $ret = $this->snackspacePayment($stripeCharge, $charge);
                 break;
 
             case ChargeType::DONATION:
-                $this->donationPayment($stripeCharge, $charge);
+                $ret = $this->donationPayment($stripeCharge, $charge);
                 break;
 
             default:
                 \Log::warning('HandleChargeRefundedJob: UnknownChargeType');
+                $ret = true;
                 break;
         }
+
+        return $ret;
     }
 
     /**
@@ -129,7 +68,7 @@ class HandleChargeRefundedJob implements ShouldQueue
      * @param StripeCharge $stripeCharge Stripe/Charge instance
      * @param Charge $chargen Our Banking instance
      */
-    public function snackspacePayment(StripeCharge $stripeCharge, Charge $charge)
+    protected function snackspacePayment(StripeCharge $stripeCharge, Charge $charge)
     {
         $user = $charge->getUser();
 
@@ -160,6 +99,8 @@ class HandleChargeRefundedJob implements ShouldQueue
 
         $trusteesTeamRole = $this->roleRepository->findOneByName(Role::TEAM_TRUSTEES);
         $trusteesTeamRole->notify($snackspaceRefundNotification);
+
+        return true;
     }
 
     /**
@@ -168,7 +109,7 @@ class HandleChargeRefundedJob implements ShouldQueue
      * @param StripeCharge $stripeCharge Stripe/Charge instance
      * @param Charge $chargen Our Banking instance
      */
-    public function donationPayment(StripeCharge $stripeCharge, Charge $charge)
+    protected function donationPayment(StripeCharge $stripeCharge, Charge $charge)
     {
         $user = $charge->getUser();
         // negate the amount
@@ -187,5 +128,7 @@ class HandleChargeRefundedJob implements ShouldQueue
 
         $trusteesTeamRole = $this->roleRepository->findOneByName(Role::TEAM_TRUSTEES);
         $trusteesTeamRole->notify($donationRefundNotification);
+
+        return true;
     }
 }

@@ -1,7 +1,7 @@
 # HMS.Entities.Banking.Stripe.Charge.dcm.yml
 HMS\Entities\Banking\Stripe\Charge:
   type: entity
-  repositoryClass: HMS\Repositories\Banking\Doctrine\DoctrineChargeRepository
+  repositoryClass: HMS\Repositories\Banking\Stripe\Doctrine\DoctrineChargeRepository
   table: stripe_charges
   id:
     id:

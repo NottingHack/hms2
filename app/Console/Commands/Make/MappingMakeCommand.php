@@ -22,6 +22,13 @@ class MappingMakeCommand extends GeneratorCommand
     protected $description = 'Create a new Mapping';
 
     /**
+     * The type of class being generated.
+     *
+     * @var string
+     */
+    protected $type = 'Mapping';
+
+    /**
      * Get the stub file for the generator.
      *
      * @return string

@@ -20,6 +20,13 @@ class FactoryMakeCommand extends GeneratorCommand
     protected $description = 'Create a new Factory';
 
     /**
+     * The type of class being generated.
+     *
+     * @var string
+     */
+    protected $type = 'Factory';
+
+    /**
      * Get the stub file for the generator.
      *
      * @return string

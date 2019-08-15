@@ -20,6 +20,13 @@ class RepositoryInterfaceMakeCommand extends GeneratorCommand
     protected $description = 'Create a new Repository Interface';
 
     /**
+     * The type of class being generated.
+     *
+     * @var string
+     */
+    protected $type = 'Repository Interface';
+
+    /**
      * Get the stub file for the generator.
      *
      * @return string

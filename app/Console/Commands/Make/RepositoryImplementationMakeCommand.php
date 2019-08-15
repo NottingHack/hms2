@@ -20,6 +20,13 @@ class RepositoryImplementationMakeCommand extends GeneratorCommand
     protected $description = 'Create a new Repository Implementation';
 
     /**
+     * The type of class being generated.
+     *
+     * @var string
+     */
+    protected $type = 'Repository Implementation';
+
+    /**
      * Get the stub file for the generator.
      *
      * @return string

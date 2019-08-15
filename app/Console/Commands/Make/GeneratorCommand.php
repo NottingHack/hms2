@@ -112,12 +112,12 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
         if (isset($matches[2])) {
             $implementation = config('repositories.repository_namespace') . '\\' .
             $matches[1] .
-            'Doctrine\\Doctrine' .
+            '\\Doctrine\\Doctrine' .
             $matches[3] .
             'Repository';
         } else {
             $implementation = config('repositories.repository_namespace') . '\\' .
-            '\\Doctrine\\Doctrine' .
+            'Doctrine\\Doctrine' .
             $matches[3] .
             'Repository';
         }

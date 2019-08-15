@@ -20,6 +20,13 @@ class EntityMakeCommand extends GeneratorCommand
     protected $description = 'Create a new Entity';
 
     /**
+     * The type of class being generated.
+     *
+     * @var string
+     */
+    protected $type = 'Entity';
+
+    /**
      * Get the stub file for the generator.
      *
      * @return string

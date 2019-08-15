@@ -2,6 +2,7 @@
 
 namespace HMS\Entities\Banking\Stripe;
 
+use Carbon\Carbon;
 use HMS\Traits\Entities\Timestampable;
 
 class Event

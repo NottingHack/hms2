@@ -44,6 +44,11 @@ abstract class EventHandler implements ShouldQueue
     protected $chargeRepository;
 
     /**
+     * @var ChargeFactory
+     */
+    protected $chargeFactory;
+
+    /**
      * @var EventRepository
      */
     protected $eventRepository;
@@ -98,7 +103,10 @@ abstract class EventHandler implements ShouldQueue
         RoleRepository $roleRepository
     ) {
         $this->userRepository = $userRepository;
+        $this->chargeFactory = $chargeFactory;
         $this->chargeRepository = $chargeRepository;
+        $this->chargeFactory = $chargeFactory;
+        $this->eventRepository = $eventRepository;
         $this->transactionFactory = $transactionFactory;
         $this->transactionRepository = $transactionRepository;
         $this->roleRepository = $roleRepository;
@@ -106,7 +114,7 @@ abstract class EventHandler implements ShouldQueue
         $this->stripeEvent = StripeEvent::constructFrom($this->webhookCall->payload);
 
         // in order to not reprocess an event multiple times we log it to the db
-        $event = $eventRepository->findOneById($this->stripeEvent->id);
+        $event = $this->eventRepository->findOneById($this->stripeEvent->id);
 
         if (! is_null($event)) {
             if (! is_null($event->getHandledAt())) {
@@ -124,7 +132,7 @@ abstract class EventHandler implements ShouldQueue
             // not seen this stripeEvent id before
             $event = new Event();
             $event->setId($this->stripeEvent->id);
-            $event = $eventRepository->save($event);
+            $event = $this->eventRepository->save($event);
         }
 
         // deal with this parenthetical stripeEvent as needed
@@ -134,7 +142,7 @@ abstract class EventHandler implements ShouldQueue
             // Log this event as now being handled
             // we will not get here if run returns false or an exception was thrown
             $event->setHandledAt(Carbon::now());
-            $eventRepository->save($event);
+            $this->eventRepository->save($event);
         }
     }
 

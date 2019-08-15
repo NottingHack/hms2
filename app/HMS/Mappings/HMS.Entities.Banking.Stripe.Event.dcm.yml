@@ -13,9 +13,6 @@ HMS\Entities\Banking\Stripe\Event:
     handledAt:
       type: datetime
       nullable: true
-      gedmo:
-        timestampable:
-          on: create
     createdAt:
       type: datetime
       gedmo:

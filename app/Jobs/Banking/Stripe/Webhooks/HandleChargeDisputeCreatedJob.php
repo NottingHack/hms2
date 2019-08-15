@@ -2,78 +2,47 @@
 
 namespace App\Jobs\Banking\Stripe\Webhooks;
 
-use Stripe\Event;
 use HMS\Entities\Role;
-use Illuminate\Bus\Queueable;
-use HMS\Repositories\RoleRepository;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Spatie\WebhookClient\Models\WebhookCall;
 use App\Notifications\Banking\Stripe\DisputeCreated;
-use HMS\Repositories\Banking\Stripe\ChargeRepository;
+use App\Notifications\Banking\Stripe\ProcessingIssue;
 
-class HandleChargeDisputeCreatedJob implements ShouldQueue
+class HandleChargeDisputeCreatedJob extends EventHandler
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
     /**
-     * @var WebhookCall
-     */
-    protected $webhookCall;
-
-    /**
-     * Create a new job instance.
+     * Handle this event.
      *
-     * @param WebhookCall $webhookCall
-     *
-     * @return void
+     * @return bool Is this event handling complete.
      */
-    public function __construct(WebhookCall $webhookCall)
+    protected function run()
     {
-        $this->webhookCall = $webhookCall;
-    }
-
-    /**
-     * Execute the job.
-     *
-     * @param ChargeRepository $chargeRepository
-     * @param RoleRepository $roleRepository
-     *
-     * @return void
-     */
-    public function handle(
-        ChargeRepository $chargeRepository,
-        RoleRepository $roleRepository
-    ) {
-        $event = Event::constructFrom($this->webhookCall->payload);
-        $stripeDispute = $event->data->object;
+        $stripeDispute = $this->stripeEvent->data->object;
         $chargeId = $stripeDispute->charge;
 
         // find charge
-        $charge = $chargeRepository->findOneById($chargeId);
+        $charge = $this->chargeRepository->findOneById($chargeId);
 
         if (is_null($charge)) {
             // TODO: bugger should we create one?
             // for now log it and tell software team
             \Log::error('HandleChargeRefundedJob: Charge not found');
-            $softwareTeamRole = $roleRepository->findOneByName(ROLE::SOFTWARE_TEAM);
+            $softwareTeamRole = $this->roleRepository->findOneByName(Role::SOFTWARE_TEAM);
             $softwareTeamRole->notify(new ProcessingIssue($this->webhookCall, 'Dispute Created'));
 
-            return;
+            return true;
         }
 
         $charge->setDisputeId($stripeDispute->id);
-        $charge = $chargeRepository->save($charge);
+        $charge = $this->chargeRepository->save($charge);
 
         $disputeCreatedNotification = new DisputeCreated($charge, $stripeDispute);
 
         // notify TEAM_TRUSTEES TEAM_FINANCE
-        $financeTeamRole = $roleRepository->findOneByName(Role::TEAM_FINANCE);
+        $financeTeamRole = $this->roleRepository->findOneByName(Role::TEAM_FINANCE);
         $financeTeamRole->notify($disputeCreatedNotification);
 
-        $trusteesTeamRole = $roleRepository->findOneByName(Role::TEAM_TRUSTEES);
+        $trusteesTeamRole = $this->roleRepository->findOneByName(Role::TEAM_TRUSTEES);
         $trusteesTeamRole->notify($disputeCreatedNotification);
+
+        return true;
     }
 }

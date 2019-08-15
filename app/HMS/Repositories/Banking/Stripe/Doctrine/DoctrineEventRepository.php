@@ -2,8 +2,8 @@
 
 namespace HMS\Repositories\Banking\Stripe\Doctrine;
 
-use HMS\Entities\Banking\Stripe\Event;
 use Doctrine\ORM\EntityRepository;
+use HMS\Entities\Banking\Stripe\Event;
 use HMS\Repositories\Banking\Stripe\EventRepository;
 
 class DoctrineEventRepository extends EntityRepository implements EventRepository

@@ -103,7 +103,7 @@ class AuditResultJob implements ShouldQueue
 
             $accessLog = $accessLogRepository->findLatestByUser($user);
             if (! is_null($accessLog)) {
-                $lastAccess = $accessLog->getAccessTime()->toDateTimeString();
+                $lastAccess = $accessLog->getAccessTime()->toDateString();
             } else {
                 $lastAccess = 'Never Visited';
             }
@@ -117,7 +117,7 @@ class AuditResultJob implements ShouldQueue
                 'lastPaymentDate' => $bankTransactionRepository
                     ->findLatestTransactionByAccount($user->getAccount())
                     ->getTransactionDate()
-                    ->toDateTimeString(),
+                    ->toDateString(),
                 'lastVisitDate' => $lastAccess,
             ];
         }
@@ -129,7 +129,7 @@ class AuditResultJob implements ShouldQueue
 
             $accessLog = $accessLogRepository->findLatestByUser($user);
             if (! is_null($accessLog)) {
-                $lastAccess = $accessLog->getAccessTime()->toDateTimeString();
+                $lastAccess = $accessLog->getAccessTime()->toDateString();
             } else {
                 $lastAccess = 'Never Visited';
             }
@@ -155,7 +155,7 @@ class AuditResultJob implements ShouldQueue
 
             $accessLog = $accessLogRepository->findLatestByUser($user);
             if (! is_null($accessLog)) {
-                $lastAccess = $accessLog->getAccessTime()->toDateTimeString();
+                $lastAccess = $accessLog->getAccessTime()->toDateString();
             } else {
                 $lastAccess = 'Never Visited';
             }

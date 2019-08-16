@@ -29,8 +29,8 @@ class PostGitDeployedJob implements ShouldQueue
      * @var array
      */
     private $preShellCommands = [
-        'git describe --always --tags --dirty >version',
         'git submodule update --recursive',
+        'git describe --always --tags --dirty >version',
         'composer install --no-interaction --optimize-autoloader',
         'npm ci',
     ];

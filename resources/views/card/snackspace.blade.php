@@ -32,8 +32,10 @@
   @endforelse
   <div class="card-footer">
     <a href="{{ route('users.snackspace.transactions', $user->getId()) }}" class="btn btn-primary mb-1"><i class="far fa-eye" aria-hidden="true"></i> View Transactions</a>
-    @if(null !== config('services.stripe.key'))
+    @if (null !== config('services.stripe.key'))
+    @if ($user->can('snackspace.payment') || ($user->can('snackspace.payment.debtOnly') && $user->getProfile()->getBalance() < 0))
     <snackspace-stripe-payment></snackspace-stripe-payment>
+    @endif
     @endif
   </div>
 </div>

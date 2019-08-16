@@ -45,7 +45,7 @@ class StripeController extends Controller
             'amount' => $validatedData['amount'],
             'currency' => 'gbp',
             'receipt_email' => $user->getEmail(),
-            'statement_descriptor' => $descriptor,
+            'statement_descriptor_suffix' => $descriptor,
             'metadata' => [
                 'user_id' => $user->getId(),
                 'type' => $validatedData['type'],

@@ -89,7 +89,6 @@ class HandleChargeSucceededJob extends EventHandler
         $userId = $stripeCharge->metadata->user_id;
         $user = $this->userRepository->findOneById($userId);
 
-
         if ($user) {
             $charge->setUser($user);
             $charge = $this->chargeRepository->save($charge);

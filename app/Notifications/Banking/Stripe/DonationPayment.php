@@ -80,6 +80,7 @@ class DonationPayment extends Notification implements ShouldQueue
             } else {
                 $fullname = $this->stripeCharge->billing_details->name;
             }
+
             return (new MailMessage)
                 ->subject('Donation received (via Stripe).')
                 ->greeting('Hello ' . $notifiable->getDisplayName())

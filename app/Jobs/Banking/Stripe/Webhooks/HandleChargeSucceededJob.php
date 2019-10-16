@@ -89,13 +89,24 @@ class HandleChargeSucceededJob extends EventHandler
         $userId = $stripeCharge->metadata->user_id;
         $user = $this->userRepository->findOneById($userId);
 
-        $charge->setUser($user);
-        $charge = $this->chargeRepository->save($charge);
 
-        $donationPaymentNotification = new DonationPayment($charge);
+        if ($user) {
+            $charge->setUser($user);
+            $charge = $this->chargeRepository->save($charge);
+        }
+
+        $donationPaymentNotification = new DonationPayment(
+            $charge,
+            $stripeCharge
+        );
 
         // notify User
-        $user->notify($donationPaymentNotification);
+        if ($user) {
+            $user->notify($donationPaymentNotification);
+        } else {
+            \Notification::route('mail', $stripeCharge->receipt_email)
+                ->notify($donationPaymentNotification);
+        }
 
         // notify TEAM_TRUSTEES TEAM_FINANCE
         // someone has just made a donation to the space :)

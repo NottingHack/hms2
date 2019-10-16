@@ -37,6 +37,7 @@ Route::view('company-information', 'pages.companyInformation')->name('companyInf
 Route::view('contact-us', 'pages.contactUs')->name('contactUs');
 Route::view('privacy-and-terms', 'pages.privacy_and_terms')->name('privacy-and-terms');
 Route::view('cookie-policy', 'pages.cookie_policy')->name('cookie-policy');
+Route::view('donate', 'pages.donate')->name('donate');
 
 // Unrestricted pages
 Route::get('links', 'LinksController@index')->name('links.index');

@@ -115,11 +115,20 @@ class HandleChargeRefundedJob extends EventHandler
         // negate the amount
         $amount = -1 * $stripeCharge->amount_refunded;
 
-        $donationRefundNotification = new DonationRefund($charge, $amount);
+        $donationRefundNotification = new DonationRefund(
+            $charge,
+            $stripeCharge,
+            $amount
+        );
 
         // notify User
         // your donation has been refunded
-        $user->notify($donationRefundNotification);
+        if ($user) {
+            $user->notify($donationRefundNotification);
+        } else {
+            \Notification::route('mail', $stripeCharge->receipt_email)
+                ->notify($donationRefundNotification);
+        }
 
         // notify TEAM_TRUSTEES TEAM_FINANCE
         // donation has been refunded :(

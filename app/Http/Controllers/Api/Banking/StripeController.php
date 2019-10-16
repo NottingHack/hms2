@@ -30,7 +30,7 @@ class StripeController extends Controller
 
         $user = \Auth::user();
 
-        if (is_null($user)) {
+        if (is_null($user) && $validatedData['type'] != 'DONATION') {
             // TODO: guest user, send bad request until we implement something here
             return response()->json([], IlluminateResponse::HTTP_BAD_REQUEST);
         }
@@ -44,10 +44,10 @@ class StripeController extends Controller
         $intent = PaymentIntent::create([
             'amount' => $validatedData['amount'],
             'currency' => 'gbp',
-            'receipt_email' => $user->getEmail(),
+            'receipt_email' => $user ? $user->getEmail : null,
             'statement_descriptor_suffix' => $descriptor,
             'metadata' => [
-                'user_id' => $user->getId(),
+                'user_id' => $user ? $user->getId() : null,
                 'type' => $validatedData['type'],
             ],
         ]);
@@ -86,7 +86,7 @@ class StripeController extends Controller
 
         $user = \Auth::user();
 
-        if (is_null($user)) {
+        if (is_null($user) && $validatedData['type'] != 'DONATION') {
             // TODO: guest user, send bad request until we implement something here
             return response()->json([], IlluminateResponse::HTTP_BAD_REQUEST);
         }

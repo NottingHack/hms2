@@ -5,9 +5,11 @@ namespace App\Notifications\Banking\Stripe;
 use HMS\Entities\Role;
 use HMS\Entities\User;
 use Illuminate\Bus\Queueable;
+use Stripe\Charge as StripeCharge;
 use HMS\Entities\Banking\Stripe\Charge;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\AnonymousNotifiable;
 use Illuminate\Notifications\Messages\MailMessage;
 
 class DonationPayment extends Notification implements ShouldQueue
@@ -20,15 +22,22 @@ class DonationPayment extends Notification implements ShouldQueue
     protected $charge;
 
     /**
+     * @var StripeCharge
+     */
+    protected $stripeCharge;
+
+    /**
      * Create a new notification instance.
      *
      * @param Charge $charge
+     * @param StripeCharge $stripeCharge Stripe/Charge instance
      *
      * @return void
      */
-    public function __construct(Charge $charge)
+    public function __construct(Charge $charge, StripeCharge $stripeCharge)
     {
         $this->charge = $charge;
+        $this->stripeCharge = $stripeCharge;
     }
 
     /**
@@ -60,12 +69,22 @@ class DonationPayment extends Notification implements ShouldQueue
                 ->subject('Donation received.')
                 ->greeting('Hello ' . $notifiable->getFirstname())
                 ->line('Thank you for your Donation of ' . $amountString . ' to Nottingham Hackspace.');
+        } elseif ($notifiable instanceof AnonymousNotifiable) {
+            return (new MailMessage)
+                ->subject('Donation received.')
+                ->greeting('Hello ' . $this->stripeCharge->billing_details->name)
+                ->line('Thank you for your Donation of ' . $amountString . ' to Nottingham Hackspace.');
         } elseif ($notifiable instanceof Role) {
+            if ($this->charge->getUser()) {
+                $fullname = $this->charge->getUser()->getFullname();
+            } else {
+                $fullname = $this->stripeCharge->billing_details->name;
+            }
             return (new MailMessage)
                 ->subject('Donation received (via Stripe).')
                 ->greeting('Hello ' . $notifiable->getDisplayName())
                 ->line(
-                    $this->charge->getUser()->getFullname() .
+                    $fullname .
                     ' has made a donation of ' . $amountString .
                     ' via Stripe.'
                 );

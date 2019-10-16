@@ -5,9 +5,11 @@ namespace App\Notifications\Banking\Stripe;
 use HMS\Entities\Role;
 use HMS\Entities\User;
 use Illuminate\Bus\Queueable;
+use Stripe\Charge as StripeCharge;
 use HMS\Entities\Banking\Stripe\Charge;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\AnonymousNotifiable;
 use Illuminate\Notifications\Messages\MailMessage;
 
 class DonationRefund extends Notification implements ShouldQueue
@@ -20,6 +22,11 @@ class DonationRefund extends Notification implements ShouldQueue
     protected $charge;
 
     /**
+     * @var StripeCharge
+     */
+    protected $stripeCharge;
+
+    /**
      * @var int
      */
     protected $refundAmount;
@@ -28,13 +35,15 @@ class DonationRefund extends Notification implements ShouldQueue
      * Create a new notification instance.
      *
      * @param Charge $charge
+     * @param StripeCharge $stripeCharge Stripe/Charge instance
      * @param int $refundAmount
      *
      * @return void
      */
-    public function __construct(Charge $charge, int $refundAmount)
+    public function __construct(Charge $charge, StripeCharge $stripeCharge, int $refundAmount)
     {
         $this->charge = $charge;
+        $this->stripeCharge = $stripeCharge;
         $this->refundAmount = $refundAmount;
     }
 
@@ -62,19 +71,27 @@ class DonationRefund extends Notification implements ShouldQueue
         $amountString = money_format('%n', $this->refundAmount / 100);
 
         if ($notifiable instanceof User) {
-            $balance = $notifiable->getProfile()->getBalance();
-            $balanceString = money_format('%n', $balance / 100);
-
             return (new MailMessage)
                 ->subject('Donation refunded.')
                 ->greeting('Hello ' . $notifiable->getFirstname())
                 ->line('Your donation has been refunded by ' . $amountString);
+        } elseif ($notifiable instanceof AnonymousNotifiable) {
+            return (new MailMessage)
+                ->subject('Donation refunded.')
+                ->greeting('Hello ' . $this->stripeCharge->billing_details->name)
+                ->line('Your donation has been refunded by ' . $amountString);
         } elseif ($notifiable instanceof Role) {
+            if ($this->charge->getUser()) {
+                $fullname = $this->charge->getUser()->getFullname();
+            } else {
+                $fullname = $this->stripeCharge->billing_details->name;
+            }
+
             return (new MailMessage)
                 ->subject('Donation refunded.')
                 ->greeting('Hello ' . $notifiable->getDisplayName())
                 ->line(
-                    $this->charge->getUser()->getFullname() .
+                    $fullname .
                     '\'s Donation has been refunded ' . $amountString
                 );
         }

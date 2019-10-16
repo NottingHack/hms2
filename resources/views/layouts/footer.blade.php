@@ -25,6 +25,7 @@
       <ul>
         <li><a href="{{ route('companyInformation') }}">Company Information</a></li>
         <li><a href="{{ route('contactUs') }}">Contact us</a></li>
+        <li><a href="{{ route('donate') }}">Donate</a></li>
         <li><a href="{{  Meta::get('rules_html') }}" target="_blank">Rules</a></li>
         <li><a href="{{  Meta::get('members_guide_html') }}" target="_blank">Members Guide</a></li>
         <li><a href="{{ route('instrumentation.status') }}">Instrumentation Status</a></li>

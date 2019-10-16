@@ -4,7 +4,7 @@
       <div class="card-header">Make a Donation</div>
       <div class="card-body">
         <p>
-          The hackspace is entirely funded by its members.<br>
+          The hackspace is entirely funded by its members and donations.<br>
           If you would like to make a one off donation please enter an amount below and click the Donate button to pay by card.
         </p>
         <div class="input-group">
@@ -57,6 +57,11 @@
               <div class="invalid-feedback" role="alert" v-if="nameError">{{ nameError }}</div>
             </div>
 
+            <div class="form-group" v-if="guest">
+              <input v-model="cardholderEmail" id="cardholder-email" :class="['form-control', emailError ? 'is-invalid' : '']" type="text" placeholder="Card holder email" autocomplete="email" :disabled="cardButtonDisable" @input="updateEmail">
+              <div class="invalid-feedback" role="alert" v-if="emailError">{{ emailError }}</div>
+            </div>
+
             <div class="form-group">
               <div ref="cardDiv" :class="['form-control', cardError ? 'is-invalid' : '']">
                 <!-- A Stripe Element will be inserted here. -->
@@ -105,6 +110,7 @@
 
   export default{
     props: {
+      guest: false,
       // userId: Number,
     },
 
@@ -113,6 +119,7 @@
         amount: 10.00,
         intentAmount: 0,
         cardholderName: '',
+        cardholderEmail: '',
         cardElement: Object,
         paymentRequest: Object,
         prButton: Object,
@@ -124,6 +131,7 @@
         loader: null,
         cardError: null,
         nameError: null,
+        emailError: null,
         successMessage: 'Donation successful, thank you very much.',
         reloadTime: 3,
         changingAmount: false,
@@ -156,6 +164,7 @@
 
       modalHidden(event) {
         this.cardholderName = '';
+        this.cardholderEmail = '';
         this.cardElement.clear();
         this.loading(false);
       },
@@ -298,6 +307,10 @@
         this.nameError = null;
       },
 
+      updateEmail() {
+        this.emailError = null;
+      },
+
       enableCard() {
         this.cardElement.update({
           disabled: false,
@@ -316,18 +329,29 @@
           return;
         }
 
+        if (this.guest && !this.cardholderEmail) {
+          this.emailError = 'Card holder email is required.';
+          return;
+        }
+
         this.loading(true);
         this.cardButtonDisable = true;
         this.cardError = null;
         this.disableCard();
         this.prButtonDisable = true;
 
-        stripe.handleCardPayment(
-          this.clientSecret, this.cardElement, {
-            payment_method_data: {
-              billing_details: {name: this.cardholderName}
-            }
+        let paymentData = {
+          payment_method_data: {
+            billing_details: {name: this.cardholderName}
           }
+        };
+
+        if (this.guest) {
+          paymentData.receipt_email = this.cardholderEmail;
+        }
+
+        stripe.handleCardPayment(
+          this.clientSecret, this.cardElement, paymentData
         ).then((result) => {
           if (result.error) {
             // Display error.message in your UI.

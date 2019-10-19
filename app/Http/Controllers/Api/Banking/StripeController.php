@@ -44,7 +44,7 @@ class StripeController extends Controller
         $intent = PaymentIntent::create([
             'amount' => $validatedData['amount'],
             'currency' => 'gbp',
-            'receipt_email' => $user ? $user->getEmail : null,
+            'receipt_email' => $user ? $user->getEmail() : null,
             'statement_descriptor_suffix' => $descriptor,
             'metadata' => [
                 'user_id' => $user ? $user->getId() : null,

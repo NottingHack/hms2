@@ -18,11 +18,22 @@
 // All api route names are prefixed with api.
 Route::name('api.')->group(function () {
     // Stripe (not auth restricted)
-    Route::post('stripe/intent/make', 'Api\Banking\StripeController@makeIntent')->name('stripe.make-intent');
-    Route::post('stripe/intent/update', 'Api\Banking\StripeController@updateIntent')->name('stripe.update-intent');
-    Route::post('stripe/intent/success', 'Api\Banking\StripeController@intentSuccess')->name('stripe.intent-success');
+    Route::post('stripe/intent/makeGuest', 'Api\Banking\StripeController@makeIntent')
+        ->name('stripe.make-intent.anon');
+    Route::post('stripe/intent/updateGuest', 'Api\Banking\StripeController@updateIntent')
+        ->name('stripe.update-intent.anon');
+    Route::post('stripe/intent/successGuest', 'Api\Banking\StripeController@intentSuccess')
+        ->name('stripe.intent-success.anon');
 
     Route::middleware('auth:api')->group(function () {
+        // Stripe
+        Route::post('stripe/intent/make', 'Api\Banking\StripeController@makeIntent')
+            ->name('stripe.make-intent');
+        Route::post('stripe/intent/update', 'Api\Banking\StripeController@updateIntent')
+            ->name('stripe.update-intent');
+        Route::post('stripe/intent/success', 'Api\Banking\StripeController@intentSuccess')
+            ->name('stripe.intent-success');
+
         // Search for members
         // api/search/users/matt                    Search term as part of the
         // api/search/users?q=matt                  Search term as a parameter

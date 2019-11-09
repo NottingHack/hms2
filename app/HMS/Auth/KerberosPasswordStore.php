@@ -165,12 +165,11 @@ class KerberosPasswordStore implements PasswordStore
             $princ = $this->krbConn->getPrincipal(strtolower($username));
             $princ->changePassword($password);
         } catch (\Exception $e) {
-            // TODO: if 'Principal does not exist' should we add the missing account?
+            // if 'Principal does not exist' we add the missing account
             if ($this->debug) {
                 \Log::warning('KerberosPasswordStore@setPassword: ' . $e->getMessage());
             }
-
-            return false;
+            return $this->add($username, $password);
         }
 
         return true;

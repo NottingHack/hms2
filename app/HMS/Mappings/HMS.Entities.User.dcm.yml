@@ -59,6 +59,7 @@ HMS\Entities\User:
     pin:
       targetEntity: \HMS\Entities\GateKeeper\Pin
       mappedBy: user
+      cascade: ['persist']
   oneToMany:
     rfidTags:
       targetEntity: \HMS\Entities\GateKeeper\RfidTag

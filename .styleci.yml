@@ -2,11 +2,13 @@ preset: laravel
 
 enabled:
     - concat_with_spaces
+    - length_ordered_imports
 
 disabled:
     - phpdoc_no_package
     - concat_without_spaces
     - simplified_null_return
+    - alpha_ordered_imports
 
 finder:
     not-path:

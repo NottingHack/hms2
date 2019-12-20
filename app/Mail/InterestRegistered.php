@@ -49,8 +49,7 @@ class InterestRegistered extends Mailable implements ShouldQueue
      */
     public function __construct(
         Invite $invite,
-        MetaRepository
-        $metaRepository,
+        MetaRepository $metaRepository,
         RoleRepository $roleRepository
     ) {
         $this->token = $invite->getInviteToken();

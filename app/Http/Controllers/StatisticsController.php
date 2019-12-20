@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use HMS\Views\MemberStats;
-use Illuminate\Http\Request;
 use HMS\Views\SnackspaceMonthly;
 use Illuminate\Support\Facades\Cache;
 use HMS\Repositories\GateKeeper\ZoneRepository;
@@ -57,6 +56,7 @@ class StatisticsController extends Controller
             //now changing back the strict ON
             config(['database.connections.mysql.strict' => true]);
             \DB::reconnect();
+
             return $snackspaceMonthly;
         });
 

@@ -169,6 +169,7 @@ class KerberosPasswordStore implements PasswordStore
             if ($this->debug) {
                 \Log::warning('KerberosPasswordStore@setPassword: ' . $e->getMessage());
             }
+
             return $this->add($username, $password);
         }
 

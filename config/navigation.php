@@ -69,10 +69,31 @@ return [
             'text' => '<i class="fas fa-chart-line fa-lg"></i>',
             'permissions'   => [],
             'links'         => [
+                'membership' => [
+                    'text'          => 'Membership',
+                    'route'         => 'statistics.membership',
+                    'match'         => 'statistics.membership',
+                    'permissions'   => [],
+                    'links'         => [],
+                ],
+                'snackspace-monthly' => [
+                    'text'          => 'RFID purchases & payments',
+                    'route'         => 'statistics.snackspace-monthly',
+                    'match'         => 'statistics.snackspace-monthly',
+                    'permissions'   => [],
+                    'links'         => [],
+                ],
                 'electric' => [
                     'text'          => 'Electric',
                     'route'         => 'instrumentation.electric.index',
                     'match'         => 'instrumentation.electric.index',
+                    'permissions'   => [],
+                    'links'         => [],
+                ],
+                'zone-occupants' => [
+                    'text'          => 'Zone Occupants',
+                    'route'         => 'statistics.zone-occupants',
+                    'match'         => 'statistics.zone-occupants',
                     'permissions'   => [],
                     'links'         => [],
                 ],

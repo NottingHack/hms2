@@ -49,6 +49,11 @@ Route::get('instrumentation/{service}/events/', 'Instrumentation\ServiceControll
 Route::namespace('Instrumentation')->prefix('instrumentation')->name('instrumentation.')->group(function () {
     Route::get('electric', 'ElectricController@index')->name('electric.index');
 });
+Route::prefix('statistics')->name('statistics.')->group(function () {
+    Route::get('membership', 'StatisticsController@memberStats')->name('membership');
+    Route::get('snackspace-monthly', 'StatisticsController@snackspaceMonthly')->name('snackspace-monthly');
+    Route::get('zone-occupants', 'StatisticsController@zoneOccupancy')->name('zone-occupants');
+});
 
 // Routes in the following group can only be access from inside the hackspace (as defined by the ip range in .env)
 Route::middleware(['ipcheck'])->group(function () {

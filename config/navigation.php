@@ -90,6 +90,13 @@ return [
                     'permissions'   => [],
                     'links'         => [],
                 ],
+                'box-usage' => [
+                    'text'          => "Member's Boxes",
+                    'route'         => 'statistics.box-usage',
+                    'match'         => 'statistics.box-usage',
+                    'permissions'   => [],
+                    'links'         => [],
+                ],
                 'electric' => [
                     'text'          => 'Electric',
                     'route'         => 'instrumentation.electric.index',

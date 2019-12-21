@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use HMS\Views\LaserUsage;
 use HMS\Views\MemberStats;
 use HMS\Views\SnackspaceMonthly;
+use HMS\Repositories\MetaRepository;
 use Illuminate\Support\Facades\Cache;
+use HMS\Repositories\Members\BoxRepository;
 use HMS\Repositories\GateKeeper\ZoneRepository;
 
 class StatisticsController extends Controller
@@ -16,13 +18,55 @@ class StatisticsController extends Controller
     protected $zoneRepository;
 
     /**
+     * @var BoxRepository
+     */
+    protected $boxRepository;
+
+    /**
+     * @var MetaRepository
+     */
+    protected $metaRepository;
+
+    /**
      * Create a new controller instance.
      *
      * @param ZoneRepository $zoneRepository
+     * @param BoxRepository $boxRepository
+     * @param MetaRepository $metaRepository
      */
-    public function __construct(ZoneRepository $zoneRepository)
-    {
+    public function __construct(
+        ZoneRepository $zoneRepository,
+        BoxRepository $boxRepository,
+        MetaRepository $metaRepository
+    ) {
         $this->zoneRepository = $zoneRepository;
+        $this->boxRepository = $boxRepository;
+        $this->metaRepository = $metaRepository;
+    }
+
+    /**
+     * Show statistics view for boxes.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function boxUsage()
+    {
+        $total = $this->boxRepository->count();
+        $inUse = $this->boxRepository->countAllInUse();
+        $removed = $this->boxRepository->countAllRemoved();
+        $abandoned = $this->boxRepository->countAllAbandoned();
+        $totalSpaces = $this->metaRepository->get('member_box_limit');
+
+        return view('statistics.members_boxes')
+            ->with(
+                [
+                    'total' => $total,
+                    'inUse' => $inUse,
+                    'removed' => $removed,
+                    'abandoned' => $abandoned,
+                    'totalSpaces' => $totalSpaces,
+                ]
+            );
     }
 
     /**

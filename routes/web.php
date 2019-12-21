@@ -50,6 +50,7 @@ Route::namespace('Instrumentation')->prefix('instrumentation')->name('instrument
     Route::get('electric', 'ElectricController@index')->name('electric.index');
 });
 Route::prefix('statistics')->name('statistics.')->group(function () {
+    Route::get('laser_usage', 'StatisticsController@laserUsage')->name('laser-usage');
     Route::get('membership', 'StatisticsController@memberStats')->name('membership');
     Route::get('snackspace-monthly', 'StatisticsController@snackspaceMonthly')->name('snackspace-monthly');
     Route::get('zone-occupants', 'StatisticsController@zoneOccupancy')->name('zone-occupants');

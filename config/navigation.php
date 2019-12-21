@@ -83,6 +83,13 @@ return [
                     'permissions'   => [],
                     'links'         => [],
                 ],
+                'laser-usage' => [
+                    'text'          => 'Laser Usage',
+                    'route'         => 'statistics.laser-usage',
+                    'match'         => 'statistics.laser-usage',
+                    'permissions'   => [],
+                    'links'         => [],
+                ],
                 'electric' => [
                     'text'          => 'Electric',
                     'route'         => 'instrumentation.electric.index',

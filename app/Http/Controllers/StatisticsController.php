@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use HMS\Views\LaserUsage;
 use HMS\Views\MemberStats;
 use HMS\Views\SnackspaceMonthly;
 use Illuminate\Support\Facades\Cache;
@@ -25,6 +26,30 @@ class StatisticsController extends Controller
     }
 
     /**
+     * Show lasge usage statistics view.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function laserUsage()
+    {
+        // pull stats from the cache if they are there, if not store a fresh copy for 1 day
+        $laserUsage = Cache::remember('statistics.laserUsage', 86400, function () {
+            config(['database.connections.mysql.strict' => false]);
+            \DB::reconnect(); //important as the existing connection if any would be in strict mode
+            $laserUsage = LaserUsage::all();
+
+            //now changing back the strict ON
+            config(['database.connections.mysql.strict' => true]);
+            \DB::reconnect();
+
+            return $laserUsage;
+        });
+
+        return view('statistics.laser_usage')
+            ->with('laserUsage', $laserUsage);
+    }
+
+    /**
      * Show membership statistics view.
      *
      * @return \Illuminate\Http\Response
@@ -33,7 +58,7 @@ class StatisticsController extends Controller
     {
         // pull stats from the cache if they are there, if not store a fresh copy for 1 day
         $memberStats = Cache::remember('statistics.membership', 86400, function () {
-            return \HMS\Views\MemberStats::first();
+            return MemberStats::first();
         });
 
         return view('statistics.member_stats')

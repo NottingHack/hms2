@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('pageTitle', 'Membership Statistics')
+@section('pageTitle', 'Zone Occupants')
 
 @section('content')
 <div class="container">

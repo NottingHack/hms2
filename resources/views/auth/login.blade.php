@@ -18,7 +18,7 @@
             @csrf
 
             <div class="form-group">
-              <input id="login" type="text" name="login" value="{{ old('login') }}" class="form-control{{ $errors->has('login') ? ' is-invalid' : '' }}" placeholder="Email address or Username" required autofocus>
+              <input id="login" type="text" name="login" value="{{ old('login') }}" class="form-control{{ $errors->has('login') ? ' is-invalid' : '' }}" placeholder="Email address or Username" required autofocus autocomplete="username">
               @if ($errors->has('login'))
               <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('login') }}</strong>
@@ -27,7 +27,7 @@
             </div>
 
             <div class="form-group">
-              <input id="password" type="password" name="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="Password" required>
+              <input id="password" type="password" name="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="Password" required autocomplete="current-password">
               @if ($errors->has('password'))
               <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('password') }}</strong>

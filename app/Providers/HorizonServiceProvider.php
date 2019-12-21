@@ -4,10 +4,23 @@ namespace App\Providers;
 
 use Laravel\Horizon\Horizon;
 use Illuminate\Support\Facades\Gate;
+use App\Console\Commands\HorizonSafeQueueWorkCommand;
 use Laravel\Horizon\HorizonApplicationServiceProvider;
 
 class HorizonServiceProvider extends HorizonApplicationServiceProvider
 {
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->app->bind(HorizonSafeQueueWorkCommand::class, function ($app) {
+            return new HorizonSafeQueueWorkCommand($app['safeQueue.worker'], $app['cache.store']);
+        });
+    }
+
     /**
      * Bootstrap any application services.
      *

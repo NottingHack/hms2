@@ -14,6 +14,16 @@ class DoctrineBoxRepository extends EntityRepository implements BoxRepository
     use PaginatesFromRequest;
 
     /**
+     * Count all boxes.
+     *
+     * @return int Total number of boxes INUSE
+     */
+    public function count(array $criteria = [])
+    {
+        return parent::count($criteria);
+    }
+
+    /**
      * Count all boxes INUSE.
      *
      * @return int Total number of boxes INUSE
@@ -21,6 +31,26 @@ class DoctrineBoxRepository extends EntityRepository implements BoxRepository
     public function countAllInUse()
     {
         return parent::countByState(BoxState::INUSE);
+    }
+
+    /**
+     * Count all boxes REMOVED.
+     *
+     * @return int Total number of boxes REMOVED
+     */
+    public function countAllRemoved()
+    {
+        return parent::countByState(BoxState::REMOVED);
+    }
+
+    /**
+     * Count all boxes ABANDONED.
+     *
+     * @return int Total number of boxes ABANDONED
+     */
+    public function countAllAbandoned()
+    {
+        return parent::countByState(BoxState::ABANDONED);
     }
 
     /**

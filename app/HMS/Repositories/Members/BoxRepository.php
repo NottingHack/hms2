@@ -8,11 +8,32 @@ use HMS\Entities\Members\Box;
 interface BoxRepository
 {
     /**
+     * Count all boxes.
+     *
+     * @return int Total number of boxes INUSE
+     */
+    public function count(array $criteria = []);
+
+    /**
      * Count all boxes INUSE.
      *
      * @return int Total number of boxes INUSE
      */
     public function countAllInUse();
+
+    /**
+     * Count all boxes REMOVED.
+     *
+     * @return int Total number of boxes REMOVED
+     */
+    public function countAllRemoved();
+
+    /**
+     * Count all boxes ABANDONED.
+     *
+     * @return int Total number of boxes ABANDONED
+     */
+    public function countAllAbandoned();
 
     /**
      * Count how many boxes a User has INUSE.

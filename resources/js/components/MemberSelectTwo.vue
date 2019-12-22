@@ -29,6 +29,8 @@
       withAccount: Boolean,
       // Return Account ID instead of User ID
       returnAccountId: Boolean,
+      // Search for only current members
+      currentOnly: Boolean,
       disabled: Boolean,
     },
 
@@ -67,6 +69,7 @@
             return {
               q: params.term, // search term
               withAccount: self.withAccount ? 1 : 0,
+              currentOnly: self.currentOnly ? 1 : 0,
               page: params.page
             };
           },

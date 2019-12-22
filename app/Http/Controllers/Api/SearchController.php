@@ -53,7 +53,13 @@ class SearchController extends Controller
         }
 
         // TODO: consider how to paginate response (posible fractal)
-        $users = $this->userRepository->searchLike($searchQuery, $request->input('withAccount', null), true, 30);
+        $users = $this->userRepository->searchLike(
+            $searchQuery,
+            $request->input('withAccount', false),
+            $request->input('currentOnly', false),
+            true,
+            30
+        );
 
         $users->setCollection($users->getCollection()->map(function ($user) {
             $ret = [

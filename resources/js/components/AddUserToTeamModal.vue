@@ -16,7 +16,7 @@
           </div>
           <div class="modal-body">
             <div class="form-group">
-              <member-select-two :with-account="true"></member-select-two>
+              <member-select-two :current-only="true"></member-select-two>
             </div>
           </div>
           <div class="modal-footer">

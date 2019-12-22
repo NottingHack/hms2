@@ -6,6 +6,7 @@
       :placeholder="placeholder"
       :with-account="withAccount"
       :return-account-id="returnAccountId"
+      :current-only="currentOnly"
       />
   </form>
 </template>
@@ -19,6 +20,8 @@
       withAccount: Boolean,
       // Return Account ID instead of User ID
       returnAccountId: Boolean,
+      // Search for only current members
+      currentOnly: Boolean,
     },
 
     data() {

@@ -38,6 +38,7 @@ interface UserRepository
     /**
      * @param string $searchQuery
      * @param bool $hasAccount limit to users with associated accounts
+     * @param bool $currentOnly limit to only MEMBER_CURRENT users
      * @param bool $paginate
      * @param int $perPage
      * @param string $pageName
@@ -46,7 +47,8 @@ interface UserRepository
      */
     public function searchLike(
         string $searchQuery,
-        ?bool $hasAccount = false,
+        bool $hasAccount = false,
+        bool $currentOnly = false,
         bool $paginate = false,
         $perPage = 15,
         $pageName = 'page'

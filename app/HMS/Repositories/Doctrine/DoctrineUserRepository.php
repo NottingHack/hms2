@@ -54,7 +54,8 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
 
     /**
      * @param string $searchQuery
-     * @param null|bool $hasAccount limit to users with associated accounts
+     * @param bool $hasAccount limit to users with associated accounts
+     * @param bool $currentOnly limit to only MEMBER_CURRENT users
      * @param bool $paginate
      * @param int $perPage
      * @param string $pageName
@@ -63,7 +64,8 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
      */
     public function searchLike(
         string $searchQuery,
-        ?bool $hasAccount = false,
+        bool $hasAccount = false,
+        bool $currentOnly = false,
         bool $paginate = false,
         $perPage = 15,
         $pageName = 'page'
@@ -71,6 +73,7 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
         $q = parent::createQueryBuilder('user')
             ->leftJoin('user.profile', 'profile')->addSelect('profile')
             ->leftJoin('user.account', 'account')->addSelect('account')
+            ->innerJoin('user.roles', 'role')->addSelect('role')
             ->where('CONCAT(user.name, \' \', user.lastname) LIKE :keyword')
             ->orWhere('user.username LIKE :keyword')
             ->orWhere('user.email LIKE :keyword')
@@ -79,6 +82,11 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
 
         if ($hasAccount) {
             $q = $q->andWhere('user.account IS NOT NULL');
+        }
+
+        if ($currentOnly) {
+            $q = $q->andWhere('role.name = :name');
+            $q = $q->setParameter('name', Role::MEMBER_CURRENT);
         }
 
         $q = $q->orderBy('CONCAT(user.name, \' \', user.lastname)', 'ASC');

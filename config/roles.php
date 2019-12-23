@@ -101,6 +101,10 @@ return [
         'team.create',
         'email.allMembers',
         'instrumentation.electric.addReading',
+        'governance.meeting.view',
+        'governance.meeting.create',
+        'governance.meeting.edit',
+        'governance.meeting.checkIn',
     ],
 
     /*
@@ -288,6 +292,8 @@ return [
                 'gatekeeper.zoneEntry.teamStorage',
                 'team.edit.description',
                 'search.invites',
+                'governance.meeting.view',
+                'governance.meeting.checkIn',
             ],
         ],
         'team.trustees' => [
@@ -339,6 +345,10 @@ return [
                 'search.invites',
                 'email.allMembers',
                 'snackspace.debt.view',
+                'governance.meeting.view',
+                'governance.meeting.create',
+                'governance.meeting.edit',
+                'governance.meeting.checkIn',
             ],
         ],
         'team.software' => [

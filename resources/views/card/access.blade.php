@@ -2,7 +2,7 @@
 <div class="card">
   <div class="card-header">Space access</div>
   <ul class="list-group list-group-flush">
-    <li class="list-group-item">Street Door: {{ Meta::get('access_street_door') }}
+    <li class="list-group-item">Street Door: {{ Meta::get('access_street_door') }}</li>
     <li class="list-group-item">Inner Door: {{ Meta::get('access_inner_door') }}</li>
     <li class="list-group-item">{{ Auth::user() == $user ? 'You have' : $user->getFirstname() . ' has' }} {{ count($user->getRfidTags()) }} RFID cards.</li>
     @can('pins.view.all')

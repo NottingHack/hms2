@@ -50,6 +50,7 @@ return [
         'GateKeeper\ZoneOccupant',
         'GateKeeper\ZoneOccupancyLog',
         'GateKeeper\AccessLog',
+        'Governance\Meeting',
         'Banking\Bank',
         'Banking\BankTransaction',
         'Banking\MembershipStatusNotification',

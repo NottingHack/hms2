@@ -31,9 +31,7 @@
     @csrf
     @method('PATCH')
 
-    <div class="existing-account-select2">
-      <member-select-two name="user_id" :with-account="true"></member-select-two>
-    </div>
+    <member-select-two name="user_id" :with-account="true"></member-select-two>
     <br>
     <button type="submit" class="btn btn-primary btn-block" name="action" value="membership"><i class="fas fa-check fa-lg" aria-hidden="true"></i> Match Membership Transaction</button>
     <button type="submit" class="btn btn-primary btn-block" name="action" value="snackspace"><i class="fas fa-check fa-lg" aria-hidden="true"></i> Create Snackspace Transaction</button>

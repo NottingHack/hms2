@@ -34,7 +34,7 @@ interface BookingRepository
      * @param Carbon $start
      * @param Carbon $end
      *
-     * @return Bookings[]
+     * @return Booking[]
      */
     public function checkForClashByTool(Tool $tool, Carbon $start, Carbon $end);
 

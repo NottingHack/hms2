@@ -310,4 +310,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Route::get('electric', 'ElectricController@index')->name('electric.index');
         Route::post('electric/readings', 'ElectricController@store')->name('electric.readings.store');
     });
+
+    //Governance/Meeting
+    Route::namespace('Governance')->prefix('governance')->name('governance.')->group(function () {
+        Route::resource(
+            'meetings',
+            'MeetingController',
+            [
+                'except' => ['destroy'],
+            ]
+        );
+        Route::get('meetings/{meeting}/check-in', 'MeetingController@checkIn')->name('meetings.check-in');
+        Route::post('meetings/{meeting}/check-in', 'MeetingController@checkInUser')->name('meetings.check-in-user');
+    });
 });

@@ -1,0 +1,36 @@
+# HMS.Entities.Governance.Meeting.dcm.yml
+HMS\Entities\Governance\Meeting:
+  type: entity
+  repositoryClass: HMS\Repositories\Governance\Doctrine\DoctrineMeetingRepository
+  table: meetings
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    title:
+      type: string
+    startTime:
+      type: datetime
+    extraordinary:
+      type: boolean
+      options:
+        default: 0
+    currentMembers:
+      type: integer
+      options:
+        default: 0
+    votingMembers:
+      type: integer
+      options:
+        default: 0
+    quorum:
+      type: integer
+      options:
+        default: 0
+  manyToMany:
+    attendees:
+      targetEntity: HMS\Entities\User

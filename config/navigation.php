@@ -223,6 +223,12 @@ return [
                     'permissions'   => ['profile.view.all'],
                     'links'         => [],
                 ],
+                'meetings' => [
+                    'text'          => 'Annual Meetings',
+                    'route'         => 'governance.meetings.index',
+                    'permissions'   => ['governance.meeting.view'],
+                    'links'         => [],
+                ],
                 'horizon'          => [
                     'text'          => 'Horizon',
                     'route'         => 'horizon.index',

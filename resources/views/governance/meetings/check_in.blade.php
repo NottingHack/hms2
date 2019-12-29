@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('pageTitle')
-{{ $meeting->getTitle() }} Check-In
+{{ $meeting->getTitle() }} Check-in
 @endsection
 
 @section('content')
@@ -63,14 +63,14 @@
       </table>
     </div>
     <div class="card">
-      <h4 class="card-header">Total Checked-In</h4>
+      <h4 class="card-header">Total Checked-in</h4>
       <div class="card-body align-items-center d-flex justify-content-center @if($checkInCount >= $meeting->getQuorum()) bg-success @else bg-danger @endif">
         <h1 class="card-text">{{ $checkInCount }}</h1>
       </div>
     </div>
   </div>
   <hr>
-  <h2>Member Check-In</h2>
+  <h2>Member Check-in</h2>
   <p>
     Use the search bellow to find a member to check in.<br>
     You can search via Name, Username, Email or Post Code.<br>
@@ -81,7 +81,7 @@
 
     <member-select-two name="user_id" :current-only="true"></member-select-two>
     <br>
-    <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-user-check fa-lg" aria-hidden="true"></i> Check-In</button>
+    <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-user-check fa-lg" aria-hidden="true"></i> Check-in</button>
   </form>
 </div>
 

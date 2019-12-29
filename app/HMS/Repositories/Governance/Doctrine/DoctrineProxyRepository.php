@@ -54,7 +54,7 @@ class DoctrineProxyRepository extends EntityRepository implements ProxyRepositor
 
         $q->setParameter('meeting_id', $meeting->getId());
 
-        return $q->getQuery()->getSingleScalarResult();
+        return (int) $q->getQuery()->getSingleScalarResult();
     }
 
     /**

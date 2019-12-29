@@ -60,6 +60,14 @@ Route::name('client.')->middleware('client')->group(function () {
     // upload new bankTransactions/
     Route::post('bank-transactions/upload', 'Api\Banking\TransactionUploadController@upload')
         ->name('bankTransactions.upload');
+
+    // Governance
+    Route::namespace('Api\Governance')->prefix('governance')->name('governance.')->group(function () {
+        // Meeting
+        Route::get('meeting/next', 'CheckInController@next')->name('meeting.next');
+        Route::get('meeting/{meeting}', 'CheckInController@show')->name('meeting.show');
+        Route::post('meeting/{meeting}/checkInRfid', 'CheckInController@checkInUserByRFID')->name('meeting.check-in-rfid');
+    });
 });
 
 Route::name('webhook.')->group(function () {

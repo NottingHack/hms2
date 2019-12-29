@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use HMS\Entities\Governance\Meeting;
 use HMS\Repositories\UserRepository;
+use App\Events\Governance\ProxyCheckedIn;
 use HMS\Factories\Governance\MeetingFactory;
 use HMS\Repositories\Governance\ProxyRepository;
 use HMS\Repositories\Governance\MeetingRepository;
@@ -192,7 +193,7 @@ class MeetingController extends Controller
     public function checkIn(Meeting $meeting)
     {
         if ($meeting->getStartTime()->isPast()) {
-            flash('Can not Check-In to a meeting in the past')->success();
+            flash('Can not Check-in to a meeting in the past')->success();
 
             return redirect()->route('governance.meetings.show', ['meeting' => $meeting->getId()]);
         }
@@ -217,7 +218,7 @@ class MeetingController extends Controller
     public function checkInUser(Request $request, Meeting $meeting)
     {
         if ($meeting->getStartTime()->isPast()) {
-            flash('Can not Check-In to a meeting in the past')->success();
+            flash('Can not Check-in to a meeting in the past')->success();
 
             return redirect()->route('governance.meetings.show', ['meeting' => $meeting->getId()]);
         }
@@ -231,15 +232,25 @@ class MeetingController extends Controller
 
         $user = $this->userRepository->findOneById($validatedData['user_id']);
 
-        if ($meeting->getAttendees()->contains($user)) {
-            flash($user->getFullName() . ' already Checked-In.');
+        if ($user->cannot('governance.voting.canVote')) {
+            $memberStatus = $this->roleRepository->findMemberStatusForUser($user);
+            flash($user->getFullname() . ' is not allowed to vote. Status: ' . $memberStatus->getDisplayName())->warning();
+        } elseif ($meeting->getAttendees()->contains($user)) {
+            flash($user->getFullname() . ' already Checked-in.');
         } else {
             $meeting->getAttendees()->add($user);
             $this->meetingRepository->save($meeting);
 
-            // TODO: if this user has designated a proxy, remove it since they are now present
+            flash($user->getFullname() . ' Checked-in.')->success();
 
-            flash($user->getFullName() . ' Checked-In.')->success();
+            // If this user has designated a proxy, remove it since they are now present
+            $_proxy = $this->proxyRepository->findOneByPrincipal($meeting, $user);
+            if ($_proxy) {
+                $proxy = $_proxy->getProxy(); // the User
+                $this->proxyRepository->remove($_proxy);
+                event(new ProxyCheckedIn($meeting, $user, $proxy));
+                flash('Proxy cancelled');
+            }
         }
 
         return redirect()->route('governance.meetings.check-in', ['meeting' => $meeting->getId()]);

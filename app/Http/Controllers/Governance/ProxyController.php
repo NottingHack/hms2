@@ -143,6 +143,13 @@ class ProxyController extends Controller
             return redirect()->route('governance.proxies.link', ['meeting' => $meeting->getId()]);
         }
 
+        // if they have already check in then they can not give away there proxy
+        if ($meeting->getAttendees()->contains($principal)) {
+            flash($principal->getFullname() . ' already Checked-in at the meeting.')->warning();
+
+            return redirect()->route('home');
+        }
+
         $proxy = $this->proxyRepository->findOneByPrincipal($meeting, \Auth::user());
 
         if (isset($proxy)) {

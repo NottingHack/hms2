@@ -42,7 +42,7 @@ Designate a Proxy for {{ $meeting->getTitle() }}
     Most votes, including Resolutions to change the Constitution, are asked as a Yes/No/Abstain decision.
   </p>
   <p>
-    If you do make it to the meeting your proxy vote will be automatically cancelled when you Check-In
+    If you do make it to the meeting your proxy vote will be automatically cancelled when you Check-in
   </p>
 </div>
 @endsection

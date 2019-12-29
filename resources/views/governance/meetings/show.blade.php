@@ -55,7 +55,7 @@
           <td>{{ $representedProxies }}</td>
         </tr>
         <tr>
-          <th>Check-In Count:</th>
+          <th>Check-in Count:</th>
           <td class="@if($checkInCount >= $meeting->getQuorum()) table-success @else table-danger @endif">{{ $checkInCount }}</td>
         </tr>
       </tbody>
@@ -71,7 +71,7 @@
 @endcan
 @can('governance.meeting.checkIn')
 @if($meeting->getStartTime()->isFuture())
-<a  href="{{ route('governance.meetings.check-in', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-user-check" aria-hidden="true"></i> Check-In</a>
+<a  href="{{ route('governance.meetings.check-in', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-user-check" aria-hidden="true"></i> Check-in</a>
 @endif
 @endcan
 </div>

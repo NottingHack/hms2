@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use HMS\Entities\User;
+use HMS\Governance\VotingManager;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\Tools\ToolRepository;
 use HMS\Repositories\Members\BoxRepository;
@@ -49,6 +50,11 @@ class AdminController extends Controller
     protected $bankTransactionRepository;
 
     /**
+     * @var VotingManager
+     */
+    protected $votingManager;
+
+    /**
      * Create a new controller instance.
      *
      * @param ProjectRepository $projectRepository
@@ -58,6 +64,7 @@ class AdminController extends Controller
      * @param BookingRepository $bookingRepository
      * @param ToolRepository $toolRepository
      * @param BankTransactionRepository $bankTransactionRepository
+     * @param VotingManager $votingManager
      *
      * @return void
      */
@@ -68,7 +75,8 @@ class AdminController extends Controller
         RoleRepository $roleRepository,
         BookingRepository $bookingRepository,
         ToolRepository $toolRepository,
-        BankTransactionRepository $bankTransactionRepository
+        BankTransactionRepository $bankTransactionRepository,
+        VotingManager $votingManager
     ) {
         $this->projectRepository = $projectRepository;
         $this->boxRepository = $boxRepository;
@@ -79,6 +87,7 @@ class AdminController extends Controller
         $this->bankTransactionRepository = $bankTransactionRepository;
 
         $this->middleware('canAny:profile.view.limited,profile.view.all')->only(['userOverview']);
+        $this->votingManager = $votingManager;
     }
 
     /**
@@ -101,6 +110,7 @@ class AdminController extends Controller
         }, $tools);
         $memberStatus = $this->roleRepository->findMemberStatusForUser($user);
         $bankTransactions = $this->bankTransactionRepository->paginateByAccount($user->getAccount(), 3);
+        $votingStatus = $this->votingManager->getVotingStatusForUser($user);
 
         return view('admin.user_overview')->with([
             'user' => $user,
@@ -113,6 +123,7 @@ class AdminController extends Controller
             'toolIds' => $toolIds,
             'memberStatus' => $memberStatus,
             'bankTransactions' => $bankTransactions,
+            'votingStatus' => $votingStatus,
         ]);
     }
 }

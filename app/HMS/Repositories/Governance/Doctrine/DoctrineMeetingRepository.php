@@ -24,7 +24,7 @@ class DoctrineMeetingRepository extends EntityRepository implements MeetingRepos
 
         $expr = Criteria::expr();
         $criteria = Criteria::create()
-        ->where($expr->gte('startTime', $now));
+            ->where($expr->gte('startTime', $now));
 
         $results = $this->matching($criteria);
 
@@ -42,9 +42,9 @@ class DoctrineMeetingRepository extends EntityRepository implements MeetingRepos
 
         $expr = Criteria::expr();
         $criteria = Criteria::create()
-        ->where($expr->gte('startTime', $now))
-        ->orderBy(['startTime' => Criteria::ASC])
-        ->setMaxResults(1);
+            ->where($expr->gte('startTime', $now))
+            ->orderBy(['startTime' => Criteria::ASC])
+            ->setMaxResults(1);
 
         $results = $this->matching($criteria);
 
@@ -62,7 +62,7 @@ class DoctrineMeetingRepository extends EntityRepository implements MeetingRepos
 
         $expr = Criteria::expr();
         $criteria = Criteria::create()
-        ->where($expr->gte('startTime', $now));
+            ->where($expr->gte('startTime', $now));
 
         return $this->matching($criteria)->toArray();
     }

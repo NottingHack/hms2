@@ -31,6 +31,11 @@ HMS\Entities\Governance\Meeting:
       type: integer
       options:
         default: 0
+  oneToMany:
+    proxies:
+      targetEntity: Proxy
+      mappedBy: meeting
+      cascade: ['persist']
   manyToMany:
     attendees:
       targetEntity: HMS\Entities\User

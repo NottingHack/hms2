@@ -34,10 +34,6 @@
           <th>Quorum Required ({{ Meta::get('quorum_percent', 20) }}% of Voting Members):</th>
           <td>{{ $meeting->getQuorum() }}</td>
         </tr>
-        <tr>
-          <th>Proxies Registered:</th>
-          <td>{{ $registeredProxies }}</td>
-        </tr>
       </tbody>
     </table>
   </div>
@@ -47,7 +43,11 @@
     <table class="table table-bordered table-hover ">
       <tbody>
         <tr>
-          <th class="w-50">Attendees in the room:</th>
+          <th class="w-50">Proxies Registered:</th>
+          <td>{{ $meeting->getProxies()->count() }}</td>
+        </tr>
+        <tr>
+          <th>Attendees in the room:</th>
           <td>{{ $meeting->getAttendees()->count() }}</td>
         </tr>
         <tr>
@@ -64,6 +64,10 @@
 
 @can('governance.meeting.edit')
 <a href="{{ route('governance.meetings.edit', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
+@endcan
+@can('governance.meeting.view')
+<a href="{{ route('governance.proxies.index', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-eye" aria-hidden="true"></i> View Proxies</a>
+<a href="{{ route('governance.meetings.attendees', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-eye" aria-hidden="true"></i> View Attendees</a>
 @endcan
 @can('governance.meeting.checkIn')
 @if($meeting->getStartTime()->isFuture())

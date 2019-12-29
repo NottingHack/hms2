@@ -1,0 +1,35 @@
+# HMS.Entities.Governance.Proxy.dcm.yml
+HMS\Entities\Governance\Proxy:
+  type: entity
+  repositoryClass: HMS\Repositories\Governance\Doctrine\DoctrineProxyRepository
+  table: proxies
+  uniqueConstraints:
+    duplicate_principal_idx:
+      columns: [ meeting_id, principal_id ]
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+  manyToOne:
+    meeting:
+      targetEntity: Meeting
+      inversedBy: proxies
+    principal:
+      targetEntity: HMS\Entities\User
+    proxy:
+      targetEntity: HMS\Entities\User
+      fetch: EAGER

@@ -105,6 +105,9 @@ return [
         'governance.meeting.create',
         'governance.meeting.edit',
         'governance.meeting.checkIn',
+        'governance.voting.canVote',
+        'governance.proxy.designateProxy',
+        'governance.proxy.representPrincipal',
     ],
 
     /*
@@ -224,6 +227,9 @@ return [
                 'login.shell',
                 'login.spacenet',
                 'team.view',
+                'governance.voting.canVote',
+                'governance.proxy.designateProxy',
+                'governance.proxy.representPrincipal',
             ],
         ],
         'member.temporarybanned' => [

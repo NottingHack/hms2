@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="container">
-  <h2>Meeting Starts at {{ $meeting->getStartTime()->toDateTimeString() }}</h2>
+  <h2>Meeting Starts at {{ $meeting->getStartTime()->toTimeString() }}</h2>
   <hr>
   <div class="card-deck">
     <div class="card">
@@ -34,11 +34,25 @@
       <table class="table">
         <tbody>
           <tr>
-            <th scope="row">Proxies Registered:</th>
-            <td>{{ $registeredProxies }}</td>
+            <th scope="row">
+              <span class="align-middle">
+                Proxies Registered:&nbsp;
+                <div class="btn-group float-right" role="group" aria-label="View Proxies Registered">
+                  <a href="{{ route('governance.proxies.index', ['meeting' => $meeting->getId()]) }}" class="btn btn-primary btn-sm"><i class="far fa-eye" aria-hidden="true"></i></a>
+                </div>
+              </span>
+            </th>
+            <td>{{ $meeting->getProxies()->count() }}</td>
           </tr>
           <tr>
-            <th scope="row">Attendees in the room:</th>
+            <th scope="row">
+            <span class="align-middle">
+                Attendees in the room:&nbsp;
+                <div class="btn-group float-right" role="group" aria-label="View Proxies Registered">
+                  <a href="{{ route('governance.meetings.attendees', ['meeting' => $meeting->getId()]) }}" class="btn btn-primary btn-sm"><i class="far fa-eye" aria-hidden="true"></i></a>
+                </div>
+              </span>
+            </th>
             <td>{{ $meeting->getAttendees()->count() }}</td>
           </tr>
           <tr>

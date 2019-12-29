@@ -311,8 +311,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('electric/readings', 'ElectricController@store')->name('electric.readings.store');
     });
 
-    //Governance/Meeting
+    // Governance
     Route::namespace('Governance')->prefix('governance')->name('governance.')->group(function () {
+        // Meetings
         Route::resource(
             'meetings',
             'MeetingController',
@@ -320,7 +321,26 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 'except' => ['destroy'],
             ]
         );
-        Route::get('meetings/{meeting}/check-in', 'MeetingController@checkIn')->name('meetings.check-in');
-        Route::post('meetings/{meeting}/check-in', 'MeetingController@checkInUser')->name('meetings.check-in-user');
+        Route::get('meetings/{meeting}/attendees', 'MeetingController@attendees')
+            ->name('meetings.attendees');
+        Route::get('meetings/{meeting}/check-in', 'MeetingController@checkIn')
+            ->name('meetings.check-in');
+        Route::post('meetings/{meeting}/check-in', 'MeetingController@checkInUser')
+            ->name('meetings.check-in-user');
+
+        // Proxies
+        Route::get('meetings/{meeting}/proxies', 'ProxyController@index')
+            ->name('proxies.index');
+        Route::get('meetings/{meeting}/principles', 'ProxyController@indexForUser')
+            ->name('proxies.index-for-user');
+        Route::get('meetings/{meeting}/proxy', 'ProxyController@designateLink')
+            ->name('proxies.link');
+        Route::get('m/{meeting}/p/d/{principal}', 'ProxyController@designate')
+            ->name('proxies.designate')
+            ->middleware('signed');
+        Route::post('meetings/{meeting}/proxy', 'ProxyController@store')
+            ->name('proxies.store');
+        Route::delete('meetings/{meeting}/proxy', 'ProxyController@destroy')
+            ->name('proxies.destroy');
     });
 });

@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use HMS\Governance\VotingManager;
 use App\Jobs\EmailTeamReminderJob;
 use App\Jobs\Snackspace\LogDebtJob;
 use App\Jobs\Banking\MembershipAuditJob;
@@ -53,7 +54,7 @@ class Kernel extends ConsoleKernel
         $schedule->job(new EmailTeamReminderJob)->weeklyOn(2, '7:27');
         if (! \App::environment('acceptance')) {
             $schedule->job(new RecalcuteMeetingQuorumJob)->everyMinute()
-                ->when(RecalcuteMeetingQuorumJob::hasUpcommingMeeting());
+                ->when(VotingManager::hasUpcommingMeeting());
         }
     }
 

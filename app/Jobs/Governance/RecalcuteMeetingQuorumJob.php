@@ -47,14 +47,4 @@ class RecalcuteMeetingQuorumJob implements ShouldQueue
             $meetingRepository->save($meeting);
         }
     }
-
-    /**
-     * Check if there is an upcoming Meeting.
-     *
-     * @return bool
-     */
-    public static function hasUpcommingMeeting()
-    {
-        return resolve(MeetingRepository::class)->hasUpcomming();
-    }
 }

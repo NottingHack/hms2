@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use HMS\Entities\Governance\Meeting;
 use HMS\Repositories\UserRepository;
 use HMS\Factories\Governance\MeetingFactory;
+use HMS\Repositories\Governance\ProxyRepository;
 use HMS\Repositories\Governance\MeetingRepository;
 
 class MeetingController extends Controller
@@ -28,24 +29,33 @@ class MeetingController extends Controller
     protected $userRepository;
 
     /**
+     * @var ProxyRepository
+     */
+    protected $proxyRepository;
+
+    /**
      * Constructor.
      *
      * @param MeetingRepository $meetingRepository
-     * @param MeetingFactory    $meetingFactory
+     * @param MeetingFactory $meetingFactory
+     * @param UserRepository $userRepository
+     * @param ProxyRepository $proxyRepository
      */
     public function __construct(
         MeetingRepository $meetingRepository,
         MeetingFactory $meetingFactory,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        ProxyRepository $proxyRepository
     ) {
         $this->meetingRepository = $meetingRepository;
         $this->meetingFactory = $meetingFactory;
+        $this->userRepository = $userRepository;
+        $this->proxyRepository = $proxyRepository;
 
         $this->middleware('can:governance.meeting.view')->only(['index', 'show']);
         $this->middleware('can:governance.meeting.create')->only(['create', 'store']);
         $this->middleware('can:governance.meeting.edit')->only(['edit', 'update']);
         $this->middleware('can:governance.meeting.checkIn')->only(['checkIn', 'checkInUser']);
-        $this->userRepository = $userRepository;
     }
 
     /**
@@ -108,13 +118,11 @@ class MeetingController extends Controller
      */
     public function show(Meeting $meeting)
     {
-        $registeredProxies = 10;
-        $representedProxies = 4;
+        $representedProxies = $this->proxyRepository->countRepresentedForMeeting($meeting);
         $checkInCount = $meeting->getAttendees()->count() + $representedProxies;
 
         return view('governance.meetings.show')
             ->with('meeting', $meeting)
-            ->with('registeredProxies', $registeredProxies)
             ->with('representedProxies', $representedProxies)
             ->with('checkInCount', $checkInCount);
     }
@@ -160,6 +168,21 @@ class MeetingController extends Controller
     }
 
     /**
+     * View list of attendees for a Meeting.
+     *
+     * @param  Meeting $meeting
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function attendees(Meeting $meeting)
+    {
+        // TODO: paginateAttendeesForMeeting
+
+        return view('governance.meetings.attendees')
+            ->with('meeting', $meeting);
+    }
+
+    /**
      * Show the form to check-in a User.
      *
      * @param Meeting $meeting
@@ -174,13 +197,11 @@ class MeetingController extends Controller
             return redirect()->route('governance.meetings.show', ['meeting' => $meeting->getId()]);
         }
 
-        $registeredProxies = 10;
-        $representedProxies = 1;
+        $representedProxies = $this->proxyRepository->countRepresentedForMeeting($meeting);
         $checkInCount = $meeting->getAttendees()->count() + $representedProxies;
 
         return view('governance.meetings.check_in')
             ->with('meeting', $meeting)
-            ->with('registeredProxies', $registeredProxies)
             ->with('representedProxies', $representedProxies)
             ->with('checkInCount', $checkInCount);
     }
@@ -201,20 +222,22 @@ class MeetingController extends Controller
             return redirect()->route('governance.meetings.show', ['meeting' => $meeting->getId()]);
         }
 
-        $valiidatedDate = $request->validate([
+        $validatedData = $request->validate([
             'user_id' => [
                 'required',
                 'exists:HMS\Entities\User,id',
             ],
         ]);
 
-        $user = $this->userRepository->findOneById($valiidatedDate['user_id']);
+        $user = $this->userRepository->findOneById($validatedData['user_id']);
 
         if ($meeting->getAttendees()->contains($user)) {
             flash($user->getFullName() . ' already Checked-In.');
         } else {
             $meeting->getAttendees()->add($user);
             $this->meetingRepository->save($meeting);
+
+            // TODO: if this user has designated a proxy, remove it since they are now present
 
             flash($user->getFullName() . ' Checked-In.')->success();
         }

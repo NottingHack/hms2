@@ -51,6 +51,7 @@ return [
         'GateKeeper\ZoneOccupancyLog',
         'GateKeeper\AccessLog',
         'Governance\Meeting',
+        'Governance\Proxy',
         'Banking\Bank',
         'Banking\BankTransaction',
         'Banking\MembershipStatusNotification',

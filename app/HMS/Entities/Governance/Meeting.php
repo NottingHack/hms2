@@ -54,12 +54,18 @@ class Meeting
     protected $proxies;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection|User[]
+     */
+    protected $absentees;
+
+    /**
      * Meeting constructor.
      */
     public function __construct()
     {
         $this->attendees = new ArrayCollection();
         $this->proxies = new ArrayCollection();
+        $this->absentees = new ArrayCollection();
     }
 
     /**
@@ -228,6 +234,26 @@ class Meeting
     public function setProxies($proxies)
     {
         $this->proxies = $proxies;
+
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection|User[]
+     */
+    public function getAbsentees()
+    {
+        return $this->absentees;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection|User[] $absentees
+     *
+     * @return self
+     */
+    public function setAbsentees($absentees)
+    {
+        $this->absentees = $absentees;
 
         return $this;
     }

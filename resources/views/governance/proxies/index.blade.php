@@ -7,7 +7,7 @@ Proxies for {{ $meeting->getTitle() }}
 @section('content')
 <div class="container">
   <p>
-    A person designated is called a "proxy" and the person designating him or her is called a "principal".x
+    A person designated is called a "proxy" and the person designating him or her is called a "principal".
   </p>
 </div>
 @forelse ($meeting->getProxies() as $proxy)

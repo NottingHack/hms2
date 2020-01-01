@@ -251,8 +251,87 @@ class MeetingController extends Controller
                 event(new ProxyCheckedIn($meeting, $user, $proxy));
                 flash('Proxy cancelled');
             }
+
+            // If this user has communicated their absence, remove it since they are now present
+            if ($meeting->getAbsentees()->contains($user)) {
+                $meeting->getAbsentees()->remove($_proxy);
+            }
         }
 
         return redirect()->route('governance.meetings.check-in', ['meeting' => $meeting->getId()]);
+    }
+
+    /**
+     * View list of absentees for a Meeting.
+     *
+     * @param  Meeting $meeting
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function absentees(Meeting $meeting)
+    {
+        // TODO: paginateAbsenteesForMeeting
+
+        return view('governance.meetings.absentees')
+            ->with('meeting', $meeting);
+    }
+
+    /**
+     * Show the form to register a User's absence.
+     *
+     * @param Meeting $meeting
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function absence(Meeting $meeting)
+    {
+        if ($meeting->getStartTime()->isPast()) {
+            flash('Can not be absent to a meeting in the past')->success();
+
+            return redirect()->route('governance.meetings.show', ['meeting' => $meeting->getId()]);
+        }
+
+        return view('governance.meetings.absence')
+            ->with('meeting', $meeting);
+    }
+
+    /**
+     * Record a User's absence from a specified meeting.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param Meeting $meeting
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function recordAbsence(Request $request, Meeting $meeting)
+    {
+        if ($meeting->getStartTime()->isPast()) {
+            flash('Can not be absent to a meeting in the past')->success();
+
+            return redirect()->route('governance.meetings.show', ['meeting' => $meeting->getId()]);
+        }
+
+        $validatedData = $request->validate([
+            'user_id' => [
+                'required',
+                'exists:HMS\Entities\User,id',
+            ],
+        ]);
+
+        $user = $this->userRepository->findOneById($validatedData['user_id']);
+
+        if ($user->cannot('governance.voting.canVote')) {
+            $memberStatus = $this->roleRepository->findMemberStatusForUser($user);
+            flash($user->getFullname() . ' is not allowed to vote. Status: ' . $memberStatus->getDisplayName())->warning();
+        } elseif ($meeting->getAbsentees()->contains($user)) {
+            flash($user->getFullname() . ' already recorded absent.');
+        } else {
+            $meeting->getAbsentees()->add($user);
+            $this->meetingRepository->save($meeting);
+
+            flash($user->getFullname() . '\'s absence recorded.')->success();
+        }
+
+        return redirect()->route('governance.meetings.absence', ['meeting' => $meeting->getId()]);
     }
 }

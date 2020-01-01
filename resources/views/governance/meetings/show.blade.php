@@ -43,11 +43,37 @@
     <table class="table table-bordered table-hover ">
       <tbody>
         <tr>
-          <th class="w-50">Proxies Registered:</th>
+          <th class="w-50">
+            <span class="align-middle">
+              Absentees Comunicated:&nbsp;
+              <div class="btn-group float-right" role="group" aria-label="View Proxies Registered">
+                <a href="{{ route('governance.meetings.absentees', ['meeting' => $meeting->getId()]) }}" class="btn btn-primary btn-sm"><i class="far fa-eye" aria-hidden="true"></i></a>
+              </div>
+            </span>
+
+          </th>
+          <td>{{ $meeting->getAbsentees()->count() }}</td>
+        </tr>
+        <tr>
+          <th>
+            <span class="align-middle">
+              Proxies Registered:&nbsp;
+              <div class="btn-group float-right" role="group" aria-label="View Proxies Registered">
+                <a href="{{ route('governance.proxies.index', ['meeting' => $meeting->getId()]) }}" class="btn btn-primary btn-sm"><i class="far fa-eye" aria-hidden="true"></i></a>
+              </div>
+            </span>
+          </th>
           <td>{{ $meeting->getProxies()->count() }}</td>
         </tr>
         <tr>
-          <th>Attendees in the room:</th>
+          <th>
+            <span class="align-middle">
+              Attendees in the room:&nbsp;
+              <div class="btn-group float-right" role="group" aria-label="View Proxies Registered">
+                <a href="{{ route('governance.meetings.attendees', ['meeting' => $meeting->getId()]) }}" class="btn btn-primary btn-sm"><i class="far fa-eye" aria-hidden="true"></i></a>
+              </div>
+            </span>
+          </th>
           <td>{{ $meeting->getAttendees()->count() }}</td>
         </tr>
         <tr>
@@ -65,13 +91,19 @@
 @can('governance.meeting.edit')
 <a href="{{ route('governance.meetings.edit', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
 @endcan
-@can('governance.meeting.view')
+{{-- @can('governance.meeting.view')
 <a href="{{ route('governance.proxies.index', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-eye" aria-hidden="true"></i> View Proxies</a>
 <a href="{{ route('governance.meetings.attendees', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-eye" aria-hidden="true"></i> View Attendees</a>
-@endcan
+<a href="{{ route('governance.meetings.absentees', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-eye" aria-hidden="true"></i> View Absentees</a>
+@endcan --}}
 @can('governance.meeting.checkIn')
 @if($meeting->getStartTime()->isFuture())
 <a  href="{{ route('governance.meetings.check-in', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-user-check" aria-hidden="true"></i> Check-in</a>
+@endif
+@endcan
+@can('governance.meeting.recordAbsence')
+@if($meeting->getStartTime()->isFuture())
+<a  href="{{ route('governance.meetings.absence', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-user-times" aria-hidden="true"></i> Record Absence</a>
 @endif
 @endcan
 </div>

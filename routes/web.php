@@ -328,6 +328,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('meetings/{meeting}/check-in', 'MeetingController@checkInUser')
             ->name('meetings.check-in-user');
 
+        Route::get('meetings/{meeting}/absentees', 'MeetingController@absentees')
+            ->name('meetings.absentees');
+        Route::get('meetings/{meeting}/absence', 'MeetingController@absence')
+            ->name('meetings.absence');
+        Route::post('meetings/{meeting}/absence', 'MeetingController@recordAbsence')
+            ->name('meetings.absence-record');
+
         // Proxies
         Route::get('meetings/{meeting}/proxies', 'ProxyController@index')
             ->name('proxies.index');

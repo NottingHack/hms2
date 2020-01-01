@@ -105,6 +105,7 @@ return [
         'governance.meeting.create',
         'governance.meeting.edit',
         'governance.meeting.checkIn',
+        'governance.meeting.recordAbsence',
         'governance.voting.canVote',
         'governance.proxy.designateProxy',
         'governance.proxy.representPrincipal',
@@ -355,6 +356,7 @@ return [
                 'governance.meeting.create',
                 'governance.meeting.edit',
                 'governance.meeting.checkIn',
+                'governance.meeting.recordAbsence',
             ],
         ],
         'team.software' => [

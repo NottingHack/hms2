@@ -36,6 +36,13 @@ HMS\Entities\Governance\Meeting:
       targetEntity: Proxy
       mappedBy: meeting
       cascade: ['persist']
+      orderBy: { 'proxy': 'ASC', 'principal': 'ASC' }
   manyToMany:
     attendees:
       targetEntity: HMS\Entities\User
+      joinTable:
+        name: meeting_attendee
+    absentees:
+      targetEntity: HMS\Entities\User
+      joinTable:
+        name: meeting_absentee

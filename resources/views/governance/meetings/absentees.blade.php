@@ -1,22 +1,22 @@
 @extends('layouts.app')
 
 @section('pageTitle')
-Attendees for {{ $meeting->getTitle() }}
+Absentees for {{ $meeting->getTitle() }}
 @endsection
 
 @section('content')
 <div class="container">
   <p>
-    The following members have Checked-in.
+    The following members have comunicated their Absence.
   </p>
-  @can('governance.meeting.checkIn')
+  @can('governance.meeting.recordAbsence')
   @if($meeting->getStartTime()->isFuture())
-  <a  href="{{ route('governance.meetings.check-in', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-user-check" aria-hidden="true"></i> Check-in</a><br>
+  <a  href="{{ route('governance.meetings.absence', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-user-times" aria-hidden="true"></i> Record Absence</a><br>
   @endif
   @endcan
 </div>
 
-@forelse ($meeting->getAttendees() as $attendee)
+@forelse ($meeting->getAbsentees() as $attendee)
 @if ($loop->first)
 <div class="container">
   <div class="table-responsive no-more-tables">
@@ -37,7 +37,7 @@ Attendees for {{ $meeting->getTitle() }}
 @endif
 @empty
 <div class="container">
-  No Attendees Checked-in.
+  No Absentees recorded.
 </div>
 @endforelse
 @endsection

@@ -194,6 +194,11 @@ class CheckInController extends Controller
                 event(new ProxyCheckedIn($meeting, $user, $proxy));
                 $message .= ', Proxy Cancelled';
             }
+
+            // If this user has communicated their absence, remove it since they are now present
+            if ($meeting->getAbsentees()->contains($user)) {
+                $meeting->getAbsentees()->remove($_proxy);
+            }
         }
 
         $data = $this->perpMeetingData($meeting);

@@ -46,7 +46,7 @@
           </tr>
           <tr>
             <th scope="row">
-            <span class="align-middle">
+              <span class="align-middle">
                 Attendees in the room:&nbsp;
                 <div class="btn-group float-right" role="group" aria-label="View Proxies Registered">
                   <a href="{{ route('governance.meetings.attendees', ['meeting' => $meeting->getId()]) }}" class="btn btn-primary btn-sm"><i class="far fa-eye" aria-hidden="true"></i></a>
@@ -84,5 +84,4 @@
     <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-user-check fa-lg" aria-hidden="true"></i> Check-in</button>
   </form>
 </div>
-
 @endsection

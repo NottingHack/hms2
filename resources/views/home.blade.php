@@ -9,6 +9,10 @@
     </div>
   </div>
   <div class="card-columns">
+    @component('card.status', ['user' => $user, 'memberStatus' => $memberStatus, 'votingStatus' => $votingStatus])
+    @endcomponent
+    @component('card.proxy')
+    @endcomponent
     @component('card.projects', ['user' => $user, 'projects' => $projects])
     @endcomponent
     @component('card.teams', ['user' => $user, 'teams' => $teams])

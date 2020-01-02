@@ -11,8 +11,16 @@
           @else
           Not a Member
           @endisset
-      </td>
+        </td>
       </tr>
+      @can('governance.voting.canVote')
+      <tr>
+        <th scope="row">Voting Status:</th>
+        <td class="align-middle">
+            {{ $votingStatus }}
+        </td>
+      </tr>
+      @endcan
       <tr>
         <th scope="row">Name:</th>
         <td>{{ $user->getFullName() }}</td>

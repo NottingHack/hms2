@@ -29,6 +29,16 @@ interface RfidTagRepository
     public function paginateByUser(User $user, $perPage = 15, $pageName = 'page');
 
     /**
+     * Find a tag via serial Number.
+     *
+     * @param  string  $rfidSerial
+     * @param  bool $activeOnly Only search ACTIVE tags
+     *
+     * @return RfidTag|null
+     */
+    public function findByRfidSerial(string $rfidSerial, $activeOnly = false);
+
+    /**
      * Save RfidTag to the DB.
      *
      * @param RfidTag $rfidTag

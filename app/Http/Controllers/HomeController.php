@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use HMS\Entities\Role;
+use HMS\Governance\VotingManager;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\Tools\ToolRepository;
 use HMS\Repositories\Members\BoxRepository;
@@ -43,6 +44,11 @@ class HomeController extends Controller
     protected $toolRepository;
 
     /**
+     * @var VotingManager
+     */
+    protected $votingManager;
+
+    /**
      * Create a new controller instance.
      *
      * @param ProjectRepository $projectRepository
@@ -51,6 +57,7 @@ class HomeController extends Controller
      * @param RoleRepository $roleRepository
      * @param BookingRepository $bookingRepository
      * @param ToolRepository $toolRepository
+     * @param VotingManager $votingManager
      *
      * @return void
      */
@@ -60,7 +67,8 @@ class HomeController extends Controller
         TransactionRepository $transactionRepository,
         RoleRepository $roleRepository,
         BookingRepository $bookingRepository,
-        ToolRepository $toolRepository
+        ToolRepository $toolRepository,
+        VotingManager $votingManager
     ) {
         $this->projectRepository = $projectRepository;
         $this->boxRepository = $boxRepository;
@@ -68,6 +76,7 @@ class HomeController extends Controller
         $this->roleRepository = $roleRepository;
         $this->bookingRepository = $bookingRepository;
         $this->toolRepository = $toolRepository;
+        $this->votingManager = $votingManager;
     }
 
     /**
@@ -108,6 +117,8 @@ class HomeController extends Controller
         $toolIds = array_map(function ($tool) {
             return $tool->getId();
         }, $tools);
+        $memberStatus = $this->roleRepository->findMemberStatusForUser($user);
+        $votingStatus = $this->votingManager->getVotingStatusForUser($user);
 
         return view('home')->with([
             'user' => $user,
@@ -117,6 +128,8 @@ class HomeController extends Controller
             'teams' => $teams,
             'bookings' => $bookings,
             'toolIds' => $toolIds,
+            'memberStatus' => $memberStatus,
+            'votingStatus' => $votingStatus,
         ]);
     }
 }

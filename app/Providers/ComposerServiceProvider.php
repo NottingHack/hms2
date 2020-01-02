@@ -16,7 +16,12 @@ class ComposerServiceProvider extends ServiceProvider
     {
         View::composer(
             'layouts.navbar',
-            'App\HMS\Composers\NavComposer'
+            'HMS\Composers\NavComposer'
+        );
+
+        View::composer(
+            'card.proxy',
+            'HMS\Composers\ProxyComposer'
         );
 
         View::composer('layouts.footer', function ($view) {

@@ -3,6 +3,7 @@
 namespace HMS\Entities;
 
 use Carbon\Carbon;
+use HMS\Governance\VotingPreference;
 use HMS\Traits\Entities\Timestampable;
 
 class Profile
@@ -73,6 +74,16 @@ class Profile
      * @var int
      */
     protected $balance;
+
+    /**
+     * @var string
+     */
+    protected $votingPreference;
+
+    /**
+     * @var null|Carbon
+     */
+    protected $votingPreferenceStatedAt;
 
     /**
      * Profile constructor.
@@ -360,6 +371,57 @@ class Profile
     public function updateBalanceByAmount(int $amount): self
     {
         $this->balance += $amount;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVotingPreference()
+    {
+        return $this->votingPreference;
+    }
+
+    /**
+     * Gets the string representation of Voting Preference.
+     *
+     * @return string
+     */
+    public function getVotingPreferenceString()
+    {
+        return VotingPreference::STATE_STRINGS[$this->votingPreference];
+    }
+
+    /**
+     * @param string $votingPreference
+     *
+     * @return self
+     */
+    public function setVotingPreference($votingPreference)
+    {
+        $this->votingPreference = $votingPreference;
+        $this->votingPreferenceStatedAt = Carbon::now();
+
+        return $this;
+    }
+
+    /**
+     * @return null|Carbon
+     */
+    public function getVotingPreferenceStatedAt()
+    {
+        return $this->votingPreferenceStatedAt;
+    }
+
+    /**
+     * @param null|Carbon $votingPreferenceStatedAt
+     *
+     * @return self
+     */
+    public function setVotingPreferenceStatedAt(Carbon $votingPreferenceStatedAt)
+    {
+        $this->votingPreferenceStatedAt = $votingPreferenceStatedAt;
 
         return $this;
     }

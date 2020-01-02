@@ -66,6 +66,14 @@ HMS\Entities\Profile:
       type: integer
       options:
         default: 0
+    votingPreference:
+      type: string
+      length: 20
+      options:
+        default: 'AUTOMATIC'
+    votingPreferenceStatedAt:
+      type: datetime
+      nullable: true
     createdAt:
       type: datetime
       gedmo:

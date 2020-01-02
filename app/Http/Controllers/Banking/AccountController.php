@@ -95,14 +95,14 @@ class AccountController extends Controller
      */
     public function linkUser(Account $account, Request $request)
     {
-        $valiidatedDate = $request->validate([
+        $validatedData = $request->validate([
             'user_id' => [
                 'required',
                 'exists:HMS\Entities\User,id',
             ],
         ]);
 
-        $user = $this->userRepository->findOneById($valiidatedDate['user_id']);
+        $user = $this->userRepository->findOneById($validatedData['user_id']);
 
         // TODO: As this will changes a Users account_id, we will orphan the old Account ref
         // if there are no bank_transaction against the ref we should be safe to delete it?
@@ -130,7 +130,7 @@ class AccountController extends Controller
      */
     public function unlinkUser(Account $account, Request $request)
     {
-        $valiidatedDate = $request->validate([
+        $validatedData = $request->validate([
             'user_id' => [
                 'required',
                 'exists:HMS\Entities\User,id',
@@ -139,12 +139,12 @@ class AccountController extends Controller
             'existing-account' => 'required_if:new-account,false|exists:HMS\Entities\Banking\Account,id',
         ]);
 
-        $user = $this->userRepository->findOneById($valiidatedDate['user_id']);
+        $user = $this->userRepository->findOneById($validatedData['user_id']);
 
-        if ($valiidatedDate['new-account']) {
+        if ($validatedData['new-account']) {
             $newAccount = $this->accountFactory->createNewAccount();
         } else {
-            $newAccount = $this->accountRepository->findOneById($valiidatedDate['existing-account']);
+            $newAccount = $this->accountRepository->findOneById($validatedData['existing-account']);
         }
 
         $user->setAccount($newAccount);

@@ -46,7 +46,7 @@ class UserController extends Controller
         $this->middleware('can:profile.view.self')->only(['show']);
         $this->middleware('can:profile.edit.self')->only(['edit', 'update']);
         $this->middleware('can:profile.edit.all')->only(['editAdmin']);
-        $this->middleware('canAny:profile.edit.limited,profile.edit.all')->only(['editEmail', 'updateEmial']);
+        $this->middleware('canAny:profile.edit.limited,profile.edit.all')->only(['editEmail', 'updateEmail']);
     }
 
     /**

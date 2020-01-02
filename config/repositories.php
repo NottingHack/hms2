@@ -23,7 +23,7 @@ return [
     */
     'entity_namespace' => 'HMS\Entities',
 
-   /*
+    /*
     |--------------------------------------------------------------------------
     | Autoloaded Repositories
     |--------------------------------------------------------------------------
@@ -50,6 +50,8 @@ return [
         'GateKeeper\ZoneOccupant',
         'GateKeeper\ZoneOccupancyLog',
         'GateKeeper\AccessLog',
+        'Governance\Meeting',
+        'Governance\Proxy',
         'Banking\Bank',
         'Banking\BankTransaction',
         'Banking\MembershipStatusNotification',

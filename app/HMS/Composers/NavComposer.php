@@ -1,6 +1,6 @@
 <?php
 
-namespace App\HMS\Composers;
+namespace HMS\Composers;
 
 use HMS\Entities\User;
 use Illuminate\View\View;

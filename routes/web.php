@@ -310,4 +310,48 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Route::get('electric', 'ElectricController@index')->name('electric.index');
         Route::post('electric/readings', 'ElectricController@store')->name('electric.readings.store');
     });
+
+    // Governance
+    Route::namespace('Governance')->prefix('governance')->name('governance.')->group(function () {
+        // Meetings
+        Route::resource(
+            'meetings',
+            'MeetingController',
+            [
+                'except' => ['destroy'],
+            ]
+        );
+        Route::get('meetings/{meeting}/attendees', 'MeetingController@attendees')
+            ->name('meetings.attendees');
+        Route::get('meetings/{meeting}/check-in', 'MeetingController@checkIn')
+            ->name('meetings.check-in');
+        Route::post('meetings/{meeting}/check-in', 'MeetingController@checkInUser')
+            ->name('meetings.check-in-user');
+
+        Route::get('meetings/{meeting}/absentees', 'MeetingController@absentees')
+            ->name('meetings.absentees');
+        Route::get('meetings/{meeting}/absence', 'MeetingController@absence')
+            ->name('meetings.absence');
+        Route::post('meetings/{meeting}/absence', 'MeetingController@recordAbsence')
+            ->name('meetings.absence-record');
+
+        // Proxies
+        Route::get('meetings/{meeting}/proxies', 'ProxyController@index')
+            ->name('proxies.index');
+        Route::get('meetings/{meeting}/principles', 'ProxyController@indexForUser')
+            ->name('proxies.index-for-user');
+        Route::get('meetings/{meeting}/proxy', 'ProxyController@designateLink')
+            ->name('proxies.link');
+        Route::get('m/{meeting}/p/d/{principal}', 'ProxyController@designate')
+            ->name('proxies.designate')
+            ->middleware('signed');
+        Route::post('meetings/{meeting}/proxy', 'ProxyController@store')
+            ->name('proxies.store');
+        Route::delete('meetings/{meeting}/proxy', 'ProxyController@destroy')
+            ->name('proxies.destroy');
+
+        // Voting
+        Route::get('voting', 'VotingController@index')->name('voting.index');
+        Route::patch('voting', 'VotingController@update')->name('voting.update');
+    });
 });

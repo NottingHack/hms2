@@ -50,8 +50,8 @@ Route::namespace('Instrumentation')->prefix('instrumentation')->name('instrument
     Route::get('electric', 'ElectricController@index')->name('electric.index');
 });
 Route::prefix('statistics')->name('statistics.')->group(function () {
-    Route::get('box_usage', 'StatisticsController@boxUsage')->name('box-usage');
-    Route::get('laser_usage', 'StatisticsController@laserUsage')->name('laser-usage');
+    Route::get('box-usage', 'StatisticsController@boxUsage')->name('box-usage');
+    Route::get('laser-usage', 'StatisticsController@laserUsage')->name('laser-usage');
     Route::get('membership', 'StatisticsController@memberStats')->name('membership');
     Route::get('snackspace-monthly', 'StatisticsController@snackspaceMonthly')->name('snackspace-monthly');
     Route::get('zone-occupants', 'StatisticsController@zoneOccupancy')->name('zone-occupants');
@@ -98,7 +98,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // USER
     Route::get('admin/users/{user}', 'AdminController@userOverview')->name('users.admin.show');
     Route::get('admin/users/{user}/edit', 'UserController@editAdmin')->name('users.admin.edit');
-    Route::get('admin/users/{user}/edit_email', 'UserController@editEmail')->name('users.admin.edit-email');
+    Route::get('admin/users/{user}/edit-email', 'UserController@editEmail')->name('users.admin.edit-email');
     Route::patch('admin/users/{user}', 'UserController@updateEmail')->name('users.admin.update-email');
     Route::get('users-by-role/{role}', 'UserController@listUsersByRole')->name('users.byRole');
     Route::get('users', 'UserController@index')->name('users.index');

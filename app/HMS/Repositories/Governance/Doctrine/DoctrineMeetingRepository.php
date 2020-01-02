@@ -68,6 +68,28 @@ class DoctrineMeetingRepository extends EntityRepository implements MeetingRepos
     }
 
     /**
+     * Find all meetings with a start time in the past size months.
+     *
+     * @return Meeting[]
+     */
+    public function findPastSixMonths()
+    {
+        $now = Carbon::now();
+        $sixMonthsAgo = Carbon::now()->subMonths(6);
+
+        $expr = Criteria::expr();
+        $criteria = Criteria::create()
+            ->where(
+                $expr->andX(
+                    $expr->gte('startTime', $sixMonthsAgo),
+                    $expr->lte('startTime', $now)
+                )
+            );
+
+        return $this->matching($criteria)->toArray();
+    }
+
+    /**
      * Finds all meetings in the repository.
      *
      * @return Meeting[]

@@ -53,10 +53,11 @@ class MeetingController extends Controller
         $this->userRepository = $userRepository;
         $this->proxyRepository = $proxyRepository;
 
-        $this->middleware('can:governance.meeting.view')->only(['index', 'show']);
+        $this->middleware('can:governance.meeting.view')->only(['index', 'show', 'attendees', 'absentees']);
         $this->middleware('can:governance.meeting.create')->only(['create', 'store']);
         $this->middleware('can:governance.meeting.edit')->only(['edit', 'update']);
         $this->middleware('can:governance.meeting.checkIn')->only(['checkIn', 'checkInUser']);
+        $this->middleware('can:governance.meeting.recordAbsence')->only(['absence', 'recordAbsence']);
     }
 
     /**

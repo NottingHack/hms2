@@ -349,5 +349,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->name('proxies.store');
         Route::delete('meetings/{meeting}/proxy', 'ProxyController@destroy')
             ->name('proxies.destroy');
+
+        // Voting
+        Route::get('voting', 'VotingController@index')->name('voting.index');
+        Route::patch('voting', 'VotingController@update')->name('voting.update');
     });
 });

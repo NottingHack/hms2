@@ -95,7 +95,7 @@ class BoxController extends Controller
         $this->transactionRepository = $transactionRepository;
         $this->transactionFactory = $transactionFactory;
 
-        $this->middleware('can:box.view.self')->only(['index']);
+        $this->middleware('can:box.view.self')->only(['index', 'show']);
         $this->middleware('can:box.buy.self')->only(['create', 'store']);
         $this->middleware('can:box.issue.all')->only(['issue']);
         $this->middleware('can:box.edit.self')->only(['markInUse', 'markAbandoned', 'markRemoved']);

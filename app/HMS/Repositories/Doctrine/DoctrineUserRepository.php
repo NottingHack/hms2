@@ -2,9 +2,11 @@
 
 namespace HMS\Repositories\Doctrine;
 
+use Carbon\Carbon;
 use HMS\Entities\Role;
 use HMS\Entities\User;
 use Doctrine\ORM\EntityRepository;
+use HMS\Governance\VotingPreference;
 use HMS\Repositories\UserRepository;
 use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 
@@ -53,6 +55,102 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     }
 
     /**
+     * Find Voting members base on Physical access in last six months.
+     *
+     * @return User[]
+     */
+    public function findVotingPhysical()
+    {
+        $q = parent::createQueryBuilder('user');
+
+        $q->leftjoin('user.pin', 'pin')->addSelect('pin')
+            ->leftjoin('user.profile', 'profile')->addSelect('profile')
+            ->leftJoin('user.rfidTags', 'rfidTags')
+            ->innerJoin('user.roles', 'role')
+            ->where('role.name = :role_name')
+            ->andWhere('rfidTags.lastUsed >= :sixMonthsAgo');
+
+        $q->setParameter('role_name', Role::MEMBER_CURRENT)
+            ->setParameter('sixMonthsAgo', Carbon::now()->subMonths(6));
+
+        $q = $q->getQuery();
+
+        return $q->getResult();
+    }
+
+    /**
+     * Find stated Voting members in last six months.
+     *
+     * @return User[]
+     */
+    public function findVotingStated()
+    {
+        $sixMonthsAgo = Carbon::now()->subMonths(6);
+
+        $q = parent::createQueryBuilder('user');
+
+        $q->leftjoin('user.pin', 'pin')->addSelect('pin')
+            ->leftjoin('user.profile', 'profile')->addSelect('profile')
+            ->innerJoin('user.roles', 'role')
+            ->where('role.name = :role_name')
+            ->andWhere('profile.votingPreference = :votingPreference')
+            ->andWhere('profile.votingPreferenceStatedAt >= :sixMonthsAgo');
+
+        $q->setParameter('role_name', Role::MEMBER_CURRENT)
+            ->setParameter('votingPreference', VotingPreference::VOTING)
+            ->setParameter('sixMonthsAgo', $sixMonthsAgo);
+
+        $q = $q->getQuery();
+
+        return $q->getResult();
+    }
+
+    /**
+     * Find stated Non-voting members in last six months.
+     *
+     * @return User[]
+     */
+    public function findNonVotingStated()
+    {
+        $sixMonthsAgo = Carbon::now()->subMonths(6);
+
+        $q = parent::createQueryBuilder('user');
+
+        $q->leftjoin('user.pin', 'pin')->addSelect('pin')
+            ->leftjoin('user.profile', 'profile')->addSelect('profile')
+            ->innerJoin('user.roles', 'role')
+            ->where('role.name = :role_name')
+            ->andWhere('profile.votingPreference = :votingPreference')
+            ->andWhere('profile.votingPreferenceStatedAt >= :sixMonthsAgo');
+
+        $q->setParameter('role_name', Role::MEMBER_CURRENT)
+            ->setParameter('votingPreference', VotingPreference::NONVOTING)
+            ->setParameter('sixMonthsAgo', $sixMonthsAgo);
+
+        $q = $q->getQuery();
+
+        return $q->getResult();
+    }
+
+    /**
+     * Count Current Members.
+     *
+     * @return int
+     */
+    public function countCurrentMembers(): int
+    {
+        $qb = parent::createQueryBuilder('user');
+
+        $qb->select('COUNT(user.id)')
+            ->innerJoin('user.roles', 'roles')
+            ->where('roles.name = :role_name');
+
+        $qb->setParameter('role_name', Role::MEMBER_CURRENT);
+
+        return (int) $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
      * @param string $searchQuery
      * @param bool $hasAccount limit to users with associated accounts
      * @param bool $currentOnly limit to only MEMBER_CURRENT users
@@ -85,8 +183,8 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
         }
 
         if ($currentOnly) {
-            $q = $q->andWhere('role.name = :name');
-            $q = $q->setParameter('name', Role::MEMBER_CURRENT);
+            $q = $q->andWhere('role.name = :role_name');
+            $q = $q->setParameter('role_name', Role::MEMBER_CURRENT);
         }
 
         $q = $q->orderBy('CONCAT(user.name, \' \', user.lastname)', 'ASC');

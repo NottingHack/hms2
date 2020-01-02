@@ -96,13 +96,11 @@
 <a href="{{ route('governance.meetings.attendees', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-eye" aria-hidden="true"></i> View Attendees</a>
 <a href="{{ route('governance.meetings.absentees', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-eye" aria-hidden="true"></i> View Absentees</a>
 @endcan --}}
-@can('governance.meeting.checkIn')
 @if($meeting->getStartTime()->isFuture())
+@can('governance.meeting.checkIn')
 <a  href="{{ route('governance.meetings.check-in', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-user-check" aria-hidden="true"></i> Check-in</a>
-@endif
 @endcan
 @can('governance.meeting.recordAbsence')
-@if($meeting->getStartTime()->isFuture())
 <a  href="{{ route('governance.meetings.absence', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-user-times" aria-hidden="true"></i> Record Absence</a>
 @endif
 @endcan

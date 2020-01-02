@@ -28,6 +28,13 @@ interface MeetingRepository
     public function findFuture();
 
     /**
+     * Find all meetings with a start time in the past size months.
+     *
+     * @return Meeting[]
+     */
+    public function findPastSixMonths();
+
+    /**
      * Finds all meetings in the repository.
      *
      * @return Meeting[]

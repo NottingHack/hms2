@@ -19,15 +19,13 @@ Proxies for {{ $meeting->getTitle() }}
         <th>Proxy</th>
         <th>Principle</th>
         <th>Designated at</th>
-        <th>Actions</th>
       </thead>
       <tbody>
 @endif
         <tr>
-          <td>{{ $proxy->getProxy()->getFullname() }}</td>
-          <td>{{ $proxy->getPrincipal()->getFullname() }}</td>
-          <td>{{ $proxy->getCreatedAt()->toDateTimeString() }}</td>
-          <td></td>
+          <td data-title="Proxy">{{ $proxy->getProxy()->getFullname() }}</td>
+          <td data-title="Principle">{{ $proxy->getPrincipal()->getFullname() }}</td>
+          <td data-title="Designated at">{{ $proxy->getCreatedAt()->toDateTimeString() }}</td>
         </tr>
 @if ($loop->last)
       </tbody>

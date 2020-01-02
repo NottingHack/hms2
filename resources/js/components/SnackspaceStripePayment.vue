@@ -18,7 +18,7 @@
               Due to processing fees, it is not economical for us to offer other amounts.
             </p>
             <div class="form-group text-center">
-              <div class="btn-group btn-group-toggle">
+              <div v-if="balance == null" class="btn-group btn-group-toggle">
                 <label :class="amount === 1000 ? 'btn btn-lg btn-success active': 'btn btn-lg btn-success'">
                   <input type="radio" v-model="amount" :value="1000" @change="updateAmount" :disabled="cardButtonDisable"> £10
                 </label>
@@ -27,6 +27,11 @@
                 </label>
                 <label :class="amount === 2000 ? 'btn btn-lg btn-success active': 'btn btn-lg btn-success'">
                   <input type="radio" v-model="amount" :value="2000" @change="updateAmount" :disabled="cardButtonDisable"> £20
+                </label>
+              </div>
+              <div v-else class="btn-group btn-group-toggle">
+                <label :class="amount === -balance ? 'btn btn-lg btn-success active': 'btn btn-lg btn-success'">
+                  <input type="radio" v-model="amount" :value="-balance" @change="updateAmount" :disabled="cardButtonDisable"> Clear balance of -£{{ -(balance/100) }}
                 </label>
               </div>
             </div>
@@ -91,6 +96,10 @@
   export default{
     props: {
       // userId: Number,
+      balance: {
+        type: Number,
+        default: null
+      },
     },
 
     data() {
@@ -420,6 +429,10 @@
     },
 
     mounted() {
+      if (this.balance) {
+        this.amount = -this.balance;
+      }
+
       this.$nextTick(function () {
         $('.vue-remove').contents().unwrap();
       });

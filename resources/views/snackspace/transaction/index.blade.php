@@ -17,9 +17,14 @@ Snackspace account for {{ $user->getFirstname() }}
   <p>
     Please use the note or coin acceptors located in the first floor members box room to add money to your Snackspace account.<br>
     @if (Auth::user() == $user && null !== config('services.stripe.key'))
-    @if ($user->can('snackspace.payment') || ($user->can('snackspace.payment.debtOnly') && $user->getProfile()->getBalance() < 0))
+    @if ($user->can('snackspace.payment') || ($user->can('snackspace.payment.debtOnly') && $user->getProfile()->getBalance() < -100))
     Or click the button below to add money using a card.<br>
-    <snackspace-stripe-payment></snackspace-stripe-payment>
+    <snackspace-stripe-payment
+    @if($user->can('snackspace.payment.debtOnly') && $user->getProfile()->getBalance() < 0)
+    :balance="{{ $user->getProfile()->getBalance() }}"
+    @endif
+    >
+    </snackspace-stripe-payment>
     @endif
     @endif
   </p>

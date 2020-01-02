@@ -41,6 +41,11 @@
       <td>{{ $memberStats->total_current_members }}</td>
       <td></td>
     </tr>
+    <tr>
+      <th>Voting Members:</th>
+      <td>{{ $votingMembers }}</td>
+      <td></td>
+    </tr>
   </table>
 </div>
 @endsection

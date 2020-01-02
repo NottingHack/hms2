@@ -89,12 +89,12 @@ class AuditResult extends Notification implements ShouldQueue
             ->markdown(
                 'emails.banking.auditResults',
                 [
-                'teamName' => ($notifiable instanceof Role) ? $notifiable->getDisplayName() : $notifiable->getName(),
-                'formattedApproveUsers' => $this->formattedApproveUsers,
-                'formattedWarnUsers' => $this->formattedWarnUsers,
-                'formattedRevokeUsers' => $this->formattedRevokeUsers,
-                'formattedReinstateUsers' => $this->formattedReinstateUsers,
-                'paymentNotificationsClearCount' => $this->paymentNotificationsClearCount,
+                    'teamName' => ($notifiable instanceof Role) ? $notifiable->getDisplayName() : $notifiable->getName(),
+                    'formattedApproveUsers' => $this->formattedApproveUsers,
+                    'formattedWarnUsers' => $this->formattedWarnUsers,
+                    'formattedRevokeUsers' => $this->formattedRevokeUsers,
+                    'formattedReinstateUsers' => $this->formattedReinstateUsers,
+                    'paymentNotificationsClearCount' => $this->paymentNotificationsClearCount,
                 ]
             );
     }
@@ -122,7 +122,7 @@ class AuditResult extends Notification implements ShouldQueue
                                 'Notified Members' => $warnCount,
                                 'Revoked Members' => $revokeCount,
                                 'Reinstated Members' => $reinstateCount,
-                                ])
+                            ])
                             ->timestamp(Carbon::now());
             });
     }

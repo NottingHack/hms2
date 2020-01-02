@@ -10,7 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use HMS\Repositories\Governance\MeetingRepository;
 
-class RecalcuteMeetingQuorumJob implements ShouldQueue
+class RecalculateMeetingQuorumJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -34,11 +34,15 @@ class RecalcuteMeetingQuorumJob implements ShouldQueue
         MeetingRepository $meetingRepository,
         VotingManager $votingManager
     ) {
+        $meetings = $meetingRepository->findFuture();
+
+        if (empty($meetings)) {
+            return;
+        }
+
         $currentMembers = $votingManager->countCurrentMembers();
         $votingMembers = $votingManager->countVotingMembers();
         $currentQuorumRequirement = $votingManager->currentQuorumRequirement();
-
-        $meetings = $meetingRepository->findFuture();
 
         foreach ($meetings as $meeting) {
             $meeting->setCurrentMembers($currentMembers);

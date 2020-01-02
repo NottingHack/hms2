@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use HMS\Views\LaserUsage;
 use HMS\Views\MemberStats;
 use HMS\Views\SnackspaceMonthly;
+use HMS\Governance\VotingManager;
 use HMS\Repositories\MetaRepository;
 use Illuminate\Support\Facades\Cache;
 use HMS\Repositories\Members\BoxRepository;
@@ -28,6 +29,11 @@ class StatisticsController extends Controller
     protected $metaRepository;
 
     /**
+     * @var VotingManager
+     */
+    protected $votingManager;
+
+    /**
      * Create a new controller instance.
      *
      * @param ZoneRepository $zoneRepository
@@ -37,11 +43,13 @@ class StatisticsController extends Controller
     public function __construct(
         ZoneRepository $zoneRepository,
         BoxRepository $boxRepository,
-        MetaRepository $metaRepository
+        MetaRepository $metaRepository,
+        VotingManager $votingManager
     ) {
         $this->zoneRepository = $zoneRepository;
         $this->boxRepository = $boxRepository;
         $this->metaRepository = $metaRepository;
+        $this->votingManager = $votingManager;
     }
 
     /**
@@ -105,8 +113,11 @@ class StatisticsController extends Controller
             return MemberStats::first();
         });
 
+        $votingMembers = $this->votingManager->countVotingMembers();
+
         return view('statistics.member_stats')
-            ->with('memberStats', $memberStats);
+            ->with('memberStats', $memberStats)
+            ->with('votingMembers', $votingMembers);
     }
 
     /**

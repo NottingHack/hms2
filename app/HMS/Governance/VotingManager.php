@@ -66,16 +66,6 @@ class VotingManager
     }
 
     /**
-     * Check if there is an upcoming Meeting.
-     *
-     * @return bool
-     */
-    public static function hasUpcommingMeeting()
-    {
-        return resolve(MeetingRepository::class)->hasUpcomming();
-    }
-
-    /**
      * Count the number of Role::MEMBER_CURRENT Users.
      *
      * @return int

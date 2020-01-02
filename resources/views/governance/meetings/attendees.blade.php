@@ -19,20 +19,18 @@ Attendees for {{ $meeting->getTitle() }}
 @forelse ($meeting->getAttendees() as $attendee)
 @if ($loop->first)
 <div class="container">
-  <div class="table-responsive no-more-tables">
-    <table class="table table-bordered table-hover">
-      <thead>
-        <th>Name</th>
-      </thead>
-      <tbody>
+  <table class="table table-bordered table-hover">
+    <thead>
+      <th>Name</th>
+    </thead>
+    <tbody>
 @endif
-        <tr>
-          <td>{{ $attendee->getFullname() }}</td>
-        </tr>
+      <tr>
+        <td>{{ $attendee->getFullname() }}</td>
+      </tr>
 @if ($loop->last)
-      </tbody>
-    </table>
-  </div>
+    </tbody>
+  </table>
 </div>
 @endif
 @empty

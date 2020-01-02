@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use HMS\Governance\VotingPreference;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,7 @@ $factory->define(HMS\Entities\Profile::class, function (Faker\Generator $faker, 
         'contactNumber' => $faker->phoneNumber,
         'dateOfBirth' => Carbon::instance($faker->dateTimeBetween($startDate = '-100 years', $endDate = '-18 years')),
         'balance' => 0,
+        'votingPreference' => VotingPreference::AUTOMATIC,
     ];
 });
 
@@ -42,6 +44,7 @@ $factory->defineAs(HMS\Entities\Profile::class, 'youngHacker', function (Faker\G
         'contactNumber' => $faker->phoneNumber,
         'dateOfBirth' => Carbon::instance($faker->dateTimeBetween($startDate = '-18 years', $endDate = '-16 years')),
         'balance' => 0,
+        'votingPreference' => VotingPreference::AUTOMATIC,
     ];
 });
 
@@ -57,6 +60,7 @@ $factory->defineAs(HMS\Entities\Profile::class, 'approval', function (Faker\Gene
         'contactNumber' => $faker->phoneNumber,
         'dateOfBirth' => Carbon::instance($faker->dateTimeBetween($startDate = '-100 years', $endDate = '-16 years')),
         'balance' => 0,
+        'votingPreference' => VotingPreference::AUTOMATIC,
     ];
 });
 
@@ -65,5 +69,6 @@ $factory->defineAs(HMS\Entities\Profile::class, 'superuser', function (Faker\Gen
         'user' => isset($attributes['user']) ? $attributes['user'] : null,
         'creditLimit' => \Meta::get('member_credit_limit'),
         'balance' => 0,
+        'votingPreference' => VotingPreference::AUTOMATIC,
     ];
 });

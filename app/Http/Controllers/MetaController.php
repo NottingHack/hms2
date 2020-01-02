@@ -57,9 +57,9 @@ class MetaController extends Controller
 
         return view('meta.edit')
             ->with([
-                    'key' => $key,
-                    'value' => $value,
-                    ]);
+                'key' => $key,
+                'value' => $value,
+            ]);
     }
 
     /**

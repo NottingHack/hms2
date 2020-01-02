@@ -20,14 +20,14 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
 
         $stub = str_replace(
             ['DummyRepositoryInterfaceNamespace',
-            'DummyRepositoryImplementationNamespace',
-            'NamespacedDummyRepositoryInterface',
-            'dummyClass',
+                'DummyRepositoryImplementationNamespace',
+                'NamespacedDummyRepositoryInterface',
+                'dummyClass',
             ],
             [$this->getRepositoryInterfaceNamespace($name),
-            $this->getRepositoryImplementationNamespace($name),
-            $this->getNamespacedRepositoryInterface($name),
-            $this->getClassInstance($name),
+                $this->getRepositoryImplementationNamespace($name),
+                $this->getNamespacedRepositoryInterface($name),
+                $this->getClassInstance($name),
             ],
             $stub
         );

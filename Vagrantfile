@@ -22,6 +22,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/nginx.sh"
+  config.vm.provision :shell, path: "dev/vagrant-config/scripts/redis.sh"
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/laravel.sh", privileged: false
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/mix.sh", privileged: false
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/labelprinter.sh"

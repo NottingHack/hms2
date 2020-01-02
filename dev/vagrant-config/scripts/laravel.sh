@@ -11,6 +11,10 @@ sudo apt-get install -y unzip > /dev/null 2>&1
 cp /vagrant/dev/vagrant-config/laravel/.env /vagrant/.env
 
 cd /vagrant
+
+# check we have the submodule
+git submodule update --init
+
 composer install --no-progress --no-suggest
 
 # Set up DB
@@ -22,7 +26,7 @@ php artisan hms:database:refresh-procedures
 php artisan permission:defaults
 php artisan db:seed
 php artisan passport:install
-php artisan ziggy:generate "resources/js/ziggy.js"
+php artisan ziggy:generate "/vagrant/resources/js/ziggy.js"
 
 # Setup task scheduler cron
 line="* * * * * php /vagrant/artisan schedule:run >> /dev/null 2>&1"

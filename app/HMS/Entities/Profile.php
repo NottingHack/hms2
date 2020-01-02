@@ -97,6 +97,7 @@ class Profile
         // setup defaults.
         $this->creditLimit = 0;
         $this->balance = 0;
+        $this->votingPreference = VotingPreference::AUTOMATIC;
     }
 
     /**

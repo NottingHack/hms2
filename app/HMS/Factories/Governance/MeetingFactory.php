@@ -5,7 +5,6 @@ namespace HMS\Factories\Governance;
 use Carbon\Carbon;
 use HMS\Governance\VotingManager;
 use HMS\Entities\Governance\Meeting;
-use HMS\Repositories\MetaRepository;
 use HMS\Repositories\Governance\MeetingRepository;
 
 class MeetingFactory
@@ -14,19 +13,21 @@ class MeetingFactory
      * @var MeetingRepository
      */
     protected $meetingRepository;
-    protected $metaRepository;
+
+    /**
+     * @var VotingManager
+     */
     protected $votingManager;
 
     /**
      * @param MeetingRepository $meetingRepository
+     * @param VotingManager $votingManager
      */
     public function __construct(
         MeetingRepository $meetingRepository,
-        MetaRepository $metaRepository,
         VotingManager $votingManager
     ) {
         $this->meetingRepository = $meetingRepository;
-        $this->metaRepository = $metaRepository;
         $this->votingManager = $votingManager;
     }
 

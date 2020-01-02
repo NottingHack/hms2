@@ -39,8 +39,6 @@ class ProxyFactory
         $_proxy->setProxy($proxy);
         $_proxy->setPrincipal($principal);
 
-        $this->proxyRepository->save($_proxy);
-
         return $_proxy;
     }
 }

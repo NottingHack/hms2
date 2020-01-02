@@ -49,6 +49,7 @@ class ProxyController extends Controller
      * @param MeetingRepository $meetingRepository
      * @param UserRepository $userRepository
      * @param MeetingFactory $meetingFactory
+     * @param ProxyFactory $proxyFactory
      */
     public function __construct(
         ProxyRepository $proxyRepository,
@@ -195,6 +196,7 @@ class ProxyController extends Controller
         if (empty($_proxy)) {
             // if no Proxy registers for this Principal, register the new Proxy and notify
             $_proxy = $this->proxyFactory->create($meeting, $user, $principal);
+            $this->proxyRepository->save($_proxy);
 
             event(new ProxyRegistered($_proxy));
         } elseif (isset($_proxy) && $_proxy->getProxy() != $user) {

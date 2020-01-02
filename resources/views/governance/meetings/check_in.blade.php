@@ -23,7 +23,7 @@
           </tr>
           <tr>
             <th scope="row">Quorum Required:</th>
-            <td>{{  $meeting->getQuorum()}}</td>
+            <td>{{ $meeting->getQuorum() }}</td>
           </tr>
         </tbody>
       </table>

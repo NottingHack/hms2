@@ -34,11 +34,15 @@ class RecalcuteMeetingQuorumJob implements ShouldQueue
         MeetingRepository $meetingRepository,
         VotingManager $votingManager
     ) {
+        $meetings = $meetingRepository->findFuture();
+
+        if (empty($meetings)) {
+            return;
+        }
+
         $currentMembers = $votingManager->countCurrentMembers();
         $votingMembers = $votingManager->countVotingMembers();
         $currentQuorumRequirement = $votingManager->currentQuorumRequirement();
-
-        $meetings = $meetingRepository->findFuture();
 
         foreach ($meetings as $meeting) {
             $meeting->setCurrentMembers($currentMembers);

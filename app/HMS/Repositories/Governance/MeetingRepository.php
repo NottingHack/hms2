@@ -7,13 +7,6 @@ use HMS\Entities\Governance\Meeting;
 interface MeetingRepository
 {
     /**
-     * Is there a Meeting in the future.
-     *
-     * @return bool
-     */
-    public function hasUpcomming();
-
-    /**
      * Find the next meeting.
      *
      * @return Meeting|null

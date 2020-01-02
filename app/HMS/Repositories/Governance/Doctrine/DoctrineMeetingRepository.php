@@ -14,24 +14,6 @@ class DoctrineMeetingRepository extends EntityRepository implements MeetingRepos
     use PaginatesFromRequest;
 
     /**
-     * Is there a Meeting in the future.
-     *
-     * @return bool
-     */
-    public function hasUpcomming()
-    {
-        $now = Carbon::now();
-
-        $expr = Criteria::expr();
-        $criteria = Criteria::create()
-            ->where($expr->gte('startTime', $now));
-
-        $results = $this->matching($criteria);
-
-        return ! $results->isEmpty();
-    }
-
-    /**
      * Find the next meeting.
      *
      * @return Meeting|null

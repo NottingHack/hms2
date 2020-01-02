@@ -75,12 +75,12 @@ class PostGitDeployedResults extends Notification implements ShouldQueue
             ->markdown(
                 'emails.postGitDeployed',
                 [
-                'teamName' => ($notifiable instanceof Role) ? $notifiable->getDisplayName() : $notifiable->getName(),
-                'success' => $this->success,
-                'commandResults' => $this->commandResults,
-                'startTime' => $this->startTime,
-                'stopTime' => $this->stopTime,
-                'runTime' => $this->startTime->diffInMinutes($this->stopTime),
+                    'teamName' => ($notifiable instanceof Role) ? $notifiable->getDisplayName() : $notifiable->getName(),
+                    'success' => $this->success,
+                    'commandResults' => $this->commandResults,
+                    'startTime' => $this->startTime,
+                    'stopTime' => $this->stopTime,
+                    'runTime' => $this->startTime->diffInMinutes($this->stopTime),
                 ]
             );
     }

@@ -116,10 +116,10 @@ class PostGitDeployedJob implements ShouldQueue
             }
 
             array_push($this->commandResults, [
-                    'cmd' => $artisanCommand,
-                    'output' => $output,
-                    'return_code' => $exitCode,
-                ]);
+                'cmd' => $artisanCommand,
+                'output' => $output,
+                'return_code' => $exitCode,
+            ]);
         }
 
         foreach ($this->postShellCommands as $shellCommand) {

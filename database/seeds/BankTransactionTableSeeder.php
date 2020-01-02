@@ -160,7 +160,7 @@ class BankTransactionTableSeeder extends Seeder
             'transaction_date' => Carbon::instance($this->faker->dateTimeBetween($startDate, $endDate)),
             'description' => $user->getFullname() . ' ' . $user->getAccount()->getPaymentRef() . ' ' . $user->getAccount()->getId(),
             'amount' => rand(1, 7500),
-            ];
+        ];
 
         $this->csvTransactions[] = $bankTransaction;
     }

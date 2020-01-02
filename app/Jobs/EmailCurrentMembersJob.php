@@ -112,7 +112,7 @@ class EmailCurrentMembersJob implements ShouldQueue
             $to = collect($currentMembers)->mapWithKeys(function ($user) {
                 return [$user->getEmail() => [
                     'name' => $user->getFirstname(),
-                    ],
+                ],
                 ];
             })->toArray();
         }

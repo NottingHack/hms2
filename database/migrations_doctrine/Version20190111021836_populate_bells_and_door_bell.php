@@ -24,14 +24,14 @@ class Version20190111021836_populate_bells_and_door_bell extends AbstractMigrati
     ];
 
     protected $door_bell = [
-            [1, 1],
-            [1, 4],
-            [2, 2],
-            [2, 5],
-            [3, 6],
-            [4, 7],
-            [6, 8],
-        ];
+        [1, 1],
+        [1, 4],
+        [2, 2],
+        [2, 5],
+        [3, 6],
+        [4, 7],
+        [6, 8],
+    ];
 
     /**
      * @param Schema $schema

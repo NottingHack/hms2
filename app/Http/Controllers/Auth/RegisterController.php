@@ -142,6 +142,6 @@ class RegisterController extends Controller
         return view('auth.register', [
             'invite' => $invite->getInviteToken(),
             'email' => $invite->getEmail(),
-            ]);
+        ]);
     }
 }

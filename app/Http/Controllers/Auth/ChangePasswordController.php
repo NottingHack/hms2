@@ -49,7 +49,7 @@ class ChangePasswordController extends Controller
         $valideCurrentPassword = \Auth::guard()->validate([
             $user->getAuthIdentifierName() => $user->getAuthIdentifier(),
             'password' => $request->currentPassword,
-            ]);
+        ]);
 
         if (! $valideCurrentPassword) {
             flash('Your current password does not matches with the password you provided. Please try again.')->error();

@@ -23,8 +23,22 @@ Proxies for {{ $meeting->getTitle() }}
       <tbody>
 @endif
         <tr>
-          <td data-title="Proxy">{{ $proxy->getProxy()->getFullname() }}</td>
-          <td data-title="Principle">{{ $proxy->getPrincipal()->getFullname() }}</td>
+          <td data-title="Proxy">
+            <span class="align-middle">
+              {{ $proxy->getProxy()->getFullname() }}
+              <div class="btn-group float-right d-none d-md-inline" role="group" aria-label="View User">
+                <a href="{{ route('users.admin.show', $proxy->getProxy()->getId()) }}" class="btn btn-primary btn-sm"><i class="far fa-eye" aria-hidden="true"></i></a>
+                </div>
+            </span>
+          </td>
+          <td data-title="Principle">
+            <span class="align-middle">
+              {{ $proxy->getPrincipal()->getFullname() }}
+              <div class="btn-group float-right d-none d-md-inline" role="group" aria-label="View User">
+                <a href="{{ route('users.admin.show', $proxy->getPrincipal()->getId()) }}" class="btn btn-primary btn-sm"><i class="far fa-eye" aria-hidden="true"></i></a>
+                </div>
+            </span>
+          </td>
           <td data-title="Designated at">{{ $proxy->getCreatedAt()->toDateTimeString() }}</td>
         </tr>
 @if ($loop->last)

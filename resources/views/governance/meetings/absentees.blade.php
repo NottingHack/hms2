@@ -16,7 +16,7 @@ Absentees for {{ $meeting->getTitle() }}
   @endcan
 </div>
 
-@forelse ($meeting->getAbsentees() as $attendee)
+@forelse ($meeting->getAbsentees() as $absentee)
 @if ($loop->first)
 <div class="container">
   <table class="table table-bordered table-hover">
@@ -26,7 +26,14 @@ Absentees for {{ $meeting->getTitle() }}
     <tbody>
 @endif
       <tr>
-        <td>{{ $attendee->getFullname() }}</td>
+        <td>
+          <span class="align-middle">
+            {{ $absentee->getFullname() }}
+            <div class="btn-group float-right" role="group" aria-label="View User">
+              <a href="{{ route('users.admin.show', $absentee->getId()) }}" class="btn btn-primary btn-sm"><i class="far fa-eye" aria-hidden="true"></i></a>
+              </div>
+          </span>
+        </td>
       </tr>
 @if ($loop->last)
     </tbody>

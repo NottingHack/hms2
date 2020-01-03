@@ -53,5 +53,16 @@
   <br>
   @endcan
 
+  @can('tools.maintainer.grant')
+  <p>
+  <a href="{{ route('tools.users-for-grant', ['tool' => $tool->getId(), 'grantType' => HMS\Tools\ToolManager::MAINTAINER]) }}" class="btn btn-primary btn-block"><i class="fas fa-eye"></i> View Maintainers</a>
+  @endcan
+  @canany(['tools.inductor.grant' , 'tools.' . $tool->getPermissionName() . '.inductor.grant'])
+  <a href="{{ route('tools.users-for-grant', ['tool' => $tool->getId(), 'grantType' => HMS\Tools\ToolManager::INDUCTOR]) }}" class="btn btn-primary btn-block"><i class="fas fa-eye"></i> View Inductors</a>
+  @endcan
+  @can('tools.user.grant')
+  <a href="{{ route('tools.users-for-grant', ['tool' => $tool->getId(), 'grantType' => HMS\Tools\ToolManager::USER]) }}" class="btn btn-primary btn-block"><i class="fas fa-eye"></i> View Users</a>
+  @endcan
+  </p>
 </div>
 @endsection

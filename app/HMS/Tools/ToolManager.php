@@ -2,6 +2,7 @@
 
 namespace HMS\Tools;
 
+use HMS\Entities\User;
 use HMS\Entities\Tools\Tool;
 use HMS\Entities\Tools\ToolState;
 use HMS\Factories\Tools\ToolFactory;
@@ -13,6 +14,16 @@ use LaravelDoctrine\ACL\Permissions\Permission;
 
 class ToolManager
 {
+    const MAINTAINER = 'MAINTAINER';
+    const INDUCTOR = 'INDUCTOR';
+    const USER = 'USER';
+
+    const GRANT_STRINGS = [
+        self::MAINTAINER => 'Maintainer',
+        self::INDUCTOR => 'Inductor',
+        self::USER => 'User',
+    ];
+
     const PERMISSION_NAME_TEMPLATES = [
         'tools._TOOL_PERMISSION_NAME_.use',                 // can turn on the machin_e
         'tools._TOOL_PERMISSION_NAME_.book',                // can make a tool booking
@@ -265,5 +276,31 @@ class ToolManager
         $this->toolRepository->remove($tool);
 
         // TODO: fire remove tool event?
+    }
+
+    /**
+     * Grant a given user access to a Tool.
+     *
+     * @param Tool $tool
+     * @param string $grantType
+     * @param User $user
+     *
+     * @return string
+     */
+    public function grant(Tool $tool, string $grantType, User $user)
+    {
+        $roleName = 'tools.' . $tool->getPermissionName() . '.' . strtolower($grantType);
+
+        if ($user->hasRoleByName($roleName)) {
+            return $user->getFullname() . ' is already a '
+                . self::GRANT_STRINGS[$grantType]
+                . ' of the ' . $tool->getName();
+        }
+
+        $this->roleManager->addUserToRoleByName($user, $roleName);
+
+        return $user->getFullname() . ' appointed as a '
+                . self::GRANT_STRINGS[$grantType]
+                . ' for the ' . $tool->getName();
     }
 }

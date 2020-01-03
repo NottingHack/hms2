@@ -269,6 +269,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     // Tools
+    Route::get('tools/{tool}/users/{grant}', 'Tools\ToolController@showUsersForGrant')->name('tools.users-for-grant');
+    Route::patch('tools/{tool}/grant', 'Tools\ToolController@grant')->name('tools.grant');
     Route::resource('tools', 'Tools\ToolController');
     Route::resource(
         'tools/{tool}/bookings',

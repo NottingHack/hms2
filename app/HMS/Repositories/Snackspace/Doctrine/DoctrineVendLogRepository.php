@@ -46,8 +46,6 @@ class DoctrineVendLogRepository extends EntityRepository implements VendLogRepos
         return $this->paginate($q, $perPage, $pageName);
     }
 
-
-
     /**
      * Paginate logs for a Machine where the transaction is pending.
      * Ordered by id DESC.

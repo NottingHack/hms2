@@ -263,7 +263,7 @@ class VendingMachineController extends Controller
             // replicate steps from sp_vend_success
             if ($vendLog->getVendingMachine()->getType() == VendingMachineType::NOTE) {
                 // Payment made using note acceptor
-                $description = 'Cash payment - £' . number_format(abs($vendLog->getAmountScaled()/100), 2);
+                $description = 'Cash payment - £' . number_format(abs($vendLog->getAmountScaled() / 100), 2);
 
                 switch ($vendLog->getAmountScaled()) {
                     case -500:

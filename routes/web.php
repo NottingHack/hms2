@@ -276,7 +276,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 'VendingMachineController@reconcile'
             )->name('vending-machines.logs.reconcile');
 
-
             Route::get('debt-graph', 'DebtController@debtGraph')->name('debt-graph');
         });
     });

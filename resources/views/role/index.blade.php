@@ -14,7 +14,7 @@
           <th>Role</th>
           <th>Code</th>
           <th>Description</th>
-          <th>Actions</th>
+          <th class="w-10">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -25,11 +25,11 @@
           <td data-title="Description" class="w-35">{{ $role->getDescriptionTrimed() }}</td>
           <td data-title="Actions" class="actions">
             @can('role.edit.all')
-            <a class="btn btn-primary" href="{{ route('roles.edit', $role->getId()) }}"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
+            <a class="btn btn-primary btn-sm mb-1" href="{{ route('roles.edit', $role->getId()) }}"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
             @endcan
             @if($category == 'team')
             @can('role.grant.team')
-            <add-user-to-team-modal :role-id="{{ $role->getId() }}" role-name="{{ $role->getDisplayName() }}"></add-user-to-team-modal>
+            <add-user-to-team-modal :role-id="{{ $role->getId() }}" role-name="{{ $role->getDisplayName() }}" :small="true"></add-user-to-team-modal>
             @endcan
             @endif
           </td>

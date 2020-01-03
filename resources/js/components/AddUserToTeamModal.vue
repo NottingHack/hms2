@@ -1,6 +1,6 @@
 <template>
   <div class="vue-remove">
-    <button type="button" class="btn btn-primary" @click="showModal"><i class="fas fa-plus fa-lg" aria-hidden="true"></i> Add User To Team</button>
+    <button type="button" class="btn btn-primary" :class="{ 'btn-sm mb-1': small }" @click="showModal"><i class="fas fa-plus" :class="{ 'fa-lg': !small }" aria-hidden="true"></i> Add User{{small ? '' : ' To Team' }}</button>
 
     <!-- Modal -->
     <div ref="selectModal" class="modal fade" id="addUserToTeamModal" tabindex="false" role="dialog" aria-labelledby="addUserToTeamLabel" aria-hidden="true">
@@ -35,6 +35,7 @@
     props: {
       roleId: Number,
       roleName: String,
+      small: false,
     },
 
     data() {

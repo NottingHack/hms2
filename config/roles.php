@@ -66,6 +66,7 @@ return [
         'snackspace.vendingMachine.view',
         'snackspace.vendingMachine.edit',
         'snackspace.vendingMachine.locations.assign',
+        'snackspace.vendingMachine.reconcile',   // reconcile jam (mostly for not acceptor)
         'rfidTags.view.self',
         'rfidTags.view.all',
         'rfidTags.edit.self',
@@ -329,6 +330,7 @@ return [
                 'snackspace.vendingMachine.view',
                 'snackspace.vendingMachine.edit',
                 'snackspace.vendingMachine.locations.assign',
+                'snackspace.vendingMachine.reconcile',
                 'rfidTags.view.self',
                 'rfidTags.view.all',
                 'rfidTags.edit.self',

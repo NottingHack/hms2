@@ -263,6 +263,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 'vending-machines/{vendingMachine}/locations/{vendingLocation}',
                 'VendingMachineController@locationAssign'
             )->name('vending-machines.locations.assign');
+            Route::get(
+                'vending-machines/{vendingMachine}/logs',
+                'VendingMachineController@showLogs'
+            )->name('vending-machines.logs.show');
+            Route::get(
+                'vending-machines/{vendingMachine}/logs/jams',
+                'VendingMachineController@showJams'
+            )->name('vending-machines.logs.jams');
+            Route::patch(
+                'vending-machines/{vendingMachine}/logs/{vendLog}/reconcile',
+                'VendingMachineController@reconcile'
+            )->name('vending-machines.logs.reconcile');
+
 
             Route::get('debt-graph', 'DebtController@debtGraph')->name('debt-graph');
         });

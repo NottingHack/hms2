@@ -13,7 +13,7 @@ HMS\Entities\Snackspace\VendingMachine:
         unsigned: true
       generator:
         strategy: AUTO
-  fields: 
+  fields:
     description:
       type: string
       length: 100
@@ -33,4 +33,4 @@ HMS\Entities\Snackspace\VendingMachine:
   oneToMany:
     vendingLocations:
       targetEntity: \HMS\Entities\Snackspace\VendingLocation
-      mappedBy: vendingMachines
+      mappedBy: vendingMachine

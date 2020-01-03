@@ -65,6 +65,7 @@ return [
         'Snackspace\PurchasePayment',
         'Snackspace\VendingMachine',
         'Snackspace\VendingLocation',
+        'Snackspace\VendLog',
         'Tools\Tool',
         'Tools\Booking',
         'Instrumentation\Service',

@@ -25,9 +25,13 @@
             @endcan --}}
             @can('snackspace.vendingMachine.locations.assign')
             <a class="btn btn-primary" href="{{ route('snackspace.vending-machines.locations.index', $vendingMachine->getId()) }}"><i class="fas fa-grip-vertical"></i> Locations</a>
-            {{-- <a class="btn btn-primary" href="#"><i class="fas fa-file-check" aria-hidden="true"></i> Reconcile jam</a>
-            <a class="btn btn-primary" href="#"><i class="fas fa-list" aria-hidden="true"></i> View logs</a> --}}
             @endcan
+            {{-- @can('snackspace.vendingMachine.reconcile')
+            <a class="btn btn-primary" href="{{ route('snackspace.vending-machines.logs.jams', ['vendingMachine' => $vendingMachine->getId()]) }}"><i class="fas fa-file-check" aria-hidden="true"></i> Reconcile jam</a>
+            @endcan --}}
+            {{-- @can('snackspace.transaction.view.all')
+            <a class="btn btn-primary" href="{{ route('snackspace.vending-machines.logs.show', ['vendingMachine' => $vendingMachine->getId()]) }}"><i class="fas fa-list" aria-hidden="true"></i> View logs</a>
+            @endcan --}}
           </td>
         </tr>
         @endforeach
@@ -52,8 +56,12 @@
             @can('snackspace.vendingMachine.edit')
             <a class="btn btn-primary" href="{{ route('snackspace.vending-machines.edit', $vendingMachine->getId()) }}"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
             @endcan --}}
-            {{-- <a class="btn btn-primary" href="#"><i class="fas fa-file-check" aria-hidden="true"></i> Reconcile jam</a>
-            <a class="btn btn-primary" href="#"><i class="fas fa-list" aria-hidden="true"></i> View logs</a> --}}
+            @can('snackspace.vendingMachine.reconcile')
+            <a class="btn btn-primary" href="{{ route('snackspace.vending-machines.logs.jams', ['vendingMachine' => $vendingMachine->getId()]) }}"><i class="fas fa-file-check" aria-hidden="true"></i> Reconcile jam</a>
+            @endcan
+            @can('snackspace.transaction.view.all')
+            <a class="btn btn-primary" href="{{ route('snackspace.vending-machines.logs.show', ['vendingMachine' => $vendingMachine->getId()]) }}"><i class="fas fa-list" aria-hidden="true"></i> View logs</a>
+            @endcan
           </td>
         </tr>
         @endforeach

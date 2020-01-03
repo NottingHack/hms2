@@ -23,52 +23,52 @@ class VendLog
     protected $vendingMachine;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $rfidSerial;
 
     /**
-     * @var User
+     * @var User|null
      */
     protected $user;
 
     /**
-     * @var Carbon
+     * @var Carbon|null
      */
     protected $enqueuedTime;
 
     /**
-     * @var Carbon
+     * @var Carbon|null
      */
     protected $requestTime;
 
     /**
-     * @var Carbon
+     * @var Carbon|null
      */
     protected $successTime;
 
     /**
-     * @var Carbon
+     * @var Carbon|null
      */
     protected $cancelledTime;
 
     /**
-     * @var Carbon
+     * @var Carbon|null
      */
     protected $failedTime;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $amountScaled;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $position;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $deniedReason;
 
@@ -99,7 +99,7 @@ class VendLog
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getRfidSerial()
     {
@@ -107,7 +107,7 @@ class VendLog
     }
 
     /**
-     * @return User
+     * @return User|null
      */
     public function getUser()
     {
@@ -115,7 +115,7 @@ class VendLog
     }
 
     /**
-     * @return Carbon
+     * @return Carbon|null
      */
     public function getEnqueuedTime()
     {
@@ -123,7 +123,7 @@ class VendLog
     }
 
     /**
-     * @return Carbon
+     * @return Carbon|null
      */
     public function getRequestTime()
     {
@@ -131,7 +131,7 @@ class VendLog
     }
 
     /**
-     * @return Carbon
+     * @return Carbon|null
      */
     public function getSuccessTime()
     {
@@ -139,7 +139,7 @@ class VendLog
     }
 
     /**
-     * @return Carbon
+     * @return Carbon|null
      */
     public function getCancelledTime()
     {
@@ -147,7 +147,7 @@ class VendLog
     }
 
     /**
-     * @return Carbon
+     * @return Carbon|null
      */
     public function getFailedTime()
     {
@@ -155,7 +155,7 @@ class VendLog
     }
 
     /**
-     * @return int
+     * @return int|null
      */
     public function getAmountScaled()
     {
@@ -163,7 +163,7 @@ class VendLog
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getPosition()
     {
@@ -171,10 +171,46 @@ class VendLog
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getDeniedReason()
     {
         return $this->deniedReason;
+    }
+
+    /**
+     * @param Carbon|null $successTime
+     *
+     * @return self
+     */
+    public function setSuccessTime($successTime)
+    {
+        $this->successTime = $successTime;
+
+        return $this;
+    }
+
+    /**
+     * @param Carbon|null $failedTime
+     *
+     * @return self
+     */
+    public function setFailedTime($failedTime)
+    {
+        $this->failedTime = $failedTime;
+
+        return $this;
+    }
+
+    /**
+     * @param string|null $position
+     *
+     * @return self
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+
+        return $this;
     }
 }

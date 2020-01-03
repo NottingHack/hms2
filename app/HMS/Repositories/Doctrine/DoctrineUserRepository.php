@@ -220,7 +220,7 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     public function paginateUsersWithRole(Role $role, $perPage = 15, $pageName = 'page')
     {
         $q = parent::createQueryBuilder('user')
-            ->leftJoin('user.roles', 'role')->addSelect('role')
+            ->leftJoin('user.roles', 'role')
             ->where('role.id = :role_id');
 
         $q = $q->setParameter('role_id', $role->getId())->getQuery();

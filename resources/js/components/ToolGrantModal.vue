@@ -1,15 +1,16 @@
 <template>
   <div class="vue-remove">
-    <button type="button" class="btn btn-primary" :class="{ 'btn-sm mb-1': small }" @click="showModal"><i class="fas fa-plus" :class="{ 'fa-lg': !small }" aria-hidden="true"></i> Add User{{small ? '' : ' To Team' }}</button>
+    <button type="button" class="btn btn-primary" :class="{ 'btn-sm mb-1': small, 'btn-block': block}" @click="showModal"><i class="fas fa-plus" :class="{ 'fa-lg': !small }" aria-hidden="true"></i> Appoint {{ grantTypeString }}</button>
 
     <!-- Modal -->
-    <div ref="selectModal" class="modal fade" id="addUserToTeamModal" tabindex="false" role="dialog" aria-labelledby="addUserToTeamLabel" aria-hidden="true">
+    <div ref="selectModal" class="modal fade" id="toolGrantModal" tabindex="false" role="dialog" aria-labelledby="toolGrantLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <form class="modal-content" method="POST" :action="actionUrl">
           <input type="hidden" name="_token" :value="csrf">
           <input type="hidden" name="_method" value="PATCH">
+          <input type="hidden" name="grantType" :value="grantType">
           <div class="modal-header">
-            <h5 class="modal-title" id="addUserToTeamLabel">Add User to {{ roleName }}</h5>
+            <h5 class="modal-title" id="toolGrantLabel">Appoint {{ grantTypeString }} for {{ toolName }}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -21,7 +22,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="sumbit" class="btn btn-primary">Add User</button>
+            <button type="sumbit" class="btn btn-primary">Appoint {{ grantTypeString }}</button>
           </div>
         </form>
       </div>
@@ -29,13 +30,16 @@
   </div>
 </template>
 
+
 <script>
   export default {
 
     props: {
-      roleId: Number,
-      roleName: String,
+      toolId: Number,
+      toolName: String,
+      grantType: String,
       small: false,
+      block: false,
     },
 
     data() {
@@ -46,7 +50,11 @@
 
     computed: {
       actionUrl() {
-        return "/teams/" + this.roleId + "/users";
+        return "/tools/" + this.toolId + "/grant";
+      },
+      grantTypeString() {
+        return this.grantType.charAt(0).toUpperCase() +
+           this.grantType.slice(1).toLowerCase();
       },
     }, // end of computed
 

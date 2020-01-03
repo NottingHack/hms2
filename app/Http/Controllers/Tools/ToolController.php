@@ -5,9 +5,13 @@ namespace App\Http\Controllers\Tools;
 use HMS\Tools\ToolManager;
 use HMS\Entities\Tools\Tool;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use HMS\Repositories\RoleRepository;
+use HMS\Repositories\UserRepository;
 use HMS\Repositories\Tools\ToolRepository;
 use HMS\Repositories\Tools\BookingRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class ToolController extends Controller
 {
@@ -27,20 +31,36 @@ class ToolController extends Controller
     protected $bookingRepository;
 
     /**
+     * @var UserRepository
+     */
+    protected $userRepository;
+
+    /**
+     * @var RoleRepository
+     */
+    protected $roleRepository;
+
+    /**
      * Create a new controller instance.
      *
      * @param ToolRepository    $toolRepository
      * @param ToolManager       $toolManager
      * @param BookingRepository $bookingRepository
+     * @param UserRepository $userRepository
+     * @param RoleRepository $roleRepository
      */
     public function __construct(
         ToolRepository $toolRepository,
         ToolManager $toolManager,
-        BookingRepository $bookingRepository
+        BookingRepository $bookingRepository,
+        UserRepository $userRepository,
+        RoleRepository $roleRepository
     ) {
         $this->toolRepository = $toolRepository;
         $this->toolManager = $toolManager;
         $this->bookingRepository = $bookingRepository;
+        $this->userRepository = $userRepository;
+        $this->roleRepository = $roleRepository;
 
         $this->middleware('can:tools.view')->only(['index', 'show']);
         $this->middleware('can:tools.create')->only(['create', 'store']);
@@ -120,6 +140,41 @@ class ToolController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param Tool $tool
+     * @param srting $grantType
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showUsersForGrant(Tool $tool, string $grantType)
+    {
+        // complex permission checking based on the grantType
+        if ($grantType == ToolManager::MAINTAINER) {
+            \Gate::authorize('tools.maintainer.grant');
+        } elseif ($grantType == ToolManager::INDUCTOR) {
+            if (\Gate::none(['tools.' . $tool->getPermissionName() . '.inductor.grant', 'tools.inductor.grant'])) {
+                throw new AuthorizationException('This action is unauthorized.');
+            }
+        } elseif ($grantType == ToolManager::USER) {
+            \Gate::authorize('tools.user.grant');
+        } else {
+            // should never get here
+            throw new AuthorizationException('This action is unauthorized.');
+        }
+
+        $roleName = 'tools.' . $tool->getPermissionName() . '.' . strtolower($grantType);
+        $role = $this->roleRepository->findOneByName($roleName);
+        $users = $this->userRepository->paginateUsersWithRole($role);
+
+        return view('tools.tool.show_users')
+            ->with('tool', $tool)
+            ->with('grantType', $grantType)
+            ->with('role', $role)
+            ->with('users', $users);
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param Tool $tool
@@ -169,5 +224,45 @@ class ToolController extends Controller
         flash('Tool \'' . $tool->getName() . '\' removed.')->success();
 
         return redirect()->route('tools.index');
+    }
+
+    /**
+     * Grant access to a Tool.
+     *
+     * @param Request $request
+     * @param Tool $tool
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function grant(Request $request, Tool $tool)
+    {
+        $validatedData = $request->validate([
+            'grantType' => [
+                'required',
+                Rule::in(array_keys(ToolManager::GRANT_STRINGS)),
+            ],
+            'user_id' => 'required|exists:HMS\Entities\User,id',
+        ]);
+
+        // complex permission checking based on the grantType
+        if ($validatedData['grantType'] == ToolManager::MAINTAINER) {
+            \Gate::authorize('tools.maintainer.grant');
+        } elseif ($validatedData['grantType'] == ToolManager::INDUCTOR) {
+            if (\Gate::none(['tools.' . $tool->getPermissionName() . '.inductor.grant', 'tools.inductor.grant'])) {
+                throw new AuthorizationException('This action is unauthorized.');
+            }
+        } elseif ($validatedData['grantType'] == ToolManager::USER) {
+            \Gate::authorize('tools.user.grant');
+        } else {
+            // should never get here
+            throw new AuthorizationException('This action is unauthorized.');
+        }
+
+        $user = $this->userRepository->findOneById($validatedData['user_id']);
+        $message = $this->toolManager->grant($tool, $validatedData['grantType'], $user);
+
+        flash($message);
+
+        return redirect()->back();
     }
 }

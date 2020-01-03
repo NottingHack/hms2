@@ -257,7 +257,7 @@ class User implements
     /**
      * @return null|Profile The users profile
      */
-    public function getProfile() : ?Profile
+    public function getProfile(): ?Profile
     {
         return $this->profile;
     }
@@ -277,7 +277,7 @@ class User implements
     /**
      * @return null|Account The users account
      */
-    public function getAccount() : ?Account
+    public function getAccount(): ?Account
     {
         return $this->account;
     }

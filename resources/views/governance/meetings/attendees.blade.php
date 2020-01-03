@@ -26,7 +26,14 @@ Attendees for {{ $meeting->getTitle() }}
     <tbody>
 @endif
       <tr>
-        <td>{{ $attendee->getFullname() }}</td>
+        <td>
+          <span class="align-middle">
+            {{ $attendee->getFullname() }}
+            <div class="btn-group float-right" role="group" aria-label="View User">
+              <a href="{{ route('users.admin.show', $attendee->getId()) }}" class="btn btn-primary btn-sm"><i class="far fa-eye" aria-hidden="true"></i></a>
+              </div>
+          </span>
+        </td>
       </tr>
 @if ($loop->last)
     </tbody>

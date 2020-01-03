@@ -17,7 +17,7 @@
           <th>Status</th>
           <th class="d-none d-md-table-cell">Cost per hour</th>
           <th>Next booking</th>
-          @can(['tools.edit', 'tools.maintainer.grant'])
+          @canany(['tools.edit', 'tools.maintainer.grant'])
           <th>Actions</th>
           @endcan
         </tr>
@@ -40,9 +40,12 @@
             @can('tools.edit')
             <a class="btn btn-primary btn-sm mb-1" href="{{ route('tools.show', $tool->getId()) }}"><i class="far fa-eye" aria-hidden="true"></i> View Settings</a>
             @endcan
-            {{-- @can('tools.maintainer.grant')
-            <a class="btn btn-primary btn-sm mb-1" href=""><i class="fas fa-plus" aria-hidden="true"></i> Appoint Maintainer</a>
-            @endcan --}}
+            @can('tools.maintainer.grant')
+            <tool-grant-modal :tool-id="{{ $tool->getId() }}" tool-name="{{ $tool->getName() }}" grant-type="{{ HMS\Tools\ToolManager::MAINTAINER }}" :small="true"></tool-grant-modal>
+            @endcan
+            @canany(['tools.inductor.grant' , 'tools.' . $tool->getPermissionName() . '.inductor.grant'])
+            <tool-grant-modal :tool-id="{{ $tool->getId() }}" tool-name="{{ $tool->getName() }}" grant-type="{{ HMS\Tools\ToolManager::INDUCTOR }}" :small="true"></tool-grant-modal>
+            @endcan
             @if($tool->isRestricted())
             @cannot('tools.' . $tool->getPermissionName() . '.use')
             <a class="btn btn-primary btn-sm mb-1" href="{{ Meta::get('induction_request_html') }}" target="_blank">Request an Induction</a>

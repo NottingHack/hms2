@@ -101,14 +101,14 @@ return [
         'team.create',
         'email.allMembers',
         'instrumentation.electric.addReading',
-        'governance.meeting.view',
-        'governance.meeting.create',
-        'governance.meeting.edit',
-        'governance.meeting.checkIn',
-        'governance.meeting.recordAbsence',
-        'governance.voting.canVote',
-        'governance.proxy.designateProxy',
-        'governance.proxy.representPrincipal',
+        'governance.meeting.view',              // can view a meeting and its Attendees, Proxies, Absentees
+        'governance.meeting.create',            // can schedule a meeting
+        'governance.meeting.edit',              // can update a meeting
+        'governance.meeting.checkIn',           // can Check-in Attendees to a meeting
+        'governance.meeting.recordAbsence',     // can record an absence for a meeting
+        'governance.voting.canVote',            // is eligible to vote at AGM or trustee elections
+        'governance.proxy.designateProxy',      // is eligible to pass on there vote to a proxy
+        'governance.proxy.representPrincipal',  // is eligible to act as proxy for another
     ],
 
     /*

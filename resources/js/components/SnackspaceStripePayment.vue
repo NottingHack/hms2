@@ -19,18 +19,18 @@
             </p>
             <div class="form-group text-center">
               <div v-if="balance == null" class="btn-group btn-group-toggle">
-                <label :class="amount === 1000 ? 'btn btn-lg btn-success active': 'btn btn-lg btn-success'">
+                <label class="btn btn-lg btn-success" :class="{ active: amount === 1000 }">
                   <input type="radio" v-model="amount" :value="1000" @change="updateAmount" :disabled="cardButtonDisable"> £10
                 </label>
-                <label :class="amount === 1500 ? 'btn btn-lg btn-success active': 'btn btn-lg btn-success'">
+                <label class="btn btn-lg btn-success" :class="{ active: amount === 1500 }">
                   <input type="radio" v-model="amount" :value="1500" @change="updateAmount" :disabled="cardButtonDisable"> £15
                 </label>
-                <label :class="amount === 2000 ? 'btn btn-lg btn-success active': 'btn btn-lg btn-success'">
+                <label class="btn btn-lg btn-success" :class="{ active: amount === 2000 }">
                   <input type="radio" v-model="amount" :value="2000" @change="updateAmount" :disabled="cardButtonDisable"> £20
                 </label>
               </div>
               <div v-else class="btn-group btn-group-toggle">
-                <label :class="amount === -balance ? 'btn btn-lg btn-success active': 'btn btn-lg btn-success'">
+                <label class="btn btn-lg btn-success" :class="{ active: amount === -balance }">
                   <input type="radio" v-model="amount" :value="-balance" @change="updateAmount" :disabled="cardButtonDisable"> Clear balance of -£{{ -(balance/100) }}
                 </label>
               </div>

@@ -22,13 +22,13 @@
         <td>
           <div class="btn-group" role="group">
             @if($user->hasRoleByName('tools.' . $tool->getPermissionName() . '.user'))
-            <spam class="badge badge-pill badge-booking-normal">U</spam>
+            <span class="badge badge-pill badge-booking-normal">U</span>
             @endif
             @if($user->hasRoleByName('tools.' . $tool->getPermissionName() . '.inductor'))
-            <spam class="badge badge-pill badge-booking-induction">I</spam>
+            <span class="badge badge-pill badge-booking-induction">I</span>
             @endif
             @if($user->hasRoleByName('tools.' . $tool->getPermissionName() . '.maintainer'))
-            <spam class="badge badge-pill badge-booking-maintenance">M</spam>
+            <span class="badge badge-pill badge-booking-maintenance">M</span>
             @endif
           </div>
         </td>
@@ -36,5 +36,10 @@
       @endforeach
     </tbody>
   </table>
+  <div class="card-footer">
+    <span class="badge badge-pill badge-booking-normal">User</span>
+    <span class="badge badge-pill badge-booking-induction">Inductor</span>
+    <span class="badge badge-pill badge-booking-maintenance">Maintainer</span>
+  </div>
 </div>
 @endcanany

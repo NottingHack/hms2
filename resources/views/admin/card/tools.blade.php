@@ -12,17 +12,29 @@
     <a href="#" class="btn btn-primary" target="_blank"><i class="far fa-clock" aria-hidden="true"></i> Schedule an Induction</a>
   </div> --}}
 </div>
-{{-- <div class="card">
+<div class="card">
   <div class="card-header">Tool Access</div>
   <table class="table">
     <tbody>
       @foreach($tools as $tool)
       <tr>
         <th scope="row">{{ $tool->getName() }}</th>
-        <td>U I M</td>
+        <td>
+          <div class="btn-group" role="group">
+            @if($user->hasRoleByName('tools.' . $tool->getPermissionName() . '.user'))
+            <spam class="badge badge-pill badge-booking-normal">U</spam>
+            @endif
+            @if($user->hasRoleByName('tools.' . $tool->getPermissionName() . '.inductor'))
+            <spam class="badge badge-pill badge-booking-induction">I</spam>
+            @endif
+            @if($user->hasRoleByName('tools.' . $tool->getPermissionName() . '.maintainer'))
+            <spam class="badge badge-pill badge-booking-maintenance">M</spam>
+            @endif
+          </div>
+        </td>
       </tr>
       @endforeach
     </tbody>
   </table>
-</div> --}}
+</div>
 @endcanany

@@ -227,7 +227,7 @@ class ToolController extends Controller
     }
 
     /**
-     * Grant access to a Tool
+     * Grant access to a Tool.
      *
      * @param Request $request
      * @param Tool $tool
@@ -265,5 +265,4 @@ class ToolController extends Controller
 
         return redirect()->back();
     }
-
 }

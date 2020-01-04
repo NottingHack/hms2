@@ -90,6 +90,14 @@ interface BookingRepository
 
     /**
      * @param Tool $tool
+     * @param Carbon $month
+     *
+     * @return Booking[]
+     */
+    public function findByToolForMonth(Tool $tool, Carbon $month);
+
+    /**
+     * @param Tool $tool
      *
      * @return Booking[]
      */

@@ -76,10 +76,10 @@ return [
                     'permissions'   => [],
                     'links'         => [],
                 ],
-                'snackspace-monthly' => [
-                    'text'          => 'RFID purchases & payments',
-                    'route'         => 'statistics.snackspace-monthly',
-                    'match'         => 'statistics.snackspace-monthly',
+                'electric' => [
+                    'text'          => 'Electric',
+                    'route'         => 'instrumentation.electric.index',
+                    'match'         => 'instrumentation.electric.index',
                     'permissions'   => [],
                     'links'         => [],
                 ],
@@ -91,16 +91,23 @@ return [
                     'links'         => [],
                 ],
                 'box-usage' => [
-                    'text'          => "Member's Boxes",
+                    'text'          => 'Member\'s Boxes',
                     'route'         => 'statistics.box-usage',
                     'match'         => 'statistics.box-usage',
                     'permissions'   => [],
                     'links'         => [],
                 ],
-                'electric' => [
-                    'text'          => 'Electric',
-                    'route'         => 'instrumentation.electric.index',
-                    'match'         => 'instrumentation.electric.index',
+                'snackspace-monthly' => [
+                    'text'          => 'RFID purchases & payments',
+                    'route'         => 'statistics.snackspace-monthly',
+                    'match'         => 'statistics.snackspace-monthly',
+                    'permissions'   => [],
+                    'links'         => [],
+                ],
+                'tools' => [
+                    'text'          => 'Tools',
+                    'route'         => 'statistics.tools',
+                    'match'         => 'statistics.tools',
                     'permissions'   => [],
                     'links'         => [],
                 ],

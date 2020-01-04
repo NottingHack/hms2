@@ -96,7 +96,7 @@ class DoctrineInviteRepository extends EntityRepository implements InviteReposit
      */
     public function removeAllOlderThan(Carbon $date)
     {
-        $criteria = new Criteria();
+        $criteria = Criteria::create();
         $criteria->where($criteria->expr()->lt('createdAt', $date));
 
         $invites = $this->matching($criteria)->toArray();

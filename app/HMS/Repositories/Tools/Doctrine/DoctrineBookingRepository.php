@@ -206,6 +206,20 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
 
     /**
      * @param Tool $tool
+     * @param Carbon $month
+     *
+     * @return Booking[]
+     */
+    public function findByToolForMonth(Tool $tool, Carbon $month)
+    {
+        $start = $month->copy()->startOfMonth();
+        $end = $month->copy()->endOfMonth();
+
+        return $this->findByToolBetween($tool, $start, $end);
+    }
+
+    /**
+     * @param Tool $tool
      *
      * @return Booking[]
      */

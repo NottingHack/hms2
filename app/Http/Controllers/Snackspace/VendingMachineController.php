@@ -285,7 +285,7 @@ class VendingMachineController extends Controller
                 $vendLog->setPosition($position);
             } else {
                 // vending machine
-                $criteria = new Criteria();
+                $criteria = Criteria::create();
                 $criteria->where($criteria->expr()->eq('encoding', $vendLog->getPosition()));
                 $vendingLocations = $vendLog->getVendingMachine()->getVendingLocations()->matching($criteria);
 

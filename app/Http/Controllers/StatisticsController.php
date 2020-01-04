@@ -2,13 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use HMS\Views\LaserUsage;
 use HMS\Views\MemberStats;
 use HMS\Views\SnackspaceMonthly;
 use HMS\Governance\VotingManager;
 use HMS\Repositories\MetaRepository;
+use HMS\Repositories\RoleRepository;
 use Illuminate\Support\Facades\Cache;
+use Doctrine\Common\Collections\Criteria;
+use HMS\Repositories\Tools\ToolRepository;
 use HMS\Repositories\Members\BoxRepository;
+use HMS\Repositories\Tools\UsageRepository;
+use HMS\Repositories\Tools\BookingRepository;
 use HMS\Repositories\GateKeeper\ZoneRepository;
 
 class StatisticsController extends Controller
@@ -34,22 +40,55 @@ class StatisticsController extends Controller
     protected $votingManager;
 
     /**
+     * @var ToolRepository
+     */
+    protected $toolRepository;
+
+    /**
+     * @var RoleRepository
+     */
+    protected $roleRepository;
+
+    /**
+     * @var BookingRepository
+     */
+    protected $bookingRepository;
+
+    /**
+    * @var UsageRepository
+    */
+    protected $usageRepository;
+
+    /**
      * Create a new controller instance.
      *
      * @param ZoneRepository $zoneRepository
      * @param BoxRepository $boxRepository
      * @param MetaRepository $metaRepository
+     * @param VotingManager $votingManager
+     * @param ToolRepository $toolRepository
+     * @param RoleRepository $roleRepository
+     * @param BookingRepository $bookingRepository
+     * @param UsageRepository $usageRepository
      */
     public function __construct(
         ZoneRepository $zoneRepository,
         BoxRepository $boxRepository,
         MetaRepository $metaRepository,
-        VotingManager $votingManager
+        VotingManager $votingManager,
+        ToolRepository $toolRepository,
+        RoleRepository $roleRepository,
+        BookingRepository $bookingRepository,
+        UsageRepository $usageRepository
     ) {
         $this->zoneRepository = $zoneRepository;
         $this->boxRepository = $boxRepository;
         $this->metaRepository = $metaRepository;
         $this->votingManager = $votingManager;
+        $this->toolRepository = $toolRepository;
+        $this->roleRepository = $roleRepository;
+        $this->bookingRepository = $bookingRepository;
+        $this->usageRepository = $usageRepository;
     }
 
     /**
@@ -155,5 +194,110 @@ class StatisticsController extends Controller
 
         return view('statistics.zone_occupants')
             ->with('zones', $zones);
+    }
+
+    /**
+     * Show tools statistics view.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function tools()
+    {
+       // pull stats from the cache if they are there, if not store a fresh copy for 12 hours
+        $tools = Cache::remember('statistics.tools', 43200, function () {
+            return $this->generateToolStats();
+        });
+
+        return view('statistics.tools')
+            ->with('tools', $tools);
+    }
+
+    /**
+     * Generate Statistics for Tool.
+     *
+     * @return array
+     */
+    protected function generateToolStats()
+    {
+        $tools = $this->toolRepository->findAll();
+        $stats = [];
+
+        foreach ($tools as $tool) {
+            $userCount = $this->roleRepository
+                ->findOneByName('tools.' . $tool->getPermissionName() . '.user')
+                ->getUsers()
+                ->count();
+            $inductorCount = $this->roleRepository
+                ->findOneByName('tools.' . $tool->getPermissionName() . '.inductor')
+                ->getUsers()
+                ->count();
+            $maintainerCount = $this->roleRepository
+                ->findOneByName('tools.' . $tool->getPermissionName() . '.maintainer')
+                ->getUsers()
+                ->count();
+
+            $bookingsForThisMonth = $this->bookingRepository->findByToolForMonth($tool, Carbon::now());
+            $bookingsForLastMonth = $this->bookingRepository->findByToolForMonth($tool, Carbon::now()->subMonth());
+
+            $minutesBookedThisMonth = $this->countBookedMinutes($bookingsForThisMonth);
+            $minutesBookedLastMonth = $this->countBookedMinutes($bookingsForLastMonth);
+
+            $minutesUserThisMonth =
+            $usagesForThisMonth = $this->usageRepository->findByToolForMonth($tool, Carbon::now());
+            $usagesForLastMonth = $this->usageRepository->findByToolForMonth($tool, Carbon::now()->subMonth());
+
+            $minutesUsedThisMonth = $this->countUsedMinutes($usagesForThisMonth);
+            $minutesUsedLastMonth = $this->countUsedMinutes($usagesForLastMonth);
+
+            $stats[$tool->getName()] = [
+                'userCount' => $userCount,
+                'inductorCount' => $inductorCount,
+                'maintainerCount' => $maintainerCount,
+                'minutesBookedThisMonth' => $minutesBookedThisMonth,
+                'minutesBookedLastMonth' => $minutesBookedLastMonth,
+                'minutesUsedThisMonth' => $minutesUsedThisMonth,
+                'minutesUsedLastMonth' => $minutesUsedLastMonth,
+            ];
+        }
+
+        return $stats;
+    }
+
+    /**
+     * Sum Booking lengths.
+     *
+     * @param Booking[] $bookings
+     *
+     * @return string
+     */
+    protected function countBookedMinutes($bookings)
+    {
+        $minutes = 0;
+
+        foreach ($bookings as $booking) {
+            $minutes += $booking->getStart()->diffInMinutes($booking->getEnd());
+        }
+
+        return sprintf("%02d:%02d", floor($minutes/60), $minutes%60);;
+    }
+
+    /**
+     * Sum Usage durations.
+     *
+     * @param Usage[] $usages
+     *
+     * @return string
+     */
+    protected function countUsedMinutes($usages)
+    {
+        $seconds = 0;
+
+        foreach ($usages as $usage) {
+            if ($usage->getDuration() > 0) {
+                $seconds += $usage->getDuration();
+            }
+        }
+
+        return sprintf('%02d:%02d:%02d', ($seconds/3600),($seconds/60%60), $seconds%60);
     }
 }

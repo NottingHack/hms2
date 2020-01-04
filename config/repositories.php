@@ -68,6 +68,7 @@ return [
         'Snackspace\VendLog',
         'Tools\Tool',
         'Tools\Booking',
+        'Tools\Usage',
         'Instrumentation\Service',
         'Instrumentation\Event',
         'Instrumentation\ElectricMeter',

@@ -85,9 +85,9 @@ class AdminController extends Controller
         $this->bookingRepository = $bookingRepository;
         $this->toolRepository = $toolRepository;
         $this->bankTransactionRepository = $bankTransactionRepository;
+        $this->votingManager = $votingManager;
 
         $this->middleware('canAny:profile.view.limited,profile.view.all')->only(['userOverview']);
-        $this->votingManager = $votingManager;
     }
 
     /**

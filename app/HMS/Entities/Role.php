@@ -316,4 +316,16 @@ class Role implements RoleContract
             return config('hms.team_slack_webhook');
         }
     }
+
+    /**
+     * Get Category protion of the role name.
+     *
+     * @return string
+     */
+    public function getCategory()
+    {
+        [$category, $name] = explode('.', $this->name);
+
+        return $category;
+    }
 }

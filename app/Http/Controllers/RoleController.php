@@ -13,6 +13,7 @@ use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
 use HMS\Repositories\PermissionRepository;
+use HMS\Repositories\RoleUpdateRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use HMS\Repositories\Banking\BankTransactionRepository;
 
@@ -54,6 +55,11 @@ class RoleController extends Controller
     protected $metaRepository;
 
     /**
+     * @var RoleUpdateRepository
+     */
+    protected $roleUpdateRepository;
+
+    /**
      * Create a new controller instance.
      *
      * @param RoleManager          $roleManager
@@ -63,6 +69,7 @@ class RoleController extends Controller
      * @param UserRepository $userRepository
      * @param BankTransactionRepository $bankTransactionRepository
      * @param MetaRepository $metaRepository
+     * @param RoleUpdateRepository $roleUpdateRepository
      */
     public function __construct(
         RoleManager $roleManager,
@@ -71,7 +78,8 @@ class RoleController extends Controller
         PermissionRepository $permissionRepository,
         UserRepository $userRepository,
         BankTransactionRepository $bankTransactionRepository,
-        MetaRepository $metaRepository
+        MetaRepository $metaRepository,
+        RoleUpdateRepository $roleUpdateRepository
     ) {
         $this->roleManager = $roleManager;
         $this->roleRepository = $roleRepository;
@@ -80,6 +88,7 @@ class RoleController extends Controller
         $this->userRepository = $userRepository;
         $this->bankTransactionRepository = $bankTransactionRepository;
         $this->metaRepository = $metaRepository;
+        $this->roleUpdateRepository = $roleUpdateRepository;
 
         $this->middleware('canAny:role.view.all,team.view')->only(['index', 'show']);
         $this->middleware('can:role.edit.all')->only(['edit', 'update']);
@@ -89,6 +98,7 @@ class RoleController extends Controller
         $this->middleware('can:role.grant.team')->only('removeUserFromTeam');
 
         $this->middleware('can:membership.banMember')->only(['reinstateUser', 'temporaryBanUser', 'banUser']);
+        $this->middleware('canAny:profile.view.limited,profile.view.all')->only(['roleUpdates']);
     }
 
     /**
@@ -344,6 +354,10 @@ class RoleController extends Controller
             }
         }
 
+        if ($user->hasRoleByName(Role::MEMBER_BANNED)) {
+            $this->roleManager->removeUserFromRoleByName($user, Role::MEMBER_BANNED);
+        }
+
         // make temporary banned member
         $this->roleManager->addUserToRoleByName($user, Role::MEMBER_TEMPORARYBANNED);
 
@@ -368,11 +382,33 @@ class RoleController extends Controller
             }
         }
 
+        if ($user->hasRoleByName(Role::MEMBER_TEMPORARYBANNED)) {
+            $this->roleManager->removeUserFromRoleByName($user, Role::MEMBER_TEMPORARYBANNED);
+        }
+
         // make banned member
         $this->roleManager->addUserToRoleByName($user, Role::MEMBER_BANNED);
 
         flash($user->getFullname() . ' banned')->success();
 
         return redirect()->route('users.admin.show', $user->getId());
+    }
+
+    /**
+     * View RoleUpdates for a User.
+     *
+     * @param User $user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function roleUpdates(User $user)
+    {
+        $roleUpdates = $this->roleUpdateRepository->findByUser($user);
+
+        return view('role.role_updates')
+            ->with([
+                'user' => $user,
+                'roleUpdates' => $roleUpdates,
+            ]);
     }
 }

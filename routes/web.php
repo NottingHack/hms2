@@ -89,6 +89,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('roles/{role}/edit', 'RoleController@edit')->name('roles.edit');
     Route::put('roles/{role}', 'RoleController@update')->name('roles.update');
     Route::delete('roles/{role}/users/{user}', 'RoleController@removeUser')->name('roles.removeUser');
+    Route::get('admin/users/{user}/role-updates', 'RoleController@roleUpdates')
+        ->name('users.admin.role-updates');
     Route::patch('admin/users/{user}/reinstate', 'RoleController@reinstateUser')
         ->name('users.admin.reinstate');
     Route::patch('admin/users/{user}/temporary-ban', 'RoleController@temporaryBanUser')

@@ -6,11 +6,18 @@
       <tr>
         <th scope="row">Status:</th>
         <td>
+          <span class="align-middle">
           @isset($memberStatus)
-          {{ $memberStatus->getDisplayName() }}
+            {{ $memberStatus->getDisplayName() }}&nbsp;
           @else
-          Not a Member
+          Not a Member&nbsp;
           @endisset
+            <div class="btn-group float-right" role="group">
+              @canany('profile.view.limited', 'profile.view.all')
+              <a href="{{ route('users.admin.role-updates', $user->getId()) }}" class="btn btn-primary btn-sm"><i class="far fa-history" aria-hidden="true"></i></a>
+              @endcan
+            </div>
+          </span>
         </td>
       </tr>
       @can('governance.voting.canVote')

@@ -47,6 +47,7 @@ interface UsageRepository
      * @return Usage[]
      */
     public function findByToolForThisWeek(Tool $tool);
+
     /**
      * Save Usage to the DB.
      *

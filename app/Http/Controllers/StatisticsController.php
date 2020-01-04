@@ -10,7 +10,6 @@ use HMS\Governance\VotingManager;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
 use Illuminate\Support\Facades\Cache;
-use Doctrine\Common\Collections\Criteria;
 use HMS\Repositories\Tools\ToolRepository;
 use HMS\Repositories\Members\BoxRepository;
 use HMS\Repositories\Tools\UsageRepository;
@@ -55,8 +54,8 @@ class StatisticsController extends Controller
     protected $bookingRepository;
 
     /**
-    * @var UsageRepository
-    */
+     * @var UsageRepository
+     */
     protected $usageRepository;
 
     /**
@@ -203,7 +202,7 @@ class StatisticsController extends Controller
      */
     public function tools()
     {
-       // pull stats from the cache if they are there, if not store a fresh copy for 12 hours
+        // pull stats from the cache if they are there, if not store a fresh copy for 12 hours
         $tools = Cache::remember('statistics.tools', 43200, function () {
             return $this->generateToolStats();
         });
@@ -278,7 +277,7 @@ class StatisticsController extends Controller
             $minutes += $booking->getStart()->diffInMinutes($booking->getEnd());
         }
 
-        return sprintf("%02d:%02d", floor($minutes/60), $minutes%60);;
+        return sprintf('%02d:%02d', floor($minutes / 60), $minutes % 60);
     }
 
     /**
@@ -298,6 +297,6 @@ class StatisticsController extends Controller
             }
         }
 
-        return sprintf('%02d:%02d:%02d', ($seconds/3600),($seconds/60%60), $seconds%60);
+        return sprintf('%02d:%02d:%02d', ($seconds / 3600), ($seconds / 60 % 60), $seconds % 60);
     }
 }

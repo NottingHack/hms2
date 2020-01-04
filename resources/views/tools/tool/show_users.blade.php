@@ -4,7 +4,9 @@
 
 @section('content')
 <div class="container">
+  @if (($grantType == "MAINTAINER" && Auth::user()->can('tools.maintainer.grant')) || ($grantType == "INDUCTOR" && (Auth::user()->can('tools.inductor.grant') || Auth::user()->can('tools.' . $tool->getPermissionName() . '.inductor.grant'))) || ($grantType == "USER" && Auth::user()->can('tools.user.grant')))
   <tool-grant-modal :tool-id="{{ $tool->getId() }}" tool-name="{{ $tool->getName() }}" grant-type="{{ $grantType }}" :block="true"></tool-grant-modal><br>
+  @endif
   @forelse ($users as $user)
   @if ($loop->first)
   <div class="table-responsive no-more-tables">

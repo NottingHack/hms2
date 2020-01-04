@@ -17,7 +17,7 @@
           <th>Status</th>
           <th class="d-none d-md-table-cell">Cost per hour</th>
           <th>Next booking</th>
-          @canany(['tools.edit', 'tools.maintainer.grant'])
+          @canany(['tools.edit', 'tools.maintainer.grant', 'tools.inductor.grant' , 'tools.' . $tool->getPermissionName() . '.inductor.grant', 'tools.' . $tool->getPermissionName() . '.use'])
           <th>Actions</th>
           @endcan
         </tr>
@@ -35,7 +35,7 @@
           </td>
           <td data-title="Cost per hour" class="d-none d-md-table-cell">@format_pennies($tool->getPph())</td>
           <td data-title="Next booking">{{ $nextBookings[$tool->getId()] ? $nextBookings[$tool->getId()]->getStart()->format('jS F Y @ H:i') : "None" }}</td>
-          @canany(['tools.edit', 'tools.maintainer.grant'])
+          @canany(['tools.edit', 'tools.maintainer.grant', 'tools.inductor.grant' , 'tools.' . $tool->getPermissionName() . '.inductor.grant', 'tools.' . $tool->getPermissionName() . '.use'])
           <td data-title="Actions" class="actions">
             @can('tools.edit')
             <a class="btn btn-primary btn-sm mb-1" href="{{ route('tools.show', $tool->getId()) }}"><i class="far fa-eye" aria-hidden="true"></i> View Settings</a>

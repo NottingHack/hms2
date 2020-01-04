@@ -151,9 +151,11 @@ class ToolController extends Controller
     {
         // complex permission checking based on the grantType
         if ($grantType == ToolManager::MAINTAINER) {
-            \Gate::authorize('tools.maintainer.grant');
+            if (\Gate::none(['tools.' . $tool->getPermissionName() . '.maintain', 'tools.maintainer.grant'])) {
+                throw new AuthorizationException('This action is unauthorized.');
+            }
         } elseif ($grantType == ToolManager::INDUCTOR) {
-            if (\Gate::none(['tools.' . $tool->getPermissionName() . '.inductor.grant', 'tools.inductor.grant'])) {
+            if (\Gate::none(['tools.' . $tool->getPermissionName() . '.induct', 'tools.inductor.grant'])) {
                 throw new AuthorizationException('This action is unauthorized.');
             }
         } elseif ($grantType == ToolManager::USER) {

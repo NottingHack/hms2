@@ -238,24 +238,23 @@ class StatisticsController extends Controller
             $bookingsForThisMonth = $this->bookingRepository->findByToolForMonth($tool, Carbon::now());
             $bookingsForLastMonth = $this->bookingRepository->findByToolForMonth($tool, Carbon::now()->subMonth());
 
-            $minutesBookedThisMonth = $this->countBookedMinutes($bookingsForThisMonth);
-            $minutesBookedLastMonth = $this->countBookedMinutes($bookingsForLastMonth);
+            $bookedThisMonth = $this->countBookedDuration($bookingsForThisMonth);
+            $bookedLastMonth = $this->countBookedDuration($bookingsForLastMonth);
 
-            $minutesUserThisMonth =
             $usagesForThisMonth = $this->usageRepository->findByToolForMonth($tool, Carbon::now());
             $usagesForLastMonth = $this->usageRepository->findByToolForMonth($tool, Carbon::now()->subMonth());
 
-            $minutesUsedThisMonth = $this->countUsedMinutes($usagesForThisMonth);
-            $minutesUsedLastMonth = $this->countUsedMinutes($usagesForLastMonth);
+            $usedThisMonth = $this->countUsedMinutes($usagesForThisMonth);
+            $usedLastMonth = $this->countUsedMinutes($usagesForLastMonth);
 
             $stats[$tool->getName()] = [
                 'userCount' => $userCount,
                 'inductorCount' => $inductorCount,
                 'maintainerCount' => $maintainerCount,
-                'minutesBookedThisMonth' => $minutesBookedThisMonth,
-                'minutesBookedLastMonth' => $minutesBookedLastMonth,
-                'minutesUsedThisMonth' => $minutesUsedThisMonth,
-                'minutesUsedLastMonth' => $minutesUsedLastMonth,
+                'bookedThisMonth' => $bookedThisMonth,
+                'bookedLastMonth' => $bookedLastMonth,
+                'usedThisMonth' => $usedThisMonth,
+                'usedLastMonth' => $usedLastMonth,
             ];
         }
 
@@ -269,15 +268,15 @@ class StatisticsController extends Controller
      *
      * @return string
      */
-    protected function countBookedMinutes($bookings)
+    protected function countBookedDuration($bookings)
     {
-        $minutes = 0;
+        $seconds = 0;
 
         foreach ($bookings as $booking) {
-            $minutes += $booking->getStart()->diffInMinutes($booking->getEnd());
+            $seconds += $booking->getStart()->diffInSeconds($booking->getEnd());
         }
 
-        return sprintf('%02d:%02d', floor($minutes / 60), $minutes % 60);
+        return sprintf('%02d:%02d:%02d', ($seconds / 3600), ($seconds / 60 % 60), $seconds % 60);
     }
 
     /**

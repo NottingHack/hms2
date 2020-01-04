@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use HMS\Entities\Role;
 use HMS\Views\LaserUsage;
 use HMS\Views\MemberStats;
 use HMS\Views\SnackspaceMonthly;
@@ -222,10 +223,14 @@ class StatisticsController extends Controller
         $stats = [];
 
         foreach ($tools as $tool) {
-            $userCount = $this->roleRepository
+            $users = $this->roleRepository
                 ->findOneByName('tools.' . $tool->getPermissionName() . '.user')
-                ->getUsers()
-                ->count();
+                ->getUsers();
+            $currentUsers = $users->filter(function ($user) {
+                return $user->hasRoleByName(Role::MEMBER_CURRENT);
+            });
+            $userCount = $currentUsers->count();
+
             $inductorCount = $this->roleRepository
                 ->findOneByName('tools.' . $tool->getPermissionName() . '.inductor')
                 ->getUsers()

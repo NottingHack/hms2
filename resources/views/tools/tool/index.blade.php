@@ -8,6 +8,8 @@
     To book a tool click on the <span style="color: #195905"><i class="fal fa-calendar-alt" aria-hidden="true"></i></span> or name.<br>
     Use of some tools is restricted and needs an induction first.
   </p>
+  @foreach($tools as $tool)
+  @if ($loop->first)
   <div class="table-responsive no-more-tables">
     <table class="table table-striped table-hover">
       <thead>
@@ -23,7 +25,7 @@
         </tr>
       </thead>
       <tbody>
-        @foreach($tools as $tool)
+  @endif
         <tr>
           <td class="d-none d-md-table-cell" style="width:25px"><a href="{{ route('bookings.index', $tool->getId()) }}"><span style="color: #195905"><i class="fal fa-calendar-alt" aria-hidden="true"></i></span></a></td>
           <td data-title="Tool"><a href="{{ route('bookings.index', $tool->getId()) }}"><span class="d-md-none" style="color: #195905"><i class="fal fa-calendar-alt" aria-hidden="true"></i>&nbsp;</span>{{ $tool->getName() }}</a></td>
@@ -54,10 +56,12 @@
           </td>
           @endcanany
         </tr>
-        @endforeach
+  @if ($loop->last)
       </tbody>
     </table>
   </div>
+  @endif
+  @endforeach
 </div>
 
 @can('tools.create')

@@ -33,8 +33,8 @@
           <td data-title="Inductors">{{ $stats['inductorCount'] }}</td>
           <td data-title="Maintainers">{{ $stats['maintainerCount'] }}</td>
           <td data-title="This Month: Booked">{{ $stats['bookedThisMonth'] }}</td>
-          <td data-title="This Month: Used">{{ $stats['bookedLastMonth'] }}</td>
-          <td data-title="Last Month: Booked">{{ $stats['usedThisMonth'] }}</td>
+          <td data-title="This Month: Used">{{ $stats['usedThisMonth'] }}</td>
+          <td data-title="Last Month: Booked">{{ $stats['bookedLastMonth'] }}</td>
           <td data-title="Last Month: Used">{{ $stats['usedLastMonth'] }}</td>
         </tr>
   @if ($loop->last)

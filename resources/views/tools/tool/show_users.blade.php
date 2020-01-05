@@ -7,7 +7,7 @@
   @if (($grantType == "MAINTAINER" && Auth::user()->can('tools.maintainer.grant')) || ($grantType == "INDUCTOR" && (Auth::user()->can('tools.inductor.grant') || Auth::user()->can('tools.' . $tool->getPermissionName() . '.inductor.grant'))) || ($grantType == "USER" && Auth::user()->can('tools.user.grant')))
   <tool-grant-modal :tool-id="{{ $tool->getId() }}" tool-name="{{ $tool->getName() }}" grant-type="{{ $grantType }}" :block="true"></tool-grant-modal><br>
   @endif
-  @forelse ($users as $user)
+  @forelse ($toolUsers as [$user, $rolUdpate])
   @if ($loop->first)
   <div class="table-responsive no-more-tables">
     <table class="table table-bordered table-hover">
@@ -21,8 +21,16 @@
   @endif
         <tr>
           <td data-title="Name">{{ $user->getFullname() }}</td>
-          <td data-title="Date Appointed" class="d-none d-md-table-cell"></td>
-          <td data-title="Appointed By" class="d-none d-md-table-cell"></td>
+          <td data-title="Date Appointed" class="d-none d-md-table-cell">
+            @isset($rolUdpate)
+            {{ $rolUdpate->getCreatedAt()->toDateTimeString() }}
+            @endisset
+          </td>
+          <td data-title="Appointed By" class="d-none d-md-table-cell">
+            @isset($rolUdpate)
+            {{ $rolUdpate->getUpdateBy() ? $rolUdpate->getUpdateBy()->getFullname() : '' }}
+            @endisset
+          </td>
           <td data-title="Actions" class="actions">
           @canany(['profile.view.limited', 'profile.view.all'])
           <a href="{{ route('users.admin.show', $user->getId()) }}" class="btn btn-primary btn-sm mb-1"><i class="far fa-eye" aria-hidden="true"></i> View</a>

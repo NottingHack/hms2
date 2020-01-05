@@ -9,6 +9,7 @@ use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
+use HMS\Repositories\RoleUpdateRepository;
 use HMS\Repositories\Tools\ToolRepository;
 use HMS\Repositories\Tools\BookingRepository;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -41,6 +42,11 @@ class ToolController extends Controller
     protected $roleRepository;
 
     /**
+     * @var RoleUpdateRepository
+     */
+    protected $roleUpdateRepository;
+
+    /**
      * Create a new controller instance.
      *
      * @param ToolRepository    $toolRepository
@@ -48,19 +54,22 @@ class ToolController extends Controller
      * @param BookingRepository $bookingRepository
      * @param UserRepository $userRepository
      * @param RoleRepository $roleRepository
+     * @param RoleUpdateRepository $roleUpdateRepository
      */
     public function __construct(
         ToolRepository $toolRepository,
         ToolManager $toolManager,
         BookingRepository $bookingRepository,
         UserRepository $userRepository,
-        RoleRepository $roleRepository
+        RoleRepository $roleRepository,
+        RoleUpdateRepository $roleUpdateRepository
     ) {
         $this->toolRepository = $toolRepository;
         $this->toolManager = $toolManager;
         $this->bookingRepository = $bookingRepository;
         $this->userRepository = $userRepository;
         $this->roleRepository = $roleRepository;
+        $this->roleUpdateRepository = $roleUpdateRepository;
 
         $this->middleware('can:tools.view')->only(['index', 'show']);
         $this->middleware('can:tools.create')->only(['create', 'store']);
@@ -176,11 +185,23 @@ class ToolController extends Controller
         $role = $this->roleRepository->findOneByName($roleName);
         $users = $this->userRepository->paginateUsersWithRole($role);
 
+
+        $toolusers = [];
+        // find the RoleUpdate for when the user was granted this persmision
+        foreach ($users as $user) {
+            $roleUpdate = $this->roleUpdateRepository->findLatestRoleAddedByUser($role, $user);
+            $toolUsers[] = [
+                $user,
+                $roleUpdate,
+            ];
+        }
+
         return view('tools.tool.show_users')
             ->with('tool', $tool)
             ->with('grantType', $grantType)
             ->with('role', $role)
-            ->with('users', $users);
+            ->with('users', $users)
+            ->with('toolUsers', $toolUsers);
     }
 
     /**

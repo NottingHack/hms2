@@ -27,7 +27,7 @@
             @can('role.edit.all')
             <a class="btn btn-primary btn-sm mb-1" href="{{ route('roles.edit', $role->getId()) }}"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
             @endcan
-            @if($category == 'team')
+            @if ($category == 'team')
             @can('role.grant.team')
             <add-user-to-team-modal :role-id="{{ $role->getId() }}" role-name="{{ $role->getDisplayName() }}" :small="true"></add-user-to-team-modal>
             @endcan

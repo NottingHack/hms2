@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use HMS\Entities\Role;
 use HMS\Entities\User;
 use HMS\Entities\Invite;
@@ -14,11 +15,13 @@ use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
 use App\Mail\MembershipDetailsApproved;
 use App\Mail\MembershipDetailsRejected;
+use HMS\Entities\Membership\RejectedLog;
 use HMS\Factories\Banking\AccountFactory;
 use App\Events\MembershipInterestRegistered;
 use HMS\Repositories\Banking\BankRepository;
 use App\Notifications\NewMemberApprovalNeeded;
 use HMS\Repositories\Banking\AccountRepository;
+use HMS\Repositories\Membership\RejectedLogRepository;
 
 class MembershipController extends Controller
 {
@@ -68,6 +71,11 @@ class MembershipController extends Controller
     protected $bankRepository;
 
     /**
+     * @var RejectedLogRepository
+     */
+    protected $rejectedLogRepository;
+
+    /**
      * Create a new controller instance.
      *
      * @param MetaRepository    $metaRepository
@@ -79,6 +87,7 @@ class MembershipController extends Controller
      * @param ProfileManager    $profileManager
      * @param RoleRepository    $roleRepository
      * @param BankRepository    $bankRepository
+     * @param RejectedLogRepository $rejectedLogRepository
      */
     public function __construct(
         MetaRepository $metaRepository,
@@ -89,7 +98,8 @@ class MembershipController extends Controller
         UserManager $userManager,
         ProfileManager $profileManager,
         RoleRepository $roleRepository,
-        BankRepository $bankRepository
+        BankRepository $bankRepository,
+        RejectedLogRepository $rejectedLogRepository
     ) {
         $this->metaRepository = $metaRepository;
         $this->accountFactory = $accountFactory;
@@ -100,6 +110,7 @@ class MembershipController extends Controller
         $this->profileManager = $profileManager;
         $this->roleRepository = $roleRepository;
         $this->bankRepository = $bankRepository;
+        $this->rejectedLogRepository = $rejectedLogRepository;
 
         $this->middleware('can:membership.approval')
             ->only(['index', 'showDetailsForApproval', 'approveDetails', 'rejectDetails']);
@@ -115,10 +126,21 @@ class MembershipController extends Controller
     public function index()
     {
         $approvalRole = $this->roleRepository->findOneByName(Role::MEMBER_APPROVAL);
-        $users = $this->userRepository->paginateUsersWithRole($approvalRole);
+        $users = $approvalRole->getUsers();
+
+        $approvals = [];
+
+        foreach ($users as $user) {
+            $rejectedLogs = $this->rejectedLogRepository->findByUser($user);
+            $approvals[] = [
+                $user,
+                array_pop($rejectedLogs),
+            ];
+        }
 
         return view('membership.index')
-            ->with('users', $users);
+            ->with('users', $users)
+            ->with('approvals', $approvals);
     }
 
     /**
@@ -130,21 +152,17 @@ class MembershipController extends Controller
      */
     public function showDetailsForApproval(User $user)
     {
-        if ($user->hasRoleByName(Role::MEMBER_APPROVAL)) {
-            return view('membership.showDetails')
-                ->with('user', $user)
-                ->with(
-                    'subject',
-                    $this->metaRepository->get(
-                        'reject_details_subject',
-                        'Nottingham Hackspace: Issue with contact details'
-                    )
-                );
+        if (! $user->hasRoleByName(Role::MEMBER_APPROVAL)) {
+            flash('User does not require approval')->warning();
+
+            return redirect()->route('home');
         }
 
-        flash('User does not require approval')->warning();
+        $rejectedLogs = $this->rejectedLogRepository->findByUser($user);
 
-        return redirect()->route('home');
+        return view('membership.showDetails')
+            ->with('user', $user)
+            ->with('rejectedLogs', $rejectedLogs);
     }
 
     /**
@@ -211,8 +229,16 @@ class MembershipController extends Controller
         }
 
         $this->validate($request, [
-            'reason' => 'required|string|max:500',
+            'reason' => 'required|string|max:250',
         ]);
+
+        // LogDetailsRejectedJob
+        $_rejectedLog = new RejectedLog();
+        $_rejectedLog->setUser($user);
+        $_rejectedLog->setReason($request['reason']);
+        $_rejectedLog->setRejectedBy(\Auth::user());
+
+        $this->rejectedLogRepository->save($_rejectedLog);
 
         \Mail::to($user)->send(new MembershipDetailsRejected($user, $request['reason']));
 
@@ -234,7 +260,12 @@ class MembershipController extends Controller
             return redirect()->route('home');
         }
 
-        return view('membership.editDetails')->with('user', $user);
+        $rejectedLogs = $this->rejectedLogRepository->findByUser($user);
+        $rejectedLog = array_pop($rejectedLogs);
+
+        return view('membership.editDetails')
+            ->with('user', $user)
+            ->with('rejectedLog', $rejectedLog->getUserUpdatedAt() ? null : $rejectedLog);
     }
 
     /**
@@ -266,6 +297,14 @@ class MembershipController extends Controller
 
         $user = $this->userManager->updateFromRequest($user, $validatedData);
         $user = $this->profileManager->updateUserProfileFromRequest($user, $validatedData);
+
+        // Update last rejectedLog if there is one
+        $rejectedLogs = $this->rejectedLogRepository->findByUser($user);
+        if (! empty($rejectedLogs)) {
+            $rejectedLog = array_pop($rejectedLogs);
+            $rejectedLog->setUserUpdatedAt(Carbon::now());
+            $this->rejectedLogRepository->save($rejectedLog);
+        }
 
         $membershipTeamRole = $this->roleRepository->findOneByName(Role::TEAM_MEMBERSHIP);
         $membershipTeamRole->notify(new NewMemberApprovalNeeded($user, true));

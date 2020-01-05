@@ -21,6 +21,33 @@
 
 @section('content')
 <div class="container">
+  @foreach ($rejectedLogs as $rejectedLog)
+  @if ($loop->first)
+  <p>These details have been previously rejected</p>
+  <div class="table-responsive no-more-tables">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th class="w-15">Date</th>
+          <th>Reason</th>
+          <th>Rejected By</th>
+          <th class="w-10">User Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+  @endif
+        <tr>
+          <td data-title="Date">{{ $rejectedLog->getCreatedAt()->toDateTimeString() }}</td>
+          <td data-title="Reason">{{ $rejectedLog->getReason() }}</td>
+          <td data-title="Rejected By">{{ $rejectedLog->getRejectedBy()->getFullname() }}</td>
+          <td data-title="ser Updated">{{ $rejectedLog->getUserUpdatedAt() ? $rejectedLog->getUserUpdatedAt()->toDateTimeString() : 'Not Yet'}}</td>
+        </tr>
+  @if ($loop->last)
+      </tbody>
+    </table>
+  </div>
+  @endif
+  @endforeach
   <p>Please review the details below and check they are all sensible.</p>
   <div class="table-responsive">
     <table class="table table-bordered table-hover">

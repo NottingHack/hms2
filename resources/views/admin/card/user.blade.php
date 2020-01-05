@@ -40,7 +40,7 @@
         <th scope="row">Email:</th>
         <td>{{ $user->getEmail() }}</td>
       </tr>
-      @if($user->getProfile() && $user->getProfile()->getJoinDate())
+      @if ($user->getProfile() && $user->getProfile()->getJoinDate())
       <tr>
         <th scope="row">Member since:</th>
         <td>{{ $user->getProfile()->getJoinDate()->toDateString() }}</td>

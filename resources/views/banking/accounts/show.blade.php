@@ -33,7 +33,7 @@ Account {{ $account->getPaymentRef() }}
           </td>
           <td>{{ $user->getEmail() }}</td>
           <td class="actions">
-            @if($loop->count > 1)
+            @if ($loop->count > 1)
             <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-danger btn-sm" aria-label="delete">
               <form action="{{ route('banking.accounts.unlinkUser', ['account' => $account->getId()]) }}" method="POST" style="display: inline">
                 @method('PATCH')
@@ -65,7 +65,7 @@ Account {{ $account->getPaymentRef() }}
     </div>
   </form>
   <hr>
-  @if(Gate::allows('bankTransactions.view.all'))
+  @if (Gate::allows('bankTransactions.view.all'))
   @forelse ($bankTransactions as $bankTransaction)
   @if ($loop->first)
   <p>Any payments that have been matched to this account ar listed below.</p>
@@ -100,7 +100,7 @@ Account {{ $account->getPaymentRef() }}
   <p>No payments matched to this account.</p>
   @endforelse
   @elseif(Auth::user() != $user && Gate::allows('bankTransactions.view.limited'))
-  @if($bankTransactions->count() > 0)
+  @if ($bankTransactions->count() > 0)
   <div class="card">
     <h5 class="card-header">Last Payment Date:</h5>
     <div class="card-body">{{ $bankTransactions[0]->getTransactionDate()->toDateString() }}</div>

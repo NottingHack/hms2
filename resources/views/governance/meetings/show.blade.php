@@ -15,7 +15,7 @@
         <tr>
           <th>Type:</th>
           <td>
-            @if($meeting->isExtraordinary())
+            @if ($meeting->isExtraordinary())
             Extraordinary
             @else
             Annual
@@ -82,7 +82,7 @@
         </tr>
         <tr>
           <th>Check-in Count:</th>
-          <td class="@if($checkInCount >= $meeting->getQuorum()) table-success @else table-danger @endif">{{ $checkInCount }}</td>
+          <td class="@if ($checkInCount >= $meeting->getQuorum()) table-success @else table-danger @endif">{{ $checkInCount }}</td>
         </tr>
       </tbody>
     </table>
@@ -96,7 +96,7 @@
 <a href="{{ route('governance.meetings.attendees', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-eye" aria-hidden="true"></i> View Attendees</a>
 <a href="{{ route('governance.meetings.absentees', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-eye" aria-hidden="true"></i> View Absentees</a>
 @endcan --}}
-@if($meeting->getStartTime()->isFuture())
+@if ($meeting->getStartTime()->isFuture())
 @can('governance.meeting.checkIn')
 <a  href="{{ route('governance.meetings.check-in', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-user-check" aria-hidden="true"></i> Check-in</a>
 @endcan

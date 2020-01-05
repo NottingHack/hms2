@@ -9,6 +9,7 @@ use HMS\Repositories\Tools\ToolRepository;
 use HMS\Repositories\Members\BoxRepository;
 use HMS\Repositories\Tools\BookingRepository;
 use HMS\Repositories\Members\ProjectRepository;
+use HMS\Repositories\Membership\RejectedLogRepository;
 use HMS\Repositories\Snackspace\TransactionRepository;
 
 class HomeController extends Controller
@@ -49,6 +50,11 @@ class HomeController extends Controller
     protected $votingManager;
 
     /**
+     * @var RejectedLogRepository
+     */
+    protected $rejectedLogRepository;
+
+    /**
      * Create a new controller instance.
      *
      * @param ProjectRepository $projectRepository
@@ -58,6 +64,7 @@ class HomeController extends Controller
      * @param BookingRepository $bookingRepository
      * @param ToolRepository $toolRepository
      * @param VotingManager $votingManager
+     * @param RejectedLogRepository $rejectedLogRepository
      *
      * @return void
      */
@@ -68,7 +75,8 @@ class HomeController extends Controller
         RoleRepository $roleRepository,
         BookingRepository $bookingRepository,
         ToolRepository $toolRepository,
-        VotingManager $votingManager
+        VotingManager $votingManager,
+        RejectedLogRepository $rejectedLogRepository
     ) {
         $this->projectRepository = $projectRepository;
         $this->boxRepository = $boxRepository;
@@ -77,6 +85,7 @@ class HomeController extends Controller
         $this->bookingRepository = $bookingRepository;
         $this->toolRepository = $toolRepository;
         $this->votingManager = $votingManager;
+        $this->rejectedLogRepository = $rejectedLogRepository;
     }
 
     /**
@@ -103,6 +112,12 @@ class HomeController extends Controller
         $user = \Auth::user();
 
         if ($user->hasRoleByName(Role::MEMBER_APPROVAL)) {
+            $rejectedLogs = $this->rejectedLogRepository->findByUser($user);
+            if (! empty($rejectedLogs) &&
+                is_null(array_pop($rejectedLogs)->getUserUpdatedAt())) {
+                return redirect()->route('membership.edit', $user->getId());
+            }
+
             return view('pages.awaitingApproval');
         } elseif ($user->hasRoleByName(Role::MEMBER_PAYMENT)) {
             return view('pages.awaitingPayment');

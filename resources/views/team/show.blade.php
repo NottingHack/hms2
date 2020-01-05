@@ -24,9 +24,9 @@
         </tr> --}}
       </tbody>
     </table>
-    @if(Auth::user()->hasRole($team) || Gate::allows('role.edit.all') || Gate::allows('role.grant.team'))
+    @if (Auth::user()->hasRole($team) || Gate::allows('role.edit.all') || Gate::allows('role.grant.team'))
     <div class="card-footer">
-      @if(Auth::user()->hasRole($team) || Gate::allows('role.edit.all'))
+      @if (Auth::user()->hasRole($team) || Gate::allows('role.edit.all'))
       @can('team.edit.description')
       <a class="btn btn-primary" href="{{ route('teams.edit', $team->getId()) }}"><i class="fas fa-pencil" aria-hidden="true"></i> Edit Description</a>
       @endcan

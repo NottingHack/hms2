@@ -20,7 +20,7 @@
         <th title="Members inducted">Members inducted</th>
       </thead>
       <tbody>
-        @foreach($laserUsage as $month)
+        @foreach ($laserUsage as $month)
         <tr>
           <td>{{ $month->year }}</td>
           <td>{{ $month->month }}</td>

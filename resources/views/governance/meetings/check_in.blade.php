@@ -64,7 +64,7 @@
     </div>
     <div class="card">
       <h4 class="card-header">Total Checked-in</h4>
-      <div class="card-body align-items-center d-flex justify-content-center @if($checkInCount >= $meeting->getQuorum()) bg-success @else bg-danger @endif">
+      <div class="card-body align-items-center d-flex justify-content-center @if ($checkInCount >= $meeting->getQuorum()) bg-success @else bg-danger @endif">
         <h1 class="card-text">{{ $checkInCount }}</h1>
       </div>
     </div>

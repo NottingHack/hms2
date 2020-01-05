@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-  @if(count($bankTransactions) > 0)
+  @if (count($bankTransactions) > 0)
   <p> Please match any transactions below </p>
   <div class="table-responsive no-more-tables">
     <table class="table table-bordered table-hover">

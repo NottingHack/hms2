@@ -5,7 +5,16 @@
 @section('content')
 <div class="container">
   <div class="card">
-    <div class="card-header">Please review the details below and update them as requested by the membership team.
+    <div class="card-header">
+      @isset($rejectedLog)
+      The Membership Team has looked over your information and have asked for a change, giving the following reason.<br>
+      <div class="alert alert-warning" role="alert">{{ $rejectedLog->getReason() }}</div>
+      Use the form below to update your details as needed.<br>
+      Once updated a new review will be automatically requested and the team will give them another quick check, and if all is well they'll move your membership on to the next stage.<br>
+      This normally takes no more than 48 hours.
+      @else
+      If needed you can update your details below.
+      @endisset
     </div>
 
     <form id="membership-edit-details-form" role="form" method="POST" action="{{ route('membership.update', $user->getId()) }}">

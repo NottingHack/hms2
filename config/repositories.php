@@ -59,6 +59,7 @@ return [
         'Banking\Stripe\Event',
         'Members\Project',
         'Members\Box',
+        'Membership\RejectedLog',
         'Snackspace\Debt',
         'Snackspace\Product',
         'Snackspace\Transaction',

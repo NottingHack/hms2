@@ -35,7 +35,7 @@
     @if (null !== config('services.stripe.key'))
     @if ($user->can('snackspace.payment') || ($user->can('snackspace.payment.debtOnly') && $user->getProfile()->getBalance() < -100))
     <snackspace-stripe-payment
-    @if($user->can('snackspace.payment.debtOnly') && $user->getProfile()->getBalance() < 0)
+    @if ($user->can('snackspace.payment.debtOnly') && $user->getProfile()->getBalance() < 0)
     :balance="{{ $user->getProfile()->getBalance() }}"
     @endif
     >

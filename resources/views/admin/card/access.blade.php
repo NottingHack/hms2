@@ -4,7 +4,7 @@
   <ul class="list-group list-group-flush">
     <li class="list-group-item">{{ Auth::user() == $user ? 'You have' : $user->getFirstname() . ' has' }} {{ count($user->getRfidTags()) }} RFID cards.</li>
     @can('pins.view.all')
-    @if($user->getPin())
+    @if ($user->getPin())
     <li class="list-group-item">Pin <b>{{ $user->getPin()->getPin() }}</b> is currently set to <i>{{ $user->getPin()->getStateString() }}.</i></li>
     @endcan
     @endif

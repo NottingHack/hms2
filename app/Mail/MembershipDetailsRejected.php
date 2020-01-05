@@ -47,6 +47,8 @@ class MembershipDetailsRejected extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->markdown('emails.membership.rejected');
+        return $this
+            ->subject('Nottingham Hackspace: Membership details rejected.')
+            ->markdown('emails.membership.rejected');
     }
 }

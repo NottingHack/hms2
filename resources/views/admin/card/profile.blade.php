@@ -1,5 +1,5 @@
 @can('profile.view.all')
-@if($user->getProfile())
+@if ($user->getProfile())
 <div class="card">
   <div class="card-header">Address details</div>
   <table class="table">
@@ -8,14 +8,14 @@
         <th scope="row">Address:</th>
         <td>
           {{ $user->getProfile()->getAddress1() }}<br>
-          @if($user->getProfile()->getAddress2())
+          @if ($user->getProfile()->getAddress2())
           {{ $user->getProfile()->getAddress2() }}<br>
           @endif
-          @if($user->getProfile()->getAddress3())
+          @if ($user->getProfile()->getAddress3())
           {{ $user->getProfile()->getAddress3() }}<br>
           @endif
           {{ $user->getProfile()->getAddressCity() }}<br>
-          @if($user->getProfile()->getAddressCounty())
+          @if ($user->getProfile()->getAddressCounty())
           {{ $user->getProfile()->getAddressCounty() }}<br>
           @endif
           {{ $user->getProfile()->getAddressPostCode() }}
@@ -25,7 +25,7 @@
         <th scope="row">Contact Number:</th>
         <td>{{ $user->getProfile()->getContactNumber() }}</td>
       </tr>
-      @if($user->getProfile()->getDateOfBirth())
+      @if ($user->getProfile()->getDateOfBirth())
       <tr>
         <th scope="row">Date of Birth:</th>
         <td>{{ $user->getProfile()->getDateOfBirth()->toDateString() }}</td>

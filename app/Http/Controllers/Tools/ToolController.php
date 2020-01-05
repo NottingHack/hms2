@@ -151,11 +151,18 @@ class ToolController extends Controller
     {
         // complex permission checking based on the grantType
         if ($grantType == ToolManager::MAINTAINER) {
-            if (\Gate::none(['tools.' . $tool->getPermissionName() . '.maintain', 'tools.maintainer.grant'])) {
+            if (\Gate::none([
+                'tools.maintainer.grant',
+                'tools.' . $tool->getPermissionName() . '.maintain',
+            ])) {
                 throw new AuthorizationException('This action is unauthorized.');
             }
         } elseif ($grantType == ToolManager::INDUCTOR) {
-            if (\Gate::none(['tools.' . $tool->getPermissionName() . '.induct', 'tools.inductor.grant'])) {
+            if (\Gate::none([
+                'tools.' . $tool->getPermissionName() . '.maintain',
+                'tools.inductor.grant',
+                'tools.' . $tool->getPermissionName() . '.induct',
+            ])) {
                 throw new AuthorizationException('This action is unauthorized.');
             }
         } elseif ($grantType == ToolManager::USER) {
@@ -250,7 +257,10 @@ class ToolController extends Controller
         if ($validatedData['grantType'] == ToolManager::MAINTAINER) {
             \Gate::authorize('tools.maintainer.grant');
         } elseif ($validatedData['grantType'] == ToolManager::INDUCTOR) {
-            if (\Gate::none(['tools.' . $tool->getPermissionName() . '.inductor.grant', 'tools.inductor.grant'])) {
+            if (\Gate::none([
+                'tools.inductor.grant',
+                'tools.' . $tool->getPermissionName() . '.inductor.grant',
+            ])) {
                 throw new AuthorizationException('This action is unauthorized.');
             }
         } elseif ($validatedData['grantType'] == ToolManager::USER) {

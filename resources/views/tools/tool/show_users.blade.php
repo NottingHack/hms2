@@ -24,7 +24,10 @@
           <td data-title="Date Appointed" class="d-none d-md-table-cell"></td>
           <td data-title="Appointed By" class="d-none d-md-table-cell"></td>
           <td data-title="Actions" class="actions">
+          @canany(['profile.view.limited', 'profile.view.all'])
           <a href="{{ route('users.admin.show', $user->getId()) }}" class="btn btn-primary btn-sm mb-1"><i class="far fa-eye" aria-hidden="true"></i> View</a>
+          @endcanany
+          @if (($grantType == "MAINTAINER" && Auth::user()->can('tools.maintainer.grant')) || ($grantType == "INDUCTOR" && Auth::user()->can('tools.inductor.grant')) || ($grantType == "USER" && Auth::user()->can('tools.user.grant')))
           <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-danger btn-sm mb-1" aria-label="delete">
             <form action="{{ route('roles.removeUser', ['role' => $role->getId(), 'user' => $user->getId()]) }}" method="POST" style="display: inline">
               @method('DELETE')
@@ -32,6 +35,7 @@
             </form>
             <i class="fas fa-trash" aria-hidden="true"></i> Remove
           </a>
+          @endif
           </td>
         </tr>
   @if ($loop->last)

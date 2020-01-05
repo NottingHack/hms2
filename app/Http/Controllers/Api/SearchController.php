@@ -32,7 +32,7 @@ class SearchController extends Controller
         $this->userRepository = $userRepository;
         $this->inviteRepository = $inviteRepository;
 
-        $this->middleware('can:search.users')->only(['users']);
+        $this->middleware('canAny:search.users,tools.search.users')->only(['users']);
         $this->middleware('can:search.invites')->only(['invites']);
     }
 
@@ -52,11 +52,18 @@ class SearchController extends Controller
             return response()->json([]);
         }
 
+        // force currentOnly for search.users.tools only access
+        if (\Gate::allows('tools.search.users') && \Gate::denies('search.tools.users')) {
+            $currentOnly = true;
+        } else {
+            $currentOnly = $request->input('currentOnly', false);
+        }
+
         // TODO: consider how to paginate response (posible fractal)
         $users = $this->userRepository->searchLike(
             $searchQuery,
             $request->input('withAccount', false),
-            $request->input('currentOnly', false),
+            $currentOnly,
             true,
             30
         );

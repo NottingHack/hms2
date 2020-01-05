@@ -90,6 +90,7 @@ return [
         'tools.use',                        // can use a tool, if tool is restricted also needs 'tools._TOOL_PERMISSION_NAME_.use'
         'tools.book',                       // can make a tool booking, , if tool is restricted also needs 'tools._TOOL_PERMISSION_NAME_.book'
         'tools.beInducted',                 // can be inducted to use a tool
+        'tools.search.users',               // assigend to tool sepcfic mainter roles, allows search user for inductor.grant
         'gatekeeper.zoneEntry.upstairs',    // these are hard coded here for now, until we have a GateKeeperManager to generate them
         'gatekeeper.zoneEntry.cncBlueRoom',
         'gatekeeper.zoneEntry.classRoomMetalworking',

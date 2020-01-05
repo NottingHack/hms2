@@ -32,6 +32,7 @@ class ToolManager
         'tools._TOOL_PERMISSION_NAME_.maintain',            // can put machine in maintenance mode
         'tools._TOOL_PERMISSION_NAME_.book.maintenance',    // can book a maintenance slot
         'tools._TOOL_PERMISSION_NAME_.inductor.grant',      // can give user inductor role
+        'tools.search.users',               // assigend to tool sepcfic mainter roles, allows search for grant
     ];
 
     const ROLE_TEMPLATES = [
@@ -63,6 +64,7 @@ class ToolManager
                 'tools._TOOL_PERMISSION_NAME_.maintain',
                 'tools._TOOL_PERMISSION_NAME_.book.maintenance',
                 'tools._TOOL_PERMISSION_NAME_.inductor.grant',
+                'tools.search.users',
             ],
         ],
     ];

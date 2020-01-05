@@ -1,0 +1,33 @@
+# HMS.Entities.Membership.RejectedLog.dcm.yml
+HMS\Entities\Membership\RejectedLog:
+  type: entity
+  repositoryClass: HMS\Repositories\Membership\Doctrine\DoctrineRejectedLogRepository
+  table: membership_rejected_logs
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    reason:
+      type: string
+    userUpdatedAt:
+      type: datetime
+      nullable: true
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+  manyToOne:
+    user:
+      targetEntity: \HMS\Entities\User
+    rejectedBy:
+      targetEntity: \HMS\Entities\User

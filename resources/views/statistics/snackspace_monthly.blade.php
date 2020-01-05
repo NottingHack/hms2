@@ -21,7 +21,7 @@
         <th>Payments</th>
       </thead>
       <tbody>
-        @foreach($snackspaceMonthly as $month)
+        @foreach ($snackspaceMonthly as $month)
         <tr>
           <td>{{ $month['Year'] }}</td>
           <td>{{ $month['Month'] }}</td>

@@ -13,7 +13,7 @@
         </tr>
       </thead>
       <tbody>
-        @foreach($events as $event)
+        @foreach ($events as $event)
         <tr>
           <td class="text-monospace">{{ $event->getTime()->toDateTimeString() }}</td>
           <td>{{ $event->getType() }}</td>

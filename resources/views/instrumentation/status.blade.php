@@ -16,7 +16,7 @@
         </tr>
       </thead>
       <tbody>
-        @foreach($services as $service)
+        @foreach ($services as $service)
         <tr class="{{ $service->getStatus() != 1 ? 'bg-danger text-white' : '' }}">
           <td data-title="Service">{{ $service->getName() }}</td>
           <td data-title="Status">{{ $service->getStatusString() }}</td>

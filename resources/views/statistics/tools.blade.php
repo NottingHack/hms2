@@ -5,7 +5,7 @@
 @section('content')
 <div class="container">
   <p>Basic usage statistics for tools.</p>
-  @foreach($tools as $name => $stats)
+  @foreach ($tools as $name => $stats)
   @if ($loop->first)
   <div class="table-responsive no-more-tables">
     <table class="table table-bordered table-hover">

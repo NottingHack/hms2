@@ -13,7 +13,7 @@
       <th>Occupants</th>
     </thead>
     <tbody>
-      @foreach($zones as $zone)
+      @foreach ($zones as $zone)
       <tr>
         <td>{{ $zone->getDescription() }}</td>
         <td>{{ count($zone->getZoneOccupancts()) }}</td>

@@ -21,7 +21,7 @@
 
 @section('content')
 <div class="container">
-  @foreach($rejectedLogs as $rejectedLog)
+  @foreach ($rejectedLogs as $rejectedLog)
   @if ($loop->first)
   <p>These details have been previously rejected</p>
   <div class="table-responsive no-more-tables">

@@ -19,14 +19,14 @@
   @endif
         <tr>
           <td data-title="Date" class="text-monospace">{{ $roleUpdate->getCreatedAt()->toDateTimeString() }}</td>
-          <td data-title="Role Added" @if($roleUpdate->getRoleAdded()) class="table-success"@endif>
+          <td data-title="Role Added" @if ($roleUpdate->getRoleAdded()) class="table-success"@endif>
             @if ($roleUpdate->getRoleAdded())
             <strong class="text-capitalize">{{ $roleUpdate->getRoleAdded()->getCategory() }}:</strong> {{ $roleUpdate->getRoleAdded()->getDisplayName() }}
             @else
             &nbsp;
             @endif
           </td>
-          <td data-title="Role Removed"  @if($roleUpdate->getRoleRemoved()) class="table-danger"@endif>
+          <td data-title="Role Removed"  @if ($roleUpdate->getRoleRemoved()) class="table-danger"@endif>
             @if ($roleUpdate->getRoleRemoved())
             <strong class="text-capitalize">{{ $roleUpdate->getRoleRemoved()->getCategory() }}:</strong> {{ $roleUpdate->getRoleRemoved()->getDisplayName() }}
             @else

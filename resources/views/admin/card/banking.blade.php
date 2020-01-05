@@ -11,12 +11,12 @@
         </div>
       </span>
     </li>
-    @if(count($user->getAccount()->getUsers()) > 1)
+    @if (count($user->getAccount()->getUsers()) > 1)
     <li class="list-group-item">This is a Joint Accont</li>
     @endif
     @cannot('bankTransactions.view.all')
     @can('bankTransactions.view.limited')
-    @if($bankTransactions->count() > 0)
+    @if ($bankTransactions->count() > 0)
     <li class="list-group-item">Last Payment Date: {{ $bankTransactions[0]->getTransactionDate()->toDateString() }}</li>
     @else
     <li class="list-group-item">No payments yet.</li>

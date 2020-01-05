@@ -10,7 +10,7 @@
   @foreach ($teams as $team)
   <div class="card mb-3">
     <h5 class="card-header">{{ $team->getDisplayName() }}
-      @if(Auth::user()->hasRole($team))
+      @if (Auth::user()->hasRole($team))
       <span class="h6"> (You are on this team)</span>
       @endif
     </h5>
@@ -22,7 +22,7 @@
       @can('role.edit.all')
       <a class="btn btn-primary" href="{{ route('roles.edit', $team->getId()) }}"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
       @endcan
-      @if(Auth::user()->hasRole($team) || Gate::allows('role.edit.all'))
+      @if (Auth::user()->hasRole($team) || Gate::allows('role.edit.all'))
       @can('team.edit.description')
       <a class="btn btn-primary" href="{{ route('teams.edit', $team->getId()) }}"><i class="fas fa-pencil" aria-hidden="true"></i> Edit Description</a>
       @endcan

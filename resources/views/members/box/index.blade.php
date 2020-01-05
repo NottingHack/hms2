@@ -30,7 +30,7 @@ Boxes for {{ $user->getFirstname() }}
 
 <br>
 <div class="container">
-  @if(count($boxes) > 0)
+  @if (count($boxes) > 0)
   <div class="table-responsive no-more-tables">
     <table class="table table-bordered table-hover">
       <thead>

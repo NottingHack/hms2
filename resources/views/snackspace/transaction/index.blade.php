@@ -20,7 +20,7 @@ Snackspace account for {{ $user->getFirstname() }}
     @if ($user->can('snackspace.payment') || ($user->can('snackspace.payment.debtOnly') && $user->getProfile()->getBalance() < -100))
     Or click the button below to add money using a card.<br>
     <snackspace-stripe-payment
-    @if($user->can('snackspace.payment.debtOnly') && $user->getProfile()->getBalance() < 0)
+    @if ($user->can('snackspace.payment.debtOnly') && $user->getProfile()->getBalance() < 0)
     :balance="{{ $user->getProfile()->getBalance() }}"
     @endif
     >

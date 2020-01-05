@@ -1,10 +1,10 @@
 @can('governance.proxy.designateProxy')
 @isset($meeting)
 <div class="card">
-  <div class="card-header h5 bg-info">@if($meeting->isExtraordinary()) Extraordinary @else Annual @endif General Meeting</div>
+  <div class="card-header h5 bg-info">@if ($meeting->isExtraordinary()) Extraordinary @else Annual @endif General Meeting</div>
   <div class="card-body">
     <p>
-      An @if($meeting->isExtraordinary()) EGM @else AGM @endif has been scheduled for:<br>
+      An @if ($meeting->isExtraordinary()) EGM @else AGM @endif has been scheduled for:<br>
       <strong>{{ $meeting->getStartTime()->toDayDateTimeString() }}</strong>
     </p>
     @if ($principal)

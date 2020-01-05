@@ -17,11 +17,11 @@ If we receive a payment soon your membership will carry on unaffected.
 
 If you no longer wish to be a member and have intentionally cancelled your standing order we are sorry to see you go, but would like to thank you for being a member and supporting the hackspace. Your membership will end in a couple of weeks time. Before your membership finally ends please ensure you remove any projects or materials you may have at the hackspace.
 
-@if($boxCount > 0)
+@if ($boxCount > 0)
 Please also empty your members box.<br>
 @endif
 
-@if($snackspaceBalance < 0)
+@if ($snackspaceBalance < 0)
 We also request that you settle your snackspace balance of @format_pennies($snackspaceBalance)<br>
 @endif
 

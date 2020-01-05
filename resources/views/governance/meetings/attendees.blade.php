@@ -10,7 +10,7 @@ Attendees for {{ $meeting->getTitle() }}
     The following members have Checked-in.
   </p>
   @can('governance.meeting.checkIn')
-  @if($meeting->getStartTime()->isFuture())
+  @if ($meeting->getStartTime()->isFuture())
   <a  href="{{ route('governance.meetings.check-in', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-user-check" aria-hidden="true"></i> Check-in</a><br>
   @endif
   @endcan

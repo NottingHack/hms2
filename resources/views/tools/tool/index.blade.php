@@ -8,7 +8,7 @@
     To book a tool click on the <span style="color: #195905"><i class="fal fa-calendar-alt" aria-hidden="true"></i></span> or name.<br>
     Use of some tools is restricted and needs an induction first.
   </p>
-  @foreach($tools as $tool)
+  @foreach ($tools as $tool)
   @if ($loop->first)
   <div class="table-responsive no-more-tables">
     <table class="table table-striped table-hover">
@@ -29,7 +29,7 @@
           <td data-title="Tool"><a href="{{ route('bookings.index', $tool->getId()) }}"><span class="d-md-none" style="color: #195905"><i class="fal fa-calendar-alt" aria-hidden="true"></i>&nbsp;</span>{{ $tool->getName() }}</a></td>
           <td data-title="Status">
             {{ $tool->getStatusString() }}
-            @if($tool->getStatus() == \HMS\Entities\Tools\ToolState::DISABLED && ! is_null($tool->getStatusText()))
+            @if ($tool->getStatus() == \HMS\Entities\Tools\ToolState::DISABLED && ! is_null($tool->getStatusText()))
             <br>{{ $tool->getStatusText() }}
             @endif
           </td>
@@ -45,7 +45,7 @@
             @canany(['tools.inductor.grant' , 'tools.' . $tool->getPermissionName() . '.inductor.grant'])
             <tool-grant-modal :tool-id="{{ $tool->getId() }}" tool-name="{{ $tool->getName() }}" grant-type="{{ HMS\Tools\ToolManager::INDUCTOR }}" :small="true"></tool-grant-modal>
             @endcan
-            @if($tool->isRestricted())
+            @if ($tool->isRestricted())
             @cannot('tools.' . $tool->getPermissionName() . '.use')
             <a class="btn btn-primary btn-sm mb-1" href="{{ Meta::get('induction_request_html') }}" target="_blank">Request an Induction</a>
             @endcannot

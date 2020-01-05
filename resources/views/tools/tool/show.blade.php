@@ -6,6 +6,17 @@
 <div class="container">
   <h1>{{ $tool->getName() }}</h1>
   <hr>
+  <h4>Your Access Levels:
+    @if (Auth::user()->hasRoleByName('tools.' . $tool->getPermissionName() . '.user'))
+    <span class="badge badge-pill badge-booking-normal">User</span>
+    @endif
+    @if (Auth::user()->hasRoleByName('tools.' . $tool->getPermissionName() . '.inductor'))
+    <span class="badge badge-pill badge-booking-induction">Inductor</span>
+    @endif
+    @if (Auth::user()->hasRoleByName('tools.' . $tool->getPermissionName() . '.maintainer'))
+    <span class="badge badge-pill badge-booking-maintenance">Maintainer</span>
+    @endif
+  </h4>
   <div class="table-responsive">
     <table class="table table-bordered table-hover">
       <tbody>

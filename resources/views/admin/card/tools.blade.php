@@ -20,17 +20,15 @@
       <tr>
         <th scope="row">{{ $tool->getName() }}</th>
         <td>
-          <div class="btn-group" role="group">
-            @if ($user->hasRoleByName('tools.' . $tool->getPermissionName() . '.user'))
-            <span class="badge badge-pill badge-booking-normal">U</span>
-            @endif
-            @if ($user->hasRoleByName('tools.' . $tool->getPermissionName() . '.inductor'))
-            <span class="badge badge-pill badge-booking-induction">I</span>
-            @endif
-            @if ($user->hasRoleByName('tools.' . $tool->getPermissionName() . '.maintainer'))
-            <span class="badge badge-pill badge-booking-maintenance">M</span>
-            @endif
-          </div>
+          @if ($user->hasRoleByName('tools.' . $tool->getPermissionName() . '.user'))
+          <span class="badge badge-pill badge-booking-normal">U</span>
+          @endif
+          @if ($user->hasRoleByName('tools.' . $tool->getPermissionName() . '.inductor'))
+          <span class="badge badge-pill badge-booking-induction">I</span>
+          @endif
+          @if ($user->hasRoleByName('tools.' . $tool->getPermissionName() . '.maintainer'))
+          <span class="badge badge-pill badge-booking-maintenance">M</span>
+          @endif
         </td>
       </tr>
       @endforeach

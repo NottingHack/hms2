@@ -75,6 +75,21 @@
   <div classs="pagination-links center">
       {{ $users->links() }}
   </div>
+  @if($role->getCategory() != "Member")
+  @can('role.grant.all')
+  <form id='addUser' role="form" method="POST" action="{{ route('roles.addUser', ['role' => $role->getId()]) }}">
+      @method('PATCH')
+      @csrf
+      <div class="form-group">
+        <label>Select a user to add to this Role</label>
+        <member-select-two></member-select-two>
+      </div>
+      <div class="form-group text-center">
+        <button class="btn btn-success btn-block" type="submit"><i class="fas fa-plus" aria-hidden="true"></i> Add User</button>
+      </div>
+    </form>
+    @endcan
+    @endif
 </div>
 @endcan
 @endsection

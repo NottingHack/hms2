@@ -88,6 +88,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('roles/{role}', 'RoleController@show')->name('roles.show');
     Route::get('roles/{role}/edit', 'RoleController@edit')->name('roles.edit');
     Route::put('roles/{role}', 'RoleController@update')->name('roles.update');
+    Route::patch('roles/{role}/users', 'RoleController@addUser')->name('roles.addUser');
     Route::delete('roles/{role}/users/{user}', 'RoleController@removeUser')->name('roles.removeUser');
     Route::get('admin/users/{user}/role-updates', 'RoleController@roleUpdates')
         ->name('users.admin.role-updates');

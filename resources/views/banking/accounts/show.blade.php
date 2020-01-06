@@ -61,7 +61,7 @@ Account {{ $account->getPaymentRef() }}
       <member-select-two :with-account="false"></member-select-two>
     </div>
     <div class="form-group text-center">
-      <button class="btn btn-success"type="submit"><i class="fas fa-link" aria-hidden="true"></i> Link User</button>
+      <button class="btn btn-success" type="submit"><i class="fas fa-link" aria-hidden="true"></i> Link User</button>
     </div>
   </form>
   <hr>

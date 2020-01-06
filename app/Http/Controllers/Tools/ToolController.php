@@ -185,7 +185,6 @@ class ToolController extends Controller
         $role = $this->roleRepository->findOneByName($roleName);
         $users = $this->userRepository->paginateUsersWithRole($role);
 
-
         $toolusers = [];
         // find the RoleUpdate for when the user was granted this persmision
         foreach ($users as $user) {

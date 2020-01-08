@@ -26,6 +26,9 @@
     @endif
     @endif
     @endcan
+    @can('profile.view.all')
+    <a href="{{ route('users.admin.access-logs', $user->getId()) }}" class="btn btn-primary mb-1"><i class="fas fa-list" aria-hidden="true"></i> View Access Logs</a>
+    @endcan
   </div>
 </div>
 @endcan

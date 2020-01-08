@@ -5,7 +5,7 @@
 @section('content')
 <div class="container">
   <h2>From {{ $startDate->toFormattedDateString() }} to {{ $endDate->toFormattedDateString() }}</h2>
-  <p>Break down of income recorded by HMS and hows its allocated</p>
+  <p>Break down of income recorded by HMS and how it's been allocated</p>
   <h4>Payments</h4>
   <table class="table">
     <tr>

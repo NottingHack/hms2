@@ -8,16 +8,6 @@ use HMS\Entities\User;
 class AccessLog
 {
     /**
-     * Access was granted.
-     */
-    const ACCESS_GRANTED = 20;
-
-    /**
-     * Access was denied.
-     */
-    const ACCESS_DENIED = 10;
-
-    /**
      * @var int
      */
     protected $id;
@@ -133,6 +123,16 @@ class AccessLog
     public function getAccessResult()
     {
         return $this->accessResult;
+    }
+
+    /**
+     * Gets the string for accessResult.
+     *
+     * @return string
+     */
+    public function getAccessResultString()
+    {
+        return AccessLogResult::RESULT_STRINGS[$this->accessResult];
     }
 
     /**

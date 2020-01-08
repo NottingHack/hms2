@@ -99,12 +99,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('admin/users/{user}/ban', 'RoleController@banUser')
         ->name('users.admin.ban');
 
-    // USER
+    // USER (admin access only)
     Route::get('admin/users/{user}', 'AdminController@userOverview')->name('users.admin.show');
     Route::get('admin/users/{user}/edit', 'UserController@editAdmin')->name('users.admin.edit');
     Route::get('admin/users/{user}/edit-email', 'UserController@editEmail')->name('users.admin.edit-email');
     Route::patch('admin/users/{user}', 'UserController@updateEmail')->name('users.admin.update-email');
     Route::get('users-by-role/{role}', 'UserController@listUsersByRole')->name('users.byRole');
+
+    // USER
     Route::get('users', 'UserController@index')->name('users.index');
     Route::get('change-password', 'Auth\ChangePasswordController@edit')->name('users.changePassword');
     Route::put('change-password', 'Auth\ChangePasswordController@update')->name('users.changePassword.update');
@@ -126,6 +128,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
             'except' => ['index', 'show'], // index is done above outside auth
         ]
     );
+
+    // Access Logs
+    Route::get('admin/users/{user}/access-logs', 'GateKeeper\AccessLogController@indexByUser')
+        ->name('users.admin.access-logs');
+    Route::get('access-logs/{fromdate?}', 'GateKeeper\AccessLogController@index')->name('access-logs.index');
 
     // Rfid Tags
     Route::get('users/{user}/rfid-tags', 'GateKeeper\RfidTagsController@index')->name('users.rfid-tags');

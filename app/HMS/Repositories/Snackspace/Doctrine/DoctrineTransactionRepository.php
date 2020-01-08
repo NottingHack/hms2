@@ -34,8 +34,8 @@ class DoctrineTransactionRepository extends EntityRepository implements Transact
             ->groupBy('transactions.type');
 
         $q = $q->setParameter('status', TransactionState::COMPLETE)
-            ->setParameter('start', $startDate)
-            ->setParameter('end', $endDate)
+            ->setParameter('start', $startDate->copy())
+            ->setParameter('end', $endDate->copy())
             ->getQuery();
 
         $results = collect($q->getResult());

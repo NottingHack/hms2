@@ -53,7 +53,7 @@ class SearchController extends Controller
         }
 
         // force currentOnly for search.users.tools only access
-        if (\Gate::allows('tools.search.users') && \Gate::denies('search.tools.users')) {
+        if (\Gate::allows('tools.search.users') && \Gate::denies('search.users')) {
             $currentOnly = true;
         } else {
             $currentOnly = $request->input('currentOnly', false);

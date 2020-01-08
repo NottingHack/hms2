@@ -113,6 +113,12 @@ class ViMbAdminSubscriber implements ShouldQueue
                     // or add a new view to allow password change from hms
             }
 
+            if (is_null($alias)) {
+                // did not find the alias, just quitely fail
+                // TODO: trow??
+                return;
+            }
+
             $alias->addForwardAddress($email);
 
             // save the updated alias back to the external API
@@ -144,6 +150,12 @@ class ViMbAdminSubscriber implements ShouldQueue
                     . '@nottinghack.org.uk'
                 );
                 // TODO: check $email is now valid (utf8?)
+            }
+
+            if (is_null($alias)) {
+                // did not find the alias, just quitely fail
+                // TODO: trow??
+                return;
             }
 
             $alias->removeForwardAddress($email);

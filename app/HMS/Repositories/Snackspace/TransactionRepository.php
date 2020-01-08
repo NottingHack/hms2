@@ -2,11 +2,22 @@
 
 namespace HMS\Repositories\Snackspace;
 
+use Carbon\Carbon;
 use HMS\Entities\User;
 use HMS\Entities\Snackspace\Transaction;
 
 interface TransactionRepository
 {
+    /**
+     * Generate Payment report between given dates.
+     *
+     * @param Carbon $startDate
+     * @param Carbon $endDate
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function reportPaymnetsBetween(Carbon $startDate, Carbon $endDate);
+
     /**
      * Find all transactions for a given user and pagineate them.
      * Ordered by transactionDatetime DESC.

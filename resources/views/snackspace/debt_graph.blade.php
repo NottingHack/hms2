@@ -6,6 +6,7 @@
 <div class="container">
   <p></p>
   {!! $chartAll->container() !!}
+</div>
 @endsection
 
 @push('scripts')

@@ -2,6 +2,7 @@
 
 namespace HMS\Repositories\Snackspace\Doctrine;
 
+use Carbon\Carbon;
 use HMS\Entities\User;
 use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Snackspace\Transaction;
@@ -13,6 +14,39 @@ use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 class DoctrineTransactionRepository extends EntityRepository implements TransactionRepository
 {
     use PaginatesFromRequest;
+
+    /**
+     * Generate Payment report between given dates.
+     *
+     * @param Carbon $startDate
+     * @param Carbon $endDate
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function reportPaymnetsBetween(Carbon $startDate, Carbon $endDate)
+    {
+        $q = parent::createQueryBuilder('transactions');
+
+        $q->select('transactions.type')
+            ->addSelect('SUM(transactions.amount) as amount')
+            ->where('transactions.status = :status')
+            ->andWhere($q->expr()->between('transactions.transactionDatetime', ':start', ':end'))
+            ->groupBy('transactions.type');
+
+        $q = $q->setParameter('status', TransactionState::COMPLETE)
+            ->setParameter('start', $startDate)
+            ->setParameter('end', $endDate)
+            ->getQuery();
+
+        $results = collect($q->getResult());
+        $results = $results->mapWithKeys(function ($row) {
+            return [
+                $row['type'] => $row['amount']
+            ];
+        });
+
+        return $results;
+    }
 
     /**
      * Find all transactions for a given user and pagineate them.

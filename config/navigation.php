@@ -165,6 +165,13 @@ return [
                     'permissions'   => ['snackspace.debt.view'],
                     'links'         => [],
                 ],
+                'paymentReport'      => [
+                    'text'          => 'Snackspace Payments Report',
+                    'route'         => 'snackspace.payment-report',
+                    'match'         => 'snackspace.payment-report',
+                    'permissions'   => ['snackspace.transaction.view.all'],
+                    'links'         => [],
+                ],
             ],
         ],
         'admin' => [

@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use HMS\Entities\Role;
 use Carbon\CarbonInterval;
 use Illuminate\Bus\Queueable;
+use HMS\Entities\Banking\Account;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
 use Illuminate\Queue\SerializesModels;
@@ -15,28 +16,39 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\Events\Banking\NewMembershipPaidFor;
 use App\Events\Banking\NonPaymentOfMembership;
+use HMS\Repositories\Banking\AccountRepository;
 use App\Events\Banking\MembershipPaymentWarning;
 use HMS\Repositories\Banking\BankTransactionRepository;
 use App\Events\Banking\ReinstatementOfMembershipPayment;
 use HMS\Repositories\Banking\MembershipStatusNotificationRepository;
 
-class MembershipAuditJob implements ShouldQueue
+class AccountAuditJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
+     * The id of the Account to audit.
+     *
+     * @var int
+     */
+    protected $accountId;
+
+    /**
      * Create a new job instance.
+     *
+     * @param Account $account
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Account $account)
     {
-        //
+        $this->accountId = $account->getId();
     }
 
     /**
      * Execute the job.
      *
+     * @param AccountRepository                      $AccountRepository
      * @param BankTransactionRepository              $bankTransactionRepository
      * @param MembershipStatusNotificationRepository $membershipStatusNotificationRepository
      * @param MetaRepository                         $metaRepository
@@ -45,39 +57,55 @@ class MembershipAuditJob implements ShouldQueue
      * @return void
      */
     public function handle(
+        AccountRepository $accountRepository,
         BankTransactionRepository $bankTransactionRepository,
         MembershipStatusNotificationRepository $membershipStatusNotificationRepository,
         MetaRepository $metaRepository,
         RoleRepository $roleRepository
     ) {
-        // get the latest transaction date for all accounts, store in $latestTransactionForAccounts
-        $bts = $bankTransactionRepository->findLatestTransactionForAllAccounts();
-        /*
-            Results data format
-            [int] => Carbon
-            [account_id] => transaction_date
-         */
-        $latestTransactionForAccounts = [];
-        foreach ($bts as $bt) {
-            $latestTransactionForAccounts[$bt[0]->getAccount()->getId()] = $bt['latestTransactionDate'];
+        // Get a fresh copy of the Account to audit
+        $account = $accountRepository->findOneById($this->accountId);
+
+        // get the latest transaction date for the account, store in $latestTransaction
+        $latestTransaction = $bankTransactionRepository->findLatestTransactionByAccount($account);
+
+        // since there is only one account to deal with we can pull out the transactionDate now
+        if (isset($latestTransaction)) {
+            $transactionDate = $latestTransaction->getTransactionDate();
+        } else {
+            $transactionDate = null;
         }
 
-        // need to grab a list of all members with current notifications
-        $outstandingNotifications = $membershipStatusNotificationRepository->findOutstandingNotifications();
+        // need to grab a list of all account->users with current notifications
         /*
             Results data format
             [user_id, ...]
         */
         $memberIdsForCurrentNotifications = [];
-        foreach ($outstandingNotifications as $membershipStatusNotification) {
-            $memberIdsForCurrentNotifications[] = $membershipStatusNotification->getUser()->getId();
+        foreach ($account->getUsers() as $user) {
+            $outstandingNotifications = $membershipStatusNotificationRepository->findByUser($user);
+            if (! empty($outstandingNotifications)) {
+                $memberIdsForCurrentNotifications[] = $user->getId();
+            }
         }
 
         // grab the users in each of the various role states we need to audit
-        $awatingMembers = $roleRepository->findOneByName(Role::MEMBER_PAYMENT)->getUsers();
-        $currentMembers = $roleRepository->findOneByName(Role::MEMBER_CURRENT)->getUsers();
-        $youngMembers = $roleRepository->findOneByName(Role::MEMBER_YOUNG)->getUsers();
-        $exMembers = $roleRepository->findOneByName(Role::MEMBER_EX)->getUsers();
+        // filter the account->users into their current role states
+        $awatingMembers = [];
+        $currentMembers = [];
+        $youngMembers = [];
+        $exMembers = [];
+        foreach ($account->getUsers() as $user) {
+            if ($user->hasRoleByName(Role::MEMBER_PAYMENT)) {
+                $awatingMembers[] = $user;
+            } elseif ($user->hasRoleByName(Role::MEMBER_CURRENT)) {
+                $currentMembers[] = $user;
+            } elseif ($user->hasRoleByName(Role::MEMBER_YOUNG)) {
+                $youngMembers[] = $user;
+            } elseif ($user->hasRoleByName(Role::MEMBER_EX)) {
+                $exMembers[] = $user;
+            }
+        }
 
         // now we have the data we need from the DB setup some working vars
         $approveUsers = [];
@@ -99,12 +127,6 @@ class MembershipAuditJob implements ShouldQueue
         );
 
         foreach ($awatingMembers as $user) {
-            if (isset($latestTransactionForAccounts[$user->getAccount()->getId()])) {
-                $transactionDate = $latestTransactionForAccounts[$user->getAccount()->getId()];
-            } else {
-                $transactionDate = null;
-            }
-
             if ($transactionDate === null) {
                 continue; // not paid us yet nothing to do here
             } elseif ($transactionDate > $revokeDate) { // transaction date is newer than revoke date
@@ -117,12 +139,6 @@ class MembershipAuditJob implements ShouldQueue
         }
 
         foreach ($currentMembers as $user) {
-            if (isset($latestTransactionForAccounts[$user->getAccount()->getId()])) {
-                $transactionDate = $latestTransactionForAccounts[$user->getAccount()->getId()];
-            } else {
-                $transactionDate = null;
-            }
-
             if ($transactionDate === null) {
                 // current member that has never paid us?
                 // tell the admins
@@ -148,12 +164,6 @@ class MembershipAuditJob implements ShouldQueue
         }
 
         foreach ($youngMembers as $user) {
-            if (isset($latestTransactionForAccounts[$user->getAccount()->getId()])) {
-                $transactionDate = $latestTransactionForAccounts[$user->getAccount()->getId()];
-            } else {
-                $transactionDate = null;
-            }
-
             if ($transactionDate === null) {
                 // current member that has never paid us?
                 // tell the admins
@@ -179,12 +189,6 @@ class MembershipAuditJob implements ShouldQueue
         }
 
         foreach ($exMembers as $user) {
-            if (isset($latestTransactionForAccounts[$user->getAccount()->getId()])) {
-                $transactionDate = $latestTransactionForAccounts[$user->getAccount()->getId()];
-            } else {
-                $transactionDate = null;
-            }
-
             if ($transactionDate > $revokeDate) { // transaction date is newer than revoke date
                 // reinstate member
                 $reinstateUsers[] = $user;
@@ -233,12 +237,20 @@ class MembershipAuditJob implements ShouldQueue
         }
 
         // need to delay the results processing to make sure NewMembershipPaidFor events have been processed and new users have pins, using a job to help with the delay
-        AuditResultJob::dispatch(
-            $approveUsers,
-            $warnUsers,
-            $revokeUsers,
-            $reinstateUsers,
-            count($notificationPaymentUsers)
-        )->delay(now()->addMinutes(1));
+        // only send out audit resutls if somehting changed
+        if (! (empty($approveUsers) &&
+            empty($warnUsers) &&
+            empty($revokeUsers) &&
+            empty($reinstateUsers) &&
+            empty($notificationPaymentUsers))
+        ) {
+            AuditResultJob::dispatch(
+                $approveUsers,
+                $warnUsers,
+                $revokeUsers,
+                $reinstateUsers,
+                count($notificationPaymentUsers)
+            )->delay(now()->addMinutes(1));
+        }
     }
 }

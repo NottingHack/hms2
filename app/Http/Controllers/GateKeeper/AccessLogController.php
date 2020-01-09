@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use HMS\Entities\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use HMS\Entities\GateKeeper\AccessLog;
 use HMS\Repositories\GateKeeper\AccessLogRepository;
 
 class AccessLogController extends Controller

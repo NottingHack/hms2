@@ -67,7 +67,7 @@ class CheckInController extends Controller
     }
 
     /**
-     * Helper to get meeting couts to be sent as json
+     * Helper to get meeting couts to be sent as json.
      *
      * @param Meeting $meeting
      *

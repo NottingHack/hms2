@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
+use App\Jobs\Banking\AccountAuditJob;
 use HMS\User\Permissions\RoleManager;
 use App\Mail\MembershipDetailsApproved;
 use App\Mail\MembershipDetailsRejected;
@@ -203,7 +204,7 @@ class MembershipController extends Controller
         \Mail::to($user)->send(new MembershipDetailsApproved($user, $this->metaRepository, $this->bankRepository));
 
         if (! $request['new-account']) {
-            // TODO: fire event to do the audit steps needed if this has been linked to a active account
+            AccountAuditJob::dispatch($account);
         }
 
         // TODO: if Role::MEMBER_APPROVAL users count is now 0 notify membship slack

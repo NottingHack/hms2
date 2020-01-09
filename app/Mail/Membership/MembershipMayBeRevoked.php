@@ -46,6 +46,11 @@ class MembershipMayBeRevoked extends Mailable implements ShouldQueue
     public $snackspaceBalance;
 
     /**
+     * @var string
+     */
+    public $snackspaceRef;
+
+    /**
      * Create a new message instance.
      *
      * @param User $user
@@ -66,6 +71,9 @@ class MembershipMayBeRevoked extends Mailable implements ShouldQueue
         $this->paymentRef = $user->getAccount()->getPaymentRef();
         $this->boxCount = $boxRepository->countInUseByUser($user);
         $this->snackspaceBalance = $user->getProfile()->getBalance();
+        $snackspaceRef = 'SNACK-EX' . $user->getId()
+            . $user->getFirstname()[0] . $user->getLastname()[0];
+        $this->snackspaceRef = preg_replace('/[^-a-zA-Z0-9]/', '', $snackspaceRef);
     }
 
     /**

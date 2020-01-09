@@ -46,6 +46,12 @@ class BookingCancelled implements ShouldBroadcast
         return new Channel('tools.' . $this->tool->getId() . '.bookings');
     }
 
+
+    /**
+     * Get the data that should be sent with the broadcasted event.
+     *
+     * @return array
+     */
     public function broadcastWith()
     {
         return [

@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use HMS\Entities\Governance\Meeting;
 use HMS\Repositories\RoleRepository;
+use HMS\Repositories\UserRepository;
 use App\Events\Governance\ProxyCheckedIn;
 use HMS\Entities\GateKeeper\RfidTagState;
+use App\Events\Governance\AttendeeCheckIn;
 use HMS\Repositories\Governance\ProxyRepository;
 use HMS\Repositories\GateKeeper\RfidTagRepository;
 use HMS\Repositories\Governance\MeetingRepository;
@@ -36,6 +38,11 @@ class CheckInController extends Controller
     protected $roleRepository;
 
     /**
+     * @var UserRepository
+     */
+    protected $userRepository;
+
+    /**
      * Constructor.
      *
      * @param MeetingRepository $meetingRepository
@@ -47,14 +54,25 @@ class CheckInController extends Controller
         MeetingRepository $meetingRepository,
         RfidTagRepository $rfidTagRepository,
         ProxyRepository $proxyRepository,
-        RoleRepository $roleRepository
+        RoleRepository $roleRepository,
+        UserRepository $userRepository
     ) {
         $this->meetingRepository = $meetingRepository;
         $this->rfidTagRepository = $rfidTagRepository;
         $this->proxyRepository = $proxyRepository;
         $this->roleRepository = $roleRepository;
+        $this->userRepository = $userRepository;
+
+        $this->middleware('can:governance.meeting.checkIn')->only(['checkInUser']);
     }
 
+    /**
+     * Helper to get meeting couts to be sent as json
+     *
+     * @param Meeting $meeting
+     *
+     * @return array
+     */
     public function perpMeetingData(Meeting $meeting)
     {
         $representedProxies = $this->proxyRepository->countRepresentedForMeeting($meeting);
@@ -116,6 +134,67 @@ class CheckInController extends Controller
     }
 
     /**
+     * Check-in a user into a specified meeting.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param Meeting $meeting
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function checkInUser(Request $request, Meeting $meeting)
+    {
+        if ($meeting->getStartTime()->copy()->endOfDay()->isPast()) {
+            flash('Can not Check-in to a meeting in the past')->success();
+
+            return redirect()->route('governance.meetings.show', ['meeting' => $meeting->getId()]);
+        }
+
+        $validatedData = $request->validate([
+            'user_id' => [
+                'required',
+                'exists:HMS\Entities\User,id',
+            ],
+        ]);
+
+        $user = $this->userRepository->findOneById($validatedData['user_id']);
+
+        if ($user->cannot('governance.voting.canVote')) {
+            $memberStatus = $this->roleRepository->findMemberStatusForUser($user);
+            $message = 'Is not allowed to vote. Status: ' . $memberStatus->getDisplayName();
+        } elseif ($meeting->getAttendees()->contains($user)) {
+            $message = 'Already Checked-in';
+        } else {
+            $meeting->getAttendees()->add($user);
+            $this->meetingRepository->save($meeting);
+            $message = 'Checked-in';
+
+            // If this user has designated a proxy, remove it since they are now present
+            $_proxy = $this->proxyRepository->findOneByPrincipal($meeting, $user);
+            if ($_proxy) {
+                $proxy = $_proxy->getProxy(); // the User
+                $this->proxyRepository->remove($_proxy);
+                event(new ProxyCheckedIn($meeting, $user, $proxy));
+                $message .= ', Proxy Cancelled';
+            }
+
+            // If this user has communicated their absence, remove it since they are now present
+            if ($meeting->getAbsentees()->contains($user)) {
+                $meeting->getAbsentees()->remove($_proxy);
+            }
+
+            event(new AttendeeCheckIn($meeting, $user, $message));
+        }
+
+        $data = $this->perpMeetingData($meeting);
+        $data['checkInUser'] = [
+            'name' => $user->getFullname(),
+            'message' => $message,
+        ];
+
+        return response()->json($data);
+    }
+
+    /**
      * Check-in a user into a specified meeting using an RfidTag.
      *
      * @param \Illuminate\Http\Request $request
@@ -125,7 +204,7 @@ class CheckInController extends Controller
      */
     public function checkInUserByRFID(Request $request, Meeting $meeting)
     {
-        if ($meeting->getStartTime()->endOfDay()->isPast()) {
+        if ($meeting->getStartTime()->copy()->endOfDay()->isPast()) {
             $data = [
                 'errors' => [
                     [
@@ -183,7 +262,6 @@ class CheckInController extends Controller
         } else {
             $meeting->getAttendees()->add($user);
             $this->meetingRepository->save($meeting);
-
             $message = 'Checked-in';
 
             // If this user has designated a proxy, remove it since they are now present
@@ -199,6 +277,8 @@ class CheckInController extends Controller
             if ($meeting->getAbsentees()->contains($user)) {
                 $meeting->getAbsentees()->remove($_proxy);
             }
+
+            event(new AttendeeCheckIn($meeting, $user, $message));
         }
 
         $data = $this->perpMeetingData($meeting);

@@ -46,7 +46,7 @@
             @can('governance.meeting.edit')
             <a href="{{ route('governance.meetings.edit', $meeting->getId()) }}" class="btn btn-primary btn-sm mb-1"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
             @endcan
-            @if ($meeting->getStartTime()->isFuture())
+            @if ($meeting->getStartTime()->isFuture() || $meeting->getStartTime()->isToday())
             @can('governance.meeting.checkIn')
             <br>
             <a  href="{{ route('governance.meetings.check-in', $meeting->getId()) }}" class="btn btn-primary btn-sm mb-1"><i class="fas fa-user-check" aria-hidden="true"></i> Check-in</a>

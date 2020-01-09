@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use HMS\Entities\Governance\Meeting;
 use HMS\Repositories\UserRepository;
 use App\Events\Governance\ProxyCheckedIn;
+use App\Events\Governance\AttendeeCheckIn;
 use HMS\Factories\Governance\MeetingFactory;
 use HMS\Repositories\Governance\ProxyRepository;
 use HMS\Repositories\Governance\MeetingRepository;
@@ -172,7 +173,7 @@ class MeetingController extends Controller
     /**
      * View list of attendees for a Meeting.
      *
-     * @param  Meeting $meeting
+     * @param Meeting $meeting
      *
      * @return \Illuminate\Http\Response
      */
@@ -193,7 +194,7 @@ class MeetingController extends Controller
      */
     public function checkIn(Meeting $meeting)
     {
-        if ($meeting->getStartTime()->isPast()) {
+        if ($meeting->getStartTime()->copy()->endOfDay()->isPast()) {
             flash('Can not Check-in to a meeting in the past')->success();
 
             return redirect()->route('governance.meetings.show', ['meeting' => $meeting->getId()]);
@@ -218,7 +219,7 @@ class MeetingController extends Controller
      */
     public function checkInUser(Request $request, Meeting $meeting)
     {
-        if ($meeting->getStartTime()->isPast()) {
+        if ($meeting->getStartTime()->copy()->endOfDay()->isPast()) {
             flash('Can not Check-in to a meeting in the past')->success();
 
             return redirect()->route('governance.meetings.show', ['meeting' => $meeting->getId()]);
@@ -235,7 +236,8 @@ class MeetingController extends Controller
 
         if ($user->cannot('governance.voting.canVote')) {
             $memberStatus = $this->roleRepository->findMemberStatusForUser($user);
-            flash($user->getFullname() . ' is not allowed to vote. Status: ' . $memberStatus->getDisplayName())->warning();
+            flash($user->getFullname() . ' is not allowed to vote. Status: ' . $memberStatus->getDisplayName())
+                ->warning();
         } elseif ($meeting->getAttendees()->contains($user)) {
             flash($user->getFullname() . ' already Checked-in.');
         } else {
@@ -257,6 +259,8 @@ class MeetingController extends Controller
             if ($meeting->getAbsentees()->contains($user)) {
                 $meeting->getAbsentees()->remove($_proxy);
             }
+
+            event(new AttendeeCheckIn($meeting, $user, 'Checked-in'));
         }
 
         return redirect()->route('governance.meetings.check-in', ['meeting' => $meeting->getId()]);
@@ -265,7 +269,7 @@ class MeetingController extends Controller
     /**
      * View list of absentees for a Meeting.
      *
-     * @param  Meeting $meeting
+     * @param Meeting $meeting
      *
      * @return \Illuminate\Http\Response
      */
@@ -323,7 +327,8 @@ class MeetingController extends Controller
 
         if ($user->cannot('governance.voting.canVote')) {
             $memberStatus = $this->roleRepository->findMemberStatusForUser($user);
-            flash($user->getFullname() . ' is not allowed to vote. Status: ' . $memberStatus->getDisplayName())->warning();
+            flash($user->getFullname() . ' is not allowed to vote. Status: ' . $memberStatus->getDisplayName())
+                ->warning();
         } elseif ($meeting->getAbsentees()->contains($user)) {
             flash($user->getFullname() . ' already recorded absent.');
         } else {

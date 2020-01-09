@@ -10,7 +10,7 @@ Absentees for {{ $meeting->getTitle() }}
     The following members have comunicated their Absence.
   </p>
   @can('governance.meeting.recordAbsence')
-  @if ($meeting->getStartTime()->isFuture())
+  @if ($meeting->getStartTime()->isFuture() || $meeting->getStartTime()->isToday())
   <a  href="{{ route('governance.meetings.absence', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-user-times" aria-hidden="true"></i> Record Absence</a><br>
   @endif
   @endcan

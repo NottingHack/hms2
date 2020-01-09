@@ -104,6 +104,10 @@
     }, // end of computed
 
     methods: {
+      clear() {
+        this.value = ''
+      },
+
       myChangeEvent(val) {
         // console.log(val);
         this.$emit('change', val);

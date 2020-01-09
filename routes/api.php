@@ -52,11 +52,19 @@ Route::name('api.')->group(function () {
 
         // Tools
         Route::apiResource('tools/{tool}/bookings', 'Api\Tools\BookingController');
+        Route::namespace('Api\Governance')->prefix('governance')->name('governance.')->group(function () {
+            // Meeting
+            Route::get('meetings/{meeting}', 'CheckInController@show')
+                ->middleware('can:governance.meeting.view')
+                ->name('meetings.show');
+            Route::post('meetings/{meeting}/check-in', 'CheckInController@checkInUser')
+            ->name('meetings.check-in-user');
+        });
     });
 });
 
 // All 'client_credentials' api route names are prefixed with client.
-Route::name('client.')->middleware('client')->group(function () {
+Route::name('client.')->prefix('cc')->middleware('client')->group(function () {
     // upload new bankTransactions/
     Route::post('bank-transactions/upload', 'Api\Banking\TransactionUploadController@upload')
         ->name('bankTransactions.upload');
@@ -64,9 +72,10 @@ Route::name('client.')->middleware('client')->group(function () {
     // Governance
     Route::namespace('Api\Governance')->prefix('governance')->name('governance.')->group(function () {
         // Meeting
-        Route::get('meeting/next', 'CheckInController@next')->name('meeting.next');
-        Route::get('meeting/{meeting}', 'CheckInController@show')->name('meeting.show');
-        Route::post('meeting/{meeting}/checkInRfid', 'CheckInController@checkInUserByRFID')->name('meeting.check-in-rfid');
+        Route::get('meetings/next', 'CheckInController@next')->name('meetings.next');
+        Route::get('meetings/{meeting}', 'CheckInController@show')->name('meetings.show');
+        Route::post('meetings/{meeting}/check-in-rfid', 'CheckInController@checkInUserByRFID')
+            ->name('meetings.check-in-rfid');
     });
 });
 

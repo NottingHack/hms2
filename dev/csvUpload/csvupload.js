@@ -85,7 +85,7 @@ function uplaodJsonTransactions(transactions)
   );
   instance.defaults.headers.common['Accept'] = 'application/json';
 
-  instance.post('https://hmsdev/api/bank-transactions/upload', transactions)
+  instance.post('https://hmsdev/api/cc/bank-transactions/upload', transactions)
   .then(function (response) {
     console.log('Transactions Uploaded');
     // console.log(response);

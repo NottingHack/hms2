@@ -20,7 +20,7 @@ class DoctrineMeetingRepository extends EntityRepository implements MeetingRepos
      */
     public function findNext()
     {
-        $now = Carbon::now();
+        $now = Carbon::now()->startOfDay();
 
         $expr = Criteria::expr();
         $criteria = Criteria::create()

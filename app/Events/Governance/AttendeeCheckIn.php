@@ -6,8 +6,6 @@ use HMS\Entities\User;
 use HMS\Entities\Governance\Meeting;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use HMS\Repositories\Governance\ProxyRepository;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -53,7 +51,6 @@ class AttendeeCheckIn implements ShouldBroadcast
     {
         return new Channel('meetings.' . $this->meeting->getID() . '.attendeeCheckIn');
     }
-
 
     /**
      * Get the data that should be sent with the broadcasted event.

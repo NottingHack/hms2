@@ -41,7 +41,7 @@ class DoctrineTransactionRepository extends EntityRepository implements Transact
         $results = collect($q->getResult());
         $results = $results->mapWithKeys(function ($row) {
             return [
-                $row['type'] => $row['amount']
+                $row['type'] => $row['amount'],
             ];
         });
 

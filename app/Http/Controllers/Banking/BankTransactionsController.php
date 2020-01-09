@@ -7,6 +7,7 @@ use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\UserRepository;
+use App\Jobs\Banking\AccountAuditJob;
 use HMS\Entities\Banking\BankTransaction;
 use HMS\Entities\Snackspace\TransactionType;
 use HMS\Repositories\Banking\BankRepository;
@@ -182,6 +183,12 @@ class BankTransactionsController extends Controller
         }
 
         $this->bankTransactionRepository->save($bankTransaction);
+
+        // run audit job now the bankTransaction has been saved
+        if ($validatedData['action'] == 'membership') {
+            AccountAuditJob::dispatch($user->getAccount());
+        }
+
         flash('Transaction updated')->success();
 
         return redirect()->route('bank-transactions.unmatched');

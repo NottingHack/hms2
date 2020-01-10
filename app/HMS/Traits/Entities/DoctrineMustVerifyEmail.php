@@ -66,4 +66,14 @@ trait DoctrineMustVerifyEmail
 
         return $this;
     }
+
+    /**
+     * Get the email address that should be used for verification.
+     *
+     * @return string
+     */
+    public function getEmailForVerification()
+    {
+        return $this->email;
+    }
 }

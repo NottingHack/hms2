@@ -92,10 +92,10 @@ class MembershipAuditJob implements ShouldQueue
         $dateNow = Carbon::now();
         $dateNow->setTime(0, 0, 0);
         $warnDate = clone $dateNow;
-        $warnDate->sub(CarbonInterval::instance(new \DateInterval($metaRepository->get('audit_warn_interval'))));
+        $warnDate->sub(CarbonInterval::instance(new \DateInterval($metaRepository->get('audit_warn_interval', 'P1M14D'))));
         $revokeDate = clone $dateNow;
         $revokeDate->sub(
-            CarbonInterval::instance(new \DateInterval($metaRepository->get('audit_revoke_interval')))
+            CarbonInterval::instance(new \DateInterval($metaRepository->get('audit_revoke_interval', 'P2M')))
         );
 
         foreach ($awatingMembers as $user) {

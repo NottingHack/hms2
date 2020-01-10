@@ -3,6 +3,7 @@
 namespace HMS\Entities;
 
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use HMS\Traits\Entities\Timestampable;
 use LaravelDoctrine\ORM\Notifications\Notifiable;
 
@@ -37,7 +38,7 @@ class Invite
     {
         $this->email = $email;
         $now = Carbon::now();
-        $this->inviteToken = hash_hmac('sha256', str_random(40) . (string) $now, config('app.key'));
+        $this->inviteToken = hash_hmac('sha256', Str::random(40) . (string) $now, config('app.key'));
         $this->setCreatedAt($now);
         $this->setUpdatedAt($now);
 

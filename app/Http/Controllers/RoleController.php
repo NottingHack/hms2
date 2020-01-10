@@ -346,7 +346,7 @@ class RoleController extends Controller
 
         $revokeDate = Carbon::now();
         $revokeDate->sub(
-            CarbonInterval::instance(new \DateInterval($this->metaRepository->get('audit_revoke_interval')))
+            CarbonInterval::instance(new \DateInterval($this->metaRepository->get('audit_revoke_interval', 'P2M')))
         );
 
         if ($transactionDate > $revokeDate) {

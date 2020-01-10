@@ -6,6 +6,12 @@ Your details have now been approved by the Membership Team.
 
 The next step in setting up your hackspace membership is for you to set up a bank standing order to Nottingham Hackspace using the details below.
 
+As explained on your tour around the Hackspace, we have a "Pay what you think the space is worth to you" system. We are entirely member funded and rely almost exclusively on membership contributions to keep the Hackspace open. <br>
+We recommend, if you are planning on using the space semi-regularly, that £15 is a fair monthly membership contribution.
+
+From time to time all membership contributions will be reviewed and members may be asked to increase their contribution. <br>
+Read more about the rules governing membership here: [Membership of the Hackspace](https://rules.nottinghack.org.uk/en/latest/membership-of-the-hackspace.html)
+
 **Please note it is very important that you use the reference code exactly as provided.**
 
 @component('mail::panel')

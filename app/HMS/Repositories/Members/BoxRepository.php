@@ -45,6 +45,16 @@ interface BoxRepository
     public function countInUseByUser(User $user);
 
     /**
+     * Paginate any boxes that are marked INUSE but owned by an Ex member.
+     *
+     * @param int $perPage
+     * @param string $pageName
+     *
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function paginateInUseByExMember($perPage = 15, $pageName = 'page');
+
+    /**
      * @param User $user
      * @param int $perPage
      * @param string $pageName

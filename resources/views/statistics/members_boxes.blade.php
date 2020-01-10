@@ -30,7 +30,9 @@
       <th>Total Boxes:</th>
       <td>{{ $total }}</td><td>Total number of boxes registers in HMS.</td>
     </tr>
-
   </table>
+  @can('box.view.all')
+  <a  href="{{ route('boxes.audit') }}" class="btn btn-primary btn-block"><i class="fas fa-clipboard-check" aria-hidden="true"></i> Audit Boxes</a><br>
+  @endcan
 </div>
 @endsection

@@ -2,6 +2,7 @@
 
 namespace HMS\Repositories\Members\Doctrine;
 
+use HMS\Entities\Role;
 use HMS\Entities\User;
 use HMS\Entities\Members\Box;
 use Doctrine\ORM\EntityRepository;
@@ -63,6 +64,29 @@ class DoctrineBoxRepository extends EntityRepository implements BoxRepository
     public function countInUseByUser(User $user)
     {
         return parent::count(['user' => $user, 'state' => BoxState::INUSE]);
+    }
+
+    /**
+     * Paginate any boxes that are marked INUSE but owned by an Ex member.
+     *
+     * @param int $perPage
+     * @param string $pageName
+     *
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function paginateInUseByExMember($perPage = 15, $pageName = 'page')
+    {
+        $q = parent::createQueryBuilder('box')
+            ->leftJoin('box.user', 'user')->addSelect('user')
+            ->leftJoin('user.roles', 'role')
+            ->where('box.state = :state')
+            ->andWhere('role.name = :role_name');
+
+        $q = $q->setParameter('state', BoxState::INUSE)
+            ->setParameter('role_name', Role::MEMBER_EX)
+            ->getQuery();
+
+        return $this->paginate($q, $perPage, $pageName);
     }
 
     /**

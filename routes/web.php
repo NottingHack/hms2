@@ -187,6 +187,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('memberProjects/view/{project}', 'Members\ProjectController@show');
 
     // Members Boxes and labels
+    Route::get('boxes/audit', 'Members\BoxController@audit')->name('boxes.audit');
     Route::get('users/{user}/boxes', 'Members\BoxController@index')->name('users.boxes');
     Route::get('users/{user}/boxes/issue', 'Members\BoxController@issue')->name('users.boxes.issue');
     Route::patch('boxes/{box}/markInUse', 'Members\BoxController@markInUse')->name('boxes.markInUse');

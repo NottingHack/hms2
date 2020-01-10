@@ -100,6 +100,7 @@ class BoxController extends Controller
         $this->middleware('can:box.issue.all')->only(['issue']);
         $this->middleware('can:box.edit.self')->only(['markInUse', 'markAbandoned', 'markRemoved']);
         $this->middleware('can:box.printLabel.self')->only(['printLabel']);
+        $this->middleware('can:box.view.all')->only(['audit']);
     }
 
     /**
@@ -424,5 +425,18 @@ class BoxController extends Controller
         flash('Box marked removed.')->success();
 
         return back();
+    }
+
+    /**
+     * View any boxes that are makred INUSE but owned by an Ex member.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function audit()
+    {
+        $boxes = $this->boxRepository->paginateInUseByExMember();
+
+        return view('members.box.audit')
+            ->with('boxes', $boxes);
     }
 }

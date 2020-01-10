@@ -33,7 +33,7 @@
         </tr>
         <tr>
           <th>Join Date:</th>
-          <td>@if (user->getProfile()->getJoinDate()){{ $user->getProfile()->getJoinDate()->toDateString() }}@endif</td>
+          <td>@if ($user->getProfile()->getJoinDate()){{ $user->getProfile()->getJoinDate()->toDateString() }}@endif</td>
         </tr>
         <tr>
           <th>Address 1:</th>
@@ -68,7 +68,7 @@
     </table>
   </div>
 
-  @if (user->hasRoleByName(HMS\Entities\Role::MEMBER_APPROVAL))
+  @if ($user->hasRoleByName(HMS\Entities\Role::MEMBER_APPROVAL))
   <a href="{{ route('membership.edit', Auth::user()->getId()) }}" class="btn btn-primary btn-block" >Update Details</a>
   @elseif (($user == Auth::user() && Auth::user()->can('profile.edit.self')) || ($user->getId() != Auth::user()->getId() && Auth::user()->can('profile.edit.all')))
   <a href="{{ route('users.edit', $user->getID()) }}" class="btn btn-info btn-block"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>

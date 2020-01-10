@@ -30,7 +30,7 @@
             @endif
           @endforeach
           </td>
-          <td class="actions"><a class="btn btn-primary" href="{{ route('banking.accounts.show', $jointAccount->getId()) }}"><i class="fas fa-eye" aria-hidden="true"></i> View</a></td>
+          <td class="actions"><a class="btn btn-primary" href="{{ route('banking.accounts.show', ['account' => $jointAccount->getId()]) }}"><i class="fas fa-eye" aria-hidden="true"></i> View</a></td>
         </tr>
         @endforeach
       </tbody>
@@ -42,6 +42,6 @@
   </div>
   <hr>
   <p>Search for an account to view</p>
-  <member-search action="{{ route('banking.accounts.show', ['user' => '_ID_']) }}" placeholder="Search for an Account..." :with-account="true" :return-account-id="true"></member-search>
+  <member-search action="{{ route('banking.accounts.show', ['account' => '_ID_']) }}" placeholder="Search for an Account..." :with-account="true" :return-account-id="true"></member-search>
 </div>
 @endsection

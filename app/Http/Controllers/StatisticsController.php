@@ -192,7 +192,17 @@ class StatisticsController extends Controller
     {
         $zones = $this->zoneRepository->findAll();
 
+        $resetPeriod = new \DateInterval($this->metaRepository->get('zone_occupant_reset_interval', 'P1D'));
+
+        $days = $resetPeriod->format('%d');
+        $hours = 0;
+        if ($days) {
+            $hours += 24 * $days;
+        }
+        $hours += $resetPeriod->format('%H');
+
         return view('statistics.zone_occupants')
+            ->with('resetHours', $hours)
             ->with('zones', $zones);
     }
 

@@ -36,15 +36,14 @@
       <th>Anytime:</th>
       <td>{{ $memberStats->anytime }}</td><td>({{ round($memberStats->anytime / $memberStats->total_current_members * 100, 0) }}% of total membership)</td>
     </tr>
-    <tr>
+    <tr class="table-success">
       <th>Total Current Members:</th>
       <td>{{ $memberStats->total_current_members }}</td>
       <td></td>
     </tr>
     <tr>
       <th>Voting Members:</th>
-      <td>{{ $votingMembers }}</td>
-      <td></td>
+      <td>{{ $votingMembers }}</td><td>({{ round($votingMembers / $memberStats->total_current_members * 100, 0) }}% of total membership)</td>
     </tr>
   </table>
 </div>

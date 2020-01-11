@@ -15,7 +15,8 @@ return [
     |--------------------------------------------------------------------------
     */
     'passport_token_expire_days' => env('PASSPORT_TOKEN_EXPIRE_DAYS', 15),
-    'passport_refresh_token_expire_days' =>env('PASSPORT_REFRESH_TOKEN_EXPIRE_DAYS', 30),
+    'passport_refresh_token_expire_days' => env('PASSPORT_REFRESH_TOKEN_EXPIRE_DAYS', 30),
+    'passport_personal_access_token_expire_days' => env('PASSPORT_PERSONAL_ACCESS_TOKEN_EXPIRE_DAYS', 15),
 
     /*
     |--------------------------------------------------------------------------

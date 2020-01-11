@@ -46,6 +46,7 @@ class Kernel extends ConsoleKernel
                 ->weekly();
 
         $schedule->command('horizon:snapshot')->everyFiveMinutes();
+        $schedule->command('passport:purge')->daily();
 
         $schedule->job(new LogDebtJob)->daily();
         $schedule->job(new ZoneOccupantResetJob)->twiceDaily();

@@ -47,6 +47,26 @@ class DoctrineInviteRepository extends EntityRepository implements InviteReposit
     }
 
     /**
+     * @param Carbon $start
+     * @param Carbon $end
+     *
+     * @return Invite[]
+     */
+    public function findCreatedBetween(Carbon $start, Carbon $end)
+    {
+        $q = parent::createQueryBuilder('invite');
+
+        $q = $q->where($q->expr()->between('invite.createdAt', ':start', ':end'))
+            ->orWhere($q->expr()->between('invite.createdAt', ':start', ':end'));
+
+        $q = $q->setParameter('start', $start)
+            ->setParameter('end', $end)
+            ->getQuery();
+
+        return $q->getResult();
+    }
+
+    /**
      * Find an invite by partial email.
      *
      * @param string $searchQuery

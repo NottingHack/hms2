@@ -46,5 +46,42 @@
       <td>{{ $votingMembers }}</td><td>({{ round($votingMembers / $memberStats->total_current_members * 100, 0) }}% of total membership)</td>
     </tr>
   </table>
+  <h3>Conversions</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="w-15"></th>
+        <th class="w-10">Last 7 days</th>
+        <th class="w-10">Last month</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>Invites Sent</th>
+        <td>{{ $invitesSentLastWeek }}</td>
+        <td>{{ $invitesSentLastMonth }}</td>
+        <td>People that have registered their interest in joining the space in the last week/month.</td>
+      </tr>
+      <tr>
+        <th>Invites Outstanding</th>
+        <td>{{ $invitesOutstandingLastWeek }}</td>
+        <td>{{ $invitesOutstandingLastMonth }}</td>
+        <td>Interests there where registered in the last week/month but have not yet created a HMS account.</td>
+      </tr>
+      <tr>
+        <th>Awaiting Payment</th>
+        <td>{{ $awaitingPaymentLastWeek }}</td>
+        <td>{{ $awaitingPaymentLastMonth }}</td>
+        <td>Members that have been thought the membership sign up process in the last week/month, but payment has not yet arrived. There interest could have been registered any time.</td>
+      </tr>
+      <tr>
+        <th>New Members</th>
+        <td>{{ $newMembersLastWeek }}</td>
+        <td>{{ $newMembersLastMonth }}</td>
+        <td>First payment arrived in the last week/month. Note this could be from someone that had got to previous stage at any time.</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 @endsection

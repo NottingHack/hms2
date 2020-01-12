@@ -10,7 +10,10 @@ use HMS\Views\SnackspaceMonthly;
 use HMS\Governance\VotingManager;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
+use HMS\Repositories\EmailRepository;
 use Illuminate\Support\Facades\Cache;
+use HMS\Repositories\InviteRepository;
+use HMS\Repositories\RoleUpdateRepository;
 use HMS\Repositories\Tools\ToolRepository;
 use HMS\Repositories\Members\BoxRepository;
 use HMS\Repositories\Tools\UsageRepository;
@@ -60,6 +63,21 @@ class StatisticsController extends Controller
     protected $usageRepository;
 
     /**
+     * @var EmailRepository
+     */
+    protected $emailRepository;
+
+    /**
+     * @var InviteRepository
+     */
+    protected $inviteRepository;
+
+    /**
+     * @var RoleUpdateRepository
+     */
+    protected $roleUpdateRepository;
+
+    /**
      * Create a new controller instance.
      *
      * @param ZoneRepository $zoneRepository
@@ -70,6 +88,9 @@ class StatisticsController extends Controller
      * @param RoleRepository $roleRepository
      * @param BookingRepository $bookingRepository
      * @param UsageRepository $usageRepository
+     * @param EmailRepository $emailRepository
+     * @param InviteRepository $inviteRepository
+     * @param RoleUpdateRepository $roleUpdateRepository
      */
     public function __construct(
         ZoneRepository $zoneRepository,
@@ -79,7 +100,10 @@ class StatisticsController extends Controller
         ToolRepository $toolRepository,
         RoleRepository $roleRepository,
         BookingRepository $bookingRepository,
-        UsageRepository $usageRepository
+        UsageRepository $usageRepository,
+        EmailRepository $emailRepository,
+        InviteRepository $inviteRepository,
+        RoleUpdateRepository $roleUpdateRepository
     ) {
         $this->zoneRepository = $zoneRepository;
         $this->boxRepository = $boxRepository;
@@ -89,6 +113,9 @@ class StatisticsController extends Controller
         $this->roleRepository = $roleRepository;
         $this->bookingRepository = $bookingRepository;
         $this->usageRepository = $usageRepository;
+        $this->emailRepository = $emailRepository;
+        $this->inviteRepository = $inviteRepository;
+        $this->roleUpdateRepository = $roleUpdateRepository;
     }
 
     /**
@@ -154,9 +181,14 @@ class StatisticsController extends Controller
 
         $votingMembers = $this->votingManager->countVotingMembers();
 
+        $memberConversionStats = Cache::remember('statistics.membershipConversion', 86400, function () {
+            return $this->membershipConversionStats();
+        });
+
         return view('statistics.member_stats')
             ->with('memberStats', $memberStats)
-            ->with('votingMembers', $votingMembers);
+            ->with('votingMembers', $votingMembers)
+            ->with($memberConversionStats);
     }
 
     /**
@@ -312,5 +344,67 @@ class StatisticsController extends Controller
         }
 
         return sprintf('%02d:%02d:%02d', ($seconds / 3600), ($seconds / 60 % 60), $seconds % 60);
+    }
+
+    protected function membershipConversionStats()
+    {
+        $monthAgo = Carbon::now()->subMonth();
+        $weekAgo = Carbon::now()->subWeek();
+
+
+        $ism = $this->emailRepository->countSentAfterWithSubject(
+            $monthAgo,
+            'Nottingham Hackspace: Interest registered'
+        );
+        $isw = $this->emailRepository->countSentAfterWithSubject(
+            $weekAgo,
+            'Nottingham Hackspace: Interest registered'
+        );
+
+        $iom = $this->inviteRepository->findCreatedBetween($monthAgo, Carbon::now());
+        $iow = $this->inviteRepository->findCreatedBetween($weekAgo, Carbon::now());
+
+        $apr = $this->roleRepository->findOneByName(Role::MEMBER_PAYMENT);
+        $apu = $apr->getUsers();
+        $rur = $this->roleUpdateRepository;
+        $apm = $apu->filter(function ($user) use ($apr, $rur, $monthAgo) {
+            $ru = $rur->findLatestRoleAddedByUser($apr, $user);
+
+            return $ru->getCreatedAt()->isAfter($monthAgo);
+        });
+        $apw = $apu->filter(function ($user) use ($apr, $rur, $weekAgo) {
+            $ru = $rur->findLatestRoleAddedByUser($apr, $user);
+
+            return $ru->getCreatedAt()->isAfter($weekAgo);
+        });
+
+        $cmr = $this->roleRepository->findOneByName(Role::MEMBER_CURRENT);
+        $cmu = $cmr->getUsers();
+        $cmm = $cmu->filter(function ($user) use ($monthAgo) {
+            if (is_null($user->getProfile()->getJoinDate())) {
+                return false;
+            }
+            return $user->getProfile()->getJoinDate()->isAfter($monthAgo);
+        });
+        $cmw = $cmu->filter(function ($user) use ($weekAgo) {
+            if (is_null($user->getProfile()->getJoinDate())) {
+                return false;
+            }
+            return $user->getProfile()->getJoinDate()->isAfter($weekAgo);
+        });
+
+        return [
+            'invitesSentLastWeek' => $isw,
+            'invitesSentLastMonth' => $ism,
+
+            'invitesOutstandingLastWeek' => count($iow),
+            'invitesOutstandingLastMonth' => count($iom),
+
+            'awaitingPaymentLastWeek' => count($apw),
+            'awaitingPaymentLastMonth' => count($apm),
+
+            'newMembersLastWeek' => count($cmw),
+            'newMembersLastMonth' => count($cmm),
+        ];
     }
 }

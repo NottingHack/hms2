@@ -26,6 +26,14 @@ interface InviteRepository
     public function findOneByEmail($email);
 
     /**
+     * @param Carbon $start
+     * @param Carbon $end
+     *
+     * @return Invite[]
+     */
+    public function findCreatedBetween(Carbon $start, Carbon $end);
+
+    /**
      * Find an invite by partial email.
      *
      * @param string $searchQuery

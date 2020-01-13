@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Doctrine\ORM\EntityNotFoundException;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Response as IlluminateResponse;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -73,11 +74,49 @@ class Handler extends ExceptionHandler
     protected function unauthorized($request, AuthorizationException $exception)
     {
         if ($request->expectsJson()) {
-            return response()->json(['error' => 'Unauthorized.'], IlluminateResponse::HTTP_FORBIDDEN);
+            $data = [
+                'errors' => [
+                    [
+                        'status' => IlluminateResponse::HTTP_FORBIDDEN,
+                        'title'  => 'Unauthorized',
+                        'detail' => $exception->getMessage(),
+                    ],
+                ],
+            ];
+
+            return response()->json($data, IlluminateResponse::HTTP_FORBIDDEN);
         }
 
         flash('Unauthorized')->error();
 
         return redirect()->route('home');
+    }
+
+    /**
+     * Convert an authentication exception into a response.
+     * Overridden to give JSON API style error.
+     *
+     * @param \Illuminate\Http\Request  $request
+     * @param \Illuminate\Auth\AuthenticationException  $exception
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        if ($request->expectsJson()) {
+            $data = [
+                'errors' => [
+                    [
+                        'status' => IlluminateResponse::HTTP_UNAUTHORIZED,
+                        'title'  => 'Unauthenticated',
+                        'detail' => $exception->getMessage(),
+                    ],
+                ],
+            ];
+
+            return response()->json($data, IlluminateResponse::HTTP_UNAUTHORIZED);
+        }
+
+        return redirect()->guest($exception->redirectTo() ?? route('login'));
     }
 }

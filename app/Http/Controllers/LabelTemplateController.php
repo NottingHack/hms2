@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use HMS\Entities\LabelTemplate;
 use App\Events\Labels\ManualPrint;
 use HMS\Factories\LabelTemplateFactory;
-use App\Http\Requests\LabelTemplateRequest;
 use HMS\Repositories\LabelTemplateRepository;
 
 class LabelTemplateController extends Controller
@@ -61,7 +60,7 @@ class LabelTemplateController extends Controller
      */
     public function show(LabelTemplate $label)
     {
-        return view('labelTemplates.show')->with($label->toArray());
+        return view('labelTemplates.show')->with('label', $label);
     }
 
     /**
@@ -73,7 +72,7 @@ class LabelTemplateController extends Controller
     {
         $label = new LabelTemplate();
 
-        return view('labelTemplates.create')->with($label->toArray());
+        return view('labelTemplates.create')->with('label', $label);
     }
 
     /**
@@ -83,7 +82,7 @@ class LabelTemplateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(LabelTemplateRequest $request)
+    public function store(Request $request)
     {
         $label = $this->labelTemplateFactory->createFromRequest($request);
         $this->labelTemplateRepository->save($label);
@@ -101,7 +100,7 @@ class LabelTemplateController extends Controller
      */
     public function edit(LabelTemplate $label)
     {
-        return view('labelTemplates.edit')->with($label->toArray());
+        return view('labelTemplates.edit')->with('label', $label);
     }
 
     /**
@@ -112,9 +111,11 @@ class LabelTemplateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(LabelTemplateRequest $request, LabelTemplate $label)
+    public function update(Request $request, LabelTemplate $label)
     {
-        $label->updateWithRequest($request);
+        $label->setTemplateName($request['templateName']);
+        $label->setTemplate($request['template']);
+
         $this->labelTemplateRepository->save($label);
         flash()->success('Label Template \'' . $label->getTemplateName() . '\' updated.');
 
@@ -150,7 +151,7 @@ class LabelTemplateController extends Controller
         preg_match_all('/{{ ?\$(\w+) ?}}/', $label->getTemplate(), $matches);
 
         return view('labelTemplates.print')
-            ->with($label->toArray())
+            ->with('label', $label)
             ->with(['fields' => $matches[1]]);
     }
 

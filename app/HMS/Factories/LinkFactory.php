@@ -4,7 +4,7 @@ namespace HMS\Factories;
 
 use Carbon\Carbon;
 use HMS\Entities\Link;
-use App\Http\Requests\LinkRequest;
+use Illuminate\Http\Request;
 
 class LinkFactory
 {
@@ -31,13 +31,13 @@ class LinkFactory
     }
 
     /**
-     * Function to instantiate a new Link from a LinkRequest.
+     * Function to instantiate a new Link from a Request.
      *
-     * @param LinkRequest $request
+     * @param Request $request
      *
      * @return Link
      */
-    public function createFromRequest(LinkRequest $request)
+    public function createFromRequest(Request $request)
     {
         $_link = new Link();
         $_link->setName($request['name']);

@@ -3,8 +3,8 @@
 namespace HMS\Factories;
 
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use HMS\Entities\LabelTemplate;
-use App\Http\Requests\LabelTemplateRequest;
 
 class LabelTemplateFactory
 {
@@ -29,13 +29,13 @@ class LabelTemplateFactory
     }
 
     /**
-     * Function to instantiate a new LabelTemplate from a LabelTemplateRequest.
+     * Function to instantiate a new LabelTemplate from a Request.
      *
-     * @param LabelTemplateRequest $request
+     * @param Request $request
      *
      * @return LabelTemplate
      */
-    public function createFromRequest(LabelTemplateRequest $request)
+    public function createFromRequest(Request $request)
     {
         $_labelTemplate = new LabelTemplate();
         $_labelTemplate->setTemplateName($request['templateName']);

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use HMS\Entities\Link;
+use Illuminate\Http\Request;
 use HMS\Factories\LinkFactory;
-use App\Http\Requests\LinkRequest;
 use HMS\Repositories\LinkRepository;
 
 class LinksController extends Controller
@@ -55,7 +55,7 @@ class LinksController extends Controller
     {
         $link = new Link();
 
-        return view('links.create')->with($link->toArray());
+        return view('links.create')->with('link', $link);
     }
 
     /**
@@ -65,8 +65,13 @@ class LinksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(LinkRequest $request)
+    public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required|unique:HMS\Entities\Link',
+            'link' => 'required|url',
+        ]);
+
         $link = $this->linkFactory->createFromRequest($request);
         $this->linkRepository->save($link);
         flash()->success('Link \'' . $link->getName() . '\' created.');
@@ -83,7 +88,7 @@ class LinksController extends Controller
      */
     public function edit(Link $link)
     {
-        return view('links.edit')->with($link->toArray());
+        return view('links.edit')->with('link', $link);
     }
 
     /**
@@ -94,9 +99,17 @@ class LinksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(LinkRequest $request, Link $link)
+    public function update(Request $request, Link $link)
     {
-        $link->updateWithRequest($request);
+        $this->validate($request, [
+            'name' => 'required',
+            'link' => 'required|url',
+        ]);
+
+        $link->setName($request['name']);
+        $link->setLink($request['link']);
+        $link->setDescription($request['description']);
+
         $this->linkRepository->save($link);
         flash()->success('Link \'' . $link->getName() . '\' updated.');
 

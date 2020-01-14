@@ -1,6 +1,6 @@
 <div class="form-group">
   <label for="name" class="form-label">Name</label>
-  <input class="form-control" id="name" type="text" name="name" value="{{ old('name', $name) }}" required autofocus>
+  <input class="form-control" id="name" type="text" name="name" value="{{ old('name', $link->getName()) }}" required autofocus>
   @if ($errors->has('name'))
   <p class="help-text">
     <strong>{{ $errors->first('name') }}</strong>
@@ -10,7 +10,7 @@
 
 <div class="form-group">
   <label for="link" class="form-label">Link</label>
-  <input class="form-control" id="link" type="text" name="link" value="{{ old('link', $link) }}" required >
+  <input class="form-control" id="link" type="text" name="link" value="{{ old('link', $link->getLink()) }}" required >
   @if ($errors->has('link'))
   <p class="help-text">
     <strong>{{ $errors->first('link') }}</strong>
@@ -20,7 +20,7 @@
 
 <div class="form-group">
   <label for="description" class="form-label">Description</label>
-  <input class="form-control" id="description" type="text" name="description" value="{{ old('description', $description) }}" >
+  <input class="form-control" id="description" type="text" name="description" value="{{ old('description', $link->getDescription()) }}" >
   @if ($errors->has('description'))
   <p class="help-text">
     <strong>{{ $errors->first('description') }}</strong>

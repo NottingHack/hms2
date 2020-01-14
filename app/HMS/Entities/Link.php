@@ -2,15 +2,12 @@
 
 namespace HMS\Entities;
 
-use App\Http\Requests\LinkRequest;
-use HMS\Traits\Entities\Arrayable;
 use HMS\Traits\Entities\SoftDeletable;
 use LaravelDoctrine\Extensions\Timestamps\Timestamps;
-use Illuminate\Contracts\Support\Arrayable as ArrayableContract;
 
-class Link implements ArrayableContract
+class Link
 {
-    use SoftDeletable, Timestamps, Arrayable;
+    use SoftDeletable, Timestamps;
 
     /**
      * @var int
@@ -31,22 +28,6 @@ class Link implements ArrayableContract
      * @var null|string
      */
     protected $description;
-
-    /**
-     * Update with detials from the LinkRequest.
-     *
-     * @param LinkRequest $request
-     *
-     * @return self
-     */
-    public function updateWithRequest(LinkRequest $request)
-    {
-        $this->name = $request['name'];
-        $this->link = $request['link'];
-        $this->description = $request['description'];
-
-        return $this;
-    }
 
     /**
      * Gets the value of id.

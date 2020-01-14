@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-  <form role="form" method="POST" action="{{ route('labels.update', $templateName) }}">
+  <form role="form" method="POST" action="{{ route('labels.update', $label->getTemplateName()) }}">
     @csrf
     @method('PATCH')
     @include ('labelTemplates.partials.form', ['submitButtonText' => 'Update template'])

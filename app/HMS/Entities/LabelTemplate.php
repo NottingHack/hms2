@@ -2,15 +2,12 @@
 
 namespace HMS\Entities;
 
-use HMS\Traits\Entities\Arrayable;
 use HMS\Traits\Entities\SoftDeletable;
 use HMS\Traits\Entities\Timestampable;
-use App\Http\Requests\LabelTemplateRequest;
-use Illuminate\Contracts\Support\Arrayable as ArrayableContract;
 
-class LabelTemplate implements ArrayableContract
+class LabelTemplate
 {
-    use SoftDeletable, Timestampable, Arrayable;
+    use SoftDeletable, Timestampable;
 
     /**
      * Primary key.
@@ -23,21 +20,6 @@ class LabelTemplate implements ArrayableContract
      * @var string
      */
     protected $template;
-
-    /**
-     * Update with detials from the LabelTemplateRequest.
-     *
-     * @param LabelTemplateRequest $request
-     *
-     * @return self
-     */
-    public function updateWithRequest(LabelTemplateRequest $request)
-    {
-        $this->templateName = $request['templateName'];
-        $this->template = $request['template'];
-
-        return $this;
-    }
 
     /**
      * Gets the primary key.

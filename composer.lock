@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2c13a91a081b9ad564e7cfae7b91c964",
+    "content-hash": "d841bb93d74d48bc53bdb56129337708",
     "packages": [
         {
             "name": "balping/json-raw-encoder",
@@ -163,49 +163,6 @@
                 "mailgun"
             ],
             "time": "2019-10-16T22:19:36+00:00"
-        },
-        {
-            "name": "brainrepo/carbon-normalizer",
-            "version": "dev-carbon-2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dpslwk/carbon-normalizer.git",
-                "reference": "c62903df4ec0fe103e94e38e0545f492e0cb503c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dpslwk/carbon-normalizer/zipball/c62903df4ec0fe103e94e38e0545f492e0cb503c",
-                "reference": "c62903df4ec0fe103e94e38e0545f492e0cb503c",
-                "shasum": ""
-            },
-            "require": {
-                "nesbot/carbon": "^1.0 | ^2.0",
-                "php": ">=5.5.9",
-                "symfony/serializer": "^2.3|^3.0|^4.0"
-            },
-            "require-dev": {
-                "phpspec/phpspec": "~2.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Brainrepo\\CarbonNormalizer\\": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Brainrepo Mauro Murru",
-                    "email": "murru7@gmail.com"
-                }
-            ],
-            "description": "Normalizer to serialize Carbon objects with Symfony Serializer",
-            "support": {
-                "source": "https://github.com/dpslwk/carbon-normalizer/tree/carbon-2"
-            },
-            "time": "2019-07-19T08:37:02+00:00"
         },
         {
             "name": "cakephp/chronos",
@@ -3897,13 +3854,13 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/dpslwk/git-deploy-laravel.git",
-                "reference": "db0cd5479721db52a2d89492beed4e116cfd402f"
+                "url": "https://github.com/orphans/git-deploy-laravel.git",
+                "reference": "b75738a6db527935fc59a40d45b2c91b8955ce3c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dpslwk/git-deploy-laravel/zipball/db0cd5479721db52a2d89492beed4e116cfd402f",
-                "reference": "db0cd5479721db52a2d89492beed4e116cfd402f",
+                "url": "https://api.github.com/repos/orphans/git-deploy-laravel/zipball/b75738a6db527935fc59a40d45b2c91b8955ce3c",
+                "reference": "b75738a6db527935fc59a40d45b2c91b8955ce3c",
                 "shasum": ""
             },
             "require": {
@@ -3924,14 +3881,12 @@
                     "Orphans\\GitDeploy\\": "src"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "description": "Helps automate the deployment of projects onto servers by utilising Git web hooks.",
-            "support": {
-                "source": "https://github.com/dpslwk/git-deploy-laravel/tree/master"
-            },
-            "time": "2019-12-21T14:38:30+00:00"
+            "time": "2020-01-13T20:51:51+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -6893,48 +6848,50 @@
         },
         {
             "name": "symfony/serializer",
-            "version": "v4.3.9",
+            "version": "v5.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/serializer.git",
-                "reference": "12ce178feef47bed8316cc48e68892f9a34c0794"
+                "reference": "3cfc478c102f2d3bcf60edd339cd9c3cb446a576"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/serializer/zipball/12ce178feef47bed8316cc48e68892f9a34c0794",
-                "reference": "12ce178feef47bed8316cc48e68892f9a34c0794",
+                "url": "https://api.github.com/repos/symfony/serializer/zipball/3cfc478c102f2d3bcf60edd339cd9c3cb446a576",
+                "reference": "3cfc478c102f2d3bcf60edd339cd9c3cb446a576",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1.3",
+                "php": "^7.2.5",
                 "symfony/polyfill-ctype": "~1.8"
             },
             "conflict": {
                 "phpdocumentor/type-resolver": "<0.2.1",
-                "symfony/dependency-injection": "<3.4",
-                "symfony/property-access": "<3.4",
-                "symfony/property-info": "<3.4",
-                "symfony/yaml": "<3.4"
+                "symfony/dependency-injection": "<4.4",
+                "symfony/property-access": "<4.4",
+                "symfony/property-info": "<4.4",
+                "symfony/yaml": "<4.4"
             },
             "require-dev": {
                 "doctrine/annotations": "~1.0",
                 "doctrine/cache": "~1.0",
-                "phpdocumentor/reflection-docblock": "^3.0|^4.0",
-                "symfony/cache": "~3.4|~4.0",
-                "symfony/config": "~3.4|~4.0",
-                "symfony/dependency-injection": "~3.4|~4.0",
-                "symfony/http-foundation": "~3.4|~4.0",
-                "symfony/property-access": "~3.4|~4.0",
-                "symfony/property-info": "^3.4.13|~4.0",
-                "symfony/validator": "~3.4|~4.0",
-                "symfony/yaml": "~3.4|~4.0"
+                "phpdocumentor/reflection-docblock": "^3.2|^4.0",
+                "symfony/cache": "^4.4|^5.0",
+                "symfony/config": "^4.4|^5.0",
+                "symfony/dependency-injection": "^4.4|^5.0",
+                "symfony/error-handler": "^4.4|^5.0",
+                "symfony/http-foundation": "^4.4|^5.0",
+                "symfony/mime": "^4.4|^5.0",
+                "symfony/property-access": "^4.4|^5.0",
+                "symfony/property-info": "^4.4|^5.0",
+                "symfony/validator": "^4.4|^5.0",
+                "symfony/yaml": "^4.4|^5.0"
             },
             "suggest": {
                 "doctrine/annotations": "For using the annotation mapping. You will also need doctrine/cache.",
                 "doctrine/cache": "For using the default cached annotation reader and metadata cache.",
                 "psr/cache-implementation": "For using the metadata cache.",
                 "symfony/config": "For using the XML mapping loader.",
-                "symfony/http-foundation": "For using a MIME type guesser within the DataUriNormalizer.",
+                "symfony/mime": "For using a MIME type guesser within the DataUriNormalizer.",
                 "symfony/property-access": "For using the ObjectNormalizer.",
                 "symfony/property-info": "To deserialize relations.",
                 "symfony/yaml": "For using the default YAML mapping loader."
@@ -6942,7 +6899,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.3-dev"
+                    "dev-master": "5.0-dev"
                 }
             },
             "autoload": {
@@ -6969,7 +6926,7 @@
             ],
             "description": "Symfony Serializer Component",
             "homepage": "https://symfony.com",
-            "time": "2019-11-28T11:29:50+00:00"
+            "time": "2019-12-16T11:08:25+00:00"
         },
         {
             "name": "symfony/service-contracts",
@@ -10484,7 +10441,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "brainrepo/carbon-normalizer": 20,
         "maxbrokman/safe-queue": 20,
         "orphans/git-deploy-laravel": 20,
         "laracasts/behat-laravel-extension": 20

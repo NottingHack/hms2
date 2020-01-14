@@ -7,7 +7,6 @@
     "require": {
         "php": "^7.2",
         "bogardo/mailgun": "^5.2",
-        "brainrepo/carbon-normalizer": "dev-carbon-2",
         "consoletvs/charts": "^6.5",
         "fideloper/proxy": "^4.0",
         "garygreen/pretty-routes": "^1.0",
@@ -34,7 +33,6 @@
         "spatie/laravel-cookie-consent": "^2.0",
         "spatie/laravel-stripe-webhooks": "^2.0",
         "stripe/stripe-php": "^6.35",
-        "symfony/serializer": "4.3.*",
         "tightenco/ziggy": "^0.8.1",
         "tremby/laravel-git-version": "^1.1"
     },
@@ -54,15 +52,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/dpslwk/carbon-normalizer"
-        },
-        {
-            "type": "vcs",
             "url": "https://github.com/motia/SafeQueue"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/dpslwk/git-deploy-laravel"
         }
     ],
     "autoload": {

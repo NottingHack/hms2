@@ -5,12 +5,12 @@
 @section('content')
 <div class="container">
   <div class="card">
-    <h4 class="card-header">{{ $templateName}}</h4>
+    <h4 class="card-header">{{ $label->getTemplateName()}}</h4>
     <div class="card-body">
-      <pre class="card-text" v-pre>{{ $template }}</pre>
+      <pre class="card-text" v-pre>{{ $label->getTemplate() }}</pre>
     </div>
     <div class="card-footer">
-      <form role="form" method="POST" action="{{ route('labels.print', $templateName) }}">
+      <form role="form" method="POST" action="{{ route('labels.print', $label->getTemplateName()) }}">
         @csrf
         @if ( ! empty($fields))
         <p>This template requires the following information to print.</p>

@@ -37,15 +37,9 @@ class HmsUserProvider extends DoctrineUserProvider
         $this->passwordStore = $passwordStore;
     }
 
-    // overridden because getAuthIdentifier() on our User returns username rather than id
-    public function retrieveById($identifier)
-    {
-        return $this->getRepository()->findOneBy(['username' => $identifier]);
-    }
-
     // overridden because we don't store the password on the user, we use an PasswordStore to check it instead
     public function validateCredentials(IlluminateAuthenticatable $user, array $credentials)
     {
-        return $this->passwordStore->checkPassword($user->getAuthIdentifier(), $credentials['password']);
+        return $this->passwordStore->checkPassword($user->getUsername(), $credentials['password']);
     }
 }

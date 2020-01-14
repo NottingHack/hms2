@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use HMS\Entities\User;
 use HMS\Auth\PasswordStore;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ResetPasswordController extends Controller
@@ -83,11 +85,35 @@ class ResetPasswordController extends Controller
             : $this->sendResetFailedResponse($request, $response);
     }
 
+    /**
+     * Reset the given user's password.
+     *
+     * @param \Illuminate\Contracts\Auth\CanResetPassword  $user
+     * @param string  $password
+     *
+     * @return void
+     */
     protected function resetPassword($user, $password)
     {
-        $this->passwordStore->setPassword($user->getAuthIdentifier(), $password);
-        // TODO: reset the user's remember token here to ensure someone with an old cookie isn't automatically logged in
+        $this->setUserPassword($user, $password);
+
+        $user->setRememberToken(Str::random(60));
+
+        event(new PasswordReset($user));
 
         $this->guard()->login($user);
+    }
+
+    /**
+     * Set the user's password.
+     *
+     * @param \Illuminate\Contracts\Auth\CanResetPassword  $user
+     * @param string  $password
+     *
+     * @return void
+     */
+    protected function setUserPassword($user, $password)
+    {
+        $this->passwordStore->setPassword($user->getUsername(), $password);
     }
 }

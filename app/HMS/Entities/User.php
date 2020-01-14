@@ -2,9 +2,9 @@
 
 namespace HMS\Entities;
 
+use HMS\Traits\HasApiTokens;
 use HMS\Entities\GateKeeper\Pin;
 use HMS\Entities\Banking\Account;
-use Laravel\Passport\HasApiTokens;
 use HMS\Entities\GateKeeper\RfidTag;
 use HMS\Traits\Entities\SoftDeletable;
 use HMS\Traits\Entities\Timestampable;
@@ -180,7 +180,7 @@ class User implements
      */
     public function getAuthIdentifierName(): string
     {
-        return 'username';
+        return 'id';
     }
 
     /**

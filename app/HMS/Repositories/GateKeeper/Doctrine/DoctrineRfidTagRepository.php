@@ -51,8 +51,8 @@ class DoctrineRfidTagRepository extends EntityRepository implements RfidTagRepos
     /**
      * Find a tag via serial Number.
      *
-     * @param  string  $rfidSerial
-     * @param  bool $activeOnly Only search ACTIVE tags
+     * @param string  $rfidSerial
+     * @param bool $activeOnly Only search ACTIVE tags
      *
      * @return RfidTag|null
      */

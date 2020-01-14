@@ -47,7 +47,7 @@ class ChangePasswordController extends Controller
         $user = \Auth::user();
 
         $valideCurrentPassword = \Auth::guard()->validate([
-            $user->getAuthIdentifierName() => $user->getAuthIdentifier(),
+            'username' => $user->getUsername(),
             'password' => $request->currentPassword,
         ]);
 
@@ -69,12 +69,27 @@ class ChangePasswordController extends Controller
             'password' => 'required|min:' . User::MIN_PASSWORD_LENGTH . '|confirmed',
         ]);
 
-        $this->passwordStore->setPassword($user->getAuthIdentifier(), $request->password);
+        $this->setUserPassword($user, $password);
 
         flash('Your password has been updated.')->success();
 
         event(new UserPasswordChanged($user));
 
+        $this->guard()->login($user);
+
         return redirect()->route('home');
+    }
+
+    /**
+     * Set the user's password.
+     *
+     * @param \Illuminate\Contracts\Auth\CanResetPassword  $user
+     * @param string  $password
+     *
+     * @return void
+     */
+    protected function setUserPassword($user, $password)
+    {
+        $this->passwordStore->setPassword($user->getUsername(), $password);
     }
 }

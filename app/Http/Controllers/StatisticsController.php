@@ -346,11 +346,15 @@ class StatisticsController extends Controller
         return sprintf('%02d:%02d:%02d', ($seconds / 3600), ($seconds / 60 % 60), $seconds % 60);
     }
 
+    /**
+     * Calculate some membership conversion statistics.
+     *
+     * @return array
+     */
     protected function membershipConversionStats()
     {
         $monthAgo = Carbon::now()->subMonth();
         $weekAgo = Carbon::now()->subWeek();
-
 
         $ism = $this->emailRepository->countSentAfterWithSubject(
             $monthAgo,
@@ -384,12 +388,14 @@ class StatisticsController extends Controller
             if (is_null($user->getProfile()->getJoinDate())) {
                 return false;
             }
+
             return $user->getProfile()->getJoinDate()->isAfter($monthAgo);
         });
         $cmw = $cmu->filter(function ($user) use ($weekAgo) {
             if (is_null($user->getProfile()->getJoinDate())) {
                 return false;
             }
+
             return $user->getProfile()->getJoinDate()->isAfter($weekAgo);
         });
 

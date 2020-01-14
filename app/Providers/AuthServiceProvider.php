@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Carbon\Carbon;
 use HMS\Auth\PasswordStore;
 use Illuminate\Support\Str;
 use HMS\Auth\HmsUserProvider;

@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('pageTitle', $tool->getName() . ' ' . HMS\Tools\ToolManager::GRANT_STRINGS[$grantType] . 's')
+@section('pageTitle', $tool->getDisplayName() . ' ' . HMS\Tools\ToolManager::GRANT_STRINGS[$grantType] . 's')
 
 @section('content')
 <div class="container">
   @if (($grantType == "MAINTAINER" && Auth::user()->can('tools.maintainer.grant')) || ($grantType == "INDUCTOR" && (Auth::user()->can('tools.inductor.grant') || Auth::user()->can('tools.' . $tool->getPermissionName() . '.inductor.grant'))) || ($grantType == "USER" && Auth::user()->can('tools.user.grant')))
-  <tool-grant-modal :tool-id="{{ $tool->getId() }}" tool-name="{{ $tool->getName() }}" grant-type="{{ $grantType }}" :block="true"></tool-grant-modal><br>
+  <tool-grant-modal :tool-id="{{ $tool->getId() }}" tool-name="{{ $tool->getDisplayName() }}" grant-type="{{ $grantType }}" :block="true"></tool-grant-modal><br>
   @endif
   @forelse ($toolUsers as [$user, $rolUdpate])
   @if ($loop->first)

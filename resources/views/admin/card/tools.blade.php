@@ -18,7 +18,7 @@
     <tbody>
       @foreach ($tools as $tool)
       <tr>
-        <th scope="row">{{ $tool->getName() }}</th>
+        <th scope="row">{{ $tool->getDisplayName() }}</th>
         <td>
           @if ($user->hasRoleByName('tools.' . $tool->getPermissionName() . '.user'))
           <span class="badge badge-pill badge-booking-normal">U</span>

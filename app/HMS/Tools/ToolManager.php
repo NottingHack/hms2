@@ -120,7 +120,8 @@ class ToolManager
     /**
      * Function to create a new tool and setup the permissions.
      *
-     * @param string $name          Tool name
+     * @param string $name          Tool name (as used in mqtt topic and permisions)
+     * @param string $name          Tool display name
      * @param bool   $restricted    Does this tool require an induction
      * @param int    $pph           Cost per hour in pence
      * @param int    $bookingLength Default booking length for this tool, minutes
@@ -131,6 +132,7 @@ class ToolManager
      */
     public function create(
         string $name,
+        string $displayName,
         bool $restricted,
         int $pph,
         int $bookingLength,
@@ -141,6 +143,7 @@ class ToolManager
 
         $_tool = $this->toolFactory->create(
             $name,
+            $displayName,
             $restricted,
             $pph,
             $bookingLength,
@@ -207,6 +210,9 @@ class ToolManager
             // TODO: update the role and permission names
         }
 
+        if (isset($details['displayName'])) {
+            $tool->setDisplayName($details['displayName']);
+        }
         if (isset($details['restricted'])) {
             $tool->setRestricted();
         } else {

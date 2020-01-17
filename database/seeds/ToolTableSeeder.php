@@ -49,6 +49,7 @@ class ToolTableSeeder extends Seeder
         $tools = [
             [
                 'name' => 'Laser',
+                'displayName' => 'A0 Laser',
                 'restricted' => true,
                 'pph' => 300,
                 'bookingLength' => 30,
@@ -58,6 +59,7 @@ class ToolTableSeeder extends Seeder
             ],
             [
                 'name' => 'Ultimaker',
+                'displayName' => 'Ultimaker',
                 'restricted' => true,
                 'pph' => 0,
                 'bookingLength' => 60,
@@ -67,6 +69,7 @@ class ToolTableSeeder extends Seeder
             ],
             [
                 'name' => 'Embroidery Machine',
+                'displayName' => 'Embroidery Machine',
                 'restricted' => false,
                 'pph' => 0,
                 'bookingLength' => 15,
@@ -79,6 +82,7 @@ class ToolTableSeeder extends Seeder
         foreach ($tools as $toolSettings) {
             $tool = $this->toolManager->create(
                 $toolSettings['name'],
+                $toolSettings['displayNames'],
                 $toolSettings['restricted'],
                 $toolSettings['pph'],
                 $toolSettings['bookingLength'],

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('pageTitle', $tool->getName().' Settings')
+@section('pageTitle', $tool->getDisplayName().' Settings')
 
 @section('content')
 <div class="container">

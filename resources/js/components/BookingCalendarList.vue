@@ -237,6 +237,9 @@
           booking.className += ' not-editable';
         }
 
+        // use tool display name rathe than users full name for the title
+        booking.title = booking.toolDisplayName;
+
         return booking;
       },
 

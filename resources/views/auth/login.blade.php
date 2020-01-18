@@ -2,6 +2,19 @@
 
 @section('pageTitle', 'Log In')
 
+@push('scripts')
+<script>
+  {{-- work around to push and run after jQuery is loaded since --}}
+  window.addEventListener('DOMContentLoaded', function() {
+    (function($) {
+      $('form#login').submit(function(){
+          $(this).find(':button#submit').prop('disabled', true);
+      });
+    })(jQuery);
+  });
+</script>
+@endpush
+
 @section('content')
 <div class="container">
   <div class="row justify-content-center">
@@ -14,7 +27,7 @@
 
           <h4>Login</h4>
 
-          <form role="form" method="POST" action="{{ url('/login') }}">
+          <form id="login" role="form" method="POST" action="{{ url('/login') }}">
             @csrf
 
             <div class="form-group">
@@ -35,7 +48,7 @@
               @endif
             </div>
 
-            <button class="btn btn-lg btn-info btn-block" type="submit">Sign in</button>
+            <button id="submit" class="btn btn-lg btn-info btn-block" type="submit">Sign in</button>
           </form>
           <br>
           <a href="{{ route('password.request') }}" class="text-info mt-2">

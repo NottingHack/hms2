@@ -13,13 +13,15 @@ class Tool
     protected $id;
 
     /**
-     * Name as used in mqtt topic and permisions
+     * Name as used in mqtt topic and permisions.
+     *
      * @var string
      */
     protected $name;
 
     /**
-     * Name for display in HMS and to a user
+     * Name for display in HMS and to a user.
+     *
      * @var string
      */
     protected $displayName;

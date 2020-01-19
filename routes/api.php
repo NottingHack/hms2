@@ -52,6 +52,8 @@ Route::name('api.')->group(function () {
 
         // Tools
         Route::apiResource('tools/{tool}/bookings', 'Api\Tools\BookingController');
+
+        // Governance
         Route::namespace('Api\Governance')->prefix('governance')->name('governance.')->group(function () {
             // Meeting
             Route::get('meetings/{meeting}', 'CheckInController@show')
@@ -77,6 +79,8 @@ Route::name('client.')->prefix('cc')->middleware('client')->group(function () {
         Route::post('meetings/{meeting}/check-in-rfid', 'CheckInController@checkInUserByRFID')
             ->name('meetings.check-in-rfid');
     });
+
+    Route::post('rfid-token', 'Api\Auth\RfidAccessTokenController@issueRfidToken')->name('rfid-token');
 });
 
 Route::name('webhook.')->group(function () {

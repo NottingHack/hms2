@@ -67,7 +67,7 @@ class CheckInController extends Controller
     }
 
     /**
-     * Helper to get meeting couts to be sent as json.
+     * Helper to get meeting counts to be sent as json.
      *
      * @param Meeting $meeting
      *
@@ -232,7 +232,7 @@ class CheckInController extends Controller
                     [
                         'status' => IlluminateResponse::HTTP_NOT_FOUND,
                         'title'  => 'Not Found',
-                        'detail' => 'RFID not fonud',
+                        'detail' => 'RFID not found',
                     ],
                 ],
             ];

@@ -116,11 +116,12 @@ class ToolController extends Controller
     {
         $this->validate($request, [
             'toolName'      => 'required|string|max:20|unique:HMS\Entities\Tools\Tool,name',
+            'displayName'   => 'required|string|max:100',
             'restricted'    => 'sometimes|required',
             'cost'          => 'required|integer|min:0',
             'bookingLength' => 'required|integer|min:0',
             'lengthMax'     => 'required|integer|min:0',
-            'bookingsMax'    => 'required|integer|min:1',
+            'bookingsMax'   => 'required|integer|min:1',
         ]);
 
         $tool = $this->toolManager->create(
@@ -228,6 +229,7 @@ class ToolController extends Controller
     {
         $this->validate($request, [
             'toolName'      => 'required|string|max:20|unique:HMS\Entities\Tools\Tool,name,' . $tool->getId(),
+            'displayName'   => 'required|string|max:100',
             'restricted'    => 'sometimes|required',
             'cost'          => 'required|integer|min:0',
             'bookingLength' => 'required|integer|min:0',

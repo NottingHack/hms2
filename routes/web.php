@@ -18,20 +18,9 @@
 Route::get('/', 'HomeController@welcome')->name('index');
 
 // Auth Routes
-Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('login', 'Auth\LoginController@login');
-Route::post('logout', 'Auth\LoginController@logout')->name('logout');
-Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-Route::get('password/reset/', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-Route::post('password/reset', 'Auth\ResetPasswordController@reset');
-Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Auth::routes(['register' => false, 'verify' => true]);
 Route::get('register/{token}', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
-Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
-Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
-Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
-Route::get('password/confirm', 'Auth\ConfirmPasswordController@showConfirmForm')->name('password.confirm');
-Route::post('password/confirm', 'Auth\ConfirmPasswordController@confirm');
 
 // Static Pages
 Route::view('credits', 'pages.credits')->name('credits');
@@ -70,6 +59,10 @@ Route::middleware(['ipcheck'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('home', 'HomeController@index')->name('home');
     Route::view('registration-complete', 'pages.registrationComplete')->name('registrationComplete');
+
+    // New users should be able to update details with out a verifed email
+    Route::get('membership/update-details/{user}', 'MembershipController@editDetails')->name('membership.edit');
+    Route::put('membership/update-details/{user}', 'MembershipController@updateDetails')->name('membership.update');
 
     // Users (show, edit, update) to allow users to update there email if they can't verify it
     Route::resource(
@@ -163,8 +156,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('membership.approve');
     Route::post('membership/reject-details/{user}', 'MembershipController@rejectDetails')
         ->name('membership.reject');
-    Route::get('membership/update-details/{user}', 'MembershipController@editDetails')->name('membership.edit');
-    Route::put('membership/update-details/{user}', 'MembershipController@updateDetails')->name('membership.update');
     Route::view('membership/invites', 'pages.invite_search')
         ->middleware('can:search.invites')
         ->name('membership.invites');
@@ -259,16 +250,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
                     'except' => ['destroy'],
                 ]
             );
-            Route::resource(
-                'vending-machines',
-                'VendingMachineController',
-                [
-                    'except' => ['create', 'store', 'destroy'],
-                    'parameters' => [
-                        'vending-machines' => 'vendingMachine',
-                    ],
-                ]
-            );
             Route::get(
                 'vending-machines/{vendingMachine}/locations',
                 'VendingMachineController@locations'
@@ -289,6 +270,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 'vending-machines/{vendingMachine}/logs/{vendLog}/reconcile',
                 'VendingMachineController@reconcile'
             )->name('vending-machines.logs.reconcile');
+            Route::resource(
+                'vending-machines',
+                'VendingMachineController',
+                [
+                    'except' => ['create', 'store', 'destroy'],
+                    'parameters' => [
+                        'vending-machines' => 'vendingMachine',
+                    ],
+                ]
+            );
 
             Route::get('debt-graph', 'DebtController@debtGraph')->name('debt-graph');
             Route::get('payment-report', 'PurchasePaymentController@paymentReport')->name('payment-report');
@@ -343,13 +334,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Governance
     Route::namespace('Governance')->prefix('governance')->name('governance.')->group(function () {
         // Meetings
-        Route::resource(
-            'meetings',
-            'MeetingController',
-            [
-                'except' => ['destroy'],
-            ]
-        );
         Route::get('meetings/{meeting}/attendees', 'MeetingController@attendees')
             ->name('meetings.attendees');
         Route::get('meetings/{meeting}/check-in', 'MeetingController@checkIn')
@@ -363,6 +347,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->name('meetings.absence');
         Route::post('meetings/{meeting}/absence', 'MeetingController@recordAbsence')
             ->name('meetings.absence-record');
+        Route::resource(
+            'meetings',
+            'MeetingController',
+            [
+                'except' => ['destroy'],
+            ]
+        );
 
         // Proxies
         Route::get('meetings/{meeting}/proxies', 'ProxyController@index')

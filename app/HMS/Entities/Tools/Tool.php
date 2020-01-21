@@ -13,9 +13,18 @@ class Tool
     protected $id;
 
     /**
+     * Name as used in mqtt topic and permisions.
+     *
      * @var string
      */
     protected $name;
+
+    /**
+     * Name for display in HMS and to a user.
+     *
+     * @var string
+     */
+    protected $displayName;
 
     /**
      * ToolState :: IN_USE, FREE or DISABLED.
@@ -293,5 +302,25 @@ class Tool
     public function getBookings()
     {
         return $this->bookings;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDisplayName()
+    {
+        return $this->displayName;
+    }
+
+    /**
+     * @param string $displayName
+     *
+     * @return self
+     */
+    public function setDisplayName($displayName)
+    {
+        $this->displayName = $displayName;
+
+        return $this;
     }
 }

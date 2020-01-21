@@ -294,7 +294,7 @@ class StatisticsController extends Controller
             $usedThisMonth = $this->countUsedMinutes($usagesForThisMonth);
             $usedLastMonth = $this->countUsedMinutes($usagesForLastMonth);
 
-            $stats[$tool->getName()] = [
+            $stats[$tool->getDisplayName()] = [
                 'userCount' => $userCount,
                 'inductorCount' => $inductorCount,
                 'maintainerCount' => $maintainerCount,

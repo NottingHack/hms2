@@ -172,6 +172,7 @@ class Booking implements ArrayableContract, JsonSerializable
             'title' => $this->user->getFullName(),
             'type' => $this->type,
             'toolId' => $this->tool->getId(),
+            'toolDisplayName' => $this->tool->getDisplayName(),
             'userId' => $this->user->getId(),
         ];
     }

@@ -15,6 +15,9 @@ HMS\Entities\Tools\Tool:
       type: string
       length: 20
       unique: true
+    displayName:
+      type: string
+      length: 100
     status:
       type: string
       length: 20

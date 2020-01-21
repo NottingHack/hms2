@@ -10,7 +10,8 @@ class ToolFactory
     /**
      * Function to instantiate a new Tool from given params.
      *
-     * @param string $name          Tool name
+     * @param string $name          Tool name (as used in mqtt topic and permisions)
+     * @param string $name          Tool display name
      * @param bool   $restricted    Does this tool require an induction
      * @param int    $pph           Cost per hour in pence
      * @param int    $bookingLength Default booking length for this tool, minutes
@@ -21,6 +22,7 @@ class ToolFactory
      */
     public function create(
         string $name,
+        string $displayName,
         bool $restricted,
         int $pph,
         int $bookingLength,
@@ -29,6 +31,7 @@ class ToolFactory
     ) {
         $_tool = new Tool();
         $_tool->setName($name);
+        $_tool->setDisplayName($displayName);
 
         // set to disabled by default
         $_tool->setStatus(ToolState::DISABLED);

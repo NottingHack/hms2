@@ -26,7 +26,7 @@
   @endif
         <tr>
           <td class="d-none d-md-table-cell" style="width:25px"><a href="{{ route('bookings.index', $tool->getId()) }}"><span style="color: #195905"><i class="fal fa-calendar-alt" aria-hidden="true"></i></span></a></td>
-          <td data-title="Tool"><a href="{{ route('bookings.index', $tool->getId()) }}"><span class="d-md-none" style="color: #195905"><i class="fal fa-calendar-alt" aria-hidden="true"></i>&nbsp;</span>{{ $tool->getName() }}</a></td>
+          <td data-title="Tool"><a href="{{ route('bookings.index', $tool->getId()) }}"><span class="d-md-none" style="color: #195905"><i class="fal fa-calendar-alt" aria-hidden="true"></i>&nbsp;</span>{{ $tool->getDisplayName() }}</a></td>
           <td data-title="Status">
             {{ $tool->getStatusString() }}
             @if ($tool->getStatus() == \HMS\Entities\Tools\ToolState::DISABLED && ! is_null($tool->getStatusText()))
@@ -40,10 +40,10 @@
             <a class="btn btn-primary btn-sm mb-1" href="{{ route('tools.show', $tool->getId()) }}"><i class="far fa-eye" aria-hidden="true"></i> View Settings</a>
             @endcan
             @can('tools.maintainer.grant')
-            <tool-grant-modal :tool-id="{{ $tool->getId() }}" tool-name="{{ $tool->getName() }}" grant-type="{{ HMS\Tools\ToolManager::MAINTAINER }}" :small="true"></tool-grant-modal>
+            <tool-grant-modal :tool-id="{{ $tool->getId() }}" tool-name="{{ $tool->getDisplayName() }}" grant-type="{{ HMS\Tools\ToolManager::MAINTAINER }}" :small="true"></tool-grant-modal>
             @endcan
             @canany(['tools.inductor.grant' , 'tools.' . $tool->getPermissionName() . '.inductor.grant'])
-            <tool-grant-modal :tool-id="{{ $tool->getId() }}" tool-name="{{ $tool->getName() }}" grant-type="{{ HMS\Tools\ToolManager::INDUCTOR }}" :small="true"></tool-grant-modal>
+            <tool-grant-modal :tool-id="{{ $tool->getId() }}" tool-name="{{ $tool->getDisplayName() }}" grant-type="{{ HMS\Tools\ToolManager::INDUCTOR }}" :small="true"></tool-grant-modal>
             @endcan
             @if ($tool->isRestricted())
             @cannot('tools.' . $tool->getPermissionName() . '.use')

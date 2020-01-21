@@ -8,6 +8,15 @@ use HMS\Entities\Members\Project;
 interface ProjectRepository
 {
     /**
+     * Find by user.
+     *
+     * @param User $user
+     *
+     * @return Project[]
+     */
+    public function findByUser(User $user);
+
+    /**
      * @param User $user
      * @param int $perPage
      * @param string $pageName

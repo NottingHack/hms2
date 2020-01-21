@@ -51,13 +51,14 @@ class Handler extends ExceptionHandler
      * @param \Exception $exception
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function render($request, Exception $exception)
     {
         if ($exception instanceof AuthorizationException) {
             return $this->unauthorized($request, $exception);
         } elseif ($exception instanceof EntityNotFoundException) {
-            throw  new NotFoundHttpException('Entity not found', $exception);
+            throw new NotFoundHttpException('Entity not found', $exception);
         }
 
         return parent::render($request, $exception);

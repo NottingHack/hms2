@@ -16,45 +16,53 @@
  */
 
 // All api route names are prefixed with api.
-Route::name('api.')->group(function () {
+Route::name('api.')->namespace('Api')->group(function () {
     // Stripe (not auth restricted)
-    Route::post('stripe/intent/makeGuest', 'Api\Banking\StripeController@makeIntent')
+    Route::post('stripe/intent/makeGuest', 'Banking\StripeController@makeIntent')
         ->name('stripe.make-intent.anon');
-    Route::post('stripe/intent/updateGuest', 'Api\Banking\StripeController@updateIntent')
+    Route::post('stripe/intent/updateGuest', 'Banking\StripeController@updateIntent')
         ->name('stripe.update-intent.anon');
-    Route::post('stripe/intent/successGuest', 'Api\Banking\StripeController@intentSuccess')
+    Route::post('stripe/intent/successGuest', 'Banking\StripeController@intentSuccess')
         ->name('stripe.intent-success.anon');
 
     Route::middleware('auth:api')->group(function () {
         // Stripe
-        Route::post('stripe/intent/make', 'Api\Banking\StripeController@makeIntent')
+        Route::post('stripe/intent/make', 'Banking\StripeController@makeIntent')
             ->name('stripe.make-intent');
-        Route::post('stripe/intent/update', 'Api\Banking\StripeController@updateIntent')
+        Route::post('stripe/intent/update', 'Banking\StripeController@updateIntent')
             ->name('stripe.update-intent');
-        Route::post('stripe/intent/success', 'Api\Banking\StripeController@intentSuccess')
+        Route::post('stripe/intent/success', 'Banking\StripeController@intentSuccess')
             ->name('stripe.intent-success');
 
         // Search for members
         // api/search/users/matt                    Search term as part of the
         // api/search/users?q=matt                  Search term as a parameter
         // api/search/users?q=matt&withAccount=true Only search for members with Accounts
-        Route::get('search/users/{searchQuery?}', 'Api\SearchController@users')
+        Route::get('search/users/{searchQuery?}', 'SearchController@users')
             ->name('search.users');
 
-        Route::get('search/invites/{searchQuery?}', 'Api\SearchController@invites')
+        Route::get('search/invites/{searchQuery?}', 'SearchController@invites')
             ->name('search.invites');
+
+        Route::apiResource(
+            'users',
+            'UserController',
+            [
+                'except' => ['index', 'store', 'destroy'],
+            ]
+        );
 
         // Snackspace
         Route::patch(
             'snackspace/vending-machines/{vendingMachine}/locations',
-            'Api\Snackspace\VendingMachineController@locationAssign'
+            'Snackspace\VendingMachineController@locationAssign'
         )->name('snackspace.vending-machines.locations.assign');
 
         // Tools
-        Route::apiResource('tools/{tool}/bookings', 'Api\Tools\BookingController');
+        Route::apiResource('tools/{tool}/bookings', 'Tools\BookingController');
 
         // Governance
-        Route::namespace('Api\Governance')->prefix('governance')->name('governance.')->group(function () {
+        Route::namespace('Governance')->prefix('governance')->name('governance.')->group(function () {
             // Meeting
             Route::get('meetings/{meeting}', 'CheckInController@show')
                 ->middleware('can:governance.meeting.view')
@@ -62,17 +70,48 @@ Route::name('api.')->group(function () {
             Route::post('meetings/{meeting}/check-in', 'CheckInController@checkInUser')
             ->name('meetings.check-in-user');
         });
+
+        // Members Projects and DNH labels
+        Route::patch('projects/{project}/markActive', 'Members\ProjectController@markActive')
+            ->name('projects.markActive');
+        Route::patch('projects/{project}/markAbandoned', 'Members\ProjectController@markAbandoned')
+            ->name('projects.markAbandoned');
+        Route::patch('projects/{project}/markComplete', 'Members\ProjectController@markComplete')
+            ->name('projects.markComplete');
+        Route::post('projects/{project}/print', 'Members\ProjectController@printLabel')
+            ->name('projects.print');
+        Route::apiResource(
+            'projects',
+            'Members\ProjectController',
+            [
+                'except' => ['destroy'],
+            ]
+        );
+
+        // Members Boxes and labels
+        Route::get('boxes/audit', 'Members\BoxController@audit')->name('boxes.audit');
+        Route::patch('boxes/{box}/markInUse', 'Members\BoxController@markInUse')->name('boxes.markInUse');
+        Route::patch('boxes/{box}/markAbandoned', 'Members\BoxController@markAbandoned')->name('boxes.markAbandoned');
+        Route::patch('boxes/{box}/markRemoved', 'Members\BoxController@markRemoved')->name('boxes.markRemoved');
+        Route::post('boxes/{box}/print', 'Members\BoxController@printLabel')->name('boxes.print');
+        Route::apiResource(
+            'boxes',
+            'Members\BoxController',
+            [
+                'except' => ['store', 'update', 'destroy'],
+            ]
+        );
     });
 });
 
 // All 'client_credentials' api route names are prefixed with client.
-Route::name('client.')->prefix('cc')->middleware('client')->group(function () {
+Route::name('client.')->prefix('cc')->middleware('client')->namespace('Api')->group(function () {
     // upload new bankTransactions/
-    Route::post('bank-transactions/upload', 'Api\Banking\TransactionUploadController@upload')
+    Route::post('bank-transactions/upload', 'Banking\TransactionUploadController@upload')
         ->name('bankTransactions.upload');
 
     // Governance
-    Route::namespace('Api\Governance')->prefix('governance')->name('governance.')->group(function () {
+    Route::namespace('Governance')->prefix('governance')->name('governance.')->group(function () {
         // Meeting
         Route::get('meetings/next', 'CheckInController@next')->name('meetings.next');
         Route::get('meetings/{meeting}', 'CheckInController@show')->name('meetings.show');
@@ -80,7 +119,7 @@ Route::name('client.')->prefix('cc')->middleware('client')->group(function () {
             ->name('meetings.check-in-rfid');
     });
 
-    Route::post('rfid-token', 'Api\Auth\RfidAccessTokenController@issueRfidToken')->name('rfid-token');
+    Route::post('rfid-token', 'Auth\RfidAccessTokenController@issueRfidToken')->name('rfid-token');
 });
 
 Route::name('webhook.')->group(function () {

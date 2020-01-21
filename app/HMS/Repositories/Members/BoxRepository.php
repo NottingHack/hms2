@@ -64,6 +64,15 @@ interface BoxRepository
     public function paginateByUser(User $user, $perPage = 15, $pageName = 'page');
 
     /**
+     * Find by user.
+     *
+     * @param User $user
+     *
+     * @return Box[]
+     */
+    public function findByUser(User $user);
+
+    /**
      * Save Box to the DB.
      *
      * @param Box $box

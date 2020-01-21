@@ -14,6 +14,18 @@ class DoctrineProjectRepository extends EntityRepository implements ProjectRepos
     use PaginatesFromRequest;
 
     /**
+     * Find by user.
+     *
+     * @param User $user
+     *
+     * @return Project[]
+     */
+    public function findByUser(User $user)
+    {
+        return parent::findByUser($user);
+    }
+
+    /**
      * @param User $user
      * @param int $perPage
      * @param string $pageName

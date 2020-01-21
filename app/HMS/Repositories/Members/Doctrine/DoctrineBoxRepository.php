@@ -107,6 +107,18 @@ class DoctrineBoxRepository extends EntityRepository implements BoxRepository
     }
 
     /**
+     * Find by user.
+     *
+     * @param User $user
+     *
+     * @return Box[]
+     */
+    public function findByUser(User $user)
+    {
+        return parent::findByUser($user);
+    }
+
+    /**
      * Save Box to the DB.
      *
      * @param Box $box

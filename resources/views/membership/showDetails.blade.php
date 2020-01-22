@@ -90,7 +90,9 @@
         </tr>
         <tr>
           <th>Post Code:</th>
-          <td>{{ $user->getProfile()->getAddressPostCode() }}&nbsp;<a href="https://www.openstreetmap.org/search?query={{ $user->getProfile()->getAddressPostCode() }}" target="_blank">Check on OpenStreetMap</a></td>
+          <td>{{ $user->getProfile()->getAddressPostCode() }}&nbsp;check&nbsp;
+<a href="https://www.openstreetmap.org/search?query={{ $user->getProfile()->getAddressPostCode() }}" target="_blank">OpenStreetMap</a>&nbsp;
+<a href="http://maps.google.com?q={{ $user->getProfile()->getAddressPostCode() }}" target="_blank">Google Maps</a></td>
         </tr>
         <tr>
           <th>Contact Number:</th>

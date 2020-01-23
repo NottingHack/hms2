@@ -42,7 +42,6 @@ class Kernel extends HttpKernel
             'throttle:60,1',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \LaravelDoctrine\ORM\Middleware\SubstituteBindings::class,
-            'json.request',
         ],
     ];
 
@@ -66,7 +65,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'ipcheck' => \App\Http\Middleware\IpCheck::class,
         'entity.bindings' => \LaravelDoctrine\ORM\Middleware\SubstituteBindings::class,
-        'json.request' => \App\Http\Middleware\JsonRequestMiddleware::class,
         'client' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
         'canAny' => \App\Http\Middleware\AuthorizeAny::class,
         'canAll' => \App\Http\Middleware\AuthorizeAll::class,

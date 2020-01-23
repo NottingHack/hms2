@@ -156,6 +156,7 @@ class ToolController extends Controller
      * @param srting $grantType
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function showUsersForGrant(Tool $tool, string $grantType)
     {
@@ -264,6 +265,7 @@ class ToolController extends Controller
      * @param Tool $tool
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function grant(Request $request, Tool $tool)
     {

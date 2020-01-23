@@ -17,9 +17,9 @@ interface UserRepository
     /**
      * @param string $username
      *
-     * @return array
+     * @return null|User
      */
-    public function findByUsername(string $username);
+    public function findOneByUsername(string $username);
 
     /**
      * @param string $email

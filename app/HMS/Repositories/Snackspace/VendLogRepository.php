@@ -15,6 +15,15 @@ interface VendLogRepository
     public function save(VendLog $vendLog);
 
     /**
+     * Save VendLog to the DB and update the users balance.
+     *
+     * @param VendLog $vendLog
+     *
+     * @return VendLog
+     */
+    public function saveAndUpdateBalance(VendLog $vendLog);
+
+    /**
      * @param int $perPage
      * @param string $pageName
      *

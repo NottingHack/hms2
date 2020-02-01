@@ -308,7 +308,7 @@ class VendingMachineController extends Controller
             $vendLog->getTransaction()->setStatus(TransactionState::COMPLETE);
             $vendLog->getTransaction()->setDescription($description);
             $vendLog->setSuccessTime(Carbon::now());
-            $this->vendLogRepository->save($vendLog);
+            $this->vendLogRepository->saveAndUpdateBalance($vendLog);
 
             flash('Transaction completed')->success();
         } elseif ($validatedData['action'] == 'abort') {

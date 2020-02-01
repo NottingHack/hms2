@@ -5,6 +5,7 @@ namespace HMS\Repositories\Snackspace\Doctrine;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Snackspace\VendLog;
+use App\Jobs\Snackspace\ProcessTransaction;
 use HMS\Entities\Snackspace\VendingMachine;
 use HMS\Entities\Snackspace\TransactionState;
 use HMS\Repositories\Snackspace\VendLogRepository;
@@ -23,6 +24,25 @@ class DoctrineVendLogRepository extends EntityRepository implements VendLogRepos
     {
         $this->_em->persist($vendLog);
         $this->_em->flush();
+    }
+
+    /**
+     * Save VendLog to the DB and update the users balance.
+     *
+     * @param VendLog $vendLog
+     *
+     * @return VendLog
+     */
+    public function saveAndUpdateBalance(VendLog $vendLog)
+    {
+        $vendLog->getUser()->getProfile()->updateBalanceByAmount($vendLog->getTransaction()->getAmount());
+
+        $this->_em->persist($vendLog);
+        $this->_em->flush();
+
+        ProcessTransaction::dispatch($vendLog->getTransaction());
+
+        return $vendLog;
     }
 
     /**
@@ -59,7 +79,8 @@ class DoctrineVendLogRepository extends EntityRepository implements VendLogRepos
     public function paginatePeningByVendingMachine(VendingMachine $vendingMachine, $perPage = 15, $pageName = 'page')
     {
         $q = parent::createQueryBuilder('vendLog')
-            ->innerJoin('vendLog.transaction', 'transaction', Join::WITH, 'transaction.status = :transaction_state')->addSelect('transaction')
+            ->innerJoin('vendLog.transaction', 'transaction', Join::WITH, 'transaction.status = :transaction_state')
+            ->addSelect('transaction')
             ->where('vendLog.vendingMachine = :vendingMachine_id')
             ->orderBy('vendLog.id', 'DESC');
 

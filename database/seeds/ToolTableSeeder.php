@@ -82,7 +82,7 @@ class ToolTableSeeder extends Seeder
         foreach ($tools as $toolSettings) {
             $tool = $this->toolManager->create(
                 $toolSettings['name'],
-                $toolSettings['displayNames'],
+                $toolSettings['displayName'],
                 $toolSettings['restricted'],
                 $toolSettings['pph'],
                 $toolSettings['bookingLength'],

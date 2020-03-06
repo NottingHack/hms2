@@ -2,8 +2,8 @@
 
 cd /vagrant/
 
-mysql -uroot -proot mailserver -e "DELETE FROM alias"
-mysql -uroot -proot mailserver -e "DELETE FROM mailbox"
+mysql -uhmsdev -phmsdev mailserver -e "DELETE FROM alias"
+mysql -uhmsdev -phmsdev mailserver -e "DELETE FROM mailbox"
 
 php artisan migrate:reset
 php artisan doctrine:migration:refresh

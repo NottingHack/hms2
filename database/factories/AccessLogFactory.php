@@ -2,12 +2,13 @@
 
 use Carbon\Carbon;
 use HMS\Entities\GateKeeper\AccessLog;
+use HMS\Entities\GateKeeper\AccessLogResult;
 
 $factory->define(AccessLog::class, function (Faker\Generator $faker, array $attributes) {
     return [
         'rfidSerial' => $attributes['tag']->getBestRfidSerial(),
         'user' => $attributes['tag']->getUser(),
-        'accessResult' => AccessLog::ACCESS_GRANTED,
+        'accessResult' => AccessLogResult::ACCESS_GRANTED,
         'door' => $attributes['door'],
         'accessTime' => Carbon::now(),
     ];

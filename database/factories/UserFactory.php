@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /*
@@ -20,7 +21,7 @@ $factory->define(HMS\Entities\User::class, function (Faker\Generator $faker) {
         'lastname' => $faker->lastName,
         'email' => $faker->unique()->safeEmail,
         'username' => $faker->unique()->userName,
-        'rememberToken' => str_random(10),
+        'rememberToken' => Str::random(10),
         'roles' => new ArrayCollection(),
         'emailVerifiedAt' => Carbon::now(),
     ];

@@ -90,7 +90,7 @@ class BankTransactionFactory
                 $initials = $user->getFirstname()[0] . $user->getLastname()[0];
                 $initials = preg_replace('/[^-a-zA-Z0-9]/', '', $initials);
 
-                if ($initials == $matches[2]) {
+                if (strtoupper($initials) == strtoupper($matches[2])) {
                     // OK matched to a user id and there initials
                     // lets make a new Snackspace Transaction and link it
                     $stringAmount = money_format('%n', $amount / 100);

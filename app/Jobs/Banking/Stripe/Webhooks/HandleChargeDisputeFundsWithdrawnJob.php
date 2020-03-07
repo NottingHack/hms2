@@ -38,7 +38,7 @@ class HandleChargeDisputeFundsWithdrawnJob extends EventHandler
             // negate the amount
             $amount = -1 * $stripeDispute->amount;
 
-            $stringAmount = money_format('%n', $amount / 100);
+            $stringAmount = money($amount, 'GBP');
             $description = 'Dispute online card payment (funds withdrawn) : ' . $stringAmount;
 
             $transaction = $this->transactionFactory->create(

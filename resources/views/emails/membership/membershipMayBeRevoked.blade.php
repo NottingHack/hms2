@@ -22,7 +22,7 @@ Please also empty your members box.<br>
 @endif
 
 @if ($snackspaceBalance < 0)
-We also request that you settle your snackspace balance of @format_pennies($snackspaceBalance)<br>
+We also request that you settle your snackspace balance of @money($snackspaceBalance, 'GBP')<br>
 This can be paid off by cash in the space or by card online in HMS<br>
 Or via bank transfer using the reference **{{ $snackspaceRef }}** to the Account number ans Sort Code above.<br>
 @endif

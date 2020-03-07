@@ -9,7 +9,7 @@ Snackspace account for {{ $user->getFirstname() }}
   <div class="card w-100">
     <h3 class="card-header"><i class="far fa-money-bill" aria-hidden="true"></i> Balance</h3>
     <div class="card-body text-center">
-        <h1><span class="money">@format_pennies($user->getProfile() ? $user->getProfile()->getBalance() : 0)</span></h1>
+        <h1><span class="money">@money($user->getProfile() ? $user->getProfile()->getBalance() : 0, 'GBP')</span></h1>
     </div>
   </div>
 
@@ -52,7 +52,7 @@ Snackspace account for {{ $user->getFirstname() }}
           <td>{{ $transaction->getTransactionDatetime()->toDateTimeString() }}</td>
           <td class="d-none d-md-tabel-cell">{{ $transaction->getTypeString() }}</td>
           <td>{{ $transaction->getDescription() }}</td>
-          <td class="money">@format_pennies($transaction->getAmount())</td>
+          <td class="money">@money($transaction->getAmount(), 'GBP')</td>
         </tr>
         @endforeach
       </tbody>

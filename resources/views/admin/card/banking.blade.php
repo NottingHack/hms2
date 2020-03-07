@@ -38,7 +38,7 @@
   @endif
       <tr>
         <td>{{ $transaction->getTransactionDate()->toDateString() }}</td>
-        <td class="money">@format_pennies($transaction->getAmount())</td>
+        <td class="money">@money($transaction->getAmount(), 'GBP')</td>
       </tr>
   @if ($loop->last)
     </tbody>

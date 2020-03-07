@@ -55,7 +55,7 @@ class DisputeDonationFundsWithdrawn extends Notification
     public function toMail($notifiable)
     {
         $amount = $this->stripeDispute->amount;
-        $amountString = money_format('%n', $amount / 100);
+        $amountString = money($amount, 'GBP');
 
         return (new MailMessage)
             ->subject('Donation payment in dispute, funds withdrawn.')

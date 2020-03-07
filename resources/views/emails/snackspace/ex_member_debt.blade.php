@@ -3,7 +3,7 @@
 
 During your time as a member of Nottingham Hackspace you made use of a chargeable tool, purchased a members box or used one of the Snackspace vending machines.
 
-**Our records show you have @format_pennies(-$snackspaceBalance) outstanding to pay**.
+**Our records show you have @money(-$snackspaceBalance, 'GBP') outstanding to pay**.
 
 You can view your full purchase/payment history using the 'Snackspace' tab on HMS or click below.
 @component('mail::button', ['url' => route('snackspace.transactions.index')])
@@ -12,7 +12,7 @@ View your Snackspace history
 
 For the first eight years of Nottingham Hackspace, we allowed members up to £20 credit. However in 2019, this became unsustainable when the combined debt of all members, current and former, surpassed £2,500.
 
-As of today the space is still owed **@format_pennies(-$latetsTotalDebt)** of which **@format_pennies(-$latetsExDebt)** is owed by former members like yourself.
+As of today the space is still owed **@money(-$latetsTotalDebt, 'GBP')** of which **@money(-$latetsExDebt, 'GBP')** is owed by former members like yourself.
 
 The space is entirely funded by its members and they would greatly appreciate it if you could please pay off your outstanding balance.
 

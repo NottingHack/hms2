@@ -30,7 +30,7 @@
         </tr>
         <tr>
           <th>Cost per hour</th>
-          <td>@format_pennies($tool->getPph())</td>
+          <td>@money($tool->getPph(), 'GBP')</td>
         </tr>
         <tr>
           <th>Minimum booking length</th>

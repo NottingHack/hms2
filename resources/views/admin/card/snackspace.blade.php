@@ -2,7 +2,7 @@
 <div class="card">
   <div class="card-header">Snackspace account</div>
   <ul class="list-group list-group-flush">
-    <li class="list-group-item">Balance is: <span class="money">@format_pennies($user->getProfile() ? $user->getProfile()->getBalance() : 0)</span></li>
+    <li class="list-group-item">Balance is: <span class="money">@money($user->getProfile() ? $user->getProfile()->getBalance() : 0, 'GBP')</span></li>
   </ul>
   @forelse ($snackspaceTransactions as $transaction)
   @if ($loop->first)
@@ -19,7 +19,7 @@
       <tr>
         <td>{{ $transaction->getTransactionDatetime()->toDateString() }}</td>
         <td>{{ $transaction->getDescription() }}</td>
-        <td class="money">@format_pennies($transaction->getAmount())</td>
+        <td class="money">@money($transaction->getAmount(), 'GBP')</td>
       </tr>
   @if ($loop->last)
     </tbody>

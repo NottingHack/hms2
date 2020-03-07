@@ -68,7 +68,7 @@ class DonationRefund extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $amountString = money_format('%n', $this->refundAmount / 100);
+        $amountString = money($this->refundAmount, 'GBP');
 
         if ($notifiable instanceof User) {
             return (new MailMessage)

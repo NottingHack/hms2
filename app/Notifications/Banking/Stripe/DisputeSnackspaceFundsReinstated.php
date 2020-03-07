@@ -58,11 +58,11 @@ class DisputeSnackspaceFundsReinstated extends Notification implements ShouldQue
     public function toMail($notifiable)
     {
         $amount = $this->stripeDispute->amount;
-        $amountString = money_format('%n', $amount / 100);
+        $amountString = money($amount, 'GBP');
 
         if ($notifiable instanceof User) {
             $balance = $notifiable->getProfile()->getBalance();
-            $balanceString = money_format('%n', $balance / 100);
+            $balanceString = money($balance, 'GBP');
 
             return (new MailMessage)
                 ->subject('Snackspace card payment in dispute, funds reinstated.')

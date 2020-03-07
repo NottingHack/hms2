@@ -37,7 +37,7 @@ class HandleChargeDisputeFundsReinstatedJob extends EventHandler
         if ($charge->getType() == ChargeType::SNACKSPACE) {
             $amount = $stripeDispute->amount;
 
-            $stringAmount = money_format('%n', $amount / 100);
+            $stringAmount = money($amount, 'GBP');
             $description = 'Dispute online card payment (funds reinstated) : ' . $stringAmount;
 
             $transaction = $this->transactionFactory->create(

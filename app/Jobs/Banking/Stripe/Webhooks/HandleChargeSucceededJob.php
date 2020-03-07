@@ -59,7 +59,7 @@ class HandleChargeSucceededJob extends EventHandler
         $amount = $stripeCharge->amount;
         $last4 = $stripeCharge->payment_method_details->card->last4;
 
-        $stringAmount = money_format('%n', $amount / 100);
+        $stringAmount = money($amount, 'GBP');
         $description = 'Online card payment (' . $last4 . ') : ' . $stringAmount;
 
         $transaction = $this->transactionFactory->create($user, $amount, TransactionType::ONLINE_PAYMENT, $description);

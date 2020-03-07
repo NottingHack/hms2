@@ -58,7 +58,7 @@ class DisputeCreated extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $amount = $this->stripeDispute->amount;
-        $amountString = money_format('%n', $amount / 100);
+        $amountString = money($amount, 'GBP');
 
         $reason = $this->stripeDispute->reason;
 

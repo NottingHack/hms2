@@ -4,8 +4,69 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "05170b38eb72b76a3fe3a726c68088fd",
+    "content-hash": "abade76ac24289048f011da383fd719b",
     "packages": [
+        {
+            "name": "akaunting/money",
+            "version": "1.0.14",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/akaunting/money.git",
+                "reference": "058b2256344ca5cb17aa1fecb574f5264a2444ef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/akaunting/money/zipball/058b2256344ca5cb17aa1fecb574f5264a2444ef",
+                "reference": "058b2256344ca5cb17aa1fecb574f5264a2444ef",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": ">=5.2",
+                "illuminate/view": ">=5.2",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Akaunting\\Money\\Provider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Akaunting\\Money\\": "./src"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Denis Duliçi",
+                    "email": "info@akaunting.com",
+                    "homepage": "https://akaunting.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Currency formatting and conversion package for Laravel.",
+            "keywords": [
+                "convert",
+                "currency",
+                "format",
+                "laravel",
+                "money"
+            ],
+            "time": "2019-12-26T08:11:31+00:00"
+        },
         {
             "name": "balping/json-raw-encoder",
             "version": "v1.0.0",

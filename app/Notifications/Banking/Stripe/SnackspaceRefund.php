@@ -59,11 +59,11 @@ class SnackspaceRefund extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $amountString = money_format('%n', $this->refundAmount / 100);
+        $amountString = money($this->refundAmount, 'GBP');
 
         if ($notifiable instanceof User) {
             $balance = $notifiable->getProfile()->getBalance();
-            $balanceString = money_format('%n', $balance / 100);
+            $balanceString = money($balance, 'GBP');
 
             return (new MailMessage)
                 ->subject('Snackspace payment refunded.')

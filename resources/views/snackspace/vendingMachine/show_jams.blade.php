@@ -38,7 +38,7 @@
             </span>
           </td>
           <td>{{ $transaction->getTypeString() }}</td>
-          <td>@format_pennies($transaction->getAmount())</td>
+          <td>@money($transaction->getAmount(), 'GBP')</td>
           <td>{{ $transaction->getDescription() }}</td>
           <td>
               <form role="form" method="POST" action="{{ route('snackspace.vending-machines.logs.reconcile', ['vendingMachine' => $vendingMachine->getId(), 'vendLog' => $vendLog->getId()]) }}">

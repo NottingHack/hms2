@@ -17,7 +17,7 @@
         </tr>
         <tr>
           <th>Amount</th>
-          <td><span class="money">@format_pennies($bankTransaction->getAmount())</span></td>
+          <td><span class="money">@money($bankTransaction->getAmount(), 'GBP')</span></td>
         </tr>
         <tr>
           <th>Bank Account</th>

@@ -33,7 +33,7 @@
             <br>{{ $tool->getStatusText() }}
             @endif
           </td>
-          <td data-title="Cost per hour" class="d-none d-md-table-cell">@format_pennies($tool->getPph())</td>
+          <td data-title="Cost per hour" class="d-none d-md-table-cell">@money($tool->getPph(), 'GBP')</td>
           <td data-title="Next booking">{{ $nextBookings[$tool->getId()] ? $nextBookings[$tool->getId()]->getStart()->format('jS F Y @ H:i') : "None" }}</td>
          <td data-title="Actions" class="actions">
             @canany(['tools.edit', 'tools.maintainer.grant', 'tools.inductor.grant' , 'tools.' . $tool->getPermissionName() . '.inductor.grant', 'tools.' . $tool->getPermissionName() . '.induct'])

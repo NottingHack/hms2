@@ -20,7 +20,7 @@
         @foreach ($products as $product)
         <tr>
           <td data-title="Name">{{ $product->getShortDescription() }}</td>
-          <td data-title="Price"><span class="money">@format_pennies($product->getPrice())</span></td>
+          <td data-title="Price"><span class="money">@money($product->getPrice(), 'GBP')</span></td>
           <td calss='actions'>
             <a class="btn btn-primary" href="{{ route('snackspace.products.show', $product->getId()) }}"><i class="fas fa-eye" aria-hidden="true"></i> View</a>
             @can('snackspace.vendingMachine.edit')

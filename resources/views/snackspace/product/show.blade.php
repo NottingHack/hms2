@@ -23,7 +23,7 @@
         </tr>
         <tr>
           <th>Price:</th>
-          <td><span class="money">@format_pennies($product->getPrice())</span></td>
+          <td><span class="money">@money($product->getPrice(), 'GBP')</span></td>
         </tr>
       </tbody>
     </table>

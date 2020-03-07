@@ -168,7 +168,7 @@ class BankTransactionsController extends Controller
         } elseif ($validatedData['action'] == 'snackspace') {
             // create a new snackspace transaction
             $amount = $bankTransaction->getAmount();
-            $stringAmount = money_format('%n', $amount / 100);
+            $stringAmount = money($amount, 'GBP');
 
             $snackspaceTransaction = $this->transactionFactory->create(
                 $user,

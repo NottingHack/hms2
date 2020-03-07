@@ -93,7 +93,7 @@ class BankTransactionFactory
                 if (strtoupper($initials) == strtoupper($matches[2])) {
                     // OK matched to a user id and there initials
                     // lets make a new Snackspace Transaction and link it
-                    $stringAmount = money_format('%n', $amount / 100);
+                    $stringAmount = money($amount, 'GBP');
                     $description = 'Bank Transfer : ' . $stringAmount;
 
                     $snackspaceTransaction = $this->transactionFactory->create(

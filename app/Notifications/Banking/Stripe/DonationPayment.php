@@ -62,7 +62,7 @@ class DonationPayment extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $amount = $this->charge->getAmount();
-        $amountString = money_format('%n', $amount / 100);
+        $amountString = money($amount, 'GBP');
 
         if ($notifiable instanceof User) {
             return (new MailMessage)

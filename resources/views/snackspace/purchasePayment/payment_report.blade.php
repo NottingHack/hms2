@@ -10,42 +10,42 @@
   <table class="table">
     <tr>
       <th class="w-25">Cash Payments:</th>
-      <td>@format_pennies($cashPayments)</td>
+      <td>@money($cashPayments, 'GBP')</td>
     </tr>
     <tr>
       <th>Online Payments:</th>
-      <td>@format_pennies($cardPayments)</td>
+      <td>@money($cardPayments, 'GBP')</td>
     </tr>
     <tr>
       <th>Bank Payments:</th>
-      <td>@format_pennies($bankPayments)</td>
+      <td>@money($bankPayments, 'GBP')</td>
     </tr>
     <tr>
       <th>Manual Payments:</th>
-      <td>@format_pennies($manualCredits)</td>
+      <td>@money($manualCredits, 'GBP')</td>
     </tr>
     <tr>
       <th>TotalPayments:</th>
-      <td>@format_pennies($totalPayments)</td>
+      <td>@money($totalPayments, 'GBP')</td>
     </tr>
   </table>
   <h4>Purchases</h4>
   <table class="table">
     <tr>
       <th class="w-25">For Vending Purchases:</th>
-      <td>@format_pennies($forVendPurchases)</td>
+      <td>@money($forVendPurchases, 'GBP')</td>
     </tr>
     <tr>
       <th>For Tool Usages:</th>
-      <td>@format_pennies($forToolPurchases)</td>
+      <td>@money($forToolPurchases, 'GBP')</td>
     </tr>
     <tr>
       <th>For Membership Boxes:</th>
-      <td>@format_pennies($forBoxPurchases)</td>
+      <td>@money($forBoxPurchases, 'GBP')</td>
     </tr>
     <tr>
       <th>For Other:</th>
-      <td>@format_pennies($forOtherPurchases)</td>
+      <td>@money($forOtherPurchases, 'GBP')</td>
     </tr>
   </table>
   <hr>

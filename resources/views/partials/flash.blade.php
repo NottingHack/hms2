@@ -9,7 +9,7 @@
     'body'       => $message['message']
   ])
   @else
-  <div class="alert alert-{{ array_key_exists('level', $message) ? $message['level'] : '' }}" data-closable>
+  <div class="alert alert-{{ $message['level'] }}" data-closable>
     {!! $message['message'] !!}
     <button class="close" aria-label="Dismiss alert" data-dismiss="alert" type="button" data-close>
       <span aria-hidden="true">&times;</span>

@@ -126,6 +126,7 @@ class ToolController extends Controller
 
         $tool = $this->toolManager->create(
             $request->toolName,
+            $request->displayName,
             isset($request->restricted) ? true : false,
             $request->cost,
             $request->bookingLength,
@@ -187,7 +188,7 @@ class ToolController extends Controller
         $role = $this->roleRepository->findOneByName($roleName);
         $users = $this->userRepository->paginateUsersWithRole($role);
 
-        $toolusers = [];
+        $toolUsers = [];
         // find the RoleUpdate for when the user was granted this persmision
         foreach ($users as $user) {
             $roleUpdate = $this->roleUpdateRepository->findLatestRoleAddedByUser($role, $user);

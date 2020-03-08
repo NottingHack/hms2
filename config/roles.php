@@ -343,7 +343,6 @@ return [
                 'link.edit',
                 'bankTransactions.view.all',
                 'tools.view',
-                'tools.create',
                 'tools.edit',
                 'tools.maintainer.grant',
                 'tools.inductor.grant',

@@ -225,10 +225,10 @@ class ToolManager
             $tool->setBookingLength($details['bookingLength']);
         }
         if (isset($details['lengthMax'])) {
-            $tool->setBookingLength($details['lengthMax']);
+            $tool->setLengthMax($details['lengthMax']);
         }
         if (isset($details['bookingsMax'])) {
-            $tool->setBookingLength($details['bookingsMax']);
+            $tool->setBookingsMax($details['bookingsMax']);
         }
 
         $this->toolRepository->save($tool);

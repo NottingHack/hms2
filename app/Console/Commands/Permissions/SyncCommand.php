@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands\Permissions;
 
-use HMS\Entities\Role;
 use Illuminate\Console\Command;
 use HMS\Repositories\RoleRepository;
 use HMS\User\Permissions\RoleManager;

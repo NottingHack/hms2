@@ -43,7 +43,7 @@
           <td>{{ $vendLog->getSuccessTime() ? $vendLog->getSuccessTime()->toDateTimeString() : '' }}</td>
           <td>{{ $vendLog->getCancelledTime() ? $vendLog->getCancelledTime()->toDateTimeString() : '' }}</td>
           <td>{{ $vendLog->getFailedTime() ? $vendLog->getFailedTime()->toDateTimeString() : '' }}</td>
-          <td>@money($vendLog->getAmountScaled(), 'GBP')</td>
+          <td>{{ $vendLog->getAmountScaled() ? money($vendLog->getAmountScaled(), 'GBP') : '' }}</td>
           <td>{{ $vendLog->getPosition() }}</td>
           <td>{{ $vendLog->getDeniedReason() }}</td>
         </tr>

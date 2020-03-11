@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Tools;
 
 use HMS\Entities\Tools\Tool;
 use Illuminate\Http\Request;
+use HMS\Tools\BookingManager;
 use App\Http\Controllers\Controller;
 use HMS\Repositories\Tools\BookingRepository;
 
@@ -15,13 +16,22 @@ class BookingController extends Controller
     protected $bookingRepository;
 
     /**
+     * @var BookingManager
+     */
+    protected $bookingManager;
+
+    /**
      * Create a new controller instance.
      *
      * @param BookingRepository $bookingRepository
+     * @param BookingManager $bookingManager
      */
-    public function __construct(BookingRepository $bookingRepository)
-    {
+    public function __construct(
+        BookingRepository $bookingRepository,
+        BookingManager $bookingManager
+    ) {
         $this->bookingRepository = $bookingRepository;
+        $this->bookingManager = $bookingManager;
 
         $this->middleware('can:tools.view')->only(['index']);
     }
@@ -38,17 +48,9 @@ class BookingController extends Controller
         $user = \Auth::user();
         $bookingsThisWeek = $this->bookingRepository->findByToolForThisWeek($tool);
 
-        $userCanBook = [
-            'userId' => $user->getId(),
-            'normal' => $user->can('tools.' . $tool->getPermissionName() . '.book'),
-            'normalCurrentCount' => $this->bookingRepository->countNormalByToolAndUser($tool, $user),
-            'induction' => $user->can('tools.' . $tool->getPermissionName() . '.book.induction'),
-            'maintenance' => $user->can('tools.' . $tool->getPermissionName() . '.book.maintenance'),
-        ];
-
         return view('tools.booking.index')
             ->with('tool', $tool)
-            ->with('userCanBook', $userCanBook)
+            ->with('userCanBook', $this->bookingManager->canUserBookTool($user, $tool))
             ->with('bookingsThisWeek', $bookingsThisWeek);
     }
 

@@ -33,7 +33,7 @@
           <td>@money($tool->getPph(), 'GBP')</td>
         </tr>
         <tr>
-          <th>Minimum booking length</th>
+          <th>Default booking length</th>
           <td>{{ $tool->getBookingLength() }} Minutes</td>
         </tr>
         <tr>

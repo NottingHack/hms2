@@ -308,4 +308,34 @@ class BookingManager
 
         return true;
     }
+
+    /**
+     * What bookings can a user make for a give tool?
+     *
+     * @param User $user
+     * @param Tool $tool
+     *
+     * @return Array
+     */
+    public function canUserBookTool(User $user, Tool $tool)
+    {
+        $normal = false;
+        if ($tool->isRestricted()) {
+            // restriced tool user needs general book tool permission and to be inducted to use this tool
+            if ($user->can('tools.book') && $user->can('tools.' . $tool->getPermissionName() . '.book')) {
+                $normal = true;
+            }
+        } else {
+            // unrestriced tool, still need general book tool permission
+            $normal = $user->can('tools.book');
+        }
+
+        return [
+            'userId' => $user->getId(),
+            'normal' => $normal,
+            'normalCurrentCount' => $this->bookingRepository->countNormalByToolAndUser($tool, $user),
+            'induction' => $user->can('tools.' . $tool->getPermissionName() . '.book.induction'),
+            'maintenance' => $user->can('tools.' . $tool->getPermissionName() . '.book.maintenance'),
+        ];
+    }
 }

@@ -70,10 +70,14 @@ class ViMbAdminSubscriber implements ShouldQueue
             }
 
             $domainName = explode('@', $mailboxEmail)[1];
-            $domain = $this->client->findDomains($domainName)[0];
-            if (! $domain instanceof Domain) {
+            $domains = $this->client->findDomains($domainName);
+            if ($domains instanceof Error) {
+                throw new Exception('Error trying to find Domain: ' . $domains);
+            }
+            if (! is_array($domains) || empty($domains)) {
                 throw new Exception('Domain for ' . $domainName . ' does not exist in ViMAdmin and we cant create it');
             }
+            $domain = $domains[0];
 
             $mailbox = Mailbox::create($mailboxEmail, $event->role->getDisplayname(), $domain);
 

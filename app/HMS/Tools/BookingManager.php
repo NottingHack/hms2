@@ -315,7 +315,7 @@ class BookingManager
      * @param User $user
      * @param Tool $tool
      *
-     * @return Array
+     * @return array
      */
     public function canUserBookTool(User $user, Tool $tool)
     {

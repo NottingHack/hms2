@@ -78,6 +78,9 @@ class ViMbAdminSubscriber implements ShouldQueue
                 throw new Exception('Domain for ' . $domainName . ' does not exist in ViMAdmin and we cant create it');
             }
             $domain = $domains[0];
+            if (! $domain instanceof Domain) {
+                throw new Exception('Domain for ' . $domainName . ' does not exist in ViMAdmin and we cant create it');
+            }
 
             $mailbox = Mailbox::create($mailboxEmail, $event->role->getDisplayname(), $domain);
 

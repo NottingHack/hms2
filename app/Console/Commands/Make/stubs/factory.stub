@@ -22,6 +22,8 @@ class DummyClassFactory
 
     /**
      * Function to instantiate a new DummyClass from given params.
+     *
+     * @return DummyClass
      */
     public function create()
     {

@@ -9,6 +9,7 @@
       @select="mySelectEvent"
       style="width: 100%"
       :disabled="disabled"
+      :invalid="invalid"
       />
   </div>
 </template>
@@ -32,6 +33,10 @@
       // Search for only current members
       currentOnly: Boolean,
       disabled: Boolean,
+      invalid: {
+        type: Boolean,
+        default: false
+      },
     },
 
     model: {

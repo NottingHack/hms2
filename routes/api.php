@@ -59,7 +59,13 @@ Route::name('api.')->namespace('Api')->group(function () {
         )->name('snackspace.vending-machines.locations.assign');
 
         // Tools
-        Route::apiResource('tools/{tool}/bookings', 'Tools\BookingController');
+        Route::apiResource(
+            'tools/{tool}/bookings',
+            'Tools\BookingController',
+            [
+                'as' => 'tools',
+            ]
+        );
 
         // Governance
         Route::namespace('Governance')->prefix('governance')->name('governance.')->group(function () {

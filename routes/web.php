@@ -295,6 +295,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         'Tools\BookingController',
         [
             'except' => ['show', 'create', 'store', 'edit', 'update', 'destroy'], // turned off for now
+            'as' => 'tools',
         ]
     );
 

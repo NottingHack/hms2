@@ -12,7 +12,7 @@ Boxes for {{ $user->getFirstname() }}
 
   <p><strong>Note:</strong> The system does not know if there is an actual empty box available for you, and will debit you either way - please check first!</p>
 
-  <p>Once you have bought a box, please print a label (using the link below) and place it on the front of your box so it can be identified.</p>
+  <p>Once you have bought a box, please print a label (using the link below) and place it on the front of your box so it can be identified.  Note that you need to be accessing this page via the space's own wifi in order to see the link.  The label will be printed on the label printer in the studio.</p>
 </div>
 @if ($user == \Auth::user())
 @can('box.buy.self')

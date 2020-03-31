@@ -144,7 +144,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('pins/{pin}/reactivate', 'GateKeeper\RfidTagsController@reactivatePin')->name('pins.reactivate');
 
     // Temporary Gatekeeper access
-    Route::view('gatekeeper/temporary-access', 'gatekeeper.temporary_access')
+    Route::view('gatekeeper/temporary-access', 'gateKeeper.temporary_access')
         ->middleware('can:gatekeeper.temporaryAccess.grant')
         ->name('gatekeeper.temporary-access');
 

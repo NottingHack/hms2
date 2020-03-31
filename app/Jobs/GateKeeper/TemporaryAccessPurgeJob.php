@@ -32,7 +32,7 @@ class TemporaryAccessPurgeJob implements ShouldQueue
     /**
      * Execute the job.
      *
-     * @param UserManager $userManager
+     * @param RoleManager $roleManager
      * @param RoleRepository $roleRepository
      * @param RoleUpdateRepository $roleUpdateRepository
      * @param MetaRepository $metaRepository

@@ -143,6 +143,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     );
     Route::patch('pins/{pin}/reactivate', 'GateKeeper\RfidTagsController@reactivatePin')->name('pins.reactivate');
 
+    // Temporary Gatekeeper access
+    Route::view('gatekeeper/temporary-access', 'gatekeeper.temporary_access')
+        ->middleware('can:gatekeeper.temporaryAccess.grant')
+        ->name('gatekeeper.temporary-access');
+
     // Label printer template admin
     Route::get('labels/{label}/print', 'LabelTemplateController@showPrint')->name('labels.showPrint');
     Route::post('labels/{label}/print', 'LabelTemplateController@print')->name('labels.print');

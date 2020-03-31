@@ -67,6 +67,18 @@ Route::name('api.')->namespace('Api')->group(function () {
             ]
         );
 
+        // GateKeeper Temporary Access
+        Route::apiResource(
+            'gatekeeper/temporary-access-bookings',
+            'GateKeeper\TemporaryAccessBookingController',
+            [
+                'as' => 'gatekeeper',
+                'parameters' => [
+                    'temporary-access-bookings' => 'temporaryAccessBooking',
+                ],
+            ]
+        );
+
         // Governance
         Route::namespace('Governance')->prefix('governance')->name('governance.')->group(function () {
             // Meeting

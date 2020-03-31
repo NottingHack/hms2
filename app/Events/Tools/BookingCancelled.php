@@ -26,6 +26,7 @@ class BookingCancelled implements ShouldBroadcast
     /**
      * Create a new event instance.
      *
+     * @param Tool $tool Tool to which this booking belonged
      * @param int $bookingId id of the cancelled booking
      *
      * @return void

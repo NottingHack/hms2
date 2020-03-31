@@ -656,7 +656,7 @@
           this.aspectRatio = this.dayAspectRatio;
         } else {
           this.defaultView = 'timeGridWeek';
-          this.aspectRatio = this.weeAspecctRatio;
+          this.aspectRatio = this.weekAspectRatio;
         }
 
         if (this.calendarApi !== null) {

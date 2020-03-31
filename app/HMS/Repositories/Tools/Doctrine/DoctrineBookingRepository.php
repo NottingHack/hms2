@@ -163,8 +163,15 @@ class DoctrineBookingRepository extends EntityRepository implements BookingRepos
     {
         $q = parent::createQueryBuilder('booking');
 
-        $q = $q->where($q->expr()->between('booking.start', ':start', ':end'))
-            ->orWhere($q->expr()->between('booking.end', ':start', ':end'))
+        $expr = $q->expr();
+        $q = $q->where($expr->between('booking.start', ':start', ':end'))
+            ->orWhere($expr->between('booking.end', ':start', ':end'))
+            ->orWhere(
+                $expr->andX(
+                    $expr->lte('booking.start', ':start'),
+                    $expr->gte('booking.end', ':end')
+                )
+            )
             ->andWhere('booking.tool = :tool_id')
             ->orderBy('booking.start', 'ASC');
 

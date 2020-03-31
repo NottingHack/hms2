@@ -166,7 +166,7 @@ class VotingManager
             return self::CANNOT_VOTE;
         }
 
-        $sixMonthsAgo = Carbon::now()->subMonths(6);
+        $sixMonthsAgo = Carbon::now()->subMonthsNoOverflow(6);
 
         // Has stated a preference for VOTING
         if ($user->getProfile()->getVotingPreference() == VotingPreference::VOTING && $user->getProfile()->getVotingPreferenceStatedAt()->isAfter($sixMonthsAgo)) {

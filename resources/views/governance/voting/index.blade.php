@@ -41,7 +41,7 @@ Voting Status
         <th scope="row">Date preference was stated:</th>
         <td>
           @if ($votingPreferenceStatedAt)
-           {{ $votingPreferenceStatedAt->toDateTimeString() }}{{ $votingPreferenceStatedAt->isAfter(Carbon\Carbon::now()->subMonths(6)) ? '' : ', Over six months ago' }}
+           {{ $votingPreferenceStatedAt->toDateTimeString() }}{{ $votingPreferenceStatedAt->isAfter(Carbon\Carbon::now()->subMonthsNoOverflow(6)) ? '' : ', Over six months ago' }}
           @else
           Never stated
           @endif

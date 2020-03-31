@@ -1,0 +1,31 @@
+# HMS.Entities.GateKeeper.TemporaryAccessBooking.dcm.yml
+HMS\Entities\GateKeeper\TemporaryAccessBooking:
+  type: entity
+  repositoryClass: HMS\Repositories\GateKeeper\Doctrine\DoctrineTemporaryAccessBookingRepository
+  table: temporary_access_bookings
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    start:
+      type: datetime
+    end:
+      type: datetime
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+  manyToOne:
+    user:
+      targetEntity: \HMS\Entities\User
+      fetch: EAGER

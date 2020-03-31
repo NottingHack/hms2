@@ -46,7 +46,7 @@ class ElectricController extends Controller
         // readings are normally on the 16th of the month
         $date = Carbon::now();
         if ($date->day < 16) {
-            $date->subMonth();
+            $date->subMonthNoOverflow();
         }
         $date->day = 16;
 

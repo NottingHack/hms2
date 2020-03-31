@@ -1,75 +1,149 @@
 <template>
-  <div class="container" ref="calendar">
-    <full-calendar
-      ref="fullCalendar"
+  <div class="vue-remove">
+    <div class="container">
+      <p>To schedule temporary access for a User please select and drag on the calendar below.</p>
+      <p>To re-schedule a booking, click and move the booking to a new time.</p>
+      <p>To cancel a booking, click on the booking then confirm cancellation.</p>
+    </div>
 
-      :plugins="calendarPlugins"
-      locale="en-gb"
-      timeZone="Europe/London"
-      :firstDay=1
-      :eventSources="eventSources"
+    <div class="container" ref="calendar">
+      <full-calendar
+        ref="fullCalendar"
 
-      @loading="loading"
-      @select="select"
-      @unselect="unselect"
-      :selectAllow="selectAllow"
-      @eventClick="eventClick"
-      :eventAllow="eventAllow"
-      @eventDragStart="removeConfirmation"
-      @eventDrop="eventDrop"
-      @eventResizeStart="removeConfirmation"
-      @eventResize="eventResize"
-      :datesDestroy="removeConfirmation"
+        :plugins="calendarPlugins"
+        locale="en-gb"
+        timeZone="Europe/London"
+        :firstDay=1
+        :eventSources="eventSources"
+        :rerenderDelay="5"
 
-      :selectable=true
-      :selectOverlap=false
-      :selectMirror=true
-      unselectCancel=".popover"
-      :eventOverlap=false
-      :defaultView="defaultView"
-      noEventsMessage="No bookings to display"
-      themeSystem="bootstrap"
-      :header="{
-        left:   'prev',
-        center: 'today',
-        right:  'next',
-      }"
-      :footer="{
-        left:   'prev',
-        center: 'today',
-        right:  'next',
-      }"
-      :buttonText="{
-        today:  'Today',
-      }"
-      :aspectRatio="aspectRatio"
-      :views="{
-        timeGrid: {
-          // options apply to timeGridWeek and timeGridDay views
-          allDaySlot: false,
-          nowIndicator: true,
-          slotDuration: '00:15',
-          slotLabelInterval: '01:00',
-          slotLabelFormat: {
-            hour12: false,
-            hour: '2-digit',
-            minute: '2-digit',
+        @loading="loading"
+        @select="select"
+        @unselect="unselect"
+        :selectAllow="selectAllow"
+        @eventClick="eventClick"
+        :eventAllow="eventAllow"
+        @eventDragStart="removeConfirmation"
+        @eventDrop="eventDrop"
+        @eventResizeStart="removeConfirmation"
+        @eventResize="eventResize"
+        :datesDestroy="removeConfirmation"
+
+        :selectable=true
+        :selectOverlap=true
+        :selectMirror=true
+        unselectCancel=".modal-content"
+        :eventOverlap=true
+        :defaultView="defaultView"
+        noEventsMessage="No bookings to display"
+        themeSystem="bootstrap"
+        :header="{
+          left:   'prev',
+          center: 'today',
+          right:  'next',
+        }"
+        :footer="{
+          left:   'prev',
+          center: 'today',
+          right:  'next',
+        }"
+        :buttonText="{
+          today:  'Today',
+        }"
+        :aspectRatio="aspectRatio"
+        :views="{
+          timeGrid: {
+            // options apply to timeGridWeek and timeGridDay views
+            allDaySlot: false,
+            nowIndicator: true,
+            slotDuration: '00:15',
+            slotLabelInterval: '01:00',
+            slotLabelFormat: {
+              hour12: false,
+              hour: '2-digit',
+              minute: '2-digit',
+            },
+            // scrollTime: moment().format('HH:mm'),
+            columnHeaderFormat: {
+              weekday: 'narrow',
+              day: '2-digit',
+              month: '2-digit',
+              year: '2-digit',
+            },
+            eventTimeFormat: {
+              hour12: false,
+              hour: '2-digit',
+              minute: '2-digit',
+            },
           },
-          // scrollTime: moment().format('HH:mm'),
-          columnHeaderFormat: {
-            weekday: 'narrow',
-            day: '2-digit',
-            month: '2-digit',
-            year: '2-digit',
-          },
-          eventTimeFormat: {
-            hour12: false,
-            hour: '2-digit',
-            minute: '2-digit',
-          },
-        },
-      }"
-      />
+        }"
+        />
+    </div>
+
+    <!-- Modal -->
+    <div ref="selectModal" class="modal fade" id="addBookingModal" tabindex="-1" role="dialog" aria-labelledby="addBookingLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addBookingLabel">Schedule booking</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div :class="['form-group', userError ? 'is-invalid' : '']">
+              <label for="user">Select Member</label>
+              <member-select-two
+                id="user"
+                ref="mst"
+                v-model="userId"
+                :name="null"
+                :current-only="true"
+                />
+              <div class="invalid-feedback d-block" role="alert" v-if="userError">{{ userError }}</div>
+            </div>
+            <div class="form-group">
+              <label for="datetimepickerstart">Start</label>
+              <div class="input-group" ref="datetimepickerstart">
+                <date-picker
+                  v-model="start"
+                  id="datetimepickerstart"
+                  :wrap="true"
+                  :config="datapickerConfig"
+                  @dp-change="startChange"
+                  :class="['datetimepicker-readonly', startError ? 'is-invalid' : '']"
+                  readonly
+                  ></date-picker>
+                <div class="input-group-append">
+                  <div class="input-group-text datepickerbutton"><i class="far fa-calendar-alt"></i></div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="datetimepickerend">End</label>
+              <div class="input-group" ref="datetimepickerend">
+                <date-picker
+                  v-model="end"
+                  id="datetimepickerend"
+                  :wrap="true"
+                  :config="datapickerConfig"
+                  @dp-change="endChange"
+                  :class="['datetimepicker-readonly', endError ? 'is-invalid' : '']"
+                  readonly
+                  ></date-picker>
+                <div class="input-group-append">
+                  <div class="input-group-text datepickerbutton"><i class="far fa-calendar-alt"></i></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="sumbit" class="btn btn-primary" @click="book">Add Booking</button>
+          </div>
+        </div>
+      </div>
+    </div> <!-- /Modal -->
   </div>
 </template>
 
@@ -83,30 +157,17 @@
   import moment from 'moment';
   import humanizeDuration from 'humanize-duration';
   import Loading from 'vue-loading-overlay';
+  import datePicker from 'vue-bootstrap-datetimepicker';
   Vue.use(Loading);
 
   export default {
     components: {
       FullCalendar, // make the <FullCalendar> tag available
+      datePicker,
     },
 
     props: {
       bookingLengthMax: Number,
-      bookingsMax: Number,
-      bookingsUrl: String,
-      // initialBookings: Object,
-      toolId: Number,
-      toolRestricted: Boolean,
-      userCanBook: {
-        type: Object,
-        default: () => ({
-          userId: null,
-          normal: true,
-          normalCurrentCount: 0,
-          induction: 0,
-          maintenance: 0,
-        }),
-      },
     },
 
     data() {
@@ -127,6 +188,32 @@
         interval: null,
         isLoading: true,
         loader: null,
+        userId: '',
+        start: '',
+        end: '',
+        userError: '',
+        startError: false,
+        endError: false,
+        datapickerConfig: {
+          icons: {
+              time: 'far fa-clock',
+              date: 'far fa-calendar-alt',
+              up: 'fas fa-arrow-up',
+              down: 'fas fa-arrow-down',
+              previous: 'fas fa-chevron-left',
+              next: 'fas fa-chevron-right',
+              today: 'far fa-calendar-check',
+              clear: 'far fa-trash',
+              close: 'far fa-times'
+          },
+          locale: 'en-gb',
+          format: 'YYYY-MM-DD HH:mm',
+          ignoreReadonly: true,
+          allowInputToggle: true,
+          useCurrent: false,
+          stepping: 15,
+          minDate: moment().add(15, 'mintues'), // can not pick in the past
+        },
       };
     },
 
@@ -153,6 +240,13 @@
       },
     },
 
+    watch: {
+      userId(newValue, oldValue) {
+        // clear error on any change
+        this.userError = '';
+      },
+    },
+
     methods: {
       loading(isLoading) {
         this.isLoading = isLoading;
@@ -171,7 +265,7 @@
         this.setupBookingConfirmation(selectionInfo);
       },
 
-      unselect( jsEvent, view ) {
+      unselect(jsEvent, view) {
         this.removeConfirmation();
       },
 
@@ -181,21 +275,11 @@
           return false;
         }
 
-        if (this.toolRestricted && ! (this.userCanBook.normal || this.userCanBook.induction || this.userCanBook.maintenance)) {
-          // we dont have permissino to even make a booking
-          flash('This tool requires an induction for use', 'warning');
-
-          return false;
-        }
-
-
         // Don't allow selection if start is in the past
-        if (moment().diff(selectInfo.start) > 0) {
+        if (moment().add(10, 'minutes').diff(selectInfo.start) > 0) {
 
           return false;
         }
-
-        // TODO: check max allowed bookings and userCanBook
 
         // Check length against tools max booking length
         var duration = moment.duration(moment(selectInfo.end).diff(selectInfo.start));
@@ -214,13 +298,8 @@
           return false;
         }
 
-        if (this.userCanBook.userId == null) {
-          console.error('eventClick: userCanBook.userId not set');
-
-          return false;
-        }
-        // is it ours and is does it end in the future
-        if (info.event.extendedProps.userId == this.userCanBook.userId && moment().diff(info.event.end) < 0) {
+        // does it end in the future?
+        if (moment().diff(info.event.end) < 0) {
           this.setupCancleConfirmation(info);
         }
       },
@@ -288,7 +367,7 @@
           this.axiosCancle('New events range requested');
         }
 
-        const request = axios.get(this.bookingsUrl, {
+        const request = axios.get(this.route('api.gatekeeper.temporary-access-bookings.index'), {
           params: {
             start: fetchInfo.startStr,
             end: fetchInfo.endStr,
@@ -316,70 +395,63 @@
       },
 
       /**
-       * Confirmation onConfirm handler.
-       * @param  {string} type
-       * @param  {object} selectionInfo
-       * @return
+       * Handle click of Add Booking in modal
        */
-      bookOnConfirm(type, selectionInfo) {
-        switch (type) {
-          case 'NORMAL':
-            this.bookNormal(moment(selectionInfo.start), moment(selectionInfo.end));
-            break;
-          case 'INDUCTION':
-            this.bookIndcution(moment(selectionInfo.start), moment(selectionInfo.end));
-            break;
-          case 'MAINTENANCE':
-            this.bookMaintenance(moment(selectionInfo.start), moment(selectionInfo.end));
-            break;
+      book(event) {
+        let start = moment(this.start);
+        let end = moment(this.end);
+
+        // Validation checks
+
+        // is the start date in the future?
+        // is the end date after the start date
+        // is the duration less than bookingLengthMax
+        // all of the above should already be taken care of by check in startChange and endChange
+
+        // Has a user been selected?
+        if (this.userId == '') {
+          this.userError = 'You must select a member.';
+        } else {
+          // does this event overlap an existing event for this user?
+          let events = this.calendarApi.getEvents();
+          events = events.filter(event => event.extendedProps.userId == this.userId);
+          events = events.filter((event) => {
+            let eventStart = moment(event.start);
+            let eventEnd = moment(event.end);
+            return (eventStart.isSameOrBefore(start) && eventEnd.isAfter(start)) ||
+              (eventStart.isBefore(end) && eventEnd.isSameOrAfter(end)) ||
+              (eventStart.isAfter(start) && eventStart.isBefore(end));
+          });
+
+          if (events.length > 0 ) {
+            this.userError = 'Booking clash for this member';
+          } else {
+            this.userError = '';
+          }
         }
-      },
 
-      bookNormal(start, end) {
-        // make a normal booking
-        // we can just submit this to the end point, don't need any other user interaction
-
-        let booking = new FormData();
-        booking.append('start', start.toISOString(true));
-        booking.append('end', end.toISOString(true));
-        booking.append('type', 'NORMAL');
-
-        this.createBooking(booking);
-      },
-
-      bookIndcution(start, end) {
-        // make a induction booking
-        // for now we don't need other interaction on inductions
-        // TODO: in future we might ask who is to be inducted (or tie this in with induction requests)
+        // if there was any error get out now
+        if (this.userError != '' || this.startError || this.endError) {
+          return;
+        }
 
         let booking = new FormData();
         booking.append('start', start.toISOString(true));
         booking.append('end', end.toISOString(true));
-        booking.append('type', 'INDUCTION');
-
-        this.createBooking(booking);
-      },
-
-      bookMaintenance(start, end) {
-        // make a maintenance slot
-        // TODO: ask for e reason? ask if they want a longer slot (past normal limits), ask if we should disable the tool and let members know
-
-        let booking = new FormData();
-        booking.append('start', start.toISOString(true));
-        booking.append('end', end.toISOString(true));
-        booking.append('type', 'MAINTENANCE');
+        booking.append('user_id', this.userId);
 
         this.createBooking(booking);
       },
 
       createBooking(booking) {
         this.loading(true);
-        axios.post(this.bookingsUrl, booking)
+        axios.post(this.route('api.gatekeeper.temporary-access-bookings.store'), booking)
           .then((response) => {
             if (response.status == '201') { // HTTP_CREATED
               const booking = this.mapBookings(response.data);
 
-              this.removeConfirmation();
+              $(this.$refs.selectModal).modal('hide');
+              this.removeBookingConfirmation();
               this.calendarApi.unselect();
               const event = this.calendarApi.getEventById(booking.id);
               if (! event) { // make sure the event has not already been added via newBookingEvent
@@ -430,7 +502,7 @@
 
         this.loading(true);
 
-        axios.patch(this.bookingsUrl + '/' + event.id, booking)
+        axios.patch(this.route('api.gatekeeper.temporary-access-bookings.update', event.id), booking)
           .then((response) => {
             if (response.status == '200') { // HTTP_OK
               flash('Booking updated');
@@ -483,7 +555,7 @@
 
         this.loading(true);
 
-        axios.delete(this.bookingsUrl + '/' + event.id)
+        axios.delete(this.route('api.gatekeeper.temporary-access-bookings.destroy', event.id))
           .then((response) => {
             if (response.status == '204') { // HTTP_NO_CONTENT
               flash('Booking cancelled');
@@ -531,80 +603,23 @@
        * Display bootstrap confirmation popover for a new selection.
        */
       setupBookingConfirmation(selectionInfo) {
-        const self = this;
+        // update start and end base on the new selection
+        this.start = selectionInfo.start; //moment(selectionInfo.start).format('YYYY/MM/DD HH:mm');
+        this.end = selectionInfo.end; //moment(selectionInfo.end).format('YYYY/MM/DD HH:mm');
 
-        let options = {
-          container: 'body',
-          rootSelector: '.fc-mirror',
-          selector: '.fc-mirror',
-          title: 'Add booking?',
-          popout: true,
-          singleton: true,
-          onConfirm(type) {
-            self.bookOnConfirm(type, selectionInfo);
-          },
-          onCancel() {
-            self.calendarApi.unselect();
-          },
-          buttons: [
-            {
-              label: this.defaultView == 'timeGridWeek' ? '&nbsp;' : '',
-              class: 'btn btn-sm btn-outline-dark',
-              iconClass: 'fas fa-times',
-              cancel: true,
-            },
-          ],
-        };
+        // and show the modal
+        $(this.$refs.selectModal).modal('show');
+      },
 
-        if (this.userCanBook.maintenance) {
-          options.buttons.splice(0, 0,
-            {
-              label: this.defaultView == 'timeGridWeek' ? '&nbsp;Maintenance' : '',
-              value: 'MAINTENANCE',
-              class: 'btn btn-sm btn-booking-maintenance',
-              iconClass: 'fas fa-wrench',
-            }
-          );
-        }
+      removeBookingConfirmation() {
+        // this.start = '';
+        // this.end = '';
+        this.$refs.mst.clear();
+        this.userError = '';
+        this.startError = false;
+        this.endError = false;
 
-        if (this.userCanBook.induction) {
-          options.buttons.splice(0, 0,
-            {
-              label: this.defaultView == 'timeGridWeek' ? '&nbsp;Induction' : '',
-              value: 'INDUCTION',
-              class: 'btn btn-sm btn-booking-induction',
-              iconClass: 'fas fa-chalkboard-teacher',
-            }
-          );
-        }
-
-        if (this.userCanBook.normal || ! this.toolRestricted) {
-          var normalLabel = '&nbsp;Normal';
-          if (! (this.userCanBook.maintenance || this.userCanBook.induction)) {
-            // Don't need to include the text if this is the only type of booking you can make
-            normalLabel = '&nbsp;';
-          }
-
-          if (this.userCanBook.normalCurrentCount < this.bookingsMax) {
-            options.buttons.splice(0, 0,
-              {
-                label: this.defaultView == 'timeGridWeek' ? normalLabel : '',
-                value: 'NORMAL',
-                class: 'btn btn-sm btn-booking-normal',
-                iconClass: 'fas fa-check',
-              }
-            );
-          } else {
-            const txt = this.bookingsMax > 1 ? 'bookings' : 'booking';
-            options.content = 'You can only have ' + this.bookingsMax + ' normal ' + txt + ' for this tool';
-          }
-        } else {
-
-        }
-
-        $('.fc-mirror').confirmation(options);
-
-        $('.fc-mirror').confirmation('show');
+        this.calendarApi.unselect();
       },
 
       /**
@@ -666,14 +681,13 @@
       },
 
       mapBookings(booking) {
-        booking.className = 'tool-' + booking.type.toLowerCase();
+        booking.className = 'tool-normal';
 
-        if (booking.userId == this.userCanBook.userId
-          && moment().diff(booking.start) > 0
+        if (moment().diff(booking.start) > 0
           && moment().diff(booking.end) < 0) {
-            // this is our booking under now
+            // this is a booking under now
           booking.durationEditable = true;
-        } else if (booking.userId == this.userCanBook.userId && moment().diff(booking.start) < 0) {
+        } else if (moment().diff(booking.start) < 0) {
           booking.editable = true;
         } else {
           booking.className += ' not-editable';
@@ -683,14 +697,14 @@
       },
 
       echoInit() {
-        Echo.channel('tools.' + this.toolId + '.bookings')
-          .listen('Tools.NewBooking', this.newBookingEvent)
-          .listen('Tools.BookingChanged', this.bookingChangedEvent)
-          .listen('Tools.BookingCancelled', this.bookingCancelledEvent);
+        Echo.channel('gatekeeper.temporaryAccessBookings')
+          .listen('GateKeeper.NewBooking', this.newBookingEvent)
+          .listen('GateKeeper.BookingChanged', this.bookingChangedEvent)
+          .listen('GateKeeper.BookingCancelled', this.bookingCancelledEvent);
       },
 
       echoDeInit() {
-        Echo.leave('tools.' + this.toolId + '.bookings');
+        Echo.leave('gatekeeper.temporaryAccessBookings');
       },
 
       newBookingEvent(newBooking) {
@@ -699,10 +713,6 @@
         const event = this.calendarApi.getEventById(booking.id);
         if (event) { // make sure the event has not already been added via createBooking
           return;
-        }
-
-        if (booking.type === 'NORMAL') {
-          this.userCanBook.normalCurrentCount += 1;
         }
 
         this.calendarApi.addEvent(booking, 'bookings');
@@ -723,17 +733,84 @@
         // console.log('Echo sent bookingCancelled event', bookingCancelled);
         const event = this.calendarApi.getEventById(bookingCancelled.bookingId);
         if (event) {
-          if (event.extendedProps.type == "NORMAL") {
-            this.userCanBook.normalCurrentCount -= 1;
-          }
-
           event.remove();
+        }
+      },
+
+      /**
+       * Watch for changes of the start date picker.
+       * TODO: might this be better as a watch on this.start?
+       * Nope this is better as event gives us new and old dates as moment's
+       */
+      startChange(event) {
+        // console.log('start dp.change', event);
+        // limit end based on bookingLengthMax and new start
+        let minEndDate = moment(event.date).add(15, 'minutes');
+        let maxEndDate = moment(event.date).add(this.bookingLengthMax, 'minutes');
+
+        if ($(this.$refs.datetimepickerend).data('DateTimePicker').minDate().isAfter(minEndDate)) {
+          $(this.$refs.datetimepickerend).data('DateTimePicker').minDate(minEndDate);
+          $(this.$refs.datetimepickerend).data('DateTimePicker').maxDate(maxEndDate);
+        } else {
+          $(this.$refs.datetimepickerend).data('DateTimePicker').maxDate(maxEndDate);
+          $(this.$refs.datetimepickerend).data('DateTimePicker').minDate(minEndDate);
+        }
+
+        let period = moment.duration(moment(this.end).diff(event.oldDate));
+        let newEnd = event.date.clone().add(period);
+
+        // check if end is now past maxDate and limit it?
+        if (this.end && moment(this.end).isAfter(maxEndDate)) {
+          // console.log('limiting end');
+          if (event.date.isSameOrBefore(moment(event.oldDate).subtract(1, 'days'))) {
+            this.end = newEnd;
+          } else {
+            this.end = maxEndDate;
+          }
+        }
+
+        // check if end is now before start
+        if (this.end && moment(this.end).isBefore(event.date)) {
+          // console.log('end is before start now');
+          // update end to same period after start?
+          this.end = newEnd;
+        }
+
+        // update the selection
+        this.$nextTick(function () {
+          // console.log('startChange: updating selection to ', this.start, this.end);
+          this.calendarApi.select(this.start, this.end);
+        });
+      },
+
+      /**
+       * Watch for changes of the end date picker.
+       * TODO: might this be better as a watch on this.end?
+       * Nope this is better as event gives us new and old dates as moment's
+       */
+      endChange(event) {
+        // console.log('end dp.change', event);
+        // check the end is later than the start
+        if (event.date.isBefore(moment(this.start))) {
+
+        }
+
+        // only update is end is after start?
+        if (moment(this.end).isAfter(moment(this.start))) {
+          this.$nextTick(function () {
+            // update the selection
+            // console.log('endChange: updating selection to ', this.start, this.end);
+            this.calendarApi.select(this.start, this.end);
+          });
         }
       },
     }, // end of methods
 
     mounted() {
       this.$nextTick(function() {
+        // remove unwanted element
+        $('.vue-remove').contents().unwrap();
+
         window.addEventListener('resize', this.getWindowResize);
 
         //Init
@@ -753,9 +830,14 @@
       this.interval = setInterval(function () {
         // TODO: once we have Echo running only really need to call this if there is an event under now ±15
         this.calendarApi.refetchEvents();
+        $(this.$refs.datetimepickerstart).data('DateTimePicker').minDate(moment().add(15, 'minutes'));
       }.bind(this), 900000);
 
       this.echoInit();
+
+      $(this.$refs.selectModal).modal('handleUpdate');
+      // need to setup close event to unselected
+      $(this.$refs.selectModal).on('hidden.bs.modal', this.removeBookingConfirmation);
     },
 
     beforeDestroy() {

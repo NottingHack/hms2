@@ -71,7 +71,7 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
             ->andWhere('rfidTags.lastUsed >= :sixMonthsAgo');
 
         $q->setParameter('role_name', Role::MEMBER_CURRENT)
-            ->setParameter('sixMonthsAgo', Carbon::now()->subMonths(6));
+            ->setParameter('sixMonthsAgo', Carbon::now()->subMonthsNoOverflow(6));
 
         $q = $q->getQuery();
 
@@ -85,7 +85,7 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
      */
     public function findVotingStated()
     {
-        $sixMonthsAgo = Carbon::now()->subMonths(6);
+        $sixMonthsAgo = Carbon::now()->subMonthsNoOverflow(6);
 
         $q = parent::createQueryBuilder('user');
 
@@ -112,7 +112,7 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
      */
     public function findNonVotingStated()
     {
-        $sixMonthsAgo = Carbon::now()->subMonths(6);
+        $sixMonthsAgo = Carbon::now()->subMonthsNoOverflow(6);
 
         $q = parent::createQueryBuilder('user');
 

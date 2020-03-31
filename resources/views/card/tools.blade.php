@@ -3,7 +3,7 @@
   <div class="card-header">Tool Bookings</div>
   <booking-calendar-list
     classs="card-body"
-    bookings-url="{{ route('api.bookings.index', ['tool' => '_ID_']) }}"
+    bookings-url="{{ route('api.tools.bookings.index', ['tool' => '_ID_']) }}"
     :user-id="{{ $user->getId() }}"
     :initial-bookings="{{ json_encode($bookings) }}"
     :tool-ids="{{ json_encode($toolIds) }}"

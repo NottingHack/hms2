@@ -249,6 +249,12 @@ return [
                     'permissions'   => ['profile.view.all'],
                     'links'         => [],
                 ],
+                'temporaryAccess' => [
+                    'text'          => 'GateKeeper Temporary Access',
+                    'route'         => 'gatekeeper.temporary-access',
+                    'permissions'   => ['gatekeeper.temporaryAccess.grant'],
+                    'links'         => [],
+                ],
                 'horizon'          => [
                     'text'          => 'Horizon',
                     'route'         => 'horizon.index',

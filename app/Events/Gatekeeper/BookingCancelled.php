@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Events\Tools;
+namespace App\Events\Gatekeeper;
 
-use HMS\Entities\Tools\Tool;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -14,11 +13,6 @@ class BookingCancelled implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
-     * @var Tool
-     */
-    public $tool;
-
-    /**
      * @var int
      */
     public $bookingId;
@@ -26,14 +20,12 @@ class BookingCancelled implements ShouldBroadcast
     /**
      * Create a new event instance.
      *
-     * @param Tool $tool Tool to which this booking belonged
      * @param int $bookingId id of the cancelled booking
      *
      * @return void
      */
-    public function __construct(Tool $tool, int $bookingId)
+    public function __construct(int $bookingId)
     {
-        $this->tool = $tool;
         $this->bookingId = $bookingId;
     }
 
@@ -44,7 +36,7 @@ class BookingCancelled implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('tools.' . $this->tool->getId() . '.bookings');
+        return new Channel('gatekeeper.temporaryAccessBookings');
     }
 
     /**
@@ -56,7 +48,6 @@ class BookingCancelled implements ShouldBroadcast
     {
         return [
             'bookingId' => $this->bookingId,
-            'toolId' => $this->tool->getId(),
         ];
     }
 }

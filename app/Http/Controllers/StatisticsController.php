@@ -283,13 +283,13 @@ class StatisticsController extends Controller
                 ->count();
 
             $bookingsForThisMonth = $this->bookingRepository->findByToolForMonth($tool, Carbon::now());
-            $bookingsForLastMonth = $this->bookingRepository->findByToolForMonth($tool, Carbon::now()->subMonth());
+            $bookingsForLastMonth = $this->bookingRepository->findByToolForMonth($tool, Carbon::now()->subMonthNoOverflow());
 
             $bookedThisMonth = $this->countBookedDuration($bookingsForThisMonth);
             $bookedLastMonth = $this->countBookedDuration($bookingsForLastMonth);
 
             $usagesForThisMonth = $this->usageRepository->findByToolForMonth($tool, Carbon::now());
-            $usagesForLastMonth = $this->usageRepository->findByToolForMonth($tool, Carbon::now()->subMonth());
+            $usagesForLastMonth = $this->usageRepository->findByToolForMonth($tool, Carbon::now()->subMonthNoOverflow());
 
             $usedThisMonth = $this->countUsedMinutes($usagesForThisMonth);
             $usedLastMonth = $this->countUsedMinutes($usagesForLastMonth);
@@ -353,7 +353,7 @@ class StatisticsController extends Controller
      */
     protected function membershipConversionStats()
     {
-        $monthAgo = Carbon::now()->subMonth();
+        $monthAgo = Carbon::now()->subMonthNoOverflow();
         $weekAgo = Carbon::now()->subWeek();
 
         $ism = $this->emailRepository->countSentAfterWithSubject(

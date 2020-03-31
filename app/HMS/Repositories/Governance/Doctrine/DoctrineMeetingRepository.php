@@ -57,7 +57,7 @@ class DoctrineMeetingRepository extends EntityRepository implements MeetingRepos
     public function findPastSixMonths()
     {
         $now = Carbon::now();
-        $sixMonthsAgo = Carbon::now()->subMonths(6);
+        $sixMonthsAgo = Carbon::now()->subMonthsNoOverflow(6);
 
         $expr = Criteria::expr();
         $criteria = Criteria::create()

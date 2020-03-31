@@ -91,6 +91,7 @@ return [
         'tools.book',                       // can make a tool booking, , if tool is restricted also needs 'tools._TOOL_PERMISSION_NAME_.book'
         'tools.beInducted',                 // can be inducted to use a tool
         'tools.search.users',               // assigend to tool sepcfic mainter roles, allows search user for inductor.grant
+        'gatekeeper.temporaryAccess.grant', // can grant/revoke user.temporaryAccess role
         'gatekeeper.zoneEntry.upstairs',    // these are hard coded here for now, until we have a GateKeeperManager to generate them
         'gatekeeper.zoneEntry.cncBlueRoom',
         'gatekeeper.zoneEntry.classRoomMetalworking',
@@ -274,6 +275,17 @@ return [
                 '*',
             ],
         ],
+        'user.temporaryAccess' => [
+            'name' => 'Temporary GateKeeper Access',
+            'description' => 'Temporary access rights',
+            'permissions' => [
+                'gatekeeper.zoneEntry.upstairs',
+                'gatekeeper.zoneEntry.cncBlueRoom',
+                'gatekeeper.zoneEntry.classRoomMetalworking',
+                'gatekeeper.zoneEntry.downstairsMembersStorage',
+                'gatekeeper.zoneEntry.outside',
+            ],
+        ],
         'team.membership' => [
             'name' => 'Membership Team',
             'description' => 'Membership Team',
@@ -359,6 +371,13 @@ return [
                 'governance.meeting.edit',
                 'governance.meeting.checkIn',
                 'governance.meeting.recordAbsence',
+                'gatekeeper.temporaryAccess.grant',
+                'gatekeeper.zoneEntry.upstairs',
+                'gatekeeper.zoneEntry.cncBlueRoom',
+                'gatekeeper.zoneEntry.classRoomMetalworking',
+                'gatekeeper.zoneEntry.teamStorage',
+                'gatekeeper.zoneEntry.downstairsMembersStorage',
+                'gatekeeper.zoneEntry.outside',
             ],
         ],
         'team.software' => [

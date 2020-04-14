@@ -9,7 +9,6 @@ use App\Jobs\GateKeeper\TemporaryAccessJob;
 use Illuminate\Console\Scheduling\Schedule;
 use App\Jobs\GateKeeper\ZoneOccupantResetJob;
 use App\Jobs\Membership\AuditYoungHackersJob;
-use App\Jobs\GateKeeper\TemporaryAccessPurgeJob;
 use App\Jobs\Snackspace\MemberDebtNotificationJob;
 use App\Jobs\Governance\RecalculateMeetingQuorumJob;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -57,8 +56,6 @@ class Kernel extends ConsoleKernel
         $schedule->job(new RecalculateMeetingQuorumJob)->everyFiveMinutes()
             ->environments(['local', 'rommie', 'production']);
         $schedule->job(new TemporaryAccessJob)->everyFiveMinutes()
-            ->environments(['local', 'rommie', 'production']);
-        $schedule->job(new TemporaryAccessPurgeJob)->everyFiveMinutes()
             ->environments(['local', 'rommie', 'production']);
     }
 

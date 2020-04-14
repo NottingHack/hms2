@@ -69,7 +69,7 @@ class ChangePasswordController extends Controller
             'password' => 'required|min:' . User::MIN_PASSWORD_LENGTH . '|confirmed',
         ]);
 
-        $this->setUserPassword($user, $password);
+        $this->setUserPassword($user, $request->password);
 
         flash('Your password has been updated.')->success();
 

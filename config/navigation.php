@@ -244,7 +244,7 @@ return [
                     'links'         => [],
                 ],
                 'accessLogs' => [
-                    'text'          => 'GateKepper Access Logs',
+                    'text'          => 'GateKeeper Access Logs',
                     'route'         => 'access-logs.index',
                     'permissions'   => ['profile.view.all'],
                     'links'         => [],

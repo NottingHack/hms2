@@ -214,7 +214,6 @@ class TemporaryAccessBookingManager
     {
         $temporaryAccessRole = $this->roleRepository->findOneByName(Role::TEMPORARY_ACCESS);
         $currentTemporaryAccessBookings = $this->temporaryAccessBookingRepository->findBetween(Carbon::now()->subMinutes(10), Carbon::now()->addMinutes(10));
-        // $currentTemporaryAccessBookings = $this->temporaryAccessBookingRepository->findCurrent();
 
         $currentTemporaryAccessUsers = array_map(function ($tba) {
             return $tba->getUser();

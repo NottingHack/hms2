@@ -29,11 +29,11 @@ class TemporaryAccessBookingFactory
      * @param Carbon $end
      * @param User $user
      * @param string $color
-     * @param string $notes
+     * @param string|null $notes
      *
      * @return TemporaryAccessBooking
      */
-    public function create(Carbon $start, Carbon $end, User $user, string $color, string $notes)
+    public function create(Carbon $start, Carbon $end, User $user, string $color, ?string $notes)
     {
         $_temporaryAccessBooking = new TemporaryAccessBooking();
         $_temporaryAccessBooking->setStart($start);

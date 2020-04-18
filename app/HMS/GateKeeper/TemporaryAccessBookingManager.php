@@ -75,11 +75,11 @@ class TemporaryAccessBookingManager
      * @param Carbon $end
      * @param User $user
      * @param string $color
-     * @param string $notes
+     * @param string|null $notes
      *
      * @return string|TemporaryAccessBooking String with error message or a Booking
      */
-    public function book(Carbon $start, Carbon $end, User $user, string $color, string $notes)
+    public function book(Carbon $start, Carbon $end, User $user, string $color, ?string $notes)
     {
         // BASIC CHECKS
         $maxLength = CarbonInterval::instance(new \DateInterval($this->metaRepository->get('temp_access_reset_interval', 'PT12H')))->totalMinutes;

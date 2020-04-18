@@ -125,7 +125,7 @@ class TemporaryAccessBooking implements ArrayableContract, JsonSerializable
      *
      * @return self
      */
-    public function setColor($color)
+    public function setColor(?string $color)
     {
         $this->color = $color;
 
@@ -145,7 +145,7 @@ class TemporaryAccessBooking implements ArrayableContract, JsonSerializable
      *
      * @return self
      */
-    public function setNotes($notes)
+    public function setNotes(?string $notes)
     {
         $this->notes = $notes;
 

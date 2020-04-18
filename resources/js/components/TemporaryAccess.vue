@@ -103,6 +103,16 @@
               <div class="invalid-feedback d-block" role="alert" v-if="userError">{{ userError }}</div>
             </div>
             <div class="form-group">
+              <div class="btn-group btn-group-toggle w-100">
+                <label
+                  v-for="c in colors"
+                  :class="['btn', 'btn-' + c]"
+                >
+                  <input type="radio" v-model="color" :value="c"><i class="fas fa-check" v-show="color === c"></i>
+                </label>
+              </div>
+            </div>
+            <div class="form-group">
               <label for="datetimepickerstart">Start</label>
               <div class="input-group" ref="datetimepickerstart">
                 <date-picker
@@ -189,6 +199,16 @@
         isLoading: true,
         loader: null,
         userId: '',
+        colors: [
+          'primary',
+          'danger',
+          'indigo',
+          'yellow',
+          'pink',
+          'orange',
+          'cyan',
+        ],
+        color: 'primary',
         start: '',
         end: '',
         userError: '',
@@ -439,6 +459,7 @@
         booking.append('start', start.toISOString(true));
         booking.append('end', end.toISOString(true));
         booking.append('user_id', this.userId);
+        booking.append('color', this.color);
 
         this.createBooking(booking);
       },
@@ -615,6 +636,7 @@
         // this.start = '';
         // this.end = '';
         this.$refs.mst.clear();
+        this.color = 'primary';
         this.userError = '';
         this.startError = false;
         this.endError = false;
@@ -681,7 +703,11 @@
       },
 
       mapBookings(booking) {
-        booking.className = 'tool-normal';
+        if (booking.color) {
+          booking.className = 'temporary-booking-' + booking.color.toLowerCase();
+        } else {
+          booking.className = 'temporary-booking-primary';
+        }
 
         if (moment().diff(booking.start) > 0
           && moment().diff(booking.end) < 0) {

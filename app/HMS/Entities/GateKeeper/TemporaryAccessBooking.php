@@ -33,6 +33,11 @@ class TemporaryAccessBooking implements ArrayableContract, JsonSerializable
     protected $user;
 
     /**
+     * @var string|null
+     */
+    protected $color;
+
+    /**
      * Gets the value of id.
      *
      * @return int
@@ -103,6 +108,26 @@ class TemporaryAccessBooking implements ArrayableContract, JsonSerializable
     }
 
     /**
+     * @return string|null
+     */
+    public function getColor()
+    {
+        return $this->color;
+    }
+
+    /**
+     * @param string|null $color
+     *
+     * @return self
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function toArray()
@@ -113,6 +138,7 @@ class TemporaryAccessBooking implements ArrayableContract, JsonSerializable
             'end' => $this->end->toAtomString(),
             'title' => $this->user->getFullName(),
             'userId' => $this->user->getId(),
+            'color' => $this->color,
         ];
     }
 

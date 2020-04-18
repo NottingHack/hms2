@@ -82,13 +82,14 @@ class TemporaryAccessBookingController extends Controller
             'start' => 'required|date',
             'end' => 'required|date',
             'user_id' => 'required|exists:HMS\Entities\User,id',
+            'color' => 'nullable|string',
         ]);
 
         $start = new Carbon($validatedData['start']);
         $end = new Carbon($validatedData['end']);
         $user = $this->userRepository->findOneById($validatedData['user_id']);
 
-        $response = $this->temporaryAccessBookingManager->book($start, $end, $user);
+        $response = $this->temporaryAccessBookingManager->book($start, $end, $user, $validatedData['color']);
 
         if (is_string($response)) {
             // response is some sort of error

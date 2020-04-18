@@ -74,10 +74,11 @@ class TemporaryAccessBookingManager
      * @param Carbon $start
      * @param Carbon $end
      * @param User $user
+     * @param string $color
      *
      * @return string|TemporaryAccessBooking String with error message or a Booking
      */
-    public function book(Carbon $start, Carbon $end, User $user)
+    public function book(Carbon $start, Carbon $end, User $user, string $color)
     {
         // BASIC CHECKS
         $maxLength = CarbonInterval::instance(new \DateInterval($this->metaRepository->get('temp_access_reset_interval', 'PT12H')))->totalMinutes;
@@ -94,7 +95,7 @@ class TemporaryAccessBookingManager
         }
 
         // Phew!  We can now add the booking
-        $booking = $this->temporaryAccessBookingFactory->create($start, $end, $user);
+        $booking = $this->temporaryAccessBookingFactory->create($start, $end, $user, $color);
         $this->temporaryAccessBookingRepository->save($booking);
 
         event(new NewBooking($booking));

@@ -11,6 +11,18 @@ $gray-700: #495057;
 $gray-800: #343a40;
 $gray-900: #212529;
 
+// Bootstrap 4 colurs
+$blue:    #007bff !default;
+$indigo:  #6610f2 !default;
+$purple:  #6f42c1 !default;
+$pink:    #e83e8c !default;
+$red:     #dc3545 !default;
+$orange:  #fd7e14 !default;
+$yellow:  #ffc107 !default;
+$green:   #28a745 !default;
+$teal:    #20c997 !default;
+$cyan:    #17a2b8 !default;
+
 // HMS colours
 $hackspace-green: #195905;
 $hackspace-grey: $gray-300;
@@ -51,6 +63,12 @@ $theme-colors: (
   "booking-normal": $tool-booking-normal,
   "booking-induction": $tool-booking-induction,
   "booking-maintenance": $tool-booking-maintenance,
+  "indigo":     $indigo,
+  "pink":       $pink,
+  "orange":     $orange,
+  "yellow":     $yellow,
+  "teal":       $teal,
+  "cyan":       $cyan,
 );
 
 $sizes: (

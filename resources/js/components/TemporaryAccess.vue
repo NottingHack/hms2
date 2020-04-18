@@ -28,6 +28,7 @@
         @eventResizeStart="removeConfirmation"
         @eventResize="eventResize"
         :datesDestroy="removeConfirmation"
+        :eventRender="eventRender"
 
         :selectable=true
         :selectOverlap=true
@@ -111,6 +112,10 @@
                   <input type="radio" v-model="color" :value="c"><i class="fas fa-check" v-show="color === c"></i>
                 </label>
               </div>
+            </div>
+            <div class="form-group">
+              <label for="notes">Notes</label>
+              <input type="text" v-model="notes" class="form-control" id="notes" maxlength=250>
             </div>
             <div class="form-group">
               <label for="datetimepickerstart">Start</label>
@@ -209,6 +214,7 @@
           'cyan',
         ],
         color: 'primary',
+        notes: '',
         start: '',
         end: '',
         userError: '',
@@ -375,6 +381,12 @@
         this.patchBooking(eventResizeInfo.event, eventResizeInfo.revert)
       },
 
+      eventRender: function (info) {
+        if (info.event.extendedProps.notes) {
+          $(info.el).tooltip({ title: info.event.extendedProps.notes });
+        }
+      },
+
       /**
        * FullCalendar will call this function whenever it needs new event data.
        * This is triggered when the user clicks prev/next or switches views.
@@ -460,6 +472,7 @@
         booking.append('end', end.toISOString(true));
         booking.append('user_id', this.userId);
         booking.append('color', this.color);
+        booking.append('notes', this.notes);
 
         this.createBooking(booking);
       },
@@ -637,6 +650,7 @@
         // this.end = '';
         this.$refs.mst.clear();
         this.color = 'primary';
+        this.notes = '';
         this.userError = '';
         this.startError = false;
         this.endError = false;

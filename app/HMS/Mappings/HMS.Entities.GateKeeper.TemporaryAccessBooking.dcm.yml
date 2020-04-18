@@ -19,6 +19,9 @@ HMS\Entities\GateKeeper\TemporaryAccessBooking:
       type: string
       length: 50
       nullable: true
+    notes:
+      type: string
+      nullable: true
     createdAt:
       type: datetime
       gedmo:

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events\Gatekeeper;
+namespace App\Events\GateKeeper;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
@@ -9,14 +9,9 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use HMS\Entities\GateKeeper\TemporaryAccessBooking;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class BookingChanged implements ShouldBroadcast
+class NewBooking implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
-    /**
-     * @var TemporaryAccessBooking
-     */
-    public $orignalBooking;
 
     /**
      * @var TemporaryAccessBooking
@@ -26,14 +21,12 @@ class BookingChanged implements ShouldBroadcast
     /**
      * Create a new event instance.
      *
-     * @param TemporaryAccessBooking $orignalBooking
      * @param TemporaryAccessBooking $booking
      *
      * @return void
      */
-    public function __construct(TemporaryAccessBooking $orignalBooking, TemporaryAccessBooking $booking)
+    public function __construct(TemporaryAccessBooking $booking)
     {
-        $this->orignalBooking = $orignalBooking;
         $this->booking = $booking;
     }
 

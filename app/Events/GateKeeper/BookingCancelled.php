@@ -1,33 +1,32 @@
 <?php
 
-namespace App\Events\Gatekeeper;
+namespace App\Events\GateKeeper;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use HMS\Entities\GateKeeper\TemporaryAccessBooking;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class NewBooking implements ShouldBroadcast
+class BookingCancelled implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
-     * @var TemporaryAccessBooking
+     * @var int
      */
-    public $booking;
+    public $bookingId;
 
     /**
      * Create a new event instance.
      *
-     * @param TemporaryAccessBooking $booking
+     * @param int $bookingId id of the cancelled booking
      *
      * @return void
      */
-    public function __construct(TemporaryAccessBooking $booking)
+    public function __construct(int $bookingId)
     {
-        $this->booking = $booking;
+        $this->bookingId = $bookingId;
     }
 
     /**
@@ -38,5 +37,17 @@ class NewBooking implements ShouldBroadcast
     public function broadcastOn()
     {
         return new Channel('gatekeeper.temporaryAccessBookings');
+    }
+
+    /**
+     * Get the data that should be sent with the broadcasted event.
+     *
+     * @return array
+     */
+    public function broadcastWith()
+    {
+        return [
+            'bookingId' => $this->bookingId,
+        ];
     }
 }

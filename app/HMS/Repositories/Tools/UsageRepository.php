@@ -50,7 +50,7 @@ interface UsageRepository
     public function findByToolForThisWeek(Tool $tool);
 
     /**
-     * Free/Pledge Time For Tool User
+     * Free/Pledge Time For Tool User.
      *
      * @param Tool $tool
      * @param User $user

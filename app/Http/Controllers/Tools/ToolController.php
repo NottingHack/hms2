@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers\Tools;
 
-use Carbon\Carbon;
 use HMS\Tools\ToolManager;
 use HMS\Entities\Tools\Tool;
 use Illuminate\Http\Request;
-use HMS\Entities\Tools\Usage;
 use Illuminate\Validation\Rule;
-use HMS\Entities\Tools\UsageState;
 use App\Http\Controllers\Controller;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;

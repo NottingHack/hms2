@@ -39,6 +39,7 @@ class UsageFactory
         $_usage->setStatus(UsageState::COMPLETE);
         $_usage->setStart(Carbon::now());
         $_usage->setActiveTime(0);
+
         return $_usage;
     }
 }

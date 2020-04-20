@@ -90,7 +90,7 @@ class DoctrineUsageRepository extends EntityRepository implements UsageRepositor
     }
 
     /**
-     * Free/Pledge Time For Tool User
+     * Free/Pledge Time For Tool User.
      *
      * @param Tool $tool
      * @param User $user

@@ -169,6 +169,7 @@ return [
         LaravelDoctrine\Migrations\MigrationsServiceProvider::class,
         LaravelDoctrine\ACL\AclServiceProvider::class,
         MaxBrokman\SafeQueue\DoctrineQueueProvider::class,
+        LaravelDoctrine\Extensions\BeberleiExtensionsServiceProvider::class,
 
         /*
          * Application Service Providers...

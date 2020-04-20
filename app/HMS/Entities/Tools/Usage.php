@@ -61,11 +61,35 @@ class Usage
     }
 
     /**
+     * @param User $user
+     *
+     * @return self
+     */
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
      * @return Tool
      */
     public function getTool()
     {
         return $this->tool;
+    }
+
+    /**
+     * @param Tool $tool
+     *
+     * @return self
+     */
+    public function setTool(Tool $tool)
+    {
+        $this->tool = $tool;
+
+        return $this;
     }
 
     /**
@@ -77,6 +101,18 @@ class Usage
     }
 
     /**
+     * @param Carbon $start
+     *
+     * @return self
+     */
+    public function setStart(Carbon $start)
+    {
+        $this->start = $start;
+
+        return $this;
+    }
+
+    /**
      * @return int
      */
     public function getDuration()
@@ -85,11 +121,35 @@ class Usage
     }
 
     /**
+     * @param int $duration
+     *
+     * @return self
+     */
+    public function setDuration($duration)
+    {
+        $this->duration = $duration;
+
+        return $this;
+    }
+
+    /**
      * @return int
      */
     public function getActiveTime()
     {
         return $this->activeTime;
+    }
+
+    /**
+     * @param int $activeTime
+     *
+     * @return self
+     */
+    public function setActiveTime($activeTime)
+    {
+        $this->activeTime = $activeTime;
+
+        return $this;
     }
 
     /**
@@ -106,5 +166,17 @@ class Usage
     public function getStatusString()
     {
         return UsageState::STATE_STRINGS[$this->status];
+    }
+
+    /**
+     * @param string $status
+     *
+     * @return self
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
     }
 }

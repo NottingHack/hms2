@@ -7,6 +7,7 @@ use HMS\Governance\VotingManager;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\Tools\ToolRepository;
 use HMS\Repositories\Members\BoxRepository;
+use HMS\Repositories\Tools\UsageRepository;
 use HMS\Repositories\Tools\BookingRepository;
 use HMS\Repositories\Members\ProjectRepository;
 use HMS\Repositories\Snackspace\TransactionRepository;
@@ -55,6 +56,11 @@ class AdminController extends Controller
     protected $votingManager;
 
     /**
+     * @var UsageRepository
+     */
+    protected $toolUsageRepository;
+
+    /**
      * Create a new controller instance.
      *
      * @param ProjectRepository $projectRepository
@@ -65,6 +71,7 @@ class AdminController extends Controller
      * @param ToolRepository $toolRepository
      * @param BankTransactionRepository $bankTransactionRepository
      * @param VotingManager $votingManager
+     * @param UsageRepository $toolUsageRepository
      *
      * @return void
      */
@@ -76,7 +83,8 @@ class AdminController extends Controller
         BookingRepository $bookingRepository,
         ToolRepository $toolRepository,
         BankTransactionRepository $bankTransactionRepository,
-        VotingManager $votingManager
+        VotingManager $votingManager,
+        UsageRepository $toolUsageRepository
     ) {
         $this->projectRepository = $projectRepository;
         $this->boxRepository = $boxRepository;
@@ -84,6 +92,7 @@ class AdminController extends Controller
         $this->roleRepository = $roleRepository;
         $this->bookingRepository = $bookingRepository;
         $this->toolRepository = $toolRepository;
+        $this->toolUsageRepository = $toolUsageRepository;
         $this->bankTransactionRepository = $bankTransactionRepository;
         $this->votingManager = $votingManager;
 
@@ -111,6 +120,9 @@ class AdminController extends Controller
         $memberStatus = $this->roleRepository->findMemberStatusForUser($user);
         $bankTransactions = $this->bankTransactionRepository->paginateByAccount($user->getAccount(), 3);
         $votingStatus = $this->votingManager->getVotingStatusForUser($user);
+        foreach ($tools as $tool) {
+            $toolsFreeTime[$tool->getId()] = $this->toolUsageRepository->freeTimeForToolUser($tool, $user);
+        }
 
         return view('admin.user_overview')->with([
             'user' => $user,
@@ -121,6 +133,7 @@ class AdminController extends Controller
             'bookings' => $bookings,
             'tools' => $tools,
             'toolIds' => $toolIds,
+            'toolsFreeTime' => $toolsFreeTime,
             'memberStatus' => $memberStatus,
             'bankTransactions' => $bankTransactions,
             'votingStatus' => $votingStatus,

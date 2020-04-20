@@ -7,6 +7,7 @@
     "require": {
         "php": "^7.2",
         "akaunting/money": "^1.0",
+        "beberlei/doctrineextensions": "^1.0",
         "bogardo/mailgun": "^5.2",
         "consoletvs/charts": "^6.5",
         "fideloper/proxy": "^4.0",

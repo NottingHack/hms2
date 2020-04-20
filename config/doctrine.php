@@ -125,7 +125,9 @@ return [
     | DQL custom datetime functions
     |--------------------------------------------------------------------------
     */
-    'custom_datetime_functions' => [],
+    'custom_datetime_functions' => [
+        'SEC_TO_TIME' => DoctrineExtensions\Query\Mysql\SecToTime::class,
+    ],
     /*
     |--------------------------------------------------------------------------
     | DQL custom numeric functions

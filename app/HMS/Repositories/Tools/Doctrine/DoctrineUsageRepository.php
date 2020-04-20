@@ -3,9 +3,11 @@
 namespace HMS\Repositories\Tools\Doctrine;
 
 use Carbon\Carbon;
+use HMS\Entities\User;
 use HMS\Entities\Tools\Tool;
 use HMS\Entities\Tools\Usage;
 use Doctrine\ORM\EntityRepository;
+use HMS\Entities\Tools\UsageState;
 use HMS\Repositories\Tools\UsageRepository;
 
 class DoctrineUsageRepository extends EntityRepository implements UsageRepository
@@ -85,6 +87,31 @@ class DoctrineUsageRepository extends EntityRepository implements UsageRepositor
         $week = Carbon::now('Europe/London');
 
         return $this->findByToolForWeek($tool, $week);
+    }
+
+    /**
+     * Free/Pledge Time For Tool User
+     *
+     * @param Tool $tool
+     * @param User $user
+     *
+     * @return string|null
+     */
+    public function freeTimeForToolUser(Tool $tool, User $user)
+    {
+        $q = parent::createQueryBuilder('usage');
+
+        $q->select('SEC_TO_TIME(ABS(SUM(usage.duration))) AS time')
+            ->where('usage.tool = :tool_id')
+            ->andWhere('usage.user = :user_id')
+            ->andWhere('usage.status = :status');
+
+        $q = $q->setParameter('tool_id', $tool->getId())
+            ->setParameter('user_id', $user->getId())
+            ->setParameter('status', UsageState::COMPLETE)
+            ->getQuery();
+
+        return $q->getSingleScalarResult();
     }
 
     /**

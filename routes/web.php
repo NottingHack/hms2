@@ -294,6 +294,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Tools
     Route::get('tools/{tool}/users/{grant}', 'Tools\ToolController@showUsersForGrant')->name('tools.users-for-grant');
     Route::patch('tools/{tool}/grant', 'Tools\ToolController@grant')->name('tools.grant');
+    Route::post('tools/{tool}/free-time', 'Tools\ToolController@addFreeTime')->name('tools.add-free-time');
     Route::resource('tools', 'Tools\ToolController');
     Route::resource(
         'tools/{tool}/bookings',

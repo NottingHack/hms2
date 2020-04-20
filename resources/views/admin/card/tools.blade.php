@@ -40,4 +40,31 @@
     <span class="badge badge-pill badge-booking-maintenance">Maintainer</span>
   </div>
 </div>
+<div class="card">
+  <div class="card-header">Tool Free/Pledge Time</div>
+  <table class="table">
+    <tbody>
+      @foreach ($tools as $tool)
+      <tr>
+        <th scope="row">{{ $tool->getDisplayName() }}</th>
+        <td>
+          <span class="align-middle">
+            {{ $toolsFreeTime[$tool->getId()] }}&nbsp;
+              @can('tools.addFreeTime')
+              <tool-usage-add-modal
+                :tool-id="{{ $tool->getId() }}"
+                tool-name="{{ $tool->getDisplayName() }}"
+                user-id="{{ $user->getId() }}"
+                user-name="{{ $user->getFirstname() }}"
+                :small="true"
+              >
+              </tool-usage-add-modal>
+              @endcan
+          </span>
+        </td>
+      </tr>
+      @endforeach
+    </tbody>
+  </table>
+</div>
 @endcanany

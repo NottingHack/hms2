@@ -3,6 +3,7 @@
 namespace HMS\Repositories\Tools;
 
 use Carbon\Carbon;
+use HMS\Entities\User;
 use HMS\Entities\Tools\Tool;
 use HMS\Entities\Tools\Usage;
 
@@ -47,6 +48,16 @@ interface UsageRepository
      * @return Usage[]
      */
     public function findByToolForThisWeek(Tool $tool);
+
+    /**
+     * Free/Pledge Time For Tool User
+     *
+     * @param Tool $tool
+     * @param User $user
+     *
+     * @return string|null
+     */
+    public function freeTimeForToolUser(Tool $tool, User $user);
 
     /**
      * Save Usage to the DB.

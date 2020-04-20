@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers\Tools;
 
+use Carbon\Carbon;
 use HMS\Tools\ToolManager;
 use HMS\Entities\Tools\Tool;
 use Illuminate\Http\Request;
+use HMS\Entities\Tools\Usage;
 use Illuminate\Validation\Rule;
+use HMS\Entities\Tools\UsageState;
 use App\Http\Controllers\Controller;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
+use HMS\Factories\Tools\UsageFactory;
 use HMS\Repositories\RoleUpdateRepository;
 use HMS\Repositories\Tools\ToolRepository;
+use HMS\Repositories\Tools\UsageRepository;
 use HMS\Repositories\Tools\BookingRepository;
 use Illuminate\Auth\Access\AuthorizationException;
 
@@ -47,6 +52,16 @@ class ToolController extends Controller
     protected $roleUpdateRepository;
 
     /**
+     * @var UsageRepository
+     */
+    protected $usageRepository;
+
+    /**
+     * @var UsageFactory
+     */
+    protected $usageFactory;
+
+    /**
      * Create a new controller instance.
      *
      * @param ToolRepository    $toolRepository
@@ -55,6 +70,8 @@ class ToolController extends Controller
      * @param UserRepository $userRepository
      * @param RoleRepository $roleRepository
      * @param RoleUpdateRepository $roleUpdateRepository
+     * @param UsageRepository $usageRepository
+     * @param UsageFactory $usageFactory
      */
     public function __construct(
         ToolRepository $toolRepository,
@@ -62,7 +79,9 @@ class ToolController extends Controller
         BookingRepository $bookingRepository,
         UserRepository $userRepository,
         RoleRepository $roleRepository,
-        RoleUpdateRepository $roleUpdateRepository
+        RoleUpdateRepository $roleUpdateRepository,
+        UsageRepository $usageRepository,
+        UsageFactory $usageFactory
     ) {
         $this->toolRepository = $toolRepository;
         $this->toolManager = $toolManager;
@@ -70,11 +89,14 @@ class ToolController extends Controller
         $this->userRepository = $userRepository;
         $this->roleRepository = $roleRepository;
         $this->roleUpdateRepository = $roleUpdateRepository;
+        $this->usageRepository = $usageRepository;
+        $this->usageFactory = $usageFactory;
 
         $this->middleware('can:tools.view')->only(['index', 'show']);
         $this->middleware('can:tools.create')->only(['create', 'store']);
         $this->middleware('can:tools.edit')->only(['edit', 'update']);
         $this->middleware('can:tools.destroy')->only(['destroy']);
+        $this->middleware('can:tools.addFreeTime')->only(['addFreeTime']);
     }
 
     /**
@@ -299,6 +321,34 @@ class ToolController extends Controller
         $message = $this->toolManager->grant($tool, $validatedData['grantType'], $user);
 
         flash($message);
+
+        return redirect()->back();
+    }
+
+    /**
+     * Add Free/pledge time for a user.
+     *
+     * @param Tool $tool
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function addFreeTime(Tool $tool, Request $request)
+    {
+        $validatedData = $request->validate([
+            'user_id' => 'required|exists:HMS\Entities\User,id',
+            'hours' => 'nullable|integer',
+            'minutes' => 'nullable|integer',
+        ]);
+
+        $user = $this->userRepository->findOneById($validatedData['user_id']);
+
+        $duration = -1 * $validatedData['hours'] * 3600 + $validatedData['minutes'] * 60;
+
+        $usage = $this->usageFactory->createFreeTime($tool, $user, $duration);
+        $this->usageRepository->save($usage);
+
+        flash('Free time added')->success();
 
         return redirect()->back();
     }

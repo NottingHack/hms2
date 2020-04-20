@@ -91,6 +91,7 @@ return [
         'tools.book',                       // can make a tool booking, , if tool is restricted also needs 'tools._TOOL_PERMISSION_NAME_.book'
         'tools.beInducted',                 // can be inducted to use a tool
         'tools.search.users',               // assigend to tool sepcfic mainter roles, allows search user for inductor.grant
+        'tools.addFreeTime',                // can give a user free time to use on a tool
         'gatekeeper.temporaryAccess.grant', // can grant/revoke user.temporaryAccess role
         'gatekeeper.zoneEntry.upstairs',    // these are hard coded here for now, until we have a GateKeeperManager to generate them
         'gatekeeper.zoneEntry.cncBlueRoom',
@@ -378,6 +379,7 @@ return [
                 'gatekeeper.zoneEntry.teamStorage',
                 'gatekeeper.zoneEntry.downstairsMembersStorage',
                 'gatekeeper.zoneEntry.outside',
+                'tools.addFreeTime',
             ],
         ],
         'team.software' => [

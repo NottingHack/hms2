@@ -26,6 +26,11 @@ class Room
      */
     protected $lights;
 
+    /**
+     * @var Zone
+     */
+    protected $zone;
+
     public function __construct()
     {
         $this->lights = new ArrayCollection();
@@ -97,6 +102,26 @@ class Room
     public function setLights($lights)
     {
         $this->lights = $lights;
+
+        return $this;
+    }
+
+    /**
+     * @return Zone
+     */
+    public function getZone()
+    {
+        return $this->zone;
+    }
+
+    /**
+     * @param Zone $zone
+     *
+     * @return self
+     */
+    public function setZone(Zone $zone)
+    {
+        $this->zone = $zone;
 
         return $this;
     }

@@ -2,6 +2,8 @@
 
 namespace HMS\Entities\GateKeeper;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class Zone
 {
     const OFF_SITE = 'Off-site';
@@ -27,14 +29,26 @@ class Zone
     protected $permissionCode;
 
     /**
-     * @var ZoneOccupant[]
+     * @var ArrayCollection|ZoneOccupant[]
      */
     protected $zoneOccupancts;
 
     /**
-     * @var ZoneOccupancyLog[]
+     * @var ArrayCollection|ZoneOccupancyLog[]
      */
     protected $zoneOccupancyLogs;
+
+    /**
+     * @var ArrayCollection|Room[]
+     */
+    protected $rooms;
+
+    public function __construct()
+    {
+        $this->zoneOccupancts = new ArrayCollection();
+        $this->zoneOccupancyLogs = new ArrayCollection();
+        $this->rooms = new ArrayCollection();
+    }
 
     /**
      * Gets the value of id.
@@ -71,7 +85,7 @@ class Zone
     }
 
     /**
-     * @return ZoneOccupant[]
+     * @return ArrayCollection|ZoneOccupant[]
      */
     public function getZoneOccupancts()
     {
@@ -79,10 +93,18 @@ class Zone
     }
 
     /**
-     * @return ZoneOccupancyLog[]
+     * @return ArrayCollection|ZoneOccupancyLog[]
      */
     public function getZoneOccupancyLogs()
     {
         return $this->zoneOccupancyLogs;
+    }
+
+    /**
+     * @return ArrayCollection|Room[]
+     */
+    public function getRooms()
+    {
+        return $this->rooms;
     }
 }

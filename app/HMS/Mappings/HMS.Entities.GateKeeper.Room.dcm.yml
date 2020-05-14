@@ -22,3 +22,7 @@ HMS\Entities\GateKeeper\Room:
       targetEntity: \HMS\Entities\GateKeeper\Floor
       inversedBy: rooms
       cascade: ['persist']
+    zone:
+      targetEntity: \HMS\Entities\GateKeeper\Zone
+      inversedBy: rooms
+      cascade: ['persist']

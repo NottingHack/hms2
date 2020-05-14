@@ -26,3 +26,6 @@ HMS\Entities\GateKeeper\Zone:
     zoneOccupancyLogs:
       targetEntity: \HMS\Entities\GateKeeper\ZoneOccupancyLog
       mappedBy: zone
+    rooms:
+      targetEntity: \HMS\Entities\GateKeeper\Room
+      mappedBy: zone

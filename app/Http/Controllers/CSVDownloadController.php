@@ -145,11 +145,13 @@ class CSVDownloadController extends Controller
 
                 if ($newAmount != $oldAmount) {
                     $lastestTransactionDate = $transactions[0]->getTransactionDate();
+                    $previousTransactionDate = $transactions[1]->getTransactionDate();
 
                     $csvData[] = [
                         'Name' => $user->getFullname(),
                         'User Id' => $user->getId(),
                         'Last Payment Date' => $lastestTransactionDate->toDateString(),
+                        'Previous Payment Date' => $previousTransactionDate->toDateString(),
                         'New Amount' => $newAmount / 100,
                         'Old Amount' => $oldAmount / 100,
                         'Joint' => $joint,

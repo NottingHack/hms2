@@ -13,6 +13,26 @@ HMS\Entities\GateKeeper\Building:
   fields:
     name:
       type: string
+    accessState:
+      type: string
+      length: 20
+      options:
+        default: 'FULL_OPEN'
+    selfBookMaxOccupancy:
+      type: integer
+      options:
+        unsigned: true
+        default: 1
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
   oneToMany:
     floors:
       targetEntity: \HMS\Entities\GateKeeper\Floor

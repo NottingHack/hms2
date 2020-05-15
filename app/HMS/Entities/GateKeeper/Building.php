@@ -2,10 +2,13 @@
 
 namespace HMS\Entities\GateKeeper;
 
+use HMS\Traits\Entities\Timestampable;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class Building
 {
+    use Timestampable;
+
     /**
      * @var int
      */
@@ -15,6 +18,16 @@ class Building
      * @var string
      */
     protected $name;
+
+    /**
+     * @var string
+     */
+    protected $accessState;
+
+    /**
+     * @var int
+     */
+    protected $selfBookMaxOccupancy;
 
     /**
      * @var Floor[]|ArrayCollection
@@ -72,6 +85,56 @@ class Building
     public function setFloors($floors)
     {
         $this->floors = $floors;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAccessState()
+    {
+        return $this->accessState;
+    }
+
+    /**
+     * Gets the value of state.
+     *
+     * @return string
+     */
+    public function getAccessStateString()
+    {
+        return BuildingAccessState::STATE_STRINGS[$this->state];
+    }
+
+    /**
+     * @param string $accessState
+     *
+     * @return self
+     */
+    public function setAccessState($accessState)
+    {
+        $this->accessState = $accessState;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSelfBookMaxOccupancy()
+    {
+        return $this->selfBookMaxOccupancy;
+    }
+
+    /**
+     * @param int $selfBookMaxOccupancy
+     *
+     * @return self
+     */
+    public function setSelfBookMaxOccupancy(int $selfBookMaxOccupancy)
+    {
+        $this->selfBookMaxOccupancy = $selfBookMaxOccupancy;
 
         return $this;
     }

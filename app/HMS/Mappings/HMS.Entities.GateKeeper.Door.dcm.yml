@@ -19,7 +19,7 @@ HMS\Entities\GateKeeper\Door:
       length: 16
     state:
       type: string
-      lenght: 10
+      length: 20
     stateChange:
       type: datetime
   manyToOne:

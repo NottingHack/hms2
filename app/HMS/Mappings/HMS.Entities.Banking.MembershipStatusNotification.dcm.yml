@@ -21,7 +21,7 @@ HMS\Entities\Banking\MembershipStatusNotification:
       nullable: true
     clearedReason:
       type: string
-      lenght: 7
+      length: 20
       nullable: true
   manyToOne:
     user:

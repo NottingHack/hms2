@@ -92,7 +92,15 @@ return [
         'tools.beInducted',                 // can be inducted to use a tool
         'tools.search.users',               // assigend to tool sepcfic mainter roles, allows search user for inductor.grant
         'tools.addFreeTime',                // can give a user free time to use on a tool
-        'gatekeeper.temporaryAccess.grant', // can grant/revoke user.temporaryAccess role
+
+        'gatekeeper.access.manage',                 // can manage the access state to a building, the global self booking settings and bookable areas
+        'gatekeeper.temporaryAccess.view',          // can view (if enabled) the access calendar, but all but own bookings will be anonymized
+        'gatekeeper.temporaryAccess.view.full',     // can view all deatils about any booking
+        'gatekeeper.temporaryAccess.grant',         // can book for others and grant/revoke resuests
+        'gatekeeper.temporaryAccess.grant.self',    // can book own access to the space (if building is SELF_BOOK)
+        'gatekeeper.temporaryAccess.grant.request', // can request own access to the space (if building is REQUESTED_BOOK)
+        'gatekeeper.temporaryAccess.restrict',      // can restrict a user from making a booking/request
+
         'gatekeeper.zoneEntry.upstairs',    // these are hard coded here for now, until we have a GateKeeperManager to generate them
         'gatekeeper.zoneEntry.cncBlueRoom',
         'gatekeeper.zoneEntry.classRoomMetalworking',

@@ -53,7 +53,7 @@ return [
             'links'         => [],
         ],
         'codes' => [
-            'text'          => 'Access Codes',
+            'text'          => 'Space Access',
             'route'         => 'accessCodes',
             'permissions'   => ['accessCodes.view'],
             'links'         => [],
@@ -243,23 +243,36 @@ return [
                     'permissions'   => ['governance.meeting.view'],
                     'links'         => [],
                 ],
-                'accessLogs' => [
-                    'text'          => 'GateKeeper Access Logs',
-                    'route'         => 'access-logs.index',
-                    'permissions'   => ['profile.view.all'],
-                    'links'         => [],
-                ],
-                'temporaryAccess' => [
-                    'text'          => 'GateKeeper Temporary Access',
-                    'route'         => 'gatekeeper.temporary-access',
-                    'permissions'   => ['gatekeeper.temporaryAccess.grant'],
-                    'links'         => [],
-                ],
                 'horizon'          => [
                     'text'          => 'Horizon',
                     'route'         => 'horizon.index',
                     'match'         => 'horizon.index',
                     'permissions'   => ['horizon.view'],
+                    'links'         => [],
+                ],
+            ],
+        ],
+        'gatekeeper' => [
+            'text'          => '<i class="far fa-door-closed fa-lg"></i>',
+            'permissions'   => [],
+            'links'         => [
+                'buildings' => [
+                    'text'          => 'Access state',
+                    'route'         => 'gatekeeper.access-state.index',
+                    'match'         => 'gatekeeper.access-state.index',
+                    'permissions'   => ['gatekeeper.temporaryAccess.grant'],
+                    'links'         => [],
+                ],
+                'temporaryAccess' => [
+                    'text'          => 'Temporary Access',
+                    'route'         => 'gatekeeper.temporary-access',
+                    'permissions'   => ['gatekeeper.temporaryAccess.grant'],
+                    'links'         => [],
+                ],
+                'accessLogs' => [
+                    'text'          => 'Access Logs',
+                    'route'         => 'access-logs.index',
+                    'permissions'   => ['profile.view.all'],
                     'links'         => [],
                 ],
             ],

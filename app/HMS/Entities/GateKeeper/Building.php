@@ -104,7 +104,7 @@ class Building
      */
     public function getAccessStateString()
     {
-        return BuildingAccessState::STATE_STRINGS[$this->state];
+        return BuildingAccessState::STATE_STRINGS[$this->accessState];
     }
 
     /**

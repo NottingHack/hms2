@@ -4,6 +4,9 @@
   <ul class="list-group list-group-flush">
     <li class="list-group-item">Street Door: {{ Meta::get('access_street_door') }}</li>
     <li class="list-group-item">Inner Door: {{ Meta::get('access_inner_door') }}</li>
+    @if($roden = Meta::get('access_roden_street_door'))
+    <li class="list-group-item">Roden Street Door: {{ $roden }}</li>
+    @endif
     <li class="list-group-item">{{ Auth::user() == $user ? 'You have' : $user->getFirstname() . ' has' }} {{ count($user->getRfidTags()) }} RFID cards.</li>
     @can('pins.view.all')
     @if ($user->getPin())

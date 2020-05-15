@@ -15,6 +15,11 @@
             <hr>
             <dt class="h5">Inner Door</dt>
             <h4><span class="badge badge-primary">{{  Meta::get('access_inner_door') }}</span></h4>
+            @if($roden = Meta::get('access_roden_street_door'))
+            <hr>
+            <dt class="h5">Roden Street Door</dt>
+            <h4><span class="badge badge-primary">{{  $roden }}</span></h4>
+            @endif
           </dl>
         </div>
       </div>

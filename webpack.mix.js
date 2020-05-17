@@ -1,5 +1,6 @@
 const mix = require('laravel-mix');
-
+const path = require('path');
+const WebpackShellPluginNext = require('webpack-shell-plugin-next');
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -13,11 +14,23 @@ const mix = require('laravel-mix');
 
 mix.webpackConfig({
         devtool: 'source-map',
+        plugins: [
+            new WebpackShellPluginNext({
+                onBuildStart: {
+                    scripts: ['php artisan ziggy:generate resources/js/ziggy.js'],
+                    blocking: true,
+                },
+            }),
+        ],
         resolve: {
             alias: {
-                'sass': path.resolve(__dirname, 'resources/sass')
+                'sass': path.resolve(__dirname, 'resources/sass'),
+                ziggy: path.resolve('vendor/tightenco/ziggy/src/js/route.js'),
             }
         }
+    })
+   .options({
+        extractVueStyles: true,
     })
    .js('resources/js/app.js', 'public/js')
    .extract()

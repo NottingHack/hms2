@@ -10,15 +10,20 @@ window.flash = function (message, level = 'success') {
     window.events.$emit('flash', { message, level });
 };
 
-import {Ziggy} from './ziggy';
-import route from '../../vendor/tightenco/ziggy/src/js/route';
+import route from 'ziggy';
+import { Ziggy } from './ziggy';
 
-window.Ziggy = Ziggy; // this was missing from your setup
+if (process.env.NODE_ENV != 'production') {
+    // use dynamic baseUrl's for ziggy in dev, great for ngrok
+    Ziggy.baseUrl = location.protocol+'//'+location.hostname;
+    Ziggy.baseProtocol = location.protocol;
+    Ziggy.baseDomain = location.hostname;
+}
 
 Vue.mixin({
     methods: {
-        route: route
-    }
+        route: (name, params, absolute) => route(name, params, absolute, Ziggy),
+    },
 });
 
 /**

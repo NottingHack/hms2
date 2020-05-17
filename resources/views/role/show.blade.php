@@ -85,7 +85,7 @@
         <member-select-two></member-select-two>
       </div>
       <div class="form-group text-center">
-        <button class="btn btn-success btn-block" type="submit"><i class="fas fa-plus" aria-hidden="true"></i> Add User</button>
+        <button type="submit" class="btn btn-success btn-block"><i class="fas fa-plus" aria-hidden="true"></i> Add User</button>
       </div>
     </form>
     @endcan

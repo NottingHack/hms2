@@ -1,7 +1,7 @@
 <!-- navbar -->
 <nav class="row navbar navbar-expand-md" role="navigation">
   {{-- build the nav toggler --}}
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+  <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <div class="navbar-toggler-icon"><i class="fas fa-bars"></i>&nbsp;Menu</div>
   </button>
 
@@ -23,7 +23,7 @@
 
   {{-- right side user toggler --}}
   @auth
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarUser" aria-controls="navbarUser" aria-expanded="false" aria-label="Toggle navigation">
+  <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarUser" aria-controls="navbarUser" aria-expanded="false" aria-label="Toggle navigation">
     <div class="navbar-toggler-icon">{{ Auth::user()->getFirstName() }}&nbsp;<i class="fas fa-caret-down"></i></div>
   </button>
   @endauth

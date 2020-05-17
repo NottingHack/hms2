@@ -54,7 +54,7 @@
   @endcan
 
   @can('tools.destroy')
-  <button class="btn btn-danger btn-block" data-toggle="confirmation" data-placement="bottom">
+  <button type="button" class="btn btn-danger btn-block" data-toggle="confirmation" data-placement="bottom">
     <form action="{{ route('tools.destroy', $tool->getId()) }}" method="POST" style="display: inline">
       @method('DELETE')
       @csrf

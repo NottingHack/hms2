@@ -48,7 +48,7 @@
               @endif
             </div>
 
-            <button id="submit" class="btn btn-lg btn-info btn-block" type="submit">Sign in</button>
+            <button type="submit" class="btn btn-lg btn-info btn-block">Sign in</button>
           </form>
           <br>
           <a href="{{ route('password.request') }}" class="text-info mt-2">

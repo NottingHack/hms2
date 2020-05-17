@@ -26,7 +26,7 @@
               @endif
             </div>
 
-            <button class="btn btn-lg btn-info btn-block" type="submit">Register Interest</button>
+            <button type="submit" class="btn btn-lg btn-info btn-block">Register Interest</button>
           </form>
         </div>
       </div>

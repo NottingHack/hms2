@@ -75,7 +75,7 @@
         :current-only="true"
         />
       <br>
-      <button class="btn btn-primary btn-block" :disabled="buttonDisable" @click="checkInUser"><i class="fas fa-user-check fa-lg" aria-hidden="true"></i> Check-in</button>
+      <button type="button" class="btn btn-primary btn-block" :disabled="buttonDisable" @click="checkInUser"><i class="fas fa-user-check fa-lg" aria-hidden="true"></i> Check-in</button>
     </form>
   </div>
 </template>

@@ -54,9 +54,9 @@ Voting Status
     @csrf
     @method('PATCH')
     <div class="btn-group btn-block btn-group-lg" role="group" aria-label="Voting Preference">
-      <button class="btn btn-primary @if ($votingPreference == "VOTING") active @endif" type="submit" name='preference' value="VOTING">Voting</button>
-      <button class="btn btn-primary @if ($votingPreference == "NONVOTING") active @endif" type="submit" name='preference' value="NONVOTING">Non-voting</button>
-      <button class="btn btn-primary @if ($votingPreference == "AUTOMATIC") active @endif" type="submit" name='preference' value="AUTOMATIC">Automatic</button>
+      <button type="submit" class="btn btn-primary @if ($votingPreference == "VOTING") active @endif" name='preference' value="VOTING">Voting</button>
+      <button type="submit" class="btn btn-primary @if ($votingPreference == "NONVOTING") active @endif" name='preference' value="NONVOTING">Non-voting</button>
+      <button type="submit" class="btn btn-primary @if ($votingPreference == "AUTOMATIC") active @endif" name='preference' value="AUTOMATIC">Automatic</button>
     </div>
   </form>
   <p>Re-stating the same preference will update the date to now.</p>

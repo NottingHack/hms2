@@ -9,7 +9,7 @@
                 <h5 class="card-header">{{ location.name }}</h5>
                 <div class="card-body" >
                   <p>{{ location.product.shortDescription }}<br><small v-if="location.product.price" class="money">({{ location.product.price }})</small></p>
-                  <button class="btn btn-sm btn-primary" @click="showModal(location)"><i class="fas fa-pencil fa-sm"></i></button>
+                  <button type="button" class="btn btn-sm btn-primary" @click="showModal(location)"><i class="fas fa-pencil fa-sm"></i></button>
                 </div>
               </div>
             </template>
@@ -37,8 +37,8 @@
               style="width: 100%"/>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <button class="btn btn-primary" @click="saveLocation">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary" @click="saveLocation">Save</button>
           </div>
         </div>
       </div>

@@ -9,7 +9,7 @@
 @can('instrumentation.electric.addReading')
 <div class="container">
   <p>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#addMeterReading" aria-expanded="false" aria-controls="addMeterReading">
+    <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#addMeterReading" aria-expanded="false" aria-controls="addMeterReading">
       Add a meter reading
     </button>
   </p>

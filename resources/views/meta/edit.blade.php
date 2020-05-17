@@ -20,7 +20,7 @@
     </div>
 
     <div class="form-buttons">
-      <button class="btn btn-success" type="submit">
+      <button type="submit" class="btn btn-success">
         Update
       </button>
     </div>

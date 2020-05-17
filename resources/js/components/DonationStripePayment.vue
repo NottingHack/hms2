@@ -31,7 +31,7 @@
           </div>
           <div ref="modalBody" class="modal-body">
             <p>Your have entered <strong>£{{ intentAmount / 100 }}</strong> as your donation amount.</p>
-            <button :class="['btn btn-primary btn-block mb-3', changingAmount ? 'd-none' : '']" @click="changeAmount">Change Amount</button>
+            <button type="button" :class="['btn btn-primary btn-block mb-3', changingAmount ? 'd-none' : '']" @click="changeAmount">Change Amount</button>
             <div :class="['form-group', changingAmount ? '' : 'd-none']">
               <div class="input-group">
                 <div class="input-group-prepend">
@@ -39,7 +39,7 @@
                 </div>
                 <input type="number" min="5" class="form-control" v-model="amount">
                 <div class="input-group-append">
-                  <button class="btn btn-primary" @click="updateAmount">Set</button>
+                  <button type="button" class="btn btn-primary" @click="updateAmount">Set</button>
                 </div>
               </div>
 
@@ -71,7 +71,7 @@
           </div>
 
           <div class="modal-footer">
-            <button class="btn btn-primary btn-block" :data-secret="clientSecret" :disabled="cardButtonDisable" @click="submitPayment">
+            <button type="submit" class="btn btn-primary btn-block" :data-secret="clientSecret" :disabled="cardButtonDisable" @click="submitPayment">
               <i class="fal fa-credit-card" aria-hidden="true"></i> Submit Payment
             </button>
           </div>

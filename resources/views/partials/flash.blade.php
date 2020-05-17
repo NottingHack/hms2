@@ -11,7 +11,7 @@
   @else
   <div class="alert alert-{{ $message['level'] }}" data-closable>
     {!! $message['message'] !!}
-    <button class="close" aria-label="Dismiss alert" data-dismiss="alert" type="button" data-close>
+    <button type="button" class="close" aria-label="Dismiss alert" data-dismiss="alert" data-close>
       <span aria-hidden="true">&times;</span>
     </button>
   </div>

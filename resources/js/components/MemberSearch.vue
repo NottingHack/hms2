@@ -32,14 +32,13 @@
 
     computed: {
       actionUrl() {
-        return this.action.replace("_ID_", this.myValue);
+        return this.route(this.action, this.myValue);
       },
     },
 
     watch: {
       actionUrl() {
-        // use val to replace _ID_ in the action url and submit form
-        // console.log(this.actionUrl);
+        // autosubmit on value change
         this.$nextTick(() => {
           this.$refs.search.submit();
         });

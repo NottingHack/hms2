@@ -42,6 +42,6 @@
   </div>
   <hr>
   <p>Search for an account to view</p>
-  <member-search action="{{ route('banking.accounts.show', ['account' => '_ID_']) }}" placeholder="Search for an Account..." :with-account="true" :return-account-id="true"></member-search>
+  <member-search action="banking.accounts.show" placeholder="Search for an Account..." :with-account="true" :return-account-id="true"></member-search>
 </div>
 @endsection

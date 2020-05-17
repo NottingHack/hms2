@@ -22,7 +22,6 @@
 <script>
   export default {
     props: {
-      action: String,
       placeholder: {
         type: String,
         default: 'Search for an invite...'
@@ -44,7 +43,7 @@
 
     computed: {
       actionUrl() {
-        return this.action.replace("_ID_", this.value);
+        return this.route('membership.invites.resend', this.value);
       },
 
       mySettings() {

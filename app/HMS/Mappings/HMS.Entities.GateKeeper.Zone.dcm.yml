@@ -29,3 +29,7 @@ HMS\Entities\GateKeeper\Zone:
     rooms:
       targetEntity: \HMS\Entities\GateKeeper\Room
       mappedBy: zone
+  manyToOne:
+    building:
+      targetEntity: \HMS\Entities\GateKeeper\building
+      inversedBy: zones

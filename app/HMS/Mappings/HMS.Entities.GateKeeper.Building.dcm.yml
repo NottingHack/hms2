@@ -37,3 +37,6 @@ HMS\Entities\GateKeeper\Building:
     floors:
       targetEntity: \HMS\Entities\GateKeeper\Floor
       mappedBy: building
+    zones:
+      targetEntity: \HMS\Entities\GateKeeper\Zone
+      mappedBy: building

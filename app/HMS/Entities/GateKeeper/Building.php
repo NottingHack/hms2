@@ -36,9 +36,15 @@ class Building implements ArrayableContract, JsonSerializable
      */
     protected $floors;
 
+    /**
+     * @var Zone[]|ArrayCollection
+     */
+    protected $zones;
+
     public function __construct()
     {
         $this->floors = new ArrayCollection();
+        $this->zoness = new ArrayCollection();
     }
 
     /**
@@ -137,6 +143,26 @@ class Building implements ArrayableContract, JsonSerializable
     public function setSelfBookMaxOccupancy(int $selfBookMaxOccupancy)
     {
         $this->selfBookMaxOccupancy = $selfBookMaxOccupancy;
+
+        return $this;
+    }
+
+    /**
+     * @return Zone[]|ArrayCollection
+     */
+    public function getZones()
+    {
+        return $this->zones;
+    }
+
+    /**
+     * @param Zone[]|ArrayCollection $zones
+     *
+     * @return self
+     */
+    public function setZones($zones)
+    {
+        $this->zones = $zones;
 
         return $this;
     }

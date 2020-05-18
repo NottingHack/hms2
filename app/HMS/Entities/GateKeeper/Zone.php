@@ -43,6 +43,11 @@ class Zone
      */
     protected $rooms;
 
+    /**
+     * @var null|Building
+     */
+    protected $building;
+
     public function __construct()
     {
         $this->zoneOccupancts = new ArrayCollection();
@@ -106,5 +111,25 @@ class Zone
     public function getRooms()
     {
         return $this->rooms;
+    }
+
+    /**
+     * @return null|Building
+     */
+    public function getBuilding()
+    {
+        return $this->building;
+    }
+
+    /**
+     * @param null|Building $building
+     *
+     * @return self
+     */
+    public function setBuilding(Building $building)
+    {
+        $this->building = $building;
+
+        return $this;
     }
 }

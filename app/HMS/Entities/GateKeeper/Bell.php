@@ -30,7 +30,7 @@ class Bell
     protected $enabled;
 
     /**
-     * @var HMS\Entities\GateKeeper\Door[]
+     * @var HMS\Entities\GateKeeper\Door[]|ArrayCollection
      */
     protected $doors;
 
@@ -85,7 +85,7 @@ class Bell
     }
 
     /**
-     * @return HMS\Entities\GateKeeper\Door[]
+     * @return HMS\Entities\GateKeeper\Door[]|ArrayCollection
      */
     public function getDoors()
     {

@@ -2,10 +2,12 @@
 
 namespace HMS\Entities\GateKeeper;
 
+use JsonSerializable;
 use HMS\Traits\Entities\Timestampable;
 use Doctrine\Common\Collections\ArrayCollection;
+use Illuminate\Contracts\Support\Arrayable as ArrayableContract;
 
-class Building
+class Building implements ArrayableContract, JsonSerializable
 {
     use Timestampable;
 
@@ -137,5 +139,24 @@ class Building
         $this->selfBookMaxOccupancy = $selfBookMaxOccupancy;
 
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'accessState' => $this->accessState,
+            'accessStateString' => $this->getAccessStateString(),
+            'selfBookMaxOccupancy' => $this->selfBookMaxOccupancy,
+        ];
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->toArray();
     }
 }

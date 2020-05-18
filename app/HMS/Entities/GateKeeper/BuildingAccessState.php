@@ -20,7 +20,7 @@ abstract class BuildingAccessState
     const REQUESTED_BOOK = 'REQUESTED_BOOK';
 
     /**
-     * The building is close to all but Trustees. They may grant access to others.
+     * The building is closed to all but Trustees. They may grant access to others.
      */
     const CLOSED = 'CLOSED';
 

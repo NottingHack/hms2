@@ -43,6 +43,7 @@ return [
         'Email',
         'RoleUpdate',
         'LabelTemplate',
+        'GateKeeper\Building',
         'GateKeeper\Pin',
         'GateKeeper\RfidTag',
         'GateKeeper\Door',

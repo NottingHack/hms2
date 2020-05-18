@@ -82,7 +82,9 @@ class TemporaryAccessBookingManager
     public function book(Carbon $start, Carbon $end, User $user, ?string $color, ?string $notes)
     {
         // BASIC CHECKS
-        $maxLength = CarbonInterval::instance(new \DateInterval($this->metaRepository->get('temp_access_reset_interval', 'PT12H')))->totalMinutes;
+        $maxLength = CarbonInterval::instance(
+            new \DateInterval($this->metaRepository->get('temp_access_reset_interval', 'PT12H'))
+        )->totalMinutes;
         $basicChecks = $this->basicTimeChecks($start, $end, $maxLength);
         if (is_string($basicChecks)) {
             return $basicChecks; // 422
@@ -125,7 +127,9 @@ class TemporaryAccessBookingManager
             $end = $booking->getEnd();
         }
 
-        $maxLength = CarbonInterval::instance(new \DateInterval($this->metaRepository->get('temp_access_reset_interval', 'PT12H')))->totalMinutes;
+        $maxLength = CarbonInterval::instance(
+            new \DateInterval($this->metaRepository->get('temp_access_reset_interval', 'PT12H'))
+        )->totalMinutes;
         $basicChecks = $this->basicTimeChecks($start, $end, $maxLength);
 
         // Hack around time checks for a booking that is 'now'
@@ -215,7 +219,10 @@ class TemporaryAccessBookingManager
     public function updateTemporaryAccessRole()
     {
         $temporaryAccessRole = $this->roleRepository->findOneByName(Role::TEMPORARY_ACCESS);
-        $currentTemporaryAccessBookings = $this->temporaryAccessBookingRepository->findBetween(Carbon::now()->subMinutes(10), Carbon::now()->addMinutes(10));
+        $currentTemporaryAccessBookings = $this->temporaryAccessBookingRepository->findBetween(
+            Carbon::now()->subMinutes(10),
+            Carbon::now()->addMinutes(10)
+        );
 
         $currentTemporaryAccessUsers = array_map(function ($tba) {
             return $tba->getUser();
@@ -231,7 +238,10 @@ class TemporaryAccessBookingManager
         }
 
         if ($resetUserCount) {
-            Log::info('TemporaryAccessBookingManager@updateTemporaryAccessRole: Removed temporary access for ' . $resetUserCount . ' users.');
+            Log::info(
+                'TemporaryAccessBookingManager@updateTemporaryAccessRole: Removed temporary access for '
+                . $resetUserCount . ' users.'
+            );
         }
 
         // add role to any user that done currently have it
@@ -244,7 +254,40 @@ class TemporaryAccessBookingManager
         }
 
         if ($addUserCount) {
-            Log::info('TemporaryAccessBookingManager@updateTemporaryAccessRole: Added temporary access for ' . $addUserCount . ' users.');
+            Log::info(
+                'TemporaryAccessBookingManager@updateTemporaryAccessRole: Added temporary access for '
+                . $addUserCount . ' users.'
+            );
         }
+    }
+
+    /**
+     * Remove all future Bookings for a buildings BookableAreas.
+     *
+     * @param Building $building
+     */
+    public function removeAllFutureBookingsForBuilding(Building $building)
+    {
+        //
+    }
+
+    /**
+     * Unapprove future Bookings for a Buildings BookableAreas unless the Booking User can gatekeeper.access.manage.
+     *
+     * @param Building $building
+     */
+    public function unapproveFutureBookingsForBuildingUnlessManger(Building $building)
+    {
+        //
+    }
+
+    /**
+     * Remove future Bookings for a Buildings BookableAreas unless the Booking User can gatekeeper.access.manage.
+     *
+     * @param Building $building
+     */
+    public function removeFutureBookingsForBuildingUnlessManager(Building $building)
+    {
+        //
     }
 }

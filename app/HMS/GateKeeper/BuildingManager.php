@@ -27,20 +27,28 @@ class BuildingManager
     protected $permissionRepository;
 
     /**
+     * @var TemporaryAccessBookingManager
+     */
+    protected $temporaryAccessBookingManager;
+
+    /**
      * Create a new manager instance.
      *
      * @param BuildingRepository $buildingRepository
      * @param RoleRepository $roleRepository
      * @param PermissionRepository $permissionRepository
+     * @param TemporaryAccessBookingManager $temporaryAccessBookingManager
      */
     public function __construct(
         BuildingRepository $buildingRepository,
         RoleRepository $roleRepository,
-        PermissionRepository $permissionRepository
+        PermissionRepository $permissionRepository,
+        TemporaryAccessBookingManager $temporaryAccessBookingManager
     ) {
         $this->buildingRepository = $buildingRepository;
         $this->roleRepository = $roleRepository;
         $this->permissionRepository = $permissionRepository;
+        $this->temporaryAccessBookingManager = $temporaryAccessBookingManager;
     }
 
     /**
@@ -107,7 +115,8 @@ class BuildingManager
         // Make sure Role::MEMBER_CURRENT has the correct zone permissions to allow User access
         $this->addZonePermissionForBuilding($building);
 
-        // remove all futuer TemporaryAccessBookings
+        // remove all future TemporaryAccessBookings
+        $this->temporaryAccessBookingManager->removeAllFutureBookingsForBuilding($building);
 
         // lastly set the state on the building
         $building->setAccessState(BuildingAccessState::FULL_OPEN);
@@ -147,7 +156,8 @@ class BuildingManager
         // Make sure Role::MEMBER_CURRENT zone permissions have been removed to stop unbooked User access
         $this->removeZonePermissionForBuilding($building);
 
-        // unapporved any futuer TemporaryAccessBookings, unless User can gatekeeper.access.manage
+        // unapprove any future TemporaryAccessBookings, unless User can gatekeeper.access.manage
+        $this->temporaryAccessBookingManager->unapproveFutureBookingsForBuildingUnlessManger($building);
 
         // lastly set the state on the building
         $building->setAccessState(BuildingAccessState::REQUESTED_BOOK);
@@ -168,7 +178,8 @@ class BuildingManager
         // Make sure Role::MEMBER_CURRENT zone permissions have been removed to stop unbooked User access
         $this->removeZonePermissionForBuilding($building);
 
-        // remove any futuer TemporaryAccessBookings, unless User can gatekeeper.access.manage
+        // remove any future TemporaryAccessBookings, unless User can gatekeeper.access.manage
+        $this->temporaryAccessBookingManager->removeFutureBookingsForBuildingUnlessManager($building);
 
         // lastly set the state on the building
         $building->setAccessState(BuildingAccessState::CLOSED);
@@ -181,6 +192,8 @@ class BuildingManager
      * Given a building with zones add there permission to Role::MEMBER_CURRENT to allow User access.
      *
      * @param Building $building
+     *
+     * @return Building
      */
     protected function addZonePermissionForBuilding(Building $building)
     {
@@ -200,6 +213,8 @@ class BuildingManager
      * Given a building with zones remove there permission form Role::MEMBER_CURRENT to stop unbooked User access.
      *
      * @param Building $building
+     *
+     * @return Building
      */
     protected function removeZonePermissionForBuilding(Building $building)
     {

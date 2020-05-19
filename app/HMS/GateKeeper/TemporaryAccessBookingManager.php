@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
 use App\Events\GateKeeper\NewBooking;
+use HMS\Entities\GateKeeper\Building;
 use HMS\User\Permissions\RoleManager;
 use App\Events\GateKeeper\BookingChanged;
 use App\Events\GateKeeper\BookingCancelled;

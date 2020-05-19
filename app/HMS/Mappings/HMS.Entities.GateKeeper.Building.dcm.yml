@@ -40,3 +40,6 @@ HMS\Entities\GateKeeper\Building:
     zones:
       targetEntity: \HMS\Entities\GateKeeper\Zone
       mappedBy: building
+    bookableAreas:
+      targetEntity: \HMS\Entities\GateKeeper\BookableArea
+      mappedBy: building

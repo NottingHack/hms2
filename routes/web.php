@@ -149,6 +149,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('access-state/edit', 'AccessStateController@edit')->name('access-state.edit');
         Route::put('access-state', 'AccessStateController@update')->name('access-state.update');
 
+        Route::resource(
+            'bookable-area',
+            'BookableAreaController',
+            [
+                'parameters' => [
+                    'bookable-area' => 'bookableArea',
+                ],
+            ]
+        );
+
         Route::view('temporary-access', 'gateKeeper.temporary_access')
             ->middleware('can:gatekeeper.temporaryAccess.grant')
             ->name('temporary-access');

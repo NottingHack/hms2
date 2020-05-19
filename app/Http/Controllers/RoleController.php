@@ -280,7 +280,7 @@ class RoleController extends Controller
     }
 
     /**
-     * Remove a specific user from a specific role.
+     * Format role for display.
      *
      * @param ArrayCollection|array $list
      *

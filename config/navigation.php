@@ -257,12 +257,19 @@ return [
             'permissions'   => [],
             'links'         => [
                 'buildings' => [
-                    'text'          => 'Access state',
+                    'text'          => 'Access State',
                     'route'         => 'gatekeeper.access-state.index',
                     'match'         => 'gatekeeper.access-state.index',
-                    'permissions'   => ['gatekeeper.temporaryAccess.grant'],
+                    'permissions'   => ['gatekeeper.access.manage'],
                     'links'         => [],
                 ],
+                'bookableAreas' => [
+                    'text'          => 'Bookable Areas',
+                    'route'         => 'gatekeeper.bookable-area.index',
+                    'permissions'   => ['gatekeeper.access.manage'],
+                    'links'         => [],
+                ],
+
                 'temporaryAccess' => [
                     'text'          => 'Temporary Access',
                     'route'         => 'gatekeeper.temporary-access',

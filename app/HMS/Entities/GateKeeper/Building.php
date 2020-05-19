@@ -41,10 +41,16 @@ class Building implements ArrayableContract, JsonSerializable
      */
     protected $zones;
 
+    /**
+     * @var BookableArea[]|ArrayCollection
+     */
+    protected $bookableAreas;
+
     public function __construct()
     {
         $this->floors = new ArrayCollection();
         $this->zoness = new ArrayCollection();
+        $this->bookableAreas = new ArrayCollection();
     }
 
     /**
@@ -184,5 +190,25 @@ class Building implements ArrayableContract, JsonSerializable
     public function jsonSerialize()
     {
         return $this->toArray();
+    }
+
+    /**
+     * @return BookableArea[]|ArrayCollection
+     */
+    public function getBookableAreas()
+    {
+        return $this->bookableAreas;
+    }
+
+    /**
+     * @param BookableArea[]|ArrayCollection $bookableAreas
+     *
+     * @return self
+     */
+    public function setBookableAreas($bookableAreas)
+    {
+        $this->bookableAreas = $bookableAreas;
+
+        return $this;
     }
 }

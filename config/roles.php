@@ -380,6 +380,7 @@ return [
                 'governance.meeting.edit',
                 'governance.meeting.checkIn',
                 'governance.meeting.recordAbsence',
+                'gatekeeper.access.manage',
                 'gatekeeper.temporaryAccess.grant',
                 'gatekeeper.zoneEntry.upstairs',
                 'gatekeeper.zoneEntry.cncBlueRoom',

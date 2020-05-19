@@ -206,7 +206,7 @@
         userId: '',
         colors: [
           'primary',
-          'danger',
+          'red',
           'indigo',
           'yellow',
           'pink',

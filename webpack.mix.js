@@ -1,6 +1,7 @@
 const mix = require('laravel-mix');
 const path = require('path');
 const WebpackShellPluginNext = require('webpack-shell-plugin-next');
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management

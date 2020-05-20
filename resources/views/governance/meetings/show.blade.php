@@ -88,22 +88,21 @@
     </table>
   </div>
 
-@can('governance.meeting.edit')
-<a href="{{ route('governance.meetings.edit', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
-@endcan
-{{-- @can('governance.meeting.view')
-<a href="{{ route('governance.proxies.index', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-eye" aria-hidden="true"></i> View Proxies</a>
-<a href="{{ route('governance.meetings.attendees', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-eye" aria-hidden="true"></i> View Attendees</a>
-<a href="{{ route('governance.meetings.absentees', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-eye" aria-hidden="true"></i> View Absentees</a>
-@endcan --}}
-@if ($meeting->getStartTime()->isFuture() || $meeting->getStartTime()->isToday())
-@can('governance.meeting.checkIn')
-<a  href="{{ route('governance.meetings.check-in', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-user-check" aria-hidden="true"></i> Check-in</a>
-@endcan
-@can('governance.meeting.recordAbsence')
-<a  href="{{ route('governance.meetings.absence', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-user-times" aria-hidden="true"></i> Record Absence</a>
-@endif
-@endcan
+  @can('governance.meeting.edit')
+  <a href="{{ route('governance.meetings.edit', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
+  @endcan
+  {{-- @can('governance.meeting.view')
+  <a href="{{ route('governance.proxies.index', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-eye" aria-hidden="true"></i> View Proxies</a>
+  <a href="{{ route('governance.meetings.attendees', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-eye" aria-hidden="true"></i> View Attendees</a>
+  <a href="{{ route('governance.meetings.absentees', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-eye" aria-hidden="true"></i> View Absentees</a>
+  @endcan --}}
+  @if ($meeting->getStartTime()->isFuture() || $meeting->getStartTime()->isToday())
+  @can('governance.meeting.checkIn')
+  <a  href="{{ route('governance.meetings.check-in', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-user-check" aria-hidden="true"></i> Check-in</a>
+  @endcan
+  @can('governance.meeting.recordAbsence')
+  <a  href="{{ route('governance.meetings.absence', $meeting->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-user-times" aria-hidden="true"></i> Record Absence</a>
+  @endif
+  @endcan
 </div>
-
 @endsection

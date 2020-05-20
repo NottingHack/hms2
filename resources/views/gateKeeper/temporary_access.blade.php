@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('pageTitle', 'Temporary access bookings')
+@section('pageTitle', 'Temporary Access Bookings')
 
 @section('content')
 <temporary-access

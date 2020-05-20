@@ -27,7 +27,7 @@
       @enderror
     </div>
 
-   <div class="form-group form-check">
+    <div class="form-group form-check">
       <input id="extraordinary" class="form-check-input @error('extraordinary') is-invalid @enderror" type="checkbox" name="extraordinary" {{ old('extraordinary', 0) ? 'checked="checked"' : '' }}>
       <label class="form-check-label" for="extraordinary">
         Is this an Extraordinary General Meeting?

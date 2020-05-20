@@ -10,6 +10,7 @@ use HMS\GateKeeper\TemporaryAccessBookingManager;
 use HMS\Entities\GateKeeper\TemporaryAccessBooking;
 use Illuminate\Http\Response as IlluminateResponse;
 use HMS\Repositories\GateKeeper\TemporaryAccessBookingRepository;
+use App\Http\Resources\GateKeeper\TemporaryAccessBooking as TemporaryAccessBookingResources;
 
 class TemporaryAccessBookingController extends Controller
 {
@@ -66,7 +67,7 @@ class TemporaryAccessBookingController extends Controller
 
         $temporaryAccessBookings = $this->temporaryAccessBookingRepository->findBetween($start, $end);
 
-        return response()->json($temporaryAccessBookings);
+        return TemporaryAccessBookingResources::collection($temporaryAccessBookings);
     }
 
     /**
@@ -103,7 +104,9 @@ class TemporaryAccessBookingController extends Controller
             return response()->json($response, IlluminateResponse::HTTP_UNPROCESSABLE_ENTITY);
         } else {
             // response is the new booking object
-            return response()->json($response, IlluminateResponse::HTTP_CREATED);
+            return (new TemporaryAccessBookingResources($response))
+                ->response()
+                ->setStatusCode(IlluminateResponse::HTTP_CREATED);
         }
     }
 
@@ -143,8 +146,10 @@ class TemporaryAccessBookingController extends Controller
             // response is some sort of error
             return response()->json($response, IlluminateResponse::HTTP_UNPROCESSABLE_ENTITY);
         } else {
-            // response is the new booking object
-            return response()->json($response, IlluminateResponse::HTTP_OK);
+            // response is the updated booking object
+            return (new TemporaryAccessBookingResources($response))
+                ->response()
+                ->setStatusCode(IlluminateResponse::HTTP_OK);
         }
     }
 

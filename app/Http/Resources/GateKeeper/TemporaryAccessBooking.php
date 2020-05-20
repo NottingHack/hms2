@@ -15,6 +15,14 @@ class TemporaryAccessBooking extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->getId(),
+            'start' => $this->getStart(),
+            'end' => $this->getEnd(),
+            'title' => $this->getUser()->getFullName(),
+            'userId' => $this->getUser()->getId(),
+            'color' => $this->getColor(),
+            'notes' => $this->getNotes(),
+        ];
     }
 }

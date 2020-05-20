@@ -8,6 +8,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use HMS\Entities\GateKeeper\TemporaryAccessBooking;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use App\Http\Resources\GateKeeper\TemporaryAccessBooking as TemporaryAccessBookingResources;
 
 class NewBooking implements ShouldBroadcast
 {
@@ -38,5 +39,17 @@ class NewBooking implements ShouldBroadcast
     public function broadcastOn()
     {
         return new Channel('gatekeeper.temporaryAccessBookings');
+    }
+
+    /**
+     * Get the data that should be sent with the broadcasted event.
+     *
+     * @return array
+     */
+    public function broadcastWith()
+    {
+        return [
+            'booking' => (new TemporaryAccessBookingResources($response))->resolve(),
+        ];
     }
 }

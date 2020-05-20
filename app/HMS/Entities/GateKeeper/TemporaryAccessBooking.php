@@ -3,12 +3,10 @@
 namespace HMS\Entities\GateKeeper;
 
 use Carbon\Carbon;
-use JsonSerializable;
 use HMS\Entities\User;
 use LaravelDoctrine\Extensions\Timestamps\Timestamps;
-use Illuminate\Contracts\Support\Arrayable as ArrayableContract;
 
-class TemporaryAccessBooking implements ArrayableContract, JsonSerializable
+class TemporaryAccessBooking
 {
     use Timestamps;
 
@@ -150,26 +148,5 @@ class TemporaryAccessBooking implements ArrayableContract, JsonSerializable
         $this->notes = $notes;
 
         return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function toArray()
-    {
-        return [
-            'id' => $this->id,
-            'start' => $this->start->toAtomString(),
-            'end' => $this->end->toAtomString(),
-            'title' => $this->user->getFullName(),
-            'userId' => $this->user->getId(),
-            'color' => $this->color,
-            'notes' => $this->notes,
-        ];
-    }
-
-    public function jsonSerialize()
-    {
-        return $this->toArray();
     }
 }

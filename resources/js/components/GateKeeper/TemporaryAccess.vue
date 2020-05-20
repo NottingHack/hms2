@@ -412,7 +412,7 @@
         request.then(({ data }) => {
           // need to map over our api response first to prep them for fullcalender
           // pass bookings over to fullcalenders callback
-          successCallback(data.map(this.mapBookings));
+          successCallback(data.data.map(this.mapBookings));
         })
         .catch((thrown) => {
           if (axios.isCancel(thrown)) {
@@ -482,7 +482,7 @@
         axios.post(this.route('api.gatekeeper.temporary-access-bookings.store'), booking)
           .then((response) => {
             if (response.status == '201') { // HTTP_CREATED
-              const booking = this.mapBookings(response.data);
+              const booking = this.mapBookings(response.data.data);
 
               $(this.$refs.selectModal).modal('hide');
               this.removeBookingConfirmation();
@@ -541,16 +541,7 @@
             if (response.status == '200') { // HTTP_OK
               flash('Booking updated');
               console.log('patchBooking', 'Booking Updated OK');
-
-              // const booking = this.mapBookings(response.data);
-
-              // if (booking.type === 'NORMAL') {
-              //   this.userCanBook.normalCurrentCount--;
-              // }
-
-              // this.calendarApi.unselect();
-              // // this.calendarApi.addEvent(booking, 'bookings'); // this is broken until the next release
-              // this.calendarApi.refetchEvents(); // using this until the above is fixed
+              // think patch does not need anything doing to confirm
             } else {
               flash('Error updating booking', 'danger');
               revert();
@@ -760,7 +751,7 @@
 
       bookingChangedEvent(bookingChanged) {
         // console.log('Echo sent bookingChanged event', bookingChanged);
-        const oldEvet = this.calendarApi.getEventById(bookingChanged.booking.id);
+        const oldEvet = this.calendarApi.getEventById(bookingChanged.orignalBooking.id);
         if (oldEvet) {
           oldEvet.remove();
         }

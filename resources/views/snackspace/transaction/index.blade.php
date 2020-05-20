@@ -41,7 +41,7 @@ Snackspace account for {{ $user->getFirstname() }}
       <thead>
         <tr>
           <th>Date</th>
-          <th class="d-none d-md-tabel-cell">Type</th>
+          <th class="d-none d-md-table-cell">Type</th>
           <th>Description</th>
           <th>Amount</th>
         </tr>
@@ -50,7 +50,7 @@ Snackspace account for {{ $user->getFirstname() }}
         @foreach ($transactions as $transaction)
         <tr>
           <td>{{ $transaction->getTransactionDatetime()->toDateTimeString() }}</td>
-          <td class="d-none d-md-tabel-cell">{{ $transaction->getTypeString() }}</td>
+          <td class="d-none d-md-table-cell">{{ $transaction->getTypeString() }}</td>
           <td>{{ $transaction->getDescription() }}</td>
           <td class="money">@money($transaction->getAmount(), 'GBP')</td>
         </tr>

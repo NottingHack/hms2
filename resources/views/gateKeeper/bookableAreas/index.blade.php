@@ -15,7 +15,7 @@
       <thead>
         <tr>
           <th>Name</th>
-          <th>Description</th>
+          <th class="d-none d-lg-table-cell">Description</th>
           <th>Max occupancy</th>
           <th>Additional guest occupancy</th>
           <th>Booking colour</th>
@@ -27,7 +27,7 @@
         @foreach ($bookableAreas as $bookableArea)
         <tr>
           <td data-title="Name">{{ $bookableArea->getName() }}</th>
-          <td data-title="Description">{{ $bookableArea->getDescriptionTrimed(50) }}</th>
+          <td data-title="Description" class="d-none d-lg-table-cell">{{ $bookableArea->getDescriptionTrimed(50) }}</th>
           <td data-title="Max occupancy">{{ $bookableArea->getMaxOccupancy() }}</th>
           <td data-title="Additional guest occupancy">{{ $bookableArea->getAdditionalGuestOccupancy() }}</th>
           <td data-title="Booking colour">
@@ -35,14 +35,14 @@
           </th>
           <td data-title="Self bookable">{{ $bookableArea->isSelfBookable() ? 'Yes' : 'No'}}</th>
           <td data-title="Actions" class="actions">
-            <a href="{{ route('gatekeeper.bookable-area.show', $bookableArea->getId()) }}" class="btn btn-primary btn-sm mb-1"><i class="far fa-eye" aria-hidden="true"></i> View</a>
-            <a class="btn btn-primary btn-sm mb-1" href="{{ route('gatekeeper.bookable-area.edit', $bookableArea->getId()) }}"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
+            <a href="{{ route('gatekeeper.bookable-area.show', $bookableArea->getId()) }}" class="btn btn-primary btn-sm mb-1"><i class="far fa-eye" aria-hidden="true"></i><span class="d-md-none d-lg-inline"> View</a>
+            <a class="btn btn-primary btn-sm mb-1" href="{{ route('gatekeeper.bookable-area.edit', $bookableArea->getId()) }}"><i class="fas fa-pencil" aria-hidden="true"></i><span class="d-md-none d-lg-inline"> Edit</a>
             <button type="button" class="btn btn-danger btn-sm mb-1" data-toggle="confirmation" data-placement="bottom">
               <form action="{{ route('gatekeeper.bookable-area.destroy', $bookableArea->getId()) }}" method="POST" style="display: inline">
                 @method('DELETE')
                 @csrf
               </form>
-              <i class="fas fa-trash" aria-hidden="true"></i>&nbsp;Remove
+              <i class="fas fa-trash" aria-hidden="true"></i><span class="d-md-none d-lg-inline"> Remove
             </button>
           </td>
         </tr>

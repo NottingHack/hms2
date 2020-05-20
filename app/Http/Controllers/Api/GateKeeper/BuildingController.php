@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use HMS\Entities\GateKeeper\Building;
 use HMS\Repositories\GateKeeper\BuildingRepository;
 use Illuminate\Http\Response as IlluminateResponse;
+use App\Http\Resources\GateKeeper\Building as BuildingResource;
 
 class BuildingController extends Controller
 {
@@ -46,7 +47,7 @@ class BuildingController extends Controller
     {
         $buildings = $this->buildingRepository->findAll();
 
-        return response()->json($buildings);
+        return BuildingResource::collection($buildings);
     }
 
     /**
@@ -70,7 +71,7 @@ class BuildingController extends Controller
      */
     public function show($building)
     {
-        return response()->json($building);
+        return new BuildingResource($building);
     }
 
     /**
@@ -93,8 +94,10 @@ class BuildingController extends Controller
             // response is some sort of error
             return response()->json($response, IlluminateResponse::HTTP_UNPROCESSABLE_ENTITY);
         } else {
-            // response is the new booking object
-            return response()->json($response, IlluminateResponse::HTTP_OK);
+            // response is the updated building
+            return (new BuildingResource($response))
+                ->response()
+                ->setStatusCode(IlluminateResponse::HTTP_OK);
         }
     }
 
@@ -118,8 +121,10 @@ class BuildingController extends Controller
             // response is some sort of error
             return response()->json($response, IlluminateResponse::HTTP_UNPROCESSABLE_ENTITY);
         } else {
-            // response is the new booking object
-            return response()->json($response, IlluminateResponse::HTTP_OK);
+            // response is the updated building
+            return (new BuildingResource($response))
+                ->response()
+                ->setStatusCode(IlluminateResponse::HTTP_OK);
         }
     }
 }

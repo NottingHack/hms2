@@ -175,7 +175,7 @@
         axios.get(this.route('api.gatekeeper.buildings.index'))
           .then((response) => {
             if (response.status == '200') { // HTTP_OK
-              this.buildings = response.data;
+              this.buildings = response.data.data; // axios data, then laravel api resource data
             } else {
               flash('Error fetching buildings', 'danger');
               console.log('fetchBuildings', response.data);
@@ -235,8 +235,10 @@
           })
           .then((response) => {
             if (response.status == '200') { // HTTP_OK
-              // response.data is the building
-              Object.assign(this.buildings[this.buildings.findIndex(buidling => buidling.id === response.data.id)], response.data)
+              // response.data is the BuildingResource
+              let updatedBuilding = response.data.data; // axios data, then laravel api resource data
+
+              Object.assign(this.buildings[this.buildings.findIndex(buidling => buidling.id === updatedBuilding.id)], updatedBuilding);
 
               $(this.$refs.occupancyModal).modal('hide');
 
@@ -281,8 +283,9 @@
           })
           .then((response) => {
             if (response.status == '200') { // HTTP_OK
-              // response.data is the building
-              Object.assign(this.buildings[this.buildings.findIndex(buidling => buidling.id === response.data.id)], response.data)
+              // response.data is the BuildingResource
+              let updatedBuilding = response.data.data; // axios data, then laravel api resource data
+              Object.assign(this.buildings[this.buildings.findIndex(buidling => buidling.id === updatedBuilding.id)], updatedBuilding);
 
               $(this.$refs.accessModal).modal('hide');
 

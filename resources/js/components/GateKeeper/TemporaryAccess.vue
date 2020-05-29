@@ -878,3 +878,45 @@
     },
   }
 </script>
+
+<style lang="scss">
+/**
+ * TemporaryAccess
+ */
+@import "~sass/variables";
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+/*
+ * Coloured bookings
+ */
+@each $color, $value in $theme-colors {
+  .temporary-booking-#{$color} {
+    border-color: $value;
+    background-color: $value !important;
+    &.not-approved {
+      background: repeating-linear-gradient(
+          $value,
+          $value 10px,
+          shade($value, 20%) 10px,
+          shade($value, 20%) 20px
+      );
+    }
+    &.not-editable {
+      background: repeating-linear-gradient(
+          -45deg,
+          $value,
+          $value 10px,
+          tint($value, 10%) 10px,
+          tint($value, 10%) 20px
+      );
+    }
+  }
+}
+
+.badge-font-inherit {
+  font-size: inherit
+}
+
+</style>

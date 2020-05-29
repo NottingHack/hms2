@@ -326,3 +326,42 @@
     },
   }
 </script>
+
+<style lang="scss">
+/*
+ * BookingCalendarList.vue
+ */
+@import "~sass/variables";
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+.popover {
+    max-width: 100%;
+}
+
+/*
+ * Tool related bits
+ */
+.tool-list-normal .fc-event-dot {
+  background-color: $tool-booking-normal !important;
+  // Make the dot bigger and more of a square
+  width: 25px;
+  height: 25px;
+}
+
+.tool-list-induction .fc-event-dot {
+  background-color: $tool-booking-induction !important;
+  // Make the dot bigger and more of a square
+  width: 25px;
+  height: 25px;
+}
+
+.tool-list-maintenance .fc-event-dot {
+  background-color: $tool-booking-maintenance !important;
+  // Make the dot bigger and more of a square
+  width: 25px;
+  height: 25px;
+}
+
+</style>

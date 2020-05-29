@@ -30,11 +30,18 @@ mix.webpackConfig({
             }
         }
     })
-   .options({
-        extractVueStyles: true,
-    })
    .js('resources/js/app.js', 'public/js')
    .extract()
    .sass('resources/sass/app.scss', 'public/css')
+   .options({
+        extractVueStyles: 'public/css/vue.css',
+        // need mix 6 and webpack 5 :(
+        // globalVueStyles: [
+        //   '~bootstrap/scss/functions',
+        //   '~bootstrap/scss/variables',
+        //   '~bootstrap/scss/mixins',
+        //   'resources/sass/_variables.scss',
+        // ],
+    })
    .version()
    .sourceMaps();

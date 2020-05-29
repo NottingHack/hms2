@@ -219,7 +219,7 @@
 
           return false;
         }
-        // is it ours and is does it end in the future
+        // is it ours and does it end in the future
         if (info.event.extendedProps.userId == this.userCanBook.userId && moment().diff(info.event.end) < 0) {
           this.setupCancleConfirmation(info);
         }
@@ -437,6 +437,7 @@
               console.log('patchBooking', 'Booking Updated OK');
 
               // const booking = this.mapBookings(response.data);
+              // TODO: lwk 20/05/2020 need to look into this again, think patch does not need anything doing in to confirm
 
               // if (booking.type === 'NORMAL') {
               //   this.userCanBook.normalCurrentCount--;
@@ -765,3 +766,80 @@
     },
   }
 </script>
+
+<style lang="scss">
+/*
+ * ToolCalendar.vue
+ */
+@import "~sass/variables";
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+// override the bootstrap 4 theme today highlight
+.fc-today {
+  background-color:inherit !important;
+}
+
+.fc-bgevent  {
+  background: #7c7c7c;
+}
+
+.fc-past {
+  background: #d7d7d7;
+}
+
+.fc-slats table tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.popover {
+    max-width: 100%;
+}
+
+/*
+ * Tool related bits
+ */
+.tool-normal {
+  border-color: $tool-booking-normal;
+  background-color: $tool-booking-normal !important;
+  &.not-editable {
+    background: repeating-linear-gradient(
+        -45deg,
+        $tool-booking-normal,
+        $tool-booking-normal 10px,
+        tint($tool-booking-normal, 10%) 10px,
+        tint($tool-booking-normal, 10%) 20px
+    );
+  }
+}
+
+.tool-induction {
+  border-color: $tool-booking-induction;
+  background-color: $tool-booking-induction !important;
+  &.not-editable {
+    background: repeating-linear-gradient(
+        -45deg,
+        $tool-booking-induction,
+        $tool-booking-induction 10px,
+        tint($tool-booking-induction, 10%) 10px,
+        tint($tool-booking-induction, 10%) 20px
+    );
+  }
+}
+
+.tool-maintenance {
+  border-color: $tool-booking-maintenance;
+  background-color: $tool-booking-maintenance !important;
+  &.not-editable {
+    background: repeating-linear-gradient(
+        -45deg,
+        $tool-booking-maintenance,
+        $tool-booking-maintenance 10px,
+        tint($tool-booking-maintenance, 10%) 10px,
+        tint($tool-booking-maintenance, 10%) 20px
+    );
+  }
+}
+
+</style>

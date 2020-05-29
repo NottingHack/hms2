@@ -3,8 +3,8 @@
   <div class="card-header">Tool Bookings</div>
   <booking-calendar-list
     classs="card-body"
-    :initial-bookings="{{ json_encode($bookings) }}"
-    :tool-ids="{{ json_encode($toolIds) }}"
+    :initial-bookings='@json($bookings)'
+    :tool-ids='@json($toolIds)'
     :remove-card-class="true"
     ></booking-calendar-list>
  {{--  <div class="card-footer">

@@ -14,7 +14,7 @@
         id='building_id'
         name='building_id'
         placeholder="Select a building..."
-        :options="{{ json_encode($buildingOptions) }}"
+        :options='@json($buildingOptions)'
         style="width: 100%"
         {{ old('building_id') ? ':value="' . old('building_id') . '"' : '' }}
         >

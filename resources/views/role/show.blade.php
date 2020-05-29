@@ -75,7 +75,7 @@
   <div classs="pagination-links center">
       {{ $users->links() }}
   </div>
-  @if($role->getCategory() != "Member")
+  @if ($role->getCategory() != "Member")
   @can('role.grant.all')
   <form id='addUser' role="form" method="POST" action="{{ route('roles.addUser', ['role' => $role->getId()]) }}">
       @method('PATCH')

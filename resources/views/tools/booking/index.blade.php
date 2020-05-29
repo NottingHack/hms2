@@ -16,7 +16,7 @@
     :booking-length-max="{{ $tool->getLengthMax() }}"
     :bookings-max="{{ $tool->getBookingsMax() }}"
     bookings-url="{{ route('api.tools.bookings.index', ['tool' => $tool->getId()]) }}"
-    {{-- :initial-bookings="{{ json_encode($bookingsThisWeek) }}" --}}
-    :user-can-book="{{ json_encode($userCanBook) }}"
+    {{-- :initial-bookings='@json($bookingsThisWeek)' --}}
+    :user-can-book='@json($userCanBook)'
     ></tool-calendar>
 @endsection

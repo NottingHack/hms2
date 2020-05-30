@@ -41,6 +41,26 @@ class TemporaryAccessBooking
     protected $notes;
 
     /**
+     * @var BookableArea|null
+     */
+    protected $bookableArea;
+
+    /**
+     * @var bool
+     */
+    protected $approved;
+
+    /**
+     * @var User|null
+     */
+    protected $approvedBy;
+
+    public function __construct()
+    {
+        $this->approved = 0;
+    }
+
+    /**
      * Gets the value of id.
      *
      * @return int
@@ -146,6 +166,66 @@ class TemporaryAccessBooking
     public function setNotes(?string $notes)
     {
         $this->notes = $notes;
+
+        return $this;
+    }
+
+    /**
+     * @return BookableArea|null
+     */
+    public function getBookableArea()
+    {
+        return $this->bookableArea;
+    }
+
+    /**
+     * @param BookableArea|null $bookableArea
+     *
+     * @return self
+     */
+    public function setBookableArea(?BookableArea $bookableArea)
+    {
+        $this->bookableArea = $bookableArea;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isApproved()
+    {
+        return $this->approved;
+    }
+
+    /**
+     * @param bool $approved
+     *
+     * @return self
+     */
+    public function setApproved($approved)
+    {
+        $this->approved = $approved;
+
+        return $this;
+    }
+
+    /**
+     * @return User|null
+     */
+    public function getApprovedBy()
+    {
+        return $this->approvedBy;
+    }
+
+    /**
+     * @param User|null $approvedBy
+     *
+     * @return self
+     */
+    public function setApprovedBy(?User $approvedBy)
+    {
+        $this->approvedBy = $approvedBy;
 
         return $this;
     }

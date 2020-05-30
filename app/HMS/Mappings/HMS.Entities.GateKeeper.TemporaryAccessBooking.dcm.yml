@@ -22,6 +22,10 @@ HMS\Entities\GateKeeper\TemporaryAccessBooking:
     notes:
       type: string
       nullable: true
+    approved:
+      type: boolean
+      options:
+        default: 0
     createdAt:
       type: datetime
       gedmo:
@@ -36,3 +40,7 @@ HMS\Entities\GateKeeper\TemporaryAccessBooking:
     user:
       targetEntity: \HMS\Entities\User
       fetch: EAGER
+    bookableArea:
+      targetEntity: \HMS\Entities\GateKeeper\BookableArea
+    approvedBy:
+      targetEntity: \HMS\Entities\User

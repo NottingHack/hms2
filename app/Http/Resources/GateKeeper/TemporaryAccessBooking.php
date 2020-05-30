@@ -3,6 +3,7 @@
 namespace App\Http\Resources\GateKeeper;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\GateKeeper\BookableArea as BookableAreaResource;
 
 class TemporaryAccessBooking extends JsonResource
 {
@@ -23,6 +24,9 @@ class TemporaryAccessBooking extends JsonResource
             'userId' => $this->getUser()->getId(),
             'color' => $this->getColor(),
             'notes' => $this->getNotes(),
+            'bookableArea' => $this->getBookableArea() ? new BookableAreaResource($this->getBookableArea()) : null,
+            'approved' => $this->isApproved(),
+            'approvedBy' => $this->getApprovedBy() ? $this->getApprovedBy()->getFullName() : null,
         ];
     }
 }

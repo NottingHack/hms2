@@ -3,7 +3,6 @@
 namespace App\Http\Resources\GateKeeper;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\GateKeeper\Building as BuildingResource;
 
 class BookableArea extends JsonResource
 {

@@ -1,9 +1,18 @@
 <template>
   <div class="vue-remove">
     <div class="container">
-      <p>To schedule temporary access for a User please select and drag on the calendar below.</p>
+      <!-- <p>To schedule temporary access for a User please select and drag on the calendar below.</p>
       <p>To re-schedule a booking, click and move the booking to a new time.</p>
-      <p>To cancel a booking, click on the booking then confirm cancellation.</p>
+      <p>To cancel a booking, click on the booking then confirm cancellation.</p> -->
+      <p>Words about the current access state being <strong>{{ building.accessStateString }}</strong></p>
+      <p>The maximum concurrent occupancy is currently {{ building.selfBookMaxOccupancy }}</p>
+      <p>This building has the following bookable areas.</p>
+      <p class="h4">
+        <template v-for="bookableArea in bookableAreas" >
+          <span :class="['badge', 'badge-' + bookableArea.bookingColor, 'pb-1']">{{ bookableArea.name }}</span>&nbsp;
+        </template>
+      </p>
+      <p v-if="settings.grant != 'ALL'">Some areas can only be booked by Trustees.</p>
     </div>
 
     <div class="container" ref="calendar">
@@ -92,7 +101,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <div :class="['form-group', userError ? 'is-invalid' : '']">
+            <div :class="['form-group', userError ? 'is-invalid' : '']" v-if="settings.grant == 'ALL'">
               <label for="user">Select Member</label>
               <member-select-two
                 id="user"
@@ -103,15 +112,19 @@
                 />
               <div class="invalid-feedback d-block" role="alert" v-if="userError">{{ userError }}</div>
             </div>
-            <div class="form-group">
-              <div class="btn-group btn-group-toggle w-100">
-                <label
-                  v-for="c in colors"
-                  :class="['btn', 'btn-' + c]"
-                >
-                  <input type="radio" v-model="color" :value="c"><i class="fas fa-check" v-show="color === c"></i>
-                </label>
-              </div>
+            <div :class="['form-group', bookableAreaError ? 'is-invalid' : '']" ref="bookableAreaSelectDiv">
+              <label for="user">Select Area</label>
+              <select-two
+                ref="bast"
+                v-model="bookableAreaId"
+                :name="null"
+                placeholder="Select an area to book"
+                :settings="bookableAreaSettings"
+                :options="bookableAreaOptions"
+                style="width: 100%"
+
+                />
+                <div class="invalid-feedback d-block" role="alert" v-if="bookableAreaError">{{ bookableAreaError }}</div>
             </div>
             <div class="form-group">
               <label for="notes">Notes</label>
@@ -132,6 +145,7 @@
                 <div class="input-group-append">
                   <div class="input-group-text datepickerbutton"><i class="far fa-calendar-alt"></i></div>
                 </div>
+                <div class="invalid-feedback d-block" role="alert" v-if="startError">{{ startError }}</div>
               </div>
             </div>
             <div class="form-group">
@@ -149,6 +163,7 @@
                 <div class="input-group-append">
                   <div class="input-group-text datepickerbutton"><i class="far fa-calendar-alt"></i></div>
                 </div>
+                <div class="invalid-feedback d-block" role="alert" v-if="endError">{{ endError }}</div>
               </div>
             </div>
           </div>
@@ -182,7 +197,20 @@
     },
 
     props: {
-      bookingLengthMax: Number,
+      building: Object,
+      bookableAreas: Array,
+      settings: {
+        type: Object,
+        default: () => ({
+          maxLength: 120,
+          maxConcurrentPerUser: 1,
+          maxGuestsPerUser: 0,
+          minPeriodBetweenBookings: 720,
+          bookingInfoText: '',
+          userId: null,
+          grant: 'NONE',
+        }),
+      },
     },
 
     data() {
@@ -204,20 +232,12 @@
         isLoading: true,
         loader: null,
         userId: '',
-        colors: [
-          'primary',
-          'red',
-          'indigo',
-          'yellow',
-          'pink',
-          'orange',
-          'cyan',
-        ],
-        color: 'primary',
+        bookableAreaId: '',
         notes: '',
         start: '',
         end: '',
-        userError: '',
+        userError: false,
+        bookableAreaError: false,
         startError: false,
         endError: false,
         datapickerConfig: {
@@ -238,7 +258,7 @@
           allowInputToggle: true,
           useCurrent: false,
           stepping: 15,
-          minDate: moment().add(15, 'mintues'), // can not pick in the past
+          minDate: moment().add(15, 'minutes'), // can not pick in the past
         },
       };
     },
@@ -264,12 +284,22 @@
           },
         ];
       },
+
+      bookableAreaSettings() {
+        const self = this;
+        return {
+          width: '100%',
+          dropdownParent: this.$refs.bookableAreaSelectDiv,
+          templateResult: this.formatBookableArea,
+          templateSelection: this.formatBookableAreaSelection,
+        };
+      },
     },
 
     watch: {
       userId(newValue, oldValue) {
         // clear error on any change
-        this.userError = '';
+        this.userError = false;
       },
     },
 
@@ -360,12 +390,14 @@
           return false;
         }
 
-        // check new duration except on Maintenance
-        var duration = moment.duration(moment(dropInfo.end).diff(dropInfo.start));
-        if (duration.asMinutes() > this.bookingLengthMax && draggedEvent.extendedProps.type != 'MAINTENANCE') {
-          flash('Max booking length is '+ humanizeDuration(this.bookingLengthMax * 60000), 'warning');
 
-          return false;
+        // check new duration except on if you have grant ALL
+        var duration = moment.duration(moment(dropInfo.end).diff(dropInfo.start));
+        if (duration.asMinutes() > this.settings.maxLength) {
+          flash('Max booking length is '+ humanizeDuration(this.settings.maxLength * 60000), 'warning');
+          if (this.settings.grant != 'ALL') {
+            return false;
+          }
         }
 
         return true;
@@ -403,6 +435,7 @@
           params: {
             start: fetchInfo.startStr,
             end: fetchInfo.endStr,
+            building_id: this.building.id,
           },
           cancelToken: new CancelToken((c) => {
             self.axiosCancle = c;
@@ -430,6 +463,7 @@
        * Handle click of Add Booking in modal
        */
       book(event) {
+        // console.log('book', event);
         let start = moment(this.start);
         let end = moment(this.end);
 
@@ -437,12 +471,13 @@
 
         // is the start date in the future?
         // is the end date after the start date
-        // is the duration less than bookingLengthMax
+        // is the duration less than settings.maxLength
         // all of the above should already be taken care of by check in startChange and endChange
 
         // Has a user been selected?
         if (this.userId == '') {
           this.userError = 'You must select a member.';
+          return;
         } else {
           // does this event overlap an existing event for this user?
           let events = this.calendarApi.getEvents();
@@ -460,40 +495,51 @@
           } else {
             this.userError = '';
           }
-        }
+        // TODO: check userCurrentCountByBuildingId??
 
-        // if there was any error get out now
-        if (this.userError != '' || this.startError || this.endError) {
+        if (this.bookableAreaId == '' ) {
+          this.bookableAreaError = 'You must select an area.';
           return;
         }
 
-        let booking = new FormData();
-        booking.append('start', start.toISOString(true));
-        booking.append('end', end.toISOString(true));
-        booking.append('user_id', this.userId);
-        booking.append('color', this.color);
-        booking.append('notes', this.notes);
+        // if there was any error get out now
+        if (this.userError || this.startError || this.endError || this.bookableAreaError) {
+          if (this.settings.grant != 'ALL') {
+            return;
+          }
+          flash('Making this Booking will override some limits', 'warning');
+        }
+
+        let booking = {
+          start: start.toISOString(true),
+          end: end.toISOString(true),
+          user_id: this.userId,
+          bookable_area_id: this.bookableAreaId,
+          notes: this.notes,
+        };
 
         this.createBooking(booking);
       },
 
       createBooking(booking) {
+        console.log('createBooking', booking);
         this.loading(true);
         axios.post(this.route('api.gatekeeper.temporary-access-bookings.store'), booking)
           .then((response) => {
             if (response.status == '201') { // HTTP_CREATED
-              const booking = this.mapBookings(response.data.data);
+              const responseBooking = this.mapBookings(response.data.data);
 
               $(this.$refs.selectModal).modal('hide');
               this.removeBookingConfirmation();
               this.calendarApi.unselect();
-              const event = this.calendarApi.getEventById(booking.id);
+              const event = this.calendarApi.getEventById(responseBooking.id);
               if (! event) { // make sure the event has not already been added via newBookingEvent
-                if (booking.type === 'NORMAL') {
-                  this.userCanBook.normalCurrentCount += 1;
+                // TODO: update userCurrentCountByBuildingId
+                if (responseBooking.userId == this.settings.userId) {
+                  this.settings.userCurrentCountByBuildingId[this.building.id] += 1;
                 }
 
-                this.calendarApi.addEvent(booking, 'bookings');
+                this.calendarApi.addEvent(responseBooking, 'bookings');
               }
 
               flash('Booking created');
@@ -588,10 +634,10 @@
 
               const foundEvent = this.calendarApi.getEventById(event.id);
               if (foundEvent) { // make sure the event has not already been removed via bookingCancelledEvent
-                if (event.extendedProps.type == "NORMAL") {
-                  this.userCanBook.normalCurrentCount -= 1;
+                // update userCurrentCountByBuildingId
+                if (event.extendedProps.userId == this.settings.userId) {
+                  this.settings.userCurrentCountByBuildingId[this.building.id] -= 1;
                 }
-
                 event.remove();
               }
             } else {
@@ -637,14 +683,19 @@
       },
 
       removeBookingConfirmation() {
-        // this.start = '';
-        // this.end = '';
-        this.$refs.mst.clear();
-        this.color = 'primary';
+        // TODO: really need to rebuild mst so this works as expected
+        this.$refs.mst && this.$refs.mst.clear();
+        if (this.settings.grant == 'ALL') {
+          this.userId = '';
+        } else {
+          this.userId = this.settings.userId;
+        }
+        this.bookableAreaId = '';
         this.notes = '';
-        this.userError = '';
+        this.userError = false;
         this.startError = false;
         this.endError = false;
+        this.bookableAreaError = false;
 
         this.calendarApi.unselect();
       },
@@ -697,7 +748,7 @@
           this.defaultView = 'timeGridDay';
           this.aspectRatio = this.dayAspectRatio;
         } else {
-          this.defaultView = 'timeGridWeek';
+          this.defaultView = 'timeGridDay';
           this.aspectRatio = this.weekAspectRatio;
         }
 
@@ -708,17 +759,27 @@
       },
 
       mapBookings(booking) {
-        if (booking.color) {
+        if (booking.bookableArea) {
+          booking.className = 'temporary-booking-' + booking.bookableArea.bookingColor.toLowerCase();
+        } else if (booking.color) {
           booking.className = 'temporary-booking-' + booking.color.toLowerCase();
         } else {
           booking.className = 'temporary-booking-primary';
         }
 
-        if (moment().diff(booking.start) > 0
+        if (! booking.approved) {
+          booking.className += ' not-approved';
+        }
+
+        if (this.settings.grant != 'NONE'
+          && (booking.userId == this.settings.userId || this.settings.grant == 'ALL')
+          && moment().diff(booking.start) > 0
           && moment().diff(booking.end) < 0) {
             // this is a booking under now
           booking.durationEditable = true;
-        } else if (moment().diff(booking.start) < 0) {
+        } else if (this.settings.grant != 'NONE'
+          && (booking.userId == this.settings.userId || this.settings.grant == 'ALL')
+          && moment().diff(booking.start) < 0) {
           booking.editable = true;
         } else {
           booking.className += ' not-editable';
@@ -746,6 +807,11 @@
           return;
         }
 
+        // update userCurrentCountByBuildingId
+        if (booking.userId == this.settings.userId) {
+          this.settings.userCurrentCountByBuildingId[this.building.id] += 1;
+        }
+
         this.calendarApi.addEvent(booking, 'bookings');
       },
 
@@ -764,6 +830,11 @@
         // console.log('Echo sent bookingCancelled event', bookingCancelled);
         const event = this.calendarApi.getEventById(bookingCancelled.bookingId);
         if (event) {
+          // update userCurrentCountByBuildingId
+          if (event.extendedProps.userId == this.settings.userId) {
+            this.settings.userCurrentCountByBuildingId[this.building.id] -= 1;
+          }
+
           event.remove();
         }
       },
@@ -777,7 +848,7 @@
         // console.log('start dp.change', event);
         // limit end based on bookingLengthMax and new start
         let minEndDate = moment(event.date).add(15, 'minutes');
-        let maxEndDate = moment(event.date).add(this.bookingLengthMax, 'minutes');
+        let maxEndDate = moment(event.date).add(this.settings.maxLength, 'minutes');
 
         if ($(this.$refs.datetimepickerend).data('DateTimePicker').minDate().isAfter(minEndDate)) {
           $(this.$refs.datetimepickerend).data('DateTimePicker').minDate(minEndDate);
@@ -794,8 +865,10 @@
         if (this.end && moment(this.end).isAfter(maxEndDate)) {
           // console.log('limiting end');
           if (event.date.isSameOrBefore(moment(event.oldDate).subtract(1, 'days'))) {
+            this.endError = false;
             this.end = newEnd;
           } else {
+            this.endError = false;
             this.end = maxEndDate;
           }
         }
@@ -804,6 +877,8 @@
         if (this.end && moment(this.end).isBefore(event.date)) {
           // console.log('end is before start now');
           // update end to same period after start?
+
+          this.endError = false;
           this.end = newEnd;
         }
 
@@ -823,7 +898,7 @@
         // console.log('end dp.change', event);
         // check the end is later than the start
         if (event.date.isBefore(moment(this.start))) {
-
+          // not neeed as startChange sets Min
         }
 
         // only update is end is after start?
@@ -834,6 +909,24 @@
             this.calendarApi.select(this.start, this.end);
           });
         }
+      },
+
+      formatBookableArea(bookableArea) {
+        if (! bookableArea.id) {
+          return bookableArea.text;
+        }
+
+        let markup = '<span class="badge badge-' + bookableArea.bookingColor + ' badge-font-inherit">' + bookableArea.name + '</span>';
+
+        return $(markup);
+      },
+
+      formatBookableAreaSelection(bookableArea) {
+        if (! bookableArea.id) {
+          return bookableArea.text;
+        }
+        return this.formatBookableArea(bookableArea);
+        return bookableArea.name;
       },
     }, // end of methods
 
@@ -850,11 +943,22 @@
 
       this.calendarApi = this.$refs.fullCalendar.getApi();
 
+      // setup user
+      if (this.settings.grant != 'ALL') {
+        this.userId = this.settings.userId;
+      }
+
       // workaround for wierd height issue ($nextTick is to soon)
-      // migt be related https://github.com/fullcalendar/fullcalendar/issues/4650
+      // might be related https://github.com/fullcalendar/fullcalendar/issues/4650
       setTimeout(() => {
         this.calendarApi.updateSize();
-        this.calendarApi.scrollToTime("06:00");
+
+        let scrollTime = '06:00';
+        if (moment().isAfter(moment('06:00', 'HH:mm'), 'hour')) {
+          scrollTime = moment().format('HH') + ':00:00'
+        }
+
+        this.calendarApi.scrollToTime(scrollTime);
       }, 100);
 
       // Call refetchEventsevery 15 minutes, so past events are shaded

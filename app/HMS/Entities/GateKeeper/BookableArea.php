@@ -2,10 +2,12 @@
 
 namespace HMS\Entities\GateKeeper;
 
+use JsonSerializable;
 use HMS\Traits\Entities\SoftDeletable;
 use HMS\Traits\Entities\Timestampable;
+use Illuminate\Contracts\Support\Arrayable as ArrayableContract;
 
-class BookableArea
+class BookableArea implements ArrayableContract, JsonSerializable
 {
     use Timestampable, SoftDeletable;
 
@@ -219,5 +221,28 @@ class BookableArea
         $this->building = $building;
 
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'description' => $this->getDescription(),
+            'maxOccupancy' => $this->getMaxOccupancy(),
+            'additionalGuestOccupancy' => $this->getAdditionalGuestOccupancy(),
+            'bookingColor' => $this->getBookingColor(),
+            'bookingColorString'  => $this->getBookingColorString(),
+            'selfBookable' => $this->isSelfBookable(),
+            'building' => $this->getBuilding(),
+        ];
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->toArray();
     }
 }

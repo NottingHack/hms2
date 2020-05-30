@@ -273,7 +273,7 @@ return [
                 'temporaryAccess' => [
                     'text'          => 'Temporary Access Bookings',
                     'route'         => 'gatekeeper.temporary-access',
-                    'permissions'   => ['gatekeeper.temporaryAccess.grant'],
+                    'permissions'   => ['gatekeeper.temporaryAccess.view.all'], // TODO: all
                     'links'         => [],
                 ],
                 'accessLogs' => [

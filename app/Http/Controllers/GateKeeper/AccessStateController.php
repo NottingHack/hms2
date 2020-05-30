@@ -5,6 +5,7 @@ namespace App\Http\Controllers\GateKeeper;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use HMS\Repositories\MetaRepository;
+use HMS\GateKeeper\TemporaryAccessBookingManager;
 use HMS\Repositories\GateKeeper\BuildingRepository;
 
 class AccessStateController extends Controller
@@ -20,19 +21,29 @@ class AccessStateController extends Controller
     protected $metaRepository;
 
     /**
+     * @var TemporaryAccessBookingManager
+     */
+    protected $temporaryAccessBookingManager;
+
+    /**
      * Create a new controller instance.
      *
      * @param BuildingRepository $buildingRepository
      * @param MetaRepository $metaRepository
+     * @param TemporaryAccessBookingManager $temporaryAccessBookingManager
      */
     public function __construct(
         BuildingRepository $buildingRepository,
-        MetaRepository $metaRepository
+        MetaRepository $metaRepository,
+        TemporaryAccessBookingManager $temporaryAccessBookingManager
     ) {
         $this->buildingRepository = $buildingRepository;
         $this->metaRepository = $metaRepository;
+        $this->temporaryAccessBookingManager = $temporaryAccessBookingManager;
 
-        $this->middleware('can:gatekeeper.access.manage');
+        $this->middleware('can:gatekeeper.access.manage')->only(['index', 'edit', 'update']);
+        $this->middleware('can:gatekeeper.temporaryAccess.view.all')->only(['accessCalendar']);
+        $this->middleware('can:accessCodes.view')->only(['spaceAccess']);
     }
 
     /**
@@ -43,7 +54,7 @@ class AccessStateController extends Controller
     public function index()
     {
         return view('gateKeeper.accessState.index')
-            ->with($this->getSettingsFromMeta());
+            ->with($this->temporaryAccessBookingManager->getSelfBookSettings());
     }
 
     /**
@@ -54,7 +65,7 @@ class AccessStateController extends Controller
     public function edit()
     {
         return view('gateKeeper.accessState.edit')
-            ->with($this->getSettingsFromMeta());
+            ->with($this->temporaryAccessBookingManager->getSelfBookSettings());
     }
 
     /**
@@ -86,18 +97,40 @@ class AccessStateController extends Controller
     }
 
     /**
-     * Get all the self book setting From Meta.
+     * Admin view Temporary Access Bookings.
      *
-     * @return array
+     * @param \Illuminate\Http\Request  $request
+     *
+     * @return \Illuminate\Http\Response
      */
-    protected function getSettingsFromMeta()
+    public function accessCalendar()
     {
-        return [
-            'maxLength' => $this->metaRepository->get('self_book_max_length'),
-            'maxConcurrentPerUser' => $this->metaRepository->get('self_book_max_concurrent_per_user'),
-            'maxGuestsPerUser' => $this->metaRepository->get('self_book_max_guests_per_user'),
-            'minPeriodBetweenBookings' => $this->metaRepository->get('self_book_min_period_between_bookings'),
-            'bookingInfoText' => $this->metaRepository->get('self_book_info_text'),
-        ];
+        $buildings = $this->buildingRepository->findAll();
+
+        // build settings for TemporarAccess vue
+        $settings = $this->temporaryAccessBookingManager->getTemporaryAccessSettings();
+
+        return view('gateKeeper.temporary_access')
+            ->with('buildings', $buildings)
+            ->with('settings', $settings);
+    }
+
+    /**
+     * User view Temporary Access Bookings.
+     *
+     * @param \Illuminate\Http\Request  $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function spaceAccess()
+    {
+        $buildings = $this->buildingRepository->findAll();
+
+        // build settings for TemporarAccess vue
+        $settings = $this->temporaryAccessBookingManager->getTemporaryAccessSettings();
+
+        return view('pages.access')
+            ->with('buildings', $buildings)
+            ->with('settings', $settings);
     }
 }

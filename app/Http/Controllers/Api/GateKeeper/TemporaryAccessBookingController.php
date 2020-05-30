@@ -45,7 +45,10 @@ class TemporaryAccessBookingController extends Controller
         $this->temporaryAccessBookingManager = $temporaryAccessBookingManager;
         $this->userRepository = $userRepository;
 
-        $this->middleware('can:gatekeeper.temporaryAccess.grant');
+        $this->middleware('canAny:gatekeeper.temporaryAccess.view.self|gatekeeper.temporaryAccess.view.all')
+            ->only(['index', 'show']);
+        $this->middleware('canAny:gatekeeper.temporaryAccess.grant.self|gatekeeper.temporaryAccess.grant.all')
+            ->only(['store', 'update', 'destroy']);
     }
 
     /**

@@ -123,7 +123,7 @@ class DoctrinePurchasePaymentRepository extends EntityRepository implements Purc
             ->getDQL();
 
         $q = $this->_em->createQueryBuilder();
-        $q->select('t as transaction')
+        $q->select('t AS transaction')
             ->addSelect('(' . $subquery1 . ') AS amountAllocated')
             ->from(Transaction::class, 't')
             ->where('t.user = :user_id')

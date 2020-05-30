@@ -23,11 +23,11 @@
         :selectAllow="selectAllow"
         @eventClick="eventClick"
         :eventAllow="eventAllow"
-        @eventDragStart="removeConfirmation"
+        @eventDragStart="removePopoverConfirmation"
         @eventDrop="eventDrop"
-        @eventResizeStart="removeConfirmation"
+        @eventResizeStart="removePopoverConfirmation"
         @eventResize="eventResize"
-        :datesDestroy="removeConfirmation"
+        :datesDestroy="removePopoverConfirmation"
         :eventRender="eventRender"
 
         :selectable=true
@@ -292,7 +292,7 @@
       },
 
       unselect(jsEvent, view) {
-        this.removeConfirmation();
+        this.removePopoverConfirmation();
       },
 
       selectAllow(selectInfo) {
@@ -683,7 +683,7 @@
       /**
        * Remove the previous bootstrap confirmation popover.
        */
-      removeConfirmation() {
+      removePopoverConfirmation() {
         $('.popover').remove();
       },
 
@@ -703,7 +703,7 @@
 
         if (this.calendarApi !== null) {
           this.calendarApi.changeView(this.defaultView);
-          this.removeConfirmation();
+          this.removePopoverConfirmation();
         }
       },
 
@@ -861,6 +861,7 @@
       this.interval = setInterval(function () {
         // TODO: once we have Echo running only really need to call this if there is an event under now ±15
         this.calendarApi.refetchEvents();
+        this.removePopoverConfirmation();
         $(this.$refs.datetimepickerstart).data('DateTimePicker').minDate(moment().add(15, 'minutes'));
       }.bind(this), 900000);
 

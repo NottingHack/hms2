@@ -5,6 +5,7 @@ namespace HMS\Entities\GateKeeper;
 abstract class BookableAreaBookingColor
 {
     const PRIMARY = 'primary';
+    const GREEN = 'green';
     const RED = 'red';
     const INDIGO = 'indigo';
     const YELLOW = 'yellow';
@@ -16,7 +17,8 @@ abstract class BookableAreaBookingColor
      * String representation of states for display.
      */
     const COLOR_STRINGS = [
-        self::PRIMARY => 'Green',
+        self::PRIMARY => 'Hackspace Green',
+        self::GREEN => 'Green',
         self::RED => 'Red',
         self::INDIGO => 'Indigo',
         self::YELLOW => 'Yellow',

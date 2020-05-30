@@ -63,8 +63,8 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     {
         $q = parent::createQueryBuilder('user');
 
-        $q->leftjoin('user.pin', 'pin')->addSelect('pin')
-            ->leftjoin('user.profile', 'profile')->addSelect('profile')
+        $q->leftJoin('user.pin', 'pin')->addSelect('pin')
+            ->leftJoin('user.profile', 'profile')->addSelect('profile')
             ->leftJoin('user.rfidTags', 'rfidTags')
             ->innerJoin('user.roles', 'role')
             ->where('role.name = :role_name')
@@ -89,8 +89,8 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
 
         $q = parent::createQueryBuilder('user');
 
-        $q->leftjoin('user.pin', 'pin')->addSelect('pin')
-            ->leftjoin('user.profile', 'profile')->addSelect('profile')
+        $q->leftJoin('user.pin', 'pin')->addSelect('pin')
+            ->leftJoin('user.profile', 'profile')->addSelect('profile')
             ->innerJoin('user.roles', 'role')
             ->where('role.name = :role_name')
             ->andWhere('profile.votingPreference = :votingPreference')
@@ -116,8 +116,8 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
 
         $q = parent::createQueryBuilder('user');
 
-        $q->leftjoin('user.pin', 'pin')->addSelect('pin')
-            ->leftjoin('user.profile', 'profile')->addSelect('profile')
+        $q->leftJoin('user.pin', 'pin')->addSelect('pin')
+            ->leftJoin('user.profile', 'profile')->addSelect('profile')
             ->innerJoin('user.roles', 'role')
             ->where('role.name = :role_name')
             ->andWhere('profile.votingPreference = :votingPreference')

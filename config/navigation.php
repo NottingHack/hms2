@@ -271,7 +271,7 @@ return [
                 ],
 
                 'temporaryAccess' => [
-                    'text'          => 'Temporary Access',
+                    'text'          => 'Temporary Access Bookings',
                     'route'         => 'gatekeeper.temporary-access',
                     'permissions'   => ['gatekeeper.temporaryAccess.grant'],
                     'links'         => [],

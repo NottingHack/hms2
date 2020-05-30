@@ -87,15 +87,14 @@ class DoctrineRoleRepository extends EntityRepository implements RoleRepository
         $q = parent::createQueryBuilder('role')
             ->leftJoin('role.users', 'user')
             ->where('role.name LIKE :name')
-            ->andWhere('user.id = :user_id');
+            ->andWhere('user.id = :user_id')
+            ->setMaxResults(1);
 
         $q = $q->setParameter('name', 'member.%')
             ->setParameter('user_id', $user->getId())
             ->getQuery();
 
-        $roles = $q->getResult();
-
-        return $roles ? $roles[0] : null;
+        return $q->getOneOrNullResult();
     }
 
     /**

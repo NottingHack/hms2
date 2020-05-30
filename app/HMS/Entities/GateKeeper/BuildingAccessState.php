@@ -29,7 +29,7 @@ abstract class BuildingAccessState
      */
     const STATE_STRINGS = [
         self::FULL_OPEN => 'Fully open',
-        self::SELF_BOOK => 'Booked access',
+        self::SELF_BOOK => 'Self booked access',
         self::REQUESTED_BOOK => 'Requested access',
         self::CLOSED => 'Closed',
     ];

@@ -24,6 +24,16 @@ interface MetaRepository
     public function get($key, $default = null);
 
     /**
+     * Get the specified setting value as an int.
+     *
+     * @param string $key
+     * @param int|null $default
+     *
+     * @return int|null
+     */
+    public function getInt($key, ?int $default = null);
+
+    /**
      * Set a given setting value.
      *
      * @param string $key

@@ -377,17 +377,17 @@
         axios.post(this.bookingsUrl, booking)
           .then((response) => {
             if (response.status == '201') { // HTTP_CREATED
-              const booking = this.mapBookings(response.data);
+              const responseBooking = this.mapBookings(response.data);
 
               this.removeConfirmation();
               this.calendarApi.unselect();
-              const event = this.calendarApi.getEventById(booking.id);
+              const event = this.calendarApi.getEventById(responseBooking.id);
               if (! event) { // make sure the event has not already been added via newBookingEvent
-                if (booking.type === 'NORMAL') {
+                if (responseBooking.type === 'NORMAL') {
                   this.userCanBook.normalCurrentCount += 1;
                 }
 
-                this.calendarApi.addEvent(booking, 'bookings');
+                this.calendarApi.addEvent(responseBooking, 'bookings');
               }
 
               flash('Booking created');
@@ -438,10 +438,6 @@
 
               // const booking = this.mapBookings(response.data);
               // TODO: lwk 20/05/2020 need to look into this again, think patch does not need anything doing in to confirm
-
-              // if (booking.type === 'NORMAL') {
-              //   this.userCanBook.normalCurrentCount--;
-              // }
 
               // this.calendarApi.unselect();
               // // this.calendarApi.addEvent(booking, 'bookings'); // this is broken until the next release

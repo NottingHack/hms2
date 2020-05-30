@@ -174,25 +174,6 @@ class Building implements ArrayableContract, JsonSerializable
     }
 
     /**
-     * @return array
-     */
-    public function toArray()
-    {
-        return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'accessState' => $this->accessState,
-            'accessStateString' => $this->getAccessStateString(),
-            'selfBookMaxOccupancy' => $this->selfBookMaxOccupancy,
-        ];
-    }
-
-    public function jsonSerialize()
-    {
-        return $this->toArray();
-    }
-
-    /**
      * @return BookableArea[]|ArrayCollection
      */
     public function getBookableAreas()
@@ -210,5 +191,24 @@ class Building implements ArrayableContract, JsonSerializable
         $this->bookableAreas = $bookableAreas;
 
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'accessState' => $this->accessState,
+            'accessStateString' => $this->getAccessStateString(),
+            'selfBookMaxOccupancy' => $this->selfBookMaxOccupancy,
+        ];
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->toArray();
     }
 }

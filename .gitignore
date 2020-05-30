@@ -38,3 +38,4 @@ mixwatch.log
 laravel-echo-server.lock
 ziggy.js
 .php_cs.cache
+dump.html

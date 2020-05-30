@@ -4,8 +4,8 @@
       ref="select"
       class="form-control"
       :name="name"
-      :placeholder="placeholder"
       :disabled="disabled"
+      :required="required"
       >
     </select>
     <div v-if="invalid" class="d-none form-control is-invalid"></div>
@@ -46,6 +46,10 @@
         type: Boolean,
         default: false
       },
+      required: {
+        type: Boolean,
+        default: false
+      },
       settings: {
         type: Object,
         default: () => {}
@@ -77,6 +81,7 @@
         this.select2.empty();
         this.select2.select2({
           theme: 'bootstrap',
+          placeholder: this.placeholder,
           ...this.settings,
           data: val
         });

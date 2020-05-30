@@ -1,6 +1,7 @@
 const mix = require('laravel-mix');
 const path = require('path');
 const WebpackShellPluginNext = require('webpack-shell-plugin-next');
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 
 /*
  |--------------------------------------------------------------------------
@@ -16,6 +17,7 @@ const WebpackShellPluginNext = require('webpack-shell-plugin-next');
 mix.webpackConfig({
         devtool: 'source-map',
         plugins: [
+            new MomentLocalesPlugin(), // To strip all locales except “en”
             new WebpackShellPluginNext({
                 onBuildStart: {
                     scripts: ['php artisan ziggy:generate resources/js/ziggy.js'],

@@ -8,7 +8,9 @@ use App\Http\Controllers\Controller;
 use HMS\Repositories\UserRepository;
 use HMS\GateKeeper\TemporaryAccessBookingManager;
 use HMS\Entities\GateKeeper\TemporaryAccessBooking;
+use HMS\Repositories\GateKeeper\BuildingRepository;
 use Illuminate\Http\Response as IlluminateResponse;
+use HMS\Repositories\GateKeeper\BookableAreaRepository;
 use HMS\Repositories\GateKeeper\TemporaryAccessBookingRepository;
 use App\Http\Resources\GateKeeper\TemporaryAccessBooking as TemporaryAccessBookingResources;
 
@@ -30,20 +32,36 @@ class TemporaryAccessBookingController extends Controller
     protected $userRepository;
 
     /**
+     * @var BookableAreaRepository
+     */
+    protected $bookableAreaRepository;
+
+    /**
+     * @var BuildingRepository
+     */
+    protected $buildingRepository;
+
+    /**
      * Create a new api controller instance.
      *
      * @param TemporaryAccessBookingRepository $temporaryAccessBookingRepository
      * @param TemporaryAccessBookingManager $temporaryAccessBookingManager
      * @param UserRepository $userRepository
+     * @param BookableAreaRepository $bookableAreaRepository
+     * @param BuildingRepository $buildingRepository
      */
     public function __construct(
         TemporaryAccessBookingRepository $temporaryAccessBookingRepository,
         TemporaryAccessBookingManager $temporaryAccessBookingManager,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        BookableAreaRepository $bookableAreaRepository,
+        BuildingRepository $buildingRepository
     ) {
         $this->temporaryAccessBookingRepository = $temporaryAccessBookingRepository;
         $this->temporaryAccessBookingManager = $temporaryAccessBookingManager;
         $this->userRepository = $userRepository;
+        $this->bookableAreaRepository = $bookableAreaRepository;
+        $this->buildingRepository = $buildingRepository;
 
         $this->middleware('canAny:gatekeeper.temporaryAccess.view.self|gatekeeper.temporaryAccess.view.all')
             ->only(['index', 'show']);
@@ -60,15 +78,18 @@ class TemporaryAccessBookingController extends Controller
      */
     public function index(Request $request)
     {
-        $this->validate($request, [
+        $validatedData = $request->validate([
             'start' => 'required|date',
             'end' => 'required|date',
+            'building_id' => 'required|exists:HMS\Entities\GateKeeper\Building,id',
         ]);
 
-        $start = new Carbon($request->start);
-        $end = new Carbon($request->end);
+        $start = new Carbon($validatedData['start']);
+        $end = new Carbon($validatedData['end']);
+        $building = $this->buildingRepository->findOneById($validatedData['building_id']);
 
-        $temporaryAccessBookings = $this->temporaryAccessBookingRepository->findBetween($start, $end);
+        $temporaryAccessBookings = $this->temporaryAccessBookingRepository
+            ->findBetweenForBuilding($start, $end, $building);
 
         return TemporaryAccessBookingResources::collection($temporaryAccessBookings);
     }
@@ -86,19 +107,20 @@ class TemporaryAccessBookingController extends Controller
             'start' => 'required|date',
             'end' => 'required|date',
             'user_id' => 'required|exists:HMS\Entities\User,id',
-            'color' => 'nullable|string|max:50',
+            'bookable_area_id' => 'required|nullable|exists:HMS\Entities\GateKeeper\BookableArea,id',
             'notes' => 'nullable|string|max:250',
         ]);
 
         $start = new Carbon($validatedData['start']);
         $end = new Carbon($validatedData['end']);
         $user = $this->userRepository->findOneById($validatedData['user_id']);
+        $bookableArea = $this->bookableAreaRepository->findOneById($validatedData['bookable_area_id']);
 
         $response = $this->temporaryAccessBookingManager->book(
             $start,
             $end,
             $user,
-            $validatedData['color'],
+            $bookableArea,
             $validatedData['notes']
         );
 

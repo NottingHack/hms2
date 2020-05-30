@@ -13,7 +13,9 @@ use App\Events\GateKeeper\NewBooking;
 use HMS\Entities\GateKeeper\Building;
 use HMS\User\Permissions\RoleManager;
 use App\Events\GateKeeper\BookingChanged;
+use HMS\Entities\GateKeeper\BookableArea;
 use App\Events\GateKeeper\BookingCancelled;
+use HMS\Entities\GateKeeper\BuildingAccessState;
 use HMS\Entities\GateKeeper\TemporaryAccessBooking;
 use HMS\Factories\GateKeeper\TemporaryAccessBookingFactory;
 use HMS\Repositories\GateKeeper\TemporaryAccessBookingRepository;
@@ -75,13 +77,27 @@ class TemporaryAccessBookingManager
      * @param Carbon $start
      * @param Carbon $end
      * @param User $user
-     * @param string|null $color
+     * @param BookableArea $bookableArea
      * @param string|null $notes
+     * @param string|null $color
      *
      * @return string|TemporaryAccessBooking String with error message or a Booking
      */
-    public function book(Carbon $start, Carbon $end, User $user, ?string $color, ?string $notes)
-    {
+    public function book(
+        Carbon $start,
+        Carbon $end,
+        User $user,
+        BookableArea $bookableArea,
+        ?string $notes = null,
+        ?string $color = null
+    ) {
+        $messages = collect(); // TODO: thinking of a way to pass over limit warnings back to grant.all
+        $building = $bookableArea->getBuilding();
+
+        // defaults
+        $approved = false;
+        $approvedBy = null;
+
         // BASIC CHECKS
         $maxLength = CarbonInterval::instance(
             new \DateInterval($this->metaRepository->get('temp_access_reset_interval', 'PT12H'))
@@ -94,15 +110,97 @@ class TemporaryAccessBookingManager
         // ADVANCED CHECKS
 
         // does it clash?
-        if (! empty($this->temporaryAccessBookingRepository->checkForClashByUser($user, $start, $end))) {
-            return 'Your booking request clashes with another booking. No booking has been made.'; // 409
+        if (! empty($this->temporaryAccessBookingRepository
+            ->checkForClashByUserForBuilding($user, $building, $start, $end))
+        ) {
+            if ($user != \Auth::user()) {
+                return 'User already has a booking in this period.'; // 409
+            }
+
+            return 'You already have a booking in this period.'; // 409
+        }
+
+        // check maxConcurrentPerUser
+        $userConcurrencyCheck = $this->userConcurrencyCheck($user, $building);
+
+        // check occupancy limits
+        $occupancyChecks = $this->occupancyChecks($start, $end, $bookableArea);
+
+        // Building access state checks
+        if (\Gate::allows('gatekeeper.temporaryAccess.grant.all')) {
+            // if you have the power building access state does not matter
+            // the booking is automatically approved
+            // building limits are ignored
+            // area limits are ignored
+            $approved = true;
+            $approvedBy = \Auth::user();
+            if (is_array($occupancyChecks)) {
+                $messages = $messages->merge($occupancyChecks);
+            }
+            if (is_string($userConcurrencyCheck)) {
+                $messages[] = $userConcurrencyCheck;
+            }
+        } else {
+            switch ($bookableArea->getBuilding()->getAccessState()) {
+                case BuildingAccessState::FULL_OPEN:
+                    // what the hell are we doing here? calendar should never be seen
+                    return 'Building is fully open, Booking denied.'; // 403
+                case BuildingAccessState::SELF_BOOK:
+                    if ($user != \Auth::user()) {
+                        return 'You cannot book for someone else.';
+                    }
+
+                    if (is_string($userConcurrencyCheck)) {
+                        return $userConcurrencyCheck;
+                    }
+
+                    // check bookable area limits
+                    if (is_array($occupancyChecks)) {
+                        // nope
+                        return $occupancyChecks[0]; // 409
+                    }
+
+                    // booking can be made and is self approved
+                    $approved = true;
+                    $approvedBy = $user;
+
+                    break;
+                case BuildingAccessState::REQUESTED_BOOK:
+                    if ($user != \Auth::user()) {
+                        return 'You cannot book for someone else.';
+                    }
+
+                    if (is_string($userConcurrencyCheck)) {
+                        return $userConcurrencyCheck;
+                    }
+
+                    // check bookable area limits
+                    if (is_array($occupancyChecks)) {
+                        return $occupancyChecks[0]; // 409
+                    }
+                    // booking can be made and event/listeners will take care of requesting for trustee approval
+                    break;
+                case BuildingAccessState::CLOSED:
+                    // what the hell are we doing here? only people with grant.all should be able to book and that is checked above
+                    return 'Building is closed, Booking denied.'; // 403
+            }
         }
 
         // Phew!  We can now add the booking
-        $booking = $this->temporaryAccessBookingFactory->create($start, $end, $user, $color, $notes);
+        $booking = $this->temporaryAccessBookingFactory
+            ->create(
+                $start,
+                $end,
+                $user,
+                $bookableArea,
+                $color,
+                $notes,
+                $approved,
+                $approvedBy
+            );
         $this->temporaryAccessBookingRepository->save($booking);
 
-        event(new NewBooking($booking));
+        broadcast(new NewBooking($booking))->toOthers();
 
         return $booking;
     }
@@ -148,7 +246,8 @@ class TemporaryAccessBookingManager
         $booking->setStart($start);
         $booking->setEnd($end);
         $this->temporaryAccessBookingRepository->save($booking);
-        event(new BookingChanged($orignalBooking, $booking));
+
+        broadcast(new BookingChanged($orignalBooking, $booking))->toOthers();
 
         return $booking;
     }
@@ -166,7 +265,7 @@ class TemporaryAccessBookingManager
         $bookingId = $booking->getId();
         $this->temporaryAccessBookingRepository->remove($booking);
 
-        event(new BookingCancelled($bookingId));
+        broadcast(new BookingCancelled($bookingId))->toOthers();
 
         return [
             'bookingId' => $bookingId,
@@ -180,7 +279,7 @@ class TemporaryAccessBookingManager
      * @param Carbon $end
      * @param int $maxLength
      *
-     * @return bool|string
+     * @return bool|string String with error message or true if al checks passed
      */
     protected function basicTimeChecks(Carbon $start, Carbon $end, int $maxLength)
     {
@@ -212,6 +311,81 @@ class TemporaryAccessBookingManager
         }
 
         return true;
+    }
+
+    /**
+     * Check user concurrent booking limit.
+     *
+     * @param User     $user
+     * @param Building $building
+     *
+     * @return bool|string String with error message or true if al checks passed
+     */
+    protected function userConcurrencyCheck(User $user, Building $building)
+    {
+        // TODO: should this be per building or over all buildings (if so we wont need $building)
+        $maxConcurrentPerUser = $this->getSelfBookSettings()['maxConcurrentPerUser'];
+
+        $futureCount = $this->temporaryAccessBookingRepository
+            ->countFutureByBuildingAndUser($building, $user);
+
+        if ($futureCount >= $maxConcurrentPerUser) {
+            $txt = $maxConcurrentPerUser > 1 ? 'bookings' : 'booking';
+
+            if ($user != \Auth::user()) {
+                return 'Maximum current/future ' . $txt . ' of ' . $maxConcurrentPerUser . ' exceed for User.'; // 409 ?
+            }
+
+            return 'You can only have ' . $maxConcurrentPerUser . ' current/future ' . $txt . '.'; // 409 ?
+        }
+
+        return true;
+    }
+
+    /**
+     * Check if this booking would violate the any occupancy limits.
+     *
+     * @param Carbon   $start
+     * @param Carbon   $end
+     * @param BookableArea $bookableArea
+     * @param int $guests TODO
+     * @param TemporaryAccessBooking $booking
+     *
+     * @return bool|array array of error messages or true if all checks passed
+     */
+    protected function occupancyChecks(
+        Carbon $start,
+        Carbon $end,
+        BookableArea $bookableArea,
+        // int $guests = 0,
+        TemporaryAccessBooking $booking = null
+    ) {
+        $messages = [];
+        $building = $bookableArea->getBuilding();
+
+        $bookings = collect($this->temporaryAccessBookingRepository->findBetweenForBuilding($start, $end, $building));
+
+        // need to filter out the current booking, if we where given one
+        $bookings = $bookings->filter(function ($item) use ($booking) {
+            return $item != $booking;
+        });
+
+        // TODO: guests
+        if ($bookings->count() >= $building->getSelfBookMaxOccupancy()) {
+            $messages[] = 'Building maximum concurrent occupancy reached.';
+        }
+
+        // now filter bookings by the area
+        $bookingsForArea = $bookings->filter(function ($item) use ($bookableArea) {
+            return $item->getBookableArea() == $bookableArea;
+        });
+
+        // TODO: guests
+        if ($bookingsForArea->count() >= $bookableArea->getMaxOccupancy()) {
+            $messages[] = $bookableArea->getName() . ' area maximum concurrent occupancy reached.';
+        }
+
+        return count($messages) ? $messages : true;
     }
 
     /**
@@ -290,5 +464,48 @@ class TemporaryAccessBookingManager
     public function removeFutureBookingsForBuildingUnlessManager(Building $building)
     {
         //
+    }
+
+    /**
+     * Get all the self book setting From Meta.
+     *
+     * @return array
+     */
+    public function getSelfBookSettings()
+    {
+        return [
+            'maxLength' => $this->metaRepository->getInt('self_book_max_length'),
+            'maxConcurrentPerUser' => $this->metaRepository->getInt('self_book_max_concurrent_per_user'),
+            'maxGuestsPerUser' => $this->metaRepository->getInt('self_book_max_guests_per_user'),
+            'minPeriodBetweenBookings' => $this->metaRepository->getInt('self_book_min_period_between_bookings'),
+            'bookingInfoText' => $this->metaRepository->get('self_book_info_text'),
+        ];
+    }
+
+    /**
+     * Get all settings needed by TemporaryAccess.vue calendar.
+     *
+     * @return array
+     */
+    public function getTemporaryAccessSettings()
+    {
+        // base self book globals
+        $settings = $this->getSelfBookSettings();
+
+        // and this users settings
+        $settings['userId'] = \Auth::user()->getId();
+
+        if (\Gate::allows('gatekeeper.temporaryAccess.grant.all')) {
+            $settings['grant'] = 'ALL';
+        } elseif (\Gate::allows('gatekeeper.temporaryAccess.grant.self')) {
+            $settings['grant'] = 'SELF';
+        } else {
+            $settings['grant'] = 'NONE';
+        }
+
+        $settings['userCurrentCountByBuildingId'] = $this->temporaryAccessBookingRepository
+                ->countFutureForUserByBuildings(\Auth::user());
+
+        return $settings;
     }
 }

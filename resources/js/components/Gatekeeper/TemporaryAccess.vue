@@ -137,7 +137,7 @@
               <small class="form-text text-muted" v-if="settings.grant != 'ALL'">Select the area of the space you will be occupying.</small>
               <small class="form-text text-muted" v-else>Select the area of the space this member will be occupying.</small>
             </div>
-            <div class="form-group" v-if="building.accessState == 'REQUESTED_BOOK' || settings.grant == 'All'">
+            <div class="form-group" v-if="building.accessState == 'REQUESTED_BOOK' || settings.grant == 'ALL'">
               <label for="notes">{{ (settings.grant == 'ALL') ? 'Notes' : 'Reason for booking' }}</label>
               <input
                 type="text"
@@ -146,10 +146,10 @@
                 id="notes"
                 maxlength=250
                 aria-describedby="notesHelpBlock"
-                :required="settings.grant != 'All'"
+                :required="settings.grant != 'ALL'"
                 >
               <div class="invalid-feedback d-block" role="alert" v-if="notesError">{{ notesError }}</div>
-              <small id="notesHelpBlock" class="form-text text-muted" v-if="settings.grant != 'All' && building.accessState == 'REQUESTED_BOOK'">
+              <small id="notesHelpBlock" class="form-text text-muted" v-if="settings.grant != 'ALL' && building.accessState == 'REQUESTED_BOOK'">
                 Please give a short reason for your use of the space to help the Trustees review this request.
               </small>
             </div>
@@ -646,7 +646,7 @@
 
         // notesError
         if (this.notes == '') {
-          if (this.settings.grant != 'All' && this.building.accessState == 'REQUESTED_BOOK') {
+          if (this.settings.grant != 'ALL' && this.building.accessState == 'REQUESTED_BOOK') {
             this.notesError = 'You must give a reason';
             blockAlways |= true;
           }
@@ -1035,7 +1035,7 @@
       },
 
       /**
-       * check the Building selfBookMaxQccupany for this time period
+       * check the Building selfBookMaxOccupancy for this time period
        */
       checkBuildingLimits(initialStart, initialEnd, ignoreEventId = null) {
         let start = moment(initialStart);
@@ -1050,7 +1050,7 @@
           // console.log('checkBuildingLimits:ignoreEventId', events);
         }
 
-        let ret = false;
+        let result = false;
         // to work through the events by 15 minute slots
         // we will inc start by fiftenMinutes each loop
         do {
@@ -1069,7 +1069,7 @@
           // TODO: guests
           // check filteredEvents counts vs selfBookMaxOccupancy
           if (filteredEvents.length >= this.building.selfBookMaxOccupancy) {
-            ret =  'Maximum building concurrent occupancy limit is ' + this.building.selfBookMaxOccupancy + '.';
+            result =  'Maximum building concurrent occupancy limit is ' + this.building.selfBookMaxOccupancy + '.';
             break;
           }
 
@@ -1077,7 +1077,7 @@
           start.add(fiftenMinutes)
         } while (start.isBefore(end));
 
-        return ret;
+        return result;
       },
 
       /**
@@ -1107,7 +1107,7 @@
           // console.log('checkClashByBookalbeAre:ignoreEventId', events);
         }
 
-        let ret = false;
+        let result = false;
         // to work through the events by 15 minute slots
         // we will inc start by fiftenMinutes each loop
         // TODO: extract this and the other copy to a function that takes events and with callback for the check
@@ -1126,7 +1126,7 @@
           // TODO: guests
           // check filteredEvents counts vs maxOccupancy
           if (filteredEvents.length >= selectedBookableArea.maxOccupancy) {
-            ret =  'Area maximum concurrent occupancy limit is ' + selectedBookableArea.maxOccupancy + '.';
+            result =  'Area maximum concurrent occupancy limit is ' + selectedBookableArea.maxOccupancy + '.';
             break;
           }
 
@@ -1134,7 +1134,7 @@
           start.add(fiftenMinutes)
         } while (start.isBefore(end));
 
-        return ret;
+        return result;
       },
 
       /**

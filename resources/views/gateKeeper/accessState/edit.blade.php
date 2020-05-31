@@ -12,9 +12,9 @@
 
     <div class="form-group">
       <label for="maxLength" class="form-label">Max booking length</label>
-      <input class="form-control @error('maxLength') is-invalid @enderror" id="maxLength" type="number" name="maxLength" value="{{ old('maxLength', $maxLength) }}" aria-describedby="maxLengthHelpBlock" required autofocus>
+      <input class="form-control @error('maxLength') is-invalid @enderror" id="maxLength" type="number" min="15" step="15" name="maxLength" value="{{ old('maxLength', $maxLength) }}" aria-describedby="maxLengthHelpBlock" required autofocus>
       <small id="maxLengthHelpBlock" class="form-text text-muted">
-        Minutes
+        Minutes, please keep this as a multiple of 15.
       </small>
       <div class="invalid-feedback">
         {{ $errors->first('maxLength') }}
@@ -39,9 +39,9 @@
 
     <div class="form-group">
       <label for="minPeriodBetweenBookings" class="form-label">Min period between bookings</label>
-      <input class="form-control @error('minPeriodBetweenBookings') is-invalid @enderror" id="minPeriodBetweenBookings" type="number" name="minPeriodBetweenBookings" value="{{ old('minPeriodBetweenBookings', $minPeriodBetweenBookings) }}" aria-describedby="minPeriodBetweenHelpBlock" required>
+      <input class="form-control @error('minPeriodBetweenBookings') is-invalid @enderror" id="minPeriodBetweenBookings" type="number" min="0" step="15" name="minPeriodBetweenBookings" value="{{ old('minPeriodBetweenBookings', $minPeriodBetweenBookings) }}" aria-describedby="minPeriodBetweenHelpBlock" required>
       <small id="minPeriodBetweenHelpBlock" class="form-text text-muted">
-        Minutes
+        Minutes, please keep this as a multiple of 15.
       </small>
       <div class="invalid-feedback">
         {{ $errors->first('minPeriodBetweenBookings') }}

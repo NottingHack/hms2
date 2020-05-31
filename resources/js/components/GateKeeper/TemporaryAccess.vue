@@ -39,11 +39,11 @@
         :datesDestroy="removePopoverConfirmation"
         :eventRender="eventRender"
 
-        :selectable=true
         :selectOverlap=true
+        :selectable="selectable"
         :selectMirror=true
         unselectCancel=".modal-content"
-        :eventOverlap=true
+        :eventOverlap="eventOverlap"
         :defaultView="defaultView"
         noEventsMessage="No bookings to display"
         themeSystem="bootstrap"
@@ -90,17 +90,26 @@
         />
     </div>
 
-    <!-- Modal -->
-    <div ref="selectModal" class="modal fade" id="addBookingModal" tabindex="-1" role="dialog" aria-labelledby="addBookingLabel" aria-hidden="true">
+    <!-- Booking Modal -->
+    <div ref="bookingModal" class="modal fade" id="addBookingModal" tabindex="-1" role="dialog" aria-labelledby="addBookingLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="addBookingLabel">Schedule booking</h5>
+            <h5 class="modal-title" id="addBookingLabel">{{ modalTitle }}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
+            <p>{{ settings.bookingInfoText }}</p>
+            <div :class="['form-group', buildingError ? 'is-invalid' : '']">
+              <label for="building">Building</label>
+              <div class="form-control border-0" id="building" >
+                {{ building.name }}
+                <small v-if="settings.grant == 'ALL'" class="text-muted"> ({{ building.accessStateString }})</small>
+              </div>
+              <div class="invalid-feedback d-block" role="alert" v-if="buildingError">{{ buildingError }}</div>
+            </div>
             <div :class="['form-group', userError ? 'is-invalid' : '']" v-if="settings.grant == 'ALL'">
               <label for="user">Select Member</label>
               <member-select-two
@@ -124,11 +133,16 @@
                 style="width: 100%"
 
                 />
-                <div class="invalid-feedback d-block" role="alert" v-if="bookableAreaError">{{ bookableAreaError }}</div>
+              <div class="invalid-feedback d-block" role="alert" v-if="bookableAreaError">{{ bookableAreaError }}</div>
+              <small class="form-text text-muted" v-if="settings.grant != 'ALL'">Select the area of the space you will be occupying.</small>
+              <small class="form-text text-muted" v-else>Select the area of the space this member will be occupying.</small>
             </div>
-            <div class="form-group">
-              <label for="notes">Notes</label>
-              <input type="text" v-model="notes" class="form-control" id="notes" maxlength=250>
+            <div class="form-group" v-show="building.accessState == 'REQUESTED_BOOK' || settings.grant == 'All'">
+              <label for="notes">{{ (settings.grant == 'ALL') ? 'Notes' : 'Reason for booking' }}</label>
+              <input type="text" v-model="notes" class="form-control" id="notes" maxlength=250 aria-describedby="notesHelpBlock">
+              <small id="notesHelpBlock" class="form-text text-muted" v-if="settings.grant != 'All' && building.accessState == 'REQUESTED_BOOK'">
+                Please give a short reason for your use of the space to help the Trustees review this request.
+              </small>
             </div>
             <div class="form-group">
               <label for="datetimepickerstart">Start</label>
@@ -143,10 +157,11 @@
                   readonly
                   ></date-picker>
                 <div class="input-group-append">
-                  <div class="input-group-text datepickerbutton"><i class="far fa-calendar-alt"></i></div>
+                  <div class="input-group-text rounded-right datepickerbutton"><i class="far fa-calendar-alt"></i></div>
                 </div>
-                <div class="invalid-feedback d-block" role="alert" v-if="startError">{{ startError }}</div>
               </div>
+              <div class="invalid-feedback d-block" role="alert" v-if="startError">{{ startError }}</div>
+              <small class="form-text text-muted">Adjust the booking time if needed.</small>
             </div>
             <div class="form-group">
               <label for="datetimepickerend">End</label>
@@ -161,19 +176,20 @@
                   readonly
                   ></date-picker>
                 <div class="input-group-append">
-                  <div class="input-group-text datepickerbutton"><i class="far fa-calendar-alt"></i></div>
+                  <div class="input-group-text rounded-right datepickerbutton"><i class="far fa-calendar-alt"></i></div>
                 </div>
-                <div class="invalid-feedback d-block" role="alert" v-if="endError">{{ endError }}</div>
               </div>
+              <div class="invalid-feedback d-block" role="alert" v-if="endError">{{ endError }}</div>
+              <small class="form-text text-muted">Adjust the booking time if needed.</small>
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="sumbit" class="btn btn-primary" @click="book">Add Booking</button>
+            <button type="sumbit" class="btn btn-primary" @click="book">{{ bookingButtonText }}</button>
           </div>
         </div>
       </div>
-    </div> <!-- /Modal -->
+    </div> <!-- /Booking Modal -->
   </div>
 </template>
 
@@ -236,6 +252,7 @@
         notes: '',
         start: '',
         end: '',
+        buildingError: false,
         userError: false,
         bookableAreaError: false,
         startError: false,
@@ -285,6 +302,28 @@
         ];
       },
 
+      selectable() {
+        if (this.settings.grant == "SELF" || this.settings.grant == 'ALL') {
+          return true;
+        } else {
+          // settings.grant == NONE
+          return false;
+        }
+      },
+
+      selectedBookableArea() {
+        return this.bookableAreas.find(bookableArea => bookableArea.id == this.bookableAreaId);
+      },
+
+      bookableAreaOptions() {
+        if (this.settings.grant == 'ALL') {
+          return this.bookableAreas;
+        } else {
+          // need to filter for only areas with selfBookable true
+          return this.bookableAreas.filter(bookableArea => bookableArea.selfBookable);
+        }
+      },
+
       bookableAreaSettings() {
         const self = this;
         return {
@@ -294,13 +333,39 @@
           templateSelection: this.formatBookableAreaSelection,
         };
       },
+
+      bookingButtonText() {
+        if (this.settings.grant != 'ALL' && this.building.accessState == 'REQUESTED_BOOK') {
+          return 'Request Booking';
+        } else {
+          return 'Add Booking';
+        }
+      },
+
+      modalTitle() {
+        if (this.settings.grant == 'ALL') {
+          return 'Schedule a booking for a member';
+        } else if (this.building.accessState == 'REQUESTED_BOOK') {
+          return 'Request a booking';
+        } else {
+          return 'Schedule a booking';
+        }
+      },
     },
 
     watch: {
       userId(newValue, oldValue) {
         // clear error on any change
-        this.userError = false;
+        this.startError = false;
+        this.endError = false;
+        this.userError = this.checkClashByUser();
       },
+
+      bookableAreaId(newValue, oldValue) {
+        let start = moment(this.start);
+        let end = moment(this.end);
+        this.bookableAreaError = this.checkClashByBookalbeArea(start, end, newValue);
+      }
     },
 
     methods: {
@@ -337,12 +402,38 @@
           return false;
         }
 
-        // Check length against tools max booking length
-        var duration = moment.duration(moment(selectInfo.end).diff(selectInfo.start));
-        if (duration.asMinutes() > this.bookingLengthMax) {
-          flash('Max booking length is '+ humanizeDuration(this.bookingLengthMax * 60000), 'warning');
+        if (this.settings.grant == "SELF") {
+          // need to check maxConcurrentPerUser against userCurrentCountByBuildingId
+          if (this.settings.userCurrentCountByBuildingId[this.building.id] >= this.settings.maxConcurrentPerUser) {
+            flash('You can only have ' + this.settings.maxConcurrentPerUser + ' concurrent Bookings', 'warning');
 
-          return false;
+            return false;
+          }
+        }
+
+        // need to check for overlap with other events for this.building.selfBookMaxOccupancy
+        // can not yet check area limits as it has not been defined yet
+        let start = moment(selectInfo.start);
+        let end = moment(selectInfo.end);
+
+        let buildingError = this.checkBuildingLimits(start, end);
+        if (buildingError) {
+          flash(buildingError, 'warning');
+          if (this.settings.grant == 'ALL') {
+            return false;
+          }
+        }
+
+        // check bookable area limits?
+        // nope we have not selected an area yet
+
+        // Check length against max booking length
+        var duration = moment.duration(moment(selectInfo.end).diff(selectInfo.start));
+        if (duration.asMinutes() > this.settings.maxLength) {
+          flash('Max booking length is '+ humanizeDuration(this.settings.maxLength * 60000), 'warning');
+          if (this.settings.grant != 'ALL') {
+            return false;
+          }
         }
 
         return true;
@@ -354,13 +445,35 @@
           return false;
         }
 
-        // does it end in the future?
-        if (moment().diff(info.event.end) < 0) {
+        if (this.settings.grant == "NONE") {
+          return false;
+        }
+
+        if (this.settings.userId == null) {
+          console.error('eventClick: settings.userId not set');
+
+          return false;
+        }
+
+        // (is it ours or do we have grant ALL) and does it end in the future?
+        if ((info.event.extendedProps.userId == this.settings.userId || this.settings.grant == 'ALL') && moment().diff(info.event.end) < 0) {
           this.setupCancleConfirmation(info);
         }
       },
 
+      eventOverlap(stillEvent, movingEvent) {
+        // console.log('eventOverlap', stillEvent, movingEvent);
+
+        // as we have two events rather than call  checkClashByUser we can do a quick check
+        if (stillEvent.extendedProps.userId == movingEvent.extendedProps.userId) {
+          return false;
+        }
+
+        return true;
+      },
+
       eventAllow(dropInfo, draggedEvent) {
+        console.log('eventAllow'); //, dropInfo, draggedEvent);
         if (this.isLoading) {
 
           return false;
@@ -390,6 +503,26 @@
           return false;
         }
 
+        // check building limits
+        let start = moment(dropInfo.start);
+        let end = moment(dropInfo.end);
+
+        let buildingError = this.checkBuildingLimits(start.clone(), end.clone(), draggedEvent.id)
+        if (buildingError) {
+          flash(buildingError, 'warning');
+          if (this.settings.grant != 'ALL') {
+            return false;
+          }
+        }
+
+        // check bookable area limits
+        let bookableAreaError = this.checkClashByBookalbeArea(start.clone(), end.clone(), draggedEvent.extendedProps.bookableArea.id, draggedEvent.id)
+        if (bookableAreaError) {
+          flash(bookableAreaError, 'warning');
+          if (this.settings.grant != 'ALL') {
+            return false
+          }
+        }
 
         // check new duration except on if you have grant ALL
         var duration = moment.duration(moment(dropInfo.end).diff(dropInfo.start));
@@ -468,46 +601,53 @@
         let end = moment(this.end);
 
         // Validation checks
-
+        let blockAlways = false;
         // is the start date in the future?
         // is the end date after the start date
         // is the duration less than settings.maxLength
         // all of the above should already be taken care of by check in startChange and endChange
 
+        // buildingError
+        // (set on time change) allow ALL override
+
+        // userError
         // Has a user been selected?
         if (this.userId == '') {
           this.userError = 'You must select a member.';
-          return;
-        } else {
-          // does this event overlap an existing event for this user?
-          let events = this.calendarApi.getEvents();
-          events = events.filter(event => event.extendedProps.userId == this.userId);
-          events = events.filter((event) => {
-            let eventStart = moment(event.start);
-            let eventEnd = moment(event.end);
-            return (eventStart.isSameOrBefore(start) && eventEnd.isAfter(start)) ||
-              (eventStart.isBefore(end) && eventEnd.isSameOrAfter(end)) ||
-              (eventStart.isAfter(start) && eventStart.isBefore(end));
-          });
+          // always block
+          blockAlways |= true;
+        } else if (this.userError) {
+          // (checked on change) always block
+          blockAlways |= true;
+        }
 
-          if (events.length > 0 ) {
-            this.userError = 'Booking clash for this member';
-          } else {
-            this.userError = '';
-          }
-        // TODO: check userCurrentCountByBuildingId??
-
+        // bookableAreaError
         if (this.bookableAreaId == '' ) {
           this.bookableAreaError = 'You must select an area.';
+          // always block
+          blockAlways |= true;
+        }
+        // else
+        // (checked on change) allow ALL override
+
+        // startError && endError
+        // (set on change) always block
+        if (this.startError || this.endError) {
+          blockAlways |= true;
+        }
+
+        if (blockAlways) { // also covers user, start, end
           return;
         }
 
-        // if there was any error get out now
-        if (this.userError || this.startError || this.endError || this.bookableAreaError) {
-          if (this.settings.grant != 'ALL') {
+        if (this.buildingError || this.bookableAreaError) {
+          if (this.settings.grant == 'ALL') {
+            // grant ALL can override
+            flash('Making this Booking will override some limits', 'warning');
+          } else {
+            // but block for others
             return;
           }
-          flash('Making this Booking will override some limits', 'warning');
         }
 
         let booking = {
@@ -529,7 +669,7 @@
             if (response.status == '201') { // HTTP_CREATED
               const responseBooking = this.mapBookings(response.data.data);
 
-              $(this.$refs.selectModal).modal('hide');
+              $(this.$refs.bookingModal).modal('hide');
               this.removeBookingConfirmation();
               this.calendarApi.unselect();
               const event = this.calendarApi.getEventById(responseBooking.id);
@@ -679,12 +819,10 @@
         this.end = selectionInfo.end; //moment(selectionInfo.end).format('YYYY/MM/DD HH:mm');
 
         // and show the modal
-        $(this.$refs.selectModal).modal('show');
+        $(this.$refs.bookingModal).modal('show');
       },
 
       removeBookingConfirmation() {
-        // TODO: really need to rebuild mst so this works as expected
-        this.$refs.mst && this.$refs.mst.clear();
         if (this.settings.grant == 'ALL') {
           this.userId = '';
         } else {
@@ -748,7 +886,7 @@
           this.defaultView = 'timeGridDay';
           this.aspectRatio = this.dayAspectRatio;
         } else {
-          this.defaultView = 'timeGridDay';
+          this.defaultView = 'timeGridWeek';
           this.aspectRatio = this.weekAspectRatio;
         }
 
@@ -840,13 +978,168 @@
       },
 
       /**
+       * a user cannot overlap there own event
+       */
+      checkClashByUser() {
+        // console.log('checkClashByUser');
+        let start = moment(this.start);
+        let end = moment(this.end);
+
+        if (this.userId == '') {
+          return false;
+        } else {
+          // does this event overlap an existing event for this user?
+          let events = this.calendarApi.getEvents();
+          events = events.filter(event => event.extendedProps.userId == this.userId);
+          events = events.filter((event) => {
+            let eventStart = moment(event.start);
+            let eventEnd = moment(event.end);
+            return (eventStart.isSameOrBefore(start) && eventEnd.isAfter(start)) ||
+              (eventStart.isBefore(end) && eventEnd.isSameOrAfter(end)) ||
+              (eventStart.isAfter(start) && eventStart.isBefore(end));
+          });
+
+          if (events.length > 0 ) {
+            if (this.settings.grant == 'ALL') {
+              return 'Booking clash for this member.';
+            } else {
+              return 'You already have a booking in this period.'
+            }
+          } else {
+            return false;
+          }
+        }
+      },
+
+      /**
+       * check the Building selfBookMaxQccupany for this time period
+       */
+      checkBuildingLimits(initialStart, initialEnd, ignoreEventId = null) {
+        let start = moment(initialStart);
+        let end = moment(initialEnd);
+
+        console.log('checkBuildingLimits', start.toISOString(), end.toISOString(), ignoreEventId)
+        let fiftenMinutes = moment.duration(15, 'minutes');
+
+        let events = this.calendarApi.getEvents(); // all the current events in the calender
+        if (ignoreEventId) {
+          events = events.filter(event => event.id != ignoreEventId);
+          // console.log('checkBuildingLimits:ignoreEventId', events);
+        }
+
+        let ret = false;
+        // to work through the events by 15 minute slots
+        // we will inc start by fiftenMinutes each loop
+        do {
+          // we need current start + 15 for the filter
+          let filterEnd = start.clone().add(fiftenMinutes);
+
+          let filteredEvents = events.filter((event) => {
+            let eventStart = moment(event.start);
+            let eventEnd = moment(event.end);
+            return (eventStart.isSameOrBefore(start) && eventEnd.isAfter(start)) ||
+              (eventStart.isBefore(filterEnd) && eventEnd.isSameOrAfter(filterEnd)) ||
+              (eventStart.isAfter(start) && eventStart.isBefore(filterEnd));
+          });
+
+
+          // TODO: guests
+          // check filteredEvents counts vs selfBookMaxOccupancy
+          if (filteredEvents.length >= this.building.selfBookMaxOccupancy) {
+            ret =  'Maximum building concurrent occupancy limit is ' + this.building.selfBookMaxOccupancy + '.';
+            break;
+          }
+
+          // adjust start for next loop
+          start.add(fiftenMinutes)
+        } while (start.isBefore(end));
+
+        return ret;
+      },
+
+      /**
+       * if a booking area has been selected, we can check that overlap does not exceed the area limits
+       */
+      checkClashByBookalbeArea(initialStart, initialEnd, bookableAreaId, ignoreEventId = null) {
+        let start = moment(initialStart);
+        let end = moment(initialEnd);
+
+        console.log('checkClashByBookalbeArea', start.toISOString(), end.toISOString(), bookableAreaId, ignoreEventId);
+        // need to check for overlap with other events for this.bookableAreaId
+        if (bookableAreaId == '') {
+          // no area selected
+          return false;
+        }
+
+        // we want to grab the bookableArea from our data array
+        let selectedBookableArea = this.bookableAreas.find(bookableArea => bookableArea.id == bookableAreaId)
+
+        let fiftenMinutes = moment.duration(15, 'minutes');
+
+        let events = this.calendarApi.getEvents(); // all the current events in the calender
+        // filter events by this bookable area
+        events = events.filter(event => (event.extendedProps.bookableArea && event.extendedProps.bookableArea.id) == selectedBookableArea.id);
+        if (ignoreEventId) {
+          events = events.filter(event => event.id != ignoreEventId);
+          // console.log('checkClashByBookalbeAre:ignoreEventId', events);
+        }
+
+        let ret = false;
+        // to work through the events by 15 minute slots
+        // we will inc start by fiftenMinutes each loop
+        // TODO: extract this and the other copy to a function that takes events and with callback for the check
+        do {
+          // we need current start + 15 for the filter
+          let filterEnd = start.clone().add(fiftenMinutes);
+
+          let filteredEvents = events.filter((event) => {
+            let eventStart = moment(event.start);
+            let eventEnd = moment(event.end);
+            return (eventStart.isSameOrBefore(start) && eventEnd.isAfter(start)) ||
+              (eventStart.isBefore(filterEnd) && eventEnd.isSameOrAfter(filterEnd)) ||
+              (eventStart.isAfter(start) && eventStart.isBefore(filterEnd));
+          });
+
+          // TODO: guests
+          // check filteredEvents counts vs maxOccupancy
+          if (filteredEvents.length >= selectedBookableArea.maxOccupancy) {
+            ret =  'Area maximum concurrent occupancy limit is ' + selectedBookableArea.maxOccupancy + '.';
+            break;
+          }
+
+          // adjust start for next loop
+          start.add(fiftenMinutes)
+        } while (start.isBefore(end));
+
+        return ret;
+      },
+
+      /**
        * Watch for changes of the start date picker.
        * TODO: might this be better as a watch on this.start?
        * Nope this is better as event gives us new and old dates as moment's
        */
       startChange(event) {
         // console.log('start dp.change', event);
-        // limit end based on bookingLengthMax and new start
+
+        let start = moment(this.start);
+        let end = moment(this.end);
+
+        // TODO: check we are not overlapping one of our own events
+        // reset start end if so?
+        if (this.userError != 'You must select a member.') {
+          this.userError = false;
+        }
+        this.startError = this.checkClashByUser();
+        if (this.startError === false) {
+          this.endError = false;
+        }
+
+        // check building and area limits
+        this.buildingError = this.checkBuildingLimits(start, end)
+        this.bookableAreaError = this.checkClashByBookalbeArea(start, end, this.bookableAreaId);
+
+        // limit end based on settings.maxLength and new start
         let minEndDate = moment(event.date).add(15, 'minutes');
         let maxEndDate = moment(event.date).add(this.settings.maxLength, 'minutes');
 
@@ -896,6 +1189,21 @@
        */
       endChange(event) {
         // console.log('end dp.change', event);
+
+        let start = moment(this.start);
+        let end = moment(this.end);
+        if (this.userError != 'You must select a member.') {
+          this.userError = false;
+        }
+        this.endError = this.checkClashByUser();
+        if (this.endError === false) {
+          this.startError = false;
+        }
+
+        // check building and area limits
+        this.buildingError = this.checkBuildingLimits(start, end)
+        this.bookableAreaError = this.checkClashByBookalbeArea(start, end, this.bookableAreaId);
+
         // check the end is later than the start
         if (event.date.isBefore(moment(this.start))) {
           // not neeed as startChange sets Min
@@ -903,6 +1211,10 @@
 
         // only update is end is after start?
         if (moment(this.end).isAfter(moment(this.start))) {
+          // TODO: check we are not overlapping one of our own events
+          // reset end end if so
+
+
           this.$nextTick(function () {
             // update the selection
             // console.log('endChange: updating selection to ', this.start, this.end);
@@ -971,9 +1283,9 @@
 
       this.echoInit();
 
-      $(this.$refs.selectModal).modal('handleUpdate');
+      $(this.$refs.bookingModal).modal('handleUpdate');
       // need to setup close event to unselected
-      $(this.$refs.selectModal).on('hidden.bs.modal', this.removeBookingConfirmation);
+      $(this.$refs.bookingModal).on('hidden.bs.modal', this.removeBookingConfirmation);
     },
 
     beforeDestroy() {

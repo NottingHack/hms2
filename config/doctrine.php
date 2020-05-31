@@ -28,7 +28,7 @@ return [
             'namespaces' => [
                 'HMS',
                 'HMS\Entities',
-                'HMS\Entities\GateKeeper',
+                'HMS\Entities\Gatekeeper',
                 'HMS\Entities\Banking',
                 'HMS\Entities\Members',
                 'HMS\Entities\Snackspace',

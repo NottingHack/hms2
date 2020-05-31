@@ -57,12 +57,12 @@ HMS\Entities\User:
       mappedBy: user
       cascade: ["all"]
     pin:
-      targetEntity: \HMS\Entities\GateKeeper\Pin
+      targetEntity: \HMS\Entities\Gatekeeper\Pin
       mappedBy: user
       cascade: ['persist']
   oneToMany:
     rfidTags:
-      targetEntity: \HMS\Entities\GateKeeper\RfidTag
+      targetEntity: \HMS\Entities\Gatekeeper\RfidTag
       mappedBy: user
   manyToOne:
     account:

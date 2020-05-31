@@ -1,0 +1,42 @@
+# HMS.Entities.Gatekeeper.AccessLog.dcm.yml
+HMS\Entities\Gatekeeper\AccessLog:
+  type: entity
+  repositoryClass: HMS\Repositories\Gatekeeper\Doctrine\DoctrineAccessLogRepository
+  table: access_logs
+  indexes:
+    access_time_index:
+      columns: [ access_time ]
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    accessTime:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    rfidSerial:
+      type: string
+      length: 50
+      nullable: true
+    pin:
+      type: string
+      length: 12
+      nullable: true
+    accessResult:
+      type: integer
+      options:
+        default: 0
+    deniedReason:
+      type: string
+      length: 100
+      nullable: ture
+  manyToOne:
+    user:
+      targetEntity: \HMS\Entities\User
+    door:
+      targetEntity: \HMS\Entities\Gatekeeper\Door

@@ -3,9 +3,9 @@
 namespace HMS\Entities;
 
 use HMS\Traits\HasApiTokens;
-use HMS\Entities\GateKeeper\Pin;
+use HMS\Entities\Gatekeeper\Pin;
 use HMS\Entities\Banking\Account;
-use HMS\Entities\GateKeeper\RfidTag;
+use HMS\Entities\Gatekeeper\RfidTag;
 use HMS\Traits\Entities\SoftDeletable;
 use HMS\Traits\Entities\Timestampable;
 use LaravelDoctrine\ACL\Roles\HasRoles;
@@ -355,7 +355,7 @@ class User implements
     }
 
     /**
-     * @return null|HMS\Entities\GateKeeper\Pin
+     * @return null|HMS\Entities\Gatekeeper\Pin
      */
     public function getPin()
     {
@@ -363,7 +363,7 @@ class User implements
     }
 
     /**
-     * @param null|HMS\Entities\GateKeeper\Pin $pin
+     * @param null|HMS\Entities\Gatekeeper\Pin $pin
      *
      * @return self
      */

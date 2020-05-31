@@ -20,5 +20,5 @@ HMS\Entities\Lighting\Light:
       inversedBy: lights
       cascade: ['persist']
     room:
-      targetEntity: \HMS\Entities\GateKeeper\Room
+      targetEntity: \HMS\Entities\Gatekeeper\Room
       inversedBy: lights

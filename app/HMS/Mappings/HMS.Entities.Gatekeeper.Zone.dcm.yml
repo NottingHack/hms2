@@ -1,0 +1,35 @@
+# HMS.Entities.Gatekeeper.Zone.dcm.yml
+HMS\Entities\Gatekeeper\Zone:
+  type: entity
+  repositoryClass: HMS\Repositories\Gatekeeper\Doctrine\DoctrineZoneRepository
+  table: zones
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    description:
+      type: string
+      length: 100
+    shortName:
+      type: string
+      length: 10
+    permissionCode:
+      type: string
+      length: 100
+      nullable: true
+  oneToMany:
+    zoneOccupancts:
+      targetEntity: \HMS\Entities\Gatekeeper\ZoneOccupant
+      mappedBy: zone
+    zoneOccupancyLogs:
+      targetEntity: \HMS\Entities\Gatekeeper\ZoneOccupancyLog
+      mappedBy: zone
+    rooms:
+      targetEntity: \HMS\Entities\Gatekeeper\Room
+      mappedBy: zone
+  manyToOne:
+    building:
+      targetEntity: \HMS\Entities\Gatekeeper\building
+      inversedBy: zones

@@ -13,7 +13,7 @@ use App\Notifications\Banking\AuditResult;
 use HMS\Repositories\RoleUpdateRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use HMS\Repositories\GateKeeper\AccessLogRepository;
+use HMS\Repositories\Gatekeeper\AccessLogRepository;
 use HMS\Repositories\Banking\BankTransactionRepository;
 
 class AuditResultJob implements ShouldQueue

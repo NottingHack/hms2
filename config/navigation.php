@@ -54,7 +54,7 @@ return [
         ],
         'codes' => [
             'text'          => 'Space Access',
-            'route'         => 'accessCodes',
+            'route'         => 'gatekeeper.accessCodes',
             'permissions'   => ['accessCodes.view'],
             'links'         => [],
         ],

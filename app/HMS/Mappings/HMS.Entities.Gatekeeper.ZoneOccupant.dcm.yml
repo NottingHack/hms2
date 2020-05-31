@@ -1,0 +1,19 @@
+# HMS.Entities.Gatekeeper.ZoneOccupant.dcm.yml
+HMS\Entities\Gatekeeper\ZoneOccupant:
+  type: entity
+  repositoryClass: HMS\Repositories\Gatekeeper\Doctrine\DoctrineZoneOccupantRepository
+  table: zone_occupants
+  id:
+    user:
+      associationKey: true
+  fields:
+    timeEntered:
+      type: datetime
+      options:
+        default: CURRENT_TIMESTAMP
+  oneToOne:
+   user:
+    targetEntity: \HMS\Entities\User
+  manyToOne:
+   zone:
+    targetEntity: \HMS\Entities\Gatekeeper\Zone

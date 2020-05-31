@@ -1,0 +1,45 @@
+# HMS.Entities.Gatekeeper.Building.dcm.yml
+HMS\Entities\Gatekeeper\Building:
+  type: entity
+  repositoryClass: HMS\Repositories\Gatekeeper\Doctrine\DoctrineBuildingRepository
+  table: buildings
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+    accessState:
+      type: string
+      length: 20
+      options:
+        default: 'CLOSED'
+    selfBookMaxOccupancy:
+      type: integer
+      options:
+        unsigned: true
+        default: 1
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+  oneToMany:
+    floors:
+      targetEntity: \HMS\Entities\Gatekeeper\Floor
+      mappedBy: building
+    zones:
+      targetEntity: \HMS\Entities\Gatekeeper\Zone
+      mappedBy: building
+    bookableAreas:
+      targetEntity: \HMS\Entities\Gatekeeper\BookableArea
+      mappedBy: building

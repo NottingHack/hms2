@@ -2,7 +2,7 @@
 
 namespace HMS\Entities\Lighting;
 
-use HMS\Entities\GateKeeper\Room;
+use HMS\Entities\Gatekeeper\Room;
 
 class Controller
 {

@@ -76,8 +76,6 @@ Route::middleware(['auth'])->group(function () {
 
 // Routes in the following group can only be access once logged-in and have verified your email address
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('access-codes', 'pages.access')->middleware('can:accessCodes.view')->name('accessCodes');
-
     // ROLE
     Route::get('roles', 'RoleController@index')->name('roles.index');
     Route::get('roles/{role}', 'RoleController@show')->name('roles.show');
@@ -125,10 +123,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     );
 
     // Rfid Tags
-    Route::get('users/{user}/rfid-tags', 'GateKeeper\RfidTagsController@index')->name('users.rfid-tags');
+    Route::get('users/{user}/rfid-tags', 'Gatekeeper\RfidTagsController@index')->name('users.rfid-tags');
     Route::resource(
         'rfid-tags',
-        'GateKeeper\RfidTagsController',
+        'Gatekeeper\RfidTagsController',
         [
             'except' => ['create', 'store', 'show'],
             'parameters' => [
@@ -136,18 +134,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ],
         ]
     );
-    Route::patch('pins/{pin}/reactivate', 'GateKeeper\RfidTagsController@reactivatePin')->name('pins.reactivate');
+    Route::patch('pins/{pin}/reactivate', 'Gatekeeper\RfidTagsController@reactivatePin')->name('pins.reactivate');
 
     // Access Logs
-    Route::get('admin/users/{user}/access-logs', 'GateKeeper\AccessLogController@indexByUser')
+    Route::get('admin/users/{user}/access-logs', 'Gatekeeper\AccessLogController@indexByUser')
         ->name('users.admin.access-logs');
-    Route::get('access-logs/{fromdate?}', 'GateKeeper\AccessLogController@index')->name('access-logs.index');
+    Route::get('access-logs/{fromdate?}', 'Gatekeeper\AccessLogController@index')->name('access-logs.index');
 
     // Gatekeeper access
-    Route::prefix('gatekeeper')->namespace('GateKeeper')->name('gatekeeper.')->group(function () {
-        Route::get('access-state', 'AccessStateController@index')->name('access-state.index');
-        Route::get('access-state/edit', 'AccessStateController@edit')->name('access-state.edit');
-        Route::put('access-state', 'AccessStateController@update')->name('access-state.update');
+    Route::prefix('gatekeeper')->namespace('Gatekeeper')->name('gatekeeper.')->group(function () {
+        Route::get('space-access', 'AccessController@spaceAccess')->name('accessCodes');
+
+        Route::get('access-state', 'AccessController@index')->name('access-state.index');
+        Route::get('access-state/edit', 'AccessController@edit')->name('access-state.edit');
+        Route::put('access-state', 'AccessController@update')->name('access-state.update');
 
         Route::resource(
             'bookable-area',
@@ -159,8 +159,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ]
         );
 
-        Route::view('temporary-access', 'gateKeeper.temporary_access')
-            ->middleware('can:gatekeeper.temporaryAccess.grant')
+        Route::get('temporary-access', 'AccessController@accessCalendar')
+
             ->name('temporary-access');
     });
 

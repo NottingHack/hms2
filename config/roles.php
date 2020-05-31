@@ -102,7 +102,7 @@ return [
         'gatekeeper.temporaryAccess.grant.all',         // can book for others and grant/revoke resuests
         'gatekeeper.temporaryAccess.restrict',      // can restrict a user from making a booking/request
 
-        'gatekeeper.zoneEntry.upstairs',    // these are hard coded here for now, until we have a GateKeeperManager to generate them
+        'gatekeeper.zoneEntry.upstairs',    // these are hard coded here for now, until we have a GatekeeperManager to generate them
         'gatekeeper.zoneEntry.cncBlueRoom',
         'gatekeeper.zoneEntry.classRoomMetalworking',
         'gatekeeper.zoneEntry.teamStorage',
@@ -290,7 +290,7 @@ return [
             ],
         ],
         'user.temporaryAccess' => [
-            'name' => 'Temporary GateKeeper Access',
+            'name' => 'Temporary Gatekeeper Access',
             'description' => 'Temporary access rights',
             'permissions' => [
                 'gatekeeper.zoneEntry.upstairs',

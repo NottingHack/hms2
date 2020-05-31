@@ -3,8 +3,8 @@
 use HMS\Entities\Role;
 use Illuminate\Database\Seeder;
 use HMS\Repositories\RoleRepository;
-use HMS\Factories\GateKeeper\PinFactory;
-use HMS\Repositories\GateKeeper\PinRepository;
+use HMS\Factories\Gatekeeper\PinFactory;
+use HMS\Repositories\Gatekeeper\PinRepository;
 
 class PinTableSeeder extends Seeder
 {

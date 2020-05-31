@@ -18,7 +18,7 @@
     <a href="{{ route('users.rfid-tags', $user->getId()) }}" class="btn btn-primary mb-1">Manage RFID Cards</a>
     @can('pins.reactivate')
     @if ($user->getPin())
-    @if ($user->getPin()->getState() == \HMS\Entities\GateKeeper\PinState::CANCELLED)
+    @if ($user->getPin()->getState() == \HMS\Entities\Gatekeeper\PinState::CANCELLED)
     <a href="{{ route('pins.reactivate', $user->getPin()->getPin()) }}" class="btn btn-primary mb-1">Reactivate Pin</a>
     @endif
     @endif

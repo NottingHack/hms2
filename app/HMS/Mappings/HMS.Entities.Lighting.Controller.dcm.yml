@@ -15,4 +15,4 @@ HMS\Entities\Lighting\Controller:
       type: string
   manyToOne:
     room:
-      targetEntity: \HMS\Entities\GateKeeper\Room
+      targetEntity: \HMS\Entities\Gatekeeper\Room

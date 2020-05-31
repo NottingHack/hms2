@@ -19,4 +19,4 @@ HMS\Entities\Instrumentation\ElectricMeter:
       mappedBy: meter
   manyToOne:
     room:
-      targetEntity: \HMS\Entities\GateKeeper\Room
+      targetEntity: \HMS\Entities\Gatekeeper\Room

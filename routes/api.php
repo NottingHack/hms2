@@ -67,8 +67,8 @@ Route::name('api.')->namespace('Api')->group(function () {
             ]
         );
 
-        // GateKeeper
-        Route::prefix('gatekeeper')->namespace('GateKeeper')->name('gatekeeper.')->group(function () {
+        // Gatekeeper
+        Route::prefix('gatekeeper')->namespace('Gatekeeper')->name('gatekeeper.')->group(function () {
             Route::get('buildings', 'BuildingController@index')->name('buildings.index');
             Route::get('buildings/{building}', 'BuildingController@show')->name('buildings.show');
             Route::patch('buildings/{building}/occupancy', 'BuildingController@updateOccupancy')

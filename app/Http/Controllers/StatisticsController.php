@@ -18,7 +18,7 @@ use HMS\Repositories\Tools\ToolRepository;
 use HMS\Repositories\Members\BoxRepository;
 use HMS\Repositories\Tools\UsageRepository;
 use HMS\Repositories\Tools\BookingRepository;
-use HMS\Repositories\GateKeeper\ZoneRepository;
+use HMS\Repositories\Gatekeeper\ZoneRepository;
 
 class StatisticsController extends Controller
 {

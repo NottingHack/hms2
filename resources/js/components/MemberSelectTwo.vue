@@ -1,7 +1,7 @@
 <template>
   <div ref="selectDiv">
     <select-two
-      v-model="selectValue"
+      v-model="value"
       :name="name"
       :placeholder="placeholder"
       :settings="mySettings"
@@ -37,23 +37,16 @@
         type: Boolean,
         default: false
       },
-      mstValue: null,
     },
 
     model: {
       event: 'change',
-      prop: 'mstValue'
-    },
-
-    watch: {
-      mstValue(val) {
-        this.selectValue = val;
-      },
+      prop: 'value'
     },
 
     data() {
       return {
-        selectValue: '',
+        value: '',
       }
     },
 
@@ -117,8 +110,7 @@
 
     methods: {
       clear() {
-        this.selectValue = '';
-        this.$emit('change', '');
+        this.value = ''
       },
 
       myChangeEvent(val) {

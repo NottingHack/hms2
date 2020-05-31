@@ -845,6 +845,7 @@
       },
 
       removeBookingConfirmation() {
+        this.$refs.mst && this.$refs.mst.clear();
         if (this.settings.grant == 'ALL') {
           this.userId = '';
         } else {

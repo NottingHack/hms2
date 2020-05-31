@@ -151,7 +151,7 @@
       },
 
       clear() {
-        this.userId = '';
+        this.$refs.mst.clear();
       },
 
       updateConuts(newCounts) {

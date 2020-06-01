@@ -274,7 +274,7 @@
       },
 
       changeAccessTo(newAccessState) {
-        console.log('changeAccessTo', newAccessState);
+        // console.log('changeAccessTo', newAccessState);
 
         this.loading(true, this.$refs.accessModal);
 

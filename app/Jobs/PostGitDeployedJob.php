@@ -49,6 +49,7 @@ class PostGitDeployedJob implements ShouldQueue
         'config:cache',
         'route:cache',
         'view:cache',
+        'event:cache',
         'auth:clear-resets',
         'doctrine:clear:metadata:cache',
         'doctrine:clear:query:cache',

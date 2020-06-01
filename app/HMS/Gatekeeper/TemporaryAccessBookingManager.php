@@ -263,9 +263,10 @@ class TemporaryAccessBookingManager
     {
         // grab the Id before we remove the event
         $bookingId = $booking->getId();
+        $buildingId = $booking->getBookableArea()->getBuilding()->getId();
         $this->temporaryAccessBookingRepository->remove($booking);
 
-        broadcast(new BookingCancelled($bookingId))->toOthers();
+        broadcast(new BookingCancelled($bookingId, $buildingId))->toOthers();
 
         return [
             'bookingId' => $bookingId,
@@ -494,6 +495,8 @@ class TemporaryAccessBookingManager
 
         // and this users settings
         $settings['userId'] = \Auth::user()->getId();
+        // so we can de-anonymize a broadcast booking
+        $settings['fullname'] = \Auth::user()->getFullname();
 
         if (\Gate::allows('gatekeeper.temporaryAccess.grant.all')) {
             $settings['grant'] = 'ALL';

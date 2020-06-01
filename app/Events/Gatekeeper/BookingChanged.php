@@ -25,6 +25,11 @@ class BookingChanged implements ShouldBroadcast
     public $booking;
 
     /**
+     * @var int
+     */
+    protected $buildingId;
+
+    /**
      * Create a new event instance.
      *
      * @param TemporaryAccessBooking $orignalBooking
@@ -36,6 +41,7 @@ class BookingChanged implements ShouldBroadcast
     {
         $this->orignalBooking = $orignalBooking;
         $this->booking = $booking;
+        $this->buildingId = $booking->getBookableArea()->getBuilding()->getId();
     }
 
     /**
@@ -45,7 +51,7 @@ class BookingChanged implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('gatekeeper.temporaryAccessBookings');
+        return new Channel('gatekeeper.temporaryAccessBookings.' . $this->buildingId);
     }
 
     /**
@@ -56,8 +62,8 @@ class BookingChanged implements ShouldBroadcast
     public function broadcastWith()
     {
         return [
-            'orignalBooking' =>(new TemporaryAccessBookingResources($response))->resolve(),
-            'booking' => (new TemporaryAccessBookingResources($response))->resolve(),
+            'orignalBooking' =>(new TemporaryAccessBookingResources($this->orignalBooking))->resolve(),
+            'booking' => (new TemporaryAccessBookingResources($this->booking))->resolve(),
         ];
     }
 }

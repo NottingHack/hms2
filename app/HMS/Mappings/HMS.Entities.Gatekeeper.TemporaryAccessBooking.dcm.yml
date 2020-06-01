@@ -42,5 +42,7 @@ HMS\Entities\Gatekeeper\TemporaryAccessBooking:
       fetch: EAGER
     bookableArea:
       targetEntity: \HMS\Entities\Gatekeeper\BookableArea
+      fetch: EAGER
     approvedBy:
       targetEntity: \HMS\Entities\User
+      fetch: EAGER

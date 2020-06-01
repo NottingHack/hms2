@@ -20,13 +20,18 @@ class TemporaryAccessBooking extends JsonResource
             'id' => $this->getId(),
             'start' => $this->getStart(),
             'end' => $this->getEnd(),
-            'title' => $this->getUser()->getFullName(),
             'userId' => $this->getUser()->getId(),
             'color' => $this->getColor(),
-            'notes' => $this->getNotes(),
             'bookableArea' => $this->getBookableArea() ? new BookableAreaResource($this->getBookableArea()) : null,
             'approved' => $this->isApproved(),
-            'approvedBy' => $this->getApprovedBy() ? $this->getApprovedBy()->getFullName() : null,
+            $this->mergeWhen(
+                \Auth::user() == $this->getUser() || \Gate::allows('gatekeeper.temporaryAccess.view.all'),
+                [
+                    'title' => $this->getUser()->getFullname(),
+                    'notes' => $this->getNotes(),
+                    'approvedBy' => $this->getApprovedBy() ? $this->getApprovedBy()->getFullname() : null,
+                ]
+            ),
         ];
     }
 }

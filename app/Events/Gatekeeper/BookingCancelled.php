@@ -18,15 +18,21 @@ class BookingCancelled implements ShouldBroadcast
     public $bookingId;
 
     /**
+     * @var int
+     */
+    protected $buildingId;
+
+    /**
      * Create a new event instance.
      *
      * @param int $bookingId id of the cancelled booking
      *
      * @return void
      */
-    public function __construct(int $bookingId)
+    public function __construct(int $bookingId, int $buildingId)
     {
         $this->bookingId = $bookingId;
+        $this->buildingId = $buildingId;
     }
 
     /**
@@ -36,7 +42,7 @@ class BookingCancelled implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('gatekeeper.temporaryAccessBookings');
+        return new Channel('gatekeeper.temporaryAccessBookings.' . $this->buildingId);
     }
 
     /**

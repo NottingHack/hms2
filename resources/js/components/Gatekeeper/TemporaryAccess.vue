@@ -435,7 +435,7 @@
         let buildingError = this.checkBuildingLimits(start, end);
         if (buildingError) {
           flash(buildingError, 'warning');
-          if (this.settings.grant == 'ALL') {
+          if (this.settings.grant != 'ALL') {
             return false;
           }
         }
@@ -958,14 +958,14 @@
       },
 
       echoInit() {
-        Echo.channel('gatekeeper.temporaryAccessBookings')
+        Echo.channel('gatekeeper.temporaryAccessBookings.' + this.building.id)
           .listen('Gatekeeper.NewBooking', this.newBookingEvent)
           .listen('Gatekeeper.BookingChanged', this.bookingChangedEvent)
           .listen('Gatekeeper.BookingCancelled', this.bookingCancelledEvent);
       },
 
       echoDeInit() {
-        Echo.leave('gatekeeper.temporaryAccessBookings');
+        Echo.leave('gatekeeper.temporaryAccessBookings.' + this.building.id);
       },
 
       newBookingEvent(newBooking) {
@@ -976,9 +976,13 @@
           return;
         }
 
-        // update userCurrentCountByBuildingId
+        // does this booking belong to us
         if (booking.userId == this.settings.userId) {
+          // update userCurrentCountByBuildingId
           this.settings.userCurrentCountByBuildingId[this.building.id] += 1;
+
+          // it will have been anonymized so let fill in our name
+          booking.title = this.settings.fullname;
         }
 
         this.calendarApi.addEvent(booking, 'bookings');
@@ -992,6 +996,13 @@
         }
 
         const booking = this.mapBookings(bookingChanged.booking);
+
+        // does this booking belong to us
+        if (booking.userId == this.settings.userId) {
+          // it will have been anonymized so let fill in our name
+          booking.title = this.settings.fullname;
+        }
+
         this.calendarApi.addEvent(booking, 'bookings');
       },
 

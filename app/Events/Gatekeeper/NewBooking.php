@@ -20,6 +20,11 @@ class NewBooking implements ShouldBroadcast
     public $booking;
 
     /**
+     * @var int
+     */
+    protected $buildingId;
+
+    /**
      * Create a new event instance.
      *
      * @param TemporaryAccessBooking $booking
@@ -29,6 +34,7 @@ class NewBooking implements ShouldBroadcast
     public function __construct(TemporaryAccessBooking $booking)
     {
         $this->booking = $booking;
+        $this->buildingId = $booking->getBookableArea()->getBuilding()->getId();
     }
 
     /**
@@ -38,7 +44,7 @@ class NewBooking implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('gatekeeper.temporaryAccessBookings');
+        return new Channel('gatekeeper.temporaryAccessBookings.' . $this->buildingId);
     }
 
     /**
@@ -49,7 +55,7 @@ class NewBooking implements ShouldBroadcast
     public function broadcastWith()
     {
         return [
-            'booking' => (new TemporaryAccessBookingResources($response))->resolve(),
+            'booking' => (new TemporaryAccessBookingResources($this->booking))->resolve(),
         ];
     }
 }

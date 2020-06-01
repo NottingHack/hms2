@@ -53,3 +53,4 @@ HMS\Entities\Gatekeeper\BookableArea:
     building:
       targetEntity: \HMS\Entities\Gatekeeper\Building
       inversedBy: bookableAreas
+      fetch: EAGER

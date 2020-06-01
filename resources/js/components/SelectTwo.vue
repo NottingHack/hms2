@@ -72,12 +72,14 @@
         this.setOption(val);
       },
       value(val) {
+        // console.log('seclect2:value', val);
         this.setValue(val);
       }
     },
 
     methods: {
       setOption(val = []) {
+        // console.log('sewclect2:setOption', val);
         this.select2.empty();
         this.select2.select2({
           theme: 'bootstrap',
@@ -88,6 +90,7 @@
         this.setValue(this.value);
       },
       setValue(val) {
+        // console.log('sewclect2:setValue', val);
         if (val instanceof Array) {
           this.select2.val([...val]);
         } else {

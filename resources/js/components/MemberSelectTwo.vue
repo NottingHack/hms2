@@ -114,12 +114,12 @@
       },
 
       myChangeEvent(val) {
-        // console.log(val);
+        // console.log('mst:myChangeEvent', val);
         this.$emit('change', val);
       },
 
       mySelectEvent({id, text}) {
-        // console.log({id, text})
+        // console.log('mst:mySelectEvent', {id, text})
         this.$emit('select', {id, text});
       },
 

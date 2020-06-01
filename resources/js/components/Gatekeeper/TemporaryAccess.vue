@@ -327,11 +327,12 @@
       },
 
       bookableAreaOptions() {
+        // placeholder needs an empty slot, plus we filter based on grant
         if (this.settings.grant == 'ALL') {
-          return this.bookableAreas;
+          return [{id:'', text:''}].concat(this.bookableAreas);
         } else {
           // need to filter for only areas with selfBookable true
-          return this.bookableAreas.filter(bookableArea => bookableArea.selfBookable);
+          return [{id:'', text:''}].concat(this.bookableAreas.filter(bookableArea => bookableArea.selfBookable));
         }
       },
 
@@ -562,9 +563,9 @@
       },
 
       eventRender: function (info) {
-        if (info.event.extendedProps.notes) {
-          $(info.el).tooltip({ title: info.event.extendedProps.notes });
-        }
+        // if (info.event.extendedProps.notes) {
+        //   $(info.el).tooltip({ title: info.event.extendedProps.notes });
+        // }
       },
 
       /**
@@ -705,7 +706,13 @@
                 this.calendarApi.addEvent(responseBooking, 'bookings');
               }
 
-              flash('Booking created');
+              if (responseBooking.approved) {
+                flash('Booking created');
+              } else {
+                //TODO: show a bigger alert to let the user know what happens next
+                flash('Booking requested');
+              }
+
             } else {
               flash('Error creating booking', 'danger');
               console.log('createBooking', response.data);
@@ -962,7 +969,7 @@
       },
 
       newBookingEvent(newBooking) {
-        // console.log('Echo sent newBooking event', newBooking);
+        console.log('Echo sent newBooking event', newBooking);
         const booking = this.mapBookings(newBooking.booking);
         const event = this.calendarApi.getEventById(booking.id);
         if (event) { // make sure the event has not already been added via createBooking
@@ -978,7 +985,7 @@
       },
 
       bookingChangedEvent(bookingChanged) {
-        // console.log('Echo sent bookingChanged event', bookingChanged);
+        console.log('Echo sent bookingChanged event', bookingChanged);
         const oldEvet = this.calendarApi.getEventById(bookingChanged.orignalBooking.id);
         if (oldEvet) {
           oldEvet.remove();
@@ -1041,9 +1048,9 @@
       checkBuildingLimits(initialStart, initialEnd, ignoreEventId = null) {
         let start = moment(initialStart);
         let end = moment(initialEnd);
-
-        console.log('checkBuildingLimits', start.toISOString(), end.toISOString(), ignoreEventId)
         let fiftenMinutes = moment.duration(15, 'minutes');
+
+        // console.log('checkBuildingLimits', start.toISOString(), end.toISOString(), ignoreEventId)
 
         let events = this.calendarApi.getEvents(); // all the current events in the calender
         if (ignoreEventId) {
@@ -1087,8 +1094,10 @@
       checkClashByBookalbeArea(initialStart, initialEnd, bookableAreaId, ignoreEventId = null) {
         let start = moment(initialStart);
         let end = moment(initialEnd);
+        let fiftenMinutes = moment.duration(15, 'minutes');
 
-        console.log('checkClashByBookalbeArea', start.toISOString(), end.toISOString(), bookableAreaId, ignoreEventId);
+        // console.log('checkClashByBookalbeArea', start.toISOString(), end.toISOString(), bookableAreaId, ignoreEventId);
+
         // need to check for overlap with other events for this.bookableAreaId
         if (bookableAreaId == '') {
           // no area selected
@@ -1098,7 +1107,6 @@
         // we want to grab the bookableArea from our data array
         let selectedBookableArea = this.bookableAreas.find(bookableArea => bookableArea.id == bookableAreaId)
 
-        let fiftenMinutes = moment.duration(15, 'minutes');
 
         let events = this.calendarApi.getEvents(); // all the current events in the calender
         // filter events by this bookable area
@@ -1248,7 +1256,8 @@
       },
 
       formatBookableArea(bookableArea) {
-        if (! bookableArea.id) {
+        if (bookableArea.id === '') {
+          // adjust for custom placeholder values
           return bookableArea.text;
         }
 
@@ -1258,11 +1267,12 @@
       },
 
       formatBookableAreaSelection(bookableArea) {
-        if (! bookableArea.id) {
+        if (bookableArea.id === '') {
+          // adjust for custom placeholder values
           return bookableArea.text;
         }
+
         return this.formatBookableArea(bookableArea);
-        return bookableArea.name;
       },
     }, // end of methods
 

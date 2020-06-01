@@ -56,7 +56,7 @@
       <tbody>
       @foreach ($users as $user)
       <tr>
-        <td>{{ $user->getFullName() }}</td>
+        <td>{{ $user->getFullname() }}</td>
         <td>
           <a href="{{ route('users.admin.show', $user->getId()) }}" class="btn btn-primary btn-sm mb-1"><i class="far fa-eye" aria-hidden="true"></i> View</a>
           <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-danger btn-sm mb-1" aria-label="delete">

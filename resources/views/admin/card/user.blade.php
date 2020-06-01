@@ -30,7 +30,7 @@
       @endcan
       <tr>
         <th scope="row">Name:</th>
-        <td>{{ $user->getFullName() }}</td>
+        <td>{{ $user->getFullname() }}</td>
       </tr>
       <tr>
         <th scope="row">Username:</th>

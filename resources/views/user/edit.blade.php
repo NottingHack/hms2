@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('pageTitle', $user->getFullName())
+@section('pageTitle', $user->getFullname())
 
 @section('content')
 <div class="container">

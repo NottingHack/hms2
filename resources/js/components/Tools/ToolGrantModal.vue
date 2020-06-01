@@ -3,14 +3,14 @@
     <button type="button" class="btn btn-primary" :class="{ 'btn-sm mb-1': small, 'btn-block': block}" @click="showModal"><i class="fas fa-plus" :class="{ 'fa-lg': !small }" aria-hidden="true"></i> Appoint {{ grantTypeString }}</button>
 
     <!-- Modal -->
-    <div ref="selectModal" class="modal fade" id="toolGrantModal" tabindex="false" role="dialog" aria-labelledby="toolGrantLabel" aria-hidden="true">
+    <div ref="selectModal" class="modal fade" :id="$id('toolGrantModal')" tabindex="false" role="dialog" :aria-labelledby="$id('toolGrantLabel')" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <form class="modal-content" method="POST" :action="actionUrl">
           <input type="hidden" name="_token" :value="csrf">
           <input type="hidden" name="_method" value="PATCH">
           <input type="hidden" name="grantType" :value="grantType">
           <div class="modal-header">
-            <h5 class="modal-title" id="toolGrantLabel">Appoint {{ grantTypeString }} for {{ toolName }}</h5>
+            <h5 class="modal-title" :id="$id('toolGrantLabel')">Appoint {{ grantTypeString }} for {{ toolName }}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>

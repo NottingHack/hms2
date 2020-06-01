@@ -20,11 +20,11 @@
     </div>
 
     <!-- Card Modal -->
-    <div ref="cardModal" class="modal fade" id="addMoneyToSnackspaceModal" tabindex="false" role="dialog" aria-labelledby="addMoneyToSnackspaceLabel" aria-hidden="true">
+    <div ref="cardModal" class="modal fade" :id="$id('addMoneyToSnackspaceModal')" tabindex="false" role="dialog" :aria-labelledby="$id('addMoneyToSnackspaceLabel')" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="addMoneyToSnackspaceLabel">Donate to the hackspace</h5>
+            <h5 class="modal-title" :id="$id('addMoneyToSnackspaceLabel')">Donate to the hackspace</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -53,12 +53,12 @@
             </div>
 
             <div class="form-group">
-              <input v-model="cardholderName" id="cardholder-name" :class="['form-control', nameError ? 'is-invalid' : '']" type="text" placeholder="Card holder name" autocomplete="cc-name" :disabled="cardButtonDisable" @input="updateName">
+              <input v-model="cardholderName" :id="$id('cardholder-name')" :class="['form-control', nameError ? 'is-invalid' : '']" type="text" placeholder="Card holder name" autocomplete="cc-name" :disabled="cardButtonDisable" @input="updateName">
               <div class="invalid-feedback" role="alert" v-if="nameError">{{ nameError }}</div>
             </div>
 
             <div class="form-group" v-if="guest">
-              <input v-model="cardholderEmail" id="cardholder-email" :class="['form-control', emailError ? 'is-invalid' : '']" type="text" placeholder="Card holder email" autocomplete="email" :disabled="cardButtonDisable" @input="updateEmail">
+              <input v-model="cardholderEmail" :id="$id('cardholder-email')" :class="['form-control', emailError ? 'is-invalid' : '']" type="text" placeholder="Card holder email" autocomplete="email" :disabled="cardButtonDisable" @input="updateEmail">
               <div class="invalid-feedback" role="alert" v-if="emailError">{{ emailError }}</div>
             </div>
 
@@ -80,11 +80,11 @@
     </div> <!-- Card Modal end -->
 
     <!-- Success Modal -->
-    <div ref="successModal" class="modal fade" id="addMoneyToSnackspaceModal" tabindex="false" role="dialog" aria-labelledby="addMoneyToSnackspaceLabel" aria-hidden="true">
+    <div ref="successModal" class="modal fade" :id="$id('successModal')" tabindex="false" role="dialog" :aria-labelledby="$id('addMoneyToSnackspaceLabel')" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="addMoneyToSnackspaceLabel">Donate to the hackspace</h5>
+            <h5 class="modal-title" :id="$id('addMoneyToSnackspaceLabel')">Donate to the hackspace</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>

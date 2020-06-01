@@ -17,11 +17,11 @@
           </div>
           <div class="modal-body">
             <div class="form-group">
-              <label for="hours">Hours</label>
+              <label :for="$id('hours')">Hours</label>
               <input type="number" class="form-control" name="hours">
             </div>
             <div class="form-group">
-              <label for="minutes">Minutes</label>
+              <label :for="$id('minutes')">Minutes</label>
               <input type="number" class="form-control" name="minutes">
             </div>
           </div>

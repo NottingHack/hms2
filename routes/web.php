@@ -159,9 +159,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ]
         );
 
-        Route::get('temporary-access', 'AccessController@accessCalendar')
-
-            ->name('temporary-access');
+        Route::get('temporary-access', 'AccessController@accessCalendar')->name('temporary-access');
     });
 
     // Label printer template admin

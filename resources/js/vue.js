@@ -4,12 +4,27 @@
 
 window.Vue = require('vue');
 
+/**
+ * unique id helper, gives this.uid, this.$id(), this.$idRef()
+ */
+import UniqueId from 'vue-unique-id';
+
+Vue.use(UniqueId);
+
+/**
+ * flash helper
+ * @param  {string} message
+ * @param  {String} level
+ */
 window.events = new Vue();
 
 window.flash = function (message, level = 'success') {
     window.events.$emit('flash', { message, level });
 };
 
+/**
+ * Ziggy
+ */
 import route from 'ziggy';
 import { Ziggy } from './ziggy';
 

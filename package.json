@@ -47,6 +47,7 @@
     "vue-bootstrap-datetimepicker": "^5.0.1",
     "vue-loading-overlay": "^3.3.2",
     "vue-template-compiler": "^2.6.11",
+    "vue-unique-id": "^3.1.0",
     "webpack-shell-plugin-next": "^1.1.9"
   }
 }

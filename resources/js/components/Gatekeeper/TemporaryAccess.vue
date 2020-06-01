@@ -91,11 +91,11 @@
     </div>
 
     <!-- Booking Modal -->
-    <div ref="bookingModal" class="modal fade" id="addBookingModal" tabindex="-1" role="dialog" aria-labelledby="addBookingLabel" aria-hidden="true">
+    <div ref="bookingModal" class="modal fade" :id="$id('addBookingModal')" tabindex="-1" role="dialog" :aria-labelledby="$id('addBookingLabel')" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="addBookingLabel">{{ modalTitle }}</h5>
+            <h5 class="modal-title" :id="$id('addBookingLabel')">{{ modalTitle }}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -103,17 +103,17 @@
           <div class="modal-body">
             <p>{{ settings.bookingInfoText }}</p>
             <div :class="['form-group', buildingError ? 'is-invalid' : '']">
-              <label for="building">Building</label>
-              <div class="form-control border-0" id="building" >
+              <label :for="$id('building')">Building</label>
+              <div class="form-control border-0" :id="$id('building')" >
                 {{ building.name }}
                 <small v-if="settings.grant == 'ALL'" class="text-muted"> ({{ building.accessStateString }})</small>
               </div>
               <div class="invalid-feedback d-block" role="alert" v-if="buildingError">{{ buildingError }}</div>
             </div>
             <div :class="['form-group', userError ? 'is-invalid' : '']" v-if="settings.grant == 'ALL'">
-              <label for="user">Select Member</label>
+              <label :for="$id('user')">Select Member</label>
               <member-select-two
-                id="user"
+                :id="$id('user')"
                 ref="mst"
                 v-model="userId"
                 :name="null"
@@ -122,8 +122,9 @@
               <div class="invalid-feedback d-block" role="alert" v-if="userError">{{ userError }}</div>
             </div>
             <div :class="['form-group', bookableAreaError ? 'is-invalid' : '']" ref="bookableAreaSelectDiv">
-              <label for="user">Select Area</label>
+              <label :for="$id('userId')">Select Area</label>
               <select-two
+                :id="$id('userId')"
                 ref="bast"
                 v-model="bookableAreaId"
                 :name="null"
@@ -138,27 +139,27 @@
               <small class="form-text text-muted" v-else>Select the area of the space this member will be occupying.</small>
             </div>
             <div class="form-group" v-if="building.accessState == 'REQUESTED_BOOK' || settings.grant == 'ALL'">
-              <label for="notes">{{ (settings.grant == 'ALL') ? 'Notes' : 'Reason for booking' }}</label>
+              <label :for="$id('notes')">{{ (settings.grant == 'ALL') ? 'Notes' : 'Reason for booking' }}</label>
               <input
                 type="text"
                 v-model="notes"
                 class="form-control"
-                id="notes"
+                :id="$id('notes')"
                 maxlength=250
-                aria-describedby="notesHelpBlock"
+                :aria-describedby="$id('notesHelpBlock')"
                 :required="settings.grant != 'ALL'"
                 >
               <div class="invalid-feedback d-block" role="alert" v-if="notesError">{{ notesError }}</div>
-              <small id="notesHelpBlock" class="form-text text-muted" v-if="settings.grant != 'ALL' && building.accessState == 'REQUESTED_BOOK'">
+              <small :id="$id('notesHelpBlock')" class="form-text text-muted" v-if="settings.grant != 'ALL' && building.accessState == 'REQUESTED_BOOK'">
                 Please give a short reason for your use of the space to help the Trustees review this request.
               </small>
             </div>
             <div class="form-group">
-              <label for="datetimepickerstart">Start</label>
+              <label :for="$id('datetimepickerstart')">Start</label>
               <div class="input-group" ref="datetimepickerstart">
                 <date-picker
                   v-model="start"
-                  id="datetimepickerstart"
+                  :id="$id('datetimepickerstart')"
                   :wrap="true"
                   :config="datapickerConfig"
                   @dp-change="startChange"
@@ -173,11 +174,11 @@
               <small class="form-text text-muted">Adjust the booking time if needed.</small>
             </div>
             <div class="form-group">
-              <label for="datetimepickerend">End</label>
+              <label :for="$id('datetimepickerend')">End</label>
               <div class="input-group" ref="datetimepickerend">
                 <date-picker
                   v-model="end"
-                  id="datetimepickerend"
+                  :id="$id('datetimepickerend')"
                   :wrap="true"
                   :config="datapickerConfig"
                   @dp-change="endChange"

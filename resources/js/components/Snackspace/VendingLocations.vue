@@ -19,11 +19,11 @@
     </template>
 
     <!-- Modal -->
-    <div ref="selectModal" class="modal fade" id="changeLocationModal" tabindex="false" role="dialog" aria-labelledby="changeLocationLabel" aria-hidden="true">
+    <div ref="selectModal" class="modal fade" :id="$id('changeLocationModal')" tabindex="false" role="dialog" :aria-labelledby="$id('changeLocationLabel')" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="changeLocationLabel">Select product for location {{ editingLocation ? editingLocation.name : ''}}</h5>
+            <h5 class="modal-title" :id="$id('changeLocationLabel')">Select product for location {{ editingLocation ? editingLocation.name : ''}}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>

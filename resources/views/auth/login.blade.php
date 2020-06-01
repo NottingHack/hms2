@@ -27,7 +27,7 @@
 
           <h4>Login</h4>
 
-          <form id="login" role="form" method="POST" action="{{ url('/login') }}">
+          <form id="loginForm" role="form" method="POST" action="{{ url('/login') }}">
             @csrf
 
             <div class="form-group">

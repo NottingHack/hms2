@@ -32,11 +32,11 @@
     </div>
 
     <!-- Access state modal -->
-    <div ref="accessModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="accessLabel" aria-hidden="true">
+    <div ref="accessModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" :aria-labelledby="$id('accessLabel')" aria-hidden="true">
       <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="accessLabel">Change Access State for {{ editingName }}</h5>
+            <h5 class="modal-title" :id="$id('accessLabel')">Change Access State for {{ editingName }}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -111,20 +111,20 @@
     </div>
 
     <!-- Max occupancy modal -->
-    <div ref="occupancyModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="occupancyLabel" aria-hidden="true">
+    <div ref="occupancyModal" class="modal fade" tabindex="-1" role="dialog" :aria-labelledby="$id('occupancyLabel')" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="occupancyLabel">Set max occupancy for {{ editingName }}</h5>
+            <h5 class="modal-title" :id="$id('occupancyLabel')">Set max occupancy for {{ editingName }}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <form id="updateOccupancy" @submit.prevent="updateOccupancy">
+            <form :id="$id('updateOccupancy')" @submit.prevent="updateOccupancy">
               <div class="form-group">
-                <label for="selfBookMaxOccupancy" class="col-form-label">Self Booking Max Occupancy:</label>
-                <input type="number" class="form-control" id="selfBookMaxOccupancy" v-model.number="editingSelfBookMaxOccupancy" min="1">
+                <label :for="$id('selfBookMaxOccupancy')" class="col-form-label">Self Booking Max Occupancy:</label>
+                <input type="number" class="form-control" :id="$id('selfBookMaxOccupancy')" v-model.number="editingSelfBookMaxOccupancy" min="1">
               </div>
             </form>
           </div>

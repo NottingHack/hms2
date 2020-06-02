@@ -29,7 +29,7 @@ We have not seen a payment from these members in a while, they may soon have the
 @endcomponent
 
 @if ($paymentNotificationsClearCount != 0)
-### {{ $paymentNotificationsClearCount }}} member {{ ($paymentNotificationsClearCount != 1) ? 's' : '' }} that had been previously notified {{ ($paymentNotificationsClearCount != 1) ? 'has' : 'have' }} now made a payment in time to not be revoked.
+### {{ $paymentNotificationsClearCount }} member {{ ($paymentNotificationsClearCount != 1) ? 's' : '' }} that had been previously notified {{ ($paymentNotificationsClearCount != 1) ? 'has' : 'have' }} now made a payment in time to not be revoked.
 @endif
 
 

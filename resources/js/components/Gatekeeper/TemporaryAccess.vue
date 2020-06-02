@@ -686,7 +686,7 @@
       },
 
       createBooking(booking) {
-        console.log('createBooking', booking);
+        // console.log('createBooking', booking);
         this.loading(true);
         axios.post(this.route('api.gatekeeper.temporary-access-bookings.store'), booking)
           .then((response) => {
@@ -792,7 +792,7 @@
       },
 
       cancelBooking(event) {
-        console.log('cancelBooking', event);
+        // console.log('cancelBooking', event);
 
         this.loading(true);
 

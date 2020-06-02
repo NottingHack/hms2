@@ -11,7 +11,7 @@
 
 @foreach($buildings as $building)
 <div class="container">
-  <h2>{{ $building->getName() }}</h2>
+  <h2 id="{{ Str::slug($building->getName()) }}">{{ $building->getName() }}</h2>
   <hr>
   @if ($building->getAccessState() == HMS\Entities\Gatekeeper\BuildingAccessState::FULL_OPEN)
   <p>

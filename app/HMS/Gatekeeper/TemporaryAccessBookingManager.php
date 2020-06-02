@@ -493,21 +493,25 @@ class TemporaryAccessBookingManager
         // base self book globals
         $settings = $this->getSelfBookSettings();
 
-        // and this users settings
-        $settings['userId'] = \Auth::user()->getId();
-        // so we can de-anonymize a broadcast booking
-        $settings['fullname'] = \Auth::user()->getFullname();
+        $user = \Auth::user();
 
-        if (\Gate::allows('gatekeeper.temporaryAccess.grant.all')) {
+        // and this users settings
+        $settings['userId'] = $user->getId();
+        // so we can de-anonymize a broadcast booking
+        $settings['fullname'] = $user->getFullname();
+
+        // there access level
+        if ($user->can('gatekeeper.temporaryAccess.grant.all')) {
             $settings['grant'] = 'ALL';
-        } elseif (\Gate::allows('gatekeeper.temporaryAccess.grant.self')) {
+        } elseif ($user->can('gatekeeper.temporaryAccess.grant.self')) {
             $settings['grant'] = 'SELF';
         } else {
             $settings['grant'] = 'NONE';
         }
 
+        // for maxConcurrentPerUser
         $settings['userCurrentCountByBuildingId'] = $this->temporaryAccessBookingRepository
-                ->countFutureForUserByBuildings(\Auth::user());
+                ->countFutureForUserByBuildings($user);
 
         return $settings;
     }

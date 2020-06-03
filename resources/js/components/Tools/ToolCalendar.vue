@@ -1,5 +1,5 @@
 <template>
-  <div class="container" ref="calendar">
+  <div class="container vld-parent" ref="calendar">
     <full-calendar
       ref="fullCalendar"
 

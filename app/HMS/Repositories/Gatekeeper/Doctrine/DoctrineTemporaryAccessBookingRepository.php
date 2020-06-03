@@ -4,6 +4,7 @@ namespace HMS\Repositories\Gatekeeper\Doctrine;
 
 use Carbon\Carbon;
 use HMS\Entities\User;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Gatekeeper\Building;
 use Doctrine\Common\Collections\Criteria;
@@ -180,6 +181,51 @@ class DoctrineTemporaryAccessBookingRepository extends EntityRepository implemen
         });
 
         return $results->all();
+    }
+
+    /**
+     * Find the latest booking for a User grouped by Building id's.
+     *
+     * @param User     $user
+     *
+     * @return array
+     */
+    public function latestBookingForUserByBuildings(User $user)
+    {
+        $qb1 = parent::createQueryBuilder('tab');
+
+        $qb1->select('b.id AS building_id')
+            ->addSelect('MAX(tab.end) AS end')
+            ->leftJoin('tab.bookableArea', 'ba')
+            ->leftJoin('ba.building', 'b')
+            ->where('tab.user = :user')
+            ->andWhere('b IS NOT NULL')
+            ->groupBy('ba.building');
+
+        $qb1->setParameter('user', $user);
+
+        $resultsEnd = $qb1->getQuery()->getResult();
+        $results = [];
+
+        foreach ($resultsEnd as $end) {
+            $qb1 = parent::createQueryBuilder('tab');
+
+            $qb1->leftJoin('tab.bookableArea', 'ba')
+                ->leftJoin('ba.building', 'b')
+                ->where('tab.user = :user')
+                ->andWhere('b.id = :building_id')
+                ->andWhere('tab.end = :end')
+                ->setMaxResults(1);
+
+            $qb1->setParameter('user', $user)
+                ->setParameter('building_id', $end['building_id'])
+                ->setParameter('end', $end['end']);
+
+            $booking = $qb1->getQuery()->getSingleResult();
+            $results[$end['building_id']] = $booking;
+        }
+
+        return $results;
     }
 
     /**

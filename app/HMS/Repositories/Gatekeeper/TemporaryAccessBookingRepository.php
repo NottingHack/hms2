@@ -59,6 +59,15 @@ interface TemporaryAccessBookingRepository
     public function countFutureForUserByBuildings(User $user);
 
     /**
+     * Find the latest booking for a User grouped by Building id's.
+     *
+     * @param User     $user
+     *
+     * @return array
+     */
+    public function latestBookingForUserByBuildings(User $user);
+
+    /**
      * @param Carbon $start
      * @param Carbon $end
      *

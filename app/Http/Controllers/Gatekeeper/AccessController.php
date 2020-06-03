@@ -132,6 +132,9 @@ class AccessController extends Controller
         if (\Gate::allows('gatekeeper.temporaryAccess.grant.all')) {
             $settings['grant'] = 'SELF';
         }
+        if (\Gate::allows('gatekeeper.temporaryAccess.view.all')) {
+            $settings['view'] = 'SELF';
+        }
 
         return view('gatekeeper.space_access')
             ->with('buildings', $buildings)

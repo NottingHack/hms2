@@ -16,6 +16,14 @@ class TemporaryAccessBooking extends JsonResource
      */
     public function toArray($request)
     {
+        $allowSensative = false; // default anonymization
+
+        if (\Gate::allows('gatekeeper.temporaryAccess.view.all')) {
+            $allowSensative = true;
+        } elseif (\Auth::user() == $this->getUser() && \Gate::allows('gatekeeper.temporaryAccess.view.self')) {
+            $allowSensative = true;
+        }
+
         return [
             'id' => $this->getId(),
             'start' => $this->getStart(),
@@ -25,11 +33,12 @@ class TemporaryAccessBooking extends JsonResource
             'bookableArea' => $this->getBookableArea() ? new BookableAreaResource($this->getBookableArea()) : null,
             'approved' => $this->isApproved(),
             $this->mergeWhen(
-                \Auth::user() == $this->getUser() || \Gate::allows('gatekeeper.temporaryAccess.view.all'),
+                $allowSensative,
                 [
                     'title' => $this->getUser()->getFullname(),
                     'notes' => $this->getNotes(),
-                    'approvedBy' => $this->getApprovedBy() ? $this->getApprovedBy()->getFullname() : null,
+                    'approvedById' => $this->getApprovedBy() ? $this->getApprovedBy()->getId() : null,
+                    'approvedByName' => $this->getApprovedBy() ? $this->getApprovedBy()->getFullname() : null,
                 ]
             ),
         ];

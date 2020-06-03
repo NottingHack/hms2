@@ -14,7 +14,7 @@ class Version20200520193909_alter_temporary_access_bookings extends AbstractMigr
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE temporary_access_bookings ADD bookable_area_id INT UNSIGNED DEFAULT NULL, ADD approved_by_id INT UNSIGNED DEFAULT NULL, ADD approved TINYINT(1) DEFAULT \'0\' NOT NULL');
+        $this->addSql('ALTER TABLE temporary_access_bookings ADD bookable_area_id INT UNSIGNED DEFAULT NULL AFTER color, ADD approved_by_id INT UNSIGNED DEFAULT NULL AFTER notes, ADD approved TINYINT(1) DEFAULT \'0\' NOT NULL AFTER approved_by_id');
         $this->addSql('ALTER TABLE temporary_access_bookings ADD CONSTRAINT FK_DFC09B0BBD9A6AEE FOREIGN KEY (bookable_area_id) REFERENCES bookable_areas (id)');
         $this->addSql('ALTER TABLE temporary_access_bookings ADD CONSTRAINT FK_DFC09B0B2D234F6A FOREIGN KEY (approved_by_id) REFERENCES user (id)');
         $this->addSql('CREATE INDEX IDX_DFC09B0BBD9A6AEE ON temporary_access_bookings (bookable_area_id)');

@@ -15,7 +15,7 @@
       <p v-if="settings.grant != 'ALL'">Some areas can only be booked by Trustees.</p>
     </div>
 
-    <div class="container" ref="calendar">
+    <div class="container vld-parent" ref="calendar">
       <full-calendar
         ref="fullCalendar"
 
@@ -132,7 +132,6 @@
                 :settings="bookableAreaSettings"
                 :options="bookableAreaOptions"
                 style="width: 100%"
-
                 />
               <div class="invalid-feedback d-block" role="alert" v-if="bookableAreaError">{{ bookableAreaError }}</div>
               <small class="form-text text-muted" v-if="settings.grant != 'ALL'">Select the area of the space you will be occupying.</small>
@@ -385,11 +384,14 @@
     },
 
     methods: {
-      loading(isLoading) {
+      loading(isLoading, ref=null) {
+        if (ref === null) {
+          ref = this.$refs.calendar;
+        }
         this.isLoading = isLoading;
         if (isLoading && this.loader == null) {
           this.loader = this.$loading.show({
-            container: this.$refs.calendar,
+            container: ref,
             color: '#195905',
           });
         } else if (this.loader !== null) {
@@ -407,6 +409,7 @@
       },
 
       selectAllow(selectInfo) {
+        this.removePopoverConfirmation();
         if (this.isLoading) {
 
           return false;
@@ -419,12 +422,24 @@
         }
 
         if (this.settings.grant == "SELF") {
-          // need to check maxConcurrentPerUser against userCurrentCountByBuildingId
-          if (this.settings.userCurrentCountByBuildingId[this.building.id] >= this.settings.maxConcurrentPerUser) {
+          // need to check maxConcurrentPerUser against userByBuildingId.future
+          if (this.settings.userByBuildingId[this.building.id].futureCount >= this.settings.maxConcurrentPerUser) {
             flash('You can only have ' + this.settings.maxConcurrentPerUser + ' concurrent Bookings', 'warning');
 
             return false;
           }
+        }
+
+        // need to check how long since last booking
+        let latestBookingEnd = this.settings.userByBuildingId[this.building.id].latestBookingEnd;
+        let nextStart = latestBookingEnd && moment(latestBookingEnd).add(this.settings.minPeriodBetweenBookings, 'minutes');
+
+        if (this.settings.grant != 'ALL'
+          && nextStart
+          && nextStart.isAfter(moment(selectInfo.start))
+        ) {
+          flash('You may not start another booking before ' + nextStart.format("YYYY-MM-DD HH:mm"), 'warning');
+          return false;
         }
 
         // need to check for overlap with other events for this.building.selfBookMaxOccupancy
@@ -489,7 +504,7 @@
       },
 
       eventAllow(dropInfo, draggedEvent) {
-        console.log('eventAllow'); //, dropInfo, draggedEvent);
+        // console.log('eventAllow'); //, dropInfo, draggedEvent);
         if (this.isLoading) {
 
           return false;
@@ -563,9 +578,60 @@
       },
 
       eventRender: function (info) {
-        // if (info.event.extendedProps.notes) {
-        //   $(info.el).tooltip({ title: info.event.extendedProps.notes });
-        // }
+        // console.log('eventRender', info);
+        if (info.isMirror) {
+          return;
+        }
+        let extendedProps = info.event.extendedProps;
+
+        if (this.settings.view == 'ALL' || extendedProps.userId == this.settings.userId) {
+          let content = '';
+          if (extendedProps.bookableArea){
+            if (content != '') {
+              content += '<br>'
+            }
+            content += 'Area: ' + extendedProps.bookableArea.name;
+          }
+
+          if (extendedProps.approved) {
+            if (extendedProps.userId == extendedProps.approvedById) {
+              if (content != '') {
+                content += '<br>'
+              }
+              content += 'Automatically approved.';
+            } else {
+              if (content != '') {
+                content += '<br>'
+              }
+              content += 'Approved By: ' + extendedProps.approvedByName
+            }
+          } else {
+            if (content != '') {
+              content += '<br>'
+            }
+            content += '<strong>This booking requires approval</strong>';
+          }
+
+          // TODO: guests
+
+          if (extendedProps.notes) {
+            if (content != '') {
+              content += '<br>'
+            }
+            content += 'Notes: ' + $('<span>' + extendedProps.notes + '</span>').text();
+          }
+
+          if (content != '') {
+            // now render the tool tip
+            // $(info.el).addClass('tooltip-' + info.event.id);
+
+            $(info.el).tooltip({
+              container: 'body',
+              title: content,
+              html: true,
+            });
+          }
+        }
       },
 
       /**
@@ -687,7 +753,7 @@
 
       createBooking(booking) {
         // console.log('createBooking', booking);
-        this.loading(true);
+        this.loading(true, this.$refs.bookingModal);
         axios.post(this.route('api.gatekeeper.temporary-access-bookings.store'), booking)
           .then((response) => {
             if (response.status == '201') { // HTTP_CREATED
@@ -697,10 +763,23 @@
               this.removeBookingConfirmation();
               this.calendarApi.unselect();
               const event = this.calendarApi.getEventById(responseBooking.id);
-              if (! event) { // make sure the event has not already been added via newBookingEvent
-                // TODO: update userCurrentCountByBuildingId
+              if (! event) { // make sure the event has not already been added via newBookingEvent (toOthers() should have fixed this)
+                // update userByBuildingId.future
                 if (responseBooking.userId == this.settings.userId) {
-                  this.settings.userCurrentCountByBuildingId[this.building.id] += 1;
+                  this.settings.userByBuildingId[this.building.id].futureCount += 1;
+
+                  // check if we need to update latestBooking
+                  if (this.settings.userByBuildingId[this.building.id].latestBookingId === null){
+                    // latestBookingId was null ??, set this as it
+                    this.settings.userByBuildingId[this.building.id].latestBookingId = responseBooking.id;
+                    this.settings.userByBuildingId[this.building.id].latestBookingEnd = responseBooking.end;
+                  } else if (moment(responseBooking.end).isAfter(moment(this.settings.userByBuildingId[this.building.id].latestBookingEnd))) {
+                    // end is after latestBookingEnd, so now this responseBooking is the latest
+                    this.settings.userByBuildingId[this.building.id].latestBookingId = responseBooking.id;
+                    this.settings.userByBuildingId[this.building.id].latestBookingEnd = responseBooking.end;
+                  } else {
+                    // should only get here if you have grant ALL
+                  }
                 }
 
                 this.calendarApi.addEvent(responseBooking, 'bookings');
@@ -755,9 +834,25 @@
         axios.patch(this.route('api.gatekeeper.temporary-access-bookings.update', event.id), booking)
           .then((response) => {
             if (response.status == '200') { // HTTP_OK
+              const responseBooking = this.mapBookings(response.data.data);
               flash('Booking updated');
               console.log('patchBooking', 'Booking Updated OK');
               // think patch does not need anything doing to confirm
+
+              // is this our booking
+              if (responseBooking.userId == this.settings.userId) {
+                // check if we need to update latestBooking
+                if (this.settings.userByBuildingId[this.building.id].latestBookingId){
+                  // latestBookingId is set, now does it match this booking?
+                  if (responseBooking.id == this.settings.userByBuildingId[this.building.id].latestBookingId) {
+                    this.settings.userByBuildingId[this.building.id].latestBookingEnd = responseBooking.end;
+                  }
+                } else {
+                  // latestBookingId was null ??
+                  this.settings.userByBuildingId[this.building.id].latestBookingId = responseBooking.id;
+                  this.settings.userByBuildingId[this.building.id].latestBookingEnd = responseBooking.end;
+                }
+              }
             } else {
               flash('Error updating booking', 'danger');
               revert();
@@ -804,9 +899,9 @@
 
               const foundEvent = this.calendarApi.getEventById(event.id);
               if (foundEvent) { // make sure the event has not already been removed via bookingCancelledEvent
-                // update userCurrentCountByBuildingId
+                // update userByBuildingId.future
                 if (event.extendedProps.userId == this.settings.userId) {
-                  this.settings.userCurrentCountByBuildingId[this.building.id] -= 1;
+                  this.settings.userByBuildingId[this.building.id].futureCount -= 1;
                 }
                 event.remove();
               }
@@ -841,7 +936,7 @@
       },
 
       /**
-       * Display bootstrap confirmation popover for a new selection.
+       * Display modal for a new selection.
        */
       setupBookingConfirmation(selectionInfo) {
         // update start and end base on the new selection
@@ -870,14 +965,19 @@
       },
 
       /**
-       * Display bootstrap confirmation popover for a new selection.
+       * Display bootstrap confirmation popover for event click.
        */
-      setupCancleConfirmation(info) {
+      setupApproveRejcectCancleConfirmation(info) {
+        // console.log('setupApproveRejcectCancleConfirmation', info.el);
         const self = this;
 
-        // info.el attach booking-selected class to the <a>
-        $(info.el).addClass('booking-selected');
 
+        $(info.el).tooltip('hide');
+        // info.el attach booking-selected-id class to the <a>
+        $(info.el).addClass('booking-selected');
+        // $(info.el).tooltip('disable');
+
+        // basic (yes | no) cancel
         let options = {
           container: 'body',
           rootSelector: '.booking-selected',
@@ -896,6 +996,10 @@
         };
 
         $('.booking-selected').confirmation(options);
+        $('.booking-selected').on('hidden.bs.confirmation', function () {
+          $(info.el).removeClass('booking-selected');
+          $(info.el).tooltip('enable');
+        });
 
         $('.booking-selected').confirmation('show');
       },
@@ -907,6 +1011,7 @@
         $('.popover').remove();
       },
 
+      /********************************************************/
       /**
        * Attached to 'resize' event so we can make the view responsive.
        */
@@ -940,23 +1045,43 @@
           booking.className += ' not-approved';
         }
 
-        if (this.settings.grant != 'NONE'
-          && (booking.userId == this.settings.userId || this.settings.grant == 'ALL')
-          && moment().diff(booking.start) > 0
-          && moment().diff(booking.end) < 0) {
+        if (this.settings.grant != 'NONE') {
+          // we have some level of grant
+          if (moment().diff(booking.start) > 0
+            && moment().diff(booking.end) < 0) {
             // this is a booking under now
-          booking.durationEditable = true;
-        } else if (this.settings.grant != 'NONE'
-          && (booking.userId == this.settings.userId || this.settings.grant == 'ALL')
-          && moment().diff(booking.start) < 0) {
-          booking.editable = true;
-        } else {
+            if (this.settings.grant == 'ALL') {
+              booking.durationEditable = true;
+            } else if (booking.userId == this.settings.userId) {
+              // its ours
+              if (booking.approved == false || (booking.approved && booking.approvedById == this.settings.userId)) {
+                // and was automatically approved
+                booking.durationEditable = true;
+              }
+            }
+          } else if (moment().diff(booking.start) < 0) {
+            // this booking is in the future
+            if (this.settings.grant == 'ALL') {
+              booking.editable = true;
+            } else if (booking.userId == this.settings.userId) {
+              // its ours
+              if (booking.approved == false || (booking.approved && booking.approvedById == this.settings.userId)) {
+                // and was automatically approved
+                booking.editable = true;
+              }
+            }
+          }
+        }
+
+        // add the class if not editable
+        if (! (booking.editable || booking.durationEditable)) {
           booking.className += ' not-editable';
         }
 
         return booking;
       },
 
+      /* ECHO *************************************************/
       echoInit() {
         Echo.channel('gatekeeper.temporaryAccessBookings.' + this.building.id)
           .listen('Gatekeeper.NewBooking', this.newBookingEvent)
@@ -978,8 +1103,8 @@
 
         // does this booking belong to us
         if (booking.userId == this.settings.userId) {
-          // update userCurrentCountByBuildingId
-          this.settings.userCurrentCountByBuildingId[this.building.id] += 1;
+          // update userByBuildingId.future
+          this.settings.userByBuildingId[this.building.id].futureCount += 1;
 
           // it will have been anonymized so let fill in our name
           booking.title = this.settings.fullname;
@@ -1010,14 +1135,15 @@
         // console.log('Echo sent bookingCancelled event', bookingCancelled);
         const event = this.calendarApi.getEventById(bookingCancelled.bookingId);
         if (event) {
-          // update userCurrentCountByBuildingId
+          // update userByBuildingId.future
           if (event.extendedProps.userId == this.settings.userId) {
-            this.settings.userCurrentCountByBuildingId[this.building.id] -= 1;
+            this.settings.userByBuildingId[this.building.id].futureCount -= 1;
           }
 
           event.remove();
         }
       },
+      /* ECHO END *********************************************/
 
       /**
        * a user cannot overlap there own event
@@ -1157,6 +1283,24 @@
         return result;
       },
 
+      udpateStartMinDate() {
+        // start min date
+        // need to check how long since last booking
+        let latestBookingEnd = this.settings.userByBuildingId[this.building.id].latestBookingEnd;
+        let nextStart = latestBookingEnd && moment(latestBookingEnd).add(this.settings.minPeriodBetweenBookings, 'minutes');
+
+        if (this.settings.grant != 'ALL'
+          && nextStart
+          && nextStart.isAfter(moment())
+        ) {
+          // console.log('minStart: ', nextStart.toISOString())
+          $(this.$refs.datetimepickerstart).data('DateTimePicker').minDate(nextStart);
+        } else {
+          // console.log('minStart: now+15')
+          $(this.$refs.datetimepickerstart).data('DateTimePicker').minDate(moment().add(15, 'minutes'));
+        }
+      },
+
       /**
        * Watch for changes of the start date picker.
        * TODO: might this be better as a watch on this.start?
@@ -1266,6 +1410,7 @@
         }
       },
 
+      /* SELECT TWO AREA FORMAT *******************************/
       formatBookableArea(bookableArea) {
         if (bookableArea.id === '') {
           // adjust for custom placeholder values
@@ -1295,6 +1440,7 @@
         window.addEventListener('resize', this.getWindowResize);
 
         //Init
+        this.udpateStartMinDate();
         this.getWindowResize();
       });
 
@@ -1323,7 +1469,9 @@
         // TODO: once we have Echo running only really need to call this if there is an event under now ±15
         this.calendarApi.refetchEvents();
         this.removePopoverConfirmation();
-        $(this.$refs.datetimepickerstart).data('DateTimePicker').minDate(moment().add(15, 'minutes'));
+
+        this.udpateStartMinDate();
+
       }.bind(this), 900000);
 
       this.echoInit();

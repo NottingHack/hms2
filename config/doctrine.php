@@ -139,7 +139,9 @@ return [
     | DQL custom string functions
     |--------------------------------------------------------------------------
     */
-    'custom_string_functions'   => [],
+    'custom_string_functions'   => [
+        'CAST' => DoctrineExtensions\Query\Mysql\Cast::class,
+    ],
     /*
     |--------------------------------------------------------------------------
     | Register custom hydrators

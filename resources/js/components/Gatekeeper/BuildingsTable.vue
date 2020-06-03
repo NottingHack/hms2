@@ -1,6 +1,6 @@
 <template>
   <div class="vue-remove">
-    <div class="table-responsive" ref="buildingTable">
+    <div class="table-responsive vld-parent" ref="buildingTable">
       <table class="table table-bordered">
         <thead>
           <th class="w-50">Name</th>
@@ -34,7 +34,7 @@
     <!-- Access state modal -->
     <div ref="accessModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" :aria-labelledby="$id('accessLabel')" aria-hidden="true">
       <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
+        <div class="modal-content vld-parent" ref="accessModalContent">
           <div class="modal-header">
             <h5 class="modal-title" :id="$id('accessLabel')">Change Access State for {{ editingName }}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -276,7 +276,7 @@
       changeAccessTo(newAccessState) {
         // console.log('changeAccessTo', newAccessState);
 
-        this.loading(true, this.$refs.accessModal);
+        this.loading(true, this.$refs.accessModalContent);
 
         axios.patch(this.route('api.gatekeeper.buildings.update-access-state', this.editingId), {
             accessState: newAccessState

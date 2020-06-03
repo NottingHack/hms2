@@ -509,9 +509,34 @@ class TemporaryAccessBookingManager
             $settings['grant'] = 'NONE';
         }
 
+        if ($user->can('gatekeeper.temporaryAccess.view.all')) {
+            $settings['view'] = 'ALL';
+        } elseif ($user->can('gatekeeper.temporaryAccess.view.self')) {
+            $settings['view'] = 'SELF';
+        } else {
+            // should not even be rendering a calendar
+            $settings['view'] = 'NONE';
+        }
+
+        // for minPeriodBetweenBookings Latest
+        $userLatestBookins = $this->temporaryAccessBookingRepository
+            ->latestBookingForUserByBuildings($user);
+
         // for maxConcurrentPerUser
-        $settings['userCurrentCountByBuildingId'] = $this->temporaryAccessBookingRepository
+        $userCurrentCount = $this->temporaryAccessBookingRepository
                 ->countFutureForUserByBuildings($user);
+
+        // ddd($userLatestBookins, $userCurrentCount);
+
+        $settings['userByBuildingId'] = collect($userCurrentCount)
+            ->map(function ($item, $key) use ($userLatestBookins) {
+                return [
+                    'futureCount' => $item,
+                    'latestBookingId' => isset($userLatestBookins[$key]) ? $userLatestBookins[$key]->getId() : null,
+                    'latestBookingEnd' => isset($userLatestBookins[$key]) ? $userLatestBookins[$key]->getEnd() : null,
+                ];
+            })
+            ->all();
 
         return $settings;
     }

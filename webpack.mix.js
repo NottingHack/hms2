@@ -16,6 +16,7 @@ const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 
 mix.sourceMaps()
    .webpackConfig({
+        // devtool: 'source-map',
         plugins: [
             new MomentLocalesPlugin(), // To strip all locales except “en”
             new WebpackShellPluginNext({

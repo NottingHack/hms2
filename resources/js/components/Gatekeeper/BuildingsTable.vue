@@ -156,11 +156,11 @@
     },
 
     methods: {
-      loading(isLoading, ref=null) {
+      loading(isLoading, fullPage=false) {
         this.isLoading = isLoading;
         if (isLoading && this.loader == null) {
           this.loader = this.$loading.show({
-            container: ref,
+            container: fullPage ? null : this.$refs.buildingTable,
             color: '#195905',
           });
         } else if (this.loader !== null) {
@@ -170,7 +170,7 @@
       },
 
       fetchBuildings() {
-        this.loading(true, this.$refs.buildingTable);
+        this.loading(true);
 
         axios.get(this.route('api.gatekeeper.buildings.index'))
           .then((response) => {
@@ -228,7 +228,7 @@
       },
 
       updateOccupancy(event) {
-        this.loading(true, this.$refs.occupancyModal);
+        this.loading(true, true);
 
         axios.patch(this.route('api.gatekeeper.buildings.update-occupancy', this.editingId), {
             selfBookMaxOccupancy: this.editingSelfBookMaxOccupancy
@@ -276,7 +276,7 @@
       changeAccessTo(newAccessState) {
         // console.log('changeAccessTo', newAccessState);
 
-        this.loading(true, this.$refs.accessModalContent);
+        this.loading(true, true);
 
         axios.patch(this.route('api.gatekeeper.buildings.update-access-state', this.editingId), {
             accessState: newAccessState

@@ -466,14 +466,11 @@
     },
 
     methods: {
-      loading(isLoading, ref=null) {
-        if (ref === null) {
-          ref = this.$refs.calendar;
-        }
+      loading(isLoading, fullPage=false) {
         this.isLoading = isLoading;
         if (isLoading && this.loader == null) {
           this.loader = this.$loading.show({
-            container: ref,
+            container: fullPage ? null : this.$refs.calendar,
             color: '#195905',
           });
         } else if (this.loader !== null) {
@@ -835,7 +832,7 @@
 
       createBooking(booking) {
         // console.log('createBooking', booking);
-        this.loading(true, this.$refs.bookingModal);
+        this.loading(true, true);
         axios.post(this.route('api.gatekeeper.temporary-access-bookings.store'), booking)
           .then((response) => {
             if (response.status == '201') { // HTTP_CREATED
@@ -974,7 +971,7 @@
         let payload = {}
         if (reason) {
           payload.reason = reason;
-          this.loading(true, this.$refs.reasonModal);
+          this.loading(true, true);
         } else {
           this.loading(true);
         }

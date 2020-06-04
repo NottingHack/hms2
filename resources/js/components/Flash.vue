@@ -53,6 +53,7 @@
     data() {
       return {
         notifications: [],
+        lastMessage: null,
       };
     },
 
@@ -75,6 +76,10 @@
        * @param type
        */
       flash(message, type) {
+        if (this.lastMessage == message) {
+          return;
+        }
+        this.lastMessage = message;
         this.notifications.push({
           id: Math.random().toString(36).substr(2, 9),
           message: message,
@@ -111,6 +116,9 @@
       hide(item = this.notifications[0]) {
         let key = this.notifications.indexOf(item);
         this.notifications.splice(key, 1);
+        if (this.notifications.length == 0) {
+          this.lastMessage = null;
+        }
       }
     },
   }

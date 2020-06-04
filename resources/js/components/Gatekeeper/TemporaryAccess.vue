@@ -199,6 +199,63 @@
         </div>
       </div>
     </div> <!-- /Booking Modal -->
+
+    <!-- Reason Modal -->
+    <div ref="reasonModal" class="modal fade" :id="$id('reasonModal')" tabindex="-1" role="dialog" :aria-labelledby="$id('reasonLabel')" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" :id="$id('reasonLabel')">{{ reasonModalTitle }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <dl class="row" v-if="rejectOrCancelEvent">
+              <dt class="col-sm-4">Bookable Area</dt>
+              <dd class="col-sm-8">
+                <span :class="['badge', 'badge-' + rejectOrCancelEvent.extendedProps.bookableArea.bookingColor, 'badge-font-inherit']">
+                  {{ rejectOrCancelEvent.extendedProps.bookableArea.name }}
+                </span>
+              </dd>
+
+              <dt class="col-sm-4">Name</dt>
+              <dd class="col-sm-8">{{ rejectOrCancelEvent.title }}</dd>
+
+              <dt class="col-sm-4">Reason</dt>
+              <dd class="col-sm-8">{{ rejectOrCancelEvent.extendedProps.notes }}</dd>
+
+              <dt class="col-sm-4">Start</dt>
+              <dd class="col-sm-8">{{ rejectOrCancelEvent.start | moment('YYYY-MM-DD HH:mm') }}</dd>
+
+              <dt class="col-sm-4">End</dt>
+              <dd class="col-sm-8">{{ rejectOrCancelEvent.end | moment('YYYY-MM-DD HH:mm') }}</dd>
+            </dl>
+
+            <div class="form-group">
+              <label :for="$id('reason')">Please give your reason for {{ rejectOrCancel ? 'rejecting' : 'cancelling' }} this booking.</label>
+              <input
+                type="text"
+                v-model="reason"
+                class="form-control"
+                :id="$id('reason')"
+                maxlength=250
+                :aria-describedby="$id('reasonHelpBlock')"
+                required
+                >
+              <div class="invalid-feedback d-block" role="alert" v-if="reasonError">{{ reasonError }}</div>
+              <small :id="$id('reasonHelpBlock')" class="form-text text-muted">
+                The reason you give will be include in the notification to the member.
+              </small>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="sumbit" class="btn btn-danger" @click="reasonSubmit">{{ reasonButtonText }}</button>
+          </div>
+        </div>
+      </div>
+    </div> <!-- /Reason Modal -->
   </div>
 </template>
 
@@ -213,7 +270,9 @@
   import humanizeDuration from 'humanize-duration';
   import Loading from 'vue-loading-overlay';
   import datePicker from 'vue-bootstrap-datetimepicker';
+  import VueMoment from 'vue-moment';
   Vue.use(Loading);
+  Vue.use(VueMoment);
 
   export default {
     components: {
@@ -287,6 +346,10 @@
           stepping: 15,
           minDate: moment().add(15, 'minutes'), // can not pick in the past
         },
+        reason: '',
+        reasonError: false,
+        rejectOrCancel: true,
+        rejectOrCancelEvent: null,
       };
     },
 
@@ -362,6 +425,19 @@
           return 'Schedule a booking';
         }
       },
+      reasonModalTitle() {
+        if (this.rejectOrCancel) {
+          return 'Booking rejection reason?'
+        }
+        return 'Booking cancellation reason?'
+      },
+
+      reasonButtonText() {
+        if (this.rejectOrCancel) {
+          return 'Reject Booking Request'
+        }
+        return 'Cancel Booking'
+      },
     },
 
     watch: {
@@ -380,6 +456,10 @@
 
       notes(newValue, oldValue) {
         this.notesError = false;
+      },
+
+      reason(newValue, oldValue) {
+        this.reasonError = false;
       },
     },
 
@@ -488,7 +568,7 @@
 
         // (is it ours or do we have grant ALL) and does it end in the future?
         if ((info.event.extendedProps.userId == this.settings.userId || this.settings.grant == 'ALL') && moment().diff(info.event.end) < 0) {
-          this.setupCancleConfirmation(info);
+          this.setupApproveRejcectCancleConfirmation(info);
         }
       },
 
@@ -886,12 +966,21 @@
           });
       },
 
-      cancelBooking(event) {
-        // console.log('cancelBooking', event);
+      cancelBooking(event, reason=null) {
+        console.log('cancelBooking', event, reason);
 
-        this.loading(true);
+        let payload = {}
+        if (reason) {
+          payload.reason = reason;
+          this.loading(true, this.$refs.reasonModal);
+        } else {
+          this.loading(true);
+        }
+        console.log(payload);
 
-        axios.delete(this.route('api.gatekeeper.temporary-access-bookings.destroy', event.id))
+        axios.delete(this.route('api.gatekeeper.temporary-access-bookings.destroy', event.id), {
+          data: payload,
+        })
           .then((response) => {
             if (response.status == '204') { // HTTP_NO_CONTENT
               flash('Booking cancelled');
@@ -913,6 +1002,7 @@
             }
 
             this.loading(false);
+            this.removeReasonModal();
           })
           .catch((error) => {
             flash('Error cancelling booking', 'danger');
@@ -933,6 +1023,64 @@
 
             this.loading(false);
           });
+      },
+
+      approveBooking(event) {
+        let booking = {
+          start: moment(event.start).toISOString(true),
+          end: moment(event.end).toISOString(true),
+          approve: true,
+        };
+
+        this.loading(true);
+
+        axios.patch(this.route('api.gatekeeper.temporary-access-bookings.update', event.id), booking)
+          .then((response) => {
+            if (response.status == '200') { // HTTP_OK
+              const responseBooking = this.mapBookings(response.data.data);
+              flash('Booking approved');
+              console.log('approveBooking', 'Booking Updated OK');
+
+              // replace the event to update the editable, style and props etc
+              const event = this.calendarApi.getEventById(responseBooking.id);
+              if (event) {
+                event.remove();
+              }
+              this.calendarApi.addEvent(responseBooking, 'bookings');
+
+            } else {
+              flash('Error approving booking', 'danger');
+              console.log('approveBooking', response.data);
+              console.log('approveBooking', response.status);
+              console.log('approveBooking', response.statusText);
+            }
+
+            this.loading(false);
+          })
+          .catch((error) => {
+            flash('Error approving booking', 'danger');
+            if (error.response) {
+              // if HTTP_UNPROCESSABLE_ENTITY some validation error laravel or us
+              // else if HTTP_CONFLICT to many bookings or over lap
+              // else if HTTP_FORBIDDEN on enough permissions
+              console.log('approveBooking: Response error', error.response.data, error.response.status, error.response.headers);
+            } else if (error.request) {
+              // The request was made but no response was received
+              // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+              // http.ClientRequest in node.js
+              console.error('approveBooking: Request error', error.request);
+            } else {
+              // Something happened in setting up the request that triggered an Error
+              console.error('approveBooking: Error', error.message);
+            }
+
+            this.loading(false);
+          });
+
+      },
+
+      rejectBooking(event) {
+
       },
 
       /**
@@ -986,14 +1134,99 @@
           singleton: true,
           btnOkClass: 'btn btn-sm btn-danger',
           btnCancelClass: 'btn btn-sm btn-outline-dark',
-          onConfirm(type) {
-            $(info.el).removeClass('booking-selected');
-            self.cancelBooking(info.event);
-          },
+
           onCancel() {
             $(info.el).removeClass('booking-selected');
           },
         };
+
+        // base dismiss button
+        let buttons = [
+          {
+            label: '&nbsp;Decide later&nbsp;',
+            class: 'btn btn-sm btn-outline-dark',
+            iconClass: 'fas fa-times',
+            cancel: true,
+          },
+        ];
+
+        // template buttons to be added as needed
+        let approveButton = {
+          label: '&nbsp;Approve',
+          // value: 'NORMAL',
+          class: 'btn btn-sm btn-primary',
+          iconClass: 'fas fa-thumbs-up',
+          onClick() {
+            $(info.el).removeClass('booking-selected');
+            self.approveBooking(info.event);
+          },
+        };
+
+        let rejectButton = {
+          label: '&nbsp;Reject',
+          // value: 'NORMAL',
+          class: 'btn btn-sm btn-red',
+          iconClass: 'fas fa-thumbs-down',
+          onClick() {
+            $(info.el).removeClass('booking-selected');
+            self.setupRejectModal(info.event);
+          },
+        };
+
+        let cancelButton = {
+          label: '&nbsp;Cancel',
+          // value: 'NORMAL',
+          class: 'btn btn-sm btn-red',
+          iconClass: 'fas fa-trash',
+          onClick() {
+            $(info.el).removeClass('booking-selected');
+            self.cancelBooking(info.event);
+          },
+        };
+
+        let cancelWithReasonButton = {
+          label: '&nbsp;Cancel',
+          // value: 'NORMAL',
+          class: 'btn btn-sm btn-red',
+          iconClass: 'fas fa-trash',
+          onClick() {
+            $(info.el).removeClass('booking-selected');
+            self.setupCancelWithReasonModal(info.event);
+          },
+        };
+
+        if (this.settings.grant == "ALL") {
+          // we have grant.all
+          if (info.event.extendedProps.userId == this.settings.userId) {
+            // we own this booking so ([approve] | cancel | x)
+            buttons.splice(0, 0, cancelButton);
+            if (! info.event.extendedProps.approved) {
+              // not approved so add approve button
+              options.title = 'Would you like to approve or cancel this booking?';
+              buttons.splice(0, 0, approveButton);
+            }
+          } else {
+            // we don't own this booking so (approve | reject | x) or ( cancelWithReason | x)
+            options.content = 'Notes: ' + info.event.extendedProps.notes;
+            if (! info.event.extendedProps.approved) {
+              // approve | reject | x
+              options.title = 'Would you like to approve or reject this booking?';
+              buttons.splice(0, 0, rejectButton);
+              buttons.splice(0, 0, approveButton);
+            } else {
+              // cancelWithReason | x
+              buttons.splice(0, 0, cancelWithReasonButton);
+            }
+          }
+          options.buttons = buttons;
+        } else {
+          // we dont have grant.all and this is our booking (checked in eventClick)
+          // just use the basic (yes | no) cancel
+          options.onConfirm = ((type) => {
+            $(info.el).removeClass('booking-selected');
+            self.cancelBooking(info.event);
+          });
+        }
 
         $('.booking-selected').confirmation(options);
         $('.booking-selected').on('hidden.bs.confirmation', function () {
@@ -1009,6 +1242,41 @@
        */
       removePopoverConfirmation() {
         $('.popover').remove();
+      },
+
+      setupRejectModal(event) {
+        console.log('setupRejectModal', event);
+        this.rejectOrCancel = true;
+        this.rejectOrCancelEvent = event;
+        this.reason = '';
+
+        $(this.$refs.reasonModal).modal('show');
+      },
+
+      setupCancelWithReasonModal(event) {
+        console.log('setupCancelWithReasonModal', event);
+        this.rejectOrCancel = false;
+        this.rejectOrCancelEvent = event;
+        this.reason = '';
+
+        $(this.$refs.reasonModal).modal('show');
+      },
+
+      reasonSubmit() {
+        console.log('reasonSubmit');
+
+        if (this.reason == '') {
+          this.reasonError = 'You must give a reason.'
+          return;
+        }
+
+        this.cancelBooking(this.rejectOrCancelEvent, this.reason);
+      },
+
+      removeReasonModal() {
+        this.rejectOrCancelEvent = null;
+        this.reason = '';
+        $(this.$refs.reasonModal).modal('hide');
       },
 
       /********************************************************/
@@ -1479,6 +1747,8 @@
       $(this.$refs.bookingModal).modal('handleUpdate');
       // need to setup close event to unselected
       $(this.$refs.bookingModal).on('hidden.bs.modal', this.removeBookingConfirmation);
+      $(this.$refs.reasonModal).modal('handleUpdate');
+      $(this.$refs.reasonModal).on('hidden.bs.modal', this.removeReasonModal);
     },
 
     beforeDestroy() {

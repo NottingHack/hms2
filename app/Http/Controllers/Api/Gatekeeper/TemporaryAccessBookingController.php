@@ -160,12 +160,19 @@ class TemporaryAccessBookingController extends Controller
         $validatedData = $request->validate([
             'start' => 'required|date',
             'end' => 'required|date',
+            'approve' => 'sometimes|boolean',
         ]);
 
         $start = new Carbon($validatedData['start']);
         $end = new Carbon($validatedData['end']);
 
-        $response = $this->temporaryAccessBookingManager->update($temporaryAccessBooking, $start, $end);
+        if (isset($validatedData['approve'])) {
+            $response = $this->temporaryAccessBookingManager
+                ->approve($temporaryAccessBooking, $validatedData['approve']);
+        } else {
+            $response = $this->temporaryAccessBookingManager
+                ->update($temporaryAccessBooking, $start, $end);
+        }
 
         if (is_string($response)) {
             // response is some sort of error
@@ -185,15 +192,32 @@ class TemporaryAccessBookingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TemporaryAccessBooking $temporaryAccessBooking)
+    public function destroy(TemporaryAccessBooking $temporaryAccessBooking, Request $request)
     {
-        $response = $this->temporaryAccessBookingManager->cancel($temporaryAccessBooking);
+        // request may have a reason?
+        $validatedData = $request->validate([
+            'reason' => 'sometimes|string',
+        ]);
+
+        if (isset($validatedData['reason'])) {
+            if ($booking->isApproved()) {
+                // if approved and reason
+                $response = $this->temporaryAccessBookingManager->cancelWithReason($temporaryAccessBooking, $reason);
+            } else {
+                // if not approved and reason
+                $response = $this->temporaryAccessBookingManager->reject($temporaryAccessBooking, $reason);
+            }
+        } else {
+            // else no reason just cancel
+            $response = $this->temporaryAccessBookingManager->cancel($temporaryAccessBooking);
+        }
 
         if (is_string($response)) {
             // response is some sort of error
             return response()->json($response, IlluminateResponse::HTTP_FORBIDDEN);
         } else {
             // response is empty
+            // TODO: return what is now lastestBooking
             return response(null, IlluminateResponse::HTTP_NO_CONTENT);
         }
     }

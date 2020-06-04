@@ -14,6 +14,8 @@ use HMS\Entities\Gatekeeper\Building;
 use HMS\User\Permissions\RoleManager;
 use App\Events\Gatekeeper\BookingChanged;
 use HMS\Entities\Gatekeeper\BookableArea;
+use App\Events\Gatekeeper\BookingApproved;
+use App\Events\Gatekeeper\BookingRejected;
 use App\Events\Gatekeeper\BookingCancelled;
 use HMS\Entities\Gatekeeper\BuildingAccessState;
 use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
@@ -268,8 +270,59 @@ class TemporaryAccessBookingManager
 
         broadcast(new BookingCancelled($bookingId, $buildingId))->toOthers();
 
+        // TODO: return what is now lastestBooking
         return [
             'bookingId' => $bookingId,
+        ];
+    }
+
+    /**
+     * Approve this booking request.
+     *
+     * @param TemporaryAccessBooking $booking
+     * @param bool $approve
+     *
+     * @return string|TemporaryAccessBooking String with error message or a Booking
+     */
+    public function approve(TemporaryAccessBooking $booking, bool $approve)
+    {
+        // checks?
+
+        // ok approve it
+        $booking->setApproved(true);
+        $booking->setApprovedBy(\Auth::user());
+        $this->temporaryAccessBookingRepository->save($booking);
+
+        // fire event, this should update calendar views and send email
+        broadcast(new BookingApproved($booking))->toOthers();
+
+        return $booking;
+    }
+
+    /**
+     * Reject this booking request.
+     *
+     * @param TemporaryAccessBooking $booking
+     * @param string                 $reason
+     *
+     * @return string|TemporaryAccessBooking String with error message or a Booking
+     */
+    public function reject(TemporaryAccessBooking $booking, string $reason)
+    {
+        // checks?
+
+        // grab id for response
+        $bookingId = $booking->getId();
+        // fire event, this should update calendar views and send email
+        // so long as everything is queued the the booking should be serialised so we can still get its data
+        broadcast(new BookingRejected($booking, $reason, \Auth::user()));
+
+        // actually remove the booking once the event has serialized it
+        $this->temporaryAccessBookingRepository->remove($booking);
+
+        return [
+            'bookingId' => $bookingId,
+            'message' => 'Booking rejected and member notified',
         ];
     }
 

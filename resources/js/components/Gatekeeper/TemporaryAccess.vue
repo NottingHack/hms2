@@ -272,7 +272,9 @@
   import datePicker from 'vue-bootstrap-datetimepicker';
   import VueMoment from 'vue-moment';
   Vue.use(Loading);
-  Vue.use(VueMoment);
+  Vue.use(VueMoment, {
+    moment,
+  });
 
   export default {
     components: {

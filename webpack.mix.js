@@ -2,6 +2,7 @@ const mix = require('laravel-mix');
 const path = require('path');
 const WebpackShellPluginNext = require('webpack-shell-plugin-next');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
+require('laravel-mix-bundle-analyzer');
 
 /*
  |--------------------------------------------------------------------------
@@ -16,7 +17,7 @@ const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 
 mix.sourceMaps()
    .webpackConfig({
-        // devtool: 'source-map',
+        devtool: 'source-map',
         plugins: [
             new MomentLocalesPlugin(), // To strip all locales except “en”
             new WebpackShellPluginNext({
@@ -30,6 +31,11 @@ mix.sourceMaps()
             alias: {
                 'sass': path.resolve(__dirname, 'resources/sass'),
                 ziggy: path.resolve('vendor/tightenco/ziggy/src/js/route.js'),
+                // https://github.com/brockpetrie/vue-moment/issues/117
+                'vue-moment': path.resolve(
+                    __dirname,
+                    'node_modules/vue-moment/vue-moment.js'
+                ),
             }
         }
     })
@@ -47,3 +53,10 @@ mix.sourceMaps()
         // ],
     })
    .version();
+
+if (!mix.inProduction()) {
+    mix.bundleAnalyzer({
+        analyzerMode: 'static',
+        openAnalyzer: false,
+    });
+}

@@ -54,7 +54,7 @@
     <div class="col social-networks">
       <a href="https://twitter.com/HSNOTTS" class="twitter" target="_blank"><i class="fab fa-twitter"></i></a>
       <a href="https://www.facebook.com/nottinghack/" class="facebook" target="_blank"><i class="fab fa-facebook"></i></a>
-      <a href="https://groups.google.com/group/nottinghack?hl=en" class="google" target="_blank"><i class="fab fa-google-plus-g"></i></a>
+      <a href="https://groups.google.com/group/nottinghack?hl=en" class="google" target="_blank"><i class="fab fa-google"></i></a>
       <a href="https://www.flickr.com/photos/nottinghack" class="flickr" target="_blank"><i class="fab fa-flickr"></i></a>
       <a href="https://www.youtube.com/user/nottinghack" class="youtube" target="_blank"><i class="fab fa-youtube"></i></a>
     </div>

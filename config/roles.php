@@ -96,9 +96,7 @@ return [
         'gatekeeper.access.manage',                 // can manage the access state to a building, the global self booking settings and bookable areas
         'gatekeeper.temporaryAccess.view.self',          // can view (if enabled) the access calendar, but all but own bookings will be anonymized
         'gatekeeper.temporaryAccess.view.all',     // can view all deatils about any booking
-        'gatekeeper.temporaryAccess.grant',         // can book for others and grant/revoke resuests (OLD TO BE REMOVED in favor of .all)
         'gatekeeper.temporaryAccess.grant.self',    // can book/request own access to the space (if building is SELF_BOOK or REQUESTED_BOOK)
-        // 'gatekeeper.temporaryAccess.grant.request', // can request own access to the space (if building is REQUESTED_BOOK)
         'gatekeeper.temporaryAccess.grant.all',         // can book for others and grant/revoke resuests
         'gatekeeper.temporaryAccess.restrict',      // can restrict a user from making a booking/request
 
@@ -386,14 +384,12 @@ return [
                 'governance.meeting.checkIn',
                 'governance.meeting.recordAbsence',
                 'gatekeeper.access.manage',
-                'gatekeeper.temporaryAccess.grant',
                 'gatekeeper.temporaryAccess.view.all',
                 'gatekeeper.temporaryAccess.grant.all',
                 'gatekeeper.temporaryAccess.restrict',
                 'gatekeeper.zoneEntry.upstairs',
                 'gatekeeper.zoneEntry.cncBlueRoom',
                 'gatekeeper.zoneEntry.classRoomMetalworking',
-                'gatekeeper.zoneEntry.teamStorage',
                 'gatekeeper.zoneEntry.downstairsMembersStorage',
                 'gatekeeper.zoneEntry.outside',
                 'tools.addFreeTime',

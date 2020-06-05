@@ -11,7 +11,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
 use Illuminate\Notifications\Messages\SlackMessage;
 
-class BookingRequested extends Notification
+class BookingRequested extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -113,19 +113,5 @@ class BookingRequested extends Notification
                     ->fallback($content)
                     ->timestamp(Carbon::now());
             });
-    }
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param mixed  $notifiable
-     *
-     * @return array
-     */
-    public function toArray($notifiable)
-    {
-        return [
-            //
-        ];
     }
 }

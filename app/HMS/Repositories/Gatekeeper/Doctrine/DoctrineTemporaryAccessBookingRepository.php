@@ -14,6 +14,16 @@ use HMS\Repositories\Gatekeeper\TemporaryAccessBookingRepository;
 class DoctrineTemporaryAccessBookingRepository extends EntityRepository implements TemporaryAccessBookingRepository
 {
     /**
+     * @param $id
+     *
+     * @return null|TemporaryAccessBooking
+     */
+    public function findOneById($id)
+    {
+        return parent::findOneById($id);
+    }
+
+    /**
      * Check for any Bookings that would clash with a given start and end time.
      *
      * @param User $user

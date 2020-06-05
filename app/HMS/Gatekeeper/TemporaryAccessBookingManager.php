@@ -327,6 +327,35 @@ class TemporaryAccessBookingManager
     }
 
     /**
+     * Cancel a previously approved booking.
+     * TODO: yeah I'm reusing the reject code, lwk.
+     * NotifyBookingRejected takes care of sending a different email.
+     *
+     * @param TemporaryAccessBooking $booking
+     * @param string                 $reason
+     *
+     * @return string|TemporaryAccessBooking String with error message or a Booking
+     */
+    public function cancelWithReason(TemporaryAccessBooking $booking, string $reason)
+    {
+        // checks?
+
+        // grab id for response
+        $bookingId = $booking->getId();
+        // fire event, this should update calendar views and send email
+        // so long as everything is queued the the booking should be serialised so we can still get its data
+        broadcast(new BookingRejected($booking, $reason, \Auth::user()));
+
+        // actually remove the booking once the event has serialized it
+        $this->temporaryAccessBookingRepository->remove($booking);
+
+        return [
+            'bookingId' => $bookingId,
+            'message' => 'Booking rejected and member notified',
+        ];
+    }
+
+    /**
      * Do some basic time checks. Cancelled.
      *
      * @param Carbon $start

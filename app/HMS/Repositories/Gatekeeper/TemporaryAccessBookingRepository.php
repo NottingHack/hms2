@@ -10,6 +10,13 @@ use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
 interface TemporaryAccessBookingRepository
 {
     /**
+     * @param $id
+     *
+     * @return null|TemporaryAccessBooking
+     */
+    public function findOneById($id);
+
+    /**
      * Check for any Bookings that would clash with a given start and end time.
      *
      * @param User $user

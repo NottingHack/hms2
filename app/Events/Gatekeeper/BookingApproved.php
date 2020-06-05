@@ -4,8 +4,6 @@ namespace App\Events\Gatekeeper;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
@@ -24,7 +22,7 @@ class BookingApproved implements ShouldBroadcast
     /**
      * @var int
      */
-    protected $buildingId;
+    public $buildingId;
 
     /**
      * Create a new event instance.

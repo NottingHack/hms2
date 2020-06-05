@@ -138,13 +138,13 @@ class TemporaryAccessBookingController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param TemporaryAccessBooking $temporaryAccessBooking
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(TemporaryAccessBooking $temporaryAccessBooking)
     {
-        //
+        return new TemporaryAccessBookingResources($response);
     }
 
     /**
@@ -200,12 +200,12 @@ class TemporaryAccessBookingController extends Controller
         ]);
 
         if (isset($validatedData['reason'])) {
-            if ($booking->isApproved()) {
+            if ($temporaryAccessBooking->isApproved()) {
                 // if approved and reason
-                $response = $this->temporaryAccessBookingManager->cancelWithReason($temporaryAccessBooking, $reason);
+                $response = $this->temporaryAccessBookingManager->cancelWithReason($temporaryAccessBooking, $validatedData['reason']);
             } else {
                 // if not approved and reason
-                $response = $this->temporaryAccessBookingManager->reject($temporaryAccessBooking, $reason);
+                $response = $this->temporaryAccessBookingManager->reject($temporaryAccessBooking, $validatedData['reason']);
             }
         } else {
             // else no reason just cancel

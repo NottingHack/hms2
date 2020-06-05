@@ -27,7 +27,7 @@ class BookingChanged implements ShouldBroadcast
     /**
      * @var int
      */
-    protected $buildingId;
+    public $buildingId;
 
     /**
      * Create a new event instance.

@@ -5,13 +5,10 @@ namespace App\Events\Gatekeeper;
 use HMS\Entities\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use App\Http\Resources\Gatekeeper\TemporaryAccessBooking as TemporaryAccessBookingResources;
 
 class BookingRejected implements ShouldBroadcast
 {
@@ -20,22 +17,22 @@ class BookingRejected implements ShouldBroadcast
     /**
      * @var TemporaryAccessBooking
      */
-    protected $booking;
+    public $booking;
 
     /**
      * @var string
      */
-    protected $reason;
+    public $reason;
 
     /**
      * @var User
      */
-    protected $rejectedBy;
+    public $rejectedBy;
 
     /**
      * @var int
      */
-    protected $buildingId;
+    public $buildingId;
 
     /**
      * Create a new event instance.
@@ -72,7 +69,7 @@ class BookingRejected implements ShouldBroadcast
     public function broadcastWith()
     {
         return [
-            'booking' => (new TemporaryAccessBookingResources($this->booking))->resolve(),
+            'bookingId' => $this->booking->getId(),
         ];
     }
 }

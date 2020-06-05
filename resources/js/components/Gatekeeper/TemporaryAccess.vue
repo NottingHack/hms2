@@ -682,7 +682,7 @@
               if (content != '') {
                 content += '<br>'
               }
-              content += 'Approved By: ' + extendedProps.approvedByName
+              content += 'Approved By: ' + extendedProps.approvedByName ?? ''
             }
           } else {
             if (content != '') {
@@ -1353,7 +1353,9 @@
         Echo.channel('gatekeeper.temporaryAccessBookings.' + this.building.id)
           .listen('Gatekeeper.NewBooking', this.newBookingEvent)
           .listen('Gatekeeper.BookingChanged', this.bookingChangedEvent)
-          .listen('Gatekeeper.BookingCancelled', this.bookingCancelledEvent);
+          .listen('Gatekeeper.BookingCancelled', this.bookingCancelledEvent)
+          .listen('Gatekeeper.BookingApproved', this.bookingApprovedEvent)
+          .listen('Gatekeeper.BookingRejected', this.bookingRejectedEvent);
       },
 
       echoDeInit() {
@@ -1361,7 +1363,7 @@
       },
 
       newBookingEvent(newBooking) {
-        console.log('Echo sent newBooking event', newBooking);
+        // console.log('Echo sent newBooking event', newBooking);
         const booking = this.mapBookings(newBooking.booking);
         const event = this.calendarApi.getEventById(booking.id);
         if (event) { // make sure the event has not already been added via createBooking
@@ -1381,7 +1383,7 @@
       },
 
       bookingChangedEvent(bookingChanged) {
-        console.log('Echo sent bookingChanged event', bookingChanged);
+        // console.log('Echo sent bookingChanged event', bookingChanged);
         const oldEvet = this.calendarApi.getEventById(bookingChanged.orignalBooking.id);
         if (oldEvet) {
           oldEvet.remove();
@@ -1401,6 +1403,37 @@
       bookingCancelledEvent(bookingCancelled) {
         // console.log('Echo sent bookingCancelled event', bookingCancelled);
         const event = this.calendarApi.getEventById(bookingCancelled.bookingId);
+        if (event) {
+          // update userByBuildingId.future
+          if (event.extendedProps.userId == this.settings.userId) {
+            this.settings.userByBuildingId[this.building.id].futureCount -= 1;
+          }
+
+          event.remove();
+        }
+      },
+
+      bookingApprovedEvent(bookingApproved) {
+        // console.log('Echo sent bookingApproved event', bookingApproved);
+        const oldEvet = this.calendarApi.getEventById(bookingApproved.booking.id);
+        if (oldEvet) {
+          oldEvet.remove();
+        }
+
+        const booking = this.mapBookings(bookingApproved.booking);
+
+        // does this booking belong to us
+        if (booking.userId == this.settings.userId) {
+          // it will have been anonymized so let fill in our name
+          booking.title = this.settings.fullname;
+        }
+
+        this.calendarApi.addEvent(booking, 'bookings');
+      },
+
+      bookingRejectedEvent(bookingRejected) {
+        // console.log('Echo sent bookingRejected event', bookingRejected);
+        const event = this.calendarApi.getEventById(bookingRejected.bookingId);
         if (event) {
           // update userByBuildingId.future
           if (event.extendedProps.userId == this.settings.userId) {

@@ -2,14 +2,12 @@
 
 namespace App\Listeners\Gatekeeper;
 
-use HMS\Entities\Role;
-use HMS\Repositories\RoleRepository;
-use App\Events\Gatekeeper\NewBooking;
+use App\Events\Gatekeeper\BookingApproved;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Notifications\Gatekeeper\BookingRequested;
 use HMS\Repositories\Gatekeeper\TemporaryAccessBookingRepository;
+use App\Notifications\Gatekeeper\BookingApproved as BookingApprovedNotification;
 
-class NotifyNewBookingRequest implements ShouldQueue
+class NotifyBookingApproved implements ShouldQueue
 {
     /**
      * @var TemporaryAccessBookingRepository
@@ -17,24 +15,16 @@ class NotifyNewBookingRequest implements ShouldQueue
     protected $temporaryAccessBookingRepository;
 
     /**
-     * @var RoleRepository
-     */
-    protected $roleRepository;
-
-    /**
      * Create the event listener.
      *
      * @param TemporaryAccessBookingRepository $temporaryAccessBookingRepository
-     * @param RoleRepository $roleRepository
      *
      * @return void
      */
     public function __construct(
-        TemporaryAccessBookingRepository $temporaryAccessBookingRepository,
-        RoleRepository $roleRepository
+        TemporaryAccessBookingRepository $temporaryAccessBookingRepository
     ) {
         $this->temporaryAccessBookingRepository = $temporaryAccessBookingRepository;
-        $this->roleRepository = $roleRepository;
     }
 
     /**
@@ -44,7 +34,7 @@ class NotifyNewBookingRequest implements ShouldQueue
      *
      * @return void
      */
-    public function handle(NewBooking $event)
+    public function handle(BookingApproved $event)
     {
         // get a fresh copy of the booking just in case
         $booking = $this->temporaryAccessBookingRepository->findOneById($event->booking->getId());
@@ -53,13 +43,12 @@ class NotifyNewBookingRequest implements ShouldQueue
             return;
         }
 
-        if ($booking->isApproved()) {
-            // booking has already been approved
+        if (! $booking->isApproved()) {
+            // booking is no longer approved??
             return;
         }
 
-        // Notify Trustees
-        $trusteesTeamRole = $this->roleRepository->findOneByName(Role::TEAM_TRUSTEES);
-        $trusteesTeamRole->notify(new BookingRequested($booking));
+        // User
+        $booking->getUser()->notify(new BookingApprovedNotification($booking));
     }
 }

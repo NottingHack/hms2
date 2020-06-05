@@ -53,7 +53,7 @@ class BookingApproved extends Notification implements ShouldQueue
         $bookableArea = $this->booking->getBookableArea();
 
         return (new MailMessage)
-            ->subject('Nottingham Hackspace: Access request approved')
+            ->subject('Nottingham Hackspace: Access booking request approved')
             ->markdown(
                 'emails.gatekeeper.booking_approved',
                 [

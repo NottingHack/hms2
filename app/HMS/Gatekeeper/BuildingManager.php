@@ -7,6 +7,7 @@ use HMS\Entities\Gatekeeper\Building;
 use HMS\Entities\Gatekeeper\BuildingAccessState;
 use HMS\Repositories\Gatekeeper\BuildingRepository;
 use App\Jobs\Gatekeeper\AddZonePermissionForBuilding;
+use App\Jobs\Gatekeeper\RemoveZonePermissionForBuilding;
 
 class BuildingManager
 {

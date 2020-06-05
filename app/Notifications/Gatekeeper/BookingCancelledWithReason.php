@@ -66,7 +66,7 @@ class BookingCancelledWithReason extends Notification implements ShouldQueue
         $bookableArea = $this->booking->getBookableArea();
 
         return (new MailMessage)
-            ->subject('Nottingham Hackspace: Access request cancelled')
+            ->subject('Nottingham Hackspace: Access booking cancelled')
             ->markdown(
                 'emails.gatekeeper.booking_cancelled_with_reason',
                 [

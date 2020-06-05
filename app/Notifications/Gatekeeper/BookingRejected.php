@@ -66,7 +66,7 @@ class BookingRejected extends Notification implements ShouldQueue
         $bookableArea = $this->booking->getBookableArea();
 
         return (new MailMessage)
-            ->subject('Nottingham Hackspace: Access request rejected')
+            ->subject('Nottingham Hackspace: Access booking request rejected')
             ->markdown(
                 'emails.gatekeeper.booking_rejected',
                 [

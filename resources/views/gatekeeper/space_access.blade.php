@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('pageTitle', 'Access Codes')
+@section('pageTitle', 'Space access')
 
 @section('content')
 <div class="container d-block d-md-none">

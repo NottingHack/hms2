@@ -171,7 +171,7 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
         $q = parent::createQueryBuilder('user')
             ->leftJoin('user.profile', 'profile')->addSelect('profile')
             ->leftJoin('user.account', 'account')->addSelect('account')
-            ->innerJoin('user.roles', 'role')->addSelect('role')
+            ->leftJoin('user.roles', 'role')->addSelect('role')
             ->where('CONCAT(user.name, \' \', user.lastname) LIKE :keyword')
             ->orWhere('user.username LIKE :keyword')
             ->orWhere('user.email LIKE :keyword')

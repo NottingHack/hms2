@@ -526,7 +526,7 @@ class TemporaryAccessBookingManager
      */
     public function removeAllFutureBookingsForBuilding(Building $building)
     {
-        //
+        // job from BuildingManager
     }
 
     /**
@@ -536,7 +536,7 @@ class TemporaryAccessBookingManager
      */
     public function unapproveFutureBookingsForBuildingUnlessManger(Building $building)
     {
-        //
+        // job from BuildingManager
     }
 
     /**
@@ -546,7 +546,7 @@ class TemporaryAccessBookingManager
      */
     public function removeFutureBookingsForBuildingUnlessManager(Building $building)
     {
-        //
+        // job from BuildingManager
     }
 
     /**

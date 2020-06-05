@@ -9,7 +9,7 @@ use Doctrine\Migrations\AbstractMigration;
 class Version20200515231848_add_self_book_to_meta extends AbstractMigration
 {
     protected $settings = [
-        'self_book_max_length' => '120',
+        'self_book_max_length' => '180',
         'self_book_max_concurrent_per_user' => '1',
         'self_book_max_guests_per_user' => '1',
         'self_book_min_period_between_bookings' => '720',

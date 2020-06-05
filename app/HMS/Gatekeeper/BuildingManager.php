@@ -3,11 +3,10 @@
 namespace HMS\Gatekeeper;
 
 use HMS\Entities\Role;
-use HMS\Repositories\RoleRepository;
 use HMS\Entities\Gatekeeper\Building;
-use HMS\Repositories\PermissionRepository;
 use HMS\Entities\Gatekeeper\BuildingAccessState;
 use HMS\Repositories\Gatekeeper\BuildingRepository;
+use App\Jobs\Gatekeeper\AddZonePermissionForBuilding;
 
 class BuildingManager
 {
@@ -15,16 +14,6 @@ class BuildingManager
      * @var BuildingRepository
      */
     protected $buildingRepository;
-
-    /**
-     * @var RoleRepository
-     */
-    protected $roleRepository;
-
-    /**
-     * @var PermissionRepository
-     */
-    protected $permissionRepository;
 
     /**
      * @var TemporaryAccessBookingManager
@@ -35,19 +24,13 @@ class BuildingManager
      * Create a new manager instance.
      *
      * @param BuildingRepository $buildingRepository
-     * @param RoleRepository $roleRepository
-     * @param PermissionRepository $permissionRepository
      * @param TemporaryAccessBookingManager $temporaryAccessBookingManager
      */
     public function __construct(
         BuildingRepository $buildingRepository,
-        RoleRepository $roleRepository,
-        PermissionRepository $permissionRepository,
         TemporaryAccessBookingManager $temporaryAccessBookingManager
     ) {
         $this->buildingRepository = $buildingRepository;
-        $this->roleRepository = $roleRepository;
-        $this->permissionRepository = $permissionRepository;
         $this->temporaryAccessBookingManager = $temporaryAccessBookingManager;
     }
 
@@ -113,7 +96,7 @@ class BuildingManager
     public function setAccessFullOpen(Building $building)
     {
         // Make sure Role::MEMBER_CURRENT has the correct zone permissions to allow User access
-        $this->addZonePermissionForBuilding($building);
+        AddZonePermissionForBuilding::dispatch($building);
 
         // remove all future TemporaryAccessBookings
         $this->temporaryAccessBookingManager->removeAllFutureBookingsForBuilding($building);
@@ -135,7 +118,7 @@ class BuildingManager
     public function setAccessSelfBook(Building $building)
     {
         // Make sure Role::MEMBER_CURRENT zone permissions have been removed to stop unbooked User access
-        $this->removeZonePermissionForBuilding($building);
+        RemoveZonePermissionForBuilding::dispatch($building);
 
         // lastly set the state on the building
         $building->setAccessState(BuildingAccessState::SELF_BOOK);
@@ -154,7 +137,7 @@ class BuildingManager
     public function setAccessRequstBook(Building $building)
     {
         // Make sure Role::MEMBER_CURRENT zone permissions have been removed to stop unbooked User access
-        $this->removeZonePermissionForBuilding($building);
+        RemoveZonePermissionForBuilding::dispatch($building);
 
         // unapprove any future TemporaryAccessBookings, unless User can gatekeeper.access.manage
         $this->temporaryAccessBookingManager->unapproveFutureBookingsForBuildingUnlessManger($building);
@@ -176,7 +159,7 @@ class BuildingManager
     public function setAccessClosed(Building $building)
     {
         // Make sure Role::MEMBER_CURRENT zone permissions have been removed to stop unbooked User access
-        $this->removeZonePermissionForBuilding($building);
+        RemoveZonePermissionForBuilding::dispatch($building);
 
         // remove any future TemporaryAccessBookings, unless User can gatekeeper.access.manage
         $this->temporaryAccessBookingManager->removeFutureBookingsForBuildingUnlessManager($building);
@@ -184,48 +167,6 @@ class BuildingManager
         // lastly set the state on the building
         $building->setAccessState(BuildingAccessState::CLOSED);
         $this->buildingRepository->save($building);
-
-        return $building;
-    }
-
-    /**
-     * Given a building with zones add there permission to Role::MEMBER_CURRENT to allow User access.
-     *
-     * @param Building $building
-     *
-     * @return Building
-     */
-    protected function addZonePermissionForBuilding(Building $building)
-    {
-        $currentRole = $this->roleRepository->findOneByName(Role::MEMBER_CURRENT);
-
-        foreach ($building->getZones() as $zone) {
-            $zonePermission = $this->permissionRepository->findOneByName($zone->getPermissionCode());
-            $currentRole->addPermission($zonePermission);
-        }
-
-        $this->roleRepository->save($currentRole);
-
-        return $building;
-    }
-
-    /**
-     * Given a building with zones remove there permission form Role::MEMBER_CURRENT to stop unbooked User access.
-     *
-     * @param Building $building
-     *
-     * @return Building
-     */
-    protected function removeZonePermissionForBuilding(Building $building)
-    {
-        $currentRole = $this->roleRepository->findOneByName(Role::MEMBER_CURRENT);
-
-        foreach ($building->getZones() as $zone) {
-            $zonePermission = $this->permissionRepository->findOneByName($zone->getPermissionCode());
-            $currentRole->removePermission($zonePermission);
-        }
-
-        $this->roleRepository->save($currentRole);
 
         return $building;
     }

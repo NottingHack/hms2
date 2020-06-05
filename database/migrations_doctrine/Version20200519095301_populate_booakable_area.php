@@ -12,7 +12,7 @@ class Version20200519095301_populate_booakable_area extends AbstractMigration
         ['Woodworking', 'General Workshop area for Woodworking and Dusty', 'indigo', 1],
         ['Metalworking', 'Metalworking areas, both upstairs and down', 'yellow', 1],
         ['Laser', 'Laser area for either A0 or A2', 'pink', 1],
-        ['Craft', 'Craft room. Also some studio spill out for larger things like LARP constume work', 'orange', 1],
+        ['Craft', 'Craft room. Also some studio spill out for larger things like LARP costume work', 'orange', 1],
         ['CNC / Electronics', 'CNC / Electronics room downstairs', 'cyan', 1],
         ['Classroom', 'Downstairs classroom', 'red', 0],
     ];

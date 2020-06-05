@@ -7,6 +7,13 @@ use HMS\Entities\Gatekeeper\Building;
 interface BuildingRepository
 {
     /**
+     * @param $id
+     *
+     * @return null|Building
+     */
+    public function findOneById($id);
+
+    /**
      * Find all buildings.
      *
      * @return Building[]

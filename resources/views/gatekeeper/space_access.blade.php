@@ -3,6 +3,11 @@
 @section('pageTitle', 'Access Codes')
 
 @section('content')
+<div class="container d-block d-md-none">
+  <div class="alert alert-info" role="alert">
+    Scroll down for access bookings.
+  </div>
+</div>
 <div class="container">
   <div class="row">
     <div class="col-sm">

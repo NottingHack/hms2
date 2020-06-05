@@ -1286,10 +1286,10 @@
         const windowWidth = document.documentElement.clientWidth;
 
         if (windowWidth < 767.98) {
-          this.defaultView = 'timeGridDay';
+          // this.defaultView = 'timeGridDay';
           this.aspectRatio = this.dayAspectRatio;
         } else {
-          this.defaultView = 'timeGridWeek';
+          // this.defaultView = 'timeGridWeek';
           this.aspectRatio = this.weekAspectRatio;
         }
 

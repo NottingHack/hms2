@@ -143,8 +143,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Gatekeeper access
     Route::prefix('gatekeeper')->namespace('Gatekeeper')->name('gatekeeper.')->group(function () {
+        // For members
         Route::get('space-access', 'AccessController@spaceAccess')->name('accessCodes');
 
+        // For admins
         Route::get('access-state', 'AccessController@index')->name('access-state.index');
         Route::get('access-state/edit', 'AccessController@edit')->name('access-state.edit');
         Route::put('access-state', 'AccessController@update')->name('access-state.update');

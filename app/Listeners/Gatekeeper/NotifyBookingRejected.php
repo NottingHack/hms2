@@ -2,6 +2,8 @@
 
 namespace App\Listeners\Gatekeeper;
 
+use Carbon\Carbon;
+use HMS\Facades\Meta;
 use App\Events\Gatekeeper\BookingRejected;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Notifications\Gatekeeper\BookingRejected as BookingRejectedNotification;
@@ -28,17 +30,24 @@ class NotifyBookingRejected implements ShouldQueue
      */
     public function handle(BookingRejected $event)
     {
+        $user = $event->booking->getUser();
+        $when = Carbon::now()->addMinutes(Meta::getInt('temporary_access_notification_delay', 5));
+
         if ($event->booking->isApproved()) {
             // this was a booking that had been accepted but has now been cancelled with a reason
             // User
-            $event->booking->getUser()->notify(
-                new BookingCancelledWithReasonNotification($event->booking, $event->reason, $event->rejectedBy)
+            $user->notify(
+                (new BookingCancelledWithReasonNotification(
+                    $event->booking,
+                    $event->reason,
+                    $event->rejectedBy
+                ))->delay($when)
             );
         } else {
             // this booking was not yet approved
             // User
-            $event->booking->getUser()->notify(
-                new BookingRejectedNotification($event->booking, $event->reason, $event->rejectedBy)
+            $user->notify(
+                (new BookingRejectedNotification($event->booking, $event->reason, $event->rejectedBy))->delay($when)
             );
         }
     }

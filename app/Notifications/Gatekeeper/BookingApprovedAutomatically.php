@@ -2,14 +2,13 @@
 
 namespace App\Notifications\Gatekeeper;
 
-use HMS\Entities\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
 
-class BookingRejected extends Notification implements ShouldQueue
+class BookingApprovedAutomatically extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -19,29 +18,15 @@ class BookingRejected extends Notification implements ShouldQueue
     protected $booking;
 
     /**
-     * @var string
-     */
-    protected $reason;
-
-    /**
-     * @var User
-     */
-    protected $rejectedBy;
-
-    /**
      * Create a new notification instance.
      *
      * @param TemporaryAccessBooking  $temporaryAccessBooking
-     * @param string $reason
-     * @param User $rejectedBy
      *
      * @return void
      */
-    public function __construct(TemporaryAccessBooking $booking, string $reason, User $rejectedBy)
+    public function __construct(TemporaryAccessBooking $booking)
     {
         $this->booking = $booking;
-        $this->reason = $reason;
-        $this->rejectedBy = $rejectedBy;
     }
 
     /**
@@ -66,16 +51,15 @@ class BookingRejected extends Notification implements ShouldQueue
         $bookableArea = $this->booking->getBookableArea();
 
         return (new MailMessage)
-            ->subject('Nottingham Hackspace: Access request rejected')
+            ->subject('Nottingham Hackspace: Access request created')
             ->markdown(
-                'emails.gatekeeper.booking_rejected',
+                'emails.gatekeeper.booking_approved_automatically',
                 [
-                    'buildingName' => $bookableArea->getBuilding()->getName(),
                     'name' => $this->booking->getUser()->getFirstname(),
+                    'buildingName' => $bookableArea->getBuilding()->getName(),
+                    'bookableAreaName' => $bookableArea->getName(),
                     'start' => $this->booking->getStart(),
                     'end' => $this->booking->getEnd(),
-                    'bookableAreaName' => $bookableArea->getName(),
-                    'reason' => $this->reason,
                 ]
             );
     }

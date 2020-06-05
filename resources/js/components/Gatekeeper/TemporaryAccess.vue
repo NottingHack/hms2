@@ -966,7 +966,7 @@
       },
 
       cancelBooking(event, reason=null) {
-        console.log('cancelBooking', event, reason);
+        // console.log('cancelBooking', event, reason);
 
         let payload = {}
         if (reason) {
@@ -975,7 +975,6 @@
         } else {
           this.loading(true);
         }
-        console.log(payload);
 
         axios.delete(this.route('api.gatekeeper.temporary-access-bookings.destroy', event.id), {
           data: payload,
@@ -983,7 +982,7 @@
           .then((response) => {
             if (response.status == '204') { // HTTP_NO_CONTENT
               flash('Booking cancelled');
-              console.log('cancelBooking', 'Booking deleted');
+              // console.log('cancelBooking', 'Booking deleted');
 
               const foundEvent = this.calendarApi.getEventById(event.id);
               if (foundEvent) { // make sure the event has not already been removed via bookingCancelledEvent

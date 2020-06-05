@@ -2,6 +2,8 @@
 
 namespace App\Listeners\Gatekeeper;
 
+use Carbon\Carbon;
+use HMS\Facades\Meta;
 use App\Events\Gatekeeper\BookingApproved;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use HMS\Repositories\Gatekeeper\TemporaryAccessBookingRepository;
@@ -38,6 +40,7 @@ class NotifyBookingApproved implements ShouldQueue
     {
         // get a fresh copy of the booking just in case
         $booking = $this->temporaryAccessBookingRepository->findOneById($event->booking->getId());
+        $when = Carbon::now()->addMinutes(Meta::getInt('temporary_access_notification_delay', 5));
 
         if (is_null($booking)) {
             return;
@@ -49,6 +52,8 @@ class NotifyBookingApproved implements ShouldQueue
         }
 
         // User
-        $booking->getUser()->notify(new BookingApprovedNotification($booking));
+        $booking->getUser()->notify(
+            (new BookingApprovedNotification($booking))->delay($when)
+        );
     }
 }

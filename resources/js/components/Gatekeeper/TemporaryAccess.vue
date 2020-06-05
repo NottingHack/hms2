@@ -44,23 +44,17 @@
         :selectMirror=true
         unselectCancel=".modal-content"
         :eventOverlap="eventOverlap"
-        :defaultView="defaultView"
+        defaultView="timeGridDay"
         noEventsMessage="No bookings to display"
         themeSystem="bootstrap"
-        :header="{
-          left:   'prev',
-          center: 'today',
-          right:  'next',
-        }"
-        :footer="{
-          left:   'prev',
-          center: 'today',
-          right:  'next',
-        }"
+        :header="dayOnlyButtons"
+        :footer="dayOnlyButtons"
         :buttonText="{
-          today:  'Today',
+          today: 'Today',
+          day: 'Day',
+          week: 'Week',
         }"
-        :aspectRatio="aspectRatio"
+        :aspectRatio="this.dayAspectRatio"
         :views="{
           timeGrid: {
             // options apply to timeGridWeek and timeGridDay views
@@ -310,10 +304,18 @@
           momentTimezonePlugin,
           bootstrapPlugin,
         ],
-        defaultView: 'timeGridDay',
         dayAspectRatio: 0.8,
         weekAspectRatio: 1.35, // full calender default
-        aspectRatio: this.dayAspectRatio,
+        dayOnlyButtons: {
+          left:   'prev',
+          center: 'today',
+          right:  'next',
+        },
+        dayMonthButtons: {
+          left:   'prev',
+          center: 'today timeGridDay,timeGridWeek',
+          right:  'next',
+        },
         interval: null,
         isLoading: true,
         loader: null,
@@ -1281,19 +1283,21 @@
       /**
        * Attached to 'resize' event so we can make the view responsive.
        */
-      getWindowResize(event) {
+      calendarWindowResize(event) {
         const windowWidth = document.documentElement.clientWidth;
 
-        if (windowWidth < 767.98) {
-          // this.defaultView = 'timeGridDay';
-          this.aspectRatio = this.dayAspectRatio;
-        } else {
-          // this.defaultView = 'timeGridWeek';
-          this.aspectRatio = this.weekAspectRatio;
-        }
-
         if (this.calendarApi !== null) {
-          this.calendarApi.changeView(this.defaultView);
+          if (windowWidth < 767.98) {
+            this.calendarApi.setOption('header', this.dayOnlyButtons);
+            this.calendarApi.setOption('footer', this.dayOnlyButtons);
+            this.calendarApi.setOption('aspectRatio', this.dayAspectRatio);
+            this.calendarApi.changeView('timeGridDay');
+          } else {
+            this.calendarApi.setOption('header', this.dayMonthButtons);
+            this.calendarApi.setOption('footer', this.dayMonthButtons);
+            this.calendarApi.setOption('aspectRatio', this.weekAspectRatio);
+            // this.calendarApi.changeView('timeGridWeek');
+          }
           this.removePopoverConfirmation();
         }
       },
@@ -1716,7 +1720,7 @@
           return bookableArea.text;
         }
 
-        let markup = '<span class="badge badge-' + bookableArea.bookingColor + ' badge-font-inherit">' + bookableArea.name + '</span>';
+        let markup = '<span class="badge badge-' + bookableArea.bookingColor + ' ta-badge-font-inherit">' + bookableArea.name + '</span>';
 
         return $(markup);
       },
@@ -1736,11 +1740,11 @@
         // remove unwanted element
         $('.vue-remove').contents().unwrap();
 
-        window.addEventListener('resize', this.getWindowResize);
+        window.addEventListener('resize', this.calendarWindowResize);
 
         //Init
         this.udpateStartMinDate();
-        this.getWindowResize();
+        this.calendarWindowResize();
       });
 
       this.calendarApi = this.$refs.fullCalendar.getApi();
@@ -1784,7 +1788,7 @@
 
     beforeDestroy() {
       clearInterval(this.interval);
-      window.removeEventListener('resize', this.getWindowResize);
+      window.removeEventListener('resize', this.calendarWindowResize);
       this.echoDeInit();
     },
   }
@@ -1826,7 +1830,7 @@
   }
 }
 
-.badge-font-inherit {
+.ta-badge-font-inherit {
   font-size: inherit
 }
 

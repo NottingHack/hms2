@@ -45,6 +45,7 @@
         unselectCancel=".modal-content"
         :eventOverlap="eventOverlap"
         defaultView="timeGridDay"
+        :defaultDate="initialDate"
         noEventsMessage="No bookings to display"
         themeSystem="bootstrap"
         :header="dayOnlyButtons"
@@ -304,6 +305,7 @@
           momentTimezonePlugin,
           bootstrapPlugin,
         ],
+        initialDate: null,
         dayAspectRatio: 0.8,
         weekAspectRatio: 1.35, // full calender default
         dayOnlyButtons: {
@@ -1741,6 +1743,16 @@
       },
     }, // end of methods
 
+    created() {
+      let uri = window.location.search;
+      let params = new URLSearchParams(uri);
+      // console.log(params.get('date'));
+
+      if (params.get('date') && moment(params.get('date'), moment.ISO_8601).isValid()) {
+        this.initialDate = params.get('date');
+      }
+    },
+
     mounted() {
       this.$nextTick(function() {
         // remove unwanted element
@@ -1766,7 +1778,9 @@
         this.calendarApi.updateSize();
 
         let scrollTime = '06:00';
-        if (moment().isAfter(moment('06:00', 'HH:mm'), 'hour')) {
+        if (this.initialDate) {
+          scrollTime = moment(this.initialDate, moment.ISO_8601).format('HH:mm');
+        } else if (moment().isAfter(moment('06:00', 'HH:mm'), 'hour')) {
           scrollTime = moment().format('HH') + ':00:00'
         }
 
@@ -1775,7 +1789,7 @@
 
       // Call refetchEventsevery 15 minutes, so past events are shaded
       this.interval = setInterval(function () {
-        // TODO: once we have Echo running only really need to call this if there is an event under now ¡À15
+        // TODO: once we have Echo running only really need to call this if there is an event under now
         this.calendarApi.refetchEvents();
         this.removePopoverConfirmation();
 

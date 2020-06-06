@@ -80,6 +80,10 @@ class BookingRequested extends Notification implements ShouldQueue
                     'end' => $this->booking->getEnd(),
                     'bookableAreaName' => $this->bookableArea->getName(),
                     'reason' => $this->booking->getNotes(),
+                    'actionUrl' => route(
+                        'gatekeeper.temporary-access',
+                        ['date' => $this->booking->getStart()->toIsoString()]
+                    ) . '#' . Str::slug($this->building->getName()),
                 ]
             );
     }
@@ -108,7 +112,10 @@ class BookingRequested extends Notification implements ShouldQueue
                     ])
                     ->title(
                         'Review booking',
-                        route('gatekeeper.temporary-access') . '#' . Str::slug($this->building->getName())
+                        route(
+                            'gatekeeper.temporary-access',
+                            ['date' => $this->booking->getStart()->toIsoString()]
+                        ) . '#' . Str::slug($this->building->getName())
                     )
                     ->fallback($content)
                     ->timestamp(Carbon::now());

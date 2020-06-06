@@ -8,7 +8,7 @@
 **Area:** {{ $bookableAreaName }}  
 **Reason:** {{ $reason }}  
 
-@component('mail::button', ['url' => route('gatekeeper.temporary-access') . '#' . Str::slug($buildingName)])
+@component('mail::button', ['url' => $actionUrl])
 Review Booking
 @endcomponent
 

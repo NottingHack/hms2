@@ -7,7 +7,7 @@ Snackspace account for {{ $user->getFirstname() }}
 @section('content')
 <div class="container">
   <div class="card w-100">
-    <h3 class="card-header"><i class="far fa-money-bill" aria-hidden="true"></i> Balance</h3>
+    <h3 class="card-header"><i class="fad fa-money-bill" aria-hidden="true"></i> Balance</h3>
     <div class="card-body text-center">
         <h1><span class="money">@money($user->getProfile() ? $user->getProfile()->getBalance() : 0, 'GBP')</span></h1>
     </div>

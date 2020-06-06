@@ -53,7 +53,7 @@ Box {{ $box->getId() }}
                 @method('PATCH')
                 @csrf
               </form>
-              <i class="far fa-frown" aria-hidden="true"></i> Mark Abandoned
+              <i class="fas fa-frown" aria-hidden="true"></i> Mark Abandoned
             </a><br>
             @endif
             @endif
@@ -63,7 +63,7 @@ Box {{ $box->getId() }}
                 @method('PATCH')
                 @csrf
               </form>
-              <i class="fal fa-play" aria-hidden="true"></i> Mark In Use
+              <i class="far fa-play" aria-hidden="true"></i> Mark In Use
             </a>
             @endif
             @endcan

@@ -7,7 +7,7 @@ Membership Payments for {{ $user->getFirstname() }}
 @section('content')
 <div class="container">
   <div class="card w-100">
-    <h3 class="card-header"><i class="far fa-university" aria-hidden="true"></i> Standing order details</h3>
+    <h3 class="card-header"><i class="fad fa-university" aria-hidden="true"></i> Standing order details</h3>
     <div class="card-body">
       <p>These are the details needed to start or change your standing order with the Hackspace.</p>
       <p>To set up your standing order, you need our account number, sort code, and reference code.  In order for your membership to start, these all need to be correct in your standing order - especially your reference code.</p>

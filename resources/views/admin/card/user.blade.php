@@ -14,7 +14,7 @@
           @endisset
             <div class="btn-group float-right" role="group">
               @canany('profile.view.limited', 'profile.view.all')
-              <a href="{{ route('users.admin.role-updates', $user->getId()) }}" class="btn btn-primary btn-sm"><i class="far fa-history" aria-hidden="true"></i></a>
+              <a href="{{ route('users.admin.role-updates', $user->getId()) }}" class="btn btn-primary btn-sm"><i class="fas fa-history" aria-hidden="true"></i></a>
               @endcan
             </div>
           </span>

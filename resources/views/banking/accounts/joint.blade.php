@@ -30,7 +30,7 @@
             @endif
           @endforeach
           </td>
-          <td class="actions"><a class="btn btn-primary" href="{{ route('banking.accounts.show', ['account' => $jointAccount->getId()]) }}"><i class="fas fa-eye" aria-hidden="true"></i> View</a></td>
+          <td class="actions"><a class="btn btn-primary" href="{{ route('banking.accounts.show', ['account' => $jointAccount->getId()]) }}"><i class="far fa-eye" aria-hidden="true"></i> View</a></td>
         </tr>
         @endforeach
       </tbody>

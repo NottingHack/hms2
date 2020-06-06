@@ -41,7 +41,7 @@ Box Audit
                 @method('PATCH')
                 @csrf
               </form>
-              <i class="far fa-frown" aria-hidden="true"></i> Mark Abandoned
+              <i class="fas fa-frown" aria-hidden="true"></i> Mark Abandoned
             </a><br>
           </td>
         </tr>

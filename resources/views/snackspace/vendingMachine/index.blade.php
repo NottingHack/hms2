@@ -19,7 +19,7 @@
         <tr>
           <td data-title="Name">{{ $vendingMachine->getDescription() }}</td>
           <td calss='actions'>
-            {{-- <a class="btn btn-primary" href="{{ route('snackspace.vending-machines.show', $vendingMachine->getId()) }}"><i class="fas fa-eye" aria-hidden="true"></i> View</a>
+            {{-- <a class="btn btn-primary" href="{{ route('snackspace.vending-machines.show', $vendingMachine->getId()) }}"><i class="far fa-eye" aria-hidden="true"></i> View</a>
             @can('snackspace.vendingMachine.edit')
             <a class="btn btn-primary" href="{{ route('snackspace.vending-machines.edit', $vendingMachine->getId()) }}"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
             @endcan --}}
@@ -52,7 +52,7 @@
         <tr>
           <td data-title="Name">{{ $vendingMachine->getDescription() }}</td>
           <td calss='actions'>
-            {{-- <a class="btn btn-primary" href="{{ route('snackspace.vending-machines.show', $vendingMachine->getId()) }}"><i class="fas fa-eye" aria-hidden="true"></i> View</a>
+            {{-- <a class="btn btn-primary" href="{{ route('snackspace.vending-machines.show', $vendingMachine->getId()) }}"><i class="far fa-eye" aria-hidden="true"></i> View</a>
             @can('snackspace.vendingMachine.edit')
             <a class="btn btn-primary" href="{{ route('snackspace.vending-machines.edit', $vendingMachine->getId()) }}"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
             @endcan --}}

@@ -13,7 +13,7 @@ return [
     */
     'main' => [
         'home' => [
-            'text'          => '<i class="fas fa-home fa-lg"></i>',
+            'text'          => '<i class="fad fa-home fa-lg"></i>',
             'route'         => 'index',
             'permissions'   => [],
             'links'         => [],
@@ -26,7 +26,7 @@ return [
             'links'         => [],
         ],
         'boxes' => [
-            'text'          => 'Boxes',
+            'text'          => '<i class="fad fa-box-full fa-lg"></i>',
             'route'         => 'boxes.index',
             'match'         => 'boxes.index',
             'permissions'   => ['box.view.self'],
@@ -66,7 +66,7 @@ return [
             'links'         => [],
         ],
         'statistics' => [
-            'text' => '<i class="fas fa-chart-line fa-lg"></i>',
+            'text' => '<i class="fad fa-chart-line fa-lg"></i>',
             'permissions'   => [],
             'links'         => [
                 'membership' => [
@@ -141,7 +141,7 @@ return [
             ],
         ],
         'finance' => [
-            'text' => '<i class="far fa-money-bill fa-lg"></i>',
+            'text' => '<i class="fad fa-money-bill fa-lg"></i>',
             'permissions'   => [],
             'links'         => [
                 'joinAccounts' => [
@@ -175,7 +175,7 @@ return [
             ],
         ],
         'admin' => [
-            'text'          => '<i class="fas fa-toolbox fa-lg"></i>',
+            'text'          => '<i class="fad fa-toolbox fa-lg"></i>',
             'permissions'   => [],
             'links'         => [
                 // 'dashboard'         => [

@@ -56,8 +56,8 @@
           </div>
 
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary btn-block" :data-secret="clientSecret" :disabled="cardButtonDisable" @click="submitPayment">
-              <i class="fal fa-credit-card" aria-hidden="true"></i> Submit Payment
+            <button type="submit" class="btn btn-primary btn-lg btn-block" :data-secret="clientSecret" :disabled="cardButtonDisable" @click="submitPayment">
+              <i class="fas fa-credit-card" aria-hidden="true"></i> Submit Payment
             </button>
           </div>
         </div>

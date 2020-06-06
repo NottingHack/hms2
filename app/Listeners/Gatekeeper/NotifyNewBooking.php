@@ -4,6 +4,7 @@ namespace App\Listeners\Gatekeeper;
 
 use Carbon\Carbon;
 use HMS\Facades\Meta;
+use HMS\Entities\Role;
 use HMS\Repositories\RoleRepository;
 use App\Events\Gatekeeper\NewBooking;
 use Illuminate\Contracts\Queue\ShouldQueue;

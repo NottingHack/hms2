@@ -51,7 +51,7 @@ class BookingMade extends Notification implements ShouldQueue
         $bookableArea = $this->booking->getBookableArea();
 
         return (new MailMessage)
-            ->subject('Nottingham Hackspace: Access booking created')
+            ->subject('Nottingham Hackspace: Access Booking Created')
             ->markdown(
                 'emails.gatekeeper.booking_made',
                 [
@@ -60,7 +60,6 @@ class BookingMade extends Notification implements ShouldQueue
                     'bookableAreaName' => $bookableArea->getName(),
                     'start' => $this->booking->getStart(),
                     'end' => $this->booking->getEnd(),
-                    'approvedBy' => $this->booking->getApprovedBy()->getFullname(),
                 ]
             );
     }

@@ -37,17 +37,13 @@ class NotifyBookingRejected implements ShouldQueue
             // this was a booking that had been accepted but has now been cancelled with a reason
             // User
             $user->notify(
-                (new BookingCancelledWithReasonNotification(
-                    $event->booking,
-                    $event->reason,
-                    $event->rejectedBy
-                ))->delay($when)
+                (new BookingCancelledWithReasonNotification($event->booking, $event->reason))->delay($when)
             );
         } else {
             // this booking was not yet approved
             // User
             $user->notify(
-                (new BookingRejectedNotification($event->booking, $event->reason, $event->rejectedBy))->delay($when)
+                (new BookingRejectedNotification($event->booking, $event->reason))->delay($when)
             );
         }
     }

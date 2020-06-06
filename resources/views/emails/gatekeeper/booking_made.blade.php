@@ -1,7 +1,7 @@
 @component('mail::message')
 # Hello {{ $name }},
 
-Your have been granted access to {{ $buildingName }} by {{ $approvedBy }}.  
+You have been granted access to {{ $buildingName }}.  
 You may now visit during the times below.
 
 **Start:** {{ $start }}  

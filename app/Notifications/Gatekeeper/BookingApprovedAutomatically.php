@@ -51,7 +51,7 @@ class BookingApprovedAutomatically extends Notification implements ShouldQueue
         $bookableArea = $this->booking->getBookableArea();
 
         return (new MailMessage)
-            ->subject('Nottingham Hackspace: Access booking confirmed')
+            ->subject('Nottingham Hackspace: Access Booking Confirmed')
             ->markdown(
                 'emails.gatekeeper.booking_approved_automatically',
                 [

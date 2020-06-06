@@ -332,15 +332,15 @@
         endError: false,
         datapickerConfig: {
           icons: {
-              time: 'far fa-clock',
+              time: 'fad fa-clock',
               date: 'far fa-calendar-alt',
               up: 'fas fa-arrow-up',
               down: 'fas fa-arrow-down',
               previous: 'fas fa-chevron-left',
               next: 'fas fa-chevron-right',
-              today: 'far fa-calendar-check',
-              clear: 'far fa-trash',
-              close: 'far fa-times'
+              today: 'fad fa-calendar-check',
+              clear: 'fas fa-trash',
+              close: 'fas fa-times'
           },
           locale: 'en-gb',
           format: 'YYYY-MM-DD HH:mm',
@@ -440,7 +440,7 @@
         if (this.rejectOrCancel) {
           return 'Reject Booking Request'
         }
-        return 'Cancel Booking'
+        return 'Confirm Cancellation'
       },
     },
 
@@ -645,6 +645,8 @@
           }
         }
 
+        // TODO: need to check how long since last booking
+
         return true;
       },
 
@@ -679,12 +681,16 @@
               if (content != '') {
                 content += '<br>'
               }
-              content += 'Automatically approved.';
+              content += 'Automatically approved';
             } else {
               if (content != '') {
                 content += '<br>'
               }
-              content += 'Approved By: ' + extendedProps.approvedByName ?? ''
+              if (this.settings.view == 'ALL') {
+                content += 'Approved by: ' + extendedProps.approvedByName ?? ''
+              } else {
+                content += 'Approved'
+              }
             }
           } else {
             if (content != '') {
@@ -1769,7 +1775,7 @@
 
       // Call refetchEventsevery 15 minutes, so past events are shaded
       this.interval = setInterval(function () {
-        // TODO: once we have Echo running only really need to call this if there is an event under now Â±15
+        // TODO: once we have Echo running only really need to call this if there is an event under now ¡À15
         this.calendarApi.refetchEvents();
         this.removePopoverConfirmation();
 

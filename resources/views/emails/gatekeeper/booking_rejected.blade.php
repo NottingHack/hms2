@@ -3,7 +3,7 @@
 
 Sorry at this time your requested access to {{ $buildingName }} has been **rejected**.  
 
-{{ $rejectedBy }} gave the following reason.
+The following reason was given.
 @component('mail::panel')
 {{ $reason }}
 @endcomponent

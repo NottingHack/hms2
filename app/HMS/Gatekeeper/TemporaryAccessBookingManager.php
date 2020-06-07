@@ -80,6 +80,7 @@ class TemporaryAccessBookingManager
      * @param Carbon $end
      * @param User $user
      * @param BookableArea $bookableArea
+     * @param int $guests
      * @param string|null $notes
      * @param string|null $color
      *
@@ -90,6 +91,7 @@ class TemporaryAccessBookingManager
         Carbon $end,
         User $user,
         BookableArea $bookableArea,
+        int $guests = 0,
         ?string $notes = null,
         ?string $color = null
     ) {
@@ -195,6 +197,7 @@ class TemporaryAccessBookingManager
                 $end,
                 $user,
                 $bookableArea,
+                $guests,
                 $color,
                 $notes,
                 $approved,

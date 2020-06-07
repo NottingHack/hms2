@@ -55,9 +55,15 @@ class TemporaryAccessBooking
      */
     protected $approvedBy;
 
+    /**
+     * @var int
+     */
+    protected $guests;
+
     public function __construct()
     {
-        $this->approved = 0;
+        $this->approved = false;
+        $this->guests = 0;
     }
 
     /**
@@ -203,7 +209,7 @@ class TemporaryAccessBooking
      *
      * @return self
      */
-    public function setApproved($approved)
+    public function setApproved(bool $approved)
     {
         $this->approved = $approved;
 
@@ -226,6 +232,26 @@ class TemporaryAccessBooking
     public function setApprovedBy(?User $approvedBy)
     {
         $this->approvedBy = $approvedBy;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getGuests()
+    {
+        return $this->guests;
+    }
+
+    /**
+     * @param int $guests
+     *
+     * @return self
+     */
+    public function setGuests(int $guests)
+    {
+        $this->guests = $guests;
 
         return $this;
     }

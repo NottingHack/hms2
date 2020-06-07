@@ -86,6 +86,7 @@ class TemporaryAccessBookingController extends Controller
 
         $start = new Carbon($validatedData['start']);
         $end = new Carbon($validatedData['end']);
+
         $building = $this->buildingRepository->findOneById($validatedData['building_id']);
 
         $temporaryAccessBookings = $this->temporaryAccessBookingRepository
@@ -109,6 +110,7 @@ class TemporaryAccessBookingController extends Controller
             'user_id' => 'required|exists:HMS\Entities\User,id',
             'bookable_area_id' => 'required|nullable|exists:HMS\Entities\Gatekeeper\BookableArea,id',
             'notes' => 'nullable|string|max:250',
+            'guests' => 'required|integer|min:0',
         ]);
 
         $start = new Carbon($validatedData['start']);
@@ -116,11 +118,13 @@ class TemporaryAccessBookingController extends Controller
         $user = $this->userRepository->findOneById($validatedData['user_id']);
         $bookableArea = $this->bookableAreaRepository->findOneById($validatedData['bookable_area_id']);
 
+        \Debugbar::info($start);
         $response = $this->temporaryAccessBookingManager->book(
             $start,
             $end,
             $user,
             $bookableArea,
+            $validatedData['guests'],
             $validatedData['notes']
         );
 

@@ -4,6 +4,7 @@
 
 @section('content')
 <div class="container">
+  <p>Additional guest occupancy is only relevant when Max occupancy is 1</p>
   <div class="table-responsive no-more-tables">
     <table class="table table-bordered table-hover">
       <tbody>

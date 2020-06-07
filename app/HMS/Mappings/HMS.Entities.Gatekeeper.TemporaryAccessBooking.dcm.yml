@@ -26,6 +26,11 @@ HMS\Entities\Gatekeeper\TemporaryAccessBooking:
       type: boolean
       options:
         default: 0
+    guests:
+      type: integer
+      options:
+        unsigned: true
+        default: 0
     createdAt:
       type: datetime
       gedmo:

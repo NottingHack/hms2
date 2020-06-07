@@ -60,6 +60,7 @@ class BookingApproved extends Notification implements ShouldQueue
                     'name' => $this->booking->getUser()->getFirstname(),
                     'buildingName' => $bookableArea->getBuilding()->getName(),
                     'bookableAreaName' => $bookableArea->getName(),
+                    'guests' => $this->booking->getGuests(),
                     'start' => $this->booking->getStart(),
                     'end' => $this->booking->getEnd(),
                 ]

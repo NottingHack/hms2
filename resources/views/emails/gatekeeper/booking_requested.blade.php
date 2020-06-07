@@ -6,6 +6,7 @@
 **Start:** {{ $start }}  
 **End:** {{ $end }}  
 **Area:** {{ $bookableAreaName }}  
+**Guests:** {{ $guests }}  
 **Reason:** {{ $reason }}  
 
 @component('mail::button', ['url' => $actionUrl])

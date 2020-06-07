@@ -11,6 +11,7 @@ The following reason given.
 **Start:** {{ $start }}  
 **End:** {{ $end }}  
 **Area:** {{ $bookableAreaName }}  
+**Guests:** {{ $guests }}  
 
 Thank you,  
 HMS

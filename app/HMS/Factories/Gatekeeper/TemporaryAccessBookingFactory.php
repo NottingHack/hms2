@@ -30,6 +30,7 @@ class TemporaryAccessBookingFactory
      * @param Carbon $end
      * @param User $user
      * @param BookableArea|null $bookableArea
+     * @param int $guests
      * @param string|null $color
      * @param string|null $notes
      * @param bool $approved Default false.
@@ -42,6 +43,7 @@ class TemporaryAccessBookingFactory
         Carbon $end,
         User $user,
         ?BookableArea $bookableArea = null,
+        int $guests = 0,
         ?string $color = null,
         ?string $notes = null,
         bool $approved = false,
@@ -52,6 +54,7 @@ class TemporaryAccessBookingFactory
         $_temporaryAccessBooking->setEnd($end);
         $_temporaryAccessBooking->setUser($user);
         $_temporaryAccessBooking->setBookableArea($bookableArea);
+        $_temporaryAccessBooking->setGuests($guests);
         $_temporaryAccessBooking->setColor($color);
         $_temporaryAccessBooking->setNotes($notes);
         $_temporaryAccessBooking->setApproved($approved);

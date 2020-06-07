@@ -36,6 +36,11 @@ class BookingRequested extends Notification implements ShouldQueue
     protected $building;
 
     /**
+     * @var string
+     */
+    protected $actionUrl;
+
+    /**
      * Create a new notification instance.
      *
      * @return void
@@ -46,6 +51,13 @@ class BookingRequested extends Notification implements ShouldQueue
         $this->user = $booking->getUser();
         $this->bookableArea = $booking->getBookableArea();
         $this->building = $this->bookableArea->getBuilding();
+        $this->actionUrl = route(
+            'gatekeeper.temporary-access',
+            [
+                'date' => $this->booking->getStart()->toIsoString(),
+                'view' => 'week',
+            ]
+        ) . '#' . Str::slug($this->building->getName());
     }
 
     /**
@@ -79,11 +91,9 @@ class BookingRequested extends Notification implements ShouldQueue
                     'start' => $this->booking->getStart(),
                     'end' => $this->booking->getEnd(),
                     'bookableAreaName' => $this->bookableArea->getName(),
+                    'guests' => $this->booking->getGuests(),
                     'reason' => $this->booking->getNotes(),
-                    'actionUrl' => route(
-                        'gatekeeper.temporary-access',
-                        ['date' => $this->booking->getStart()->toIsoString()]
-                    ) . '#' . Str::slug($this->building->getName()),
+                    'actionUrl' => $this->actionUrl,
                 ]
             );
     }
@@ -108,15 +118,10 @@ class BookingRequested extends Notification implements ShouldQueue
                         'Start' => $this->booking->getStart()->toDateTimeString(),
                         'End' => $this->booking->getEnd()->toDateTimeString(),
                         'Bookable Area' => $this->bookableArea->getName(),
+                        'Guests' => $this->booking->getGuests(),
                         'Reason' => $this->booking->getNotes(),
                     ])
-                    ->title(
-                        'Review booking',
-                        route(
-                            'gatekeeper.temporary-access',
-                            ['date' => $this->booking->getStart()->toIsoString()]
-                        ) . '#' . Str::slug($this->building->getName())
-                    )
+                    ->title('Review booking', $this->actionUrl)
                     ->fallback($content)
                     ->timestamp(Carbon::now());
             });

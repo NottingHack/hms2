@@ -43,3 +43,8 @@ window.copyToClipboard = function (element) {
   document.execCommand("copy");
   $temp.remove();
 }
+
+// Enable bootstrap tool tips
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})

@@ -67,6 +67,7 @@ class BookingCancelledWithReason extends Notification implements ShouldQueue
                     'start' => $this->booking->getStart(),
                     'end' => $this->booking->getEnd(),
                     'bookableAreaName' => $bookableArea->getName(),
+                    'guests' => $this->booking->getGuests(),
                     'reason' => $this->reason,
                 ]
             );

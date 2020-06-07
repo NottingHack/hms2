@@ -6,10 +6,16 @@
       <p>To cancel a booking, click on the booking then confirm cancellation.</p> -->
       <p>Words about the current access state being <strong>{{ building.accessStateString }}</strong></p>
       <p>The maximum concurrent occupancy is currently {{ building.selfBookMaxOccupancy }}</p>
-      <p>This building has the following bookable areas.</p>
-      <p class="h4">
+      <p>This building has the following bookable areas. Hover for area occupany limits.</p>
+      <p>
         <template v-for="bookableArea in bookableAreas" >
-          <span :class="['badge', 'badge-' + bookableArea.bookingColor, 'pb-1']">{{ bookableArea.name }}</span>&nbsp;
+          <span
+            :class="['badge', 'badge-' + bookableArea.bookingColor, 'ta-badge-font-inherit', 'pb-1']"
+            data-toggle="tooltip"
+            data-html="true"
+            :title="'Occupancy:&nbsp;' + bookableArea.maxOccupancy">
+            {{ bookableArea.name }}
+          </span>&nbsp;
         </template>
       </p>
       <p v-if="settings.grant != 'ALL'">Some areas can only be booked by Trustees.</p>
@@ -44,7 +50,7 @@
         :selectMirror=true
         unselectCancel=".modal-content"
         :eventOverlap="eventOverlap"
-        defaultView="timeGridDay"
+        :defaultView="initialView"
         :defaultDate="initialDate"
         noEventsMessage="No bookings to display"
         themeSystem="bootstrap"
@@ -105,6 +111,7 @@
               </div>
               <div class="invalid-feedback d-block" role="alert" v-if="buildingError">{{ buildingError }}</div>
             </div>
+
             <div :class="['form-group', userError ? 'is-invalid' : '']" v-if="settings.grant == 'ALL'">
               <label :for="$id('user')">Select Member</label>
               <member-select-two
@@ -116,6 +123,7 @@
                 />
               <div class="invalid-feedback d-block" role="alert" v-if="userError">{{ userError }}</div>
             </div>
+
             <div :class="['form-group', bookableAreaError ? 'is-invalid' : '']" ref="bookableAreaSelectDiv">
               <label :for="$id('userId')">Select Area</label>
               <select-two
@@ -129,9 +137,49 @@
                 style="width: 100%"
                 />
               <div class="invalid-feedback d-block" role="alert" v-if="bookableAreaError">{{ bookableAreaError }}</div>
-              <small class="form-text text-muted" v-if="settings.grant != 'ALL'">Select the area of the space you will be occupying.</small>
-              <small class="form-text text-muted" v-else>Select the area of the space this member will be occupying.</small>
+              <small class="form-text text-muted">
+                <template v-if="settings.grant != 'ALL'">Select the area of the space you will be occupying.</template>
+                <template v-else>Select the area of the space this member will be occupying.</template>
+                <br>
+                <template v-if="selectedBookableArea">
+                  Area maximum occupancy: {{ selectedBookableArea.maxOccupancy }}
+                  <template v-if="selectedBookableArea.maxOccupancy == 1 && selectedBookableArea.additionalGuestOccupancy > 0">
+                    Additional guest occupancy: {{ selectedBookableArea.additionalGuestOccupancy }}
+                  </template>
+                </template>
+              </small>
             </div>
+
+            <div class="form-group">
+              <label :for="$id('guests')">Guests</label>
+              <div :id="$id('guests')" class="text-center">
+                <div class="btn-group btn-group-toggle">
+                  <label class="btn btn-lg btn-success" :class="{ active: guests === 0 }">
+                    <input
+                      type="radio"
+                      name="guests"
+                      :value="0"
+                      v-model.number="guests"
+                      >No Guests
+                  </label>
+                  <label class="btn btn-lg btn-success" :class="{ active: guests === n }" v-for="n in settings.maxGuestsPerUser">
+                    <input
+                      type="radio"
+                      name="guests"
+                      :value="n"
+                      v-model.number="guests">{{ n }}
+                  </label>
+                </div>
+              </div>
+              <div class="invalid-feedback d-block" role="alert" v-if="guestsError">{{ guestsError }}</div>
+              <small :id="$id('guestsHelpBlock')" class="form-text text-muted" v-if="settings.maxGuestsPerUser">
+                At this time you may bring up to {{ settings.maxGuestsPerUser }} guest{{ settings.maxGuestsPerUser >= 2 ? 's' : '' }} into the space.
+              </small>
+              <small :id="$id('guestsHelpBlock')" class="form-text text-muted" v-else>
+                At this time you are not allowed to bring guests into the space.
+              </small>
+            </div>
+
             <div class="form-group" v-if="building.accessState == 'REQUESTED_BOOK' || settings.grant == 'ALL'">
               <label :for="$id('notes')">{{ (settings.grant == 'ALL') ? 'Notes' : 'Reason for booking' }}</label>
               <input
@@ -148,6 +196,7 @@
                 Please give a short reason for your use of the space to help the Trustees review this request.
               </small>
             </div>
+
             <div class="form-group">
               <label :for="$id('datetimepickerstart')">Start</label>
               <div class="input-group" ref="datetimepickerstart">
@@ -167,6 +216,7 @@
               <div class="invalid-feedback d-block" role="alert" v-if="startError">{{ startError }}</div>
               <small class="form-text text-muted">Adjust the booking time if needed.</small>
             </div>
+
             <div class="form-group">
               <label :for="$id('datetimepickerend')">End</label>
               <div class="input-group" ref="datetimepickerend">
@@ -209,16 +259,19 @@
             <dl class="row" v-if="rejectOrCancelEvent">
               <dt class="col-sm-4">Bookable Area</dt>
               <dd class="col-sm-8">
-                <span :class="['badge', 'badge-' + rejectOrCancelEvent.extendedProps.bookableArea.bookingColor, 'badge-font-inherit']">
+                <span :class="['badge', 'badge-' + rejectOrCancelEvent.extendedProps.bookableArea.bookingColor, 'ta-badge-font-inherit']">
                   {{ rejectOrCancelEvent.extendedProps.bookableArea.name }}
                 </span>
               </dd>
 
               <dt class="col-sm-4">Name</dt>
-              <dd class="col-sm-8">{{ rejectOrCancelEvent.title }}</dd>
+              <dd class="col-sm-8">{{ rejectOrCancelEvent.title }}&nbsp;</dd>
 
               <dt class="col-sm-4">Reason</dt>
-              <dd class="col-sm-8">{{ rejectOrCancelEvent.extendedProps.notes }}</dd>
+              <dd class="col-sm-8">{{ rejectOrCancelEvent.extendedProps.notes }}&nbsp;</dd>
+
+              <dt class="col-sm-4">Guests</dt>
+              <dd class="col-sm-8">{{ rejectOrCancelEvent.extendedProps.guests }}</dd>
 
               <dt class="col-sm-4">Start</dt>
               <dd class="col-sm-8">{{ rejectOrCancelEvent.start | moment('YYYY-MM-DD HH:mm') }}</dd>
@@ -305,6 +358,7 @@
           momentTimezonePlugin,
           bootstrapPlugin,
         ],
+        initialView: 'timeGridDay',
         initialDate: null,
         dayAspectRatio: 0.8,
         weekAspectRatio: 1.35, // full calender default
@@ -323,12 +377,14 @@
         loader: null,
         userId: '',
         bookableAreaId: '',
+        guests: 0,
         notes: '',
         start: '',
         end: '',
         buildingError: false,
         userError: false,
         bookableAreaError: false,
+        guestsError: false,
         notesError: false,
         startError: false,
         endError: false,
@@ -431,6 +487,7 @@
           return 'Schedule a booking';
         }
       },
+
       reasonModalTitle() {
         if (this.rejectOrCancel) {
           return 'Booking rejection reason?'
@@ -467,6 +524,15 @@
       reason(newValue, oldValue) {
         this.reasonError = false;
       },
+
+      guests(newValue, oldValue) {
+        let start = moment(this.start);
+        let end = moment(this.end);
+        this.buildingError = this.checkBuildingLimits(start, end)
+        if (this.selectedBookableArea){
+          this.bookableAreaError = this.checkClashByBookalbeArea(start, end, this.bookableAreaId);
+        }
+      }
     },
 
     methods: {
@@ -621,7 +687,7 @@
         let start = moment(dropInfo.start);
         let end = moment(dropInfo.end);
 
-        let buildingError = this.checkBuildingLimits(start.clone(), end.clone(), draggedEvent.id)
+        let buildingError = this.checkBuildingLimits(start.clone(), end.clone(), draggedEvent)
         if (buildingError) {
           flash(buildingError, 'warning');
           if (this.settings.grant != 'ALL') {
@@ -630,7 +696,7 @@
         }
 
         // check bookable area limits
-        let bookableAreaError = this.checkClashByBookalbeArea(start.clone(), end.clone(), draggedEvent.extendedProps.bookableArea.id, draggedEvent.id)
+        let bookableAreaError = this.checkClashByBookalbeArea(start.clone(), end.clone(), draggedEvent.extendedProps.bookableArea.id, draggedEvent)
         if (bookableAreaError) {
           flash(bookableAreaError, 'warning');
           if (this.settings.grant != 'ALL') {
@@ -670,24 +736,44 @@
         let extendedProps = info.event.extendedProps;
 
         if (this.settings.view == 'ALL' || extendedProps.userId == this.settings.userId) {
-          let content = '';
+          let content = info.event.title;
+
+          // if (this.settings.view == 'ALL') {
+          //   if (content != '') {
+          //     content += '<br>'
+          //   }
+
+          //   content += info.event.title;
+          // }
+
           if (extendedProps.bookableArea){
             if (content != '') {
               content += '<br>'
             }
+
             content += 'Area: ' + extendedProps.bookableArea.name;
           }
+
+          // if (extendedProps.guests != undefined) {
+          //  if (content != '') {
+          //     content += '<br>'
+          //   }
+
+          //   content += 'Guests: ' + extendedProps.guests;
+          // }
 
           if (extendedProps.approved) {
             if (extendedProps.userId == extendedProps.approvedById) {
               if (content != '') {
                 content += '<br>'
               }
+
               content += 'Automatically approved';
             } else {
               if (content != '') {
                 content += '<br>'
               }
+
               if (this.settings.view == 'ALL') {
                 content += 'Approved by: ' + extendedProps.approvedByName ?? ''
               } else {
@@ -698,15 +784,15 @@
             if (content != '') {
               content += '<br>'
             }
+
             content += '<strong>This booking requires approval</strong>';
           }
-
-          // TODO: guests
 
           if (extendedProps.notes) {
             if (content != '') {
               content += '<br>'
             }
+
             content += 'Notes: ' + $('<span>' + extendedProps.notes + '</span>').text();
           }
 
@@ -834,6 +920,7 @@
           end: end.toISOString(true),
           user_id: this.userId,
           bookable_area_id: this.bookableAreaId,
+          guests: this.guests,
           notes: this.notes,
         };
 
@@ -1111,11 +1198,13 @@
           this.userId = this.settings.userId;
         }
         this.bookableAreaId = '';
+        this.guests = 0;
         this.notes = '';
         this.userError = false;
         this.startError = false;
         this.endError = false;
         this.bookableAreaError = false;
+        this.guestsError = false;
 
         this.calendarApi.unselect();
       },
@@ -1356,6 +1445,12 @@
           booking.className += ' not-editable';
         }
 
+        booking.title = 'Visitors: ' + (1 + booking.guests);
+
+        if (booking.userName) {
+          booking.title = booking.userName + " plus " + booking.guests + (booking.guests == 2 ? ' guest' : ' guests');
+        }
+
         return booking;
       },
 
@@ -1387,7 +1482,7 @@
           this.settings.userByBuildingId[this.building.id].futureCount += 1;
 
           // it will have been anonymized so let fill in our name
-          booking.title = this.settings.fullname;
+          booking.title = booking.userName + " plus " + booking.guests + (booking.guests == 2 ? ' guest' : ' guests');
         }
 
         this.calendarApi.addEvent(booking, 'bookings');
@@ -1405,7 +1500,7 @@
         // does this booking belong to us
         if (booking.userId == this.settings.userId) {
           // it will have been anonymized so let fill in our name
-          booking.title = this.settings.fullname;
+          booking.title = booking.userName + " plus " + booking.guests + (booking.guests == 2 ? ' guest' : ' guests');
         }
 
         this.calendarApi.addEvent(booking, 'bookings');
@@ -1436,7 +1531,7 @@
         // does this booking belong to us
         if (booking.userId == this.settings.userId) {
           // it will have been anonymized so let fill in our name
-          booking.title = this.settings.fullname;
+          booking.title = booking.userName + " plus " + booking.guests + (booking.guests == 2 ? ' guest' : ' guests');
         }
 
         this.calendarApi.addEvent(booking, 'bookings');
@@ -1493,18 +1588,17 @@
       /**
        * check the Building selfBookMaxOccupancy for this time period
        */
-      checkBuildingLimits(initialStart, initialEnd, ignoreEventId = null) {
+      checkBuildingLimits(initialStart, initialEnd, draggedEvent = null) {
         let start = moment(initialStart);
         let end = moment(initialEnd);
         let fiftenMinutes = moment.duration(15, 'minutes');
+        let draggedEventId = draggedEvent ? draggedEvent.id : null;
+        let draggedGuests = draggedEvent ? draggedEvent.extendedProps.guests : 0;
 
-        // console.log('checkBuildingLimits', start.toISOString(), end.toISOString(), ignoreEventId)
+        console.log('checkBuildingLimits', start.toISOString(), end.toISOString(), draggedEventId, draggedGuests);
 
         let events = this.calendarApi.getEvents(); // all the current events in the calender
-        if (ignoreEventId) {
-          events = events.filter(event => event.id != ignoreEventId);
-          // console.log('checkBuildingLimits:ignoreEventId', events);
-        }
+        events = events.filter(event => event.id != draggedEventId);
 
         let result = false;
         // to work through the events by 15 minute slots
@@ -1523,8 +1617,8 @@
 
 
           // TODO: guests
-          // check filteredEvents counts vs selfBookMaxOccupancy
-          if (filteredEvents.length >= this.building.selfBookMaxOccupancy) {
+          // check filteredEvents counts + booking guests + this.guests vs selfBookMaxOccupancy
+          if (this.calculateOccupancyForBookings(filteredEvents) + this.guests + draggedGuests >= this.building.selfBookMaxOccupancy) {
             result =  'Maximum building concurrent occupancy limit is ' + this.building.selfBookMaxOccupancy + '.';
             break;
           }
@@ -1539,12 +1633,14 @@
       /**
        * if a booking area has been selected, we can check that overlap does not exceed the area limits
        */
-      checkClashByBookalbeArea(initialStart, initialEnd, bookableAreaId, ignoreEventId = null) {
+      checkClashByBookalbeArea(initialStart, initialEnd, bookableAreaId, draggedEvent = null) {
         let start = moment(initialStart);
         let end = moment(initialEnd);
         let fiftenMinutes = moment.duration(15, 'minutes');
+        let draggedEventId = draggedEvent ? draggedEvent.id : null;
+        let draggedGuests = draggedEvent ? draggedEvent.extendedProps.guests : 0;
 
-        // console.log('checkClashByBookalbeArea', start.toISOString(), end.toISOString(), bookableAreaId, ignoreEventId);
+        console.log('checkClashByBookalbeArea', start.toISOString(), end.toISOString(), bookableAreaId, draggedEventId, draggedGuests);
 
         // need to check for overlap with other events for this.bookableAreaId
         if (bookableAreaId == '') {
@@ -1559,10 +1655,7 @@
         let events = this.calendarApi.getEvents(); // all the current events in the calender
         // filter events by this bookable area
         events = events.filter(event => (event.extendedProps.bookableArea && event.extendedProps.bookableArea.id) == selectedBookableArea.id);
-        if (ignoreEventId) {
-          events = events.filter(event => event.id != ignoreEventId);
-          // console.log('checkClashByBookalbeAre:ignoreEventId', events);
-        }
+        events = events.filter(event => event.id != draggedEventId);
 
         let result = false;
         // to work through the events by 15 minute slots
@@ -1580,9 +1673,14 @@
               (eventStart.isAfter(start) && eventStart.isBefore(filterEnd));
           });
 
-          // TODO: guests
-          // check filteredEvents counts vs maxOccupancy
-          if (filteredEvents.length >= selectedBookableArea.maxOccupancy) {
+
+          if (selectedBookableArea.maxOccupancy == 1 && selectedBookableArea.additionalGuestOccupancy != 0) {
+            if (this.calculateOccupancyForBookings(filteredEvents) != 0 || this.guests + draggedGuests > selectedBookableArea.additionalGuestOccupancy) {
+              result =  'Area maximum concurrent occupancy limit is ' + selectedBookableArea.maxOccupancy + '.';
+              break;
+            }
+            // allowed, me + number of guest is less than me + additionalGuestOccupancy
+          } else if (this.calculateOccupancyForBookings(filteredEvents) + this.guests + draggedGuests >= selectedBookableArea.maxOccupancy) { // check filteredEvents counts + booking guests + this.guests vs maxOccupancy
             result =  'Area maximum concurrent occupancy limit is ' + selectedBookableArea.maxOccupancy + '.';
             break;
           }
@@ -1721,6 +1819,22 @@
         }
       },
 
+      /**
+       * Little helper to sum the number of bookings and there guests.
+       *
+       * @param  {Array} bookings
+       * @return {number}
+       */
+      calculateOccupancyForBookings(bookings) {
+        // console.log('calculateOccupancyForBookings', bookings);
+
+        let guests = bookings.reduce(function (sum, booking) {
+          return sum + booking.extendedProps.guests;
+        }, 0);
+
+        return bookings.length + guests;
+      },
+
       /* SELECT TWO AREA FORMAT *******************************/
       formatBookableArea(bookableArea) {
         if (bookableArea.id === '') {
@@ -1750,6 +1864,17 @@
 
       if (params.get('date') && moment(params.get('date'), moment.ISO_8601).isValid()) {
         this.initialDate = params.get('date');
+      }
+
+      if (params.get('view')) {
+        switch (params.get('view')) {
+          case 'day':
+            this.initialView = 'timeGridDay';
+            break;
+          case 'week':
+            this.initialView = 'timeGridWeek';
+            break;
+        }
       }
     },
 
@@ -1854,4 +1979,7 @@
   font-size: inherit
 }
 
+.fc-mirror {
+  background-color: rgba(55, 136, 216, 0.60)
+}
 </style>

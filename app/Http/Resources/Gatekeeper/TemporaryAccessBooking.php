@@ -34,17 +34,18 @@ class TemporaryAccessBooking extends JsonResource
             'color' => $this->getColor(),
             'bookableArea' => $this->getBookableArea() ? new BookableAreaResource($this->getBookableArea()) : null,
             'approved' => $this->isApproved(),
+            'guests' => $this->getGuests(),
             $this->mergeWhen(
                 $allowSensative,
                 [
-                    'title' => $this->getUser()->getFullname(),
+                    'userName' => $this->getUser()->getFullname(),
                     'notes' => $this->getNotes(),
+                    'approvedById' => $this->getApprovedBy() ? $this->getApprovedBy()->getId() : null,
                 ]
             ),
             $this->mergeWhen(
                 $allowAll,
                 [
-                    'approvedById' => $this->getApprovedBy() ? $this->getApprovedBy()->getId() : null,
                     'approvedByName' => $this->getApprovedBy() ? $this->getApprovedBy()->getFullname() : null,
                 ]
             ),

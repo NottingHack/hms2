@@ -118,9 +118,9 @@
         this.$emit('change', val);
       },
 
-      mySelectEvent({id, text}) {
-        // console.log('mst:mySelectEvent', {id, text})
-        this.$emit('select', {id, text});
+      mySelectEvent(data) {
+        // console.log('mst:mySelectEvent', data)
+        this.$emit('select', data);
       },
 
       formatUser (user) {

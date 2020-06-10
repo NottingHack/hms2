@@ -118,7 +118,6 @@ class TemporaryAccessBookingController extends Controller
         $user = $this->userRepository->findOneById($validatedData['user_id']);
         $bookableArea = $this->bookableAreaRepository->findOneById($validatedData['bookable_area_id']);
 
-        \Debugbar::info($start);
         $response = $this->temporaryAccessBookingManager->book(
             $start,
             $end,

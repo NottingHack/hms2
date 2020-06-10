@@ -75,7 +75,7 @@
        * @param message
        * @param type
        */
-      flash(message, type) {
+      flash(message, type = 'success') {
         if (this.lastMessage == message) {
           return;
         }

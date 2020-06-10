@@ -962,10 +962,10 @@
               }
 
               if (responseBooking.approved) {
-                flash('Booking created');
+                flash('Booking created', 'success');
               } else {
                 //TODO: show a bigger alert to let the user know what happens next
-                flash('Booking requested');
+                flash('Booking requested', 'success');
               }
 
             } else {
@@ -1011,7 +1011,7 @@
           .then((response) => {
             if (response.status == '200') { // HTTP_OK
               const responseBooking = this.mapBookings(response.data.data);
-              flash('Booking updated');
+              flash('Booking updated', 'success');
               console.log('patchBooking', 'Booking Updated OK');
               // think patch does not need anything doing to confirm
 
@@ -1078,7 +1078,7 @@
         })
           .then((response) => {
             if (response.status == '204') { // HTTP_NO_CONTENT
-              flash('Booking cancelled');
+              flash('Booking cancelled', 'success');
               // console.log('cancelBooking', 'Booking deleted');
 
               const foundEvent = this.calendarApi.getEventById(event.id);
@@ -1133,7 +1133,7 @@
           .then((response) => {
             if (response.status == '200') { // HTTP_OK
               const responseBooking = this.mapBookings(response.data.data);
-              flash('Booking approved');
+              flash('Booking approved', 'success');
               console.log('approveBooking', 'Booking Updated OK');
 
               // replace the event to update the editable, style and props etc
@@ -1619,7 +1619,7 @@
           // TODO: guests
           // check filteredEvents counts + booking guests + this.guests vs selfBookMaxOccupancy
           if (this.calculateOccupancyForBookings(filteredEvents) + this.guests + draggedGuests >= this.building.selfBookMaxOccupancy) {
-            result =  'Maximum building concurrent occupancy limit is ' + this.building.selfBookMaxOccupancy + '.';
+            result = 'Maximum building concurrent occupancy limit is ' + this.building.selfBookMaxOccupancy + '.';
             break;
           }
 
@@ -1676,12 +1676,12 @@
 
           if (selectedBookableArea.maxOccupancy == 1 && selectedBookableArea.additionalGuestOccupancy != 0) {
             if (this.calculateOccupancyForBookings(filteredEvents) != 0 || this.guests + draggedGuests > selectedBookableArea.additionalGuestOccupancy) {
-              result =  'Area maximum concurrent occupancy limit is ' + selectedBookableArea.maxOccupancy + '.';
+              result = 'Area maximum concurrent occupancy limit is ' + selectedBookableArea.maxOccupancy + '.';
               break;
             }
             // allowed, me + number of guest is less than me + additionalGuestOccupancy
           } else if (this.calculateOccupancyForBookings(filteredEvents) + this.guests + draggedGuests >= selectedBookableArea.maxOccupancy) { // check filteredEvents counts + booking guests + this.guests vs maxOccupancy
-            result =  'Area maximum concurrent occupancy limit is ' + selectedBookableArea.maxOccupancy + '.';
+            result = 'Area maximum concurrent occupancy limit is ' + selectedBookableArea.maxOccupancy + '.';
             break;
           }
 

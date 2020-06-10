@@ -237,7 +237,7 @@ class BookingManager
         //     return 'Your booking request clashes with another booking. No booking has been made.';
         // }
 
-        $orignalBooking = $booking;
+        $orignalBooking = $booking; // save original < this may not do what i think!!!
 
         // all check passed lets update it
         $booking->setStart($start);

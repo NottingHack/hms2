@@ -5,6 +5,7 @@ namespace HMS\Repositories\Gatekeeper;
 use Carbon\Carbon;
 use HMS\Entities\User;
 use HMS\Entities\Gatekeeper\Building;
+use HMS\Entities\Gatekeeper\BookableArea;
 use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
 
 interface TemporaryAccessBookingRepository
@@ -17,36 +18,6 @@ interface TemporaryAccessBookingRepository
     public function findOneById($id);
 
     /**
-     * Check for any Bookings that would clash with a given start and end time.
-     *
-     * @param User $user
-     * @param Carbon $start
-     * @param Carbon $end
-     *
-     * @return TemporaryAccessBooking[]
-     */
-    public function checkForClashByUser(User $user, Carbon $start, Carbon $end);
-
-    /**
-     * Check for any Bookings that would clash with a given start and end time.
-     *
-     * @param User $user
-     * @param Building $building
-     * @param Carbon $start
-     * @param Carbon $end
-     *
-     * @return TemporaryAccessBooking[]
-     */
-    public function checkForClashByUserForBuilding(User $user, Building $building, Carbon $start, Carbon $end);
-
-    /**
-     * Get any current bookings.
-     *
-     * @return TemporaryAccessBooking[]
-     */
-    public function findCurrent();
-
-    /**
      * Count future bookings for a User on a given Building.
      *
      * @param Building $building
@@ -54,7 +25,7 @@ interface TemporaryAccessBookingRepository
      *
      * @return int
      */
-    public function countFutureByBuildingAndUser(Building $building, User $user): int;
+    public function countFutureForBuildingAndUser(Building $building, User $user): int;
 
     /**
      * Count future bookings for a User grouped by Building id's.
@@ -85,11 +56,38 @@ interface TemporaryAccessBookingRepository
     /**
      * @param Carbon $start
      * @param Carbon $end
+     *
+     * @return TemporaryAccessBooking[]
+     */
+    // public function findBetweenWhereApproved(Carbon $start, Carbon $end);
+
+    /**
+     * @param Carbon $start
+     * @param Carbon $end
      * @param Building $building
      *
      * @return TemporaryAccessBooking[]
      */
     public function findBetweenForBuilding(Carbon $start, Carbon $end, Building $building);
+
+    /**
+     * @param Carbon $start
+     * @param Carbon $end
+     * @param Building $building
+     * @param User $user
+     *
+     * @return TemporaryAccessBooking[]
+     */
+    public function findBetweenForBuildingAndUser(Carbon $start, Carbon $end, Building $building, User $user);
+
+    /**
+     * @param Carbon $start
+     * @param Carbon $end
+     * @param BookableArea $bookableArea
+     *
+     * @return TemporaryAccessBooking[]
+     */
+    public function findBetweenForBookableArea(Carbon $start, Carbon $end, BookableArea $bookableArea);
 
     /**
      * Save TemporaryAccessBooking to the DB.

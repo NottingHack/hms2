@@ -8,6 +8,7 @@ use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Gatekeeper\Building;
 use Doctrine\Common\Collections\Criteria;
+use HMS\Entities\Gatekeeper\BookableArea;
 use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
 use HMS\Repositories\Gatekeeper\TemporaryAccessBookingRepository;
 
@@ -24,108 +25,6 @@ class DoctrineTemporaryAccessBookingRepository extends EntityRepository implemen
     }
 
     /**
-     * Check for any Bookings that would clash with a given start and end time.
-     *
-     * @param User $user
-     * @param Carbon $start
-     * @param Carbon $end
-     *
-     * @return TemporaryAccessBooking[]
-     */
-    public function checkForClashByUser(User $user, Carbon $start, Carbon $end)
-    {
-        $expr = Criteria::expr();
-        $criteria = Criteria::create()
-            ->where($expr->eq('user', $user))
-            ->andWhere(
-                $expr->orX(
-                    $expr->andX(
-                        $expr->lte('start', $start),
-                        $expr->gt('end', $start)
-                    ),
-                    $expr->andX(
-                        $expr->lt('start', $end),
-                        $expr->gte('end', $end)
-                    ),
-                    $expr->andX(
-                        $expr->gt('start', $start),
-                        $expr->lt('start', $end)
-                    )
-                )
-            )
-            ->orderBy(['start' => Criteria::ASC]);
-
-        return $this->matching($criteria)->toArray();
-    }
-
-    /**
-     * Check for any Bookings that would clash with a given start and end time.
-     *
-     * @param User $user
-     * @param Building $building
-     * @param Carbon $start
-     * @param Carbon $end
-     *
-     * @return TemporaryAccessBooking[]
-     */
-    public function checkForClashByUserForBuilding(User $user, Building $building, Carbon $start, Carbon $end)
-    {
-        $expr = Criteria::expr();
-        $criteria = Criteria::create()
-            ->where($expr->eq('user', $user))
-            ->andWhere(
-                $expr->orX(
-                    $expr->andX(
-                        $expr->lte('start', $start),
-                        $expr->gt('end', $start)
-                    ),
-                    $expr->andX(
-                        $expr->lt('start', $end),
-                        $expr->gte('end', $end)
-                    ),
-                    $expr->andX(
-                        $expr->gt('start', $start),
-                        $expr->lt('start', $end)
-                    )
-                )
-            )
-            ->orderBy(['start' => Criteria::ASC]);
-
-        $qb = parent::createQueryBuilder('temporaryAccessBooking');
-        $qbExpr = $qb->expr();
-        $qb->innerJoin('temporaryAccessBooking.bookableArea', 'bookableArea')
-            ->addCriteria($criteria)
-            ->andWhere($qbExpr->eq('bookableArea.building', ':building'));
-
-        $q = $qb->setParameter('building', $building)
-            ->getQuery();
-
-        return $q->getResult();
-    }
-
-    /**
-     * Get any current bookings.
-     *
-     * @return TemporaryAccessBooking[]
-     */
-    public function findCurrent()
-    {
-        $now = Carbon::now();
-
-        $expr = Criteria::expr();
-        $criteria = Criteria::create()
-            ->where(
-                $expr->andX(
-                    $expr->lte('start', $now),
-                    $expr->gte('end', $now)
-                )
-            )
-            ->orderBy(['start' => Criteria::ASC]);
-
-        return $this->matching($criteria)->toArray();
-    }
-
-    /**
      * Count future bookings for a User on a given Building.
      *
      * @param Building $building
@@ -133,7 +32,7 @@ class DoctrineTemporaryAccessBookingRepository extends EntityRepository implemen
      *
      * @return int
      */
-    public function countFutureByBuildingAndUser(Building $building, User $user): int
+    public function countFutureForBuildingAndUser(Building $building, User $user): int
     {
         $now = Carbon::now();
         // can not use Criteria cause of the join :(
@@ -142,16 +41,15 @@ class DoctrineTemporaryAccessBookingRepository extends EntityRepository implemen
 
         $qb->select('COUNT(temporaryAccessBooking.id)')
             ->innerJoin('temporaryAccessBooking.bookableArea', 'bookableArea')
-            ->where(
+            ->addCriteria($this->byUser($user))
+            ->andWhere(
                 $expr->andX(
                     $expr->eq('bookableArea.building', ':building'),
-                    $expr->eq('temporaryAccessBooking.user', ':user'),
                     $expr->gte('temporaryAccessBooking.end', ':now')
                 )
             );
 
         $qb->setParameter('building', $building)
-            ->setParameter('user', $user)
             ->setParameter('now', $now);
 
         return (int) $qb->getQuery()->getSingleScalarResult();
@@ -168,12 +66,13 @@ class DoctrineTemporaryAccessBookingRepository extends EntityRepository implemen
     {
         $now = Carbon::now();
         $qb = parent::createQueryBuilder('temporaryAccessBooking');
+        $expr = $qb->expr();
 
         $subQuery = $qb->select('COUNT(temporaryAccessBooking.id)')
             ->innerJoin('temporaryAccessBooking.bookableArea', 'bookableArea')
-            ->where('bookableArea.building = b.id')
-            ->andWhere('temporaryAccessBooking.user = :user')
-            ->andWhere('temporaryAccessBooking.end >= :now')
+            ->addCriteria($this->byUser($user))
+            ->andwhere('bookableArea.building = b.id') // not an expr as we dont want to bind a param
+            ->andWhere($expr->gte('temporaryAccessBooking.end', ':now'))
             ->getDQL();
 
         $qb1 = $this->_em->createQueryBuilder();
@@ -181,7 +80,7 @@ class DoctrineTemporaryAccessBookingRepository extends EntityRepository implemen
             ->addSelect('(' . $subQuery . ') AS booking_count')
             ->from(Building::class, 'b');
 
-        $qb1->setParameter('user', $user)
+        $qb1->setParameter('user', $user) // lost :user when getDQL on the sub query
             ->setParameter('now', $now);
 
         $results = $qb1->getQuery()->getResult();
@@ -218,20 +117,20 @@ class DoctrineTemporaryAccessBookingRepository extends EntityRepository implemen
         $results = [];
 
         foreach ($resultsEnd as $end) {
-            $qb1 = parent::createQueryBuilder('tab');
+            $qb2 = parent::createQueryBuilder('tab');
 
-            $qb1->leftJoin('tab.bookableArea', 'ba')
+            $qb2->leftJoin('tab.bookableArea', 'ba')
                 ->leftJoin('ba.building', 'b')
                 ->where('tab.user = :user')
                 ->andWhere('b.id = :building_id')
                 ->andWhere('tab.end = :end')
                 ->setMaxResults(1);
 
-            $qb1->setParameter('user', $user)
+            $qb2->setParameter('user', $user)
                 ->setParameter('building_id', $end['building_id'])
                 ->setParameter('end', $end['end']);
 
-            $booking = $qb1->getQuery()->getSingleResult();
+            $booking = $qb2->getQuery()->getSingleResult();
             $results[$end['building_id']] = $booking;
         }
 
@@ -246,22 +145,12 @@ class DoctrineTemporaryAccessBookingRepository extends EntityRepository implemen
      */
     public function findBetween(Carbon $start, Carbon $end)
     {
-        $q = parent::createQueryBuilder('temporaryAccessBooking');
+        $qb = parent::createQueryBuilder('temporaryAccessBooking');
 
-        $expr = $q->expr();
-        $q = $q->where($expr->between('temporaryAccessBooking.start', ':start', ':end'))
-            ->orWhere($expr->between('temporaryAccessBooking.end', ':start', ':end'))
-            ->orWhere(
-                $expr->andX(
-                    $expr->lte('temporaryAccessBooking.start', ':start'),
-                    $expr->gte('temporaryAccessBooking.end', ':end')
-                )
-            )
-            ->orderBy('temporaryAccessBooking.start', 'ASC');
+        $expr = $qb->expr();
+        $qb->addCriteria($this->between($start, $end));
 
-        $q = $q->setParameter('start', $start)
-            ->setParameter('end', $end)
-            ->getQuery();
+        $q = $qb->getQuery();
 
         return $q->getResult();
     }
@@ -275,24 +164,60 @@ class DoctrineTemporaryAccessBookingRepository extends EntityRepository implemen
      */
     public function findBetweenForBuilding(Carbon $start, Carbon $end, Building $building)
     {
-        $q = parent::createQueryBuilder('temporaryAccessBooking');
+        $qb = parent::createQueryBuilder('temporaryAccessBooking');
 
-        $expr = $q->expr();
-        $q = $q->innerJoin('temporaryAccessBooking.bookableArea', 'bookableArea')
-            ->where($expr->between('temporaryAccessBooking.start', ':start', ':end'))
-            ->orWhere($expr->between('temporaryAccessBooking.end', ':start', ':end'))
-            ->orWhere(
-                $expr->andX(
-                    $expr->lte('temporaryAccessBooking.start', ':start'),
-                    $expr->gte('temporaryAccessBooking.end', ':end')
-                )
-            )
-            ->andWhere($expr->eq('bookableArea.building', ':building'))
-            ->orderBy('temporaryAccessBooking.start', 'ASC');
+        $expr = $qb->expr();
+        $qb->innerJoin('temporaryAccessBooking.bookableArea', 'bookableArea')
+            ->addCriteria($this->between($start, $end))
+            ->andWhere($expr->eq('bookableArea.building', ':building'));
 
-        $q = $q->setParameter('start', $start)
-            ->setParameter('end', $end)
-            ->setParameter('building', $building)
+        $q = $qb->setParameter('building', $building)
+            ->getQuery();
+
+        return $q->getResult();
+    }
+
+    /**
+     * @param Carbon $start
+     * @param Carbon $end
+     * @param Building $building
+     * @param User $user
+     *
+     * @return TemporaryAccessBooking[]
+     */
+    public function findBetweenForBuildingAndUser(Carbon $start, Carbon $end, Building $building, User $user)
+    {
+        $qb = parent::createQueryBuilder('temporaryAccessBooking');
+        $expr = $qb->expr();
+
+        $qb->innerJoin('temporaryAccessBooking.bookableArea', 'bookableArea')
+            ->addCriteria($this->between($start, $end))
+            ->addCriteria($this->byUser($user))
+            ->andWhere($expr->eq('bookableArea.building', ':building'));
+
+        $q = $qb->setParameter('building', $building)
+            ->getQuery();
+
+        return $q->getResult();
+    }
+
+    /**
+     * @param Carbon $start
+     * @param Carbon $end
+     * @param BookableArea $bookableArea
+     *
+     * @return TemporaryAccessBooking[]
+     */
+    public function findBetweenForBookableArea(Carbon $start, Carbon $end, BookableArea $bookableArea)
+    {
+        $qb = parent::createQueryBuilder('temporaryAccessBooking');
+        $expr = $qb->expr();
+
+        $qb->innerJoin('temporaryAccessBooking.bookableArea', 'bookableArea')
+            ->addCriteria($this->between($start, $end))
+            ->andWhere($expr->eq('bookableArea', ':bookableArea'));
+
+        $q = $qb->setParameter('bookableArea', $bookableArea)
             ->getQuery();
 
         return $q->getResult();
@@ -318,5 +243,44 @@ class DoctrineTemporaryAccessBookingRepository extends EntityRepository implemen
     {
         $this->_em->remove($temporaryAccessBooking);
         $this->_em->flush();
+    }
+
+    /**
+     * Criteria to filter between to dates.
+     *
+     * @param Carbon $start
+     * @param Carbon $end
+     *
+     * @return Criteria
+     */
+    protected function between(Carbon $start, Carbon $end)
+    {
+        $expr = Criteria::expr();
+        $criteria = Criteria::create()
+            ->where(
+                $expr->andX(
+                    $expr->lt('start', $end),
+                    $expr->gt('end', $start)
+                )
+            )
+            ->orderBy(['start' => Criteria::ASC]);
+
+        return $criteria;
+    }
+
+    /**
+     * Criteria to filter by User.
+     *
+     * @param User $user
+     * @param Carbon $end
+     *
+     * @return Criteria
+     */
+    protected function byUser(User $user)
+    {
+        $expr = Criteria::expr();
+
+        return Criteria::create()
+            ->where($expr->eq('user', $user));
     }
 }

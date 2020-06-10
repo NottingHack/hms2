@@ -19,7 +19,9 @@ mix.sourceMaps()
    .webpackConfig({
         devtool: 'source-map',
         plugins: [
-            new MomentLocalesPlugin(), // To strip all locales except “en”
+            new MomentLocalesPlugin({ // To strip all locales except “en-gb”
+                localesToKeep: ['en-gb'],
+            }),
             new WebpackShellPluginNext({
                 onBuildStart: {
                     scripts: ['php artisan ziggy:generate resources/js/ziggy.js'],

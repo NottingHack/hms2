@@ -44,6 +44,7 @@
         @eventResize="eventResize"
         :datesDestroy="removePopoverConfirmation"
         :eventRender="eventRender"
+        :eventDestroy="eventDestroy"
 
         :selectOverlap=true
         :selectable="selectable"
@@ -730,7 +731,7 @@
 
       eventRender: function (info) {
         // console.log('eventRender', info);
-        if (info.isMirror) {
+        if (info.isMirror || info.event.rendering == 'background') {
           return;
         }
         let extendedProps = info.event.extendedProps;
@@ -807,6 +808,12 @@
             });
           }
         }
+      },
+
+      eventDestroy(info) {
+        // console.log('eventDestroy', info)
+        $(info.el).tooltip('dispose');
+        $(info.el).confirmation('dispose');
       },
 
       /**

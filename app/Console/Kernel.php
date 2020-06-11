@@ -5,12 +5,12 @@ namespace App\Console;
 use App\Jobs\EmailTeamReminderJob;
 use App\Jobs\Snackspace\LogDebtJob;
 use App\Jobs\Banking\MembershipAuditJob;
-use App\Jobs\Gatekeeper\TemporaryAccessJob;
 use Illuminate\Console\Scheduling\Schedule;
 use App\Jobs\Gatekeeper\ZoneOccupantResetJob;
 use App\Jobs\Membership\AuditYoungHackersJob;
 use App\Jobs\Snackspace\MemberDebtNotificationJob;
 use App\Jobs\Governance\RecalculateMeetingQuorumJob;
+use App\Jobs\Gatekeeper\UpdateTemporaryAccessRoleJob;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
@@ -55,7 +55,7 @@ class Kernel extends ConsoleKernel
         $schedule->job(new EmailTeamReminderJob)->weeklyOn(2, '7:27');
         $schedule->job(new RecalculateMeetingQuorumJob)->everyFiveMinutes()
             ->environments(['local', 'rommie', 'production']);
-        $schedule->job(new TemporaryAccessJob)->everyFiveMinutes()
+        $schedule->job(new UpdateTemporaryAccessRoleJob)->everyFiveMinutes()
             ->environments(['local', 'rommie', 'production']);
     }
 

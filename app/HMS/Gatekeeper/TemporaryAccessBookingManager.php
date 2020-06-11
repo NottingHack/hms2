@@ -3,15 +3,11 @@
 namespace HMS\Gatekeeper;
 
 use Carbon\Carbon;
-use HMS\Entities\Role;
 use HMS\Entities\User;
 use Carbon\CarbonInterval;
-use Illuminate\Support\Facades\Log;
 use HMS\Repositories\MetaRepository;
-use HMS\Repositories\RoleRepository;
 use App\Events\Gatekeeper\NewBooking;
 use HMS\Entities\Gatekeeper\Building;
-use HMS\User\Permissions\RoleManager;
 use App\Events\Gatekeeper\BookingChanged;
 use HMS\Entities\Gatekeeper\BookableArea;
 use App\Events\Gatekeeper\BookingApproved;
@@ -35,16 +31,6 @@ class TemporaryAccessBookingManager
     protected $temporaryAccessBookingFactory;
 
     /**
-     * @var RoleManager
-     */
-    protected $roleManager;
-
-    /**
-     * @var RoleRepository
-     */
-    protected $roleRepository;
-
-    /**
      * @var MetaRepository
      */
     protected $metaRepository;
@@ -54,22 +40,15 @@ class TemporaryAccessBookingManager
      *
      * @param TemporaryAccessBookingRepository $temporaryAccessBookingRepository
      * @param TemporaryAccessBookingFactory $temporaryAccessBookingFactory
-     * @param RoleManager $roleManager
-     * @param RoleRepository $roleRepository
-     * @param MetaRepository $metaRepository
      * @param MetaRepository $metaRepository
      */
     public function __construct(
         TemporaryAccessBookingRepository $temporaryAccessBookingRepository,
         TemporaryAccessBookingFactory $temporaryAccessBookingFactory,
-        RoleManager $roleManager,
-        RoleRepository $roleRepository,
         MetaRepository $metaRepository
     ) {
         $this->temporaryAccessBookingRepository = $temporaryAccessBookingRepository;
         $this->temporaryAccessBookingFactory = $temporaryAccessBookingFactory;
-        $this->roleManager = $roleManager;
-        $this->roleRepository = $roleRepository;
         $this->metaRepository = $metaRepository;
     }
 
@@ -638,60 +617,6 @@ class TemporaryAccessBookingManager
     }
 
     /**
-     * Update user.temporaryAccess role for User that are currently booked.
-     */
-    public function updateTemporaryAccessRole()
-    {
-        $temporaryAccessRole = $this->roleRepository->findOneByName(Role::TEMPORARY_ACCESS);
-
-        $currentTemporaryAccessBookings = collect($this->temporaryAccessBookingRepository->findBetween(
-            Carbon::now()->subMinutes(10),
-            Carbon::now()->addMinutes(10)
-        ));
-
-        // filter not approved
-        $currentTemporaryAccessBookings = $currentTemporaryAccessBookings->filter->isApproved();
-
-        $currentTemporaryAccessUsers = $currentTemporaryAccessBookings->map->getUser();
-
-        // $currentTemporaryAccessUsers = array_map(function ($tba) {
-        //     return $tba->getUser();
-        // }, $currentTemporaryAccessBookings);
-
-        // remove any users that are not currently booked
-        $resetUserCount = 0;
-        foreach ($temporaryAccessRole->getUsers() as $user) {
-            if (! $currentTemporaryAccessUsers->contains($user)) {
-                $this->roleManager->removeUserFromRole($user, $temporaryAccessRole);
-                $resetUserCount++;
-            }
-        }
-
-        if ($resetUserCount) {
-            Log::info(
-                'TemporaryAccessBookingManager@updateTemporaryAccessRole: Removed temporary access for '
-                . $resetUserCount . ' users.'
-            );
-        }
-
-        // add role to any user that does not currently have it
-        $addUserCount = 0;
-        foreach ($currentTemporaryAccessUsers as $user) {
-            if (! $user->hasRole($temporaryAccessRole)) {
-                $this->roleManager->addUserToRole($user, $temporaryAccessRole);
-                $addUserCount++;
-            }
-        }
-
-        if ($addUserCount) {
-            Log::info(
-                'TemporaryAccessBookingManager@updateTemporaryAccessRole: Added temporary access for '
-                . $addUserCount . ' users.'
-            );
-        }
-    }
-
-    /**
      * Remove all future Bookings for a buildings BookableAreas.
      *
      * @param Building $building
@@ -702,7 +627,7 @@ class TemporaryAccessBookingManager
     }
 
     /**
-     * Unapprove future Bookings for a Buildings BookableAreas unless the Booking User can gatekeeper.access.manage.
+     * Un-approve future Bookings for a Buildings BookableAreas unless the Booking User can gatekeeper.access.manage.
      *
      * @param Building $building
      */

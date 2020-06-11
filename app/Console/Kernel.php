@@ -12,6 +12,7 @@ use App\Jobs\Snackspace\MemberDebtNotificationJob;
 use App\Jobs\Governance\RecalculateMeetingQuorumJob;
 use App\Jobs\Gatekeeper\UpdateTemporaryAccessRoleJob;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Jobs\Gatekeeper\TemporaryAcccessCheckZoneOccupancyJob;
 
 class Kernel extends ConsoleKernel
 {
@@ -56,6 +57,8 @@ class Kernel extends ConsoleKernel
         $schedule->job(new RecalculateMeetingQuorumJob)->everyFiveMinutes()
             ->environments(['local', 'rommie', 'production']);
         $schedule->job(new UpdateTemporaryAccessRoleJob)->everyFiveMinutes()
+            ->environments(['local', 'rommie', 'production']);
+        $schedule->job(new TemporaryAcccessCheckZoneOccupancyJob)->everyFiveMinutes()
             ->environments(['local', 'rommie', 'production']);
     }
 

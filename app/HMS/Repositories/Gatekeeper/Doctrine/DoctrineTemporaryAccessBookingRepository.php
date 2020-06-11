@@ -138,6 +138,34 @@ class DoctrineTemporaryAccessBookingRepository extends EntityRepository implemen
     }
 
     /**
+     * Find the latest booking for a User on a given building that has a start before the given time.
+     *
+     * @param Carbon   $before
+     * @param Building $building
+     * @param User     $user
+     *
+     * @return null|TemporaryAccessBooking
+     */
+    public function latestBeforeDatetimeForBuildingAndUser(Carbon $before, Building $building, User $user)
+    {
+        $qb = parent::createQueryBuilder('temporaryAccessBooking');
+
+        $expr = $qb->expr();
+        $qb->innerJoin('temporaryAccessBooking.bookableArea', 'bookableArea')
+            ->addCriteria($this->byUser($user))
+            ->andwhere($expr->lt('temporaryAccessBooking.start', ':before'))
+            ->andWhere($expr->eq('bookableArea.building', ':building'))
+            ->orderBy('temporaryAccessBooking.end', Criteria::DESC)
+            ->setMaxResults(1);
+
+        $q = $qb->setParameter('building', $building)
+            ->setParameter('before', $before)
+            ->getQuery();
+
+        return $q->getOneOrNullResult();
+    }
+
+    /**
      * @param Carbon $start
      * @param Carbon $end
      *

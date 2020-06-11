@@ -122,6 +122,46 @@ class Building implements ArrayableContract, JsonSerializable
     }
 
     /**
+     * Is the access state FULL_OPEN.
+     *
+     * @return bool
+     */
+    public function isFullOpen(): bool
+    {
+        return $this->accessState == BuildingAccessState::FULL_OPEN;
+    }
+
+    /**
+     * Is the access state SELF_BOOK.
+     *
+     * @return bool
+     */
+    public function isSelfBook(): bool
+    {
+        return $this->accessState == BuildingAccessState::SELF_BOOK;
+    }
+
+    /**
+     * Is the access state REQUESTED_BOOK.
+     *
+     * @return bool
+     */
+    public function isRequestedBook(): bool
+    {
+        return $this->accessState == BuildingAccessState::REQUESTED_BOOK;
+    }
+
+    /**
+     * Is the access state CLOSED.
+     *
+     * @return bool
+     */
+    public function isClosed(): bool
+    {
+        return $this->accessState == BuildingAccessState::CLOSED;
+    }
+
+    /**
      * @param string $accessState
      *
      * @return self

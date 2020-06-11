@@ -46,12 +46,15 @@ interface TemporaryAccessBookingRepository
     public function latestBookingForUserByBuildings(User $user);
 
     /**
-     * @param Carbon $start
-     * @param Carbon $end
+     * Find the latest booking for a User on a given building that has a start before the given time.
      *
-     * @return TemporaryAccessBooking[]
+     * @param Carbon   $before
+     * @param Building $building
+     * @param User     $user
+     *
+     * @return null|TemporaryAccessBooking
      */
-    public function findBetween(Carbon $start, Carbon $end);
+    public function latestBeforeDatetimeForBuildingAndUser(Carbon $before, Building $building, User $user);
 
     /**
      * @param Carbon $start
@@ -59,7 +62,7 @@ interface TemporaryAccessBookingRepository
      *
      * @return TemporaryAccessBooking[]
      */
-    // public function findBetweenWhereApproved(Carbon $start, Carbon $end);
+    public function findBetween(Carbon $start, Carbon $end);
 
     /**
      * @param Carbon $start

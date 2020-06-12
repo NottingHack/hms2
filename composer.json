@@ -27,7 +27,6 @@
         "laravel/tinker": "^2.0",
         "lwk/vimbadmin-laravel-client": "^1.1.2",
         "maxbrokman/safe-queue": "0.4.x-dev",
-        "orphans/git-deploy-laravel": "dev-master",
         "pda/pheanstalk": "~4.0",
         "php-http/guzzle6-adapter": "^1.1",
         "predis/predis": "^1.1",

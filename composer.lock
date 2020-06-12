@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "142feb46706d5760befc96198cbaa669",
+    "content-hash": "65cd4921065161e12cdb616a2ec83e44",
     "packages": [
         {
             "name": "akaunting/money",
@@ -3904,45 +3904,6 @@
                 "serialize"
             ],
             "time": "2020-05-25T09:32:45+00:00"
-        },
-        {
-            "name": "orphans/git-deploy-laravel",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/orphans/git-deploy-laravel.git",
-                "reference": "b75738a6db527935fc59a40d45b2c91b8955ce3c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/orphans/git-deploy-laravel/zipball/b75738a6db527935fc59a40d45b2c91b8955ce3c",
-                "reference": "b75738a6db527935fc59a40d45b2c91b8955ce3c",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/config": "~5|^6.0",
-                "illuminate/http": "~5|^6.0",
-                "illuminate/support": "~5|^6.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Orphans\\GitDeploy\\GitDeployServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Orphans\\GitDeploy\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Helps automate the deployment of projects onto servers by utilising Git web hooks.",
-            "time": "2020-01-13T20:51:51+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -10900,7 +10861,6 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "maxbrokman/safe-queue": 20,
-        "orphans/git-deploy-laravel": 20,
         "laracasts/behat-laravel-extension": 20
     },
     "prefer-stable": true,

@@ -106,7 +106,7 @@
             <p>{{ settings.bookingInfoText }}</p>
             <div :class="['form-group', buildingError ? 'is-invalid' : '']">
               <label :for="$id('building')">Building</label>
-              <div class="form-control border-0" :id="$id('building')" >
+              <div class="form-control-plaintext" :id="$id('building')" >
                 {{ building.name }}
                 <small v-if="settings.grant == 'ALL'" class="text-muted"> ({{ building.accessStateString }})</small>
               </div>

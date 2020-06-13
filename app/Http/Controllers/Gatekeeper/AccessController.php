@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use HMS\Repositories\MetaRepository;
 use HMS\Entities\Gatekeeper\Building;
 use HMS\Gatekeeper\TemporaryAccessBookingManager;
+use App\Jobs\Gatekeeper\UserHasLeftTheBuildingJob;
 use HMS\Repositories\Gatekeeper\BuildingRepository;
 
 class AccessController extends Controller
@@ -145,5 +146,8 @@ class AccessController extends Controller
 
     public function haveLeft(Building $building, User $user)
     {
+        UserHasLeftTheBuildingJob::dispatch($building, $user);
+
+        return view('gatekeeper.have_left');
     }
 }

@@ -68,9 +68,9 @@ class TemporaryAcccessCheckZoneOccupancyJob implements ShouldQueue
         });
 
         $now = Carbon::now();
-        $fiftenMinutesAfter = $now->clone()->addMinutes(10);
-        $thirtyMintuesBefore = $now->clone()->subMinutes(30);
-        $sixtyMinutesBefore = $now->clone()->subMinutes(60);
+        $bookingSearchLimit = $now->clone()->addMinutes(10);
+        $userLimit = $now->clone()->subMinutes(30); // TODO: meta
+        $trusteeLimit = $now->clone()->subMinutes(60);  // TODO: meta
 
         // for each building that is not FULL_OPEN
         $buildings = collect($buildingRepository->findAll())->reject->isFullOpen();
@@ -105,69 +105,24 @@ class TemporaryAcccessCheckZoneOccupancyJob implements ShouldQueue
                 //
 
                 $booking = $temporaryAccessBookingRepository
-                    ->latestBeforeDatetimeForBuildingAndUser($fiftenMinutesAfter, $building, $user);
+                    ->latestBeforeDatetimeForBuildingAndUser($bookingSearchLimit, $building, $user);
 
                 if (is_null($booking)) {
-                    // bugger
-                    Log::info(
-                        'TACZOJ: User ' . $user->getId()
-                        . ' is in the building with out a booking'
-                    );
-                    $this->warnings[$building->getId()][$user->getId()] = [
-                        'bookingId' => null,
-                        'userNotifiedAt' => null,
-                        'trusteesNotifiedAt' => null,
-                    ];
+                    // User has no past booking
+                    $this->noBooking($building, $user);
                 } elseif (! $booking->isApproved()) {
-                    Log::info(
-                        'TACZOJ: User ' . $user->getId()
-                        . ' is in the building without an approved booking.'
-                        . ' BookingId: ' . $booking->getId()
-                    );
+                    // User booking is not approved
+                    $this->unapprovedBooking($building, $user, $booking);
+                } elseif ($booking->getEnd()->isAfter($userLimit)) {
+                    // User has a booking now, or due to start in 10 minutes
+                    $this->currentOrFutureBooking($building, $user, $booking);
+                } elseif ($booking->getEnd()->isBefore($userLimit)) {
+                    // User has a booking that ended more than user limit ago
+                    $this->afterUserLimit($building, $user, $booking);
 
-                    $this->warnings[$building->getId()][$user->getId()] = [
-                        'bookingId' => $booking->getId(),
-                        'userNotifiedAt' => null,
-                        'trusteesNotifiedAt' => null,
-                    ];
-                } elseif ($booking->getEnd()->isAfter($thirtyMintuesBefore)) {
-                    Log::info(
-                        'TACZOJ: User ' . $user->getId()
-                        . ' is in the building with a current booking or one that ended less than 30 minutes ago.'
-                        . ' BookingId: ' . $booking->getId()
-                    );
-                } elseif ($booking->getEnd()->isBefore($thirtyMintuesBefore)) {
-                    Log::info(
-                        'TACZOJ: User ' . $user->getId()
-                        . ' is in the building 30 minutes after their booking ended.'
-                         . ' BookingId: ' . $booking->getId()
-                    );
-                    if (! $this->checkUserHasBeenWarned($user, $booking)) {
-                        // warn
-                        Log::warning(
-                            'TACZOJ: User ' . $user->getId() . ' your booking ended at '
-                            . $booking->getEnd()->toDateTimeString() . ' have you left yet'
-                        );
-                    } else {
-                        Log::info('User already warned');
-                    }
-
-                    if ($booking->getEnd()->isBefore($sixtyMinutesBefore)) {
-                        Log::info(
-                            'TACZOJ: User ' . $user->getId()
-                            . ' is in the building over 60 minutes after their booking ended.'
-                             . ' BookingId: ' . $booking->getId()
-                        );
-                        if (! $this->checkTrusteesHaveBeenNotified($user, $booking)) {
-                            // warn
-                            Log::warning(
-                                'TACZOJ: Trustees User ' . $user->getId()
-                                . ' has not yet left though their booking ended at '
-                                . $booking->getEnd()->toDateTimeString()
-                            );
-                        } else {
-                            Log::info('Trustees already warned');
-                        }
+                    if ($booking->getEnd()->isBefore($trusteeLimit)) {
+                        // User has a booking that ended more than trustee limit ago
+                        $this->afterTrusteeLimit($building, $user, $booking);
                     }
                 }
             } // end foreach user
@@ -177,61 +132,165 @@ class TemporaryAcccessCheckZoneOccupancyJob implements ShouldQueue
     }
 
     /**
-     * Check if a user has already been warned about over staying.
-     * If not remember them.
+     * User is in the building with out ever having a booking.
      *
-     * @param User $user
+     * @param Building               $building
+     * @param User                   $user
      * @param TemporaryAccessBooking $booking
      *
-     * @return bool
+     * @return void
      */
-    protected function checkUserHasBeenWarned(User $user, TemporaryAccessBooking $booking)
+    protected function noBooking(Building $building, User $user)
     {
-        $buildingId = $booking->getBookableArea()->getBuilding()->getId();
-        if (isset($this->warnings[$buildingId][$user->getId()])
-            && $this->warnings[$buildingId][$user->getId()]['userNotifiedAt']) {
-            return true;
-        }
+        // bugger
+        Log::info(
+            'TACZOJ: User ' . $user->getId()
+            . ' is in the building with out a booking'
+        );
 
-        $this->warnings[$buildingId][$user->getId()] = [
-            'bookingId' => $booking->getId(),
-            'userNotifiedAt' => Carbon::now(),
-            'trusteesNotifiedAt' => null,
-        ];
-
-        return false;
+        // $this->warnings[$building->getId()][$user->getId()] = [
+        //     'bookingId' => null,
+        //     'userNotifiedAt' => null,
+        //     'trusteesNotifiedAt' => null,
+        // ];
     }
 
     /**
-     * Check if a user has already been warned about over staying.
-     * If not remember them.
+     * User is in the building but booking is unapproved.
      *
-     * @param User $user
+     * @param Building               $building
+     * @param User                   $user
      * @param TemporaryAccessBooking $booking
      *
-     * @return bool
+     * @return void
      */
-    protected function checkTrusteesHaveBeenNotified(User $user, TemporaryAccessBooking $booking)
+    protected function unapprovedBooking(Building $building, User $user, TemporaryAccessBooking $booking)
     {
-        $buildingId = $booking->getBookableArea()->getBuilding()->getId();
-        if (isset($this->warnings[$buildingId][$user->getId()])) {
-            if (is_null($this->warnings[$buildingId][$user->getId()]['trusteesNotifiedAt'])) {
-                $this->warnings[$buildingId][$user->getId()]['trusteesNotifiedAt'] = Carbon::now();
+        // bugger
+        Log::info(
+            'TACZOJ: User ' . $user->getId()
+            . ' is in the building without an approved booking.'
+            . ' BookingId: ' . $booking->getId()
+        );
 
-                return false;
-            }
+        // $this->warnings[$building->getId()][$user->getId()] = [
+        //     'bookingId' => $booking->getId(),
+        //     'userNotifiedAt' => null,
+        //     'trusteesNotifiedAt' => null,
+        // ];
+    }
 
-            return true;
+    /**
+     * User is in the building with am approved current, future or recently ended booking.
+     *
+     * @param Building               $building
+     * @param User                   $user
+     * @param TemporaryAccessBooking $booking
+     *
+     * @return void
+     */
+    protected function currentOrFutureBooking(Building $building, User $user, TemporaryAccessBooking $booking)
+    {
+        Log::info(
+            'TACZOJ: User ' . $user->getId()
+            . ' is in the building with a current booking or one that ended less than user limit ago.'
+            . ' BookingId: ' . $booking->getId()
+        );
+
+        // remove any old warning tracking for this user
+        unset($this->warnings[$building->getId()][$user->getId()]);
+    }
+
+    /**
+     * User is in the building past the end of their Booking end user limit.
+     *
+     * @param Building               $building
+     * @param User                   $user
+     * @param TemporaryAccessBooking $booking
+     *
+     * @return void
+     */
+    protected function afterUserLimit(Building $building, User $user, TemporaryAccessBooking $booking)
+    {
+        Log::info(
+            'TACZOJ: User ' . $user->getId()
+            . ' is in the building user limit after their booking ended.'
+             . ' BookingId: ' . $booking->getId()
+        );
+
+        $buildingId = $building->getId();
+
+        if (isset($this->warnings[$buildingId][$user->getId()])
+            && $this->warnings[$buildingId][$user->getId()]['userNotifiedAt']) {
+            // nothing to do
+            Log::info('User already warned');
+
+            return;
         }
 
-        // should not really get here but just in case
-        $this->warnings[$buildingId][$user->getId()] = [
-            'bookingId' => $booking->getId(),
-            'userNotifiedAt' => null,
-            'trusteesNotifiedAt' => Carbon::now(),
-        ];
+        // Notify the user
+        Log::warning(
+            'TACZOJ: User ' . $user->getId() . ' your booking ended at '
+            . $booking->getEnd()->toDateTimeString() . ' have you left yet'
+        );
 
-        return false;
+        // and remember we have sent a warning
+        if (! isset($this->warnings[$buildingId][$user->getId()])) {
+            // no warning for this user yet, add a new one
+            $this->warnings[$buildingId][$user->getId()] = [
+                'bookingId' => $booking->getId(),
+                'userNotifiedAt' => Carbon::now(),
+                'trusteesNotifiedAt' => null,
+            ];
+        } else {
+            $this->warnings[$buildingId][$user->getId()]['userNotifiedAt'] = Carbon::now();
+        }
+    }
+
+    /**
+     * User is in the building past the end of the Booking end trustee limit.
+     *
+     * @param Building               $building
+     * @param User                   $user
+     * @param TemporaryAccessBooking $booking
+     *
+     * @return void
+     */
+    protected function afterTrusteeLimit(Building $building, User $user, TemporaryAccessBooking $booking)
+    {
+        Log::info(
+            'TACZOJ: User ' . $user->getId()
+            . ' is in the building over trustee limit after their booking ended.'
+             . ' BookingId: ' . $booking->getId()
+        );
+
+        $buildingId = $building->getId();
+        if (isset($this->warnings[$buildingId][$user->getId()]) &&
+            ! is_null($this->warnings[$buildingId][$user->getId()]['trusteesNotifiedAt'])) {
+            // nothing to do
+            Log::info('Trustees already warned');
+
+            return;
+        }
+
+        // and notify the trustees
+        Log::warning(
+            'TACZOJ: Trustees User ' . $user->getId()
+            . ' has not yet left though their booking ended at '
+            . $booking->getEnd()->toDateTimeString()
+        );
+
+        // and remember we have sent a warning
+        if (! isset($this->warnings[$buildingId][$user->getId()])) {
+            // no warning for this user yet, add a new one
+            $this->warnings[$buildingId][$user->getId()] = [
+                'bookingId' => $booking->getId(),
+                'userNotifiedAt' => null,
+                'trusteesNotifiedAt' => Carbon::now(),
+            ];
+        } else {
+            $this->warnings[$buildingId][$user->getId()]['trusteesNotifiedAt'] = Carbon::now();
+        }
     }
 
     /**

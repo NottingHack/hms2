@@ -49,6 +49,10 @@ Route::prefix('statistics')->name('statistics.')->group(function () {
     Route::get('tools', 'StatisticsController@tools')->name('tools');
 });
 
+ Route::get('gatekeeper/b/{building}/u/{user}/have-left', 'Gatekeeper\AccessController@haveLeft')
+    ->name('gatekeeper.building.user.have-left')
+    ->middleware('signed');
+
 // Routes in the following group can only be access from inside the hackspace (as defined by the ip range in .env)
 Route::middleware(['ipcheck'])->group(function () {
     Route::get('register-interest', 'RegisterInterestController@index')->name('registerInterest');

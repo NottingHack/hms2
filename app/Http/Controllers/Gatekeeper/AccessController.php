@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Gatekeeper;
 
+use HMS\Entities\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use HMS\Repositories\MetaRepository;
+use HMS\Entities\Gatekeeper\Building;
 use HMS\Gatekeeper\TemporaryAccessBookingManager;
 use HMS\Repositories\Gatekeeper\BuildingRepository;
 
@@ -139,5 +141,9 @@ class AccessController extends Controller
         return view('gatekeeper.space_access')
             ->with('buildings', $buildings)
             ->with('settings', $settings);
+    }
+
+    public function haveLeft(Building $building, User $user)
+    {
     }
 }

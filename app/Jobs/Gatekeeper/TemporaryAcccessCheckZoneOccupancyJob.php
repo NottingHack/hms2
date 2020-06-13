@@ -3,6 +3,7 @@
 namespace App\Jobs\Gatekeeper;
 
 use Carbon\Carbon;
+use HMS\Entities\Role;
 use HMS\Entities\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Collection;
@@ -16,6 +17,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
 use HMS\Repositories\Gatekeeper\BuildingRepository;
+use App\Notifications\Gatekeeper\NotifyUserOverstay;
+use App\Notifications\Gatekeeper\NotifyTrusteeOverstay;
 use HMS\Repositories\Gatekeeper\TemporaryAccessBookingRepository;
 
 class TemporaryAcccessCheckZoneOccupancyJob implements ShouldQueue
@@ -38,6 +41,11 @@ class TemporaryAcccessCheckZoneOccupancyJob implements ShouldQueue
      * @var Illuminate\Support\Collection
      */
     protected $warnings;
+
+    /**
+     * @var Role
+     */
+    protected $trusteesTeamRole;
 
     /**
      * Create a new job instance.
@@ -71,6 +79,8 @@ class TemporaryAcccessCheckZoneOccupancyJob implements ShouldQueue
         $bookingSearchLimit = $now->clone()->addMinutes(10);
         $userLimit = $now->clone()->subMinutes(30); // TODO: meta
         $trusteeLimit = $now->clone()->subMinutes(60);  // TODO: meta
+
+        $this->trusteesTeamRole = $roleRepository->findOneByName(Role::TEAM_TRUSTEES);
 
         // for each building that is not FULL_OPEN
         $buildings = collect($buildingRepository->findAll())->reject->isFullOpen();
@@ -234,6 +244,8 @@ class TemporaryAcccessCheckZoneOccupancyJob implements ShouldQueue
             . $booking->getEnd()->toDateTimeString() . ' have you left yet'
         );
 
+        $user->notify(new NotifyUserOverstay($building, $booking));
+
         // and remember we have sent a warning
         if (! isset($this->warnings[$buildingId][$user->getId()])) {
             // no warning for this user yet, add a new one
@@ -279,6 +291,8 @@ class TemporaryAcccessCheckZoneOccupancyJob implements ShouldQueue
             . ' has not yet left though their booking ended at '
             . $booking->getEnd()->toDateTimeString()
         );
+
+        $this->trusteesTeamRole->notify(new NotifyTrusteeOverstay($building, $user, $booking));
 
         // and remember we have sent a warning
         if (! isset($this->warnings[$buildingId][$user->getId()])) {

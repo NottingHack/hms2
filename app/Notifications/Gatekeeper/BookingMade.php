@@ -2,7 +2,9 @@
 
 namespace App\Notifications\Gatekeeper;
 
+use HMS\Entities\Role;
 use Illuminate\Bus\Queueable;
+use HMS\Repositories\RoleRepository;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -50,7 +52,12 @@ class BookingMade extends Notification implements ShouldQueue
     {
         $bookableArea = $this->booking->getBookableArea();
 
+        $roleRepository = \App::make(RoleRepository::class);
+        $trusteesTeamRole = $roleRepository->findOneByName(Role::TEAM_TRUSTEES);
+        $trusteesEmail = $trusteesTeamRole->getEmail();
+
         return (new MailMessage)
+            ->from($trusteesEmail, 'Nottingham Hackspace Trustees')
             ->subject('Nottingham Hackspace: Access Booking Created')
             ->markdown(
                 'emails.gatekeeper.booking_made',

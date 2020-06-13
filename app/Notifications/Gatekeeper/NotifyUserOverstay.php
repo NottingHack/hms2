@@ -2,17 +2,25 @@
 
 namespace App\Notifications\Gatekeeper;
 
+use Carbon\Carbon;
 use HMS\Entities\Role;
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\URL;
 use HMS\Repositories\RoleRepository;
+use HMS\Entities\Gatekeeper\Building;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
 
-class BookingRejected extends Notification implements ShouldQueue
+class NotifyUserOverstay extends Notification implements ShouldQueue
 {
     use Queueable;
+
+    /**
+     * @var Building
+     */
+    protected $building;
 
     /**
      * @var TemporaryAccessBooking
@@ -20,22 +28,19 @@ class BookingRejected extends Notification implements ShouldQueue
     protected $booking;
 
     /**
-     * @var string
-     */
-    protected $reason;
-
-    /**
      * Create a new notification instance.
      *
-     * @param TemporaryAccessBooking  $temporaryAccessBooking
-     * @param string $reason
+     * @param Building $building
+     * @param TemporaryAccessBooking $booking
      *
      * @return void
      */
-    public function __construct(TemporaryAccessBooking $booking, string $reason)
-    {
+    public function __construct(
+        Building $building,
+        TemporaryAccessBooking $booking
+    ) {
+        $this->building = $building;
         $this->booking = $booking;
-        $this->reason = $reason;
     }
 
     /**
@@ -59,23 +64,32 @@ class BookingRejected extends Notification implements ShouldQueue
     {
         $bookableArea = $this->booking->getBookableArea();
 
+        $haveLeftURL = URL::temporarySignedRoute(
+            'gatekeeper.building.user.have-left',
+            Carbon::now()->addDays(2),
+            [
+                'building' => $this->building->getId(),
+                'user' => $notifiable->getId(),
+            ]
+        );
+
         $roleRepository = \App::make(RoleRepository::class);
         $trusteesTeamRole = $roleRepository->findOneByName(Role::TEAM_TRUSTEES);
         $trusteesEmail = $trusteesTeamRole->getEmail();
 
         return (new MailMessage)
             ->from($trusteesEmail, 'Nottingham Hackspace Trustees')
-            ->subject('Nottingham Hackspace: Access Booking Request Rejected')
+            ->subject('Nottingham Hackspace: Access Booking Ended')
             ->markdown(
-                'emails.gatekeeper.booking_rejected',
+                'emails.gatekeeper.booking_ended',
                 [
-                    'buildingName' => $bookableArea->getBuilding()->getName(),
                     'name' => $this->booking->getUser()->getFirstname(),
-                    'start' => $this->booking->getStart(),
-                    'end' => $this->booking->getEnd(),
+                    'buildingName' => $bookableArea->getBuilding()->getName(),
                     'bookableAreaName' => $bookableArea->getName(),
                     'guests' => $this->booking->getGuests(),
-                    'reason' => $this->reason,
+                    'start' => $this->booking->getStart(),
+                    'end' => $this->booking->getEnd(),
+                    'actionUrl' => $haveLeftURL,
                 ]
             );
     }

@@ -48,11 +48,17 @@ class Zone
      */
     protected $building;
 
+    /**
+     * @var bool
+     */
+    protected $restricted;
+
     public function __construct()
     {
         $this->zoneOccupancts = new ArrayCollection();
         $this->zoneOccupancyLogs = new ArrayCollection();
         $this->rooms = new ArrayCollection();
+        $this->restricted = false;
     }
 
     /**
@@ -129,6 +135,26 @@ class Zone
     public function setBuilding(Building $building)
     {
         $this->building = $building;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRestricted()
+    {
+        return $this->restricted;
+    }
+
+    /**
+     * @param bool $restricted
+     *
+     * @return self
+     */
+    public function setRestricted($restricted)
+    {
+        $this->restricted = $restricted;
 
         return $this;
     }

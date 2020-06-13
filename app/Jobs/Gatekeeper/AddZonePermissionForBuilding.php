@@ -53,6 +53,10 @@ class AddZonePermissionForBuilding implements ShouldQueue
         $currentRole = $roleRepository->findOneByName(Role::MEMBER_CURRENT);
 
         foreach ($building->getZones() as $zone) {
+            if ($zone->isRestricted()) {
+                continue;
+            }
+
             $zonePermission = $permissionRepository->findOneByName($zone->getPermissionCode());
             $currentRole->addPermission($zonePermission);
         }

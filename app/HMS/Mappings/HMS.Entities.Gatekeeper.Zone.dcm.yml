@@ -19,6 +19,10 @@ HMS\Entities\Gatekeeper\Zone:
       type: string
       length: 100
       nullable: true
+    restricted:
+      type: boolean
+      options:
+        default: 0
   oneToMany:
     zoneOccupancts:
       targetEntity: \HMS\Entities\Gatekeeper\ZoneOccupant

@@ -51,6 +51,13 @@ class BookableArea implements ArrayableContract, JsonSerializable
      */
     protected $building;
 
+    public function __construct()
+    {
+        $this->maxOccupancy = 1;
+        $this->additionalGuestOccupancy = 0;
+        $this->selfBookable = false;
+    }
+
     /**
      * Gets the value of id.
      *

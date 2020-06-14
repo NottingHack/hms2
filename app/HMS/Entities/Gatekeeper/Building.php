@@ -49,8 +49,10 @@ class Building implements ArrayableContract, JsonSerializable
     public function __construct()
     {
         $this->floors = new ArrayCollection();
-        $this->zoness = new ArrayCollection();
+        $this->zones = new ArrayCollection();
         $this->bookableAreas = new ArrayCollection();
+        $this->accessState = BuildingAccessState::CLOSED;
+        $this->selfBookMaxOccupancy = 1;
     }
 
     /**

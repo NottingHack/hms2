@@ -40,6 +40,7 @@ class Bell
     public function __construct()
     {
         $this->doors = new ArrayCollection();
+        $this->enabled = true;
     }
 
     /**

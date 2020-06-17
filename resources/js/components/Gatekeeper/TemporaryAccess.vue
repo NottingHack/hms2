@@ -25,7 +25,7 @@
           class="badge badge-success ta-badge-font-inherit p-3 temporary-booking-success"
           data-toggle="tooltip"
           data-html="true"
-          title="Automatilcy approved booking.<br>You can edit this booking."
+          title="Automatically approved booking.<br>You can edit this booking."
           >
           Editable
         </span>&nbsp;
@@ -33,7 +33,7 @@
           class="badge badge-success ta-badge-font-inherit p-3 temporary-booking-success not-approved"
           data-toggle="tooltip"
           data-html="true"
-          title="You have request access to the space but it has not yet been approved by the Trustees.<br>You can still edit the time or cancel this booking."
+          title="You have requested access to the space but it has not yet been approved by the Trustees.<br>You can still edit the time or cancel this booking."
           >
           Requested
         </span>&nbsp;

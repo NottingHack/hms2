@@ -22,10 +22,15 @@ interface TemporaryAccessBookingRepository
      *
      * @param Building $building
      * @param User $user
+     * @param TemporaryAccessBooking|null $ignoreBooking
      *
      * @return int
      */
-    public function countFutureForBuildingAndUser(Building $building, User $user): int;
+    public function countFutureForBuildingAndUser(
+        Building $building,
+        User $user,
+        TemporaryAccessBooking $ignoreBooking = null
+    ): int;
 
     /**
      * Count future bookings for a User grouped by Building id's.

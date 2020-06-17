@@ -41,7 +41,7 @@
           class="badge badge-success ta-badge-font-inherit p-3 temporary-booking-success not-editable"
           data-toggle="tooltip"
           data-html="true"
-          title="If yours it has been approved by the Trustees.<br>You may still cancel it but the time is fixed."
+          title="If this is your booking, it has been approved by the Trustees.<br>You may still cancel it but the time is fixed."
           >
           Not editable
         </span>

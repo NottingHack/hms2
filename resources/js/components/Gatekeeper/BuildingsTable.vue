@@ -130,7 +130,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" form="updateOccupancy">Update</button>
+            <button type="submit" class="btn btn-primary" :form="$id('updateOccupancy')">Update</button>
           </div>
         </div>
       </div>
@@ -228,6 +228,7 @@
       },
 
       updateOccupancy(event) {
+        console.log('updateOccupancy', event);
         this.loading(true, true);
 
         axios.patch(this.route('api.gatekeeper.buildings.update-occupancy', this.editingId), {

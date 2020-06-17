@@ -249,7 +249,7 @@ class TemporaryAccessBookingManager
 
         // A user may only have {{ maxConcurrentPerUser }} current and future bookings at one time.
         // TODO: this may not be relevant for an update
-        $concurrentPerUserCheck = $this->concurrentPerUserCheck($user, $building);
+        $concurrentPerUserCheck = $this->concurrentPerUserCheck($user, $building, $booking);
 
         // check occupancy limits
         $occupancyChecks = $this->occupancyChecks(
@@ -513,16 +513,20 @@ class TemporaryAccessBookingManager
      *
      * @param User     $user
      * @param Building $building
+     * @param TemporaryAccessBooking|null $ignoreBooking
      *
      * @return bool|string String with error message or true if al checks passed
      */
-    protected function concurrentPerUserCheck(User $user, Building $building)
-    {
+    protected function concurrentPerUserCheck(
+        User $user,
+        Building $building,
+        TemporaryAccessBooking $ignoreBooking = null
+    ) {
         // TODO: should this be per building or over all buildings (if so we wont need $building)
         $maxConcurrentPerUser = $this->getSelfBookSettings()['maxConcurrentPerUser'];
 
         $futureCount = $this->temporaryAccessBookingRepository
-            ->countFutureForBuildingAndUser($building, $user);
+            ->countFutureForBuildingAndUser($building, $user, $ignoreBooking);
 
         if ($futureCount >= $maxConcurrentPerUser) {
             $b = $maxConcurrentPerUser > 1 ? 'bookings' : 'booking';
@@ -531,7 +535,7 @@ class TemporaryAccessBookingManager
                 return 'Maximum current/future ' . $b . ' of ' . $maxConcurrentPerUser . ' exceed for User.'; // 409 ?
             }
 
-            return 'You can only have ' . $maxConcurrentPerUser . ' current/future ' . $b . '.'; // 409 ?
+            return 'You can only have ' . $maxConcurrentPerUser . ' current or future ' . $b . '.'; // 409 ?
         }
 
         return true;

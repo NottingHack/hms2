@@ -29,11 +29,15 @@ class DoctrineTemporaryAccessBookingRepository extends EntityRepository implemen
      *
      * @param Building $building
      * @param User $user
+     * @param TemporaryAccessBooking|null $ignoreBooking
      *
      * @return int
      */
-    public function countFutureForBuildingAndUser(Building $building, User $user): int
-    {
+    public function countFutureForBuildingAndUser(
+        Building $building,
+        User $user,
+        TemporaryAccessBooking $ignoreBooking = null
+    ): int {
         $now = Carbon::now();
         // can not use Criteria cause of the join :(
         $qb = parent::createQueryBuilder('temporaryAccessBooking');
@@ -48,6 +52,11 @@ class DoctrineTemporaryAccessBookingRepository extends EntityRepository implemen
                     $expr->gte('temporaryAccessBooking.end', ':now')
                 )
             );
+
+        if ($ignoreBooking) {
+            $qb->andWhere('temporaryAccessBooking != :ignoreBooking')
+                ->setParameter('ignoreBooking', $ignoreBooking);
+        }
 
         $qb->setParameter('building', $building)
             ->setParameter('now', $now);

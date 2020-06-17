@@ -2,7 +2,7 @@
  * Footer
  */
 footer {
-  @extend .container-fluid;
+  @include make-container();
   background-color: $footer-background-colour;
   color: $footer-text-colour;
   font-size: 0.8rem;

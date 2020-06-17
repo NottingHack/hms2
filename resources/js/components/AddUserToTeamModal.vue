@@ -52,7 +52,7 @@
 
     methods: {
       showModal() {
-        console.log("show");
+        console.log('show');
         $(this.$refs.selectModal).modal('toggle');
       },
     },

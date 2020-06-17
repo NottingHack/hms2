@@ -60,7 +60,7 @@
 
     methods: {
       showModal() {
-        console.log("show");
+        console.log('show');
         // console.log($(this.el).find('#addUserToTeamModal').modal('toggle'));
         $(this.$refs.selectModal).modal('toggle');
       },

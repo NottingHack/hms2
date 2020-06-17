@@ -10,7 +10,7 @@
       <p>
         <template v-for="bookableArea in bookableAreas" >
           <span
-            :class="['badge', 'badge-' + bookableArea.bookingColor, 'ta-badge-font-inherit', 'pb-1']"
+            :class="['badge', 'badge-' + bookableArea.bookingColor, 'ta-badge-font-inherit', 'p-3']"
             data-toggle="tooltip"
             data-html="true"
             :title="'Occupancy:&nbsp;' + bookableArea.maxOccupancy">
@@ -19,6 +19,33 @@
         </template>
       </p>
       <p v-if="settings.grant != 'ALL'">Some areas can only be booked by Trustees.</p>
+      <h5>Booking  Key</h5>
+      <p>
+        <span
+          class="badge badge-success ta-badge-font-inherit p-3 temporary-booking-success"
+          data-toggle="tooltip"
+          data-html="true"
+          title="Automatilcy approved booking.<br>You can edit this booking."
+          >
+          Editable
+        </span>&nbsp;
+        <span
+          class="badge badge-success ta-badge-font-inherit p-3 temporary-booking-success not-approved"
+          data-toggle="tooltip"
+          data-html="true"
+          title="You have request access to the space but it has not yet been approved by the Trustees.<br>You can still edit the time or cancel this booking."
+          >
+          Requested
+        </span>&nbsp;
+        <span
+          class="badge badge-success ta-badge-font-inherit p-3 temporary-booking-success not-editable"
+          data-toggle="tooltip"
+          data-html="true"
+          title="If yours it has been approved by the Trustees.<br>You may still cancel it but the time is fixed."
+          >
+          Not editable
+        </span>
+      </p>
     </div>
 
     <div class="container vld-parent" ref="calendar">
@@ -588,7 +615,7 @@
           && nextStart
           && nextStart.isAfter(moment(selectInfo.start))
         ) {
-          flash('You may not start another booking before ' + nextStart.format("YYYY-MM-DD HH:mm"), 'warning');
+          flash('You may not start another booking before ' + nextStart.format('YYYY-MM-DD HH:mm'), 'warning');
           return false;
         }
 

@@ -23,6 +23,9 @@
     @endif
     @endif
     @endcan
+    @can('gatekeeper.temporaryAccess.grant.self')
+    <a href="{{ route('gatekeeper.accessCodes') }}" class="btn btn-primary mb-1">Request Access</a>
+    @endcan
   </div>
 </div>
 @endcan

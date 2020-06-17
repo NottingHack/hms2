@@ -1,6 +1,6 @@
 @import 'color-helpers';
 
-// Bootstrap 4 greys
+// Bootstrap 4 grays
 $gray-100: #f8f9fa;
 $gray-200: #e9ecef;
 $gray-300: #dee2e6;
@@ -25,12 +25,12 @@ $cyan:    #17a2b8 !default;
 
 // HMS colours
 $hackspace-green: #195905;
-$hackspace-grey: $gray-300;
+$hackspace-gray: $gray-300;
 $hackspace-green-tint: tint($hackspace-green, 25%);
 
 // Header
 $header-background-colour: $hackspace-green;
-$header-text-colour: $hackspace-grey;
+$header-text-colour: $hackspace-gray;
 
 // Navbar
 $navbar-background-tint: $gray-200;
@@ -44,7 +44,7 @@ $navbar-link-active-colour: white;
 // Footer
 $footer-background-colour: $gray-600;
 $footer-text-colour: white;
-$footer-link-colour: $hackspace-grey;
+$footer-link-colour: $hackspace-gray;
 $footer-link-hover-colour: white;
 $social-networks-colour: $footer-text-colour;
 
@@ -53,13 +53,26 @@ $tool-booking-normal: $hackspace-green;
 $tool-booking-induction: red;
 $tool-booking-maintenance: black;
 
+// =============================================================
+// original bootstrap theme colours
+//
+// $primary:       $blue !default;
+// $secondary:     $gray-600 !default;
+// $success:       $green !default;
+// $info:          $cyan !default;
+// $warning:       $yellow !default;
+// $danger:        $red !default;
+// $light:         $gray-100 !default;
+// $dark:          $gray-800 !default;
+// =============================================================
+
 // Override theme colours
 $primary: $hackspace-green;
 $link-color: $hackspace-green;
 $link-hover-color: black;
 
 $theme-colors: (
-  "hackspace-grey": $hackspace-grey,
+  "hackspace-gray": $hackspace-gray,
   "booking-normal": $tool-booking-normal,
   "booking-induction": $tool-booking-induction,
   "booking-maintenance": $tool-booking-maintenance,
@@ -72,7 +85,6 @@ $theme-colors: (
   "teal":       $teal,
   "cyan":       $cyan,
 );
-
 
 $sizes: (
   10: 10%,

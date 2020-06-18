@@ -53,7 +53,7 @@ class NotifyBookingApproved implements ShouldQueue
 
         // User
         $booking->getUser()->notify(
-            (new BookingApprovedNotification($booking)) //->delay($when)
+            (new BookingApprovedNotification($booking))->delay($when)
         );
     }
 }

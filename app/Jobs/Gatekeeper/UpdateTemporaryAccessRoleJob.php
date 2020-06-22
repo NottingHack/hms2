@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use HMS\Entities\Role;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;
+use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
 use HMS\User\Permissions\RoleManager;
 use Illuminate\Queue\SerializesModels;

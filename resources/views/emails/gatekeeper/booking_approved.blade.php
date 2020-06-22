@@ -1,15 +1,17 @@
 @component('mail::message')
 # Hello {{ $name }},
 
-Your requested access to {{ $buildingName }} has been **approved**.  
-You may now visit during the times below.
+Your access booking request has been authorised.  
+You must leave and swipe out of the Hackspace before the end time of your booking. You must swipe your RFID card on an exit door (this is any door, except the door at the top of the spiral staircase. This door is only an “in” door.  
+Please ensure that you wipe all surfaces you have been in contact with before you leave.  
 
+**Building:** {{ $buildingName }}  
 **Start:** {{ $start }}  
 **End:** {{ $end }}  
 **Area:** {{ $bookableAreaName }}  
 **Guests:** {{ $guests }}  
 
-Please remember to keep your main use during this time within the area of the space you indicated.
+Please keep up to date with the status of Hackspace with regards to Membership entry [here]({{ Meta::get('temporary_access_email_link', Meta::get('wiki_html')) }}).  
 
 Thank you,  
 HMS

@@ -17,7 +17,7 @@ Yes I Have Left
 **Area:** {{ $bookableAreaName }}  
 **Guests:** {{ $guests }}  
 
-Please remember to ....
+Please keep up to date with the status of Hackspace with regards to Membership entry [here]({{ Meta::get('temporary_access_email_link', Meta::get('wiki_html')) }}).  
 
 Thank you,  
 HMS

@@ -1,17 +1,19 @@
 @component('mail::message')
 # Hello {{ $name }},
 
-Sorry at this time your requested access to {{ $buildingName }} has been **rejected**.  
-
-The following reason was given.
+Your access booking request has been **rejected**. The given reason is:  
 @component('mail::panel')
 {{ $reason }}
 @endcomponent
+Your booking request has been removed from the calendar, should you wish to add further details, the request must be made through the calendar again.  
 
+**Building:** {{ $buildingName }}  
 **Start:** {{ $start }}  
 **End:** {{ $end }}  
 **Area:** {{ $bookableAreaName }}  
 **Guests:** {{ $guests }}  
+
+Please keep up to date with the status of Hackspace with regards to Membership entry [here]({{ Meta::get('temporary_access_email_link', Meta::get('wiki_html')) }}).  
 
 Thank you,  
 HMS

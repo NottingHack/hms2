@@ -3,7 +3,7 @@
 namespace App\Jobs;
 
 use Illuminate\Bus\Queueable;
-use HMS\Entities\GateKeeper\Zone;
+use HMS\Entities\Gatekeeper\Zone;
 use karpy47\PhpMqttClient\MQTTClient;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;

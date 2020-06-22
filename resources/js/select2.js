@@ -11,6 +11,6 @@ $.fn.select2.defaults.set( "theme", "bootstrap" );
 $(".js-permission-select").select2({
 });
 
-// views/gateKeeper/rfidTags/edit.blade.php
+// views/gatekeeper/rfidTags/edit.blade.php
 $(".select2-basic-single").select2({
 });

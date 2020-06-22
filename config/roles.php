@@ -92,8 +92,15 @@ return [
         'tools.beInducted',                 // can be inducted to use a tool
         'tools.search.users',               // assigend to tool sepcfic mainter roles, allows search user for inductor.grant
         'tools.addFreeTime',                // can give a user free time to use on a tool
-        'gatekeeper.temporaryAccess.grant', // can grant/revoke user.temporaryAccess role
-        'gatekeeper.zoneEntry.upstairs',    // these are hard coded here for now, until we have a GateKeeperManager to generate them
+
+        'gatekeeper.access.manage',                 // can manage the access state to a building, the global self booking settings and bookable areas
+        'gatekeeper.temporaryAccess.view.self',          // can view (if enabled) the access calendar, but all but own bookings will be anonymized
+        'gatekeeper.temporaryAccess.view.all',     // can view all deatils about any booking
+        'gatekeeper.temporaryAccess.grant.self',    // can book/request own access to the space (if building is SELF_BOOK or REQUESTED_BOOK)
+        'gatekeeper.temporaryAccess.grant.all',         // can book for others and grant/revoke resuests
+        'gatekeeper.temporaryAccess.restrict',      // can restrict a user from making a booking/request
+
+        'gatekeeper.zoneEntry.upstairs',    // these are hard coded here for now, until we have a GatekeeperManager to generate them
         'gatekeeper.zoneEntry.cncBlueRoom',
         'gatekeeper.zoneEntry.classRoomMetalworking',
         'gatekeeper.zoneEntry.teamStorage',
@@ -172,6 +179,8 @@ return [
                 'tools.use',
                 'tools.book',
                 'tools.beInducted',
+                'gatekeeper.temporaryAccess.view.self',
+                'gatekeeper.temporaryAccess.grant.self',
                 'gatekeeper.zoneEntry.outside',
                 'gatekeeper.zoneEntry.upstairs',
                 'gatekeeper.zoneEntry.cncBlueRoom',
@@ -224,6 +233,8 @@ return [
                 'tools.use',
                 'tools.book',
                 'tools.beInducted',
+                'gatekeeper.temporaryAccess.view.self',
+                'gatekeeper.temporaryAccess.grant.self',
                 'gatekeeper.zoneEntry.outside',
                 'gatekeeper.zoneEntry.upstairs',
                 'gatekeeper.zoneEntry.cncBlueRoom',
@@ -277,7 +288,7 @@ return [
             ],
         ],
         'user.temporaryAccess' => [
-            'name' => 'Temporary GateKeeper Access',
+            'name' => 'Temporary Gatekeeper Access',
             'description' => 'Temporary access rights',
             'permissions' => [
                 'gatekeeper.zoneEntry.upstairs',
@@ -372,11 +383,13 @@ return [
                 'governance.meeting.edit',
                 'governance.meeting.checkIn',
                 'governance.meeting.recordAbsence',
-                'gatekeeper.temporaryAccess.grant',
+                'gatekeeper.access.manage',
+                'gatekeeper.temporaryAccess.view.all',
+                'gatekeeper.temporaryAccess.grant.all',
+                'gatekeeper.temporaryAccess.restrict',
                 'gatekeeper.zoneEntry.upstairs',
                 'gatekeeper.zoneEntry.cncBlueRoom',
                 'gatekeeper.zoneEntry.classRoomMetalworking',
-                'gatekeeper.zoneEntry.teamStorage',
                 'gatekeeper.zoneEntry.downstairsMembersStorage',
                 'gatekeeper.zoneEntry.outside',
                 'tools.addFreeTime',

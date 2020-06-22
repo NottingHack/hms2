@@ -28,7 +28,7 @@ return [
             'namespaces' => [
                 'HMS',
                 'HMS\Entities',
-                'HMS\Entities\GateKeeper',
+                'HMS\Entities\Gatekeeper',
                 'HMS\Entities\Banking',
                 'HMS\Entities\Members',
                 'HMS\Entities\Snackspace',
@@ -139,7 +139,9 @@ return [
     | DQL custom string functions
     |--------------------------------------------------------------------------
     */
-    'custom_string_functions'   => [],
+    'custom_string_functions'   => [
+        'CAST' => DoctrineExtensions\Query\Mysql\Cast::class,
+    ],
     /*
     |--------------------------------------------------------------------------
     | Register custom hydrators

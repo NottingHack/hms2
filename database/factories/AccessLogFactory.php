@@ -1,8 +1,8 @@
 <?php
 
 use Carbon\Carbon;
-use HMS\Entities\GateKeeper\AccessLog;
-use HMS\Entities\GateKeeper\AccessLogResult;
+use HMS\Entities\Gatekeeper\AccessLog;
+use HMS\Entities\Gatekeeper\AccessLogResult;
 
 $factory->define(AccessLog::class, function (Faker\Generator $faker, array $attributes) {
     return [

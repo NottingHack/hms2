@@ -8,10 +8,10 @@ use HMS\Entities\Governance\Meeting;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
 use App\Events\Governance\ProxyCheckedIn;
-use HMS\Entities\GateKeeper\RfidTagState;
+use HMS\Entities\Gatekeeper\RfidTagState;
 use App\Events\Governance\AttendeeCheckIn;
 use HMS\Repositories\Governance\ProxyRepository;
-use HMS\Repositories\GateKeeper\RfidTagRepository;
+use HMS\Repositories\Gatekeeper\RfidTagRepository;
 use HMS\Repositories\Governance\MeetingRepository;
 use Illuminate\Http\Response as IlluminateResponse;
 

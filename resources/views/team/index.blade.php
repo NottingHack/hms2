@@ -18,7 +18,7 @@
       <h6 class="card-subtitle mb-2 text-muted">Email: {{ $team->getEmail() }}</h6>
       <h6 class="card-subtitle mb-2 text-muted">Slack Channel: {{ $team->getSlackChannel() }}</h6>
       <p class="card-text">{!! $team->getDescription() !!}</p>
-      <a class="btn btn-primary" href="{{ route('teams.show', $team->getId()) }}"><i class="fas fa-eye" aria-hidden="true"></i> View</a>
+      <a class="btn btn-primary" href="{{ route('teams.show', $team->getId()) }}"><i class="far fa-eye" aria-hidden="true"></i> View</a>
       @can('role.edit.all')
       <a class="btn btn-primary" href="{{ route('roles.edit', $team->getId()) }}"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
       @endcan

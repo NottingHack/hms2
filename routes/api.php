@@ -67,20 +67,29 @@ Route::name('api.')->namespace('Api')->group(function () {
             ]
         );
 
-        // GateKeeper Temporary Access
-        Route::apiResource(
-            'gatekeeper/temporary-access-bookings',
-            'GateKeeper\TemporaryAccessBookingController',
-            [
-                'as' => 'gatekeeper',
-                'parameters' => [
-                    'temporary-access-bookings' => 'temporaryAccessBooking',
-                ],
-            ]
-        );
+        // Gatekeeper
+        Route::prefix('gatekeeper')->namespace('Gatekeeper')->name('gatekeeper.')->group(function () {
+            Route::get('buildings', 'BuildingController@index')->name('buildings.index');
+            Route::get('buildings/{building}', 'BuildingController@show')->name('buildings.show');
+            Route::patch('buildings/{building}/occupancy', 'BuildingController@updateOccupancy')
+                ->name('buildings.update-occupancy');
+            Route::patch('buildings/{building}/access-state', 'BuildingController@updateAccessState')
+                ->name('buildings.update-access-state');
+
+            // Temporary Access
+            Route::apiResource(
+                'temporary-access-bookings',
+                'TemporaryAccessBookingController',
+                [
+                    'parameters' => [
+                        'temporary-access-bookings' => 'temporaryAccessBooking',
+                    ],
+                ]
+            );
+        });
 
         // Governance
-        Route::namespace('Governance')->prefix('governance')->name('governance.')->group(function () {
+        Route::prefix('governance')->namespace('Governance')->name('governance.')->group(function () {
             // Meeting
             Route::get('meetings/{meeting}', 'CheckInController@show')
                 ->middleware('can:governance.meeting.view')
@@ -123,7 +132,7 @@ Route::name('api.')->namespace('Api')->group(function () {
 });
 
 // All 'client_credentials' api route names are prefixed with client.
-Route::name('client.')->prefix('cc')->middleware('client')->namespace('Api')->group(function () {
+Route::name('client.')->prefix('cc')->namespace('Api')->middleware('client')->group(function () {
     // upload new bankTransactions/
     Route::post('bank-transactions/upload', 'Banking\TransactionUploadController@upload')
         ->name('bankTransactions.upload');

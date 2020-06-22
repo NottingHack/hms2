@@ -8,11 +8,11 @@ use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
-use HMS\Factories\GateKeeper\PinFactory;
+use HMS\Factories\Gatekeeper\PinFactory;
 use App\Mail\Membership\MembershipComplete;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Events\Banking\NewMembershipPaidFor;
-use HMS\Repositories\GateKeeper\PinRepository;
+use HMS\Repositories\Gatekeeper\PinRepository;
 
 class ApproveNewMembership implements ShouldQueue
 {

@@ -63,8 +63,8 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     {
         $q = parent::createQueryBuilder('user');
 
-        $q->leftjoin('user.pin', 'pin')->addSelect('pin')
-            ->leftjoin('user.profile', 'profile')->addSelect('profile')
+        $q->leftJoin('user.pin', 'pin')->addSelect('pin')
+            ->leftJoin('user.profile', 'profile')->addSelect('profile')
             ->leftJoin('user.rfidTags', 'rfidTags')
             ->innerJoin('user.roles', 'role')
             ->where('role.name = :role_name')
@@ -89,8 +89,8 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
 
         $q = parent::createQueryBuilder('user');
 
-        $q->leftjoin('user.pin', 'pin')->addSelect('pin')
-            ->leftjoin('user.profile', 'profile')->addSelect('profile')
+        $q->leftJoin('user.pin', 'pin')->addSelect('pin')
+            ->leftJoin('user.profile', 'profile')->addSelect('profile')
             ->innerJoin('user.roles', 'role')
             ->where('role.name = :role_name')
             ->andWhere('profile.votingPreference = :votingPreference')
@@ -116,8 +116,8 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
 
         $q = parent::createQueryBuilder('user');
 
-        $q->leftjoin('user.pin', 'pin')->addSelect('pin')
-            ->leftjoin('user.profile', 'profile')->addSelect('profile')
+        $q->leftJoin('user.pin', 'pin')->addSelect('pin')
+            ->leftJoin('user.profile', 'profile')->addSelect('profile')
             ->innerJoin('user.roles', 'role')
             ->where('role.name = :role_name')
             ->andWhere('profile.votingPreference = :votingPreference')
@@ -171,7 +171,7 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
         $q = parent::createQueryBuilder('user')
             ->leftJoin('user.profile', 'profile')->addSelect('profile')
             ->leftJoin('user.account', 'account')->addSelect('account')
-            ->innerJoin('user.roles', 'role')->addSelect('role')
+            ->leftJoin('user.roles', 'role')->addSelect('role')
             ->where('CONCAT(user.name, \' \', user.lastname) LIKE :keyword')
             ->orWhere('user.username LIKE :keyword')
             ->orWhere('user.email LIKE :keyword')

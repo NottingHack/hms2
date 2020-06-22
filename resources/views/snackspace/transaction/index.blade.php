@@ -7,7 +7,7 @@ Snackspace account for {{ $user->getFirstname() }}
 @section('content')
 <div class="container">
   <div class="card w-100">
-    <h3 class="card-header"><i class="far fa-money-bill" aria-hidden="true"></i> Balance</h3>
+    <h3 class="card-header"><i class="fad fa-money-bill" aria-hidden="true"></i> Balance</h3>
     <div class="card-body text-center">
         <h1><span class="money">@money($user->getProfile() ? $user->getProfile()->getBalance() : 0, 'GBP')</span></h1>
     </div>
@@ -41,7 +41,7 @@ Snackspace account for {{ $user->getFirstname() }}
       <thead>
         <tr>
           <th>Date</th>
-          <th class="d-none d-md-tabel-cell">Type</th>
+          <th class="d-none d-md-table-cell">Type</th>
           <th>Description</th>
           <th>Amount</th>
         </tr>
@@ -50,7 +50,7 @@ Snackspace account for {{ $user->getFirstname() }}
         @foreach ($transactions as $transaction)
         <tr>
           <td>{{ $transaction->getTransactionDatetime()->toDateTimeString() }}</td>
-          <td class="d-none d-md-tabel-cell">{{ $transaction->getTypeString() }}</td>
+          <td class="d-none d-md-table-cell">{{ $transaction->getTypeString() }}</td>
           <td>{{ $transaction->getDescription() }}</td>
           <td class="money">@money($transaction->getAmount(), 'GBP')</td>
         </tr>

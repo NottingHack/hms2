@@ -2,7 +2,7 @@
  * Header
  */
 header {
-  @extend .container-fluid;
+  @include make-container();
   box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.5);
 }
 
@@ -30,7 +30,7 @@ header {
   }
 
   #logo-path {
-    fill: $hackspace-grey;
+    fill: $hackspace-gray;
   }
 
   a {

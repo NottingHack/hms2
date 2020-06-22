@@ -63,7 +63,7 @@
         @method('PATCH')
         @csrf
       </form>
-      <i class="far fa-frown fa-lg" aria-hidden="true"></i> Mark Abandoned
+      <i class="fas fa-frown fa-lg" aria-hidden="true"></i> Mark Abandoned
     </a>
     @endif
     @endif
@@ -77,7 +77,7 @@
         @method('PATCH')
         @csrf
       </form>
-      <i class="fal fa-play fa-lg" aria-hidden="true"></i> Resume Project
+      <i class="far fa-play fa-lg" aria-hidden="true"></i> Resume Project
     </a>
     @endif
     @endif

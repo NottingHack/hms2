@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('pageTitle')
-{{ $user->getFullName() }}'s Email
+{{ $user->getFullname() }}'s Email
 @endsection
 
 @section('content')
 <div class="container">
   <div class="card">
-    <h5 class="card-header">Update Email for {{ $user->getFullName() }}</h5>
+    <h5 class="card-header">Update Email for {{ $user->getFullname() }}</h5>
     <form id="user-edit-form" role="form" method="POST" action="{{ route('users.admin.update-email', $user->getId()) }}">
       @csrf
       @method('PATCH')

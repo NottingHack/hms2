@@ -3,13 +3,12 @@
   <div class="card-header">Tool Bookings</div>
   <booking-calendar-list
     classs="card-body"
-    bookings-url="{{ route('api.tools.bookings.index', ['tool' => '_ID_']) }}"
-    :initial-bookings="{{ json_encode($bookings) }}"
-    :tool-ids="{{ json_encode($toolIds) }}"
+    :initial-bookings='@json($bookings)'
+    :tool-ids='@json($toolIds)'
     :remove-card-class="true"
     ></booking-calendar-list>
  {{--  <div class="card-footer">
-    <a href="#" class="btn btn-primary" target="_blank"><i class="far fa-clock" aria-hidden="true"></i> Schedule an Induction</a>
+    <a href="#" class="btn btn-primary" target="_blank"><i class="far fad-clock" aria-hidden="true"></i> Schedule an Induction</a>
   </div> --}}
 </div>
 <div class="card">

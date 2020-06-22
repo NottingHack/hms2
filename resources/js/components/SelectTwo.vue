@@ -4,8 +4,8 @@
       ref="select"
       class="form-control"
       :name="name"
-      :placeholder="placeholder"
       :disabled="disabled"
+      :required="required"
       >
     </select>
     <div v-if="invalid" class="d-none form-control is-invalid"></div>
@@ -46,6 +46,10 @@
         type: Boolean,
         default: false
       },
+      required: {
+        type: Boolean,
+        default: false
+      },
       settings: {
         type: Object,
         default: () => {}
@@ -68,21 +72,25 @@
         this.setOption(val);
       },
       value(val) {
+        // console.log('seclect2:value', val);
         this.setValue(val);
       }
     },
 
     methods: {
       setOption(val = []) {
+        // console.log('sewclect2:setOption', val);
         this.select2.empty();
         this.select2.select2({
           theme: 'bootstrap',
+          placeholder: this.placeholder,
           ...this.settings,
           data: val
         });
         this.setValue(this.value);
       },
       setValue(val) {
+        // console.log('sewclect2:setValue', val);
         if (val instanceof Array) {
           this.select2.val([...val]);
         } else {

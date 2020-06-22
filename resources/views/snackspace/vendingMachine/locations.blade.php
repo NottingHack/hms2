@@ -10,7 +10,7 @@ Locations for {{ $vendingMachine->getDescription() }}
 </div>
 <vending-locations
   assign-url="{{  route('api.snackspace.vending-machines.locations.assign', ['vendingMachine' => $vendingMachine->getID()]) }}"
-  :initial-locations="{{ json_encode($locations) }}"
-  :products="{{ json_encode($products) }}"
+  :initial-locations='@json($locations)'
+  :products='@json($products)'
   ></vending-locations>
 @endsection

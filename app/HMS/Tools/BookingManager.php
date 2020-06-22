@@ -229,7 +229,15 @@ class BookingManager
             return $basicChecks; // 422
         }
 
-        $orignalBooking = $booking;
+        // ADVANCED CHECKS
+        // does it clash?
+        // TODO: Maintenance slot can overwrite other bookings
+        // TODO: why was this not alrady checked??? 20/05/2020 lwk, ah needs to exlude this $booking from the chceck
+        // if (! empty($this->bookingRepository->checkForClashByTool($tool, $start, $end))) {
+        //     return 'Your booking request clashes with another booking. No booking has been made.';
+        // }
+
+        $orignalBooking = $booking; // save original < this may not do what i think!!!
 
         // all check passed lets update it
         $booking->setStart($start);

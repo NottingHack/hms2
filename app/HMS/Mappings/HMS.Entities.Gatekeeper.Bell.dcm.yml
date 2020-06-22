@@ -1,0 +1,30 @@
+# HMS.Entities.Gatekeeper.Bell.dcm.yml
+HMS\Entities\Gatekeeper\Bell:
+  type: entity
+  repositoryClass: HMS\Repositories\Gatekeeper\Doctrine\DoctrineBellRepository
+  table: bells
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    description:
+      type: string
+      length: 100
+    topic:
+      type: string
+      length: 100
+    message:
+      type: string
+      length: 50
+    enabled:
+      type: boolean
+      options:
+        default: 1
+  manyToMany:
+    doors:
+      targetEntity: HMS\Entities\Gatekeeper\Door
+      mappedBy: bells

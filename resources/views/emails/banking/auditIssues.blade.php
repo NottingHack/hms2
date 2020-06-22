@@ -8,7 +8,7 @@ These are current members that have no bank transactions against their name.
 | Member Id | Name           | Email            |
 | --------- | -------------- | ---------------- |
 @foreach ($ohCrapUsers as $user)
-| {{ $user->getId() }} | [{{ $user->getFullName() }}]({{ route('users.admin.show', $user->getId()) }}) | {{ $user->getEmail() }} |
+| {{ $user->getId() }} | [{{ $user->getFullname() }}]({{ route('users.admin.show', $user->getId()) }}) | {{ $user->getEmail() }} |
 @endforeach
 @endcomponent
 

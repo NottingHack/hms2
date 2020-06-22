@@ -13,7 +13,7 @@ return [
     */
     'main' => [
         'home' => [
-            'text'          => '<i class="fas fa-home fa-lg"></i>',
+            'text'          => '<i class="fad fa-home fa-lg"></i>',
             'route'         => 'index',
             'permissions'   => [],
             'links'         => [],
@@ -26,7 +26,7 @@ return [
             'links'         => [],
         ],
         'boxes' => [
-            'text'          => 'Boxes',
+            'text'          => '<i class="fad fa-box-full fa-lg"></i>',
             'route'         => 'boxes.index',
             'match'         => 'boxes.index',
             'permissions'   => ['box.view.self'],
@@ -53,8 +53,8 @@ return [
             'links'         => [],
         ],
         'codes' => [
-            'text'          => 'Access Codes',
-            'route'         => 'accessCodes',
+            'text'          => 'Space Access',
+            'route'         => 'gatekeeper.accessCodes',
             'permissions'   => ['accessCodes.view'],
             'links'         => [],
         ],
@@ -66,7 +66,7 @@ return [
             'links'         => [],
         ],
         'statistics' => [
-            'text' => '<i class="fas fa-chart-line fa-lg"></i>',
+            'text' => '<i class="fad fa-chart-line fa-lg"></i>',
             'permissions'   => [],
             'links'         => [
                 'membership' => [
@@ -141,7 +141,7 @@ return [
             ],
         ],
         'finance' => [
-            'text' => '<i class="far fa-money-bill fa-lg"></i>',
+            'text' => '<i class="fad fa-money-bill fa-lg"></i>',
             'permissions'   => [],
             'links'         => [
                 'joinAccounts' => [
@@ -175,7 +175,7 @@ return [
             ],
         ],
         'admin' => [
-            'text'          => '<i class="fas fa-toolbox fa-lg"></i>',
+            'text'          => '<i class="fad fa-toolbox fa-lg"></i>',
             'permissions'   => [],
             'links'         => [
                 // 'dashboard'         => [
@@ -243,23 +243,43 @@ return [
                     'permissions'   => ['governance.meeting.view'],
                     'links'         => [],
                 ],
-                'accessLogs' => [
-                    'text'          => 'GateKeeper Access Logs',
-                    'route'         => 'access-logs.index',
-                    'permissions'   => ['profile.view.all'],
-                    'links'         => [],
-                ],
-                'temporaryAccess' => [
-                    'text'          => 'GateKeeper Temporary Access',
-                    'route'         => 'gatekeeper.temporary-access',
-                    'permissions'   => ['gatekeeper.temporaryAccess.grant'],
-                    'links'         => [],
-                ],
                 'horizon'          => [
                     'text'          => 'Horizon',
                     'route'         => 'horizon.index',
                     'match'         => 'horizon.index',
                     'permissions'   => ['horizon.view'],
+                    'links'         => [],
+                ],
+            ],
+        ],
+        'gatekeeper' => [
+            'text'          => '<i class="far fa-door-closed fa-lg"></i>',
+            'permissions'   => [],
+            'links'         => [
+                'buildings' => [
+                    'text'          => 'Access State',
+                    'route'         => 'gatekeeper.access-state.index',
+                    'match'         => 'gatekeeper.access-state.index',
+                    'permissions'   => ['gatekeeper.access.manage'],
+                    'links'         => [],
+                ],
+                'bookableAreas' => [
+                    'text'          => 'Bookable Areas',
+                    'route'         => 'gatekeeper.bookable-area.index',
+                    'permissions'   => ['gatekeeper.access.manage'],
+                    'links'         => [],
+                ],
+
+                'temporaryAccess' => [
+                    'text'          => 'Temporary Access Bookings',
+                    'route'         => 'gatekeeper.temporary-access',
+                    'permissions'   => ['gatekeeper.temporaryAccess.view.all'], // TODO: all
+                    'links'         => [],
+                ],
+                'accessLogs' => [
+                    'text'          => 'Access Logs',
+                    'route'         => 'access-logs.index',
+                    'permissions'   => ['profile.view.all'],
                     'links'         => [],
                 ],
             ],

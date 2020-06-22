@@ -1,5 +1,5 @@
 <template>
-  <form id='member-search' ref="search" role="form" method="GET" :action="actionUrl">
+  <form :id="$id('member-search')" ref="search" role="form" method="GET" :action="actionUrl">
     <member-select-two
       v-model="myValue"
       :name="null"
@@ -32,14 +32,13 @@
 
     computed: {
       actionUrl() {
-        return this.action.replace("_ID_", this.myValue);
+        return this.route(this.action, this.myValue);
       },
     },
 
     watch: {
       actionUrl() {
-        // use val to replace _ID_ in the action url and submit form
-        // console.log(this.actionUrl);
+        // autosubmit on value change
         this.$nextTick(() => {
           this.$refs.search.submit();
         });

@@ -39,6 +39,21 @@ class DoctrineMetaRepository extends EntityRepository implements MetaRepository
     }
 
     /**
+     * Get the specified setting value as an int.
+     *
+     * @param string $key
+     * @param mixed $default
+     *
+     * @return int|null
+     */
+    public function getInt($key, ?int $default = null)
+    {
+        $meta = $this->findOneByKey($key);
+
+        return is_null($meta) ? $default : (int) $meta->getValue();
+    }
+
+    /**
      * Set a given setting value.
      *
      * @param string $key

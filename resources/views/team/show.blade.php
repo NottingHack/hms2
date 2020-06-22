@@ -44,7 +44,7 @@
     @foreach ($users as $user)
     <li class="list-group-item">
       <span class="align-middle">
-        {{ $user->getFullName() }}&nbsp;
+        {{ $user->getFullname() }}&nbsp;
         @can('role.grant.team')
         <div class="btn-group float-right" role="group">
           <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-danger btn-sm" aria-label="delete">

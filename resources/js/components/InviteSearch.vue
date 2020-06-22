@@ -1,10 +1,10 @@
 <template>
-  <form id='invite-search' ref="search" role="form" method="POST" :action="actionUrl">
+  <form :id="$id('invite-search')" ref="search" role="form" method="POST" :action="actionUrl">
     <input type="hidden" name="_token" :value="csrf">
     <div class="form-group" ref="selectDiv">
-      <label for="invite">Search for an Invite to resend</label>
+      <label :for="$id('invite')">Search for an Invite to resend</label>
       <select-two
-        id="invite"
+        :id="$id('invite')"
         v-model="value"
         :name="null"
         :placeholder="placeholder"
@@ -22,7 +22,6 @@
 <script>
   export default {
     props: {
-      action: String,
       placeholder: {
         type: String,
         default: 'Search for an invite...'
@@ -44,7 +43,7 @@
 
     computed: {
       actionUrl() {
-        return this.action.replace("_ID_", this.value);
+        return this.route('membership.invites.resend', this.value);
       },
 
       mySettings() {

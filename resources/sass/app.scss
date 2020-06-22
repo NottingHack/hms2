@@ -15,8 +15,9 @@
 @import '~@fortawesome/fontawesome-pro/scss/fontawesome';
 @import '~@fortawesome/fontawesome-pro/scss/regular';
 @import '~@fortawesome/fontawesome-pro/scss/solid';
-@import '~@fortawesome/fontawesome-pro/scss/light';
+// @import '~@fortawesome/fontawesome-pro/scss/light';
 @import '~@fortawesome/fontawesome-pro/scss/brands';
+@import '~@fortawesome/fontawesome-pro/scss/duotone';
 
 //FullCalendar
 @import '~@fullcalendar/core/main';
@@ -35,12 +36,6 @@
 @import 'layout/footer';
 @import 'layout/member-search';
 @import 'layout/no-more-tables';
-
-// SCSS for Vue Components
-@import 'vue/flash';
-@import 'vue/tool-calendar';
-@import 'vue/booking-calendar-list';
-@import 'vue/temporary-access-calendar';
 
 /*
  * Cards

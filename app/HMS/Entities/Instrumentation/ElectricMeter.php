@@ -2,7 +2,7 @@
 
 namespace HMS\Entities\Instrumentation;
 
-use HMS\Entities\GateKeeper\Room;
+use HMS\Entities\Gatekeeper\Room;
 
 class ElectricMeter
 {

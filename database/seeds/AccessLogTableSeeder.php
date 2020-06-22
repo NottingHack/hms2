@@ -2,10 +2,10 @@
 
 use Illuminate\Database\Seeder;
 use HMS\Repositories\RoleRepository;
-use HMS\Entities\GateKeeper\AccessLog;
-use HMS\Repositories\GateKeeper\DoorRepository;
-use HMS\Repositories\GateKeeper\RfidTagRepository;
-use HMS\Repositories\GateKeeper\AccessLogRepository;
+use HMS\Entities\Gatekeeper\AccessLog;
+use HMS\Repositories\Gatekeeper\DoorRepository;
+use HMS\Repositories\Gatekeeper\RfidTagRepository;
+use HMS\Repositories\Gatekeeper\AccessLogRepository;
 
 class AccessLogTableSeeder extends Seeder
 {

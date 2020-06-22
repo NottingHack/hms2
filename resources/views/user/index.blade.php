@@ -24,7 +24,7 @@
         @foreach ($users as $user)
         <tr>
           <td data-title="Username">{{ $user->getUsername() }}</td>
-          <td data-title="Name">{{ $user->getFullName() }}</td>
+          <td data-title="Name">{{ $user->getFullname() }}</td>
           <td data-title="Email">{{ $user->getEmail() }}</td>
           <td data-title="Actions" class="actions">
             <a class="btn btn-primary btn-sm mb-1" href="{{ route('users.admin.show', $user->getId()) }}"><i class="far fa-eye" aria-hidden="true"></i> View</a>

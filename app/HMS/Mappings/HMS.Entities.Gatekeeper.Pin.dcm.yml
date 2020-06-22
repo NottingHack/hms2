@@ -1,0 +1,33 @@
+# HMS.Entities.Gatekeeper.Pin.dcm.yml
+HMS\Entities\Gatekeeper\Pin:
+  type: entity
+  repositoryClass: HMS\Repositories\Gatekeeper\Doctrine\DoctrinePinRepository
+  table: pins
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    pin:
+      type: string
+      length: 12
+      unique: true
+    dateAdded:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    expiry:
+      type: datetime
+      nullable: true
+    state:
+      type: integer
+      options:
+        default: 10
+  oneToOne:
+    user:
+      targetEntity: \HMS\Entities\User
+      inversedBy: pin

@@ -24,7 +24,7 @@
           id='meter'
           name='meter'
           placeholder="Select a meter..."
-          :options="{{ json_encode($meterOptions) }}"
+          :options='@json($meterOptions)'
           style="width: 100%"
           {{ old('meter') ? ':value="' . old('meter') . '"' : '' }}
           >

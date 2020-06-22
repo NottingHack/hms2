@@ -1,24 +1,44 @@
 /**
- * File to hold all our select2 related JavaScript
+ * File to hold all our VueJS related JavaScript
  */
 
 window.Vue = require('vue');
 
+/**
+ * unique id helper, gives this.uid, this.$id(), this.$idRef()
+ */
+import UniqueId from 'vue-unique-id';
+
+Vue.use(UniqueId);
+
+/**
+ * flash helper
+ * @param  {string} message
+ * @param  {String} level
+ */
 window.events = new Vue();
 
 window.flash = function (message, level = 'success') {
-    window.events.$emit('flash', { message, level });
+    window.events.$emit('flash', message, level);
 };
 
-import {Ziggy} from './ziggy';
-import route from '../../vendor/tightenco/ziggy/src/js/route';
+/**
+ * Ziggy
+ */
+import route from 'ziggy';
+import { Ziggy } from './ziggy';
 
-window.Ziggy = Ziggy; // this was missing from your setup
+if (process.env.NODE_ENV != 'production') {
+    // use dynamic baseUrl's for ziggy in dev, great for ngrok
+    Ziggy.baseUrl = location.protocol+'//'+location.hostname;
+    Ziggy.baseProtocol = location.protocol;
+    Ziggy.baseDomain = location.hostname;
+}
 
 Vue.mixin({
     methods: {
-        route: route
-    }
+        route: (name, params, absolute) => route(name, params, absolute, Ziggy),
+    },
 });
 
 /**

@@ -37,7 +37,7 @@ Route::get('instrumentation/status', 'Instrumentation\ServiceController@status')
 Route::get('instrumentation/{service}/events/', 'Instrumentation\ServiceController@eventsForService')
     ->name('instrumentation.service.events');
 // Instrumentation/Electric
-Route::namespace('Instrumentation')->prefix('instrumentation')->name('instrumentation.')->group(function () {
+Route::prefix('instrumentation')->namespace('Instrumentation')->name('instrumentation.')->group(function () {
     Route::get('electric', 'ElectricController@index')->name('electric.index');
 });
 Route::prefix('statistics')->name('statistics.')->group(function () {
@@ -48,6 +48,10 @@ Route::prefix('statistics')->name('statistics.')->group(function () {
     Route::get('zone-occupants', 'StatisticsController@zoneOccupancy')->name('zone-occupants');
     Route::get('tools', 'StatisticsController@tools')->name('tools');
 });
+
+ Route::get('gatekeeper/b/{building}/u/{user}/have-left', 'Gatekeeper\AccessController@haveLeft')
+    ->name('gatekeeper.building.user.have-left')
+    ->middleware('signed');
 
 // Routes in the following group can only be access from inside the hackspace (as defined by the ip range in .env)
 Route::middleware(['ipcheck'])->group(function () {
@@ -76,8 +80,6 @@ Route::middleware(['auth'])->group(function () {
 
 // Routes in the following group can only be access once logged-in and have verified your email address
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('access-codes', 'pages.access')->middleware('can:accessCodes.view')->name('accessCodes');
-
     // ROLE
     Route::get('roles', 'RoleController@index')->name('roles.index');
     Route::get('roles/{role}', 'RoleController@show')->name('roles.show');
@@ -124,16 +126,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ]
     );
 
-    // Access Logs
-    Route::get('admin/users/{user}/access-logs', 'GateKeeper\AccessLogController@indexByUser')
-        ->name('users.admin.access-logs');
-    Route::get('access-logs/{fromdate?}', 'GateKeeper\AccessLogController@index')->name('access-logs.index');
-
     // Rfid Tags
-    Route::get('users/{user}/rfid-tags', 'GateKeeper\RfidTagsController@index')->name('users.rfid-tags');
+    Route::get('users/{user}/rfid-tags', 'Gatekeeper\RfidTagsController@index')->name('users.rfid-tags');
     Route::resource(
         'rfid-tags',
-        'GateKeeper\RfidTagsController',
+        'Gatekeeper\RfidTagsController',
         [
             'except' => ['create', 'store', 'show'],
             'parameters' => [
@@ -141,12 +138,35 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ],
         ]
     );
-    Route::patch('pins/{pin}/reactivate', 'GateKeeper\RfidTagsController@reactivatePin')->name('pins.reactivate');
+    Route::patch('pins/{pin}/reactivate', 'Gatekeeper\RfidTagsController@reactivatePin')->name('pins.reactivate');
 
-    // Temporary Gatekeeper access
-    Route::view('gatekeeper/temporary-access', 'gateKeeper.temporary_access')
-        ->middleware('can:gatekeeper.temporaryAccess.grant')
-        ->name('gatekeeper.temporary-access');
+    // Access Logs
+    Route::get('admin/users/{user}/access-logs', 'Gatekeeper\AccessLogController@indexByUser')
+        ->name('users.admin.access-logs');
+    Route::get('access-logs/{fromdate?}', 'Gatekeeper\AccessLogController@index')->name('access-logs.index');
+
+    // Gatekeeper access
+    Route::prefix('gatekeeper')->namespace('Gatekeeper')->name('gatekeeper.')->group(function () {
+        // For members
+        Route::get('space-access', 'AccessController@spaceAccess')->name('accessCodes');
+
+        // For admins
+        Route::get('access-state', 'AccessController@index')->name('access-state.index');
+        Route::get('access-state/edit', 'AccessController@edit')->name('access-state.edit');
+        Route::put('access-state', 'AccessController@update')->name('access-state.update');
+
+        Route::resource(
+            'bookable-area',
+            'BookableAreaController',
+            [
+                'parameters' => [
+                    'bookable-area' => 'bookableArea',
+                ],
+            ]
+        );
+
+        Route::get('temporary-access', 'AccessController@accessCalendar')->name('temporary-access');
+    });
 
     // Label printer template admin
     Route::get('labels/{label}/print', 'LabelTemplateController@showPrint')->name('labels.showPrint');
@@ -333,13 +353,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('csv-download.member-payments');
 
     // Instrumentation/Electric
-    Route::namespace('Instrumentation')->prefix('instrumentation')->name('instrumentation.')->group(function () {
+    Route::prefix('instrumentation')->namespace('Instrumentation')->name('instrumentation.')->group(function () {
         // Route::get('electric', 'ElectricController@index')->name('electric.index');
         Route::post('electric/readings', 'ElectricController@store')->name('electric.readings.store');
     });
 
     // Governance
-    Route::namespace('Governance')->prefix('governance')->name('governance.')->group(function () {
+    Route::prefix('governance')->namespace('Governance')->name('governance.')->group(function () {
         // Meetings
         Route::get('meetings/{meeting}/attendees', 'MeetingController@attendees')
             ->name('meetings.attendees');

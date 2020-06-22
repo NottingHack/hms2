@@ -1,0 +1,56 @@
+# HMS.Entities.Gatekeeper.BookableArea.dcm.yml
+HMS\Entities\Gatekeeper\BookableArea:
+  type: entity
+  repositoryClass: HMS\Repositories\Gatekeeper\Doctrine\DoctrineBookableAreaRepository
+  table: bookable_areas
+  gedmo:
+    soft_deleteable:
+      field_name: deletedAt
+      time_aware: false
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+      length: 50
+    description:
+      type: text
+    maxOccupancy:
+      type: integer
+      options:
+        unsigned: true
+        default: 1
+    additionalGuestOccupancy:
+      type: integer
+      options:
+        unsigned: true
+        default: 0
+    bookingColor:
+      type: string
+    selfBookable:
+      type: boolean
+      options:
+        default: 0
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+    deletedAt:
+      type: datetime
+      nullable: true
+  manyToOne:
+    building:
+      targetEntity: \HMS\Entities\Gatekeeper\Building
+      inversedBy: bookableAreas
+      fetch: EAGER

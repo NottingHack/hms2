@@ -3,7 +3,7 @@
 use App\Jobs\PostGitDeployedJob;
 use Illuminate\Foundation\Inspiring;
 use App\Jobs\Banking\MembershipAuditJob;
-use App\Jobs\GateKeeper\ZoneOccupantResetJob;
+use App\Jobs\Gatekeeper\ZoneOccupantResetJob;
 use App\Jobs\Membership\AuditYoungHackersJob;
 
 /*

@@ -12,6 +12,7 @@
 
   <!-- Styles -->
   <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
+  <link href="{{ mix('/css/vue.css') }}" rel="stylesheet">
 
   <!-- Scripts -->
   <script src="https://js.stripe.com/v3/"></script>{{-- Stripe.JS can not be webpacked--}}
@@ -50,7 +51,7 @@
 @yield('content')
       </div>
     </div>
-    <flash message="{{ session('flash') }}"></flash>
+    <flash></flash>
   </main>
   <!-- main body end -->
 

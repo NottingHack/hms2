@@ -28,18 +28,18 @@
       </div>
     </div>
     <div class="card-footer">
-        <a class="btn btn-primary btn-sm btn-sm-spacing" href={{ route('email-members.draft') }}>Edit</a>
-        <a class="btn btn-primary btn-sm btn-sm-spacing" href="javascript:void(0);" onclick="$(this).find('form').submit();" >
+        <a class="btn btn-primary btn-sm mb-1" href={{ route('email-members.draft') }}>Edit</a>
+        <a class="btn btn-primary btn-sm mb-1" href="javascript:void(0);" onclick="$(this).find('form').submit();" >
           <form action="{{ route('email-members.send') }}" method="POST" style="display: none">
             @csrf
-            @method('put')
+            @method('PUT')
             <input type="hidden" id="testSend" name="testSend" value="1"/>
           </form>Send Test to Trustees
         </a>
-        <button type="button" class="btn btn-primary btn-sm btn-sm-spacing btn-danger float-right" data-toggle="confirmation" data-placement="bottom">
+        <button type="button" class="btn btn-danger btn-sm mb-1 float-right" data-toggle="confirmation" data-placement="bottom">
           <form action="{{ route('email-members.send') }}" method="POST" style="display: none">
             @csrf
-            @method('put')
+            @method('PUT')
             <input type="hidden" id="testSend" name="testSend" value="0"/>
           </form>Send to {{ $currentMemberCount }} current members
         </button>

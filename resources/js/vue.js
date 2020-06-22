@@ -1,5 +1,5 @@
 /**
- * File to hold all our select2 related JavaScript
+ * File to hold all our VueJS related JavaScript
  */
 
 window.Vue = require('vue');

@@ -76,9 +76,9 @@ class TemporaryAcccessCheckZoneOccupancyJob implements ShouldQueue
         });
 
         $now = Carbon::now();
-        $bookingSearchLimit = $now->clone()->addMinutes(10);
-        $userLimit = $now->clone()->subMinutes(30); // TODO: meta
-        $trusteeLimit = $now->clone()->subMinutes(60);  // TODO: meta
+        $bookingSearchLimit = $now->clone()->addMinutes($metaRepository->get('temporary_access_rfid_window', 10));
+        $userLimit = $now->clone()->subMinutes($metaRepository->get('temporary_access_uesr_notification', 30));
+        $trusteeLimit = $now->clone()->subMinutes($metaRepository->get('temporary_access_trustee_notification', 120));
 
         $this->trusteesTeamRole = $roleRepository->findOneByName(Role::TEAM_TRUSTEES);
 

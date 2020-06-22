@@ -8,6 +8,7 @@ use HMS\Entities\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
+use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
 use HMS\Entities\Gatekeeper\Building;
 use Illuminate\Support\Facades\Cache;
@@ -63,13 +64,15 @@ class TemporaryAcccessCheckZoneOccupancyJob implements ShouldQueue
      * @param TemporaryAccessBookingRepository $temporaryAccessBookingRepository
      * @param BuildingRepository $buildingRepository
      * @param RoleRepository $roleRepository
+     * @param MetaRepository $metaRepository
      *
      * @return void
      */
     public function handle(
         TemporaryAccessBookingRepository $temporaryAccessBookingRepository,
         BuildingRepository $buildingRepository,
-        RoleRepository $roleRepository
+        RoleRepository $roleRepository,
+        MetaRepository $metaRepository
     ) {
         $this->warnings = Cache::rememberForever('TACZOJ.warnings', function () {
             return [];

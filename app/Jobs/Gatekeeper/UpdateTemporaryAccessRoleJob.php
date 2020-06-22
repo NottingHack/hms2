@@ -34,13 +34,15 @@ class UpdateTemporaryAccessRoleJob implements ShouldQueue
      * @param TemporaryAccessBookingRepository $temporaryAccessBookingRepository
      * @param RoleManager $roleManager
      * @param RoleRepository $roleRepository
+     * @param MetaRepository $metaRepository
      *
      * @return void
      */
     public function handle(
         TemporaryAccessBookingRepository $temporaryAccessBookingRepository,
         RoleManager $roleManager,
-        RoleRepository $roleRepository
+        RoleRepository $roleRepository,
+        MetaRepository $metaRepository
     ) {
         $temporaryAccessRole = $roleRepository->findOneByName(Role::TEMPORARY_ACCESS);
 

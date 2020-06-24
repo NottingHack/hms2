@@ -34,6 +34,7 @@ class Role implements RoleContract
 
     const SUPERUSER = 'user.super';
     const TEMPORARY_ACCESS = 'user.temporaryAccess';
+    const BUILDING_ACCESS = 'user.buildingAccess';
 
     const TEAM_MEMBERSHIP = 'team.membership';
     const TEAM_TRUSTEES = 'team.trustees';

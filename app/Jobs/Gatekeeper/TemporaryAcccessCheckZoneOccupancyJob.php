@@ -156,6 +156,10 @@ class TemporaryAcccessCheckZoneOccupancyJob implements ShouldQueue
     protected function noBooking(Building $building, User $user)
     {
         // bugger
+        if ($user->hasRoleByName(Role::BUILDING_ACCESS)) {
+            return;
+        }
+
         Log::info(
             'TACZOJ: User ' . $user->getId()
             . ' is in the building with out a booking'

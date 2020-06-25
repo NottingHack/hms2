@@ -61,6 +61,10 @@ class UserHasLeftTheBuildingJob implements ShouldQueue
         $now = Carbon::now();
         $user = $zoneOccupant->getUser(); // get the fresh user off the ZoneOccupant
 
+        \Log::info(
+            'UHLTBJ: User ' . $user->getId() . ' has told us they left Building ' . $building->getId()
+        );
+
         if ($oldZone->getShortName() == Zone::OFF_SITE) {
             // oh you are already off site :)
             return;
@@ -80,12 +84,14 @@ class UserHasLeftTheBuildingJob implements ShouldQueue
             ->setTimeEntered($zoneOccupant->getTimeEntered())
             ->setTimeExited($now);
 
-        // change zone to offiste set enter time
+        // change zone to offSite set enter time
         $zoneOccupant->setZone($offSiteZone)
             ->setTimeEntered($now);
 
         // save them
         $zoneOccupantRepository->save($zoneOccupant);
         $zoneOccupancyLogRepository->save($zoneOccupancyLog);
+
+        \Log::info('UHLTBJ: User ' . $user->getId() . ' set off site');
     }
 }

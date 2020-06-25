@@ -62,7 +62,7 @@ class UserHasLeftTheBuildingJob implements ShouldQueue
         $user = $zoneOccupant->getUser(); // get the fresh user off the ZoneOccupant
 
         \Log::info(
-            'UHLTBJ: User ' . $user->getId() . ' has told us they left Building ' . $building->getId()
+            'UHLTBJ: User ' . $user->getId() . ' has told us they left Building ' . $this->building->getId()
         );
 
         if ($oldZone->getShortName() == Zone::OFF_SITE) {

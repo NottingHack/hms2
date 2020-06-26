@@ -28,6 +28,11 @@ class MembershipRevoked extends Mailable implements ShouldQueue
     /**
      * @var string
      */
+    public $accountName;
+
+    /**
+     * @var string
+     */
     public $fullname;
 
     /**
@@ -67,6 +72,7 @@ class MembershipRevoked extends Mailable implements ShouldQueue
         $bank = $bankRepository->find($metaRepository->get('so_bank_id'));
         $this->accountNo = $bank->getAccountNumber();
         $this->sortCode = $bank->getSortCode();
+        $this->accountName = $bank->getAccountName();
         $this->fullname = $user->getFullname();
         $this->paymentRef = $user->getAccount()->getPaymentRef();
         $this->boxCount = $boxRepository->countInUseByUser($user);

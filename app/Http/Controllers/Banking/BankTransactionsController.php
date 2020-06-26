@@ -44,6 +44,11 @@ class BankTransactionsController extends Controller
     public $sortCode;
 
     /**
+     * @var string
+     */
+    public $accountName;
+
+    /**
      * @var TransactionFactory
      */
     protected $transactionFactory;
@@ -80,6 +85,7 @@ class BankTransactionsController extends Controller
         $bank = $bankRepository->find($metaRepository->get('so_bank_id'));
         $this->accountNo = $bank->getAccountNumber();
         $this->sortCode = $bank->getSortCode();
+        $this->accountName = $bank->getAccountName();
 
         $this->middleware('can:bankTransactions.view.self')->only(['index']);
         $this->middleware('can:bankTransactions.reconcile')->only(['edit', 'update', 'listUnmatched']);
@@ -127,6 +133,7 @@ class BankTransactionsController extends Controller
             ->with('bankTransactions', $bankTransactions)
             ->with('accountNo', $this->accountNo)
             ->with('sortCode', $this->sortCode)
+            ->with('accountName', $this->accountName)
             ->with('paymentRef', $paymentRef);
     }
 

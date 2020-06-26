@@ -27,11 +27,12 @@ To pay off with a card, please log into HMS where you will see a button to "Add 
 To pay by bank transfer please use the details below.
 It is very important to use this reference **exactly** so we can match this payment to you and your snackspace balance.
 @component('mail::panel')
-Account number: {{ $accountNo }}<br>
-Sort Code: {{ $sortCode }}<br>
-Reference: {{ $paymentRef }}
+Account number: {{ $accountNo }}  
+Sort Code: {{ $sortCode }}  
+Reference: {{ $paymentRef }}  
+Our Account Name: {{ $accountName }}
 @endcomponent
 
-Thanks,<br>
+Thanks,  
 Nottingham Hackspace
 @endcomponent

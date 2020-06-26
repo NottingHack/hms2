@@ -33,12 +33,18 @@ class ExMemberDebt extends Notification implements ShouldQueue
     protected $sortCode;
 
     /**
+     * @var string
+     */
+    protected $accountName;
+
+    /**
      * Create a new notification instance.
      *
      * @param int $latetsTotalDebt
      * @param int $latetsExDebt
      * @param string $accountNo
      * @param string $sortCode
+     * @param string $accountName
      *
      * @return void
      */
@@ -46,12 +52,14 @@ class ExMemberDebt extends Notification implements ShouldQueue
         int $latetsTotalDebt,
         int $latetsExDebt,
         string $accountNo,
-        string $sortCode
+        string $sortCode,
+        string $accountName
     ) {
         $this->latetsTotalDebt = $latetsTotalDebt;
         $this->latetsExDebt = $latetsExDebt;
         $this->accountNo = $accountNo;
         $this->sortCode = $sortCode;
+        $this->accountName = $accountName;
     }
 
     /**
@@ -91,6 +99,7 @@ class ExMemberDebt extends Notification implements ShouldQueue
                     'latetsExDebt' => $this->latetsExDebt,
                     'accountNo' => $this->accountNo,
                     'sortCode' => $this->sortCode,
+                    'accountName' => $this->accountName,
                 ]
             );
     }

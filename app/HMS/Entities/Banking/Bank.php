@@ -25,6 +25,11 @@ class Bank
     protected $accountNumber;
 
     /**
+     * @var string
+     */
+    protected $accountName;
+
+    /**
      * Gets the value of id.
      *
      * @return int
@@ -90,6 +95,26 @@ class Bank
     public function setAccountNumber($accountNumber)
     {
         $this->accountNumber = $accountNumber;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAccountName()
+    {
+        return $this->accountName;
+    }
+
+    /**
+     * @param string $accountName
+     *
+     * @return self
+     */
+    public function setAccountName($accountName)
+    {
+        $this->accountName = $accountName;
 
         return $this;
     }

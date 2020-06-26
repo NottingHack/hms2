@@ -50,6 +50,7 @@ class MemberDebtNotificationJob implements ShouldQueue
         $bank = $bankRepository->find($metaRepository->get('so_bank_id'));
         $accountNo = $bank->getAccountNumber();
         $sortCode = $bank->getSortCode();
+        $accountName = $bank->getAccountName();
 
         $latestDebt = $debtRepository->findLatest();
         $latetsTotalDebt = $latestDebt ? $latestDebt->getTotalDebt() : 0;
@@ -78,7 +79,7 @@ class MemberDebtNotificationJob implements ShouldQueue
 
         Notification::send(
             $exMembersInDebt->toArray(),
-            new ExMemberDebt($latetsTotalDebt, $latetsExDebt, $accountNo, $sortCode)
+            new ExMemberDebt($latetsTotalDebt, $latetsExDebt, $accountNo, $sortCode, $accountName)
         );
     }
 }

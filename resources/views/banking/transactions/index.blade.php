@@ -34,6 +34,14 @@ Membership Payments for {{ $user->getFirstname() }}
             <button type="button" class="btn btn-light btn-sm" onclick="copyToClipboard('#paymentRef')"><i class="far fa-copy "></i></button>
           </span>
         </dd>
+
+        <dt>Our Account Name</dt>
+        <dd>
+          <span class="align-middle">
+            <span id="accountName">{{ $accountName }}</span>&nbsp;
+            <button type="button" class="btn btn-light btn-sm" onclick="copyToClipboard('#accountName')"><i class="far fa-copy "></i></button>
+          </span>
+        </dd>
       </dl>
     </div>
   </div>

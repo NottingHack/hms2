@@ -176,6 +176,7 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
             ->orWhere('user.username LIKE :keyword')
             ->orWhere('user.email LIKE :keyword')
             ->orWhere('profile.addressPostcode LIKE :keyword')
+            ->orWhere('profile.contactNumber LIKE :keyword')
             ->orWhere('account.paymentRef LIKE :keyword');
 
         if ($hasAccount) {

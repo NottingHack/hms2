@@ -35,5 +35,5 @@ HMS\Entities\Gatekeeper\Zone:
       mappedBy: zone
   manyToOne:
     building:
-      targetEntity: \HMS\Entities\Gatekeeper\building
+      targetEntity: \HMS\Entities\Gatekeeper\Building
       inversedBy: zones

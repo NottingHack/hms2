@@ -65,7 +65,7 @@
 <br>
 <br>
 <div class="container">
-  <p>Words about building access state and that some might require booking.</p>
+  <p>Stay informed, find the latest information <a href="https://wiki.nottinghack.org.uk/wiki/Coronavirus_guidelines">on the wiki.</a></p>
 </div>
 @foreach($buildings as $building)
 <div class="container">

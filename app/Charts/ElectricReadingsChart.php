@@ -62,9 +62,7 @@ class ElectricReadingsChart extends Chart
                     $unitsUsed = null;
                 }
 
-                if ($reading[$meter->getName()]) {
-                    $previousReading = $reading[$meter->getName()];
-                }
+                $previousReading = $reading[$meter->getName()];
 
                 return [
                     $reading['date']->toDateString() => $unitsUsed,

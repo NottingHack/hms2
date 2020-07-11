@@ -54,10 +54,17 @@ class ElectricReadingsChart extends Chart
             $meterReadings = $readings->mapWithKeys(function ($reading) use ($meter, &$previousReading) {
                 if (! is_null($previousReading) && ! is_null($reading[$meter->getName()])) {
                     $unitsUsed = $reading[$meter->getName()] - $previousReading;
+
+                    if ($unitsUsed < 0) {
+                        $unitsUsed = 0;
+                    }
                 } else {
                     $unitsUsed = null;
                 }
-                $previousReading = $reading[$meter->getName()];
+
+                if ($reading[$meter->getName()]) {
+                    $previousReading = $reading[$meter->getName()];
+                }
 
                 return [
                     $reading['date']->toDateString() => $unitsUsed,

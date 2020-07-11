@@ -135,7 +135,7 @@
 
         this.loading(true);
 
-        axios.delete(this.route('api.tools.bookings.index', event.extendedProps.toolId) + '/' + event.id)
+        axios.delete(this.route('api.tools.bookings.index', event.extendedProps.toolId).url() + '/' + event.id)
           .then((response) => {
             if (response.status == '204') { // HTTP_NO_CONTENT
               flash('Booking cancelled');

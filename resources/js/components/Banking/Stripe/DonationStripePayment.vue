@@ -191,7 +191,7 @@
         };
 
         this.loading(true);
-        let route = this.guest ? this.route('api.stripe.make-intent.anon') : this.route('api.stripe.make-intent');
+        let route = this.guest ? this.route('api.stripe.make-intent.anon').url() : this.route('api.stripe.make-intent').url();
 
         axios.post(route, intent)
           .then((response) => {
@@ -243,7 +243,7 @@
 
         this.loading(true);
 
-        let route = this.guest ? this.route('api.stripe.make-intent.anon') : this.route('api.stripe.make-intent');
+        let route = this.guest ? this.route('api.stripe.update-intent.anon').url() : this.route('api.stripe.update-intent').url();
 
         axios.post(route, intent)
           .then((response) => {
@@ -422,7 +422,7 @@
 
         this.loading(true);
 
-        let route = this.guest ? this.route('api.stripe.make-intent.anon') : this.route('api.stripe.make-intent');
+        let route = this.guest ? this.route('api.stripe.intent-success.anon').url() : this.route('api.stripe.intent-success').url();
 
         axios.post(route, intent)
           .then((response) => {

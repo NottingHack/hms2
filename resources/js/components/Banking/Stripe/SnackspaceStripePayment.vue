@@ -166,7 +166,7 @@
 
         this.loading(true);
 
-        axios.post(this.route('api.stripe.make-intent'), intent)
+        axios.post(this.route('api.stripe.make-intent').url(), intent)
           .then((response) => {
             if (response.status == '201') { // HTTP_CREATED
               // pull out pi and client secret
@@ -215,7 +215,7 @@
 
         this.loading(true);
 
-        axios.post(this.route('api.stripe.update-intent'), intent)
+        axios.post(this.route('api.stripe.update-intent').url(), intent)
           .then((response) => {
             if (response.status == '200') {
               // check amount is correct
@@ -373,7 +373,7 @@
 
         this.loading(true);
 
-        axios.post(this.route('api.stripe.intent-success'), intent)
+        axios.post(this.route('api.stripe.intent-success').url(), intent)
           .then((response) => {
             if (response.status == '204') {
               console.log('paymentSuccess: confirmed');

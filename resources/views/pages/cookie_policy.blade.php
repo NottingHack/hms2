@@ -11,7 +11,8 @@
 
   {{-- hackspace_management_system_session --}}
   {{-- hackspace_management_system_passport --}}
-  {{-- These two are CSRF/XRF tokens --}}
+  {{-- XSRF-TOKEN --}}
+  {{-- These three are CSRF/XRF tokens --}}
 
   {{-- io --}}
   {{-- Socket IO session cookie, Used with laravel echo / event broadcasting --}}

@@ -169,7 +169,7 @@ class PrintLabelSubscriber implements ShouldQueue
      *
      * @return string
      */
-    public function getHost()
+    protected function getHost()
     {
         // Get the IP address for the printer.
         return $this->metaRepository->get('label_printer_ip');

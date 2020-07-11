@@ -51,7 +51,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('passport:purge')->daily();
 
         $schedule->job(new LogDebtJob)->daily();
-        $schedule->job(new ZoneOccupantResetJob)->twiceDaily();
+        $schedule->job(new ZoneOccupantResetJob)->hourly();
         $schedule->job(new MemberDebtNotificationJob)->monthlyOn(1, '7:00');
         $schedule->job(new EmailTeamReminderJob)->weeklyOn(2, '7:27');
         $schedule->job(new RecalculateMeetingQuorumJob)->everyFiveMinutes()

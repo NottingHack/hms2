@@ -107,6 +107,9 @@ class TemporaryAccessBookingManager
         // A user may only have {{ maxConcurrentPerUser }} current and future bookings at one time.
         $concurrentPerUserCheck = $this->concurrentPerUserCheck($user, $building);
 
+        // A user muse have {{ minPeriodBetweenBookings }} gap between bookings.
+        $minPeriodBetweenBookingsPerUserCheck = $this->minPeriodBetweenBookingsPerUserCheck($start, $end, $user, $building);
+
         // check occupancy limits
         $occupancyChecks = $this->occupancyChecks($start, $end, $bookableArea, $guests);
 
@@ -126,6 +129,10 @@ class TemporaryAccessBookingManager
                 $messages[] = $concurrentPerUserCheck;
             }
 
+            if (is_string($minPeriodBetweenBookingsPerUserCheck)) {
+                $messages[] = $minPeriodBetweenBookingsPerUserCheck;
+            }
+
             \Debugbar::addMessage($messages, 'book:grant.all');
         } else {
             switch ($bookableArea->getBuilding()->getAccessState()) {
@@ -139,6 +146,10 @@ class TemporaryAccessBookingManager
 
                     if (is_string($concurrentPerUserCheck)) {
                         return $concurrentPerUserCheck;
+                    }
+
+                    if (is_string($minPeriodBetweenBookingsPerUserCheck)) {
+                        return $minPeriodBetweenBookingsPerUserCheck;
                     }
 
                     // check bookable area limits
@@ -159,6 +170,10 @@ class TemporaryAccessBookingManager
 
                     if (is_string($concurrentPerUserCheck)) {
                         return $concurrentPerUserCheck;
+                    }
+
+                    if (is_string($minPeriodBetweenBookingsPerUserCheck)) {
+                        return $minPeriodBetweenBookingsPerUserCheck;
                     }
 
                     // check bookable area limits
@@ -251,6 +266,9 @@ class TemporaryAccessBookingManager
         // TODO: this may not be relevant for an update
         $concurrentPerUserCheck = $this->concurrentPerUserCheck($user, $building, $booking);
 
+        // A user muse have {{ minPeriodBetweenBookings }} gap between bookings.
+        $minPeriodBetweenBookingsPerUserCheck = $this->minPeriodBetweenBookingsPerUserCheck($start, $end, $user, $building, $booking);
+
         // check occupancy limits
         $occupancyChecks = $this->occupancyChecks(
             $start,
@@ -274,6 +292,10 @@ class TemporaryAccessBookingManager
                 $messages[] = $concurrentPerUserCheck;
             }
 
+            if (is_string($minPeriodBetweenBookingsPerUserCheck)) {
+                $messages[] = $minPeriodBetweenBookingsPerUserCheck;
+            }
+
             \Debugbar::addMessage($messages, 'update:grant.all');
         } else {
             switch ($bookableArea->getBuilding()->getAccessState()) {
@@ -287,6 +309,10 @@ class TemporaryAccessBookingManager
 
                     if (is_string($concurrentPerUserCheck)) {
                         return $concurrentPerUserCheck;
+                    }
+
+                    if (is_string($minPeriodBetweenBookingsPerUserCheck)) {
+                        return $minPeriodBetweenBookingsPerUserCheck;
                     }
 
                     // check bookable area limits
@@ -303,6 +329,10 @@ class TemporaryAccessBookingManager
 
                     if (is_string($concurrentPerUserCheck)) {
                         return $concurrentPerUserCheck;
+                    }
+
+                    if (is_string($minPeriodBetweenBookingsPerUserCheck)) {
+                        return $minPeriodBetweenBookingsPerUserCheck;
                     }
 
                     // check bookable area limits
@@ -536,6 +566,49 @@ class TemporaryAccessBookingManager
             }
 
             return 'You can only have ' . $maxConcurrentPerUser . ' current or future ' . $b . '.'; // 409 ?
+        }
+
+        return true;
+    }
+
+    /**
+     * A user muse have {{ minPeriodBetweenBookings }} gap between bookings.
+     *
+     * @param Carbon   $start
+     * @param Carbon   $end
+     * @param User     $user
+     * @param Building $building
+     * @param TemporaryAccessBooking|null $ignoreBooking
+     *
+     * @return bool|string String with error message or true if al checks passed
+     */
+    protected function minPeriodBetweenBookingsPerUserCheck(
+        Carbon $start,
+        Carbon $end,
+        User $user,
+        Building $building,
+        TemporaryAccessBooking $ignoreBooking = null
+    ) {
+        $minPeriodBetweenBookings = $this->getSelfBookSettings()['minPeriodBetweenBookings'];
+
+        $startWindow = $start->copy()->subMinutes($minPeriodBetweenBookings);
+        $endWindow = $end->copy()->addMinutes($minPeriodBetweenBookings);
+
+        // look for any bookings this user might already have in this time period
+        $bookings = collect($this->temporaryAccessBookingRepository
+                    ->findBetweenForBuildingAndUser($startWindow, $endWindow, $building, $user));
+
+        // need to filter out the current booking, if we where given one
+        $bookings = $bookings->reject(function ($item) use ($ignoreBooking) {
+            return $item == $ignoreBooking;
+        });
+
+        if ($bookings->isNotEmpty()) {
+            if ($user != \Auth::user()) {
+                return 'User already has a booking within ' . $minPeriodBetweenBookings . ' minutes of this slot.'; // 409
+            }
+
+            return 'You already have a booking within ' . $minPeriodBetweenBookings . ' minutes of this slot.'; // 409
         }
 
         return true;

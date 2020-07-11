@@ -1021,6 +1021,17 @@
             flash('Error creating booking', 'danger');
             if (error.response) {
               // if HTTP_UNPROCESSABLE_ENTITY some validation error laravel or us
+              if (error.response.status == '422') {
+                if (error.response.data.errors) {
+                  const errors = error.response.data.errors;
+
+                  Object.keys(errors).forEach(function(key) {
+                    errors[key].forEach(error => flash(error, 'danger'));
+                  });
+                } else {
+                  flash(error.response.data, 'danger');
+                }
+              }
               // else if HTTP_CONFLICT to many bookings or over lap
               this.calendarApi.refetchEvents();  // has some one else booked this slot we should refect to see if they have
               // else if HTTP_FORBIDDEN on enough permissions
@@ -1084,6 +1095,17 @@
             flash('Error updating booking', 'danger');
             if (error.response) {
               // if HTTP_UNPROCESSABLE_ENTITY some validation error laravel or us
+              if (error.response.status == '422') {
+                if (error.response.data.errors) {
+                  const errors = error.response.data.errors;
+
+                  Object.keys(errors).forEach(function(key) {
+                    errors[key].forEach(error => flash(error, 'danger'));
+                  });
+                } else {
+                  flash(error.response.data, 'danger');
+                }
+              }
               // else if HTTP_CONFLICT to many bookings or over lap
               this.calendarApi.refetchEvents();  // has some one else booked this slot we
               // else if HTTP_FORBIDDEN on enough permissions
@@ -1383,7 +1405,7 @@
       },
 
       setupRejectModal(event) {
-        console.log('setupRejectModal', event);
+        // console.log('setupRejectModal', event);
         this.rejectOrCancel = true;
         this.rejectOrCancelEvent = event;
         this.reason = '';
@@ -1392,7 +1414,7 @@
       },
 
       setupCancelWithReasonModal(event) {
-        console.log('setupCancelWithReasonModal', event);
+        // console.log('setupCancelWithReasonModal', event);
         this.rejectOrCancel = false;
         this.rejectOrCancelEvent = event;
         this.reason = '';
@@ -1401,7 +1423,7 @@
       },
 
       reasonSubmit() {
-        console.log('reasonSubmit');
+        // console.log('reasonSubmit');
 
         if (this.reason == '') {
           this.reasonError = 'You must give a reason.'
@@ -1636,7 +1658,7 @@
         let draggedEventId = draggedEvent ? draggedEvent.id : null;
         let draggedGuests = draggedEvent ? draggedEvent.extendedProps.guests : 0;
 
-        console.log('checkBuildingLimits', start.toISOString(), end.toISOString(), draggedEventId, draggedGuests);
+        // console.log('checkBuildingLimits', start.toISOString(), end.toISOString(), draggedEventId, draggedGuests);
 
         let events = this.calendarApi.getEvents(); // all the current events in the calender
         events = events.filter(event => event.id != draggedEventId);
@@ -1681,7 +1703,7 @@
         let draggedEventId = draggedEvent ? draggedEvent.id : null;
         let draggedGuests = draggedEvent ? draggedEvent.extendedProps.guests : 0;
 
-        console.log('checkClashByBookalbeArea', start.toISOString(), end.toISOString(), bookableAreaId, draggedEventId, draggedGuests);
+        // console.log('checkClashByBookalbeArea', start.toISOString(), end.toISOString(), bookableAreaId, draggedEventId, draggedGuests);
 
         // need to check for overlap with other events for this.bookableAreaId
         if (bookableAreaId == '') {

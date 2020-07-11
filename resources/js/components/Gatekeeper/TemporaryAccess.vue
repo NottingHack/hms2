@@ -663,8 +663,15 @@
           return false;
         }
 
+        // a booking that has already started can not be edited
+        if (moment().diff(booking.start) > 0) {
+          // this is a booking under now
+          return false;
+        }
+
         // (is it ours or do we have grant ALL) and does it end in the future?
-        if ((info.event.extendedProps.userId == this.settings.userId || this.settings.grant == 'ALL') && moment().diff(info.event.end) < 0) {
+        if ((info.event.extendedProps.userId == this.settings.userId || this.settings.grant == 'ALL')
+          && moment().diff(info.event.end) < 0) {
           this.setupApproveRejcectCancleConfirmation(info);
         }
       },

@@ -664,7 +664,7 @@
         }
 
         // a booking that has already started can not be edited
-        if (moment().diff(booking.start) > 0) {
+        if (moment().diff(info.event.start) > 0) {
           // this is a booking under now
           return false;
         }

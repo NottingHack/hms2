@@ -102,6 +102,10 @@ class TemporaryAcccessCheckZoneOccupancyJob implements ShouldQueue
             $this->removeOldWarnings($building, $users);
 
             foreach ($users as $user) {
+                if ($user->hasRoleByName(Role::BUILDING_ACCESS)) {
+                    continue;
+                }
+
                 // if a User has a booking now, or due to start in 10 minutes
                 //   skip
                 // else if User has a booking that ended less than 30 mins (warning period) ago
@@ -156,10 +160,6 @@ class TemporaryAcccessCheckZoneOccupancyJob implements ShouldQueue
     protected function noBooking(Building $building, User $user)
     {
         // bugger
-        if ($user->hasRoleByName(Role::BUILDING_ACCESS)) {
-            return;
-        }
-
         Log::info(
             'TACZOJ: User ' . $user->getId()
             . ' is in the building with out a booking'

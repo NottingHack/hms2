@@ -92,6 +92,8 @@ class ZoneOccupantResetJob implements ShouldQueue
             ZoneOccupantCountPublishJob::dispatch($zone, $currentCount);
         }
 
-        Log::info('ZoneOccupantResetJob: Reset Zone for ' . $resetUserCount . ' users.');
+        if ($resetUserCount) {
+            Log::info('ZoneOccupantResetJob: Reset Zone for ' . $resetUserCount . ' users.');
+        }
     }
 }

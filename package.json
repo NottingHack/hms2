@@ -31,7 +31,7 @@
     "laravel-echo": "^1.8.0",
     "laravel-mix": "^5.0.1",
     "laravel-mix-bundle-analyzer": "^1.0.5",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "moment": "^2.27.0",
     "moment-locales-webpack-plugin": "^1.2.0",
     "moment-timezone": "^0.5.31",

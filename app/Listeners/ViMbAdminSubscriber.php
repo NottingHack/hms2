@@ -247,6 +247,10 @@ class ViMbAdminSubscriber implements ShouldQueue
      */
     public function subscribe($events)
     {
+        if (! (config('vimbadmin.api_url') && config('vimbadmin.client_id') && config('vimbadmin.client_secret'))) {
+            return;
+        }
+
         $events->listen(
             'App\Events\Roles\RoleCreated',
             'App\Listeners\ViMbAdminSubscriber@onRoleCreated'

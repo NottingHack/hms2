@@ -12,7 +12,7 @@
   "author": "Matt Lloyd",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "axios-oauth-client": "^1.1.1",
     "axios-token-interceptor": "^0.1.0",
     "commander": "^2.18.0",

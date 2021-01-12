@@ -22,7 +22,7 @@
         "laravel-doctrine/orm": "1.5.*",
         "laravel/framework": "^6.0",
         "laravel/horizon": "^3.1",
-        "laravel/passport": "^8.0",
+        "laravel/passport": "^9.3.2",
         "laravel/slack-notification-channel": "^2.0",
         "laravel/tinker": "^2.0",
         "lwk/vimbadmin-laravel-client": "^1.1.3",

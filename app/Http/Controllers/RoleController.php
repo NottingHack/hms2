@@ -11,11 +11,16 @@ use Illuminate\Http\Request;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
+use Illuminate\Support\Facades\Auth;
 use HMS\User\Permissions\RoleManager;
 use HMS\Repositories\PermissionRepository;
 use HMS\Repositories\RoleUpdateRepository;
+use App\Notifications\Membership\MemberBanned;
 use Doctrine\Common\Collections\ArrayCollection;
 use HMS\Repositories\Banking\BankTransactionRepository;
+use App\Notifications\Membership\BannedMemberReinstated;
+use App\Notifications\Membership\MemberTemporarilyBanned;
+use App\Notifications\Membership\TemporarilyBannedMemberReinstated;
 
 class RoleController extends Controller
 {
@@ -322,13 +327,16 @@ class RoleController extends Controller
      */
     public function reinstateUser(User $user)
     {
+
         // remove either MEMBER_TEMPORARYBANNED or MEMBER_BANNED role
         if ($user->hasRoleByName(Role::MEMBER_TEMPORARYBANNED)) {
             $this->roleManager->removeUserFromRoleByName($user, Role::MEMBER_TEMPORARYBANNED);
+            $reinstatedNotification = new TemporarilyBannedMemberReinstated($user, Auth::user());
         }
 
         if ($user->hasRoleByName(Role::MEMBER_BANNED)) {
             $this->roleManager->removeUserFromRoleByName($user, Role::MEMBER_BANNED);
+            $reinstatedNotification = new BannedMemberReinstated($user, Auth::user());
         }
 
         // now need to work out if we should reinstate as current or ex Member
@@ -375,6 +383,9 @@ class RoleController extends Controller
             flash($user->getFullname() . ' reinstated as Ex Member')->success();
         }
 
+        $trusteesTeamRole = $this->roleRepository->findOneByName(Role::TEAM_TRUSTEES);
+        $trusteesTeamRole->notify($reinstatedNotification);
+
         return redirect()->route('users.admin.show', $user->getId());
     }
 
@@ -403,6 +414,9 @@ class RoleController extends Controller
 
         flash($user->getFullname() . ' temporarily banned')->success();
 
+        $trusteesTeamRole = $this->roleRepository->findOneByName(Role::TEAM_TRUSTEES);
+        $trusteesTeamRole->notify(new MemberTemporarilyBanned($user, Auth::user()));
+
         return redirect()->route('users.admin.show', $user->getId());
     }
 
@@ -428,6 +442,9 @@ class RoleController extends Controller
 
         // make banned member
         $this->roleManager->addUserToRoleByName($user, Role::MEMBER_BANNED);
+
+        $trusteesTeamRole = $this->roleRepository->findOneByName(Role::TEAM_TRUSTEES);
+        $trusteesTeamRole->notify(new MemberBanned($user, Auth::user()));
 
         flash($user->getFullname() . ' banned')->success();
 

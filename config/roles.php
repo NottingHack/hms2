@@ -340,6 +340,7 @@ return [
                 'meta.view',
                 'meta.edit',
                 'membership.approval',
+                'membership.banMember',
                 'search.users',
                 'project.view.all',
                 'project.edit.all',

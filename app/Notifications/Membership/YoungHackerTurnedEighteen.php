@@ -51,7 +51,7 @@ class YoungHackerTurnedEighteen extends Notification implements ShouldQueue
         return (new MailMessage)
             ->subject('Young Hacker Turned 18')
             ->greeting('Hello ' . $notifiable->getDisplayName())
-            ->line($this->user->getFullname() . ' has tunred 18 is and now a full member.')
+            ->line($this->user->getFullname() . ' has turned 18 is and now a full member.')
             ->action('View member', route('users.admin.show', ['user' => $this->user->getId()]));
     }
 

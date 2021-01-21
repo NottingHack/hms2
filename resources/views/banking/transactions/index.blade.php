@@ -11,27 +11,27 @@ Membership Payments for {{ $user->getFirstname() }}
     <div class="card-body">
       <p>These are the details needed to start or change your standing order with the Hackspace.</p>
       <p>To set up your standing order, you need our account number, sort code, and reference code.  In order for your membership to start, these all need to be correct in your standing order - especially your reference code.</p>
-      <p>For convenience, if you click on the Copy icon next to the codes (<i class="far fa-copy "></i>), it will automatically copy to your system, allowing you to easily paste it into your standing order details without having to retype any digits.</p>
+      <p>For convenience, if you click on the Copy icon next to the codes (<i class="far fa-copy"></i>), it will automatically copy to your system, allowing you to easily paste it into your standing order details without having to retype any digits.</p>
       <dl>
         <dt>Account number</dt>
         <dd>
           <span class="align-middle">
             <span id="accountNo">{{ $accountNo }}</span>&nbsp;
-            <button type="button" class="btn btn-light btn-sm" onclick="copyToClipboard('#accountNo')"><i class="far fa-copy "></i></button>
+            <button type="button" class="btn btn-light btn-sm" onclick="copyToClipboard('#accountNo')"><i class="far fa-copy"></i></button>
           </span>
         </dd>
         <dt>Sort Code</dt>
         <dd>
           <span class="align-middle">
             <span id="sortCode">{{ $sortCode }}</span>&nbsp;
-            <button type="button" class="btn btn-light btn-sm" onclick="copyToClipboard('#sortCode')"><i class="far fa-copy "></i></button>
+            <button type="button" class="btn btn-light btn-sm" onclick="copyToClipboard('#sortCode')"><i class="far fa-copy"></i></button>
           </span>
         </dd>
         <dt>Reference</dt>
         <dd>
           <span class="align-middle">
             <span id="paymentRef">{{ $paymentRef }}</span>&nbsp;
-            <button type="button" class="btn btn-light btn-sm" onclick="copyToClipboard('#paymentRef')"><i class="far fa-copy "></i></button>
+            <button type="button" class="btn btn-light btn-sm" onclick="copyToClipboard('#paymentRef')"><i class="far fa-copy"></i></button>
           </span>
         </dd>
 
@@ -39,7 +39,7 @@ Membership Payments for {{ $user->getFirstname() }}
         <dd>
           <span class="align-middle">
             <span id="accountName">{{ $accountName }}</span>&nbsp;
-            <button type="button" class="btn btn-light btn-sm" onclick="copyToClipboard('#accountName')"><i class="far fa-copy "></i></button>
+            <button type="button" class="btn btn-light btn-sm" onclick="copyToClipboard('#accountName')"><i class="far fa-copy"></i></button>
           </span>
         </dd>
       </dl>

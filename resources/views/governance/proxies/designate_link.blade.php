@@ -27,14 +27,14 @@ Designate a Proxy for {{ $meeting->getTitle() }}
     <ol>
       <li>Find a fellow member going to the AGM.</li>
       <li>Ask them if they will be you Proxy.</li>
-      <li>Email, Slack or SMS them the link below. Hint click (<button type="button" class="btn btn-light btn-sm" onclick="copyToClipboard('#designate-link')"><i class="far fa-copy "></i></button>) to copy it to your clipboard.</li>
+      <li>Email, Slack or SMS them the link below. Hint click (<button type="button" class="btn btn-light btn-sm" onclick="copyToClipboard('#designate-link')"><i class="far fa-copy"></i></button>) to copy it to your clipboard.</li>
       <li>Once your Proxy follows the link and confirms their acceptance you will receive confirmation via email.</li>
     </ol>
   </p>
   <p>
   <span class="align-middle">
     <strong><span id="designate-link">{{ URL::temporarySignedRoute('governance.proxies.designate', now()->addMonths(2), ['meeting' => $meeting->getId(), 'principal' => $user->getId()]) }}</span></strong>&nbsp;
-    <button type="button" class="btn btn-light btn-sm" onclick="copyToClipboard('#designate-link')"><i class="far fa-copy "></i></button>
+    <button type="button" class="btn btn-light btn-sm" onclick="copyToClipboard('#designate-link')"><i class="far fa-copy"></i></button>
   </span>
   </p>
   <p>

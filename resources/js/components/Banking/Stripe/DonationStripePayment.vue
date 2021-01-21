@@ -103,8 +103,10 @@
 </template>
 
 <script>
-  let stripe = Stripe(process.env.MIX_STRIPE_KEY),
-    elements = stripe.elements();
+  if (process.env.MIX_STRIPE_KEY) {
+    var stripe = Stripe(process.env.MIX_STRIPE_KEY),
+      elements = stripe.elements();
+  }
   import Loading from 'vue-loading-overlay';
   Vue.use(Loading);
 

@@ -7,7 +7,7 @@
       <span class="align-middle">
         Refrence: <span id="paymentRef">{{ $user->getAccount()->getPaymentRef() }}</span>&nbsp;
         <div class="btn-group float-right" role="group" aria-label="View Account">
-          <button type="button" class="btn btn-light btn-sm" onclick="copyToClipboard('#paymentRef')"><i class="far fa-copy "></i></button>
+          <button type="button" class="btn btn-light btn-sm" onclick="copyToClipboard('#paymentRef')"><i class="far fa-copy"></i></button>
         </div>
       </span>
     </li>

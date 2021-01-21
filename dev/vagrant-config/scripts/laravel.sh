@@ -4,8 +4,6 @@ echo " "
 echo "LARAVEL"
 echo " "
 
-sudo apt-get install -y unzip > /dev/null 2>&1
-
 # sort out Laravel environment
 
 cp /vagrant/dev/vagrant-config/laravel/.env /vagrant/.env
@@ -15,12 +13,12 @@ cd /vagrant
 # check we have the submodule
 git submodule update --init
 
-composer install --no-progress --no-suggest
+composer install --no-progress
 
 # Set up DB
 php artisan key:generate
-php artisan doctrine:migration:refresh
 php artisan migrate
+php artisan doctrine:migration:refresh
 php artisan hms:database:refresh-views
 php artisan hms:database:refresh-procedures
 php artisan permission:defaults

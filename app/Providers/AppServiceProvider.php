@@ -4,9 +4,7 @@ namespace App\Providers;
 
 use Stripe\Stripe;
 use HMS\Auth\PasswordStore;
-use Faker\Factory as FakerFactory;
 use HMS\Auth\PasswordStoreManager;
-use Faker\Generator as FakerGenerator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

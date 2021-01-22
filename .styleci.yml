@@ -7,7 +7,6 @@ enabled:
 disabled:
     - phpdoc_no_package
     - concat_without_spaces
-    - simplified_null_return
     - alpha_ordered_imports
 
 finder:

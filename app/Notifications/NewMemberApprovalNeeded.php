@@ -101,7 +101,7 @@ class NewMemberApprovalNeeded extends Notification implements ShouldQueue
 
         return (new SlackMessage)
             ->to($notifiable->getSlackChannel())
-            ->attachment(function ($attachment) use ($userId) {
+            ->attachment(function ($attachment) {
                 $attachment->title('Review member details', route('membership.index'))
                             ->content('A new member needs approval.')
                             ->fallback(

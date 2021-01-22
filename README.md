@@ -2,6 +2,7 @@
 Version 2 of our Hackspace Management System
 
 [![Build Status](https://travis-ci.org/NottingHack/hms2.svg?branch=master)](https://travis-ci.org/NottingHack/hms2)
+[![StyleCI](https://github.styleci.io/repos/58862112/shield?branch=main)]
 
 ## Cloning
 We use submodules, either clone them with this repo

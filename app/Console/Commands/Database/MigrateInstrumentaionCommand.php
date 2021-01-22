@@ -855,7 +855,7 @@ class MigrateInstrumentaionCommand extends Command
             return ! is_null($user);
         });
 
-        $newData = $filteredData->map(function ($row, $key) use ($columns, $newTableName, &$emailUser) {
+        $newData = $filteredData->map(function ($row, $key) use ($columns, &$emailUser) {
             // convert timestamp column from Europe/London to UTC
             $converted = Carbon::createFromFormat(
                 'Y-m-d H:i:s',
@@ -920,7 +920,7 @@ class MigrateInstrumentaionCommand extends Command
         $startTime = Carbon::now();
         $oldData = DB::connection('instrumentation')->table($oldTableName)->get();
 
-        $newData = $oldData->map(function ($row, $key) use ($columns, $newTableName) {
+        $newData = $oldData->map(function ($row, $key) use ($columns) {
             $newRow = [];
             foreach ($columns as $oldName => $newName) {
                 $newRow[$newName] = $row->$oldName;

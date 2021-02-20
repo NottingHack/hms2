@@ -11,7 +11,7 @@ class DoctrineChargeRepository extends EntityRepository implements ChargeReposit
     /**
      * Find a Charge by id.
      *
-     * @param string id
+     * @param string $id
      *
      * @return null|Charge
      */

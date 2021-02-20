@@ -3,6 +3,7 @@
 namespace HMS\Composers;
 
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Auth;
 use HMS\Repositories\Governance\ProxyRepository;
 use HMS\Repositories\Governance\MeetingRepository;
 
@@ -42,7 +43,7 @@ class ProxyComposer
      */
     public function compose(View $view)
     {
-        $user = \Auth::user();
+        $user = Auth::user();
         $meeting = $this->meetingRepository->findNext();
         if (is_null($meeting)) {
             return;

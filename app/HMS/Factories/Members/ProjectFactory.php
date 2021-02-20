@@ -3,6 +3,7 @@
 namespace HMS\Factories\Members;
 
 use HMS\Entities\Members\Project;
+use Illuminate\Support\Facades\Auth;
 use HMS\Repositories\Members\ProjectRepository;
 
 class ProjectFactory
@@ -32,7 +33,7 @@ class ProjectFactory
         $_project->setProjectName($name);
         $_project->setDescription($description);
         $_project->setStateActive();
-        $_project->setUser(\Auth::user());
+        $_project->setUser(Auth::user());
 
         return $_project;
     }

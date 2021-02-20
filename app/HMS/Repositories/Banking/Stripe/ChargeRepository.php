@@ -9,7 +9,7 @@ interface ChargeRepository
     /**
      * Find a Charge by id.
      *
-     * @param string id
+     * @param string $id
      *
      * @return null|Charge
      */

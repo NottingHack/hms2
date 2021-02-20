@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use HMS\Entities\Governance\Meeting;
 use HMS\Repositories\UserRepository;
+use Illuminate\Support\Facades\Auth;
 use App\Events\Governance\ProxyUpdated;
 use App\Events\Governance\ProxyCancelled;
 use App\Events\Governance\ProxyRegistered;
@@ -96,7 +97,7 @@ class ProxyController extends Controller
      */
     public function indexForUser(Meeting $meeting)
     {
-        $user = \Auth::user();
+        $user = Auth::user();
         $proxies = $this->proxyRepository->findByProxy($meeting, $user);
 
         return view('governance.proxies.index_for_user')
@@ -113,7 +114,7 @@ class ProxyController extends Controller
      */
     public function designateLink(Meeting $meeting)
     {
-        $user = \Auth::user();
+        $user = Auth::user();
         $proxy = $this->proxyRepository->findOneByPrincipal($meeting, $user);
 
         return view('governance.proxies.designate_link')
@@ -138,7 +139,7 @@ class ProxyController extends Controller
             return redirect()->route('home');
         }
 
-        if ($principal == \Auth::user()) {
+        if ($principal == Auth::user()) {
             flash('You can not Proxy for yourself')->error();
 
             return redirect()->route('governance.proxies.link', ['meeting' => $meeting->getId()]);
@@ -151,7 +152,7 @@ class ProxyController extends Controller
             return redirect()->route('home');
         }
 
-        $proxy = $this->proxyRepository->findOneByPrincipal($meeting, \Auth::user());
+        $proxy = $this->proxyRepository->findOneByPrincipal($meeting, Auth::user());
 
         if (isset($proxy)) {
             flash('You have already given your proxy to ' . $proxy->getProxy()->getFullname() . '. You can not accept someone else\'s Proxy')->error();
@@ -179,7 +180,7 @@ class ProxyController extends Controller
                 'required',
                 'exists:HMS\Entities\User,id',
                 function ($attribute, $value, $fail) {
-                    if ($value == \Auth::user()->getId()) {
+                    if ($value == Auth::user()->getId()) {
                         $fail('You can not Proxy for yourself');
                     }
                 },
@@ -187,7 +188,7 @@ class ProxyController extends Controller
             'proxy' => 'accepted',
         ]);
 
-        $user = \Auth::user();
+        $user = Auth::user();
         $principal = $this->userRepository->find($validatedData['principal_id']);
 
         // See if a Proxy for this principal all ready exists?
@@ -233,7 +234,7 @@ class ProxyController extends Controller
         if (array_key_exists('principal_id', $validatedData)) {
             $principal = $this->userRepository->find($validatedData['principal_id']);
         } else {
-            $principal = \Auth::user();
+            $principal = Auth::user();
         }
 
         // See if a Proxy for this principal all ready exists?

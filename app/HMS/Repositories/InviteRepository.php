@@ -64,7 +64,7 @@ interface InviteRepository
      *
      * @param Carbon $date
      *
-     * @return array
+     * @return void
      */
     public function removeAllOlderThan(Carbon $date);
 

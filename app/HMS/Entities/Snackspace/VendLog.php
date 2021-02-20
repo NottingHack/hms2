@@ -13,12 +13,12 @@ class VendLog
     protected $id;
 
     /**
-     * @var HMS\Entities\Snackspace\Transaction
+     * @var \HMS\Entities\Snackspace\Transaction
      */
     protected $transaction;
 
     /**
-     * @var HMS\Entities\Snackspace\VendingMachine
+     * @var \HMS\Entities\Snackspace\VendingMachine
      */
     protected $vendingMachine;
 
@@ -83,7 +83,7 @@ class VendLog
     }
 
     /**
-     * @return HMS\Entities\Snackspace\Transaction
+     * @return \HMS\Entities\Snackspace\Transaction
      */
     public function getTransaction()
     {
@@ -91,7 +91,7 @@ class VendLog
     }
 
     /**
-     * @return HMS\Entities\Snackspace\VendingMachine
+     * @return \HMS\Entities\Snackspace\VendingMachine
      */
     public function getVendingMachine()
     {

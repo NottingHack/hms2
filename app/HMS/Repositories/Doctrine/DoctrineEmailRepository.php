@@ -12,11 +12,11 @@ use HMS\Repositories\EmailRepository;
 class DoctrineEmailRepository extends EntityRepository implements EmailRepository
 {
     /**
-     * @param $id
+     * @param int $id
      *
      * @return null|Email
      */
-    public function findOneById($id)
+    public function findOneById(int $id)
     {
         return parent::findOneById($id);
     }

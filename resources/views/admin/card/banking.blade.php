@@ -5,14 +5,14 @@
   <ul class="list-group list-group-flush">
     <li class="list-group-item">
       <span class="align-middle">
-        Refrence: <span id="paymentRef">{{ $user->getAccount()->getPaymentRef() }}</span>&nbsp;
+        Reference: <span id="paymentRef">{{ $user->getAccount()->getPaymentRef() }}</span>&nbsp;
         <div class="btn-group float-right" role="group" aria-label="View Account">
           <button type="button" class="btn btn-light btn-sm" onclick="copyToClipboard('#paymentRef')"><i class="far fa-copy"></i></button>
         </div>
       </span>
     </li>
     @if (count($user->getAccount()->getUsers()) > 1)
-    <li class="list-group-item">This is a Joint Accont</li>
+    <li class="list-group-item">This is a Joint Account</li>
     @endif
     @cannot('bankTransactions.view.all')
     @can('bankTransactions.view.limited')

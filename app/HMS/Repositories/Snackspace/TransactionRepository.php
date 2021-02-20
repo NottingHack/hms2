@@ -14,7 +14,7 @@ interface TransactionRepository
      * @param Carbon $startDate
      * @param Carbon $endDate
      *
-     * @return Illuminate\Support\Collection
+     * @return \Illuminate\Support\Collection
      */
     public function reportPaymnetsBetween(Carbon $startDate, Carbon $endDate);
 

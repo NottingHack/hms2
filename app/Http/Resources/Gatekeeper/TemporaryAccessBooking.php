@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\Gatekeeper;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Gatekeeper\BookableArea as BookableAreaResource;
 
@@ -19,10 +21,10 @@ class TemporaryAccessBooking extends JsonResource
         $allowSensative = false; // default anonymization
         $allowAll = false; // default anonymization
 
-        if (\Gate::allows('gatekeeper.temporaryAccess.view.all')) {
+        if (Gate::allows('gatekeeper.temporaryAccess.view.all')) {
             $allowSensative = true;
             $allowAll = true;
-        } elseif (\Auth::user() == $this->getUser() && \Gate::allows('gatekeeper.temporaryAccess.view.self')) {
+        } elseif (Auth::user() == $this->getUser() && Gate::allows('gatekeeper.temporaryAccess.view.self')) {
             $allowSensative = true;
         }
 

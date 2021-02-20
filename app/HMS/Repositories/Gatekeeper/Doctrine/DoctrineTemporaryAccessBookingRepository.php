@@ -15,11 +15,11 @@ use HMS\Repositories\Gatekeeper\TemporaryAccessBookingRepository;
 class DoctrineTemporaryAccessBookingRepository extends EntityRepository implements TemporaryAccessBookingRepository
 {
     /**
-     * @param $id
+     * @param int $id
      *
      * @return null|TemporaryAccessBooking
      */
-    public function findOneById($id)
+    public function findOneById(int $id)
     {
         return parent::findOneById($id);
     }
@@ -309,7 +309,6 @@ class DoctrineTemporaryAccessBookingRepository extends EntityRepository implemen
      * Criteria to filter by User.
      *
      * @param User $user
-     * @param Carbon $end
      *
      * @return Criteria
      */

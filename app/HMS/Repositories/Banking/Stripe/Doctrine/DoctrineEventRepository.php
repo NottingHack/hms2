@@ -11,7 +11,7 @@ class DoctrineEventRepository extends EntityRepository implements EventRepositor
     /**
      * Find a Event by id.
      *
-     * @param string id
+     * @param string $id
      *
      * @return null|Event
      */

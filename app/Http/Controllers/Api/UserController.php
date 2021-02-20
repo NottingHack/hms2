@@ -8,6 +8,8 @@ use HMS\User\ProfileManager;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use HMS\Repositories\UserRepository;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Resources\User as UserResource;
 
 class UserController extends Controller
@@ -57,7 +59,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        if ($user != \Auth::user()) {
+        if ($user != Auth::user()) {
             throw new AuthorizationException('This action is unauthorized.');
         }
 
@@ -76,7 +78,7 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         // TODO: if viewing someone other then authed user, authed user still needs to be email verified
-        if ($user != \Auth::user() && \Gate::denies('profile.edit.all')) {
+        if ($user != Auth::user() && Gate::denies('profile.edit.all')) {
             throw new AuthorizationException('This action is unauthorized.');
         }
 

@@ -7,11 +7,11 @@ use HMS\Entities\Banking\Account;
 interface AccountRepository
 {
     /**
-     * @param $id
+     * @param int $id
      *
      * @return null|Account
      */
-    public function findOneById($id);
+    public function findOneById(int $id);
 
     /**
      * @return Account[]

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use HMS\Repositories\UserRepository;
+use Illuminate\Support\Facades\Gate;
 use HMS\Repositories\InviteRepository;
 
 class SearchController extends Controller
@@ -53,7 +54,7 @@ class SearchController extends Controller
         }
 
         // force currentOnly for search.users.tools only access
-        if (\Gate::allows('tools.search.users') && \Gate::denies('search.users')) {
+        if (Gate::allows('tools.search.users') && Gate::denies('search.users')) {
             $currentOnly = true;
         } else {
             $currentOnly = $request->input('currentOnly', false);
@@ -78,7 +79,7 @@ class SearchController extends Controller
                 'paymentRef' => $user->getAccount() ? $user->getAccount()->getPaymentRef() : '',
             ];
 
-            if (\Gate::allows('profile.view.all')) {
+            if (Gate::allows('profile.view.all')) {
                 $ret = array_merge($ret, [
                     'address1' => $user->getProfile() ? $user->getProfile()->getAddress1() : null,
                     'addressPostcode' => $user->getProfile() ? $user->getProfile()->getAddressPostcode() : null,

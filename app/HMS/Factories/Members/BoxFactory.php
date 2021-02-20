@@ -4,6 +4,7 @@ namespace HMS\Factories\Members;
 
 use HMS\Entities\User;
 use HMS\Entities\Members\Box;
+use Illuminate\Support\Facades\Auth;
 use HMS\Repositories\Members\BoxRepository;
 
 class BoxFactory
@@ -31,7 +32,7 @@ class BoxFactory
         if ($user) {
             $_box->setUser($user);
         } else {
-            $_box->setUser(\Auth::user());
+            $_box->setUser(Auth::user());
         }
 
         return $_box;

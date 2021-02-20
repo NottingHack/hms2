@@ -11,11 +11,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 class DoctrineRoleRepository extends EntityRepository implements RoleRepository
 {
     /**
-     * @param $id
+     * @param int $id
      *
      * @return Role|null
      */
-    public function findOneById($id)
+    public function findOneById(int $id)
     {
         return parent::findOneById($id);
     }
@@ -58,7 +58,7 @@ class DoctrineRoleRepository extends EntityRepository implements RoleRepository
      *
      * @param string $roleName name of the role we want
      *
-     * @return Role|nul
+     * @return Role|null
      */
     public function findOneByName(string $roleName)
     {

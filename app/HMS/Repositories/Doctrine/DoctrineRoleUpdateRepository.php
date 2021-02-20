@@ -11,11 +11,11 @@ use HMS\Repositories\RoleUpdateRepository;
 class DoctrineRoleUpdateRepository extends EntityRepository implements RoleUpdateRepository
 {
     /**
-     * @param $id
+     * @param int $id
      *
      * @return null|RoleUpdate
      */
-    public function findOneById($id)
+    public function findOneById(int $id)
     {
         return parent::findOneById($id);
     }

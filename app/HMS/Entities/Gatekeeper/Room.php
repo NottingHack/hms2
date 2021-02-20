@@ -22,7 +22,9 @@ class Room
     protected $floor;
 
     /**
-     * @var Light[]|ArrayCollection
+     * Lights[].
+     *
+     * @var ArrayCollection
      */
     protected $lights;
 
@@ -87,7 +89,7 @@ class Room
     }
 
     /**
-     * @return Light[]|ArrayCollection
+     * @return ArrayCollection Lights[]
      */
     public function getLights()
     {
@@ -95,7 +97,7 @@ class Room
     }
 
     /**
-     * @param Light[]|ArrayCollection $lights
+     * @param ArrayCollection $lights Lights[]
      *
      * @return self
      */

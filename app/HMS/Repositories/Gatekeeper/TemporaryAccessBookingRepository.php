@@ -11,11 +11,11 @@ use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
 interface TemporaryAccessBookingRepository
 {
     /**
-     * @param $id
+     * @param int $id
      *
      * @return null|TemporaryAccessBooking
      */
-    public function findOneById($id);
+    public function findOneById(int $id);
 
     /**
      * Count future bookings for a User on a given Building.

@@ -8,6 +8,8 @@ use HMS\User\UserManager;
 use HMS\User\ProfileManager;
 use Illuminate\Http\Request;
 use HMS\Repositories\UserRepository;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -71,7 +73,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        if ($user != \Auth::user()) {
+        if ($user != Auth::user()) {
             return redirect()->route('home');
         }
 
@@ -87,7 +89,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        if ($user != \Auth::user() && \Gate::denies('profile.edit.all')) {
+        if ($user != Auth::user() && Gate::denies('profile.edit.all')) {
             return redirect()->route('home');
         }
 
@@ -104,7 +106,7 @@ class UserController extends Controller
      */
     public function editAdmin(User $user)
     {
-        if ($user != \Auth::user()) {
+        if ($user != Auth::user()) {
             return redirect()->route('home');
         }
 
@@ -122,7 +124,7 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         // TODO: if viewing someone other then authed user, authed user still needs to be email verified
-        if ($user != \Auth::user() && \Gate::denies('profile.edit.all')) {
+        if ($user != Auth::user() && Gate::denies('profile.edit.all')) {
             return redirect()->route('home');
         }
 
@@ -144,7 +146,7 @@ class UserController extends Controller
         $user = $this->userManager->updateFromRequest($user, $validatedData);
         $user = $this->profileManager->updateUserProfileFromRequest($user, $validatedData);
 
-        if ($user != \Auth::user()) {
+        if ($user != Auth::user()) {
             return redirect()->route('users.admin.show', $user->getId());
         }
 
@@ -161,7 +163,7 @@ class UserController extends Controller
     public function editEmail(User $user)
     {
         // TODO: if viewing someone other then authed user, authed user still needs to be email verified
-        if ($user != \Auth::user() && \Gate::denies('profile.edit.limited') && \Gate::denies('profile.edit.all')) {
+        if ($user != Auth::user() && Gate::denies('profile.edit.limited') && Gate::denies('profile.edit.all')) {
             return redirect()->route('home');
         }
 
@@ -179,7 +181,7 @@ class UserController extends Controller
     public function updateEmail(Request $request, User $user)
     {
         // TODO: if viewing someone other then authed user, authed user still needs to be email verified
-        if ($user != \Auth::user() && \Gate::denies('profile.edit.limited') && \Gate::denies('profile.edit.all')) {
+        if ($user != Auth::user() && Gate::denies('profile.edit.limited') && Gate::denies('profile.edit.all')) {
             return redirect()->route('home');
         }
 

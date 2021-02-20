@@ -6,6 +6,7 @@ use HMS\Entities\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use HMS\Repositories\MetaRepository;
+use Illuminate\Support\Facades\Gate;
 use HMS\Entities\Gatekeeper\Building;
 use HMS\Gatekeeper\TemporaryAccessBookingManager;
 use App\Jobs\Gatekeeper\UserHasLeftTheBuildingJob;
@@ -132,10 +133,10 @@ class AccessController extends Controller
         // build settings for TemporarAccess vue
         $settings = $this->temporaryAccessBookingManager->getTemporaryAccessSettings();
         // fudge down grant from all to self
-        if (\Gate::allows('gatekeeper.temporaryAccess.grant.all')) {
+        if (Gate::allows('gatekeeper.temporaryAccess.grant.all')) {
             $settings['grant'] = 'SELF';
         }
-        if (\Gate::allows('gatekeeper.temporaryAccess.view.all')) {
+        if (Gate::allows('gatekeeper.temporaryAccess.view.all')) {
             $settings['view'] = 'SELF';
         }
 

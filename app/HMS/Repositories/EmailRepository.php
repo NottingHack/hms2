@@ -10,11 +10,11 @@ use HMS\Entities\Email;
 interface EmailRepository
 {
     /**
-     * @param $id
+     * @param int $id
      *
      * @return null|Email
      */
-    public function findOneById($id);
+    public function findOneById(int $id);
 
     /**
      * @param Role $role

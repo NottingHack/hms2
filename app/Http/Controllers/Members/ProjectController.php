@@ -7,6 +7,8 @@ use HMS\Entities\Members\Project;
 use App\Events\Labels\ProjectPrint;
 use App\Http\Controllers\Controller;
 use HMS\Repositories\UserRepository;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Doctrine\ORM\EntityNotFoundException;
 use HMS\Factories\Members\ProjectFactory;
 use HMS\Repositories\Members\ProjectRepository;
@@ -66,13 +68,13 @@ class ProjectController extends Controller
                 throw EntityNotFoundException::fromClassNameAndIdentifier(User::class, ['id' => $request->user]);
             }
 
-            if ($user != \Auth::user() && \Gate::denies('project.view.all')) {
+            if ($user != Auth::user() && Gate::denies('project.view.all')) {
                 flash('Unauthorized')->error();
 
                 return redirect()->route('home');
             }
         } else {
-            $user = \Auth::user();
+            $user = Auth::user();
         }
 
         $projects = $this->projectRepository->paginateByUser($user);
@@ -125,7 +127,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        if ($project->getUser() != \Auth::user() && \Gate::denies('project.view.all')) {
+        if ($project->getUser() != Auth::user() && Gate::denies('project.view.all')) {
             flash('Unauthorized')->error();
 
             return redirect()->route('home');
@@ -144,7 +146,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        if ($project->getUser() != \Auth::user() && \Gate::denies('project.edit.all')) {
+        if ($project->getUser() != Auth::user() && Gate::denies('project.edit.all')) {
             flash('Unauthorized')->error();
 
             return redirect()->route('home');
@@ -164,7 +166,7 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        if ($project->getUser() != \Auth::user() && \Gate::denies('project.edit.all')) {
+        if ($project->getUser() != Auth::user() && Gate::denies('project.edit.all')) {
             flash('Unauthorized')->error();
 
             return redirect()->route('home');
@@ -193,7 +195,7 @@ class ProjectController extends Controller
      */
     public function printLabel(Project $project)
     {
-        if ($project->getUser() != \Auth::user() && \Gate::denies('project.printLabel.all')) {
+        if ($project->getUser() != Auth::user() && Gate::denies('project.printLabel.all')) {
             flash('Unauthorized')->error();
 
             return redirect()->route('home');
@@ -214,7 +216,7 @@ class ProjectController extends Controller
      */
     public function markActive(Project $project)
     {
-        if ($project->getUser() != \Auth::user() && \Gate::denies('project.edit.all')) {
+        if ($project->getUser() != Auth::user() && Gate::denies('project.edit.all')) {
             flash('Unauthorized')->error();
 
             return redirect()->route('home');
@@ -236,7 +238,7 @@ class ProjectController extends Controller
      */
     public function markAbandoned(Project $project)
     {
-        if ($project->getUser() == \Auth::user()) {
+        if ($project->getUser() == Auth::user()) {
             flash('You can not abandoned your own project')->error();
 
             return redirect()->route('home');
@@ -258,7 +260,7 @@ class ProjectController extends Controller
      */
     public function markComplete(Project $project)
     {
-        if ($project->getUser() != \Auth::user()) {
+        if ($project->getUser() != Auth::user()) {
             flash('Unauthorized')->error();
 
             return redirect()->route('home');

@@ -12,11 +12,11 @@ class DoctrineVendingLocationRepository extends EntityRepository implements Vend
     /**
      * Find a VendingLocation.
      *
-     * @param $id
+     * @param int $id
      *
      * @return null|VendingLocation
      */
-    public function findOneById($id)
+    public function findOneById(int $id)
     {
         return parent::findOneById($id);
     }

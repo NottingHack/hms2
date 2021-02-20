@@ -9,6 +9,8 @@ use App\Events\Labels\BoxPrint;
 use App\Http\Controllers\Controller;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\UserRepository;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use HMS\Factories\Members\BoxFactory;
 use Doctrine\ORM\EntityNotFoundException;
 use HMS\Repositories\Members\BoxRepository;
@@ -123,11 +125,11 @@ class BoxController extends Controller
                 throw EntityNotFoundException::fromClassNameAndIdentifier(User::class, ['id' => $request->user]);
             }
 
-            if ($user != \Auth::user() && \Gate::denies('box.view.all')) {
+            if ($user != Auth::user() && Gate::denies('box.view.all')) {
                 throw new AuthorizationException('This action is unauthorized.');
             }
         } else {
-            $user = \Auth::user();
+            $user = Auth::user();
         }
 
         $boxes = $this->boxRepository->findByUser($user);
@@ -145,7 +147,7 @@ class BoxController extends Controller
      */
     public function show(Box $box)
     {
-        if ($box->getUser() != \Auth::user() && \Gate::denies('box.view.all')) {
+        if ($box->getUser() != Auth::user() && Gate::denies('box.view.all')) {
             throw new AuthorizationException('This action is unauthorized.');
         }
 
@@ -173,11 +175,11 @@ class BoxController extends Controller
                 throw EntityNotFoundException::fromClassNameAndIdentifier(User::class, ['id' => $request->boxUser]);
             }
 
-            if ($user != \Auth::user() && \Gate::denies('box.issue.all')) {
+            if ($user != Auth::user() && Gate::denies('box.issue.all')) {
                 throw new AuthorizationException('This action is unauthorized.');
             }
         } else {
-            $user = \Auth::user();
+            $user = Auth::user();
         }
 
         $individualLimit = (int) $this->metaRepository->get($this->individualLimitKey);
@@ -203,7 +205,7 @@ class BoxController extends Controller
         }
 
         // if needed can it still be paid for
-        if ($user != \Auth::user()) {
+        if ($user != Auth::user()) {
             // should be a free issue
             $userBoxCount = $this->boxRepository->countInUseByUser($user);
             if ($userBoxCount >= $individualLimit) {
@@ -262,7 +264,7 @@ class BoxController extends Controller
      */
     public function printLabel(Box $box)
     {
-        if ($box->getUser() != \Auth::user() && \Gate::denies('box.printLabel.all')) {
+        if ($box->getUser() != Auth::user() && Gate::denies('box.printLabel.all')) {
             throw new AuthorizationException('This action is unauthorized.');
         }
 
@@ -282,7 +284,7 @@ class BoxController extends Controller
     public function markInUse(Box $box)
     {
         $user = $box->getUser();
-        if ($user != \Auth::user() && \Gate::denies('box.edit.all')) {
+        if ($user != Auth::user() && Gate::denies('box.edit.all')) {
             throw new AuthorizationException('This action is unauthorized.');
         }
 
@@ -292,7 +294,7 @@ class BoxController extends Controller
         // check member does not all ready have max number of boxes
         $userBoxCount = $this->boxRepository->countInUseByUser($user);
         if ($userBoxCount >= $individualLimit) {
-            if ($box->getUser() == \Auth::user()) {
+            if ($box->getUser() == Auth::user()) {
                 $message = 'You have too many boxes already';
             } else {
                 $message = 'This member has too many boxes already';
@@ -343,11 +345,11 @@ class BoxController extends Controller
      */
     public function markAbandoned(Box $box)
     {
-        if ($box->getUser() == \Auth::user()) {
+        if ($box->getUser() == Auth::user()) {
             throw new AuthorizationException('This action is unauthorized.');
         }
 
-        if ($box->getUser() != \Auth::user() && \Gate::denies('box.edit.all')) {
+        if ($box->getUser() != Auth::user() && Gate::denies('box.edit.all')) {
             throw new AuthorizationException('This action is unauthorized.');
         }
 
@@ -367,7 +369,7 @@ class BoxController extends Controller
      */
     public function markRemoved(Box $box)
     {
-        if ($box->getUser() != \Auth::user()) {
+        if ($box->getUser() != Auth::user()) {
             throw new AuthorizationException('This action is unauthorized.');
         }
 

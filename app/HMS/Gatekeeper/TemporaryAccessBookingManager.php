@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use HMS\Entities\User;
 use Carbon\CarbonInterval;
 use HMS\Repositories\MetaRepository;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use App\Events\Gatekeeper\NewBooking;
 use HMS\Entities\Gatekeeper\Building;
 use App\Events\Gatekeeper\BookingChanged;
@@ -77,7 +79,7 @@ class TemporaryAccessBookingManager
         $messages = collect(); // TODO: thinking of a way to pass over limit warnings back to grant.all
 
         // check bookableArea isSelfBookable
-        if (\Gate::denies('gatekeeper.temporaryAccess.grant.all') && ! $bookableArea->isSelfBookable()) {
+        if (Gate::denies('gatekeeper.temporaryAccess.grant.all') && ! $bookableArea->isSelfBookable()) {
             return 'You can not book the area.';
         }
 
@@ -114,13 +116,13 @@ class TemporaryAccessBookingManager
         $occupancyChecks = $this->occupancyChecks($start, $end, $bookableArea, $guests);
 
         // Building access state checks
-        if (\Gate::allows('gatekeeper.temporaryAccess.grant.all')) {
+        if (Gate::allows('gatekeeper.temporaryAccess.grant.all')) {
             // if you have the power building access state does not matter
             // the booking is automatically approved
             // building limits are ignored
             // area limits are ignored
             $approved = true;
-            $approvedBy = \Auth::user();
+            $approvedBy = Auth::user();
             if (is_array($occupancyChecks)) {
                 $messages = $messages->merge($occupancyChecks);
             }
@@ -132,15 +134,13 @@ class TemporaryAccessBookingManager
             if (is_string($minPeriodBetweenBookingsPerUserCheck)) {
                 $messages[] = $minPeriodBetweenBookingsPerUserCheck;
             }
-
-            \Debugbar::addMessage($messages, 'book:grant.all');
         } else {
             switch ($bookableArea->getBuilding()->getAccessState()) {
                 case BuildingAccessState::FULL_OPEN:
                     // what the hell are we doing here? calendar should never be seen
                     return 'Building is fully open, Booking denied.'; // 403
                 case BuildingAccessState::SELF_BOOK:
-                    if ($user != \Auth::user()) {
+                    if ($user != Auth::user()) {
                         return 'You cannot book for someone else.';
                     }
 
@@ -164,7 +164,7 @@ class TemporaryAccessBookingManager
 
                     break;
                 case BuildingAccessState::REQUESTED_BOOK:
-                    if ($user != \Auth::user()) {
+                    if ($user != Auth::user()) {
                         return 'You cannot book for someone else.';
                     }
 
@@ -221,8 +221,8 @@ class TemporaryAccessBookingManager
     {
         $messages = collect(); // TODO: thinking of a way to pass over limit warnings back to grant.all
         // check isApproved
-        if (\Gate::denies('gatekeeper.temporaryAccess.grant.all')
-            && $booking->isApproved() && $booking->getApprovedBy() != \Auth::user()) {
+        if (Gate::denies('gatekeeper.temporaryAccess.grant.all')
+            && $booking->isApproved() && $booking->getApprovedBy() != Auth::user()) {
             return 'You can not change an approved booking.';
         }
 
@@ -279,7 +279,7 @@ class TemporaryAccessBookingManager
         );
 
         // Building access state checks
-        if (\Gate::allows('gatekeeper.temporaryAccess.grant.all')) {
+        if (Gate::allows('gatekeeper.temporaryAccess.grant.all')) {
             // if you have the power building access state does not matter
             // the booking is automatically approved
             // building limits are ignored
@@ -295,15 +295,13 @@ class TemporaryAccessBookingManager
             if (is_string($minPeriodBetweenBookingsPerUserCheck)) {
                 $messages[] = $minPeriodBetweenBookingsPerUserCheck;
             }
-
-            \Debugbar::addMessage($messages, 'update:grant.all');
         } else {
             switch ($bookableArea->getBuilding()->getAccessState()) {
                 case BuildingAccessState::FULL_OPEN:
                     // what the hell are we doing here? calendar should never be seen
                     return 'Building is fully open, Booking update denied.'; // 403
                 case BuildingAccessState::SELF_BOOK:
-                    if ($user != \Auth::user()) {
+                    if ($user != Auth::user()) {
                         return "You cannot update someone else's booking.";
                     }
 
@@ -323,7 +321,7 @@ class TemporaryAccessBookingManager
 
                     break;
                 case BuildingAccessState::REQUESTED_BOOK:
-                    if ($user != \Auth::user()) {
+                    if ($user != Auth::user()) {
                         return "You cannot update someone else's booking.";
                     }
 
@@ -394,7 +392,7 @@ class TemporaryAccessBookingManager
 
         // ok approve it
         $booking->setApproved(true);
-        $booking->setApprovedBy(\Auth::user());
+        $booking->setApprovedBy(Auth::user());
         $this->temporaryAccessBookingRepository->save($booking);
 
         // fire event, this should update calendar views and send email
@@ -419,7 +417,7 @@ class TemporaryAccessBookingManager
         $bookingId = $booking->getId();
         // fire event, this should update calendar views and send email
         // so long as everything is queued the the booking should be serialised so we can still get its data
-        broadcast(new BookingRejected($booking, $reason, \Auth::user()));
+        broadcast(new BookingRejected($booking, $reason, Auth::user()));
 
         // actually remove the booking once the event has serialized it
         $this->temporaryAccessBookingRepository->remove($booking);
@@ -448,7 +446,7 @@ class TemporaryAccessBookingManager
         $bookingId = $booking->getId();
         // fire event, this should update calendar views and send email
         // so long as everything is queued the the booking should be serialised so we can still get its data
-        broadcast(new BookingRejected($booking, $reason, \Auth::user()));
+        broadcast(new BookingRejected($booking, $reason, Auth::user()));
 
         // actually remove the booking once the event has serialized it
         $this->temporaryAccessBookingRepository->remove($booking);
@@ -528,7 +526,7 @@ class TemporaryAccessBookingManager
         });
 
         if ($bookings->isNotEmpty()) {
-            if ($user != \Auth::user()) {
+            if ($user != Auth::user()) {
                 return 'User already has a booking in this period.'; // 409
             }
 
@@ -561,7 +559,7 @@ class TemporaryAccessBookingManager
         if ($futureCount >= $maxConcurrentPerUser) {
             $b = $maxConcurrentPerUser > 1 ? 'bookings' : 'booking';
 
-            if ($user != \Auth::user()) {
+            if ($user != Auth::user()) {
                 return 'Maximum current/future ' . $b . ' of ' . $maxConcurrentPerUser . ' exceed for User.'; // 409 ?
             }
 
@@ -604,7 +602,7 @@ class TemporaryAccessBookingManager
         });
 
         if ($bookings->isNotEmpty()) {
-            if ($user != \Auth::user()) {
+            if ($user != Auth::user()) {
                 return 'User already has a booking within ' . $minPeriodBetweenBookings . ' minutes of this slot.'; // 409
             }
 
@@ -749,7 +747,7 @@ class TemporaryAccessBookingManager
         // base self book globals
         $settings = $this->getSelfBookSettings();
 
-        $user = \Auth::user();
+        $user = Auth::user();
 
         // and this users settings
         $settings['userId'] = $user->getId();

@@ -9,6 +9,7 @@ use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
+use Illuminate\Support\Facades\Gate;
 use HMS\Factories\Tools\UsageFactory;
 use HMS\Repositories\RoleUpdateRepository;
 use HMS\Repositories\Tools\ToolRepository;
@@ -182,14 +183,14 @@ class ToolController extends Controller
     {
         // complex permission checking based on the grantType
         if ($grantType == ToolManager::MAINTAINER) {
-            if (\Gate::none([
+            if (Gate::none([
                 'tools.maintainer.grant',
                 'tools.' . $tool->getPermissionName() . '.maintain',
             ])) {
                 throw new AuthorizationException('This action is unauthorized.');
             }
         } elseif ($grantType == ToolManager::INDUCTOR) {
-            if (\Gate::none([
+            if (Gate::none([
                 'tools.' . $tool->getPermissionName() . '.maintain',
                 'tools.inductor.grant',
                 'tools.' . $tool->getPermissionName() . '.induct',
@@ -197,7 +198,7 @@ class ToolController extends Controller
                 throw new AuthorizationException('This action is unauthorized.');
             }
         } elseif ($grantType == ToolManager::USER) {
-            \Gate::authorize('tools.user.grant');
+            Gate::authorize('tools.user.grant');
         } else {
             // should never get here
             throw new AuthorizationException('This action is unauthorized.');
@@ -299,16 +300,16 @@ class ToolController extends Controller
 
         // complex permission checking based on the grantType
         if ($validatedData['grantType'] == ToolManager::MAINTAINER) {
-            \Gate::authorize('tools.maintainer.grant');
+            Gate::authorize('tools.maintainer.grant');
         } elseif ($validatedData['grantType'] == ToolManager::INDUCTOR) {
-            if (\Gate::none([
+            if (Gate::none([
                 'tools.inductor.grant',
                 'tools.' . $tool->getPermissionName() . '.inductor.grant',
             ])) {
                 throw new AuthorizationException('This action is unauthorized.');
             }
         } elseif ($validatedData['grantType'] == ToolManager::USER) {
-            \Gate::authorize('tools.user.grant');
+            Gate::authorize('tools.user.grant');
         } else {
             // should never get here
             throw new AuthorizationException('This action is unauthorized.');

@@ -9,6 +9,7 @@ use HMS\Entities\Tools\Booking;
 use App\Events\Tools\NewBooking;
 use HMS\Entities\Tools\BookingType;
 use App\Events\Tools\BookingChanged;
+use Illuminate\Support\Facades\Auth;
 use App\Events\Tools\BookingCancelled;
 use HMS\Factories\Tools\BookingFactory;
 use HMS\Repositories\Tools\BookingRepository;
@@ -52,7 +53,7 @@ class BookingManager
     public function bookNormal(Tool $tool, Carbon $start, Carbon $end, User $user = null)
     {
         if (is_null($user)) {
-            $user = \Auth::user();
+            $user = Auth::user();
         }
 
         // BASIC CHECKS
@@ -102,7 +103,7 @@ class BookingManager
     public function bookInduction(Tool $tool, Carbon $start, Carbon $end, User $user = null)
     {
         if (is_null($user)) {
-            $user = \Auth::user();
+            $user = Auth::user();
         }
 
         // BASIC CHECKS
@@ -145,7 +146,7 @@ class BookingManager
     public function bookMaintenance(Tool $tool, Carbon $start, Carbon $end, User $user = null)
     {
         if (is_null($user)) {
-            $user = \Auth::user();
+            $user = Auth::user();
         }
 
         // BASIC CHECKS
@@ -191,7 +192,7 @@ class BookingManager
      */
     public function update(Tool $tool, Booking $booking, Carbon $start = null, Carbon $end = null)
     {
-        $user = \Auth::user();
+        $user = Auth::user();
 
         if ($user->getId() != $booking->getUser()->getId()) {
             return 'This is not your booking.'; // 403
@@ -257,7 +258,7 @@ class BookingManager
      */
     public function cancel(Booking $booking)
     {
-        $user = \Auth::user();
+        $user = Auth::user();
 
         if ($user->getId() != $booking->getUser()->getId()) {
             return 'This is not your booking.'; // 403

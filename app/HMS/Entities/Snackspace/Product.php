@@ -41,12 +41,14 @@ class Product
     protected $longDescription;
 
     /**
-     * @var ArrayCollection|VendingLoaction[]
+     * VendingLoaction.
+     *
+     * @var ArrayCollection
      */
     protected $vendingLoactions;
 
     /**
-     * Product constructor.
+     * A Product constructor.
      */
     public function __construct()
     {
@@ -164,7 +166,7 @@ class Product
     }
 
     /**
-     * @return ArrayCollection|VendingLoaction
+     * @return ArrayCollection
      */
     public function getVendingLoaction()
     {
@@ -172,11 +174,11 @@ class Product
     }
 
     /**
-     * @param ArrayCollection|VendingLoaction $vendingLoactions
+     * @param ArrayCollection $vendingLoactions
      *
      * @return self
      */
-    public function setVendingLoaction($vendingLoactions)
+    public function setVendingLoaction(ArrayCollection $vendingLoactions)
     {
         $this->vendingLoactions = $vendingLoactions;
 

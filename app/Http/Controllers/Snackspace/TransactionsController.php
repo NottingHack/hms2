@@ -6,6 +6,8 @@ use HMS\Entities\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use HMS\Repositories\UserRepository;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Doctrine\ORM\EntityNotFoundException;
 use HMS\Entities\Snackspace\TransactionType;
 use HMS\Factories\Snackspace\TransactionFactory;
@@ -63,13 +65,13 @@ class TransactionsController extends Controller
                 throw EntityNotFoundException::fromClassNameAndIdentifier(User::class, ['id' => $request->user]);
             }
 
-            if ($user != \Auth::user() && \Gate::denies('snackspace.transaction.view.all')) {
+            if ($user != Auth::user() && Gate::denies('snackspace.transaction.view.all')) {
                 flash('Unauthorized')->error();
 
                 return redirect()->route('home');
             }
         } else {
-            $user = \Auth::user();
+            $user = Auth::user();
         }
         if (! $user->getProfile()) {
             flash($user->getFirstname() . ' has no profile')->warning();

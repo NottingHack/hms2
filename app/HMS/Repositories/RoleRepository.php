@@ -9,11 +9,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 interface RoleRepository
 {
     /**
-     * @param $id
+     * @param int $id
      *
      * @return Role|null
      */
-    public function findOneById($id);
+    public function findOneById(int $id);
 
     /**
      * Finds all entities in the repository.

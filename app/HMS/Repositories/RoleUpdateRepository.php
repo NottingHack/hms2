@@ -9,11 +9,11 @@ use HMS\Entities\RoleUpdate;
 interface RoleUpdateRepository
 {
     /**
-     * @param $id
+     * @param int $id
      *
      * @return null|RoleUpdate
      */
-    public function findOneById($id);
+    public function findOneById(int $id);
 
     /**
      * @param User $user

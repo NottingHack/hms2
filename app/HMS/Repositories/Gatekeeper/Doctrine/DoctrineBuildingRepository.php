@@ -12,11 +12,11 @@ class DoctrineBuildingRepository extends EntityRepository implements BuildingRep
     use PaginatesFromRequest;
 
     /**
-     * @param $id
+     * @param int $id
      *
      * @return null|Building
      */
-    public function findOneById($id)
+    public function findOneById(int $id)
     {
         return parent::findOneById($id);
     }

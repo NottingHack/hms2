@@ -21,7 +21,7 @@ class DoctrineTransactionRepository extends EntityRepository implements Transact
      * @param Carbon $startDate
      * @param Carbon $endDate
      *
-     * @return Illuminate\Support\Collection
+     * @return \Illuminate\Support\Collection
      */
     public function reportPaymnetsBetween(Carbon $startDate, Carbon $endDate)
     {

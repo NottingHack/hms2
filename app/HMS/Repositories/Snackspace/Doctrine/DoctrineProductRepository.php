@@ -14,11 +14,11 @@ class DoctrineProductRepository extends EntityRepository implements ProductRepos
     /**
      * Find a Product.
      *
-     * @param $id
+     * @param int $id
      *
      * @return null|Product
      */
-    public function findOneById($id)
+    public function findOneById(int $id)
     {
         return parent::findOneById($id);
     }

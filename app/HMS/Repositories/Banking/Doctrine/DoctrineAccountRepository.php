@@ -12,11 +12,11 @@ class DoctrineAccountRepository extends EntityRepository implements AccountRepos
     use PaginatesFromRequest;
 
     /**
-     * @param $id
+     * @param int $id
      *
      * @return null|Account
      */
-    public function findOneById($id)
+    public function findOneById(int $id)
     {
         return parent::findOneById($id);
     }

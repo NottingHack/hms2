@@ -2,6 +2,8 @@
 
 namespace HMS\Entities\Gatekeeper;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class Bell
 {
     /**
@@ -30,7 +32,9 @@ class Bell
     protected $enabled;
 
     /**
-     * @var HMS\Entities\Gatekeeper\Door[]|ArrayCollection
+     * Door[].
+     *
+     * @var Door|ArrayCollection
      */
     protected $doors;
 
@@ -86,7 +90,7 @@ class Bell
     }
 
     /**
-     * @return HMS\Entities\Gatekeeper\Door[]|ArrayCollection
+     * @return ArrayCollection Door[]
      */
     public function getDoors()
     {

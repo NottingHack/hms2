@@ -8,11 +8,11 @@ use HMS\Entities\User;
 interface UserRepository
 {
     /**
-     * @param $id
+     * @param int $id
      *
      * @return null|User
      */
-    public function findOneById($id);
+    public function findOneById(int $id);
 
     /**
      * @param string $username

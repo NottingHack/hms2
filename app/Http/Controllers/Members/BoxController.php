@@ -9,6 +9,8 @@ use App\Events\Labels\BoxPrint;
 use App\Http\Controllers\Controller;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\UserRepository;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use HMS\Factories\Members\BoxFactory;
 use Doctrine\ORM\EntityNotFoundException;
 use HMS\Repositories\Members\BoxRepository;
@@ -118,13 +120,13 @@ class BoxController extends Controller
                 throw EntityNotFoundException::fromClassNameAndIdentifier(User::class, ['id' => $request->user]);
             }
 
-            if ($user != \Auth::user() && \Gate::denies('box.view.all')) {
+            if ($user != Auth::user() && Gate::denies('box.view.all')) {
                 flash('Unauthorized')->error();
 
                 return redirect()->route('home');
             }
         } else {
-            $user = \Auth::user();
+            $user = Auth::user();
         }
 
         $boxes = $this->boxRepository->paginateByUser($user);
@@ -145,7 +147,7 @@ class BoxController extends Controller
      */
     public function show(Box $box)
     {
-        if ($box->getUser() != \Auth::user() && \Gate::denies('box.view.all')) {
+        if ($box->getUser() != Auth::user() && Gate::denies('box.view.all')) {
             flash('Unauthorized')->error();
 
             return redirect()->route('home');
@@ -162,7 +164,7 @@ class BoxController extends Controller
      */
     public function create()
     {
-        $user = \Auth::user();
+        $user = Auth::user();
 
         $individualLimit = (int) $this->metaRepository->get($this->individualLimitKey);
         $maxLimit = (int) $this->metaRepository->get($this->maxLimitKey);
@@ -204,7 +206,7 @@ class BoxController extends Controller
      */
     public function issue(User $user)
     {
-        if ($user == \Auth::user()) {
+        if ($user == Auth::user()) {
             flash('Can not issue a box to yourself')->error();
 
             return redirect()->route('boxes.index');
@@ -252,13 +254,13 @@ class BoxController extends Controller
                 throw EntityNotFoundException::fromClassNameAndIdentifier(User::class, ['id' => $request->boxUser]);
             }
 
-            if ($user != \Auth::user() && \Gate::denies('box.issue.all')) {
+            if ($user != Auth::user() && Gate::denies('box.issue.all')) {
                 flash('Unauthorized')->error();
 
                 return redirect()->route('home');
             }
         } else {
-            $user = \Auth::user();
+            $user = Auth::user();
         }
 
         $individualLimit = (int) $this->metaRepository->get($this->individualLimitKey);
@@ -276,7 +278,7 @@ class BoxController extends Controller
         }
 
         // if needed can it still be paid for
-        if ($user != \Auth::user()) {
+        if ($user != Auth::user()) {
             // should be a free issue
             $userBoxCount = $this->boxRepository->countInUseByUser($user);
             if ($userBoxCount >= $individualLimit) {
@@ -319,7 +321,7 @@ class BoxController extends Controller
      */
     public function printLabel(Box $box)
     {
-        if ($box->getUser() != \Auth::user() && \Gate::denies('box.printLabel.all')) {
+        if ($box->getUser() != Auth::user() && Gate::denies('box.printLabel.all')) {
             flash('Unauthorized')->error();
 
             return redirect()->route('home');
@@ -341,7 +343,7 @@ class BoxController extends Controller
     public function markInUse(Box $box)
     {
         $user = $box->getUser();
-        if ($user != \Auth::user() && \Gate::denies('box.edit.all')) {
+        if ($user != Auth::user() && Gate::denies('box.edit.all')) {
             flash('Unauthorized')->error();
 
             return redirect()->route('home');
@@ -353,7 +355,7 @@ class BoxController extends Controller
         // check member does not all ready have max number of boxes
         $userBoxCount = $this->boxRepository->countInUseByUser($user);
         if ($userBoxCount >= $individualLimit) {
-            if ($box->getUser() == \Auth::user()) {
+            if ($box->getUser() == Auth::user()) {
                 flash('You have too many boxes already')->error();
             } else {
                 flash('This member has too many boxes already')->error();
@@ -386,13 +388,13 @@ class BoxController extends Controller
      */
     public function markAbandoned(Box $box)
     {
-        if ($box->getUser() == \Auth::user()) {
+        if ($box->getUser() == Auth::user()) {
             flash('You can not abandoned your own box')->error();
 
             return redirect()->route('boxes.index');
         }
 
-        if ($box->getUser() != \Auth::user() && \Gate::denies('box.edit.all')) {
+        if ($box->getUser() != Auth::user() && Gate::denies('box.edit.all')) {
             flash('Unauthorized')->error();
 
             return redirect()->route('home');
@@ -414,7 +416,7 @@ class BoxController extends Controller
      */
     public function markRemoved(Box $box)
     {
-        if ($box->getUser() != \Auth::user()) {
+        if ($box->getUser() != Auth::user()) {
             flash('Unauthorized')->error();
 
             return redirect()->route('home');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use HMS\Entities\Role;
 use HMS\Governance\VotingManager;
 use HMS\Repositories\RoleRepository;
+use Illuminate\Support\Facades\Auth;
 use HMS\Repositories\Tools\ToolRepository;
 use HMS\Repositories\Members\BoxRepository;
 use HMS\Repositories\Tools\BookingRepository;
@@ -95,7 +96,7 @@ class HomeController extends Controller
      */
     public function welcome()
     {
-        if (\Auth::check()) {
+        if (Auth::check()) {
             return redirect()->route('home');
         }
 
@@ -109,7 +110,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user = \Auth::user();
+        $user = Auth::user();
 
         if ($user->hasRoleByName(Role::MEMBER_APPROVAL)) {
             $rejectedLogs = $this->rejectedLogRepository->findByUser($user);

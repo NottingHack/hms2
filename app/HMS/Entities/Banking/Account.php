@@ -22,7 +22,9 @@ class Account
     protected $natwestRef;
 
     /**
-     * @var \HMS\Entities\User[]
+     * \HMS\Entities\User[].
+     *
+     * @var ArrayCollection
      */
     protected $users;
 
@@ -38,7 +40,7 @@ class Account
     /**
      * Gets the value of id.
      *
-     * @return mixed
+     * @return int
      */
     public function getId(): int
     {
@@ -48,7 +50,7 @@ class Account
     /**
      * Gets the value of paymentRef.
      *
-     * @return mixed
+     * @return string
      */
     public function getPaymentRef(): string
     {
@@ -58,7 +60,7 @@ class Account
     /**
      * Sets the value of paymentRef.
      *
-     * @param mixed $paymentRef the payment ref
+     * @param string $paymentRef the payment ref
      *
      * @return self
      */
@@ -72,7 +74,7 @@ class Account
     /**
      * Gets the value of natwestRef.
      *
-     * @return mixed
+     * @return string|null
      */
     public function getNatwestRef(): ?string
     {
@@ -82,7 +84,7 @@ class Account
     /**
      * Gets the value of users.
      *
-     * @return \HMS\Entities\User[]
+     * @return ArrayCollection User[]
      */
     public function getUsers()
     {
@@ -92,11 +94,11 @@ class Account
     /**
      * Sets the value of users.
      *
-     * @param \HMS\Entities\User[] $users the users
+     * @param ArrayCollection $users the users
      *
      * @return self
      */
-    public function setUsers(\HMS\Entities\User $users)
+    public function setUsers(ArrayCollection $users)
     {
         $this->users = $users;
 

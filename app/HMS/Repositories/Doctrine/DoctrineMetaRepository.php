@@ -42,7 +42,7 @@ class DoctrineMetaRepository extends EntityRepository implements MetaRepository
      * Get the specified setting value as an int.
      *
      * @param string $key
-     * @param mixed $default
+     * @param int|null $default
      *
      * @return int|null
      */

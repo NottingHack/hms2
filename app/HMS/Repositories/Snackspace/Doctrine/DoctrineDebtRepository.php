@@ -48,7 +48,7 @@ class DoctrineDebtRepository extends EntityRepository implements DebtRepository
      */
     public function findLatest()
     {
-        return parent::findOneBy([], ['auditTime' => 'DESC'], 1);
+        return parent::findOneBy([], ['auditTime' => 'DESC']);
     }
 
     /**

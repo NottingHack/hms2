@@ -15,11 +15,11 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     use PaginatesFromRequest;
 
     /**
-     * @param $id
+     * @param int $id
      *
      * @return null|User
      */
-    public function findOneById($id)
+    public function findOneById(int $id)
     {
         return parent::findOneById($id);
     }

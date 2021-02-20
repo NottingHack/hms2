@@ -9,6 +9,8 @@ use HMS\Entities\Gatekeeper\Pin;
 use App\Http\Controllers\Controller;
 use HMS\Entities\Gatekeeper\RfidTag;
 use HMS\Repositories\UserRepository;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use HMS\Entities\Gatekeeper\PinState;
 use Doctrine\ORM\EntityNotFoundException;
 use HMS\Entities\Gatekeeper\RfidTagState;
@@ -69,13 +71,13 @@ class RfidTagsController extends Controller
                 throw EntityNotFoundException::fromClassNameAndIdentifier(User::class, ['id' => $request->user]);
             }
 
-            if ($user != \Auth::user() && \Gate::denies('rfidTags.view.all')) {
+            if ($user != Auth::user() && Gate::denies('rfidTags.view.all')) {
                 flash('Unauthorized')->error();
 
                 return redirect()->route('home');
             }
         } else {
-            $user = \Auth::user();
+            $user = Auth::user();
         }
 
         $rfidTags = $this->rfidTagRepository->paginateByUser($user, 10);
@@ -94,7 +96,7 @@ class RfidTagsController extends Controller
      */
     public function edit(RfidTag $rfidTag)
     {
-        if ($rfidTag->getUser() != \Auth::user() && \Gate::denies('rfidTags.edit.all')) {
+        if ($rfidTag->getUser() != Auth::user() && Gate::denies('rfidTags.edit.all')) {
             flash('Unauthorized', 'error');
 
             return redirect()->route('home');
@@ -114,7 +116,7 @@ class RfidTagsController extends Controller
      */
     public function update(Request $request, RfidTag $rfidTag)
     {
-        if ($rfidTag->getUser() != \Auth::user() && \Gate::denies('rfidTags.edit.all')) {
+        if ($rfidTag->getUser() != Auth::user() && Gate::denies('rfidTags.edit.all')) {
             flash('Unauthorized', 'error');
 
             return redirect()->route('home');

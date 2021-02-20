@@ -2,6 +2,8 @@
 
 namespace HMS\Entities\Snackspace;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class VendingMachine
 {
     /**
@@ -73,7 +75,7 @@ class VendingMachine
      */
     public function getTypeString()
     {
-        return VendingMachineType::TYPE_STRING[$this->type];
+        return VendingMachineType::TYPE_STRINGS[$this->type];
     }
 
     /**
@@ -89,7 +91,7 @@ class VendingMachine
      */
     public function getConnectionString()
     {
-        return VendingMachineConnectionType::CONNECTION_STRING[$this->connection];
+        return VendingMachineConnectionType::CONNECTION_STRINGS[$this->connection];
     }
 
     /**

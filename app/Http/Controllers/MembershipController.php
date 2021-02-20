@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use App\Jobs\Banking\AccountAuditJob;
 use HMS\User\Permissions\RoleManager;
 use App\Mail\MembershipDetailsApproved;
@@ -201,7 +203,7 @@ class MembershipController extends Controller
         $this->roleManager->addUserToRoleByName($user, Role::MEMBER_PAYMENT);
 
         // notify the user
-        \Mail::to($user)->send(new MembershipDetailsApproved($user, $this->metaRepository, $this->bankRepository));
+        Mail::to($user)->send(new MembershipDetailsApproved($user, $this->metaRepository, $this->bankRepository));
 
         if (! $request['new-account']) {
             AccountAuditJob::dispatch($account);
@@ -237,7 +239,7 @@ class MembershipController extends Controller
         $_rejectedLog = new RejectedLog();
         $_rejectedLog->setUser($user);
         $_rejectedLog->setReason($request['reason']);
-        $_rejectedLog->setRejectedBy(\Auth::user());
+        $_rejectedLog->setRejectedBy(Auth::user());
 
         $this->rejectedLogRepository->save($_rejectedLog);
 

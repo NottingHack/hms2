@@ -33,6 +33,6 @@ class PasswordStoreManager extends Manager
      */
     public function getDefaultDriver()
     {
-        return $this->app['config']['passwordstore.driver'];
+        return $this->container['config']['passwordstore.driver'];
     }
 }

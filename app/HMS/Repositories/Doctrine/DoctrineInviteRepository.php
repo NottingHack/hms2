@@ -3,7 +3,7 @@
 namespace HMS\Repositories\Doctrine;
 
 use Carbon\Carbon;
-use Hms\Entities\Invite;
+use HMS\Entities\Invite;
 use Doctrine\ORM\EntityRepository;
 use HMS\Repositories\InviteRepository;
 use Doctrine\Common\Collections\Criteria;
@@ -112,7 +112,7 @@ class DoctrineInviteRepository extends EntityRepository implements InviteReposit
      *
      * @param Carbon $date
      *
-     * @return array
+     * @return void
      */
     public function removeAllOlderThan(Carbon $date)
     {

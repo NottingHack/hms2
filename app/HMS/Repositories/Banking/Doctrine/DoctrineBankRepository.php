@@ -9,11 +9,11 @@ use HMS\Repositories\Banking\BankRepository;
 class DoctrineBankRepository extends EntityRepository implements BankRepository
 {
     /**
-     * @param $id
+     * @param int $id
      *
      * @return null|Bank
      */
-    public function findOneById($id)
+    public function findOneById(int $id)
     {
         return parent::findOneById($id);
     }

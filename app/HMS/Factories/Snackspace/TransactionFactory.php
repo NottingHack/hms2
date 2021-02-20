@@ -3,6 +3,7 @@
 namespace HMS\Factories\Snackspace;
 
 use HMS\Entities\User;
+use Illuminate\Support\Facades\Auth;
 use HMS\Entities\Snackspace\Transaction;
 
 class TransactionFactory
@@ -22,8 +23,8 @@ class TransactionFactory
         $_transaction = new Transaction($user, $amount);
         $_transaction->setType($type);
         $_transaction->setDescription($description);
-        if ($user != \Auth::user()) {
-            $_transaction->setRecordedUser(\Auth::user());
+        if ($user != Auth::user()) {
+            $_transaction->setRecordedUser(Auth::user());
         }
 
         return $_transaction;

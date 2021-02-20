@@ -8,6 +8,7 @@ use HMS\Governance\VotingManager;
 use App\Http\Controllers\Controller;
 use HMS\Governance\VotingPreference;
 use HMS\Repositories\UserRepository;
+use Illuminate\Support\Facades\Auth;
 
 class VotingController extends Controller
 {
@@ -44,7 +45,7 @@ class VotingController extends Controller
      */
     public function index()
     {
-        $user = \Auth::user();
+        $user = Auth::user();
         $votingStatus = $this->votingManager->getVotingStatusForUser($user);
         $votingPreference = $user->getProfile()->getVotingPreference();
         $votingPreferenceString = $user->getProfile()->getVotingPreferenceString();
@@ -76,7 +77,7 @@ class VotingController extends Controller
             ],
         ]);
 
-        $user = \Auth::user();
+        $user = Auth::user();
 
         $user->getProfile()->setVotingPreference($validatedData['preference']);
 

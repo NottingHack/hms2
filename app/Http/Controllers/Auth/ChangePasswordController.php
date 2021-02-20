@@ -6,6 +6,7 @@ use HMS\Entities\User;
 use HMS\Auth\PasswordStore;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Events\Users\UserPasswordChanged;
 
 class ChangePasswordController extends Controller
@@ -32,7 +33,7 @@ class ChangePasswordController extends Controller
      */
     public function edit()
     {
-        return view('user.changePassword')->with('user', \Auth::user());
+        return view('user.changePassword')->with('user', Auth::user());
     }
 
     /**
@@ -44,9 +45,9 @@ class ChangePasswordController extends Controller
      */
     public function update(Request $request)
     {
-        $user = \Auth::user();
+        $user = Auth::user();
 
-        $valideCurrentPassword = \Auth::guard()->validate([
+        $valideCurrentPassword = Auth::guard()->validate([
             'username' => $user->getUsername(),
             'password' => $request->currentPassword,
         ]);

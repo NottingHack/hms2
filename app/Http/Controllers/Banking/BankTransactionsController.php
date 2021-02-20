@@ -7,6 +7,8 @@ use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\UserRepository;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use App\Jobs\Banking\AccountAuditJob;
 use HMS\Entities\Banking\BankTransaction;
 use HMS\Entities\Snackspace\TransactionType;
@@ -106,16 +108,16 @@ class BankTransactionsController extends Controller
                 throw EntityNotFoundException::fromClassNameAndIdentifier(User::class, ['id' => $request->user]);
             }
 
-            if ($user != \Auth::user() &&
-                \Gate::denies('bankTransactions.view.all') &&
-                \Gate::denies('bankTransactions.view.limited')
+            if ($user != Auth::user() &&
+                Gate::denies('bankTransactions.view.all') &&
+                Gate::denies('bankTransactions.view.limited')
             ) {
                 flash('Unauthorized')->error();
 
                 return redirect()->route('home');
             }
         } else {
-            $user = \Auth::user();
+            $user = Auth::user();
         }
 
         if (is_null($user->getAccount())) {

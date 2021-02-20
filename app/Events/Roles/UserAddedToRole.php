@@ -4,6 +4,7 @@ namespace App\Events\Roles;
 
 use HMS\Entities\Role;
 use HMS\Entities\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Queue\SerializesModels;
 
 class UserAddedToRole
@@ -34,6 +35,6 @@ class UserAddedToRole
     {
         $this->user = $user;
         $this->role = $role;
-        $this->updateBy = \Auth::user();
+        $this->updateBy = Auth::user();
     }
 }

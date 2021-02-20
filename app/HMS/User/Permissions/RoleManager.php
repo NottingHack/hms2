@@ -37,7 +37,10 @@ class RoleManager
     /**
      * Create a new RoleManager instance.
      *
-     * @param HMS\Repositories\RoleRepository $roleRepository An instance of a role repository
+     * @param RoleRepository $roleRepository An instance of a role repository
+     * @param PermissionRepository $permissionRepository
+     * @param UserRepository $userRepository
+     * @param EntityManagerInterface $entityManager
      */
     public function __construct(
         RoleRepository $roleRepository,

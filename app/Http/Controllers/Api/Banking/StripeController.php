@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Banking;
 use Stripe\PaymentIntent;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Response as IlluminateResponse;
 
 class StripeController extends Controller
@@ -28,7 +29,7 @@ class StripeController extends Controller
             'type' => 'required|string',
         ]);
 
-        $user = \Auth::user();
+        $user = Auth::user();
 
         if (is_null($user) && $validatedData['type'] != 'DONATION') {
             // TODO: guest user, send bad request until we implement something here
@@ -84,7 +85,7 @@ class StripeController extends Controller
             'type' => 'required|string',
         ]);
 
-        $user = \Auth::user();
+        $user = Auth::user();
 
         if (is_null($user) && $validatedData['type'] != 'DONATION') {
             // TODO: guest user, send bad request until we implement something here

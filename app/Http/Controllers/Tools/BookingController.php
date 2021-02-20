@@ -6,6 +6,7 @@ use HMS\Entities\Tools\Tool;
 use Illuminate\Http\Request;
 use HMS\Tools\BookingManager;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use HMS\Repositories\Tools\BookingRepository;
 
 class BookingController extends Controller
@@ -45,7 +46,7 @@ class BookingController extends Controller
      */
     public function index(Tool $tool)
     {
-        $user = \Auth::user();
+        $user = Auth::user();
         $bookingsThisWeek = $this->bookingRepository->findByToolForThisWeek($tool);
 
         return view('tools.booking.index')

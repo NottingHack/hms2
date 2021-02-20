@@ -10,11 +10,11 @@ interface VendingLocationRepository
     /**
      * Find a VendingLocation.
      *
-     * @param $id
+     * @param int $id
      *
      * @return null|VendingLocation
      */
-    public function findOneById($id);
+    public function findOneById(int $id);
 
     /**
      * Find all locations for a given VendingMachine.

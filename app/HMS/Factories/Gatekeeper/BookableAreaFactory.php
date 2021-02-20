@@ -49,7 +49,7 @@ class BookableAreaFactory
         $_bookableArea->setMaxOccupancy($requestData['maxOccupancy']);
         $_bookableArea->setAdditionalGuestOccupancy($requestData['additionalGuestOccupancy']);
         $_bookableArea->setBookingColor($requestData['bookingColor']);
-        $_bookableArea->setSelfBookable(isset($validatedData['selfBookable']) ? true : false);
+        $_bookableArea->setSelfBookable(isset($requestData['selfBookable']) ? true : false);
 
         return $_bookableArea;
     }

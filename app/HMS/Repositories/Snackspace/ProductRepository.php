@@ -9,11 +9,11 @@ interface ProductRepository
     /**
      * Find a Product.
      *
-     * @param $id
+     * @param int $id
      *
      * @return null|Product
      */
-    public function findOneById($id);
+    public function findOneById(int $id);
 
     /**
      * Finds all entities in the repository.

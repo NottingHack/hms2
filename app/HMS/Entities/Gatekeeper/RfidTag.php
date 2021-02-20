@@ -10,26 +10,32 @@ class RfidTag
      * @var int
      */
     protected $id;
+
     /**
      * @var User
      */
     protected $user;
+
     /**
      * @var null|string
      */
     protected $rfidSerial;
+
     /**
      * @var null|string
      */
     protected $rfidSerialLegacy;
+
     /**
      * @var int
      */
     protected $state;
+
     /**
-     * @var Carbon
+     * @var \Carbon\Carbon|null
      */
     protected $lastUsed;
+
     /**
      * @var null|string
      */
@@ -148,7 +154,7 @@ class RfidTag
     /**
      * Gets the value of lastUsed.
      *
-     * @return Carbon
+     * @return \Carbon\Carbon|null
      */
     public function getLastUsed()
     {

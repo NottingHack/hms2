@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use MaxBrokman\SafeQueue\Worker;
+use Digbang\SafeQueue\Worker;
 use Laravel\Horizon\Console\WorkCommand;
 use Illuminate\Contracts\Cache\Repository as Cache;
 

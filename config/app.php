@@ -168,7 +168,7 @@ return [
         LaravelDoctrine\ORM\Auth\Passwords\PasswordResetServiceProvider::class,
         LaravelDoctrine\Migrations\MigrationsServiceProvider::class,
         LaravelDoctrine\ACL\AclServiceProvider::class,
-        MaxBrokman\SafeQueue\DoctrineQueueProvider::class,
+        Digbang\SafeQueue\DoctrineQueueProvider::class,
         LaravelDoctrine\Extensions\BeberleiExtensionsServiceProvider::class,
 
         /*

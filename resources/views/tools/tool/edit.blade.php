@@ -11,7 +11,7 @@
       <label for="toolName" class="form-label">Name</label>
       <input id="toolName" class="form-control @error('toolName') is-invalid @enderror" type="text" name="toolName" placeholder="Name of Tool" value="{{ old('toolName', $tool->getName()) }}" required autofocus maxlength="20">
       <small id="passwordHelpBlock" class="form-text text-muted">
-        Name as used for MQTT topic and when setting up the arduino, DO NOT CHANGE THIS unless you realy know what you are doing.
+        Name as used for MQTT topic and when setting up the arduino, DO NOT CHANGE THIS unless you really know what you are doing.
       </small>
       @error('toolName')
       <p class="help-text">

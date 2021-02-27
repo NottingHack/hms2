@@ -21,7 +21,7 @@ $factory->define(HMS\Entities\User::class, function (Faker\Generator $faker) {
         'lastname' => $faker->lastName,
         'email' => $faker->unique()->safeEmail,
         'username' => $faker->unique()->userName,
-        'rememberToken' => Str::random(10),
+        'rememberToken' => null,
         'roles' => new ArrayCollection(),
         'emailVerifiedAt' => Carbon::now(),
     ];

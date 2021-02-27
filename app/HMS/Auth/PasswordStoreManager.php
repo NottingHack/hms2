@@ -13,7 +13,7 @@ class PasswordStoreManager extends Manager
      */
     protected function createKerberosDriver()
     {
-        return new KerberosPasswordStore($this->app);
+        return new KerberosPasswordStore($this->config->get('passwordstore.kerberos', []));
     }
 
     /**
@@ -23,7 +23,7 @@ class PasswordStoreManager extends Manager
      */
     protected function createFileBasedDriver()
     {
-        return new FileBasedPasswordStore($this->app);
+        return new FileBasedPasswordStore($this->config->get('passwordstore.fileBased', []));
     }
 
     /**

@@ -48,12 +48,10 @@ class KerberosPasswordStore implements PasswordStore
     /**
      * Constructor.
      *
-     * @param \Illuminate\Foundation\Application $app
+     * @param array $config
      */
-    public function __construct($app)
+    public function __construct(array $config)
     {
-        $config = $app['config']->get('passwordstore.kerberos', []);
-
         $this->debug = $config['debug'];
         $this->realm = $config['realm'];
         $this->username = $config['username'];

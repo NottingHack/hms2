@@ -6,7 +6,7 @@ return [
     | Default PasswordStore Driver
     |--------------------------------------------------------------------------
     |
-    | Supported: "fileBased", "kerberos"
+    | Supported: "fileBased", "kerberos", "doctrine"
     |
     */
     'driver' => env('PASSWORDSTORE', 'fileBased'),

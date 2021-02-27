@@ -1,7 +1,6 @@
 <?php
 
 use Carbon\Carbon;
-use Illuminate\Support\Str;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /*

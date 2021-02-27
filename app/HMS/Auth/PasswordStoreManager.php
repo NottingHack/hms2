@@ -17,6 +17,16 @@ class PasswordStoreManager extends Manager
     }
 
     /**
+     * Create an instance of the Doctrine driver.
+     *
+     * @return DoctrinePasswordStore
+     */
+    protected function createDoctrineDriver()
+    {
+        return $this->container->make(DoctrinePasswordStore::class);
+    }
+
+    /**
      * Create an instance of the FileBased driver.
      *
      * @return FileBasedPasswordStore

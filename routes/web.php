@@ -230,11 +230,32 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('accounts/{account}/unlink-user/', 'Banking\AccountController@unlinkUser')
         ->name('banking.accounts.unlinkUser');
 
-    // Bank Transactions
+    // Bank
+    Route::resource(
+        'banks',
+        'Banking\BankController',
+        [
+            'except' => ['destroy'],
+        ]
+    );
+
+    // Bank Transactions;
+    Route::resource(
+        'banks.bank-transactions',
+        'Banking\BankTransactionsController',
+        [
+            'only' => ['create', 'store'],
+            'parameters' => [
+                'bank-transactions' => 'bankTransaction',
+            ],
+        ]
+    )->shallow();
     Route::get('bank-transactions/unmatched', 'Banking\BankTransactionsController@listUnmatched')
         ->name('bank-transactions.unmatched');
-    Route::get('users/{user}/bank-transactions', 'Banking\BankTransactionsController@index')
-        ->name('users.bank-transactions');
+    Route::get('bank-transactions/{bankTransaction}/reconcile', 'Banking\BankTransactionsController@reconcile')
+        ->name('bank-transactions.reconcile');
+    Route::patch('bank-transactions/{bankTransaction}/match', 'Banking\BankTransactionsController@match')
+        ->name('bank-transactions.match');
     Route::resource(
         'bank-transactions',
         'Banking\BankTransactionsController',

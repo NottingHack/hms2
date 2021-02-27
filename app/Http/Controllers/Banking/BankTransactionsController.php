@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Banking;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use HMS\Entities\Banking\Bank;
 use Illuminate\Validation\Rule;
+use HMS\Entities\Banking\BankType;
 use App\Http\Controllers\Controller;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\UserRepository;
@@ -90,7 +93,8 @@ class BankTransactionsController extends Controller
         $this->accountName = $bank->getAccountName();
 
         $this->middleware('can:bankTransactions.view.self')->only(['index']);
-        $this->middleware('can:bankTransactions.reconcile')->only(['edit', 'update', 'listUnmatched']);
+        $this->middleware('can:bankTransactions.edit')->only(['create', 'store', 'edit', 'update']);
+        $this->middleware('can:bankTransactions.reconcile')->only(['reconcile', 'match', 'listUnmatched']);
     }
 
     /**
@@ -140,6 +144,65 @@ class BankTransactionsController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @param  Bank  $bank
+     * @return \Illuminate\Http\Response
+     */
+    public function create(Bank $bank)
+    {
+        if (BankType::AUTOMATIC == $bank->getType()) {
+            flash('Bank ' . $bank->getName() . ' is type Automatic. Transactions can not be enter manually.')
+                ->error();
+
+            return redirect()->route('banks.show', $bank->getId());
+        }
+
+        return view('banking.transactions.create')
+            ->with('bank', $bank);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  Bank  $bank
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request, Bank $bank)
+    {
+        if (BankType::AUTOMATIC == $bank->getType()) {
+            flash('Bank ' . $bank->getName() . ' is type Automatic. Transactions can not be enter manually.')
+                ->error();
+
+            return redirect()->route('banks.show', $bank->getId());
+        }
+
+        $validatedData = $request->validate([
+            'transactionDate' => 'required|date',
+            'description' => 'required|string|max:512',
+            'amount' => 'required|integer',
+        ]);
+
+        $transactionDate = new Carbon($validatedData['transactionDate']);
+
+        $bankTransaction = $bankTransactionFactory
+            ->create(
+                $bank,
+                $transactionDate,
+                $validatedData['description'],
+                $validatedData['amount']
+            );
+
+        // now see if we already have this transaction on record? before saving it
+        $bankTransaction = $bankTransactionRepository->findOrSave($bankTransaction);
+
+        flash('Bank Transaction \'' . $bank->getName() . '\' created.')->success();
+
+        return redirect()->route('banks.show', $bank->getId());
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param BankTransaction $bankTransaction
@@ -148,7 +211,14 @@ class BankTransactionsController extends Controller
      */
     public function edit(BankTransaction $bankTransaction)
     {
-        // TODO: bail if this transaction is all ready matched
+        if (BankType::AUTOMATIC == $bankTransaction->getBank()->getType()) {
+            flash('Bank ' . $bankTransaction->getBank()->getName()
+                . ' is type Automatic. Transactions can not be edited.')
+                ->error();
+
+            return redirect()->route('banks.show', $bankTransaction->getBank()->getId());
+        }
+
         return view('banking.transactions.edit')->with(['bankTransaction' => $bankTransaction]);
     }
 
@@ -161,6 +231,59 @@ class BankTransactionsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, BankTransaction $bankTransaction)
+    {
+        if (BankType::AUTOMATIC == $bankTransaction->getBank()->getType()) {
+            flash('Bank ' . $bankTransaction->getBank()->getName()
+                . ' is type Automatic. Transactions can not be edited.')
+                ->error();
+
+            return redirect()->route('banks.show', $bankTransaction->getBank()->getId());
+        }
+
+        $validatedData = $request->validate([
+            'transactionDate' => 'required|date',
+            'description' => 'required|string|max:512',
+            'amount' => 'required|integer',
+        ]);
+
+        $bankTransaction->setTransactionDate(new Carbon($validatedData['transactionDate']));
+        $bankTransaction->setDescription($validatedData['description']);
+        if ($bankTransaction->getTransaction()
+            && $bankTransaction->getAmount() != $validatedData['amount']) {
+            flash('Amount can not be changed once matched for Snackspace')->error();
+        } else {
+            $bankTransaction->setAmount($validatedData['amount']);
+        }
+
+        $this->bankTransactionRepository->save($bankTransaction);
+
+        flash('Transaction updated')->success();
+
+        return redirect()->route('banks.show', $bankTransaction->getBank()->getId());
+    }
+
+    /**
+     * Show the form to reconcile the specified resource.
+     *
+     * @param BankTransaction $bankTransaction
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function reconcile(BankTransaction $bankTransaction)
+    {
+        // TODO: bail if this transaction is all ready matched
+        return view('banking.transactions.reconcile')->with(['bankTransaction' => $bankTransaction]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param BankTransaction $bankTransaction
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function match(Request $request, BankTransaction $bankTransaction)
     {
         $validatedData = $request->validate([
             'action' => [
@@ -210,7 +333,7 @@ class BankTransactionsController extends Controller
      */
     public function listUnmatched()
     {
-        $bankTransactions = $this->bankTransactionRepository->paginateByAccount(null);
+        $bankTransactions = $this->bankTransactionRepository->paginateUnmatched();
 
         return view('banking.transactions.listUnmatched')->with(['bankTransactions' => $bankTransactions]);
     }

@@ -172,6 +172,13 @@ return [
                     'permissions'   => ['snackspace.transaction.view.all'],
                     'links'         => [],
                 ],
+                'bank' => [
+                    'text'          => 'Banks',
+                    'route'         => 'banks.index',
+                    'match'         => 'banks.index',
+                    'permissions'   => ['bank.view'],
+                    'links'         => [],
+                ],
             ],
         ],
         'admin' => [

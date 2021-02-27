@@ -76,10 +76,14 @@ return [
         'pins.reactivate',
         'login.shell',
         'login.spacenet',
+        'bank.view',
+        'bank.create',
+        'bank.edit',
         'bankTransactions.view.self',
         'bankTransactions.view.limited',
         'bankTransactions.view.all',
-        'bankTransactions.reconcile',
+        'bankTransactions.edit',            // can on MANUAL or CASH Banks create or edit a transaction
+        'bankTransactions.reconcile',       // can only match a BankTransaction to an Account (ref) or Snackspace
         'tools.view',                       // can view tools
         'tools.create',                     // can add a new tool to the system
         'tools.edit',                       // can edit details of all tools
@@ -366,7 +370,10 @@ return [
                 'link.view',
                 'link.create',
                 'link.edit',
+                'bank.view',
                 'bankTransactions.view.all',
+                'bankTransactions.edit',
+                'bankTransactions.reconcile',
                 'tools.view',
                 'tools.edit',
                 'tools.maintainer.grant',
@@ -424,7 +431,11 @@ return [
             'permissions' => [
                 'search.users',
                 'profile.view.limited',
+                'bank.view',
+                'bank.create',
+                'bank.edit',
                 'bankTransactions.view.all',
+                'bankTransactions.edit',
                 'bankTransactions.reconcile',
                 'snackspace.debt.view',
                 'snackspace.transaction.view.all',

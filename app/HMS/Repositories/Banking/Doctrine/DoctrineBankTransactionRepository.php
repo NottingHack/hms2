@@ -2,6 +2,7 @@
 
 namespace HMS\Repositories\Banking\Doctrine;
 
+use HMS\Entities\Banking\Bank;
 use HMS\Entities\Banking\Account;
 use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Banking\BankTransaction;
@@ -50,28 +51,71 @@ class DoctrineBankTransactionRepository extends EntityRepository implements Bank
     }
 
     /**
-     * Find all transactions for a given account and pagineate them.
+     * Find all unmatched transactions and paginate them.
      * Ordered by transactionDate DESC.
      *
-     * @param null|Account $account
      * @param int $perPage
      * @param string $pageName
      *
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
-    public function paginateByAccount(?Account $account, $perPage = 15, $pageName = 'page')
+    public function paginateUnmatched($perPage = 15, $pageName = 'page')
     {
-        $q = parent::createQueryBuilder('bankTransaction');
-        if (is_null($account)) {
-            $q = $q->where('bankTransaction.account IS NULL')
-                ->andWhere('bankTransaction.transaction IS NULL');
-        } else {
-            $q = $q->where('bankTransaction.account = :account_id');
-            $q = $q->setParameter('account_id', $account->getId());
-        }
-        $q = $q->orderBy('bankTransaction.transactionDate', 'DESC');
+        $qb = parent::createQueryBuilder('bankTransaction');
 
-        $q = $q->getQuery();
+        $qb->where('bankTransaction.account IS NULL')
+            ->andWhere('bankTransaction.transaction IS NULL')
+            ->orderBy('bankTransaction.transactionDate', 'DESC');
+
+        $q = $qb->getQuery();
+
+        return $this->paginate($q, $perPage, $pageName);
+    }
+
+    /**
+     * Find all transactions for a given Account and paginate them.
+     * Ordered by transactionDate DESC.
+     *
+     * @param Account $account
+     * @param int $perPage
+     * @param string $pageName
+     *
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function paginateByAccount(Account $account, $perPage = 15, $pageName = 'page')
+    {
+        $qb = parent::createQueryBuilder('bankTransaction');
+
+        $qb->where('bankTransaction.account = :account_id')
+            ->orderBy('bankTransaction.transactionDate', 'DESC');
+
+        $qb->setParameter('account_id', $account->getId());
+
+        $q = $qb->getQuery();
+
+        return $this->paginate($q, $perPage, $pageName);
+    }
+
+    /**
+     * Find all transactions for a given Bank and paginate them.
+     * Ordered by transactionDate DESC.
+     *
+     * @param Bank $bank
+     * @param int $perPage
+     * @param string $pageName
+     *
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function paginateByBank(Bank $bank, $perPage = 15, $pageName = 'page')
+    {
+        $qb = parent::createQueryBuilder('bankTransaction');
+
+        $qb->where('bankTransaction.bank = :bank_id')
+            ->orderBy('bankTransaction.transactionDate', 'DESC');
+
+        $qb->setParameter('bank_id', $bank->getId());
+
+        $q = $qb->getQuery();
 
         return $this->paginate($q, $perPage, $pageName);
     }

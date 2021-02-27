@@ -2,6 +2,7 @@
 
 namespace HMS\Repositories\Banking;
 
+use HMS\Entities\Banking\Bank;
 use HMS\Entities\Banking\Account;
 use HMS\Entities\Banking\BankTransaction;
 
@@ -31,16 +32,39 @@ interface BankTransactionRepository
     public function findLatestTransactionByAccount(Account $account);
 
     /**
-     * Find all transactions for a given account and pagineate them.
+     * Find all unmatched transactions and paginate them.
      * Ordered by transactionDate DESC.
      *
-     * @param null|Account $account
      * @param int $perPage
      * @param string $pageName
      *
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
-    public function paginateByAccount(?Account $account, $perPage = 15, $pageName = 'page');
+    public function paginateUnmatched($perPage = 15, $pageName = 'page');
+
+    /**
+     * Find all transactions for a given Account and paginate them.
+     * Ordered by transactionDate DESC.
+     *
+     * @param Account $account
+     * @param int $perPage
+     * @param string $pageName
+     *
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function paginateByAccount(Account $account, $perPage = 15, $pageName = 'page');
+
+    /**
+     * Find all transactions for a given Bank and paginate them.
+     * Ordered by transactionDate DESC.
+     *
+     * @param Bank $bank
+     * @param int $perPage
+     * @param string $pageName
+     *
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function paginateByBank(Bank $bank, $perPage = 15, $pageName = 'page');
 
     /**
      * Find a matching transaction in the db or save this one.

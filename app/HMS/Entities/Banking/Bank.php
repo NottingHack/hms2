@@ -10,6 +10,8 @@ class Bank
     protected $id;
 
     /**
+     * Display name in HMS.
+     *
      * @var string
      */
     protected $name;
@@ -25,9 +27,16 @@ class Bank
     protected $accountNumber;
 
     /**
+     * Name on the account.
+     *
      * @var string
      */
     protected $accountName;
+
+    /**
+     * @var string
+     */
+    protected $type;
 
     /**
      * Gets the value of id.
@@ -115,6 +124,34 @@ class Bank
     public function setAccountName(string $accountName)
     {
         $this->accountName = $accountName;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTypeString()
+    {
+        return BankType::TYPE_STRINGS[$this->type];
+    }
+
+    /**
+     * @param string $type
+     *
+     * @return self
+     */
+    public function setType(string $type)
+    {
+        $this->type = $type;
 
         return $this;
     }

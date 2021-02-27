@@ -23,3 +23,6 @@ HMS\Entities\Banking\Bank:
     accountName:
       type: string
       length: 100
+    type:
+      type: string
+      length: 25

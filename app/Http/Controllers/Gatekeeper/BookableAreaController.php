@@ -134,7 +134,7 @@ class BookableAreaController extends Controller
         $this->bookableAreaRepository->save($bookableArea);
         flash('Bookable Area \'' . $bookableArea->getName() . '\' created.')->success();
 
-        return redirect()->route('gatekeeper.bookable-area.index', $bookableArea->getId());
+        return redirect()->route('gatekeeper.bookable-area.index');
     }
 
     /**

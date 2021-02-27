@@ -27,4 +27,12 @@ interface BankRepository
      * @param Bank $bank
      */
     public function save(Bank $bank);
+
+    /**
+     * @param int $perPage
+     * @param string $pageName
+     *
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function paginateAll($perPage = 15, $pageName = 'page');
 }

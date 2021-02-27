@@ -5,9 +5,12 @@ namespace HMS\Repositories\Banking\Doctrine;
 use HMS\Entities\Banking\Bank;
 use Doctrine\ORM\EntityRepository;
 use HMS\Repositories\Banking\BankRepository;
+use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 
 class DoctrineBankRepository extends EntityRepository implements BankRepository
 {
+    use PaginatesFromRequest;
+
     /**
      * @param int $id
      *

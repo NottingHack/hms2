@@ -32,7 +32,7 @@ class VendingMachine
     protected $address;
 
     /**
-     * @var VendingLocation
+     * @var \Doctrine\Common\Collections\Collection|VendingLocation[]
      */
     protected $vendingLocations;
 
@@ -103,7 +103,7 @@ class VendingMachine
     }
 
     /**
-     * @return VendingLocation
+     * @return \Doctrine\Common\Collections\Collection|VendingLocation[]
      */
     public function getVendingLocations()
     {

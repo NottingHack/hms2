@@ -22,9 +22,7 @@ class Account
     protected $natwestRef;
 
     /**
-     * \HMS\Entities\User[].
-     *
-     * @var ArrayCollection
+     * @var \Doctrine\Common\Collections\Collection|\HMS\Entities\User[]
      */
     protected $users;
 
@@ -84,7 +82,7 @@ class Account
     /**
      * Gets the value of users.
      *
-     * @return ArrayCollection User[]
+     * @return \Doctrine\Common\Collections\Collection|\HMS\Entities\User[]
      */
     public function getUsers()
     {
@@ -94,11 +92,11 @@ class Account
     /**
      * Sets the value of users.
      *
-     * @param ArrayCollection $users the users
+     * @param \Doctrine\Common\Collections\Collection\|\HMS\Entities\User[] $users the users
      *
      * @return self
      */
-    public function setUsers(ArrayCollection $users)
+    public function setUsers($users)
     {
         $this->users = $users;
 

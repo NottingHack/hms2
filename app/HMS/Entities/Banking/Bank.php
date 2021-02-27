@@ -52,7 +52,7 @@ class Bank
      *
      * @return self
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
 
@@ -72,7 +72,7 @@ class Bank
      *
      * @return self
      */
-    public function setSortCode($sortCode)
+    public function setSortCode(string $sortCode)
     {
         $this->sortCode = $sortCode;
 
@@ -92,7 +92,7 @@ class Bank
      *
      * @return self
      */
-    public function setAccountNumber($accountNumber)
+    public function setAccountNumber(string $accountNumber)
     {
         $this->accountNumber = $accountNumber;
 
@@ -112,7 +112,7 @@ class Bank
      *
      * @return self
      */
-    public function setAccountName($accountName)
+    public function setAccountName(string $accountName)
     {
         $this->accountName = $accountName;
 

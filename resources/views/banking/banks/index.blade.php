@@ -31,15 +31,15 @@ Banks
             <td data-title="Name of Account">{{ $bank->getAccountName() }}</td>
             <td data-title="Type">{{ $bank->getTypeString() }}</td>
             <td class="actions">
-              <a class="btn btn-primary btn-sm mb-1" href="{{ route('banks.show', $bank->getId()) }}"><i class="fas fa-eye" aria-hidden="true"></i> View</a>
+              <a class="btn btn-primary btn-sm mb-1" href="{{ route('banking.banks.show', $bank->getId()) }}"><i class="fas fa-eye" aria-hidden="true"></i> View</a>
 
               @can('bank.edit')
-              <a class="btn btn-primary btn-sm mb-1" href="{{ route('banks.edit', $bank->getId()) }}"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
+              <a class="btn btn-primary btn-sm mb-1" href="{{ route('banking.banks.edit', $bank->getId()) }}"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
               @endcan
 
-              @if(HMS\Entities\Banking\BankType::AUTOMATIC != $bank->getType())
+              @if (HMS\Entities\Banking\BankType::AUTOMATIC != $bank->getType())
               @can('bankTransactions.edit')
-              <a class="btn btn-primary btn-sm mb-1" href="{{ route('banks.bank-transactions.create', $bank->getId()) }}"><i class="fas fa-pencil" aria-hidden="true"></i> Add Transaction</a>
+              <a class="btn btn-primary btn-sm mb-1" href="{{ route('banking.banks.bank-transactions.create', $bank->getId()) }}"><i class="fas fa-pencil" aria-hidden="true"></i> Add Transaction</a>
               @endcan
               @endif
             </td>
@@ -61,7 +61,7 @@ Banks
 @can('bank.create')
 <br>
 <div class="container">
-  <a href="{{ route('banks.create') }}" class="btn btn-primary btn-block"><i class="fas fa-plus" aria-hidden="true"></i> Add new bank</a>
+  <a href="{{ route('banking.banks.create') }}" class="btn btn-primary btn-block"><i class="fas fa-plus" aria-hidden="true"></i> Add new bank</a>
 </div>
 @endcan
 

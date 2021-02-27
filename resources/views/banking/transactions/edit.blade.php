@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-  <form role="form" method="POST" action="{{ route('bank-transactions.update', $bankTransaction->getId()) }}">
+  <form role="form" method="POST" action="{{ route('banking.bank-transactions.update', $bankTransaction->getId()) }}">
     @csrf
     @method('PATCH')
 
@@ -26,8 +26,8 @@
 
     <div class="form-group">
       <label for="amount" class="form-label">Amount in pence (use positive number to add credit, negative number to debit)</label>
-      <input id="amount" class="form-control" type="number" name="amount" placeholder="in pence" value="{{ old('amount', $bankTransaction->getAmount()) }}" required @if($bankTransaction->getTransaction()) readonly @endif>
-      @if($bankTransaction->getTransaction())
+      <input id="amount" class="form-control" type="number" name="amount" placeholder="in pence" value="{{ old('amount', $bankTransaction->getAmount()) }}" required @if ($bankTransaction->getTransaction()) readonly @endif>
+      @if ($bankTransaction->getTransaction())
       <small id="amountHelpBlock" class="form-text text-muted">
         Amount cannot be changed once matched for Snackspace
       </small>
@@ -51,7 +51,7 @@
         <tr>
           <th>Membership Account Matched</th>
           <td>
-            @if($bankTransaction->getAccount())
+            @if ($bankTransaction->getAccount())
             <span class="align-middle">
               {{ $bankTransaction->getAccount()->getPaymentRef() }}
               <div class="btn-group float-right d-none d-md-inline" role="group" aria-label="View User">
@@ -66,7 +66,7 @@
         <tr>
           <th>Snackspace Matched</th>
           <td>
-            @if($bankTransaction->getTransaction())
+            @if ($bankTransaction->getTransaction())
             <span class="align-middle">
               {{ $bankTransaction->getTransaction()->getUser()->getFullname() }}
               <div class="btn-group float-right d-none d-md-inline" role="group" aria-label="View User">

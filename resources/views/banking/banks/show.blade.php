@@ -39,7 +39,7 @@ Bank - {{ $bank->getName() }}
   </div>
 
   @can('bank.edit')
-  <a href="{{ route('banks.edit', $bank->getId()) }}" class="btn btn-info btn-block"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
+  <a href="{{ route('banking.banks.edit', $bank->getId()) }}" class="btn btn-info btn-block"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
   @endcan
 
   <br>
@@ -68,7 +68,7 @@ Bank - {{ $bank->getName() }}
           <td data-title="Description">{{ $bankTransaction->getDescription() }}</td>
           <td data-title="Amount"><span class="money">@money($bankTransaction->getAmount(), 'GBP')</span></td>
           <td data-title="Account Matched">
-            @if($bankTransaction->getAccount())
+            @if ($bankTransaction->getAccount())
             <span class="align-middle">
               {{ $bankTransaction->getAccount()->getPaymentRef() }}
               <div class="btn-group float-right d-none d-md-inline" role="group" aria-label="View User">
@@ -78,7 +78,7 @@ Bank - {{ $bank->getName() }}
             @endif
           </td>
           <td data-title="Snackspace Matched">
-            @if($bankTransaction->getTransaction())
+            @if ($bankTransaction->getTransaction())
             <span class="align-middle">
               {{ $bankTransaction->getTransaction()->getUser()->getFullname() }}
               <div class="btn-group float-right d-none d-md-inline" role="group" aria-label="View User">
@@ -88,14 +88,14 @@ Bank - {{ $bank->getName() }}
             @endif
           </td>
           <td class="actions">
-            @if(HMS\Entities\Banking\BankType::AUTOMATIC != $bank->getType())
+            @if (HMS\Entities\Banking\BankType::AUTOMATIC != $bank->getType())
             @can('bankTransactions.edit')
-            <a class="btn btn-primary btn-sm mb-1" href="{{ route('bank-transactions.edit', $bankTransaction->getId()) }}"><i class="fas fa-search-dollar" aria-hidden="true"></i> Edit</a>
+            <a class="btn btn-primary btn-sm mb-1" href="{{ route('banking.bank-transactions.edit', $bankTransaction->getId()) }}"><i class="fas fa-search-dollar" aria-hidden="true"></i> Edit</a>
             @endcan
             @endif
-            @if(is_null($bankTransaction->getAccount()) && is_null($bankTransaction->getTransaction()))
+            @if (is_null($bankTransaction->getAccount()) && is_null($bankTransaction->getTransaction()))
             @can('bankTransactions.reconcile')
-            <a class="btn btn-primary btn-sm mb-1" href="{{ route('bank-transactions.reconcile', $bankTransaction->getId()) }}"><i class="fas fa-search-dollar" aria-hidden="true"></i> Reconcile</a>
+            <a class="btn btn-primary btn-sm mb-1" href="{{ route('banking.bank-transactions.reconcile', $bankTransaction->getId()) }}"><i class="fas fa-search-dollar" aria-hidden="true"></i> Reconcile</a>
             @endcan
             @endif
           </td>
@@ -109,11 +109,11 @@ Bank - {{ $bank->getName() }}
   </div>
 </div>
 
-@if(HMS\Entities\Banking\BankType::AUTOMATIC != $bank->getType())
+@if (HMS\Entities\Banking\BankType::AUTOMATIC != $bank->getType())
 @can('bankTransactions.edit')
 <br>
 <div class="container">
-  <a href="{{ route('banks.bank-transactions.create', $bank->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-plus" aria-hidden="true"></i> Add Bank Transaction</a>
+  <a href="{{ route('banking.banks.bank-transactions.create', $bank->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-plus" aria-hidden="true"></i> Add Bank Transaction</a>
 </div>
 @endcan
 @endif

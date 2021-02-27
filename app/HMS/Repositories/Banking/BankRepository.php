@@ -22,6 +22,13 @@ interface BankRepository
     public function findOneBySortCodeAndAccountNumber(string $sortCode, string $accountNumber);
 
     /**
+     * Find all Bank that are not of type Automatic.
+     *
+     * @return Bank[]
+     */
+    public function findNotAutomatic();
+
+    /**
      * Save Bank to the DB.
      *
      * @param Bank $bank

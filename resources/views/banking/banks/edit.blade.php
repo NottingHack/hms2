@@ -1,17 +1,18 @@
 @extends('layouts.app')
 
 @section('pageTitle')
-Add Bank
+Editing Bank - {{ $bank->getName() }}
 @endsection
 
 
 @section('content')
 <div class="container">
-  <form class="form-group" role="form" method="POST" action="{{ route('banks.store') }}">
+  <form class="form-group" role="form" method="POST" action="{{ route('banking.banks.update', $bank->getId()) }}">
     @csrf
+    @method('PATCH')
     <div class="form-group">
       <label for="name" class="form-label">Name</label>
-      <input id="name" class="form-control @error('name') is-invalid @enderror" type="text" name="name" placeholder="Name" value="{{ old('name') }}" required autofocus maxlength="100">
+      <input id="name" class="form-control @error('name') is-invalid @enderror" type="text" name="name" placeholder="Name" value="{{ old('name', $bank->getName()) }}" required autofocus maxlength="100">
       <small id="nameHelpBlock" class="form-text text-muted">
         Name for display in HMS
       </small>
@@ -22,10 +23,7 @@ Add Bank
 
     <div class="form-group">
       <label for="sortCode" class="form-label">Sort Code</label>
-      <input id="sortCode" class="form-control @error('sortCode') is-invalid @enderror" type="text" name="sortCode" placeholder="00-00-00" value="{{ old('sortCode') }}" required maxlength="8">
-      <small id="sortCodeHelpBlock" class="form-text text-muted">
-        Can just be CASH for Type:Cash
-      </small>
+      <input id="sortCode" class="form-control @error('sortCode') is-invalid @enderror" type="text" name="sortCode" placeholder="00-00-00" value="{{ old('sortCode', $bank->getSortCode()) }}" required maxlength="8">
       @error('sortCode')
       <div class="invalid-feedback">{{ $message }}</div>
       @enderror
@@ -33,10 +31,7 @@ Add Bank
 
     <div class="form-group">
       <label for="accountNumber" class="form-label">Account Number</label>
-      <input id="accountNumber" class="form-control @error('accountNumber') is-invalid @enderror" type="text" name="accountNumber" placeholder="00000000" value="{{ old('accountNumber') }}" required  maxlength="8">
-      <small id="accountNumberHelpBlock" class="form-text text-muted">
-        Can just be CASH for Type:Cash
-      </small>
+      <input id="accountNumber" class="form-control @error('accountNumber') is-invalid @enderror" type="text" name="accountNumber" placeholder="00000000" value="{{ old('accountNumber', $bank->getAccountNumber()) }}" required  maxlength="8">
       @error('accountNumber')
       <div class="invalid-feedback">{{ $message }}</div>
       @enderror
@@ -44,7 +39,7 @@ Add Bank
 
     <div class="form-group">
       <label for="accountName" class="form-label">Name on Account</label>
-      <input id="accountName" class="form-control @error('accountName') is-invalid @enderror" type="text" name="accountName" placeholder="Name on Account" value="{{ old('accountName') }}" required  maxlength="100">
+      <input id="accountName" class="form-control @error('accountName') is-invalid @enderror" type="text" name="accountName" placeholder="Name on Account" value="{{ old('accountName', $bank->getAccountName()) }}" required  maxlength="100">
       <small id="accountNameHelpBlock" class="form-text text-muted">
         Name, as is on the banks systems, needed by some when setting up a standing order
       </small>
@@ -63,7 +58,7 @@ Add Bank
           type="radio"
           name="type"
           value="{{ $type }}"
-          {{ old('type') == $type ? 'checked="checked"' : '' }}
+          {{ old('type', $bank->getType()) == $type ? 'checked="checked"' : '' }}
           >
         <label class="form-check-label" for="type-{{ $type }}">
           {{ $string }}
@@ -78,7 +73,7 @@ Add Bank
       @enderror
     </fieldset>
 
-    <button type="submit" class="btn btn-primary btn-block">Add Bank</button>
+    <button type="submit" class="btn btn-success btn-block">Update</button>
   </form>
   <br>
   <h5>Type</h5>

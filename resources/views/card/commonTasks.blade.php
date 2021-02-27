@@ -3,7 +3,7 @@
   <div class="list-group list-group-flush">
     <a href="{{ route('users.show', $user->getId()) }}" class="list-group-item list-group-item-action">Update Details</a>
     <a href="{{ route('users.changePassword') }}" class="list-group-item list-group-item-action">Change Password</a>
-    <a href="{{ route('bank-transactions.index') }}" class="list-group-item list-group-item-action">Standing Order Details</a>
+    <a href="{{ route('banking.bank-transactions.index') }}" class="list-group-item list-group-item-action">Standing Order Details</a>
     <a href="{{ route('projects.index') }}" class="list-group-item list-group-item-action">Print Do-Not-Hack Label</a>
     {{-- <a href="#" class="list-group-item list-group-item-action">Request Induction</a> --}}
     <a href="{{ route('contactUs') }}" class="list-group-item list-group-item-action">Contact Trustees</a>

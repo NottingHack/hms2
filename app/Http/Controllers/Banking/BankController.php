@@ -58,7 +58,7 @@ class BankController extends Controller
     {
         $banks = $this->bankRepository->paginateAll();
 
-        return view('banking.bank.index')
+        return view('banking.banks.index')
             ->with('banks', $banks);
     }
 
@@ -69,7 +69,7 @@ class BankController extends Controller
      */
     public function create()
     {
-        return view('banking.bank.create');
+        return view('banking.banks.create');
     }
 
     /**
@@ -102,7 +102,7 @@ class BankController extends Controller
         $this->bankRepository->save($bank);
         flash('Bank \'' . $bank->getName() . '\' created.')->success();
 
-        return redirect()->route('banks.show', $bank->getId());
+        return redirect()->route('banking.banks.show', $bank->getId());
     }
 
     /**
@@ -115,7 +115,7 @@ class BankController extends Controller
     {
         $bankTransactions = $this->bankTransactionRepository->paginateByBank($bank);
 
-        return view('banking.bank.show')
+        return view('banking.banks.show')
             ->with('bank', $bank)
             ->with('bankTransactions', $bankTransactions);
     }
@@ -128,7 +128,7 @@ class BankController extends Controller
      */
     public function edit(Bank $bank)
     {
-        return view('banking.bank.edit')
+        return view('banking.banks.edit')
             ->with('bank', $bank);
     }
 
@@ -161,6 +161,6 @@ class BankController extends Controller
         $this->bankRepository->save($bank);
         flash('Bank \'' . $bank->getName() . '\' updated.')->success();
 
-        return redirect()->route('banks.show', $bank->getId());
+        return redirect()->route('banking.banks.show', $bank->getId());
     }
 }

@@ -153,8 +153,8 @@ return [
                 ],
                 'bankTransactions' => [
                     'text'          => 'Reconcile Bank Transaction',
-                    'route'         => 'bank-transactions.unmatched',
-                    'match'         => 'bank-transactions.unmatched',
+                    'route'         => 'banking.bank-transactions.unmatched',
+                    'match'         => 'banking.bank-transactions.unmatched',
                     'permissions'   => ['bankTransactions.reconcile'],
                     'links'         => [],
                 ],
@@ -174,8 +174,8 @@ return [
                 ],
                 'bank' => [
                     'text'          => 'Banks',
-                    'route'         => 'banks.index',
-                    'match'         => 'banks.index',
+                    'route'         => 'banking.banks.index',
+                    'match'         => 'banking.banks.index',
                     'permissions'   => ['bank.view'],
                     'links'         => [],
                 ],

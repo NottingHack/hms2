@@ -16,9 +16,8 @@ Add Bank Transaction to {{ $bank->getName() }}
       </tbody>
     </table>
   </div>
-  <form role="form" method="POST" action="{{ route('banks.bank-transactions.store', $bank->getId()) }}">
+  <form role="form" method="POST" action="{{ route('banking.banks.bank-transactions.store', $bank->getId()) }}">
     @csrf
-    @method('PATCH')
 
     <div class="form-group">
       <label for="transactionDate" class="form-label">Date</label>

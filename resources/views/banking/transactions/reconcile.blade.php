@@ -27,7 +27,7 @@
     </table>
   </div>
   <hr>
-  <form role="form" method="POST" action="{{ route('bank-transactions.match', $bankTransaction->getId()) }}">
+  <form role="form" method="POST" action="{{ route('banking.bank-transactions.match', $bankTransaction->getId()) }}">
     @csrf
     @method('PATCH')
 

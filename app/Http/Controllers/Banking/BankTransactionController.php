@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Banking;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use HMS\Entities\Banking\Bank;
 use Illuminate\Validation\Rule;
 use HMS\Entities\Banking\BankType;
 use App\Http\Controllers\Controller;
@@ -14,20 +13,19 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use App\Jobs\Banking\AccountAuditJob;
 use HMS\Entities\Banking\BankTransaction;
-use HMS\Entities\Snackspace\TransactionType;
 use HMS\Repositories\Banking\BankRepository;
 use HMS\Repositories\Banking\AccountRepository;
-use HMS\Factories\Snackspace\TransactionFactory;
-use HMS\Repositories\Snackspace\TransactionRepository;
 use HMS\Repositories\Banking\BankTransactionRepository;
+use HMS\Entities\Snackspace\TransactionType as SnackspaceTransactionType;
+use HMS\Factories\Snackspace\TransactionFactory as SnackspaceTransactionFactory;
+use HMS\Repositories\Snackspace\TransactionRepository as SnackspaceTransactionRepository;
 
-class BankTransactionsController extends Controller
+class BankTransactionController extends Controller
 {
     /**
      * @var BankTransactionRepository
      */
     protected $bankTransactionRepository;
-
     /**
      * @var UserRepository
      */
@@ -37,6 +35,11 @@ class BankTransactionsController extends Controller
      * @var AccountRepository
      */
     protected $accountRepository;
+
+    /**
+     * @var MetaRepository
+     */
+    protected $metaRepository;
 
     /**
      * @var string
@@ -54,14 +57,14 @@ class BankTransactionsController extends Controller
     public $accountName;
 
     /**
-     * @var TransactionFactory
+     * @var SnackspaceTransactionFactory
      */
-    protected $transactionFactory;
+    protected $snackspaceTransactionFactory;
 
     /**
-     * @var TransactionRepository
+     * @var SnackspaceTransactionRepository
      */
-    protected $transactionRepository;
+    protected $snackspaceTransactionRepository;
 
     /**
      * @param BankTransactionRepository $bankTransactionRepository
@@ -69,8 +72,8 @@ class BankTransactionsController extends Controller
      * @param AccountRepository $accountRepository
      * @param MetaRepository $metaRepository
      * @param BankRepository $bankRepository
-     * @param TransactionFactory $transactionFactory
-     * @param TransactionRepository $transactionRepository
+     * @param SnackspaceTransactionFactory $snackspaceTransactionFactory
+     * @param SnackspaceTransactionRepository $snackspaceTransactionRepository
      */
     public function __construct(
         BankTransactionRepository $bankTransactionRepository,
@@ -78,22 +81,23 @@ class BankTransactionsController extends Controller
         AccountRepository $accountRepository,
         MetaRepository $metaRepository,
         BankRepository $bankRepository,
-        TransactionFactory $transactionFactory,
-        TransactionRepository $transactionRepository
+        SnackspaceTransactionFactory $snackspaceTransactionFactory,
+        SnackspaceTransactionRepository $snackspaceTransactionRepository
     ) {
         $this->bankTransactionRepository = $bankTransactionRepository;
         $this->userRepository = $userRepository;
         $this->accountRepository = $accountRepository;
-        $this->transactionFactory = $transactionFactory;
-        $this->transactionRepository = $transactionRepository;
+        $this->metaRepository = $metaRepository;
+        $this->snackspaceTransactionFactory = $snackspaceTransactionFactory;
+        $this->snackspaceTransactionRepository = $snackspaceTransactionRepository;
 
-        $bank = $bankRepository->find($metaRepository->get('so_bank_id'));
+        $bank = $bankRepository->find($this->metaRepository->get('so_bank_id'));
         $this->accountNo = $bank->getAccountNumber();
         $this->sortCode = $bank->getSortCode();
         $this->accountName = $bank->getAccountName();
 
         $this->middleware('can:bankTransactions.view.self')->only(['index']);
-        $this->middleware('can:bankTransactions.edit')->only(['create', 'store', 'edit', 'update']);
+        $this->middleware('can:bankTransactions.edit')->only(['edit', 'update']);
         $this->middleware('can:bankTransactions.reconcile')->only(['reconcile', 'match', 'listUnmatched']);
     }
 
@@ -144,65 +148,6 @@ class BankTransactionsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @param  Bank  $bank
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Bank $bank)
-    {
-        if (BankType::AUTOMATIC == $bank->getType()) {
-            flash('Bank ' . $bank->getName() . ' is type Automatic. Transactions can not be enter manually.')
-                ->error();
-
-            return redirect()->route('banks.show', $bank->getId());
-        }
-
-        return view('banking.transactions.create')
-            ->with('bank', $bank);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  Bank  $bank
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request, Bank $bank)
-    {
-        if (BankType::AUTOMATIC == $bank->getType()) {
-            flash('Bank ' . $bank->getName() . ' is type Automatic. Transactions can not be enter manually.')
-                ->error();
-
-            return redirect()->route('banks.show', $bank->getId());
-        }
-
-        $validatedData = $request->validate([
-            'transactionDate' => 'required|date',
-            'description' => 'required|string|max:512',
-            'amount' => 'required|integer',
-        ]);
-
-        $transactionDate = new Carbon($validatedData['transactionDate']);
-
-        $bankTransaction = $bankTransactionFactory
-            ->create(
-                $bank,
-                $transactionDate,
-                $validatedData['description'],
-                $validatedData['amount']
-            );
-
-        // now see if we already have this transaction on record? before saving it
-        $bankTransaction = $bankTransactionRepository->findOrSave($bankTransaction);
-
-        flash('Bank Transaction \'' . $bank->getName() . '\' created.')->success();
-
-        return redirect()->route('banks.show', $bank->getId());
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param BankTransaction $bankTransaction
@@ -216,7 +161,7 @@ class BankTransactionsController extends Controller
                 . ' is type Automatic. Transactions can not be edited.')
                 ->error();
 
-            return redirect()->route('banks.show', $bankTransaction->getBank()->getId());
+            return redirect()->route('banking.banks.show', $bankTransaction->getBank()->getId());
         }
 
         return view('banking.transactions.edit')->with(['bankTransaction' => $bankTransaction]);
@@ -237,7 +182,7 @@ class BankTransactionsController extends Controller
                 . ' is type Automatic. Transactions can not be edited.')
                 ->error();
 
-            return redirect()->route('banks.show', $bankTransaction->getBank()->getId());
+            return redirect()->route('banking.banks.show', $bankTransaction->getBank()->getId());
         }
 
         $validatedData = $request->validate([
@@ -259,7 +204,7 @@ class BankTransactionsController extends Controller
 
         flash('Transaction updated')->success();
 
-        return redirect()->route('banks.show', $bankTransaction->getBank()->getId());
+        return redirect()->route('banking.banks.show', $bankTransaction->getBank()->getId());
     }
 
     /**
@@ -296,20 +241,30 @@ class BankTransactionsController extends Controller
         $user = $this->userRepository->findOneById($validatedData['user_id']);
 
         if ($validatedData['action'] == 'membership') {
+            if (BankType::CASH == $bankTransaction->getBank()->getType()
+             && $this->metaRepository->getInt('allow_cash_membership_payments', 0) == false) {
+                flash(
+                    'Bank ' . $bankTransaction->getBank()->getName()
+                    . ' is type Cash and cash membership payments are not currently allowed.'
+                )->error();
+
+                return redirect()->route('banking.bank-transactions.unmatched');
+            }
             $bankTransaction->setAccount($user->getAccount());
         } elseif ($validatedData['action'] == 'snackspace') {
             // create a new snackspace transaction
             $amount = $bankTransaction->getAmount();
             $stringAmount = money($amount, 'GBP');
 
-            $snackspaceTransaction = $this->transactionFactory->create(
+            $snackspaceTransaction = $this->snackspaceTransactionFactory->create(
                 $user,
                 $amount,
-                TransactionType::BANK_PAYMENT,
+                SnackspaceTransactionType::BANK_PAYMENT,
                 'Bank Transfer : ' . $stringAmount
             );
 
-            $snackspaceTransaction = $this->transactionRepository->saveAndUpdateBalance($snackspaceTransaction);
+            $snackspaceTransaction = $this->snackspaceTransactionRepository
+                ->saveAndUpdateBalance($snackspaceTransaction);
 
             $bankTransaction->setTransaction($snackspaceTransaction);
         }
@@ -323,7 +278,7 @@ class BankTransactionsController extends Controller
 
         flash('Transaction updated')->success();
 
-        return redirect()->route('bank-transactions.unmatched');
+        return redirect()->route('banking.bank-transactions.unmatched');
     }
 
     /**

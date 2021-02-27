@@ -19,13 +19,17 @@ class DoctrineBankRepository extends EntityRepository implements BankRepository
     }
 
     /**
+     * @param string $sortCode
      * @param string $accountNumber
      *
      * @return null|Bank
      */
-    public function findOneByAccountNumber(string $accountNumber)
+    public function findOneBySortCodeAndAccountNumber(string $sortCode, string $accountNumber)
     {
-        return parent::findOneByAccountNumber($accountNumber);
+        return parent::findOneBy([
+            'sortCode' => $sortCode,
+            'accountNumber' => $accountNumber,
+        ]);
     }
 
     /**

@@ -222,29 +222,67 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // hms1 link
     Route::get('memberBoxes/view/{box}', 'Members\BoxController@show');
 
-    // Accounts
-    Route::get('accounts/list-joint', 'Banking\AccountController@listJoint')->name('banking.accounts.listJoint');
-    Route::get('accounts/{account}', 'Banking\AccountController@show')->name('banking.accounts.show');
-    Route::patch('accounts/{account}/link-user/', 'Banking\AccountController@linkUser')
-        ->name('banking.accounts.linkUser');
-    Route::patch('accounts/{account}/unlink-user/', 'Banking\AccountController@unlinkUser')
-        ->name('banking.accounts.unlinkUser');
+    // Banking
+    Route::namespace('Banking')->name('banking.')->group(function () {
+        // Accounts
+        Route::get('accounts/list-joint', 'AccountController@listJoint')
+            ->name('accounts.listJoint');
+        Route::get('accounts/{account}', 'AccountController@show')
+            ->name('accounts.show');
+        Route::patch('accounts/{account}/link-user/', 'AccountController@linkUser')
+            ->name('accounts.linkUser');
+        Route::patch('accounts/{account}/unlink-user/', 'AccountController@unlinkUser')
+            ->name('accounts.unlinkUser');
 
-    // Bank Transactions
-    Route::get('bank-transactions/unmatched', 'Banking\BankTransactionsController@listUnmatched')
-        ->name('bank-transactions.unmatched');
-    Route::get('users/{user}/bank-transactions', 'Banking\BankTransactionsController@index')
-        ->name('users.bank-transactions');
-    Route::resource(
-        'bank-transactions',
-        'Banking\BankTransactionsController',
-        [
-            'except' => ['show', 'create', 'store', 'destroy'],
-            'parameters' => [
-                'bank-transactions' => 'bankTransaction',
-            ],
-        ]
-    );
+        Route::resource(
+            'accounts.bank-transactions',
+            'Account\AccountBankTransactionController',
+            [
+                'only' => ['create', 'store'],
+                'parameters' => [
+                    'bank-transactions' => 'bankTransaction',
+                ],
+            ]
+        )->shallow();
+
+        // Bank
+        Route::resource(
+            'banks',
+            'BankController',
+            [
+                'except' => ['destroy'],
+            ]
+        );
+
+        // Bank Transactions;
+
+        Route::resource(
+            'banks.bank-transactions',
+            'Bank\BankBankTransactionController',
+            [
+                'only' => ['create', 'store'],
+                'parameters' => [
+                    'bank-transactions' => 'bankTransaction',
+                ],
+            ]
+        )->shallow();
+        Route::get('bank-transactions/unmatched', 'BankTransactionController@listUnmatched')
+            ->name('bank-transactions.unmatched');
+        Route::get('bank-transactions/{bankTransaction}/reconcile', 'BankTransactionController@reconcile')
+            ->name('bank-transactions.reconcile');
+        Route::patch('bank-transactions/{bankTransaction}/match', 'BankTransactionController@match')
+            ->name('bank-transactions.match');
+        Route::resource(
+            'bank-transactions',
+            'BankTransactionController',
+            [
+                'except' => ['show', 'create', 'store', 'destroy'],
+                'parameters' => [
+                    'bank-transactions' => 'bankTransaction',
+                ],
+            ]
+        );
+    });
 
     // Snackspace
     Route::namespace('Snackspace')->group(function () {

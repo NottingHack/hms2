@@ -76,7 +76,7 @@ class Tool
     protected $bookingsMax;
 
     /**
-     * @var Booking[]
+     * @var \Doctrine\Common\Collections\Collection|Booking[]
      */
     protected $bookings;
 
@@ -297,7 +297,7 @@ class Tool
     }
 
     /**
-     * @return ArrayCollection|Booking[]
+     * @return \Doctrine\Common\Collections\Collection||Booking[]
      */
     public function getBookings()
     {

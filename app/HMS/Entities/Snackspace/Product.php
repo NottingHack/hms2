@@ -41,9 +41,7 @@ class Product
     protected $longDescription;
 
     /**
-     * VendingLoaction.
-     *
-     * @var ArrayCollection
+     * @var \Doctrine\Common\Collections\Collection|VendingLoaction[]
      */
     protected $vendingLoactions;
 
@@ -166,7 +164,7 @@ class Product
     }
 
     /**
-     * @return ArrayCollection
+     * @return \Doctrine\Common\Collections\Collection|VendingLocation[]
      */
     public function getVendingLoaction()
     {
@@ -174,11 +172,11 @@ class Product
     }
 
     /**
-     * @param ArrayCollection $vendingLoactions
+     * @param \Doctrine\Common\Collections\Collection|VendingLocation[] $vendingLoactions
      *
      * @return self
      */
-    public function setVendingLoaction(ArrayCollection $vendingLoactions)
+    public function setVendingLoaction($vendingLoactions)
     {
         $this->vendingLoactions = $vendingLoactions;
 

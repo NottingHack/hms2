@@ -67,12 +67,12 @@ class Role implements RoleContract
     protected $description;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var \Doctrine\Common\Collections\Collection|Permission[]
      */
     protected $permissions;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var \Doctrine\Common\Collections\Collection|User[]
      */
     protected $users;
 
@@ -176,7 +176,7 @@ class Role implements RoleContract
     }
 
     /**
-     * @return ArrayCollection|Permission[]
+     * @return \Doctrine\Common\Collections\Collection|Permission[]
      */
     public function getPermissions()
     {
@@ -226,7 +226,7 @@ class Role implements RoleContract
     }
 
     /**
-     * @return ArrayCollection|User[]
+     * @return \Doctrine\Common\Collections\Collection|User[]
      */
     public function getUsers()
     {

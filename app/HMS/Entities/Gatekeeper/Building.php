@@ -32,17 +32,17 @@ class Building implements ArrayableContract, JsonSerializable
     protected $selfBookMaxOccupancy;
 
     /**
-     * @var Floor[]|ArrayCollection
+     * @var \Doctrine\Common\Collections\Collection|Floor[]
      */
     protected $floors;
 
     /**
-     * @var Zone[]|ArrayCollection
+     * @var \Doctrine\Common\Collections\Collection|Zone[]
      */
     protected $zones;
 
     /**
-     * @var BookableArea[]|ArrayCollection
+     * @var \Doctrine\Common\Collections\Collection|BookableArea[]
      */
     protected $bookableAreas;
 
@@ -86,7 +86,7 @@ class Building implements ArrayableContract, JsonSerializable
     }
 
     /**
-     * @return Floor[]|ArrayCollection
+     * @return \Doctrine\Common\Collections\Collection|Floor[]
      */
     public function getFloors()
     {
@@ -94,7 +94,7 @@ class Building implements ArrayableContract, JsonSerializable
     }
 
     /**
-     * @param Floor[]|ArrayCollection $floors
+     * @param \Doctrine\Common\Collections\Collection|Floor[] $floors
      *
      * @return self
      */
@@ -196,7 +196,7 @@ class Building implements ArrayableContract, JsonSerializable
     }
 
     /**
-     * @return Zone[]|ArrayCollection
+     * @return \Doctrine\Common\Collections\Collection|Zone[]
      */
     public function getZones()
     {
@@ -204,7 +204,7 @@ class Building implements ArrayableContract, JsonSerializable
     }
 
     /**
-     * @param Zone[]|ArrayCollection $zones
+     * @param \Doctrine\Common\Collections\Collection|Zone[] $zones
      *
      * @return self
      */
@@ -216,7 +216,7 @@ class Building implements ArrayableContract, JsonSerializable
     }
 
     /**
-     * @return BookableArea[]|ArrayCollection
+     * @return \Doctrine\Common\Collections\Collection|BookableArea[]
      */
     public function getBookableAreas()
     {
@@ -224,7 +224,7 @@ class Building implements ArrayableContract, JsonSerializable
     }
 
     /**
-     * @param BookableArea[]|ArrayCollection $bookableAreas
+     * @param \Doctrine\Common\Collections\Collection|BookableArea[] $bookableAreas
      *
      * @return self
      */

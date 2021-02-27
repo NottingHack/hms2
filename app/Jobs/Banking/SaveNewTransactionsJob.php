@@ -64,7 +64,11 @@ class SaveNewTransactionsJob implements ShouldQueue
         $unmatchedTransaction = [];
 
         foreach ($this->transactions as $transaction) {
-            $bank = $bankRepository->findOneByAccountNumber($transaction['accountNumber']);
+            $bank = $bankRepository->findOneBySortCodeAndAccountNumber(
+                $transaction['sortCode'],
+                $transaction['accountNumber']
+            );
+
             if (is_null($bank)) {
                 $unmatchedBank[] = $transaction;
             }

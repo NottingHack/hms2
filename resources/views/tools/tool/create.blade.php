@@ -9,7 +9,7 @@
     <div class="form-group">
       <label for="toolName" class="form-label">Name</label>
       <input id="toolName" class="form-control @error('toolName') is-invalid @enderror" type="text" name="toolName" placeholder="Name of Tool" value="{{ old('toolName') }}" required autofocus maxlength="20">
-      <small id="passwordHelpBlock" class="form-text text-muted">
+      <small id="toolNameHelpBlock" class="form-text text-muted">
         Name as used for MQTT topic and when setting up the arduino
       </small>
       @error('toolName')
@@ -22,7 +22,7 @@
     <div class="form-group">
       <label for="displayName" class="form-label">Display name</label>
       <input id="displayName" class="form-control @error('displayName') is-invalid @enderror" type="text" name="displayName" placeholder="Name of Tool" value="{{ old('displayName') }}" required maxlength="100">
-      <small id="passwordHelpBlock" class="form-text text-muted">
+      <small id="displayNameHelpBlock" class="form-text text-muted">
         Name for display in HMS
       </small>
       @error('displayName')

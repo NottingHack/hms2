@@ -27,7 +27,7 @@ class Floor
     protected $building;
 
     /**
-     * @var Room[]|ArrayCollection
+     * @var \Doctrine\Common\Collections\Collection|Room[]
      */
     protected $rooms;
 
@@ -107,7 +107,7 @@ class Floor
     }
 
     /**
-     * @return Room[]|ArrayCollection
+     * @return \Doctrine\Common\Collections\Collection|Room[]
      */
     public function getRooms()
     {
@@ -115,7 +115,7 @@ class Floor
     }
 
     /**
-     * @param Room[]|ArrayCollection $rooms
+     * @param \Doctrine\Common\Collections\Collection|Room[] $rooms
      *
      * @return self
      */

@@ -10,6 +10,8 @@ class Bank
     protected $id;
 
     /**
+     * Display name in HMS.
+     *
      * @var string
      */
     protected $name;
@@ -25,9 +27,16 @@ class Bank
     protected $accountNumber;
 
     /**
+     * Name on the account.
+     *
      * @var string
      */
     protected $accountName;
+
+    /**
+     * @var string
+     */
+    protected $type;
 
     /**
      * Gets the value of id.
@@ -52,7 +61,7 @@ class Bank
      *
      * @return self
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
 
@@ -72,7 +81,7 @@ class Bank
      *
      * @return self
      */
-    public function setSortCode($sortCode)
+    public function setSortCode(string $sortCode)
     {
         $this->sortCode = $sortCode;
 
@@ -92,7 +101,7 @@ class Bank
      *
      * @return self
      */
-    public function setAccountNumber($accountNumber)
+    public function setAccountNumber(string $accountNumber)
     {
         $this->accountNumber = $accountNumber;
 
@@ -112,9 +121,37 @@ class Bank
      *
      * @return self
      */
-    public function setAccountName($accountName)
+    public function setAccountName(string $accountName)
     {
         $this->accountName = $accountName;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTypeString()
+    {
+        return BankType::TYPE_STRINGS[$this->type];
+    }
+
+    /**
+     * @param string $type
+     *
+     * @return self
+     */
+    public function setType(string $type)
+    {
+        $this->type = $type;
 
         return $this;
     }

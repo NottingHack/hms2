@@ -98,7 +98,7 @@ class User implements
     protected $pin;
 
     /**
-     * @var ArrayCollection|RfidTag[]
+     * @var \Doctrine\Common\Collections\Collection|RfidTag[]
      */
     protected $rfidTags;
 
@@ -238,7 +238,7 @@ class User implements
     }
 
     /**
-     * @return ArrayCollection|Role[]
+     * @return \Doctrine\Common\Collections\Collection|Role[]
      */
     public function getRoles()
     {
@@ -246,7 +246,7 @@ class User implements
     }
 
     /**
-     * @return ArrayCollection|Permission[]
+     * @return \Doctrine\Common\Collections\Collection|\LaravelDoctrine\ACL\Permissions\Permission[]
      */
     public function getPermissions()
     {
@@ -347,7 +347,7 @@ class User implements
     }
 
     /**
-     * @return ArrayCollection|Email[]
+     * @return \Doctrine\Common\Collections\Collection|Email[]
      */
     public function getEmails()
     {
@@ -375,7 +375,7 @@ class User implements
     }
 
     /**
-     * @return RfidTag[]
+     * @return \Doctrine\Common\Collections\Collection|RfidTag[]
      */
     public function getRfidTags()
     {
@@ -383,7 +383,7 @@ class User implements
     }
 
     /**
-     * @param ArrayCollection|RfidTag[] $rfidTags
+     * @param \Doctrine\Common\Collections\Collection|RfidTag[] $rfidTags
      *
      * @return self
      */

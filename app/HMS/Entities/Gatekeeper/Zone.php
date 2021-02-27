@@ -29,17 +29,17 @@ class Zone
     protected $permissionCode;
 
     /**
-     * @var ArrayCollection|ZoneOccupant[]
+     * @var \Doctrine\Common\Collections\Collection|ZoneOccupant[]
      */
     protected $zoneOccupancts;
 
     /**
-     * @var ArrayCollection|ZoneOccupancyLog[]
+     * @var \Doctrine\Common\Collections\Collection|ZoneOccupancyLog[]
      */
     protected $zoneOccupancyLogs;
 
     /**
-     * @var ArrayCollection|Room[]
+     * @var \Doctrine\Common\Collections\Collection|Room[]
      */
     protected $rooms;
 
@@ -96,7 +96,7 @@ class Zone
     }
 
     /**
-     * @return ArrayCollection|ZoneOccupant[]
+     * @return \Doctrine\Common\Collections\Collection|ZoneOccupant[]
      */
     public function getZoneOccupancts()
     {
@@ -104,7 +104,7 @@ class Zone
     }
 
     /**
-     * @return ArrayCollection|ZoneOccupancyLog[]
+     * @return \Doctrine\Common\Collections\Collection|ZoneOccupancyLog[]
      */
     public function getZoneOccupancyLogs()
     {
@@ -112,7 +112,7 @@ class Zone
     }
 
     /**
-     * @return ArrayCollection|Room[]
+     * @return \Doctrine\Common\Collections\Collection|Room[]
      */
     public function getRooms()
     {

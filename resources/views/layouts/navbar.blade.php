@@ -67,7 +67,7 @@
           <div class="dropdown-menu dropdown-menu-right">
             <a class="dropdown-item" href="{{ route('users.show', Auth::user()->getId()) }}">Update Details</a>
             <a class="dropdown-item" href="{{ route('users.changePassword') }}">Change Password</a>
-            <a class="dropdown-item" href="{{ route('bank-transactions.index') }}">Standing Order Details</a>
+            <a class="dropdown-item" href="{{ route('banking.bank-transactions.index') }}">Standing Order Details</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -86,7 +86,7 @@
           <a class="nav-link" href="{{ route('users.changePassword') }}">Change Password</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('bank-transactions.index') }}">Standing Order Details</a>
+          <a class="nav-link" href="{{ route('banking.bank-transactions.index') }}">Standing Order Details</a>
         </li>
         <li class="nav-item"><hr class="border-top-3"></li>
         <li class="nav-item">

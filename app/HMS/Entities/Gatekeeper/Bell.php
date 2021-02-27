@@ -32,9 +32,7 @@ class Bell
     protected $enabled;
 
     /**
-     * Door[].
-     *
-     * @var Door|ArrayCollection
+     * @var \Doctrine\Common\Collections\Collection|Door[]
      */
     protected $doors;
 
@@ -90,7 +88,7 @@ class Bell
     }
 
     /**
-     * @return ArrayCollection Door[]
+     * @return \Doctrine\Common\Collections\Collection|Door[]
      */
     public function getDoors()
     {

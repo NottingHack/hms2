@@ -109,5 +109,9 @@ Account {{ $account->getPaymentRef() }}
   <p>No payments matched to this account.</p>
   @endif
   @endif
+
+  @if (Auth::user() != $user && Meta::getInt('allow_cash_membership_payments', 0) &&  Gate::allows('bankTransactions.edit'))
+  <a href="{{ route('banking.accounts.bank-transactions.create', $account->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-plus" aria-hidden="true"></i> Add Manual Membership Payment</a>
+  @endif
 </div>
 @endsection

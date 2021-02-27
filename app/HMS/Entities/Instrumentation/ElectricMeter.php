@@ -22,7 +22,7 @@ class ElectricMeter
     protected $room;
 
     /**
-     * @var ElectricReading[]|ArrayCollection()
+     * @var \Doctrine\Common\Collections\Collection|ElectricReading[]
      */
     protected $readings;
 
@@ -82,7 +82,7 @@ class ElectricMeter
     }
 
     /**
-     * @return ElectricReading[]|ArrayCollection()
+     * @return \Doctrine\Common\Collections\Collection|ElectricReading[]
      */
     public function getReadings()
     {
@@ -90,7 +90,7 @@ class ElectricMeter
     }
 
     /**
-     * @param ElectricReading[]|ArrayCollection() $readings
+     * @param \Doctrine\Common\Collections\Collection|ElectricReading[] $readings
      *
      * @return self
      */

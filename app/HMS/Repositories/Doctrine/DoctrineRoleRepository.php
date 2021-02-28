@@ -6,7 +6,6 @@ use HMS\Entities\Role;
 use HMS\Entities\User;
 use Doctrine\ORM\EntityRepository;
 use HMS\Repositories\RoleRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 
 class DoctrineRoleRepository extends EntityRepository implements RoleRepository
 {
@@ -23,7 +22,7 @@ class DoctrineRoleRepository extends EntityRepository implements RoleRepository
     /**
      * Finds all entities in the repository.
      *
-     * @return Role[] The entities.
+     * @return array The entities.
      */
     public function findAll()
     {

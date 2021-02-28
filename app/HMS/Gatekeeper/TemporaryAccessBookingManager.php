@@ -90,7 +90,7 @@ class TemporaryAccessBookingManager
         $approvedBy = null;
 
         // BASIC CHECKS
-        $maxLength = CarbonInterval::instance(
+        $maxLength = (int) CarbonInterval::instance(
             new \DateInterval($this->metaRepository->get('temp_access_reset_interval', 'PT12H'))
         )->totalMinutes;
         $basicChecks = $this->basicTimeChecks($start, $end, $maxLength);
@@ -236,7 +236,7 @@ class TemporaryAccessBookingManager
             $end = $booking->getEnd();
         }
 
-        $maxLength = CarbonInterval::instance(
+        $maxLength = (int) CarbonInterval::instance(
             new \DateInterval($this->metaRepository->get('temp_access_reset_interval', 'PT12H'))
         )->totalMinutes;
         $basicChecks = $this->basicTimeChecks($start, $end, $maxLength);

@@ -26,6 +26,7 @@
         </div>
         @endforeach
         @endif
+        @feature('label_printer')
         @if (SiteVisitor::inTheSpace())
         <p>How many copies would you like.</p>
         <hr>
@@ -45,6 +46,7 @@
           <p>Labels can only be printed from within the space.</p>
         </div>
         @endif
+        @endfeature
       </form>
     </div>
   </div>

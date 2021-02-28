@@ -238,6 +238,7 @@ return [
         // 'Registry' => LaravelDoctrine\ORM\Facades\Registry::class,
         // 'Doctrine' => LaravelDoctrine\ORM\Facades\Doctrine::class,
 
+        'Features' => HMS\Facades\Features::class,
         'SiteVisitor' => HMS\Facades\SiteVisitor::class,
         'Meta' => HMS\Facades\Meta::class,
 

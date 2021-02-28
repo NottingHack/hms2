@@ -40,11 +40,13 @@
   </div>
 
   <div class="card border-light">
+    @feature('label_printer')
     @if ( ($project->getUser() == \Auth::user() && \Auth::user()->can('project.printLabel.self')) || ($project->getUser() != \Auth::user() && \Auth::user()->can('project.printLabel.all')) )
     @if (SiteVisitor::inTheSpace() && $project->getState() == \HMS\Entities\Members\ProjectState::ACTIVE)
     <a href="{{ route('projects.print', $project->getId()) }}" class="btn btn-sm btn-primary mb-1"><i class="fas fa-print fa-lg" aria-hidden="true"></i> Print Do-Not-Hack Label</a>
     @endif
     @endif
+    @endfeature
   </div>
 
   <div class="card border-light">

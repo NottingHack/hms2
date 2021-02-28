@@ -50,11 +50,13 @@ Projects for {{ $user->getFirstname() }}
             @can('project.view.self')
             <a href="{{ route('projects.show', $project->getId()) }}" class="btn btn-primary btn-sm mb-1"><i class="far fa-eye" aria-hidden="true"></i> View Project</a><br>
             @endcan
+            @feature('label_printer')
             @can('project.printLabel.self')
             @if (SiteVisitor::inTheSpace() && $project->getState() == \HMS\Entities\Members\ProjectState::ACTIVE)
             <a href="{{ route('projects.print', $project->getId()) }}" class="btn btn-primary btn-sm mb-1"><i class="fas fa-print" aria-hidden="true"></i> Print Do-Not-Hack Label</a><br>
             @endif
             @endcan
+            @endfeature
             @can('project.edit.self')
             @if ($project->getState() == \HMS\Entities\Members\ProjectState::ACTIVE)
             @if ($project->getUser() == \Auth::user())

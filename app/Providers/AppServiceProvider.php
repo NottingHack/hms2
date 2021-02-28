@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use Stripe\Stripe;
+use HMS\Facades\Features;
 use HMS\Auth\PasswordStore;
 use HMS\Auth\PasswordStoreManager;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -43,5 +45,9 @@ class AppServiceProvider extends ServiceProvider
         if (config('services.stripe.secret')) {
             Stripe::setApiKey(config('services.stripe.secret'));
         }
+
+        Blade::if('feature', function ($value) {
+            return Features::isEnabled($value);
+        });
     }
 }

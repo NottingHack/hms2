@@ -31,11 +31,13 @@
               <i class="fas fa-trash fa-lg" aria-hidden="true"></i> Remove
             </a>
             @endcan
+            @feature('label_printer')
             @if (SiteVisitor::inTheSpace())
             @can('labelTemplate.print')
             <a class="btn btn-primary btn-sm mb-1" href="{{ route('labels.showPrint', $labelTemplate->getTemplateName()) }}"><i class="fas fa-print" aria-hidden="true"></i> Print</a>
             @endcan
             @endif
+            @endfeature
           </td>
         </tr>
         @endforeach

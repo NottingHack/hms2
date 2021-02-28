@@ -3,6 +3,22 @@
 return [
     /*
     |--------------------------------------------------------------------------
+    | Features enable flags
+    |--------------------------------------------------------------------------
+    | Note certain features are inter dependant.
+    | Snackspace is need by vending and paid tools.
+    */
+    'features' => [
+        'projects' => env('FEATURE_PROJECTS_ENABLE', true),
+        'boxes' => env('FEATURE_BOXES_ENABLE', true),
+        'snackspace' => env('FEATURE_SNACKSPACE_ENABLE', true),
+        'vending' => env('FEATURE_VENDING_ENABLE', true),
+        'tools' => env('FEATURE_TOOLS_ENABLE', true),
+        'label_printer' => env('FEATURE_LABEL_PRINTER_ENABLE', true),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Slack team api hooks
     |--------------------------------------------------------------------------
     */

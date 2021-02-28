@@ -1,3 +1,4 @@
+@feature('tools')
 @can('tools.view')
 <div class="card">
   <div class="card-header">Tool Bookings</div>
@@ -15,3 +16,4 @@
   </div>
 </div>
 @endcan
+@endfeature

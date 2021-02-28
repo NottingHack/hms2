@@ -1,3 +1,4 @@
+@feature('projects')
 @can('project.view.all')
 <div class="card">
   <div class="card-header">Active Projects</div>
@@ -8,11 +9,13 @@
         {{ $project->getProjectName() }}&nbsp;
         <div class="btn-group float-right" role="group" aria-label="Manage Project">
           <a href="{{ route('projects.show', $project->getId()) }}" class="btn btn-primary btn-sm"><i class="far fa-eye" aria-hidden="true"></i></a>
+          @feature('label_printer')
           @can('project.printLabel.self')
           @if (SiteVisitor::inTheSpace() && $project->getState() == \HMS\Entities\Members\ProjectState::ACTIVE)
           <a href="{{ route('projects.print', $project->getId()) }}" class="btn btn-primary btn-sm"><i class="fas fa-print" aria-hidden="true"></i></a>
           @endif
           @endcan
+          @endfeature
         </div>
       </span>
     </li>
@@ -27,3 +30,4 @@
   @endcan
   </div>
 @endcan
+@endfeature

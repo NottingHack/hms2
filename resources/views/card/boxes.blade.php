@@ -1,3 +1,4 @@
+@feature('boxes')
 @can('box.view.self')
 <div class="card">
   <div class="card-header">Members Boxes</div>
@@ -20,3 +21,4 @@
   </div>
 </div>
 @endcan
+@endfeature

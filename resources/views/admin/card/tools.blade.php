@@ -1,3 +1,4 @@
+@feature('tools')
 @canany(['profile.view.limited', 'profile.view.all'])
 <div class="card">
   <div class="card-header">Tool Bookings</div>
@@ -67,3 +68,4 @@
   </table>
 </div>
 @endcanany
+@endfeature

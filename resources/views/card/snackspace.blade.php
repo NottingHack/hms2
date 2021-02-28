@@ -1,3 +1,4 @@
+@feature('snackspace')
 @can('snackspace.transaction.view.self')
 <div class="card">
   <div class="card-header">Snackspace account</div>
@@ -45,3 +46,4 @@
   </div>
 </div>
 @endcan
+@endfeature

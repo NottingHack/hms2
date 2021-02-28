@@ -32,11 +32,13 @@ Box {{ $box->getId() }}
           <td data-title="Removed Date">{{ $box->getRemovedDate() ? $box->getRemovedDate()->toDateString() : '' }}&nbsp;</td>
           <td data-title="State">{{ $box->getStateString() }}</td>
           <td data-title="Actions" class="actions">
+            @feature('label_printer')
             @can('box.printLabel.self')
             @if (SiteVisitor::inTheSpace() && $box->getState() == \HMS\Entities\Members\BoxState::INUSE)
             <a href="{{ route('boxes.print', $box->getId()) }}" class="btn btn-primary btn-sm mb-1"><i class="fas fa-print" aria-hidden="true"></i> Print Box Label</a><br>
             @endif
             @endcan
+            @endfeature
             @can('box.edit.self')
             @if ($box->getState() == \HMS\Entities\Members\BoxState::INUSE)
             @if ($box->getUser() == \Auth::user())

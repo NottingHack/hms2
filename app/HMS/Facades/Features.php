@@ -5,9 +5,9 @@ namespace HMS\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \HMS\Repositories\MetaRepository
+ * @see \HMS\Helpers\Features
  */
-class Meta extends Facade
+class Features extends Facade
 {
     /**
      * Get the registered name of the component.
@@ -16,6 +16,6 @@ class Meta extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'HMS\Repositories\MetaRepository';
+        return 'Features';
     }
 }

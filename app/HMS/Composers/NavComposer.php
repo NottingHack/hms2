@@ -3,6 +3,7 @@
 namespace HMS\Composers;
 
 use HMS\Entities\User;
+use HMS\Helpers\Features;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,13 +22,20 @@ class NavComposer
     private $request;
 
     /**
-     * @param Request $request [description]
+     * @var Features
      */
-    public function __construct(Request $request)
+    protected $features;
+
+    /**
+     * @param Request $request
+     * @param Features $features
+     */
+    public function __construct(Request $request, Features $features)
     {
         $this->navigation = config('navigation.main');
 
         $this->request = $request;
+        $this->features = $features;
     }
 
     /**
@@ -59,7 +67,7 @@ class NavComposer
      * Iterative function to build the links.
      *
      * @param array $navLinks
-     * @param HMS\Entities\User|null $user
+     * @param User|null $user
      *
      * @return array   links
      */
@@ -69,7 +77,11 @@ class NavComposer
 
         foreach ($navLinks as $navItem) {
             // check if the current user can access this link
-            if (count($navItem['permissions']) > 0) {
+            if (isset($navItem['feature'])
+                && $this->features->isDisabled($navItem['feature'])) {
+                // check if feature is disabled
+                $allowed = false;
+            } elseif (count($navItem['permissions']) > 0) {
                 $allowed = false;
                 foreach ($navItem['permissions'] as $permission) {
                     if (! is_null($user) && $user->can($permission)) {
@@ -103,7 +115,7 @@ class NavComposer
                     }
                 }
 
-                if (count($navItem['links']) > 0) {
+                if (isset($navItem['links']) && count($navItem['links']) > 0) {
                     $link['links'] = $this->buildLinks($navItem['links'], $user);
 
                     foreach ($link['links'] as $subLink) {
@@ -113,7 +125,7 @@ class NavComposer
                     }
                 }
 
-                if (count($navItem['links']) > 0 && count($link['links']) == 0) {
+                if (isset($navItem['links']) && count($navItem['links']) > 0 && count($link['links']) == 0) {
                     continue;
                 } else {
                     $links[] = $link;

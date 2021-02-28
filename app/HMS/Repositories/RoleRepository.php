@@ -18,7 +18,7 @@ interface RoleRepository
     /**
      * Finds all entities in the repository.
      *
-     * @return ArrayCollection The entities.
+     * @return Role[] The entities.
      */
     public function findAll();
 

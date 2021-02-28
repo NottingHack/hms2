@@ -38,7 +38,7 @@ class Email
     protected $sentAt;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection|User]
+     * @var \Doctrine\Common\Collections\Collection|User[]
      */
     protected $users;
 

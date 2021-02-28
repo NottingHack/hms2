@@ -407,7 +407,7 @@ class TemporaryAccessBookingManager
      * @param TemporaryAccessBooking $booking
      * @param string                 $reason
      *
-     * @return string|TemporaryAccessBooking String with error message or a Booking
+     * @return array With Booking Id and error message
      */
     public function reject(TemporaryAccessBooking $booking, string $reason)
     {
@@ -436,7 +436,7 @@ class TemporaryAccessBookingManager
      * @param TemporaryAccessBooking $booking
      * @param string                 $reason
      *
-     * @return string|TemporaryAccessBooking String with error message or a Booking
+     * @return array With Booking Id and error message
      */
     public function cancelWithReason(TemporaryAccessBooking $booking, string $reason)
     {

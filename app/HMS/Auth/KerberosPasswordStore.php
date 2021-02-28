@@ -90,17 +90,18 @@ class KerberosPasswordStore implements PasswordStore
                 if ($this->debug) {
                     Log::warning('KerberosPasswordStore@add: ' . $e->getMessage());
                 }
-
-                return false;
+                // TODO: re throw?
+                return;
             }
 
-            return true;
+            return;
         } else {
             if ($this->debug) {
                 Log::warning('KerberosPasswordStore@add: Attempt to create admin user stopped.');
             }
 
-            return false;
+            // TODO: throw
+            return;
         }
     }
 
@@ -122,11 +123,9 @@ class KerberosPasswordStore implements PasswordStore
             if ($this->debug) {
                 Log::warning('KerberosPasswordStore@remove: ' . $e->getMessage());
             }
-
-            return false;
+            // TODO:: throw?
+            return;
         }
-
-        return true;
     }
 
     /**
@@ -146,7 +145,8 @@ class KerberosPasswordStore implements PasswordStore
             if ($e->getMessage() == 'Principal does not exist') {
                 return false;
             } else {
-                return null;
+                // TODO: throw?
+                return false; // null;
             }
         }
 
@@ -174,10 +174,8 @@ class KerberosPasswordStore implements PasswordStore
                 Log::warning('KerberosPasswordStore@setPassword: ' . $e->getMessage());
             }
 
-            return $this->add($username, $password);
+            $this->add($username, $password);
         }
-
-        return true;
     }
 
     /**

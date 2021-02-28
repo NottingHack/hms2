@@ -13,7 +13,17 @@ class PasswordStoreManager extends Manager
      */
     protected function createKerberosDriver()
     {
-        return new KerberosPasswordStore($this->app);
+        return new KerberosPasswordStore($this->config->get('passwordstore.kerberos', []));
+    }
+
+    /**
+     * Create an instance of the Doctrine driver.
+     *
+     * @return DoctrinePasswordStore
+     */
+    protected function createDoctrineDriver()
+    {
+        return $this->container->make(DoctrinePasswordStore::class);
     }
 
     /**
@@ -23,7 +33,7 @@ class PasswordStoreManager extends Manager
      */
     protected function createFileBasedDriver()
     {
-        return new FileBasedPasswordStore($this->app);
+        return new FileBasedPasswordStore($this->config->get('passwordstore.fileBased', []));
     }
 
     /**

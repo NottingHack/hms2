@@ -68,6 +68,11 @@ class User implements
     public $email;
 
     /**
+     * @var string Users password ONLY when using the Doctrine PasswordStore
+     */
+    protected $password;
+
+    /**
      * @var string Users remember me token for persisting login sessions
      */
     protected $rememberToken;
@@ -120,6 +125,7 @@ class User implements
         $this->lastname = $lastname;
         $this->username = $username;
         $this->email = $email;
+        $this->password = '';
         $this->roles = new ArrayCollection();
         $this->emails = new ArrayCollection();
         $this->rfidTags = new ArrayCollection();
@@ -194,12 +200,41 @@ class User implements
     }
 
     /**
+     * Get the password for the User.
+     * ONLY relevant when using the Doctrine PasswordStore.
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set the password for the User.
+     * ONLY relevant when using the Doctrine PasswordStore.
+     *
+     * @param string $password
+     *
+     * @return self
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
      * Get the password for the user.
      *
      * @return string
      */
     public function getAuthPassword()
     {
+        // TODO: when using Doctrine PasswordStore
+        // return $this->getPassword();
+        // else
         throw new \Exception('Not Supported');
     }
 

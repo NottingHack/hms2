@@ -12,10 +12,11 @@ class FileBasedPasswordStore implements PasswordStore
 
     /**
      * FileBasedPasswordStore constructor.
+     *
+     * @param array $config
      */
-    public function __construct($app)
+    public function __construct(array $config)
     {
-        $config = $app['config']->get('passwordstore.filebased', []);
         $this->usersFile = $config['name'];
 
         if (Storage::has($this->usersFile)) {

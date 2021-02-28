@@ -29,6 +29,8 @@ HMS\Entities\User:
     email:
       type: string
       unique: true
+    password:
+      type: string
     rememberToken:
       column: remember_token
       type: string

@@ -4,7 +4,6 @@ namespace HMS\Repositories;
 
 use HMS\Entities\Role;
 use HMS\Entities\User;
-use Doctrine\Common\Collections\ArrayCollection;
 
 interface RoleRepository
 {

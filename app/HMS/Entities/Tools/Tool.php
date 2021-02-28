@@ -297,7 +297,7 @@ class Tool
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection||Booking[]
+     * @return \Doctrine\Common\Collections\Collection|Booking[]
      */
     public function getBookings()
     {

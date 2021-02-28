@@ -399,7 +399,7 @@ class Profile
      *
      * @return self
      */
-    public function setVotingPreference($votingPreference)
+    public function setVotingPreference($votingPreference): self
     {
         $this->votingPreference = $votingPreference;
         $this->votingPreferenceStatedAt = Carbon::now();
@@ -420,7 +420,7 @@ class Profile
      *
      * @return self
      */
-    public function setVotingPreferenceStatedAt(Carbon $votingPreferenceStatedAt)
+    public function setVotingPreferenceStatedAt(?Carbon $votingPreferenceStatedAt): self
     {
         $this->votingPreferenceStatedAt = $votingPreferenceStatedAt;
 

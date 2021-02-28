@@ -9,7 +9,7 @@ class ElectricReadingsChart extends Chart
     /**
      * Initializes the chart.
      *
-     * @param ElectricMeter[] $meters
+     * @param \HMS\Entities\Instrumentation\ElectricMeter[] $meters
      * @param array $readings
      *
      * @return void

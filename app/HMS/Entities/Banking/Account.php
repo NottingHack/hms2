@@ -92,7 +92,7 @@ class Account
     /**
      * Sets the value of users.
      *
-     * @param \Doctrine\Common\Collections\Collection\|\HMS\Entities\User[] $users the users
+     * @param \Doctrine\Common\Collections\Collection|\HMS\Entities\User[] $users the users
      *
      * @return self
      */

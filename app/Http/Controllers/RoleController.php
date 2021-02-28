@@ -16,7 +16,6 @@ use HMS\User\Permissions\RoleManager;
 use HMS\Repositories\PermissionRepository;
 use HMS\Repositories\RoleUpdateRepository;
 use App\Notifications\Membership\MemberBanned;
-use Doctrine\Common\Collections\ArrayCollection;
 use HMS\Repositories\Banking\BankTransactionRepository;
 use App\Notifications\Membership\BannedMemberReinstated;
 use App\Notifications\Membership\MemberTemporarilyBanned;
@@ -155,7 +154,7 @@ class RoleController extends Controller
      * Update a specific role.
      *
      * @param Role $role the Role
-     * @param Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -176,7 +175,7 @@ class RoleController extends Controller
      * Add a specific user to a a specific role.
      *
      * @param Role $role the role
-     * @param User $user the user
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -213,7 +212,7 @@ class RoleController extends Controller
      * Add a specific user to a a specific team role.
      *
      * @param Role $role the role
-     * @param User $user the user
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -287,7 +286,7 @@ class RoleController extends Controller
     /**
      * Format role for display.
      *
-     * @param ArrayCollection|array $list
+     * @param \Doctrine\Common\Collections\Collection|array $list
      *
      * @return array
      */
@@ -327,7 +326,7 @@ class RoleController extends Controller
      */
     public function reinstateUser(User $user)
     {
-
+        $reinstatedNotification = null;
         // remove either MEMBER_TEMPORARYBANNED or MEMBER_BANNED role
         if ($user->hasRoleByName(Role::MEMBER_TEMPORARYBANNED)) {
             $this->roleManager->removeUserFromRoleByName($user, Role::MEMBER_TEMPORARYBANNED);
@@ -383,8 +382,10 @@ class RoleController extends Controller
             flash($user->getFullname() . ' reinstated as Ex Member')->success();
         }
 
-        $trusteesTeamRole = $this->roleRepository->findOneByName(Role::TEAM_TRUSTEES);
-        $trusteesTeamRole->notify($reinstatedNotification);
+        if (! is_null($reinstatedNotification)) {
+            $trusteesTeamRole = $this->roleRepository->findOneByName(Role::TEAM_TRUSTEES);
+            $trusteesTeamRole->notify($reinstatedNotification);
+        }
 
         return redirect()->route('users.admin.show', $user->getId());
     }

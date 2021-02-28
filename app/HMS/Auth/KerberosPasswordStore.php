@@ -13,7 +13,7 @@ class KerberosPasswordStore implements PasswordStore
     /**
      * The KADM5 connection to use.
      *
-     * @var KADM5.
+     * @var KADM5
      */
     private $krbConn;
 

@@ -103,8 +103,6 @@ class AccessController extends Controller
     /**
      * Admin view Temporary Access Bookings.
      *
-     * @param \Illuminate\Http\Request  $request
-     *
      * @return \Illuminate\Http\Response
      */
     public function accessCalendar()
@@ -121,8 +119,6 @@ class AccessController extends Controller
 
     /**
      * User view Temporary Access Bookings.
-     *
-     * @param \Illuminate\Http\Request  $request
      *
      * @return \Illuminate\Http\Response
      */

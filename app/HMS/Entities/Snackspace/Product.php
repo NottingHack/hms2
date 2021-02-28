@@ -41,7 +41,7 @@ class Product
     protected $longDescription;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection|VendingLoaction[]
+     * @var \Doctrine\Common\Collections\Collection|VendingLocation[]
      */
     protected $vendingLoactions;
 

@@ -54,7 +54,7 @@ class DoctrinePasswordStore implements PasswordStore
     public function remove($username)
     {
         $user = $this->userRepository->findOneByUsername($username);
-        $this->setPassword('');
+        $user->setPassword('');
         $this->userRepository->save($user);
     }
 

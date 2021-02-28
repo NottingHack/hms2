@@ -2,6 +2,7 @@
 
 namespace HMS\Entities\Membership;
 
+use Carbon\Carbon;
 use HMS\Entities\User;
 use HMS\Traits\Entities\Timestampable;
 
@@ -114,7 +115,7 @@ class RejectedLog
      *
      * @return self
      */
-    public function setUserUpdatedAt($userUpdatedAt)
+    public function setUserUpdatedAt(?Carbon $userUpdatedAt)
     {
         $this->userUpdatedAt = $userUpdatedAt;
 

@@ -76,7 +76,7 @@ class ChangePasswordController extends Controller
 
         event(new UserPasswordChanged($user));
 
-        $this->guard()->login($user);
+        Auth::guard()->login($user);
 
         return redirect()->route('home');
     }

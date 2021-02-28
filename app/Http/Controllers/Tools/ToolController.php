@@ -174,7 +174,7 @@ class ToolController extends Controller
      * Display the specified resource.
      *
      * @param Tool $tool
-     * @param srting $grantType
+     * @param string $grantType
      *
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException

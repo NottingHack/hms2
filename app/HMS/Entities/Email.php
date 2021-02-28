@@ -38,7 +38,7 @@ class Email
     protected $sentAt;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection|Users[]
+     * @var \Doctrine\Common\Collections\Collection|User]
      */
     protected $users;
 
@@ -186,7 +186,7 @@ class Email
     /**
      * Gets the value of sentAt.
      *
-     * @return string
+     * @return Carbon
      */
     public function getSentAt(): Carbon
     {
@@ -210,7 +210,7 @@ class Email
     /**
      * Gets the value of users.
      *
-     * @return \Doctrine\Common\Collections\Collection|Users[]
+     * @return \Doctrine\Common\Collections\Collection|User[]
      */
     public function getUsers()
     {

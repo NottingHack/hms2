@@ -52,11 +52,11 @@
   @endcan
   <div class="card-footer">
     <a href="{{ route('banking.accounts.show', $user->getAccount()->getId()) }}" class="btn btn-primary mb-1"><i class="far fa-eye" aria-hidden="true"></i> View Account</a>
-    @if (Meta::getInt('allow_cash_membership_payments', 0))
+    @feature('cash_membership_payments')
     @can('bankTransactions.edit')
     <a href="{{ route('banking.accounts.bank-transactions.create', $user->getAccount()->getId()) }}" class="btn btn-primary mb-1"><i class="fas fa-plus" aria-hidden="true"></i> Add manual payment</a>
     @endcan
-    @endif
+    @endfeature
   </div>
 </div>
 @endif

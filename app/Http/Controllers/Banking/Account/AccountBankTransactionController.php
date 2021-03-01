@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Banking\Account;
 
 use Carbon\Carbon;
+use HMS\Helpers\Features;
 use Illuminate\Http\Request;
 use HMS\Entities\Banking\Account;
 use HMS\Entities\Banking\BankType;
 use App\Http\Controllers\Controller;
-use HMS\Repositories\MetaRepository;
 use App\Jobs\Banking\AccountAuditJob;
 use HMS\Repositories\Banking\BankRepository;
 use HMS\Factories\Banking\BankTransactionFactory;
@@ -31,9 +31,9 @@ class AccountBankTransactionController extends Controller
     protected $bankRepository;
 
     /**
-     * @var MetaRepository
+     * @var Features
      */
-    protected $metaRepository;
+    protected $features;
 
     /**
      * Create a new controller instance.
@@ -41,18 +41,18 @@ class AccountBankTransactionController extends Controller
      * @param BankTransactionRepository $bankTransactionRepository
      * @param BankTransactionFactory $bankTransactionFactory
      * @param BankRepository $bankRepository
-     * @param MetaRepository $metaRepository
+     * @param Features $features
      */
     public function __construct(
         BankTransactionRepository $bankTransactionRepository,
         BankTransactionFactory $bankTransactionFactory,
         BankRepository $bankRepository,
-        MetaRepository $metaRepository
+        Features $features
     ) {
         $this->bankTransactionRepository = $bankTransactionRepository;
         $this->bankTransactionFactory = $bankTransactionFactory;
         $this->bankRepository = $bankRepository;
-        $this->metaRepository = $metaRepository;
+        $this->features = $features;
 
         $this->middleware('can:bankTransactions.edit');
     }
@@ -67,7 +67,7 @@ class AccountBankTransactionController extends Controller
     {
         $banks = $this->bankRepository->findNotAutomatic();
 
-        // TODO: if all $banks are Type CASH and Meta::getInt('allow_cash_membership_payments', 0) is false BAIL
+        // TODO: if all $banks are Type CASH and $this->features->isDisabled('cash_membership_payments') BAIL
 
         if (count($banks) == 0) {
             flash('All defined Banks are type Automatic. Transactions can not be enter manually.')
@@ -105,7 +105,7 @@ class AccountBankTransactionController extends Controller
 
             return redirect()->route('banking.accounts.show', $account->getId());
         } elseif (BankType::CASH == $bank->getType()
-             && $this->metaRepository->getInt('allow_cash_membership_payments', 0) == false) {
+             && $this->features->isEnabled('cash_membership_payments')) {
             flash('Bank ' . $bank->getName() . ' is type Cash and cash membership payments are not currently allowed.')
                 ->error();
 

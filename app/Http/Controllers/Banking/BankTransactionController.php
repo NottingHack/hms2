@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Banking;
 
 use Carbon\Carbon;
+use HMS\Helpers\Features;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use HMS\Entities\Banking\BankType;
@@ -37,11 +38,6 @@ class BankTransactionController extends Controller
     protected $accountRepository;
 
     /**
-     * @var MetaRepository
-     */
-    protected $metaRepository;
-
-    /**
      * @var string
      */
     public $accountNo;
@@ -67,6 +63,11 @@ class BankTransactionController extends Controller
     protected $snackspaceTransactionRepository;
 
     /**
+     * @var Features
+     */
+    protected $features;
+
+    /**
      * @param BankTransactionRepository $bankTransactionRepository
      * @param UserRepository $userRepository
      * @param AccountRepository $accountRepository
@@ -74,6 +75,7 @@ class BankTransactionController extends Controller
      * @param BankRepository $bankRepository
      * @param SnackspaceTransactionFactory $snackspaceTransactionFactory
      * @param SnackspaceTransactionRepository $snackspaceTransactionRepository
+     * @param Features $features
      */
     public function __construct(
         BankTransactionRepository $bankTransactionRepository,
@@ -82,16 +84,17 @@ class BankTransactionController extends Controller
         MetaRepository $metaRepository,
         BankRepository $bankRepository,
         SnackspaceTransactionFactory $snackspaceTransactionFactory,
-        SnackspaceTransactionRepository $snackspaceTransactionRepository
+        SnackspaceTransactionRepository $snackspaceTransactionRepository,
+        Features $features
     ) {
         $this->bankTransactionRepository = $bankTransactionRepository;
         $this->userRepository = $userRepository;
         $this->accountRepository = $accountRepository;
-        $this->metaRepository = $metaRepository;
         $this->snackspaceTransactionFactory = $snackspaceTransactionFactory;
         $this->snackspaceTransactionRepository = $snackspaceTransactionRepository;
+        $this->features = $features;
 
-        $bank = $bankRepository->find($this->metaRepository->get('so_bank_id'));
+        $bank = $bankRepository->find($metaRepository->get('so_bank_id'));
         $this->accountNo = $bank->getAccountNumber();
         $this->sortCode = $bank->getSortCode();
         $this->accountName = $bank->getAccountName();
@@ -242,7 +245,7 @@ class BankTransactionController extends Controller
 
         if ($validatedData['action'] == 'membership') {
             if (BankType::CASH == $bankTransaction->getBank()->getType()
-             && $this->metaRepository->getInt('allow_cash_membership_payments', 0) == false) {
+             && $this->features->isDisable('cash_membership_payments')) {
                 flash(
                     'Bank ' . $bankTransaction->getBank()->getName()
                     . ' is type Cash and cash membership payments are not currently allowed.'

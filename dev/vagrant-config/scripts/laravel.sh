@@ -6,7 +6,9 @@ echo " "
 
 # sort out Laravel environment
 
-cp /vagrant/dev/vagrant-config/laravel/.env /vagrant/.env
+if [ ! -e /vagrant/.env ]; then
+    cp /vagrant/.env.example /vagrant/.env
+fi
 
 cd /vagrant
 

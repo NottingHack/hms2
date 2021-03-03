@@ -32,6 +32,15 @@ interface BankTransactionRepository
     public function findLatestTransactionByAccount(Account $account);
 
     /**
+     * Find the latest transaction for given Bank.
+     *
+     * @param Bank $bank
+     *
+     * @return null|BankTransaction
+     */
+    public function findLatestTransactionByBank(Bank $bank);
+
+    /**
      * Find all unmatched transactions and paginate them.
      * Ordered by transactionDate DESC.
      *

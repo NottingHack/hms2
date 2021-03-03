@@ -142,6 +142,12 @@ return [
                     'match'         => 'banking.accounts.listJoint',
                     'permissions'   => ['bankTransactions.view.limited', 'bankTransactions.view.all'],
                 ],
+                'bank' => [
+                    'text'          => 'Banks',
+                    'route'         => 'banking.banks.index',
+                    'match'         => 'banking.banks.index',
+                    'permissions'   => ['bank.view'],
+                ],
                 'bankTransactions' => [
                     'text'          => 'Reconcile Bank Transaction',
                     'route'         => 'banking.bank-transactions.unmatched',
@@ -161,12 +167,6 @@ return [
                     'match'         => 'snackspace.payment-report',
                     'permissions'   => ['snackspace.transaction.view.all'],
                     'feature'       => 'snackspace',
-                ],
-                'bank' => [
-                    'text'          => 'Banks',
-                    'route'         => 'banking.banks.index',
-                    'match'         => 'banking.banks.index',
-                    'permissions'   => ['bank.view'],
                 ],
             ],
         ],

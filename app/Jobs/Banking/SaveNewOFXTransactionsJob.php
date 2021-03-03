@@ -5,6 +5,8 @@ namespace App\Jobs\Banking;
 use Carbon\Carbon;
 use HMS\Entities\Role;
 use Illuminate\Bus\Queueable;
+use HMS\Entities\Banking\Bank;
+use OfxParser\Parser as OfxParser;
 use HMS\Repositories\RoleRepository;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -15,25 +17,31 @@ use HMS\Factories\Banking\BankTransactionFactory;
 use App\Notifications\Banking\UnmatchedTransaction;
 use HMS\Repositories\Banking\BankTransactionRepository;
 
-class SaveNewTransactionsJob implements ShouldQueue
+class SaveNewOFXTransactionsJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
-     * @var array
+     * @var int
      */
-    protected $transactions;
+    protected $bank_id;
+
+    /**
+     * @var string
+     */
+    protected $ofxString;
 
     /**
      * Create a new job instance.
      *
-     * @param array $transactions
+     * @param string $ofxString
      *
      * @return void
      */
-    public function __construct(array $transactions)
+    public function __construct(Bank $bank, string $ofxString)
     {
-        $this->transactions = $transactions;
+        $this->bank_id = $bank->getId();
+        $this->ofxString = $ofxString;
     }
 
     /**
@@ -43,6 +51,7 @@ class SaveNewTransactionsJob implements ShouldQueue
      * @param BankTransactionFactory $bankTransactionFactory
      * @param BankTransactionRepository $bankTransactionRepository
      * @param RoleRepository $roleRepository
+     * @param OfxParser $ofxParser
      *
      * @return void
      */
@@ -50,39 +59,30 @@ class SaveNewTransactionsJob implements ShouldQueue
         BankRepository $bankRepository,
         BankTransactionFactory $bankTransactionFactory,
         BankTransactionRepository $bankTransactionRepository,
-        RoleRepository $roleRepository
+        RoleRepository $roleRepository,
+        OfxParser $ofxParser
     ) {
-        /**
-         * Each transaction should be in the following form
-         * {
-         *     "sortCode" : "77-22-24",
-         *     "accountNumber" : "13007568",
-         *     "date" : "2017-07-17",
-         *     "description" : "Edward Murphy HSNTSBBPRK86CWPV 4",
-         *     "amount" : 500
-         * }.
-         */
-        $unmatchedBank = [];
+        $bank = $bankRepository->findOneById($this->bank_id);
+
+        $ofx = $ofxParser->loadFromString($this->ofxString);
+
+        $bankAccount = reset($ofx->bankAccounts);
+        // Get the statement transactions for the account
+        $transactions = $bankAccount->statement->transactions;
+
         $unmatchedTransaction = [];
 
-        foreach ($this->transactions as $transaction) {
-            $bank = $bankRepository->findOneBySortCodeAndAccountNumber(
-                $transaction['sortCode'],
-                $transaction['accountNumber']
-            );
-
-            if (is_null($bank)) {
-                $unmatchedBank[] = $transaction;
+        foreach ($transactions as $transaction) {
+            if (intval($transaction->uniqueId) < 200000000000000) {
+                continue;
             }
-
-            $transactionDate = new Carbon($transaction['date']);
 
             $bankTransaction = $bankTransactionFactory
                 ->create(
                     $bank,
-                    $transactionDate,
-                    $transaction['description'],
-                    $transaction['amount']
+                    new Carbon($transaction->date),
+                    $transaction->name,
+                    intval($transaction->amount * 100)
                 );
 
             // now see if we already have this transaction on record? before saving it
@@ -95,10 +95,10 @@ class SaveNewTransactionsJob implements ShouldQueue
         }
 
         // email finance team
-        if (count($unmatchedBank) || count($unmatchedTransaction)) {
+        if (count($unmatchedTransaction)) {
             $financeRole = $roleRepository->findOneByName(Role::TEAM_FINANCE);
 
-            $financeRole->notify(new UnmatchedTransaction($unmatchedTransaction, $unmatchedBank));
+            $financeRole->notify(new UnmatchedTransaction($unmatchedTransaction, []));
         }
     }
 }

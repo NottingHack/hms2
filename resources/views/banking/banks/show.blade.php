@@ -44,6 +44,22 @@ Bank - {{ $bank->getName() }}
 
   <br>
   <h2>Bank Transactions</h2>
+  <hr>
+
+  @if (HMS\Entities\Banking\BankType::AUTOMATIC == $bank->getType())
+  @feature('ofx_bank_upload')
+  @can('bankTransactions.ofxUpload')
+  <a href="{{ route('banking.banks.bank-transactions.ofx-upload', $bank->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-file-upload" aria-hidden="true"></i> Upload OFX</a>
+  <br>
+  @endcan
+  @endfeature
+  @else
+  @can('bankTransactions.edit')
+  <a href="{{ route('banking.banks.bank-transactions.create', $bank->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-plus" aria-hidden="true"></i> Add Bank Transaction</a>
+  <br>
+  @endcan
+  @endif
+
   <p>Latest first</p>
 
   <div classs="pagination-links">
@@ -108,13 +124,4 @@ Bank - {{ $bank->getName() }}
     {{ $bankTransactions->links() }}
   </div>
 </div>
-
-@if (HMS\Entities\Banking\BankType::AUTOMATIC != $bank->getType())
-@can('bankTransactions.edit')
-<br>
-<div class="container">
-  <a href="{{ route('banking.banks.bank-transactions.create', $bank->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-plus" aria-hidden="true"></i> Add Bank Transaction</a>
-</div>
-@endcan
-@endif
 @endsection

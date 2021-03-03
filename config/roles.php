@@ -83,6 +83,7 @@ return [
         'bankTransactions.view.limited',
         'bankTransactions.view.all',
         'bankTransactions.edit',            // can on MANUAL or CASH Banks create or edit a transaction
+        'bankTransactions.ofxUpload',       // can on AUTOMATIC Banks upload an OFX file
         'bankTransactions.reconcile',       // can only match a BankTransaction to an Account (ref) or Snackspace
         'tools.view',                       // can view tools
         'tools.create',                     // can add a new tool to the system
@@ -373,6 +374,7 @@ return [
                 'bank.view',
                 'bankTransactions.view.all',
                 'bankTransactions.edit',
+                'bankTransactions.ofxUpload',
                 'bankTransactions.reconcile',
                 'tools.view',
                 'tools.edit',
@@ -436,6 +438,7 @@ return [
                 'bank.edit',
                 'bankTransactions.view.all',
                 'bankTransactions.edit',
+                'bankTransactions.ofxUpload',
                 'bankTransactions.reconcile',
                 'snackspace.debt.view',
                 'snackspace.transaction.view.all',

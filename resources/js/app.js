@@ -48,3 +48,9 @@ window.copyToClipboard = function (element) {
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
+
+// enable Bootstrap custom file input
+import bsCustomFileInput from 'bs-custom-file-input'
+$(document).ready(function () {
+  bsCustomFileInput.init()
+})

@@ -58,7 +58,7 @@ class NewMemberApprovalNeeded extends Notification implements ShouldQueue
     {
         if ($this->rerequest) {
             return (new MailMessage)
-                        ->line('A member has updated there details and asked for another review')
+                        ->line('A member has updated their details and asked for another review')
                         ->action(
                             'Review and approve member',
                             route('membership.index')
@@ -71,7 +71,7 @@ class NewMemberApprovalNeeded extends Notification implements ShouldQueue
                         'Review and approve member',
                         route('membership.index')
                     )
-                    ->line('Please review there details');
+                    ->line('Please review their details');
     }
 
     /**
@@ -89,9 +89,9 @@ class NewMemberApprovalNeeded extends Notification implements ShouldQueue
                 ->to($notifiable->getSlackChannel())
                 ->attachment(function ($attachment) use ($userId) {
                     $attachment->title('Review member details', route('membership.approval', ['user' => $userId]))
-                                ->content('A member has updated there details and asked for another review.')
+                                ->content('A member has updated their details and asked for another review.')
                                 ->fallback(
-                                    'A member has updated there details and asked for another review. <'
+                                    'A member has updated their details and asked for another review. <'
                                     . route('membership.index')
                                     . '|review>'
                                 )

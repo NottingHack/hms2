@@ -255,7 +255,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         );
 
         // Bank Transactions;
-
+        Route::get('banks/{bank}/bank-transactions/ofx-upload', 'Bank\BankBankTransactionController@createViaOfxUpload')
+            ->name('banks.bank-transactions.ofx-upload');
+        Route::post('banks/{bank}/bank-transactions/ofx-upload', 'Bank\BankBankTransactionController@storeOfx')
+            ->name('banks.bank-transactions.store-ofx');
         Route::resource(
             'banks.bank-transactions',
             'Bank\BankBankTransactionController',

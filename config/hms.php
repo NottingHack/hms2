@@ -16,6 +16,7 @@ return [
         'tools' => env('FEATURE_TOOLS_ENABLE', true),
         'label_printer' => env('FEATURE_LABEL_PRINTER_ENABLE', true),
         'cash_membership_payments' => env('FEATURE_CASH_MEMBERSHIP_PAYMENTS_ENABLE', false),
+        'ofx_bank_upload' => env('FEATURE_OFX_BANK_UPLOAD_ENABLE', false),
     ],
 
     /*

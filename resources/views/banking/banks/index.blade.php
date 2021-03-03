@@ -37,7 +37,13 @@ Banks
               <a class="btn btn-primary btn-sm mb-1" href="{{ route('banking.banks.edit', $bank->getId()) }}"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
               @endcan
 
-              @if (HMS\Entities\Banking\BankType::AUTOMATIC != $bank->getType())
+              @if (HMS\Entities\Banking\BankType::AUTOMATIC == $bank->getType())
+              @feature('ofx_bank_upload')
+              @can('bankTransactions.ofxUpload')
+              <a class="btn btn-primary btn-sm mb-1" href="{{ route('banking.banks.bank-transactions.ofx-upload', $bank->getId()) }}"><i class="fas fa-file-upload" aria-hidden="true"></i> Upload OFX</a>
+              @endcan
+              @endfeature
+              @else
               @can('bankTransactions.edit')
               <a class="btn btn-primary btn-sm mb-1" href="{{ route('banking.banks.bank-transactions.create', $bank->getId()) }}"><i class="fas fa-pencil" aria-hidden="true"></i> Add Transaction</a>
               @endcan

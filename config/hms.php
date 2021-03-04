@@ -21,6 +21,15 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Account reference prefix
+    |--------------------------------------------------------------------------
+    | The prefix used to generate and match Payment references
+    | Payment reference is 16 characters long, recommend prefix length is no more than 6 characters
+    */
+    'account_prefix' => strtoupper(env('ACCOUNT_REFERENCE_PREFIX', 'HSNTSB')),
+
+    /*
+    |--------------------------------------------------------------------------
     | Slack team api hooks
     |--------------------------------------------------------------------------
     */

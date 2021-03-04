@@ -41,11 +41,13 @@ class AccountFactory
         // Stolen from London Hackspace code
         $safeChars = '2346789BCDFGHJKMPQRTVWXY';
         // We prefix the ref with a string that lets people know it's us
-        $prefix = 'HSNTSB';
+        $prefix = config('hms.account_prefix');
         // Payment references can be up to 18 chars according to:
         // http://www.bacs.co.uk/Bacs/Businesses/BacsDirectCredit/Receiving/Pages/PaymentReferenceInformation.aspx
-        $maxRefLength = 16;
+        $maxRefLength = Account::MAX_REFERENCE_LENGHT;
+
         $paymentRef = $prefix;
+
         for ($i = strlen($prefix); $i < $maxRefLength; $i++) {
             $paymentRef .= $safeChars[rand(0, strlen($safeChars) - 1)];
         }

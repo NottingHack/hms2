@@ -7,6 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Account
 {
     /**
+     * Maximum length for a Payment reference.
+     */
+    const MAX_REFERENCE_LENGHT = 16;
+
+    /**
      * @var int
      */
     protected $id;

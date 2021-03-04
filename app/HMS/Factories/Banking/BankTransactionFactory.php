@@ -4,6 +4,7 @@ namespace HMS\Factories\Banking;
 
 use Carbon\Carbon;
 use HMS\Entities\Banking\Bank;
+use HMS\Entities\Banking\Account;
 use HMS\Repositories\UserRepository;
 use HMS\Entities\Banking\BankTransaction;
 use HMS\Entities\Snackspace\TransactionType;
@@ -76,7 +77,10 @@ class BankTransactionFactory
         $_bankTransaction->setDescription($description);
         $_bankTransaction->setAmount($amount);
 
-        if (preg_match('/HSNTSB\S{10}/', $description, $matches) == 1) {
+        $prefix = config('hms.account_prefix');
+        $pattren = '/' . $prefix . '\S{' . strval(Account::MAX_REFERENCE_LENGHT - strlen($prefix)) . '}/';
+
+        if (preg_match($pattern, $description, $matches) == 1) {
             $account = $this->accountRepository->findOneByPaymentRef($matches[0]);
             $_bankTransaction->setAccount($account);
         }

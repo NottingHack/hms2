@@ -2,6 +2,7 @@
 
 namespace HMS\Repositories\Banking;
 
+use Carbon\Carbon;
 use HMS\Entities\Banking\Bank;
 use HMS\Entities\Banking\Account;
 use HMS\Entities\Banking\BankTransaction;
@@ -14,6 +15,23 @@ interface BankTransactionRepository
      * @return array
      */
     public function findAll();
+
+    /**
+     * Find One By TransactionDate And Description And Amount.
+     *
+     * @param Bank $Bank
+     * @param Carbon $transactionDate
+     * @param string $description
+     * @param int $amount
+     *
+     * @return null|BankTransaction
+     */
+    public function findOneByBankAndDateAndDescriptionAndAmount(
+        Bank $bank,
+        Carbon $date,
+        string $description,
+        int $amount
+    );
 
     /**
      * Find the latest transaction for each account.

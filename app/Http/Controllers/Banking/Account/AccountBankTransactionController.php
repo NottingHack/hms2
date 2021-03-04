@@ -11,15 +11,9 @@ use App\Http\Controllers\Controller;
 use App\Jobs\Banking\AccountAuditJob;
 use HMS\Repositories\Banking\BankRepository;
 use HMS\Factories\Banking\BankTransactionFactory;
-use HMS\Repositories\Banking\BankTransactionRepository;
 
 class AccountBankTransactionController extends Controller
 {
-    /**
-     * @var BankTransactionRepository
-     */
-    protected $bankTransactionRepository;
-
     /**
      * @var BankTransactionFactory
      */
@@ -38,18 +32,15 @@ class AccountBankTransactionController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @param BankTransactionRepository $bankTransactionRepository
      * @param BankTransactionFactory $bankTransactionFactory
      * @param BankRepository $bankRepository
      * @param Features $features
      */
     public function __construct(
-        BankTransactionRepository $bankTransactionRepository,
         BankTransactionFactory $bankTransactionFactory,
         BankRepository $bankRepository,
         Features $features
     ) {
-        $this->bankTransactionRepository = $bankTransactionRepository;
         $this->bankTransactionFactory = $bankTransactionFactory;
         $this->bankRepository = $bankRepository;
         $this->features = $features;
@@ -115,17 +106,13 @@ class AccountBankTransactionController extends Controller
         $transactionDate = new Carbon($validatedData['transactionDate']);
 
         $bankTransaction = $this->bankTransactionFactory
-            ->create(
+            ->matchOrCreate(
                 $bank,
                 $transactionDate,
                 $validatedData['description'],
-                $validatedData['amount']
+                $validatedData['amount'],
+                $account
             );
-
-        $bankTransaction->setAccount($account);
-
-        // now see if we already have this transaction on record? before saving it
-        $bankTransaction = $this->bankTransactionRepository->findOrSave($bankTransaction);
 
         AccountAuditJob::dispatch($account);
 

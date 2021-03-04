@@ -13,7 +13,6 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use HMS\Repositories\Banking\BankRepository;
 use HMS\Factories\Banking\BankTransactionFactory;
 use App\Notifications\Banking\UnmatchedTransaction;
-use HMS\Repositories\Banking\BankTransactionRepository;
 
 class SaveNewTransactionsJob implements ShouldQueue
 {
@@ -41,7 +40,6 @@ class SaveNewTransactionsJob implements ShouldQueue
      *
      * @param BankRepository $bankRepository
      * @param BankTransactionFactory $bankTransactionFactory
-     * @param BankTransactionRepository $bankTransactionRepository
      * @param RoleRepository $roleRepository
      *
      * @return void
@@ -49,7 +47,6 @@ class SaveNewTransactionsJob implements ShouldQueue
     public function handle(
         BankRepository $bankRepository,
         BankTransactionFactory $bankTransactionFactory,
-        BankTransactionRepository $bankTransactionRepository,
         RoleRepository $roleRepository
     ) {
         /**
@@ -78,15 +75,12 @@ class SaveNewTransactionsJob implements ShouldQueue
             $transactionDate = new Carbon($transaction['date']);
 
             $bankTransaction = $bankTransactionFactory
-                ->create(
+                ->matchOrCreate(
                     $bank,
                     $transactionDate,
                     $transaction['description'],
                     $transaction['amount']
                 );
-
-            // now see if we already have this transaction on record? before saving it
-            $bankTransaction = $bankTransactionRepository->findOrSave($bankTransaction);
 
             // if this transaction has no account add it to our unmatched list
             if (is_null($bankTransaction->getAccount()) && is_null($bankTransaction->getTransaction())) {

@@ -101,15 +101,12 @@ class BankBankTransactionController extends Controller
         $transactionDate = new Carbon($validatedData['transactionDate']);
 
         $bankTransaction = $this->bankTransactionFactory
-            ->create(
+            ->matchOrCreate(
                 $bank,
                 $transactionDate,
                 $validatedData['description'],
                 $validatedData['amount']
             );
-
-        // now see if we already have this transaction on record? before saving it
-        $bankTransaction = $this->bankTransactionRepository->findOrSave($bankTransaction);
 
         flash('Bank Transaction \'' . $bankTransaction->getDescription() . '\' created.')->success();
 

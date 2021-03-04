@@ -9,9 +9,9 @@ use HMS\Repositories\UserRepository;
 use HMS\Entities\Banking\BankTransaction;
 use HMS\Entities\Snackspace\TransactionType;
 use HMS\Repositories\Banking\AccountRepository;
-use HMS\Factories\Snackspace\TransactionFactory;
-use HMS\Repositories\Snackspace\TransactionRepository;
 use HMS\Repositories\Banking\BankTransactionRepository;
+use HMS\Factories\Snackspace\TransactionFactory as SnackspaceTransactionFactory;
+use HMS\Repositories\Snackspace\TransactionRepository as SnackspaceTransactionRepository;
 
 class BankTransactionFactory
 {
@@ -26,14 +26,14 @@ class BankTransactionFactory
     protected $accountRepository;
 
     /**
-     * @var TransactionFactory
+     * @var SnackspaceTransactionFactory
      */
-    protected $transactionFactory;
+    protected $snackspaceTransactionFactory;
 
     /**
-     * @var TransactionRepository
+     * @var SnackspaceTransactionRepository
      */
-    protected $transactionRepository;
+    protected $snackspaceTransactionRepository;
 
     /**
      * @var UserRepository
@@ -43,21 +43,21 @@ class BankTransactionFactory
     /**
      * @param BankTransactionRepository $bankTransactionRepository
      * @param AccountRepository $accountRepository
-     * @param TransactionFactory $transactionFactory
-     * @param TransactionRepository $transactionRepository
+     * @param SnackspaceTransactionFactory $snackspaceTransactionFactory
+     * @param SnackspaceTransactionRepository $snackspaceTransactionRepository
      * @param UserRepository $userRepository
      */
     public function __construct(
         BankTransactionRepository $bankTransactionRepository,
         AccountRepository $accountRepository,
-        TransactionFactory $transactionFactory,
-        TransactionRepository $transactionRepository,
+        SnackspaceTransactionFactory $snackspaceTransactionFactory,
+        SnackspaceTransactionRepository $snackspaceTransactionRepository,
         UserRepository $userRepository
     ) {
         $this->bankTransactionRepository = $bankTransactionRepository;
         $this->accountRepository = $accountRepository;
-        $this->transactionFactory = $transactionFactory;
-        $this->transactionRepository = $transactionRepository;
+        $this->snackspaceTransactionFactory = $snackspaceTransactionFactory;
+        $this->snackspaceTransactionRepository = $snackspaceTransactionRepository;
         $this->userRepository = $userRepository;
     }
 
@@ -68,9 +68,28 @@ class BankTransactionFactory
      * @param Carbon $transactionDate
      * @param string $description
      * @param int $amount
+     * @param null|Account $account
+     *
+     * @return BankTrasnaction
      */
-    public function create(Bank $bank, Carbon $transactionDate, string $description, int $amount)
-    {
+    public function matchOrCreate(
+        Bank $bank,
+        Carbon $transactionDate,
+        string $description,
+        int $amount,
+        ?Account $account = null
+    ) {
+        $bankTransaction = $this->bankTransactionRepository->findOneByBankAndDateAndDescriptionAndAmount(
+            $bank,
+            $transactionDate,
+            $description,
+            $amount
+        );
+
+        if (! is_null($bankTransaction)) {
+            return $bankTransaction;
+        }
+
         $_bankTransaction = new BankTransaction();
         $_bankTransaction->setBank($bank);
         $_bankTransaction->setTransactionDate($transactionDate);
@@ -80,7 +99,9 @@ class BankTransactionFactory
         $prefix = config('hms.account_prefix');
         $pattern = '/' . $prefix . '\S{' . strval(Account::MAX_REFERENCE_LENGHT - strlen($prefix)) . '}/';
 
-        if (preg_match($pattern, $description, $matches) == 1) {
+        if ($account) {
+            $_bankTransaction->setAccount($account);
+        } elseif (preg_match($pattern, $description, $matches) == 1) {
             $account = $this->accountRepository->findOneByPaymentRef($matches[0]);
             $_bankTransaction->setAccount($account);
         }
@@ -100,19 +121,23 @@ class BankTransactionFactory
                     $stringAmount = money($amount, 'GBP');
                     $description = 'Bank Transfer : ' . $stringAmount;
 
-                    $snackspaceTransaction = $this->transactionFactory->create(
-                        $user,
-                        $amount,
-                        TransactionType::BANK_PAYMENT,
-                        'Bank Transfer : ' . $stringAmount
-                    );
+                    $snackspaceTransaction = $this->snackspaceTransactionFactory
+                        ->create(
+                            $user,
+                            $amount,
+                            TransactionType::BANK_PAYMENT,
+                            'Bank Transfer : ' . $stringAmount
+                        );
 
-                    $snackspaceTransaction = $this->transactionRepository->saveAndUpdateBalance($snackspaceTransaction);
+                    $snackspaceTransaction = $this->snackspaceTransactionRepository
+                        ->saveAndUpdateBalance($snackspaceTransaction);
 
                     $_bankTransaction->setTransaction($snackspaceTransaction);
                 }
             }
         }
+
+        $this->bankTransactionRepository->save($_bankTransaction);
 
         return $_bankTransaction;
     }

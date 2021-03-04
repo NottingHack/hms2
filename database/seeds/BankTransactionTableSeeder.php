@@ -9,7 +9,6 @@ use HMS\Entities\Banking\Account;
 use HMS\Repositories\Banking\BankRepository;
 use HMS\Repositories\Banking\AccountRepository;
 use HMS\Factories\Banking\BankTransactionFactory;
-use HMS\Repositories\Banking\BankTransactionRepository;
 
 class BankTransactionTableSeeder extends Seeder
 {
@@ -17,11 +16,6 @@ class BankTransactionTableSeeder extends Seeder
      * @var AccountRepository
      */
     protected $accountRepository;
-
-    /**
-     * @var BankTransactionRepository
-     */
-    protected $bankTransactionRepository;
 
     /**
      * @var Bank
@@ -47,19 +41,16 @@ class BankTransactionTableSeeder extends Seeder
      * Create a new TableSeeder instance.
      *
      * @param AccountRepository         $accountRepository
-     * @param BankTransactionRepository $bankTransactionRepository
      * @param BankRepository            $bankRepository
      * @param BankTransactionFactory    $bankTransactionFactory
      * @param Generator                 $faker
      */
     public function __construct(AccountRepository $accountRepository,
-        BankTransactionRepository $bankTransactionRepository,
         BankRepository $bankRepository,
         BankTransactionFactory $bankTransactionFactory,
         Generator $faker)
     {
         $this->accountRepository = $accountRepository;
-        $this->bankTransactionRepository = $bankTransactionRepository;
         $this->bank = $bankRepository->find(2);
         $this->bankTransactionFactory = $bankTransactionFactory;
         $this->faker = $faker;
@@ -138,14 +129,12 @@ class BankTransactionTableSeeder extends Seeder
      */
     private function __generateBankTransaction(User $user, string $startDate, $endDate = 'now')
     {
-        $bankTransaction = $this->bankTransactionFactory->create(
+        $bankTransaction = $this->bankTransactionFactory->matchOrCreate(
             $this->bank,
             Carbon::instance($this->faker->dateTimeBetween($startDate, $endDate)),
             $user->getFullname() . ' ' . $user->getAccount()->getPaymentRef() . ' ' . $user->getAccount()->getId(),
             rand(1, 7500)
-            );
-
-        $this->bankTransactionRepository->save($bankTransaction);
+        );
     }
 
     /**

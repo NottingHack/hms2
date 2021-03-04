@@ -2,6 +2,7 @@
 
 namespace HMS\Repositories\Banking\Doctrine;
 
+use Carbon\Carbon;
 use HMS\Entities\Banking\Bank;
 use HMS\Entities\Banking\Account;
 use Doctrine\ORM\EntityRepository;
@@ -21,6 +22,30 @@ class DoctrineBankTransactionRepository extends EntityRepository implements Bank
     public function findAll()
     {
         return parent::findAll();
+    }
+
+    /**
+     * Find One By TransactionDate And Description And Amount.
+     *
+     * @param Bank $bank
+     * @param Carbon $transactionDate
+     * @param string $description
+     * @param int $amount
+     *
+     * @return null|BankTransaction
+     */
+    public function findOneByBankAndDateAndDescriptionAndAmount(
+        Bank $bank,
+        Carbon $date,
+        string $description,
+        int $amount
+    ) {
+        return parent::findOneBy([
+            'bank' => $bank,
+            'transactionDate' => $date,
+            'description' => $description,
+            'amount' => $amount,
+        ]);
     }
 
     /**
@@ -141,11 +166,12 @@ class DoctrineBankTransactionRepository extends EntityRepository implements Bank
      */
     public function findOrSave(BankTransaction $bankTransaction)
     {
-        $bt = parent::findOneBy([
-            'transactionDate' => $bankTransaction->getTransactionDate(),
-            'description' => $bankTransaction->getDescription(),
-            'amount' => $bankTransaction->getAmount(),
-        ]);
+        $bt = $this->findOneByBankAndDateAndDescriptionAndAmount(
+            $bankTransaction->getBank(),
+            $bankTransaction->getTransactionDate(),
+            $bankTransaction->getDescription(),
+            $bankTransaction->getAmount()
+        );
 
         if ($bt) {
             return $bt;

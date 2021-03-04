@@ -78,7 +78,7 @@ class BankTransactionFactory
         $_bankTransaction->setAmount($amount);
 
         $prefix = config('hms.account_prefix');
-        $pattren = '/' . $prefix . '\S{' . strval(Account::MAX_REFERENCE_LENGHT - strlen($prefix)) . '}/';
+        $pattern = '/' . $prefix . '\S{' . strval(Account::MAX_REFERENCE_LENGHT - strlen($prefix)) . '}/';
 
         if (preg_match($pattern, $description, $matches) == 1) {
             $account = $this->accountRepository->findOneByPaymentRef($matches[0]);

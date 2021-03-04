@@ -5,7 +5,7 @@ HMS\Entities\Banking\BankTransaction:
   table: bank_transactions
   uniqueConstraints:
     duplicate_idx:
-      columns: [ transaction_date, description, amount ]
+      columns: [ bank_id, transaction_date, description, amount ]
   id:
     id:
       type: integer

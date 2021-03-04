@@ -68,7 +68,11 @@
 
     <h2>Permissions</h2>
     <hr>
-    <select class="js-permission-select custom-select" style="width: 100%" name="permissions[]" multiple="multiple">
+    <select
+      class="js-permission-select custom-select"
+      style="width: 100%"
+      name="permissions[]"
+      multiple="multiple">
       @foreach ($allPermissions as $category => $permissions)
       <optgroup label="{{ $category }}">
         @foreach ($permissions as $permission)

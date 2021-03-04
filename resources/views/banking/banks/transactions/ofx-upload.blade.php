@@ -11,7 +11,7 @@ Upload OFX for {{ $bank->getName() }}
     <table class="table table-bordered table-hover">
       <tbody>
         <tr>
-          <th>Name</th>
+          <th class="w-25">Name</th>
           <td>{{ $bank->getName() }}</td>
         </tr>
         <tr>
@@ -24,7 +24,7 @@ Upload OFX for {{ $bank->getName() }}
         </tr>
         <tr>
           <th>Latest Bank Transaction Date</th>
-          <td>{{ $latestBankTransaction->getTransactionDate()->toDateString() }}</td>
+          <td>{{ $latestBankTransaction ? $latestBankTransaction->getTransactionDate()->toDateString() : 'No Transactions yet' }}</td>
         </tr>
       </tbody>
     </table>

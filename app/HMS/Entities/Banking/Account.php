@@ -24,7 +24,7 @@ class Account
     /**
      * @var null|string
      */
-    protected $natwestRef;
+    protected $legacyRef;
 
     /**
      * @var \Doctrine\Common\Collections\Collection|\HMS\Entities\User[]
@@ -75,13 +75,13 @@ class Account
     }
 
     /**
-     * Gets the value of natwestRef.
+     * Gets the value of legacyRef.
      *
      * @return string|null
      */
-    public function getNatwestRef(): ?string
+    public function getLegacyRef(): ?string
     {
-        return $this->natwestRef;
+        return $this->legacyRef;
     }
 
     /**

@@ -32,12 +32,18 @@ class Account
     protected $users;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection|BankTransaction[]
+     */
+    protected $bankTransactions;
+
+    /**
      * @param string $paymentRef
      */
     public function __construct($paymentRef)
     {
         $this->paymentRef = $paymentRef;
         $this->users = new ArrayCollection();
+        $this->bankTransactions = new ArrayCollection();
     }
 
     /**
@@ -118,5 +124,13 @@ class Account
         $this->users = $users;
 
         return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection|BankTransaction[]
+     */
+    public function getBankTransactions()
+    {
+        return $this->bankTransactions;
     }
 }

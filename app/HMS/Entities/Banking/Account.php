@@ -85,6 +85,18 @@ class Account
     }
 
     /**
+     * @param null|string $legacyRef
+     *
+     * @return self
+     */
+    public function setLegacyRef($legacyRef)
+    {
+        $this->legacyRef = $legacyRef;
+
+        return $this;
+    }
+
+    /**
      * Gets the value of users.
      *
      * @return \Doctrine\Common\Collections\Collection|\HMS\Entities\User[]

@@ -10,16 +10,21 @@
 </div>
 <div class="container">
   <div class="row">
+    @if (Meta::get('access_street_door') || Meta::get('access_inner_door'))
     <div class="col-sm">
       <div class="card mb-3">
         <h3 class="card-header"><i class="fas fa-key" aria-hidden="true"></i> Door Codes</h3>
         <div class="card-body">
           <dl>
+            @if (Meta::get('access_street_door'))
             <dt class="h5">Street Door</dt>
             <h4><span class="badge badge-primary">{{  Meta::get('access_street_door') }}</span></h4>
+            @endif
+            @if (Meta::get('access_inner_door'))
             <hr>
             <dt class="h5">Inner Door</dt>
             <h4><span class="badge badge-primary">{{  Meta::get('access_inner_door') }}</span></h4>
+            @endif
             @if ($roden = Meta::get('access_roden_street_door'))
             <hr>
             <dt class="h5">Roden Street Door</dt>
@@ -29,6 +34,7 @@
         </div>
       </div>
     </div>
+    @endif
 
     <div class="col-sm">
       <div class="card mb-3">
@@ -45,6 +51,7 @@
       </div>
     </div>
 
+    @if (Meta::get('access_guest_wifi_ssid'))
     <div class="col-sm">
       <div class="card mb-3">
         <h3 class="card-header"><i class="fas fa-wifi" aria-hidden="true"></i> Guest WiFi</h3>
@@ -59,6 +66,7 @@
         </div>
       </div>
     </div>
+    @endif
   </div>
 </div>
 @can('gatekeeper.temporaryAccess.view.self')

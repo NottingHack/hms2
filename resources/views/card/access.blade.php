@@ -2,8 +2,12 @@
 <div class="card">
   <div class="card-header">Space access</div>
   <ul class="list-group list-group-flush">
+    @if (Meta::get('access_street_door'))
     <li class="list-group-item">Street Door: {{ Meta::get('access_street_door') }}</li>
+    @endif
+    @if (Meta::get('access_inner_door'))
     <li class="list-group-item">Inner Door: {{ Meta::get('access_inner_door') }}</li>
+    @endif
     @if ($roden = Meta::get('access_roden_street_door'))
     <li class="list-group-item">Roden Street Door: {{ $roden }}</li>
     @endif

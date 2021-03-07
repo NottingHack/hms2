@@ -4,6 +4,10 @@
 
 @section('content')
 <div class="container">
+  <div class="alert alert-warning">
+    Editing Meta values could break things.<br>
+    You should only be editing these value if you really know what they are doing!
+  </div>
   <div class="table-responsive no-more-tables">
     <table class="table table-bordered table-hover">
       <thead>

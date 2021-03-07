@@ -78,12 +78,11 @@ class MetaController extends Controller
             return redirect()->route('metas.index');
         }
 
-        // TODO: validate string in any way needed
         $this->validate($request, [
-            'value' => 'required|string|max:255',
+            'value' => 'nullable|string|max:255',
         ]);
 
-        $this->metaRepository->set($key, $request['value']);
+        $this->metaRepository->set($key, $request['value'] ?? '');
 
         flash()->success('Key \'' . $key . '\' updated.');
 

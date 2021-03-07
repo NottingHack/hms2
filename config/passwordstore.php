@@ -16,7 +16,7 @@ return [
     | PasswordStore Drivers
     |--------------------------------------------------------------------------
     */
-    'filebased' => [
+    'fileBased' => [
         'name' => env('PASSWORDSTORE_FILE', 'users.json'),
     ],
 

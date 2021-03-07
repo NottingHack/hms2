@@ -10,6 +10,7 @@ use HMS\Entities\Banking\BankType;
 use Illuminate\Support\Facades\DB;
 use HMS\Repositories\RoleRepository;
 use HMS\User\Permissions\RoleManager;
+use Doctrine\ORM\EntityManagerInterface;
 use HMS\Factories\Gatekeeper\PinFactory;
 use HMS\Entities\Gatekeeper\RfidTagState;
 use HMS\Factories\Banking\AccountFactory;
@@ -192,6 +193,7 @@ class MigrateMembersAreaCommand extends Command
         $this->laravel->call([$this, 'migrateRfidTag']);
         $this->laravel->call([$this, 'migrateRfidentry']);
 
+        $this->laravel->call([$this, 'auditMembers']);
         $this->laravel->call([$this, 'generatePins']);
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
@@ -665,7 +667,7 @@ class MigrateMembersAreaCommand extends Command
 
                 case $oldRoleAdminId:
                     // Admin skip for now
-                    $this->info('Admin Role skipped, user: ' . $row->user_id);
+                    $this->warn('Admin Role skipped, user: ' . $row->user_id);
                     break;
 
                 default:
@@ -771,8 +773,67 @@ class MigrateMembersAreaCommand extends Command
     }
 
     /**
+     * Audit the members to try and fix incorrect roles.
+     *
+     * @param EntityManagerInterface $em
+     * @param RoleManager $roleManager
+     * @param RoleRepository $roleRepository
+     *
+     * @return void
+     */
+    public function auditMembers(
+        EntityManagerInterface $em,
+        RoleManager $roleManager,
+        RoleRepository $roleRepository
+    ) {
+        $this->info('Auditing Members');
+        $startTime = Carbon::now();
+
+        $em->clear();
+        $approvalMembers = $roleRepository->findOneByName(Role::MEMBER_APPROVAL)->getUsers();
+        $awatingMembers = $roleRepository->findOneByName(Role::MEMBER_PAYMENT)->getUsers();
+        $currentMembers = $roleRepository->findOneByName(Role::MEMBER_CURRENT)->getUsers();
+
+        $this->info('Auditing Awaiting Approval');
+        foreach ($approvalMembers as $user) {
+            if (count($user->getAccount()->getBankTransactions())) {
+                $this->warn('User: ' . $user->getId() . ' has payments, making Current');
+                $roleManager->removeUserFromRoleByName($user, Role::MEMBER_APPROVAL);
+                $roleManager->addUserToRoleByName($user, Role::MEMBER_CURRENT);
+            }
+        }
+
+        $this->info('Auditing Awaiting Payment');
+        foreach ($awatingMembers as $user) {
+            if (count($user->getAccount()->getBankTransactions())) {
+                $this->warn('User: ' . $user->getId() . ' has payments, making Current');
+                $roleManager->removeUserFromRoleByName($user, Role::MEMBER_PAYMENT);
+                $roleManager->addUserToRoleByName($user, Role::MEMBER_CURRENT);
+            }
+        }
+
+        $this->info('Auditing Current Member');
+        foreach ($currentMembers as $user) {
+            if (count($user->getAccount()->getBankTransactions()) == 0) {
+                $this->warn('User: ' . $user->getId() . ' has no payments, making Ex');
+
+                foreach ($user->getRoles() as $role) {
+                    if (! $role->getRetained()) {
+                        $roleManager->removeUserFromRole($user, $role);
+                    }
+                }
+
+                $roleManager->addUserToRoleByName($user, Role::MEMBER_EX);
+            }
+        }
+
+        $this->info($startTime->diff(Carbon::now())->format('took: %H:%i:%s'));
+    }
+
+    /**
      * Generate Pins for the Users.
      *
+     * @param EntityManagerInterface $em
      * @param RoleRepository $roleRepository
      * @param PinFactory     $pinFactory
      * @param PinRepository  $pinRepository
@@ -780,6 +841,7 @@ class MigrateMembersAreaCommand extends Command
      * @return void
      */
     public function generatePins(
+        EntityManagerInterface $em,
         RoleRepository $roleRepository,
         PinFactory $pinFactory,
         PinRepository $pinRepository
@@ -787,6 +849,7 @@ class MigrateMembersAreaCommand extends Command
         $this->info('Generating pins');
         $startTime = Carbon::now();
 
+        $em->clear();
         $roles = [Role::MEMBER_CURRENT, Role::MEMBER_YOUNG, Role::MEMBER_EX];
         foreach ($roles as $role) {
             $role = $roleRepository->findOneByName($role);

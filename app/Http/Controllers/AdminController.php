@@ -120,6 +120,7 @@ class AdminController extends Controller
         $memberStatus = $this->roleRepository->findMemberStatusForUser($user);
         $bankTransactions = $this->bankTransactionRepository->paginateByAccount($user->getAccount(), 3);
         $votingStatus = $this->votingManager->getVotingStatusForUser($user);
+        $toolsFreeTime = [];
         foreach ($tools as $tool) {
             $toolsFreeTime[$tool->getId()] = $this->toolUsageRepository->freeTimeForToolUser($tool, $user);
         }

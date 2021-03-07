@@ -2,7 +2,10 @@
 
 namespace HMS\Auth;
 
+use KADM5;
 use Exception;
+use KRB5CCache;
+use KADM5Principal;
 use Illuminate\Support\Facades\Log;
 
 class KerberosPasswordStore implements PasswordStore
@@ -61,7 +64,7 @@ class KerberosPasswordStore implements PasswordStore
     protected function initAdmin()
     {
         if (is_null($this->krbConn)) {
-            $this->krbConn = new \KADM5($this->username, $this->keytab, true); // use keytab=true
+            $this->krbConn = new KADM5($this->username, $this->keytab, true); // use keytab=true
         }
     }
 
@@ -81,7 +84,7 @@ class KerberosPasswordStore implements PasswordStore
         * in an attempt to become a krb admin... */
         if (stristr($username, '/admin') === false) {
             try {
-                $princ = new \KADM5Principal(strtolower($username));
+                $princ = new KADM5Principal(strtolower($username));
                 $this->krbConn->createPrincipal($princ, $password);
             } catch (Exception $e) {
                 if ($this->debug) {
@@ -185,7 +188,7 @@ class KerberosPasswordStore implements PasswordStore
      */
     public function checkPassword($username, $password)
     {
-        $ticket = new \KRB5CCache();
+        $ticket = new KRB5CCache();
 
         try {
             $ticket->initPassword(strtolower($username) . '@' . $this->realm, $password);

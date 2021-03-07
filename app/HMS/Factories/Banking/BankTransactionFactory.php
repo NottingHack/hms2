@@ -3,6 +3,7 @@
 namespace HMS\Factories\Banking;
 
 use Carbon\Carbon;
+use HMS\Helpers\Features;
 use HMS\Entities\Banking\Bank;
 use HMS\Entities\Banking\Account;
 use HMS\Repositories\UserRepository;
@@ -41,24 +42,32 @@ class BankTransactionFactory
     protected $userRepository;
 
     /**
+     * @var Features
+     */
+    protected $features;
+
+    /**
      * @param BankTransactionRepository $bankTransactionRepository
      * @param AccountRepository $accountRepository
      * @param SnackspaceTransactionFactory $snackspaceTransactionFactory
      * @param SnackspaceTransactionRepository $snackspaceTransactionRepository
      * @param UserRepository $userRepository
+     * @param Features $features
      */
     public function __construct(
         BankTransactionRepository $bankTransactionRepository,
         AccountRepository $accountRepository,
         SnackspaceTransactionFactory $snackspaceTransactionFactory,
         SnackspaceTransactionRepository $snackspaceTransactionRepository,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        Features $features
     ) {
         $this->bankTransactionRepository = $bankTransactionRepository;
         $this->accountRepository = $accountRepository;
         $this->snackspaceTransactionFactory = $snackspaceTransactionFactory;
         $this->snackspaceTransactionRepository = $snackspaceTransactionRepository;
         $this->userRepository = $userRepository;
+        $this->features = $features;
     }
 
     /**
@@ -103,6 +112,10 @@ class BankTransactionFactory
             $_bankTransaction->setAccount($account);
         } elseif (preg_match($pattern, $description, $matches) == 1) {
             $account = $this->accountRepository->findOneByPaymentRef($matches[0]);
+            $_bankTransaction->setAccount($account);
+        } elseif ($this->features->isEnabled('match_legacy_ref')
+            && preg_match(config('hms.account_legacy_regex'), $description, $matches) == 1) {
+            $account = $this->accountRepository->findOneByLegacyRef($matches[0]);
             $_bankTransaction->setAccount($account);
         }
 

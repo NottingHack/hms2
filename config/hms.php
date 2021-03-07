@@ -17,6 +17,7 @@ return [
         'label_printer' => env('FEATURE_LABEL_PRINTER_ENABLE', true),
         'cash_membership_payments' => env('FEATURE_CASH_MEMBERSHIP_PAYMENTS_ENABLE', false),
         'ofx_bank_upload' => env('FEATURE_OFX_BANK_UPLOAD_ENABLE', false),
+        'match_legacy_ref' => env('FEATURE_MATCH_LEGACY_REF', false),
     ],
 
     /*
@@ -27,6 +28,15 @@ return [
     | Payment reference is 16 characters long, recommend prefix length is no more than 6 characters
     */
     'account_prefix' => strtoupper(env('ACCOUNT_REFERENCE_PREFIX', 'HSNTSB')),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Account legacy matching regular expression
+    |--------------------------------------------------------------------------
+    | A regular expression to match descriptions with the Account legacyRef column
+    | Needed when FEATURE_MATCH_LEGACY_REF is enabled
+    */
+    'account_legacy_regex' => env('ACCOUNT_LEGACY_REGEX', '\b(M0[0-9]+)\b'),
 
     /*
     |--------------------------------------------------------------------------

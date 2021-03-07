@@ -11,6 +11,11 @@
         </div>
       </span>
     </li>
+    @feature('match_legacy_ref')
+    <li class="list-group-item">
+        Legacy Reference: {{ $user->getAccount()->getLegacyRef() }}
+    </li>
+    @endfeature
     @if (count($user->getAccount()->getUsers()) > 1)
     <li class="list-group-item">This is a Joint Account</li>
     @endif

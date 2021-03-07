@@ -40,6 +40,16 @@ class DoctrineAccountRepository extends EntityRepository implements AccountRepos
     }
 
     /**
+     * @param string $legacyRefRef
+     *
+     * @return null|Account
+     */
+    public function findOneByLegacyRef(string $legacyRef)
+    {
+        return parent::findOneByLegacyRef($legacyRef);
+    }
+
+    /**
      * @param string $paymentRef
      *
      * @return Account[]

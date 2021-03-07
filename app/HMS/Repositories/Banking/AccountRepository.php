@@ -26,6 +26,13 @@ interface AccountRepository
     public function findOneByPaymentRef(string $paymentRef);
 
     /**
+     * @param string $legacyRefRef
+     *
+     * @return null|Account
+     */
+    public function findOneByLegacyRef(string $legacyRef);
+
+    /**
      * @param string $paymentRef
      *
      * @return Account[]

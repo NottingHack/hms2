@@ -66,7 +66,7 @@ Bank - {{ $bank->getName() }}
     {{ $bankTransactions->links() }}
   </div>
   <div class="table-responsive no-more-tables">
-    <table class="table table-bordered table-hover">
+    <table class="table table-striped table-hover">
       <thead>
         <tr>
           <th class="w-10">Date</th>

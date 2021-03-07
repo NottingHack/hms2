@@ -1,6 +1,6 @@
 const mix = require('laravel-mix');
 const path = require('path');
-const WebpackShellPluginNext = require('webpack-shell-plugin-next');
+const { exec } = require('child_process');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 require('laravel-mix-bundle-analyzer');
 
@@ -15,18 +15,39 @@ require('laravel-mix-bundle-analyzer');
  |
  */
 
+mix.extend('ziggy', new class {
+    register(config = {}) {
+        this.watch = config.watch ?? ['routes/**/*.php'];
+        this.path = config.path ?? '';
+        this.enabled = config.enabled ?? !Mix.inProduction();
+    }
+
+    boot() {
+        if (!this.enabled) return;
+
+        const command = () => exec(
+            `php artisan ziggy:generate ${this.path}`,
+            (error, stdout, stderr) => console.log(stdout)
+        );
+
+        command();
+
+        if (Mix.isWatching() && this.watch) {
+            ((require('chokidar')).watch(this.watch))
+                .on('change', (path) => {
+                    console.log(`${path} changed...`);
+                    command();
+                });
+        };
+    }
+}());
+
 mix.sourceMaps()
-   .webpackConfig({
+    .webpackConfig({
         devtool: 'source-map',
         plugins: [
             new MomentLocalesPlugin({ // To strip all locales except “en-gb”
                 localesToKeep: ['en-gb'],
-            }),
-            new WebpackShellPluginNext({
-                onBuildStart: {
-                    scripts: ['php artisan ziggy:generate resources/js/ziggy.js'],
-                    blocking: true,
-                },
             }),
         ],
         resolve: {
@@ -41,10 +62,13 @@ mix.sourceMaps()
             }
         }
     })
-   .js('resources/js/app.js', 'public/js')
-   .extract()
-   .sass('resources/sass/app.scss', 'public/css')
-   .options({
+    .ziggy({
+        path: 'resources/js/ziggy.js',
+    })
+    .js('resources/js/app.js', 'public/js')
+    .extract()
+    .sass('resources/sass/app.scss', 'public/css')
+    .options({
         extractVueStyles: 'public/css/vue.css',
         // need mix 6 and webpack 5 :(
         // globalVueStyles: [
@@ -54,7 +78,7 @@ mix.sourceMaps()
         //   'resources/sass/_variables.scss',
         // ],
     })
-   .version();
+    .version();
 
 if (!mix.inProduction()) {
     mix.bundleAnalyzer({

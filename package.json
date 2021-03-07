@@ -51,7 +51,7 @@
     "vue-moment": "^4.1.0",
     "vue-mq": "^1.0.1",
     "vue-template-compiler": "^2.6.12",
-    "vue-unique-id": "^3.1.5",
-    "webpack-shell-plugin-next": "^1.2.0"
-  }
+    "vue-unique-id": "^3.1.5"
+  },
+  "dependencies": {}
 }

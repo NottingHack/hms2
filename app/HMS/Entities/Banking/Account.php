@@ -32,12 +32,18 @@ class Account
     protected $users;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection|BankTransaction[]
+     */
+    protected $bankTransactions;
+
+    /**
      * @param string $paymentRef
      */
     public function __construct($paymentRef)
     {
         $this->paymentRef = $paymentRef;
         $this->users = new ArrayCollection();
+        $this->bankTransactions = new ArrayCollection();
     }
 
     /**
@@ -85,6 +91,18 @@ class Account
     }
 
     /**
+     * @param null|string $legacyRef
+     *
+     * @return self
+     */
+    public function setLegacyRef($legacyRef)
+    {
+        $this->legacyRef = $legacyRef;
+
+        return $this;
+    }
+
+    /**
      * Gets the value of users.
      *
      * @return \Doctrine\Common\Collections\Collection|\HMS\Entities\User[]
@@ -106,5 +124,13 @@ class Account
         $this->users = $users;
 
         return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection|BankTransaction[]
+     */
+    public function getBankTransactions()
+    {
+        return $this->bankTransactions;
     }
 }

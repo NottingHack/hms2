@@ -26,3 +26,6 @@ HMS\Entities\Banking\Account:
     users:
       targetEntity: \HMS\Entities\User
       mappedBy: account
+    bankTransactions:
+      targetEntity: \HMS\Entities\Banking\BankTransaction
+      mappedBy: account

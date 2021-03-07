@@ -1,7 +1,7 @@
 @component('mail::message')
 # Hello Software Team,
 I was unable to audit the following members automatically. <br>
-These are current members that have no bank transactions against their name.
+These {{ count($ohCrapUsers) }} are current members that have no bank transactions against their name.
 
 
 @component('mail::table')

@@ -58,7 +58,7 @@ class SyncCommand extends BaseCommand
         $permissions = config('roles.permissions');
 
         foreach ($permissions as $permission) {
-            $this->permissions[$permission] = '';
+            $this->permissions[$permission] = null;
         }
 
         $this->roles = config('roles.roles');
@@ -113,7 +113,12 @@ class SyncCommand extends BaseCommand
                     }
                 } else {
                     foreach ($role['permissions'] as $permission) {
-                        $roleEntity->addPermission($this->permissions[$permission]);
+                        if (array_key_exists($permission, $this->permissions)
+                            && $this->permissions[$permission]) {
+                            $roleEntity->addPermission($this->permissions[$permission]);
+                        } else {
+                            $this->warning($roleName . ' has unknown permission: ' . $permission);
+                        }
                     }
                 }
                 $this->info('Updated role: ' . $roleName);

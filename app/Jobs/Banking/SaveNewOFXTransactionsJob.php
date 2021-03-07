@@ -64,6 +64,9 @@ class SaveNewOFXTransactionsJob implements ShouldQueue
         $ofx = $ofxParser->loadFromString($this->ofxString);
 
         $bankAccount = reset($ofx->bankAccounts);
+
+        // TODO: should check that the $bank->getAccountNumber() is contained in $bankAccount->accountNumber
+
         // Get the statement transactions for the account
         $transactions = $bankAccount->statement->transactions;
 
@@ -78,7 +81,7 @@ class SaveNewOFXTransactionsJob implements ShouldQueue
                 ->matchOrCreate(
                     $bank,
                     new Carbon($transaction->date),
-                    $transaction->name,
+                    $transaction->name . ' ' . $transaction->uniqueId,
                     intval($transaction->amount * 100)
                 );
 

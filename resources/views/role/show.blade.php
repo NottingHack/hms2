@@ -47,6 +47,7 @@
 
   <h2>Users</h2>
   <hr>
+  <p>Count: {{ $users->total() }}</p>
   <div class="table-responsive">
     <table class="table table-bordered table-sm w-50">
         <thead>

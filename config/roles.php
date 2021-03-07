@@ -303,6 +303,17 @@ return [
                 'gatekeeper.zoneEntry.outside',
             ],
         ],
+        'user.buildingAccess' => [
+            'name' => 'Building Access User',
+            'description' => 'Non members with 24/7 building access. e.g. Landlord, Cleaners',
+            'permissions' => [
+                'gatekeeper.zoneEntry.upstairs',
+                'gatekeeper.zoneEntry.cncBlueRoom',
+                'gatekeeper.zoneEntry.classRoomMetalworking',
+                'gatekeeper.zoneEntry.downstairsMembersStorage',
+                'gatekeeper.zoneEntry.outside',
+            ],
+        ],
         'team.membership' => [
             'name' => 'Membership Team',
             'description' => 'Membership Team',

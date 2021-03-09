@@ -31,6 +31,7 @@ class ProductController extends Controller
         $this->productRepository = $productRepository;
         $this->productFactory = $productFactory;
 
+        $this->middleware('feature:snackspace,vending');
         $this->middleware('can:snackspace.product.view')->only(['index', 'show']);
         $this->middleware('can:snackspace.product.edit')->only(['create', 'store', 'edit', 'update']);
     }

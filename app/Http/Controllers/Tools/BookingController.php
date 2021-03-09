@@ -34,6 +34,7 @@ class BookingController extends Controller
         $this->bookingRepository = $bookingRepository;
         $this->bookingManager = $bookingManager;
 
+        $this->middleware('feature:tools');
         $this->middleware('can:tools.view')->only(['index']);
     }
 

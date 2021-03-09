@@ -68,6 +68,7 @@ class Kernel extends HttpKernel
         'client' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
         'canAny' => \App\Http\Middleware\AuthorizeAny::class,
         'canAll' => \App\Http\Middleware\AuthorizeAll::class,
+        'feature' => \App\Http\Middleware\CheckEnabledFeatures::class,
     ];
 
     /**

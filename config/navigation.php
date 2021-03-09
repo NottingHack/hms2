@@ -209,6 +209,7 @@ return [
                     'text'          => 'Email All Members',
                     'route'         => 'email-members.draft',
                     'permissions'   => ['email.allMembers'],
+                    'feature'       => 'email_all_members',
                 ],
                 'membershipApprovals' => [
                     'text'          => 'Review Approvals',

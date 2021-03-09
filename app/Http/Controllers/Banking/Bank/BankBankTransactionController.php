@@ -54,7 +54,8 @@ class BankBankTransactionController extends Controller
         $this->ofxParser = $ofxParser;
 
         $this->middleware('can:bankTransactions.edit')->only(['create', 'store']);
-        $this->middleware('can:bankTransactions.ofxUpload')->only(['createViaOfxUpload', 'storeOfx']);
+        $this->middleware(['can:bankTransactions.ofxUpload', 'feature:ofx_bank_upload'])
+            ->only(['createViaOfxUpload', 'storeOfx']);
     }
 
     /**

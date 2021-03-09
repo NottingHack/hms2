@@ -33,6 +33,7 @@ class LabelTemplateController extends Controller
         $this->labelTemplateRepository = $labelTemplateRepository;
         $this->labelTemplateFactory = $labelTemplateFactory;
 
+        $this->middleware('feature:label_printer');
         $this->middleware('can:labelTemplate.view')->only(['index', 'show']);
         $this->middleware('can:labelTemplate.create')->only(['create', 'store']);
         $this->middleware('can:labelTemplate.edit')->only(['edit', 'update', 'destroy']);

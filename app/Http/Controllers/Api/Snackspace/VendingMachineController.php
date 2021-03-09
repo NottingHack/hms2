@@ -34,6 +34,7 @@ class VendingMachineController extends Controller
         $this->vendingLocationRepository = $vendingLocationRepository;
         $this->productRepository = $productRepository;
 
+        $this->middleware('feature:snackspace,vending');
         $this->middleware('can:snackspace.vendingMachine.locations.assign')->only(['locationAssign']);
     }
 

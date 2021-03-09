@@ -46,6 +46,7 @@ class TransactionsController extends Controller
         $this->userRepository = $userRepository;
         $this->transactionFactory = $transactionFactory;
 
+        $this->middleware('feature:snackspace');
         $this->middleware('can:snackspace.transaction.view.self')->only(['index']);
         $this->middleware('can:snackspace.transaction.create.all')->only(['create', 'store']);
     }

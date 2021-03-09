@@ -30,9 +30,9 @@ class CSVDownloadController extends Controller
         BankTransactionRepository $bankTransactionRepository
     ) {
         $this->roleRepository = $roleRepository;
+        $this->bankTransactionRepository = $bankTransactionRepository;
 
         $this->middleware('can:profile.view.all');
-        $this->bankTransactionRepository = $bankTransactionRepository;
     }
 
     /**

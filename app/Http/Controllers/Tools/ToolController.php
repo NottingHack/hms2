@@ -90,6 +90,7 @@ class ToolController extends Controller
         $this->usageRepository = $usageRepository;
         $this->usageFactory = $usageFactory;
 
+        $this->middleware('feature:tools');
         $this->middleware('can:tools.view')->only(['index', 'show']);
         $this->middleware('can:tools.create')->only(['create', 'store']);
         $this->middleware('can:tools.edit')->only(['edit', 'update']);

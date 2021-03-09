@@ -28,6 +28,7 @@ class EmailController extends Controller
     ) {
         $this->roleRepository = $roleRepository;
 
+        $this->middleware('feature:email_all_members');
         $this->middleware('can:email.allMembers');
     }
 

@@ -116,6 +116,11 @@ class StatisticsController extends Controller
         $this->emailRepository = $emailRepository;
         $this->inviteRepository = $inviteRepository;
         $this->roleUpdateRepository = $roleUpdateRepository;
+
+        $this->middleware('feature:boxes')->only(['boxUsage']);
+        $this->middleware('feature:tools')->only(['laserUsage']);
+        $this->middleware('feature:snackspace')->only(['snackspaceMonthly']);
+        $this->middleware('feature:tools')->only(['tools']);
     }
 
     /**

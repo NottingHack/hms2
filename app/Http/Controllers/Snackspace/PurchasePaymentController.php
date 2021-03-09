@@ -25,6 +25,7 @@ class PurchasePaymentController extends Controller
     ) {
         $this->transactionRepository = $transactionRepository;
 
+        $this->middleware('feature:snackspace');
         $this->middleware('can:snackspace.transaction.view.all')->only(['paymentReport']);
     }
 

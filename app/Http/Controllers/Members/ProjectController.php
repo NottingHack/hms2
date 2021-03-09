@@ -46,11 +46,12 @@ class ProjectController extends Controller
         $this->projectFactory = $projectFactory;
         $this->userRepository = $userRepository;
 
+        $this->middleware('feature:projects');
         $this->middleware('can:project.view.self')->only(['index', 'show']);
         $this->middleware('can:project.create.self')->only(['create', 'store']);
         $this->middleware('can:project.edit.self')->only(['edit', 'update', 'markActive', 'markComplete']);
         $this->middleware('can:project.edit.all')->only(['markAbandoned']);
-        $this->middleware('can:project.printLabel.self')->only(['printLabel']);
+        $this->middleware(['can:project.printLabel.self', 'feature:label_printer'])->only(['printLabel']);
     }
 
     /**

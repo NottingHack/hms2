@@ -67,6 +67,7 @@ class VendingMachineController extends Controller
         $this->vendLogRepository = $vendLogRepository;
         $this->transactionRepository = $transactionRepository;
 
+        $this->middleware('feature:snackspace,vending');
         $this->middleware('can:snackspace.vendingMachine.view')->only(['index', 'show']);
         $this->middleware('can:snackspace.vendingMachine.edit')->only(['edit', 'update']);
         $this->middleware('can:snackspace.vendingMachine.locations.assign')->only(['locations', 'locationAssign']);

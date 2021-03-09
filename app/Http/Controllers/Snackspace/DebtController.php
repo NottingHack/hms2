@@ -22,6 +22,7 @@ class DebtController extends Controller
     {
         $this->debtRepository = $debtRepository;
 
+        $this->middleware('feature:snackspace');
         $this->middleware('can:snackspace.debt.view');
     }
 

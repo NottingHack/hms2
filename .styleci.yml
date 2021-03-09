@@ -10,6 +10,8 @@ disabled:
     - alpha_ordered_imports
 
 finder:
+    exclude:
+        - "tests"
     not-path:
         - "public/index.php"
         - "server.php"

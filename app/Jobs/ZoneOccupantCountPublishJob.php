@@ -45,7 +45,7 @@ class ZoneOccupantCountPublishJob implements ShouldQueue
      */
     public function handle()
     {
-        $client = new MQTTClient(config('hms.mqtt.host'), config('hms.mqtt.port'));
+        $client = new MQTTClient(config('services.mqtt.host'), config('services.mqtt.port'));
         $success = $client->sendConnect('hms');  // set your client ID
         if ($success) {
             $client->sendPublish(

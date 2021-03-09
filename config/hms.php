@@ -73,13 +73,4 @@ return [
     'views_directory' => database_path(env('VIEWS_DIRECTORY', 'database/views')),
     'procedures_directory' => database_path(env('PROCEDURES_DIRECTORY', 'database/procedures')),
 
-    /*
-    |--------------------------------------------------------------------------
-    | MQTT broker
-    |--------------------------------------------------------------------------
-     */
-    'mqtt' => [
-        'host' => env('MQTT_HOST', '127.0.0.1'),
-        'port' => env('MQTT_PORT', 1883),
-    ],
 ];

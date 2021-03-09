@@ -67,7 +67,7 @@ class NotifyNhToolsSubscriber implements ShouldQueue
      */
     protected function poll(string $toolName)
     {
-        $client = new MQTTClient(config('hms.mqtt.host'), config('hms.mqtt.port'));
+        $client = new MQTTClient(config('services.mqtt.host'), config('services.mqtt.port'));
         $success = $client->sendConnect('hms');  // set your client ID
         if ($success) {
             $client->sendPublish('nh/bookings/poll', $toolName);

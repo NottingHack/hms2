@@ -291,7 +291,7 @@
       },
 
       submitPayment() {
-        if (!this.cardholderName) {
+        if (! this.cardholderName) {
           this.nameError = 'Card holder name is required.';
           return;
         }

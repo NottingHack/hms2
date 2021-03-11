@@ -20,7 +20,7 @@
     </div>
 
     <!-- Card Modal -->
-    <div ref="cardModal" class="modal fade" :id="$id('addMoneyToSnackspaceModal')" tabindex="false" role="dialog" :aria-labelledby="$id('addMoneyToSnackspaceLabel')" aria-hidden="true">
+    <div ref="cardModal" class="modal fade" :id="$id('addMoneyToSnackspaceModal')" tabindex="-1" :aria-labelledby="$id('addMoneyToSnackspaceLabel')" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -80,7 +80,7 @@
     </div> <!-- Card Modal end -->
 
     <!-- Success Modal -->
-    <div ref="successModal" class="modal fade" :id="$id('successModal')" tabindex="false" role="dialog" :aria-labelledby="$id('addMoneyToSnackspaceLabel')" aria-hidden="true">
+    <div ref="successModal" class="modal fade" :id="$id('successModal')" tabindex="-1" :aria-labelledby="$id('addMoneyToSnackspaceLabel')" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -402,7 +402,7 @@
             // instead check for: `paymentIntent.status === "requires_source_action"`.
             if (confirmResult.paymentIntent.status === "requires_action") {
               // Let Stripe.js handle the rest of the payment flow.
-              stripe.confirmCardPayment(clientSecret).then(function(result) {
+              stripe.confirmCardPayment(this.clientSecret).then(function(result) {
                 if (result.error) {
                   // The payment failed -- ask your customer for a new payment method.
                 flash('Payment error: ' + result.error.message, 'warning');

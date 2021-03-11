@@ -291,6 +291,7 @@
       },
 
       submitPayment() {
+        // card input box
         if (! this.cardholderName) {
           this.nameError = 'Card holder name is required.';
           return;
@@ -302,9 +303,11 @@
         this.disableCard();
         this.prButtonDisable = true;
 
-        stripe.handleCardPayment(
-          this.clientSecret, this.cardElement, {
-            payment_method_data: {
+        stripe.confirmCardPayment(
+          this.clientSecret,
+          {
+            payment_method: {
+              card: this.cardElement,
               billing_details: {name: this.cardholderName}
             }
           }
@@ -328,13 +331,17 @@
       },
 
       submitPaymentRequest(event) {
+        // apple pay, google wallet, etc
         this.cardButtonDisable = true;
         this.cardError = null;
         this.disableCard();
 
-        stripe.confirmPaymentIntent(this.clientSecret, {
-          payment_method: event.paymentMethod.id,
-        }).then((confirmResult) => {
+        // Confirm the PaymentIntent without handling potential next actions (yet).
+        stripe.confirmCardPayment(
+          this.clientSecret,
+          {payment_method: event.paymentMethod.id},
+          {handleActions: false}
+        ).then((confirmResult) => {
           if (confirmResult.error) {
             // Report to the browser that the payment failed, prompting it to
             // re-show the payment interface, or show an error message and close
@@ -344,21 +351,29 @@
             // Report to the browser that the confirmation was successful, prompting
             // it to close the browser payment method collection interface.
             event.complete('success');
-            // Let Stripe.js handle the rest of the payment flow.
-            stripe.handleCardPayment(this.clientSecret).then((result) => {
-              if (result.error) {
-                // The payment failed -- ask your customer for a new payment method.
+            // Check if the PaymentIntent requires any actions and if so let Stripe.js
+            // handle the flow. If using an API version older than "2019-02-11" instead
+            // instead check for: `paymentIntent.status === "requires_source_action"`.
+            if (confirmResult.paymentIntent.status === "requires_action") {
+              // Let Stripe.js handle the rest of the payment flow.
+              stripe.confirmCardPayment(clientSecret).then(function(result) {
+                if (result.error) {
+                  // The payment failed -- ask your customer for a new payment method.
                 flash('Payment error: ' + result.error.message, 'warning');
 
                 this.cardError = result.error.message;
                 this.enableCard();
                 this.cardElement.focus();
                 this.cardButtonDisable = false;
-              } else {
-                // The payment has succeeded.
+                } else {
+                  // The payment has succeeded.
                 this.paymentSuccess(result);
-              }
-            });
+                }
+              });
+            } else {
+              // The payment has succeeded.
+              this.paymentSuccess(result);
+            }
           }
         });
       },

@@ -152,7 +152,7 @@
               <div class="invalid-feedback d-block" role="alert" v-if="userError">{{ userError }}</div>
             </div>
 
-            <div :class="['form-group', bookableAreaError ? 'is-invalid' : '']" ref="bookableAreaSelectDiv">
+            <div :class="['form-group', bookableAreaError ? 'is-invalid' : '']">
               <label :for="$id('userId')">Select Area</label>
               <select-two
                 :id="$id('userId')"
@@ -492,7 +492,6 @@
         const self = this;
         return {
           width: '100%',
-          dropdownParent: this.$refs.bookableAreaSelectDiv,
           templateResult: this.formatBookableArea,
           templateSelection: this.formatBookableAreaSelection,
         };

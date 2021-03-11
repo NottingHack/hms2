@@ -1,5 +1,5 @@
 <template>
-  <div :class="[inputGroup, invalidStyle]">
+  <div ref="selectDiv" :class="[inputGroup, invalidStyle]">
     <slot name="prepend"></slot>
     <select
       ref="select"
@@ -104,6 +104,7 @@
         this.select2.select2({
           theme: 'bootstrap',
           containerCssClass: ':all:',
+          dropdownParent: this.$refs.selectDiv,
           placeholder: this.placeholder,
           ...this.settings,
           data: val
@@ -127,6 +128,7 @@
         .select2({
           theme: 'bootstrap',
           containerCssClass: ':all:',
+          dropdownParent: this.$refs.selectDiv,
           placeholder: this.placeholder,
           ...this.settings,
           data: this.options

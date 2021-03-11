@@ -29,7 +29,7 @@
         default: () => ({
           base:    'alert',
           success: 'alert-success',
-          danger:   'alert-danger',
+          danger:  'alert-danger',
           warning: 'alert-warning',
           info:    'alert-info'
         })
@@ -42,7 +42,7 @@
         type: Object,
         default: () => ({
           base:    'fa',
-          danger:   'fa-exclamation-circle',
+          danger:  'fa-exclamation-circle',
           success: 'fa-check-circle',
           info:    'fa-info-circle',
           warning: 'fa-exclamation-circle',

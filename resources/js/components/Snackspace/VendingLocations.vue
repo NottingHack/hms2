@@ -90,7 +90,6 @@
         const self = this;
         return {
           width: '100%',
-          dropdownParent: this.$refs.selectModal,
         };
       },
     },

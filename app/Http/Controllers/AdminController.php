@@ -113,20 +113,24 @@ class AdminController extends Controller
         $snackspaceTransactions = $this->transactionRepository->paginateByUser($user, 3);
         $teams = $this->roleRepository->findTeamsForUser($user);
         $bookings = $this->bookingRepository->findFutureByUser($user);
+
         $tools = $this->toolRepository->findAll();
         $toolIds = array_map(function ($tool) {
             return $tool->getId();
         }, $tools);
-        $memberStatus = $this->roleRepository->findMemberStatusForUser($user);
-        $bankTransactions = [];
-        if ($user->getAccount()) {
-            $bankTransactions = $this->bankTransactionRepository->paginateByAccount($user->getAccount(), 3);
-        }
-        $votingStatus = $this->votingManager->getVotingStatusForUser($user);
         $toolsFreeTime = [];
         foreach ($tools as $tool) {
             $toolsFreeTime[$tool->getId()] = $this->toolUsageRepository->freeTimeForToolUser($tool, $user);
         }
+
+        $memberStatus = $this->roleRepository->findMemberStatusForUser($user);
+
+        $bankTransactions = [];
+        if ($user->getAccount()) {
+            $bankTransactions = $this->bankTransactionRepository->paginateByAccount($user->getAccount(), 3);
+        }
+
+        $votingStatus = $this->votingManager->getVotingStatusForUser($user);
 
         return view('admin.user_overview')->with([
             'user' => $user,

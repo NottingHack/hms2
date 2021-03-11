@@ -1,6 +1,7 @@
 <template>
-  <div ref="selectDiv">
+  <div>
     <select-two
+      class="text-body"
       v-model="value"
       :name="name"
       :placeholder="placeholder"

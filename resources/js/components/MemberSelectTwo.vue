@@ -57,7 +57,6 @@
         return {
           width: '100%',
           placeholder: this.placeholder,
-          dropdownParent: this.$refs.selectDiv,
           minimumInputLength: 1,
           ajax: this.ajax,
           templateResult: this.formatUser,

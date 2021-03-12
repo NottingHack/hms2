@@ -4,7 +4,15 @@
       <!-- <p>To schedule temporary access for a User please select and drag on the calendar below.</p>
       <p>To re-schedule a booking, click and move the booking to a new time.</p>
       <p>To cancel a booking, click on the booking then confirm cancellation.</p> -->
-      <p>Words about the current access state being <strong>{{ building.accessStateString }}</strong></p>
+      <p v-if="building.accessState == 'SELF_BOOK'">
+        This buildings currently requires <strong>{{ building.accessStateString }}</strong>, which means before entering you need to book access using the calendar below, this will be automatically  approved and your RFID access will <strong>Only</strong> be allowed during the time of your booking.
+      </p>
+      <p v-else-if="building.accessState == 'REQUESTED_BOOK'">
+        This building currently requires <strong>{{ building.accessStateString }}</strong>, which means you need to make an access request using the calendar below and give a good reason as to why your access should be allowed.<br>
+        This request will be sent to the Trustees for approval or rejection. Request are normally approved during 9am to 5pm very quickly but outside of these times that may take up to 24 hours.<br>
+        If you reason is not descriptive enough the Trustees may contact you for more info.
+      </p>
+      <p v-else>The current access state is <strong>{{ building.accessStateString }}</strong></p>
       <p>The maximum concurrent occupancy is currently {{ building.selfBookMaxOccupancy }}</p>
       <p>This building has the following bookable areas. Hover for area occupany limits.</p>
       <p>

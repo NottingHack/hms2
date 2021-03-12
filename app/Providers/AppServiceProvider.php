@@ -49,5 +49,9 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('feature', function ($value) {
             return Features::isEnabled($value);
         });
+
+        Blade::directive('featureState', function ($value) {
+            return '<?php echo Features::isEnabled(' . $value . ') ? \'true\' : \'false\' ?>';
+        });
     }
 }

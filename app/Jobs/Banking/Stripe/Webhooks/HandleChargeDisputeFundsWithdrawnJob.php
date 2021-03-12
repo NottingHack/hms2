@@ -31,7 +31,7 @@ class HandleChargeDisputeFundsWithdrawnJob extends EventHandler
             $softwareTeamRole = $this->roleRepository->findOneByName(Role::SOFTWARE_TEAM);
             $softwareTeamRole->notify(new ProcessingIssue($this->webhookCall, 'Dispute Funds Withdrawn'));
 
-            return;
+            return true;
         }
 
         if ($charge->getType() == ChargeType::SNACKSPACE) {
@@ -75,5 +75,7 @@ class HandleChargeDisputeFundsWithdrawnJob extends EventHandler
             $trusteesTeamRole = $this->roleRepository->findOneByName(Role::TEAM_TRUSTEES);
             $trusteesTeamRole->notify($disputeDonationFundsWithdrawnNotification);
         }
+
+        return true;
     }
 }

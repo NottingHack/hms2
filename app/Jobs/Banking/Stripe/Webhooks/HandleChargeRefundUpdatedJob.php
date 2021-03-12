@@ -12,7 +12,7 @@ class HandleChargeRefundUpdatedJob extends EventHandler
     protected function run()
     {
         // We don't yet have any real need for this event so just log it out for now
-        $stripeRefund = $this->event->data->object;
+        $stripeRefund = $this->stripeEvent->data->object;
         \Log::info('HandleChargeRefundUpdatedJob');
         \Log::info($stripeRefund);
 

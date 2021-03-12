@@ -48,6 +48,7 @@ class Kernel extends ConsoleKernel
                 ->weekly();
 
         $schedule->command('horizon:snapshot')->everyFiveMinutes();
+        $schedule->command('telescope:prune --hours=48')->daily();
         $schedule->command('passport:purge')->daily();
 
         $schedule->job(new LogDebtJob)->daily();

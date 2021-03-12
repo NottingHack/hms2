@@ -32,6 +32,7 @@ return [
         '#^_ignition#',
         '#^routes$#',
         '#^horizon#',
+        '#^telescope#',
         '#^oauth#',
     ],
 

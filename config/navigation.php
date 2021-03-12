@@ -226,12 +226,6 @@ return [
                     'route'         => 'governance.meetings.index',
                     'permissions'   => ['governance.meeting.view'],
                 ],
-                'horizon'          => [
-                    'text'          => 'Horizon',
-                    'route'         => 'horizon.index',
-                    'match'         => 'horizon.index',
-                    'permissions'   => ['horizon.view'],
-                ],
             ],
         ],
         'gatekeeper' => [
@@ -258,6 +252,24 @@ return [
                     'text'          => 'Access Logs',
                     'route'         => 'access-logs.index',
                     'permissions'   => ['profile.view.all'],
+                ],
+            ],
+        ],
+        'debug' => [
+            'text'          => '<i class="fad fa-bug fa-lg"></i>',
+            'permissions'   => [],
+            'links'         => [
+                'telescope'          => [
+                    'text'          => 'Telescope',
+                    'route'         => 'telescope',
+                    'match'         => 'telescope',
+                    'permissions'   => ['telescope.view'],
+                ],
+                'horizon'          => [
+                    'text'          => 'Horizon',
+                    'route'         => 'horizon.index',
+                    'match'         => 'horizon.index',
+                    'permissions'   => ['horizon.view'],
                 ],
             ],
         ],

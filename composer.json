@@ -27,6 +27,7 @@
         "laravel/horizon": "^3.1",
         "laravel/passport": "^9.3.2",
         "laravel/slack-notification-channel": "^2.0",
+        "laravel/telescope": "^3.0",
         "laravel/tinker": "^2.5",
         "lwk/vimbadmin-laravel-client": "^1.1.3",
         "php-http/guzzle6-adapter": "^1.1",

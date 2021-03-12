@@ -19,7 +19,7 @@
     </template>
 
     <!-- Modal -->
-    <div ref="selectModal" class="modal fade" :id="$id('changeLocationModal')" tabindex="false" role="dialog" :aria-labelledby="$id('changeLocationLabel')" aria-hidden="true">
+    <div ref="selectModal" class="modal fade" :id="$id('changeLocationModal')" tabindex="-1" :aria-labelledby="$id('changeLocationLabel')" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content vld-parent" ref="selectModalContent">
           <div class="modal-header">

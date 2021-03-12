@@ -111,7 +111,7 @@
     </button>
 
     <!-- Approve Modal -->
-    <div class="modal fade existing-account-select2" id="approveDetails" tabindex="-1" role="dialog" aria-labelledby="Approve Details" aria-hidden="true">
+    <div class="modal fade existing-account-select2" id="approveDetails" tabindex="-1" aria-labelledby="Approve Details" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -147,7 +147,7 @@
     </div>
 
     <!-- Reject Modal -->
-    <div class="modal fade" id="rejectDetails" tabindex="-1" role="dialog" aria-labelledby="Reject Details" aria-hidden="true">
+    <div class="modal fade" id="rejectDetails" tabindex="-1" aria-labelledby="Reject Details" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">

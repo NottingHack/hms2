@@ -128,7 +128,7 @@
     </div>
 
     <!-- Booking Modal -->
-    <div ref="bookingModal" class="modal fade" :id="$id('addBookingModal')" tabindex="-1" role="dialog" :aria-labelledby="$id('addBookingLabel')" aria-hidden="true">
+    <div ref="bookingModal" class="modal fade" :id="$id('addBookingModal')" tabindex="-1" :aria-labelledby="$id('addBookingLabel')" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -282,7 +282,7 @@
     </div> <!-- /Booking Modal -->
 
     <!-- Reason Modal -->
-    <div ref="reasonModal" class="modal fade" :id="$id('reasonModal')" tabindex="-1" role="dialog" :aria-labelledby="$id('reasonLabel')" aria-hidden="true">
+    <div ref="reasonModal" class="modal fade" :id="$id('reasonModal')" tabindex="-1" :aria-labelledby="$id('reasonLabel')" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">

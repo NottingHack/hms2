@@ -3,7 +3,7 @@
     <button type="button" class="btn btn-primary" :class="{ 'btn-sm mb-1': small, 'btn-block': block}" @click="showModal"><i class="fas fa-plus" :class="{ 'fa-lg': !small }" aria-hidden="true"></i> Appoint {{ grantTypeString }}</button>
 
     <!-- Modal -->
-    <div ref="selectModal" class="modal fade" :id="$id('toolGrantModal')" tabindex="false" role="dialog" :aria-labelledby="$id('toolGrantLabel')" aria-hidden="true">
+    <div ref="selectModal" class="modal fade" :id="$id('toolGrantModal')" tabindex="-1" :aria-labelledby="$id('toolGrantLabel')" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <form class="modal-content" method="POST" :action="actionUrl">
           <input type="hidden" name="_token" :value="csrf">

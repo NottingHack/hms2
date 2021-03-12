@@ -3,7 +3,7 @@
     <button type="button" class="btn btn-primary" :class="{ 'btn-sm mb-1': small }" @click="showModal"><i class="fas fa-plus" :class="{ 'fa-lg': !small }" aria-hidden="true"></i> Add User{{small ? '' : ' To Team' }}</button>
 
     <!-- Modal -->
-    <div ref="selectModal" class="modal fade" :id="$id('addUserToTeamModal')" tabindex="false" role="dialog" :aria-labelledby="$id('addUserToTeamLabel')" aria-hidden="true">
+    <div ref="selectModal" class="modal fade" :id="$id('addUserToTeamModal')" tabindex="-1" :aria-labelledby="$id('addUserToTeamLabel')" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <form class="modal-content" method="POST" :action="actionUrl">
           <input type="hidden" name="_token" :value="csrf">

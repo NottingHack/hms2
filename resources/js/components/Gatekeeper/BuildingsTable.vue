@@ -32,7 +32,7 @@
     </div>
 
     <!-- Access state modal -->
-    <div ref="accessModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" :aria-labelledby="$id('accessLabel')" aria-hidden="true">
+    <div ref="accessModal" class="modal fade bd-example-modal-lg" tabindex="-1" :aria-labelledby="$id('accessLabel')" aria-hidden="true">
       <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content vld-parent" ref="accessModalContent">
           <div class="modal-header">
@@ -111,7 +111,7 @@
     </div>
 
     <!-- Max occupancy modal -->
-    <div ref="occupancyModal" class="modal fade" tabindex="-1" role="dialog" :aria-labelledby="$id('occupancyLabel')" aria-hidden="true">
+    <div ref="occupancyModal" class="modal fade" tabindex="-1" :aria-labelledby="$id('occupancyLabel')" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">

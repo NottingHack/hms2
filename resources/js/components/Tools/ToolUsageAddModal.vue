@@ -4,7 +4,7 @@
       <button type="button" class="btn btn-primary" :class="{ 'btn-sm mb-1': small, 'btn-block': block}" @click="showModal"><i class="fas fa-plus" :class="{ 'fa-lg': !small }" aria-hidden="true"></i></button>
     </div>
     <!-- Modal -->
-    <div ref="addModal" class="modal fade" tabindex="false" role="dialog" aria-hidden="true">
+    <div ref="addModal" class="modal fade" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <form class="modal-content" method="POST" :action="actionUrl">
           <input type="hidden" name="_token" :value="csrf">

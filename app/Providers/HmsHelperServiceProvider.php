@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use HMS\Helpers\Features;
 use HMS\Helpers\SiteVisitor;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 
 class HmsHelperServiceProvider extends ServiceProvider
@@ -26,11 +25,11 @@ class HmsHelperServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        App::bind('Features', function () {
+        $this->app->bind('Features', function () {
             return new Features;
         });
 
-        App::bind('SiteVisitor', function () {
+        $this->app->bind('SiteVisitor', function () {
             return new SiteVisitor;
         });
     }

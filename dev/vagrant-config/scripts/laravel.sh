@@ -23,7 +23,8 @@ php artisan migrate
 php artisan doctrine:migration:refresh
 php artisan hms:database:refresh-views
 php artisan hms:database:refresh-procedures
-php artisan permission:defaults
+php artisan permissions:defaults
+php artisan meta:sync
 php artisan db:seed
 php artisan passport:install
 php artisan ziggy:generate "/vagrant/resources/js/ziggy.js"

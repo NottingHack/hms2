@@ -97,7 +97,7 @@ class SyncCommand extends BaseCommand
     }
 
     /**
-     * For existing roles, strip and rebuild thier permissions.
+     * For existing roles, strip and rebuild their permissions.
      * Create any new roles.
      *
      * @return void

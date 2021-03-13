@@ -18,9 +18,6 @@ HMS\Entities\Meta:
     value:
       type: string
       column: "`value`"
-    deletedAt:
-      type: datetime
-      nullable: true
     createdAt:
       type: datetime
       gedmo:
@@ -31,3 +28,6 @@ HMS\Entities\Meta:
       gedmo:
         timestampable:
           on: update
+    deletedAt:
+      type: datetime
+      nullable: true

@@ -56,6 +56,7 @@ class PostGitDeployedJob implements ShouldQueue
         'doctrine:clear:result:cache',
         'doctrine:generate:proxies',
         'permissions:sync',
+        'meta:sync',
         'horizon:terminate',
         'ziggy:generate resources/js/ziggy.js',
     ];

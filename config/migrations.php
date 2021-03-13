@@ -56,8 +56,14 @@ return [
         |
         */
         'schema'    => [
-            'filter' => '/^(?!migrations_eloquent|jobs|failed_jobs|oauth_access_tokens|oauth_auth_codes'
-                . '|oauth_clients|oauth_personal_access_clients|oauth_refresh_tokens|webhook_calls).*$/',
+            'filter' => '/^(?!'
+                . 'migrations_eloquent|'
+                . 'jobs|'
+                . 'failed_jobs|'
+                . 'oauth_access_tokens|oauth_auth_codes|oauth_clients|oauth_personal_access_clients|oauth_refresh_tokens|'
+                . 'telescope_entries|telescope_entries_tags|telescope_monitoring|'
+                . 'webhook_calls'
+                . ').*$/',
         ],
     ],
 ];

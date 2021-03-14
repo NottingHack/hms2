@@ -32,14 +32,15 @@ Route::view('donate', 'pages.donate')->name('donate');
 
 // Unrestricted pages
 Route::get('links', 'LinksController@index')->name('links.index');
-Route::get('instrumentation/status', 'Instrumentation\ServiceController@status')
-    ->name('instrumentation.status');
-Route::get('instrumentation/{service}/events/', 'Instrumentation\ServiceController@eventsForService')
-    ->name('instrumentation.service.events');
 // Instrumentation/Electric
 Route::prefix('instrumentation')->namespace('Instrumentation')->name('instrumentation.')->group(function () {
+    Route::get('status', 'ServiceController@status')
+        ->name('status');
+    Route::get('{service}/events/', 'ServiceController@eventsForService')
+        ->name('service.events');
     Route::get('electric', 'ElectricController@index')->name('electric.index');
 });
+
 Route::prefix('statistics')->name('statistics.')->group(function () {
     Route::get('box-usage', 'StatisticsController@boxUsage')->name('box-usage');
     Route::get('laser-usage', 'StatisticsController@laserUsage')->name('laser-usage');
@@ -69,13 +70,8 @@ Route::middleware(['auth'])->group(function () {
     Route::put('membership/update-details/{user}', 'MembershipController@updateDetails')->name('membership.update');
 
     // Users (show, edit, update) to allow users to update there email if they can't verify it
-    Route::resource(
-        'users',
-        'UserController',
-        [
-            'except' => ['index', 'store', 'create', 'destroy'],
-        ]
-    );
+    Route::resource('users', 'UserController')
+        ->except(['index', 'store', 'create', 'destroy']);
 });
 
 // Routes in the following group can only be access once logged-in and have verified your email address
@@ -109,35 +105,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('change-password', 'Auth\ChangePasswordController@update')->name('users.changePassword.update');
 
     // Meta area covers various setting for HMS
-    Route::resource(
-        'metas',
-        'MetaController',
-        [
-            'except' => ['show', 'store', 'create', 'destroy'],
-        ]
-    );
+    Route::resource('metas', 'MetaController')
+        ->except(['show', 'store', 'create', 'destroy']);
 
     // Usefull links editing (index is no auth)
-    Route::resource(
-        'links',
-        'LinksController',
-        [
-            'except' => ['index', 'show'], // index is done above outside auth
-        ]
-    );
+    Route::resource('links', 'LinksController')
+        ->except(['index', 'show']); // index is done above outside auth
 
     // Rfid Tags
     Route::get('users/{user}/rfid-tags', 'Gatekeeper\RfidTagsController@index')->name('users.rfid-tags');
-    Route::resource(
-        'rfid-tags',
-        'Gatekeeper\RfidTagsController',
-        [
-            'except' => ['create', 'store', 'show'],
-            'parameters' => [
-                'rfid-tags' => 'rfidTag',
-            ],
-        ]
-    );
+    Route::resource('rfid-tags', 'Gatekeeper\RfidTagsController')
+        ->except(['create', 'store', 'show'])
+        ->parameters(['rfid-tags' => 'rfidTag']);
     Route::patch('pins/{pin}/reactivate', 'Gatekeeper\RfidTagsController@reactivatePin')->name('pins.reactivate');
 
     // Access Logs
@@ -155,15 +134,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('access-state/edit', 'AccessController@edit')->name('access-state.edit');
         Route::put('access-state', 'AccessController@update')->name('access-state.update');
 
-        Route::resource(
-            'bookable-area',
-            'BookableAreaController',
-            [
-                'parameters' => [
-                    'bookable-area' => 'bookableArea',
-                ],
-            ]
-        );
+        Route::resource('bookable-area', 'BookableAreaController')
+            ->parameters(['bookable-area' => 'bookableArea']);
 
         Route::get('temporary-access', 'AccessController@accessCalendar')->name('temporary-access');
     });
@@ -194,13 +166,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('projects/{project}/markComplete', 'Members\ProjectController@markComplete')
         ->name('projects.markComplete');
     Route::get('projects/{project}/print', 'Members\ProjectController@printLabel')->name('projects.print');
-    Route::resource(
-        'projects',
-        'Members\ProjectController',
-        [
-            'except' => ['destroy'],
-        ]
-    );
+    Route::resource('projects', 'Members\ProjectController')
+        ->except(['destroy']);
     // hms1 link
     Route::get('memberProjects/view/{project}', 'Members\ProjectController@show');
 
@@ -212,13 +179,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('boxes/{box}/markAbandoned', 'Members\BoxController@markAbandoned')->name('boxes.markAbandoned');
     Route::patch('boxes/{box}/markRemoved', 'Members\BoxController@markRemoved')->name('boxes.markRemoved');
     Route::get('boxes/{box}/print', 'Members\BoxController@printLabel')->name('boxes.print');
-    Route::resource(
-        'boxes',
-        'Members\BoxController',
-        [
-            'except' => ['edit', 'update', 'destroy'],
-        ]
-    );
+    Route::resource('boxes', 'Members\BoxController')
+        ->except(['edit', 'update', 'destroy']);
     // hms1 link
     Route::get('memberBoxes/view/{box}', 'Members\BoxController@show');
 
@@ -234,118 +196,68 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::patch('accounts/{account}/unlink-user/', 'AccountController@unlinkUser')
             ->name('accounts.unlinkUser');
 
-        Route::resource(
-            'accounts.bank-transactions',
-            'Account\AccountBankTransactionController',
-            [
-                'only' => ['create', 'store'],
-                'parameters' => [
-                    'bank-transactions' => 'bankTransaction',
-                ],
-            ]
-        )->shallow();
+        Route::resource('accounts.bank-transactions', 'Account\AccountBankTransactionController')
+            ->only(['create', 'store'])
+            ->parameters(['bank-transactions' => 'bankTransaction'])
+            ->shallow();
 
         // Bank
-        Route::resource(
-            'banks',
-            'BankController',
-            [
-                'except' => ['destroy'],
-            ]
-        );
+        Route::resource('banks', 'BankController')
+            ->except(['destroy']);
 
         // Bank Transactions;
         Route::get('banks/{bank}/bank-transactions/ofx-upload', 'Bank\BankBankTransactionController@createViaOfxUpload')
             ->name('banks.bank-transactions.ofx-upload');
         Route::post('banks/{bank}/bank-transactions/ofx-upload', 'Bank\BankBankTransactionController@storeOfx')
             ->name('banks.bank-transactions.store-ofx');
-        Route::resource(
-            'banks.bank-transactions',
-            'Bank\BankBankTransactionController',
-            [
-                'only' => ['create', 'store'],
-                'parameters' => [
-                    'bank-transactions' => 'bankTransaction',
-                ],
-            ]
-        )->shallow();
+        Route::resource('banks.bank-transactions', 'Bank\BankBankTransactionController')
+            ->only(['create', 'store'])
+            ->parameters(['bank-transactions' => 'bankTransaction'])
+            ->shallow();
         Route::get('bank-transactions/unmatched', 'BankTransactionController@listUnmatched')
             ->name('bank-transactions.unmatched');
         Route::get('bank-transactions/{bankTransaction}/reconcile', 'BankTransactionController@reconcile')
             ->name('bank-transactions.reconcile');
         Route::patch('bank-transactions/{bankTransaction}/match', 'BankTransactionController@match')
             ->name('bank-transactions.match');
-        Route::resource(
-            'bank-transactions',
-            'BankTransactionController',
-            [
-                'except' => ['show', 'create', 'store', 'destroy'],
-                'parameters' => [
-                    'bank-transactions' => 'bankTransaction',
-                ],
-            ]
-        );
+        Route::resource('bank-transactions', 'BankTransactionController')
+            ->except(['show', 'create', 'store', 'destroy'])
+            ->parameters(['bank-transactions' => 'bankTransaction']);
     });
 
     // Snackspace
     Route::namespace('Snackspace')->group(function () {
-        Route::get(
-            'users/{user}/snackspace/transactions',
-            'TransactionsController@index'
-        )->name('users.snackspace.transactions');
-        Route::get(
-            'users/{user}/snackspace/transactions/create',
-            'TransactionsController@create'
-        )->name('users.snackspace.transactions.create');
-        Route::post(
-            'users/{user}/snackspace/transactions',
-            'TransactionsController@store'
-        )->name('users.snackspace.transactions.store');
+        Route::get('users/{user}/snackspace/transactions', 'TransactionsController@index')
+            ->name('users.snackspace.transactions');
+        Route::get('users/{user}/snackspace/transactions/create', 'TransactionsController@create')
+            ->name('users.snackspace.transactions.create');
+        Route::post('users/{user}/snackspace/transactions', 'TransactionsController@store')
+            ->name('users.snackspace.transactions.store');
 
         Route::prefix('snackspace')->name('snackspace.')->group(function () {
-            Route::get(
-                'transactions',
-                'TransactionsController@index'
-            )->name('transactions.index');
+            Route::get('transactions', 'TransactionsController@index')
+                ->name('transactions.index');
 
             // Snackspace Vending Machine
-            Route::resource(
-                'products',
-                'ProductController',
-                [
-                    'except' => ['destroy'],
-                ]
-            );
-            Route::get(
-                'vending-machines/{vendingMachine}/locations',
-                'VendingMachineController@locations'
-            )->name('vending-machines.locations.index');
+            Route::resource('products', 'ProductController')
+                ->except(['destroy']);
+            Route::get('vending-machines/{vendingMachine}/locations', 'VendingMachineController@locations')
+                ->name('vending-machines.locations.index');
             Route::patch(
                 'vending-machines/{vendingMachine}/locations/{vendingLocation}',
                 'VendingMachineController@locationAssign'
             )->name('vending-machines.locations.assign');
-            Route::get(
-                'vending-machines/{vendingMachine}/logs',
-                'VendingMachineController@showLogs'
-            )->name('vending-machines.logs.show');
-            Route::get(
-                'vending-machines/{vendingMachine}/logs/jams',
-                'VendingMachineController@showJams'
-            )->name('vending-machines.logs.jams');
+            Route::get('vending-machines/{vendingMachine}/logs', 'VendingMachineController@showLogs')
+                ->name('vending-machines.logs.show');
+            Route::get('vending-machines/{vendingMachine}/logs/jams', 'VendingMachineController@showJams')
+                ->name('vending-machines.logs.jams');
             Route::patch(
                 'vending-machines/{vendingMachine}/logs/{vendLog}/reconcile',
                 'VendingMachineController@reconcile'
             )->name('vending-machines.logs.reconcile');
-            Route::resource(
-                'vending-machines',
-                'VendingMachineController',
-                [
-                    'except' => ['create', 'store', 'destroy'],
-                    'parameters' => [
-                        'vending-machines' => 'vendingMachine',
-                    ],
-                ]
-            );
+            Route::resource('vending-machines', 'VendingMachineController')
+                ->except(['create', 'store', 'destroy'])
+                ->parameters(['vending-machines' => 'vendingMachine']);
 
             Route::get('debt-graph', 'DebtController@debtGraph')->name('debt-graph');
             Route::get('payment-report', 'PurchasePaymentController@paymentReport')->name('payment-report');
@@ -357,26 +269,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('tools/{tool}/grant', 'Tools\ToolController@grant')->name('tools.grant');
     Route::post('tools/{tool}/free-time', 'Tools\ToolController@addFreeTime')->name('tools.add-free-time');
     Route::resource('tools', 'Tools\ToolController');
-    Route::resource(
-        'tools/{tool}/bookings',
-        'Tools\BookingController',
-        [
-            'except' => ['show', 'create', 'store', 'edit', 'update', 'destroy'], // turned off for now
-            'as' => 'tools',
-        ]
-    );
+    Route::resource('tools.bookings', 'Tools\BookingController')
+        ->only(['index'])
+        ->shallow();
 
     // Teams
     Route::patch('teams/{role}/users', 'RoleController@addUserToTeam')->name('roles.addUserToTeam');
     Route::delete('teams/{role}/users/{user}', 'RoleController@removeUserFromTeam')->name('roles.removeUserFromTeam');
     Route::get('teams/how-to-join', 'TeamController@howToJoin')->name('teams.how-to-join');
-    Route::resource(
-        'teams',
-        'TeamController',
-        [
-            'except' => ['destroy'],
-        ]
-    );
+    Route::resource('teams', 'TeamController')
+        ->except(['destroy']);
 
     // Email to all Members
     Route::get('email-members', 'EmailController@draft')->name('email-members.draft');
@@ -415,13 +317,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->name('meetings.absence');
         Route::post('meetings/{meeting}/absence', 'MeetingController@recordAbsence')
             ->name('meetings.absence-record');
-        Route::resource(
-            'meetings',
-            'MeetingController',
-            [
-                'except' => ['destroy'],
-            ]
-        );
+        Route::resource('meetings', 'MeetingController')
+            ->except(['destroy']);
 
         // Proxies
         Route::get('meetings/{meeting}/proxies', 'ProxyController@index')

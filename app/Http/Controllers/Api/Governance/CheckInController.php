@@ -63,6 +63,7 @@ class CheckInController extends Controller
         $this->roleRepository = $roleRepository;
         $this->userRepository = $userRepository;
 
+        // $this->middleware('can:governance.meeting.view')->only(['show']); // applied in routes files so only applies when coming from web not client api
         $this->middleware('can:governance.meeting.checkIn')->only(['checkInUser']);
     }
 
@@ -73,7 +74,7 @@ class CheckInController extends Controller
      *
      * @return array
      */
-    public function perpMeetingData(Meeting $meeting)
+    protected function perpMeetingData(Meeting $meeting)
     {
         $representedProxies = $this->proxyRepository->countRepresentedForMeeting($meeting);
         $checkInCount = $meeting->getAttendees()->count() + $representedProxies;

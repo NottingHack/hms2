@@ -44,13 +44,8 @@ Route::name('api.')->namespace('Api')->group(function () {
         Route::get('search/invites/{searchQuery?}', 'SearchController@invites')
             ->name('search.invites');
 
-        Route::apiResource(
-            'users',
-            'UserController',
-            [
-                'except' => ['index', 'store', 'destroy'],
-            ]
-        );
+        Route::apiResource('users', 'UserController')
+            ->except(['index', 'store', 'destroy']);
 
         // Snackspace
         Route::patch(
@@ -59,43 +54,32 @@ Route::name('api.')->namespace('Api')->group(function () {
         )->name('snackspace.vending-machines.locations.assign');
 
         // Tools
-        Route::apiResource(
-            'tools/{tool}/bookings',
-            'Tools\BookingController',
-            [
-                'as' => 'tools',
-            ]
-        );
+        Route::apiResource('tools.bookings', 'Tools\BookingController');
 
         // Gatekeeper
         Route::prefix('gatekeeper')->namespace('Gatekeeper')->name('gatekeeper.')->group(function () {
-            Route::get('buildings', 'BuildingController@index')->name('buildings.index');
-            Route::get('buildings/{building}', 'BuildingController@show')->name('buildings.show');
+            Route::get('buildings', 'BuildingController@index')
+                ->name('buildings.index');
+            Route::get('buildings/{building}', 'BuildingController@show')
+                ->name('buildings.show');
             Route::patch('buildings/{building}/occupancy', 'BuildingController@updateOccupancy')
                 ->name('buildings.update-occupancy');
             Route::patch('buildings/{building}/access-state', 'BuildingController@updateAccessState')
                 ->name('buildings.update-access-state');
 
             // Temporary Access
-            Route::apiResource(
-                'temporary-access-bookings',
-                'TemporaryAccessBookingController',
-                [
-                    'parameters' => [
-                        'temporary-access-bookings' => 'temporaryAccessBooking',
-                    ],
-                ]
-            );
+            Route::apiResource('temporary-access-bookings', 'TemporaryAccessBookingController')
+                ->parameters(['temporary-access-bookings' => 'temporaryAccessBooking']);
         });
 
         // Governance
         Route::prefix('governance')->namespace('Governance')->name('governance.')->group(function () {
             // Meeting
             Route::get('meetings/{meeting}', 'CheckInController@show')
-                ->middleware('can:governance.meeting.view')
+                ->middleware('can:governance.meeting.view') // applied here so method can also be use by client route
                 ->name('meetings.show');
             Route::post('meetings/{meeting}/check-in', 'CheckInController@checkInUser')
-            ->name('meetings.check-in-user');
+                ->name('meetings.check-in-user');
         });
 
         // Members Projects and DNH labels
@@ -107,27 +91,22 @@ Route::name('api.')->namespace('Api')->group(function () {
             ->name('projects.markComplete');
         Route::post('projects/{project}/print', 'Members\ProjectController@printLabel')
             ->name('projects.print');
-        Route::apiResource(
-            'projects',
-            'Members\ProjectController',
-            [
-                'except' => ['destroy'],
-            ]
-        );
+        Route::apiResource('projects', 'Members\ProjectController')
+            ->except(['destroy']);
 
         // Members Boxes and labels
-        Route::get('boxes/audit', 'Members\BoxController@audit')->name('boxes.audit');
-        Route::patch('boxes/{box}/markInUse', 'Members\BoxController@markInUse')->name('boxes.markInUse');
-        Route::patch('boxes/{box}/markAbandoned', 'Members\BoxController@markAbandoned')->name('boxes.markAbandoned');
-        Route::patch('boxes/{box}/markRemoved', 'Members\BoxController@markRemoved')->name('boxes.markRemoved');
-        Route::post('boxes/{box}/print', 'Members\BoxController@printLabel')->name('boxes.print');
-        Route::apiResource(
-            'boxes',
-            'Members\BoxController',
-            [
-                'except' => ['store', 'update', 'destroy'],
-            ]
-        );
+        Route::get('boxes/audit', 'Members\BoxController@audit')
+            ->name('boxes.audit');
+        Route::patch('boxes/{box}/markInUse', 'Members\BoxController@markInUse')
+            ->name('boxes.markInUse');
+        Route::patch('boxes/{box}/markAbandoned', 'Members\BoxController@markAbandoned')
+            ->name('boxes.markAbandoned');
+        Route::patch('boxes/{box}/markRemoved', 'Members\BoxController@markRemoved')
+            ->name('boxes.markRemoved');
+        Route::post('boxes/{box}/print', 'Members\BoxController@printLabel')
+            ->name('boxes.print');
+        Route::apiResource('boxes', 'Members\BoxController')
+            ->except(['store', 'update', 'destroy']);
     });
 });
 
@@ -140,13 +119,16 @@ Route::name('client.')->prefix('cc')->namespace('Api')->middleware('client')->gr
     // Governance
     Route::namespace('Governance')->prefix('governance')->name('governance.')->group(function () {
         // Meeting
-        Route::get('meetings/next', 'CheckInController@next')->name('meetings.next');
-        Route::get('meetings/{meeting}', 'CheckInController@show')->name('meetings.show');
+        Route::get('meetings/next', 'CheckInController@next')
+            ->name('meetings.next');
+        Route::get('meetings/{meeting}', 'CheckInController@show')
+            ->name('meetings.show');
         Route::post('meetings/{meeting}/check-in-rfid', 'CheckInController@checkInUserByRFID')
             ->name('meetings.check-in-rfid');
     });
 
-    Route::post('rfid-token', 'Auth\RfidAccessTokenController@issueRfidToken')->name('rfid-token');
+    Route::post('rfid-token', 'Auth\RfidAccessTokenController@issueRfidToken')
+        ->name('rfid-token');
 });
 
 Route::name('webhook.')->group(function () {

@@ -2,14 +2,14 @@
 
 namespace App\Mail;
 
-use HMS\Entities\Role;
 use HMS\Entities\Invite;
-use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
+use HMS\Entities\Role;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
-use Illuminate\Queue\SerializesModels;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
 
 class InterestRegistered extends Mailable implements ShouldQueue
 {

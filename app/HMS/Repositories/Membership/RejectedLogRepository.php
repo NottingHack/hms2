@@ -2,8 +2,8 @@
 
 namespace HMS\Repositories\Membership;
 
-use HMS\Entities\User;
 use HMS\Entities\Membership\RejectedLog;
+use HMS\Entities\User;
 
 interface RejectedLogRepository
 {

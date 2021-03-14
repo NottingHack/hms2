@@ -2,12 +2,12 @@
 
 namespace App\Listeners\Gatekeeper;
 
+use App\Events\Gatekeeper\BookingRejected;
+use App\Notifications\Gatekeeper\BookingCancelledWithReason as BookingCancelledWithReasonNotification;
+use App\Notifications\Gatekeeper\BookingRejected as BookingRejectedNotification;
 use Carbon\Carbon;
 use HMS\Facades\Meta;
-use App\Events\Gatekeeper\BookingRejected;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Notifications\Gatekeeper\BookingRejected as BookingRejectedNotification;
-use App\Notifications\Gatekeeper\BookingCancelledWithReason as BookingCancelledWithReasonNotification;
 
 class NotifyBookingRejected implements ShouldQueue
 {

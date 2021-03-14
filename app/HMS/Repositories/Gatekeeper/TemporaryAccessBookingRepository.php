@@ -3,10 +3,10 @@
 namespace HMS\Repositories\Gatekeeper;
 
 use Carbon\Carbon;
-use HMS\Entities\User;
-use HMS\Entities\Gatekeeper\Building;
 use HMS\Entities\Gatekeeper\BookableArea;
+use HMS\Entities\Gatekeeper\Building;
 use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
+use HMS\Entities\User;
 
 interface TemporaryAccessBookingRepository
 {

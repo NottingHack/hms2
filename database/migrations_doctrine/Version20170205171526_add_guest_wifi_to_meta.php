@@ -3,8 +3,8 @@
 namespace Database\Migrations;
 
 use Carbon\Carbon;
-use Doctrine\DBAL\Schema\Schema as Schema;
 use Doctrine\DBAL\Migrations\AbstractMigration;
+use Doctrine\DBAL\Schema\Schema as Schema;
 
 class Version20170205171526_add_guest_wifi_to_meta extends AbstractMigration
 {

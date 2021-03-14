@@ -2,13 +2,13 @@
 
 namespace App\Listeners\Governance;
 
+use App\Events\Governance\ProxyRegistered;
+use App\Notifications\Governance\Proxy\NotifyTrusteesProxyRegistered;
+use App\Notifications\Governance\Proxy\PrincipalAccepted;
+use App\Notifications\Governance\Proxy\ProxyAccepted;
 use HMS\Entities\Role;
 use HMS\Repositories\RoleRepository;
-use App\Events\Governance\ProxyRegistered;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Notifications\Governance\Proxy\ProxyAccepted;
-use App\Notifications\Governance\Proxy\PrincipalAccepted;
-use App\Notifications\Governance\Proxy\NotifyTrusteesProxyRegistered;
 
 class NotifyNewProxyRegistered implements ShouldQueue
 {

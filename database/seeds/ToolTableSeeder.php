@@ -1,10 +1,10 @@
 <?php
 
 use HMS\Entities\Role;
-use HMS\Tools\ToolManager;
-use Illuminate\Database\Seeder;
 use HMS\Repositories\RoleRepository;
+use HMS\Tools\ToolManager;
 use HMS\User\Permissions\RoleManager;
+use Illuminate\Database\Seeder;
 
 class ToolTableSeeder extends Seeder
 {

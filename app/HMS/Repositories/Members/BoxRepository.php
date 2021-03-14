@@ -2,8 +2,8 @@
 
 namespace HMS\Repositories\Members;
 
-use HMS\Entities\User;
 use HMS\Entities\Members\Box;
+use HMS\Entities\User;
 
 interface BoxRepository
 {

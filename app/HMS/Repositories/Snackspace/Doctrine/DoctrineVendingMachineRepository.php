@@ -4,8 +4,8 @@ namespace HMS\Repositories\Snackspace\Doctrine;
 
 use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Snackspace\VendingMachine;
-use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 use HMS\Repositories\Snackspace\VendingMachineRepository;
+use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 
 class DoctrineVendingMachineRepository extends EntityRepository implements VendingMachineRepository
 {

@@ -2,8 +2,8 @@
 
 namespace HMS\Repositories\Instrumentation\Doctrine;
 
-use Doctrine\ORM\EntityRepository;
 use App\Charts\ElectricReadingsChart;
+use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Instrumentation\ElectricMeter;
 use HMS\Entities\Instrumentation\ElectricReading;
 use HMS\Repositories\Instrumentation\ElectricReadingRepository;

@@ -2,6 +2,8 @@
 
 namespace App\Listeners\Membership;
 
+use App\Events\Banking\ReinstatementOfMembershipPayment;
+use App\Mail\Membership\MembershipReinstated;
 use Carbon\Carbon;
 use HMS\Entities\Role;
 use HMS\Repositories\MetaRepository;
@@ -9,8 +11,6 @@ use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Mail\Membership\MembershipReinstated;
-use App\Events\Banking\ReinstatementOfMembershipPayment;
 
 class ReinstateMembership implements ShouldQueue
 {

@@ -2,8 +2,8 @@
 
 namespace Database\Migrations;
 
-use Doctrine\DBAL\Schema\Schema as Schema;
 use Doctrine\DBAL\Migrations\AbstractMigration;
+use Doctrine\DBAL\Schema\Schema as Schema;
 
 class Version20170226152209_add_profile_dob_field extends AbstractMigration
 {

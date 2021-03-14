@@ -3,12 +3,12 @@
 namespace HMS\Repositories\Tools\Doctrine;
 
 use Carbon\Carbon;
-use HMS\Entities\User;
-use HMS\Entities\Tools\Tool;
-use HMS\Entities\Tools\Booking;
-use Doctrine\ORM\EntityRepository;
-use HMS\Entities\Tools\BookingType;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\EntityRepository;
+use HMS\Entities\Tools\Booking;
+use HMS\Entities\Tools\BookingType;
+use HMS\Entities\Tools\Tool;
+use HMS\Entities\User;
 use HMS\Repositories\Tools\BookingRepository;
 
 class DoctrineBookingRepository extends EntityRepository implements BookingRepository

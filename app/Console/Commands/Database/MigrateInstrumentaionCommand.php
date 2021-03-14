@@ -4,9 +4,9 @@ namespace App\Console\Commands\Database;
 
 use Carbon\Carbon;
 use HMS\Tools\ToolManager;
-use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class MigrateInstrumentaionCommand extends Command
 {

@@ -2,13 +2,13 @@
 
 namespace App\Events\Gatekeeper;
 
+use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
 use HMS\Entities\User;
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 
 class BookingRejected implements ShouldBroadcast
 {

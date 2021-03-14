@@ -4,10 +4,10 @@ namespace HMS\Composers;
 
 use HMS\Entities\User;
 use HMS\Helpers\Features;
-use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\View\View;
 
 class NavComposer
 {

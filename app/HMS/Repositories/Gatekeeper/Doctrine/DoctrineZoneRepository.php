@@ -2,8 +2,8 @@
 
 namespace HMS\Repositories\Gatekeeper\Doctrine;
 
-use HMS\Entities\Gatekeeper\Zone;
 use Doctrine\ORM\EntityRepository;
+use HMS\Entities\Gatekeeper\Zone;
 use HMS\Repositories\Gatekeeper\ZoneRepository;
 
 class DoctrineZoneRepository extends EntityRepository implements ZoneRepository

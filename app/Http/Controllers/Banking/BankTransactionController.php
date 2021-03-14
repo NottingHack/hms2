@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers\Banking;
 
-use Carbon\Carbon;
-use HMS\Helpers\Features;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
-use HMS\Entities\Banking\BankType;
 use App\Http\Controllers\Controller;
-use HMS\Repositories\MetaRepository;
-use HMS\Repositories\UserRepository;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use App\Jobs\Banking\AccountAuditJob;
+use Carbon\Carbon;
 use HMS\Entities\Banking\BankTransaction;
-use HMS\Repositories\Banking\BankRepository;
-use HMS\Repositories\Banking\AccountRepository;
-use HMS\Repositories\Banking\BankTransactionRepository;
+use HMS\Entities\Banking\BankType;
 use HMS\Entities\Snackspace\TransactionType as SnackspaceTransactionType;
 use HMS\Factories\Snackspace\TransactionFactory as SnackspaceTransactionFactory;
+use HMS\Helpers\Features;
+use HMS\Repositories\Banking\AccountRepository;
+use HMS\Repositories\Banking\BankRepository;
+use HMS\Repositories\Banking\BankTransactionRepository;
+use HMS\Repositories\MetaRepository;
 use HMS\Repositories\Snackspace\TransactionRepository as SnackspaceTransactionRepository;
+use HMS\Repositories\UserRepository;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\Rule;
 
 class BankTransactionController extends Controller
 {

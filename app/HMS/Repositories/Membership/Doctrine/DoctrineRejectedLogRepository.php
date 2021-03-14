@@ -2,9 +2,9 @@
 
 namespace HMS\Repositories\Membership\Doctrine;
 
-use HMS\Entities\User;
 use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Membership\RejectedLog;
+use HMS\Entities\User;
 use HMS\Repositories\Membership\RejectedLogRepository;
 
 class DoctrineRejectedLogRepository extends EntityRepository implements RejectedLogRepository

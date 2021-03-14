@@ -2,13 +2,13 @@
 
 namespace App\Notifications\Gatekeeper;
 
+use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
 use HMS\Entities\Role;
-use Illuminate\Bus\Queueable;
 use HMS\Repositories\RoleRepository;
-use Illuminate\Notifications\Notification;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
+use Illuminate\Notifications\Notification;
 
 class BookingRejected extends Notification implements ShouldQueue
 {

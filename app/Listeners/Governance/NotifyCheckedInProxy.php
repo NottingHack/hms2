@@ -3,8 +3,8 @@
 namespace App\Listeners\Governance;
 
 use App\Events\Governance\ProxyCheckedIn;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Notifications\Governance\Proxy\PrincipalCheckedIn;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class NotifyCheckedInProxy implements ShouldQueue
 {

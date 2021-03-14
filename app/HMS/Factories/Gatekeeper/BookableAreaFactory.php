@@ -3,8 +3,8 @@
 namespace HMS\Factories\Gatekeeper;
 
 use HMS\Entities\Gatekeeper\BookableArea;
-use HMS\Repositories\Gatekeeper\BuildingRepository;
 use HMS\Repositories\Gatekeeper\BookableAreaRepository;
+use HMS\Repositories\Gatekeeper\BuildingRepository;
 
 class BookableAreaFactory
 {

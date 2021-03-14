@@ -1,11 +1,11 @@
 <?php
 
-use Illuminate\Database\Seeder;
-use HMS\Repositories\RoleRepository;
 use HMS\Entities\Gatekeeper\AccessLog;
+use HMS\Repositories\Gatekeeper\AccessLogRepository;
 use HMS\Repositories\Gatekeeper\DoorRepository;
 use HMS\Repositories\Gatekeeper\RfidTagRepository;
-use HMS\Repositories\Gatekeeper\AccessLogRepository;
+use HMS\Repositories\RoleRepository;
+use Illuminate\Database\Seeder;
 
 class AccessLogTableSeeder extends Seeder
 {

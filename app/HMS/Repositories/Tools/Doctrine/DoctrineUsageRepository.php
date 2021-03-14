@@ -3,11 +3,11 @@
 namespace HMS\Repositories\Tools\Doctrine;
 
 use Carbon\Carbon;
-use HMS\Entities\User;
+use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Tools\Tool;
 use HMS\Entities\Tools\Usage;
-use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Tools\UsageState;
+use HMS\Entities\User;
 use HMS\Repositories\Tools\UsageRepository;
 
 class DoctrineUsageRepository extends EntityRepository implements UsageRepository

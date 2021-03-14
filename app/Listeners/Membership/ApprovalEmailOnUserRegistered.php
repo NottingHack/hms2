@@ -2,11 +2,11 @@
 
 namespace App\Listeners\Membership;
 
+use App\Notifications\NewMemberApprovalNeeded;
 use HMS\Entities\Role;
 use HMS\Repositories\RoleRepository;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Notifications\NewMemberApprovalNeeded;
 
 class ApprovalEmailOnUserRegistered implements ShouldQueue
 {

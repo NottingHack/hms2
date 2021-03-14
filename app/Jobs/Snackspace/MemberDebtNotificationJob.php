@@ -2,20 +2,20 @@
 
 namespace App\Jobs\Snackspace;
 
+use App\Notifications\Snackspace\CurrentMemberDebt;
+use App\Notifications\Snackspace\ExMemberDebt;
 use HMS\Entities\Role;
-use Illuminate\Bus\Queueable;
-use Illuminate\Support\Facades\Log;
+use HMS\Repositories\Banking\BankRepository;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
+use HMS\Repositories\Snackspace\DebtRepository;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use HMS\Repositories\Banking\BankRepository;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
-use App\Notifications\Snackspace\ExMemberDebt;
-use HMS\Repositories\Snackspace\DebtRepository;
-use App\Notifications\Snackspace\CurrentMemberDebt;
 
 class MemberDebtNotificationJob implements ShouldQueue
 {

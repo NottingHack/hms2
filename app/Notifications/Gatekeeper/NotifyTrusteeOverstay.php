@@ -3,14 +3,14 @@
 namespace App\Notifications\Gatekeeper;
 
 use Carbon\Carbon;
+use HMS\Entities\Gatekeeper\Building;
+use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
 use HMS\Entities\User;
 use Illuminate\Bus\Queueable;
-use HMS\Entities\Gatekeeper\Building;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
 use Illuminate\Notifications\Messages\SlackMessage;
+use Illuminate\Notifications\Notification;
 
 class NotifyTrusteeOverstay extends Notification implements ShouldQueue
 {

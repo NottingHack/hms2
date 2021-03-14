@@ -2,8 +2,8 @@
 
 use Carbon\Carbon;
 use HMS\Entities\Snackspace\Transaction;
-use HMS\Entities\Snackspace\TransactionType;
 use HMS\Entities\Snackspace\TransactionState;
+use HMS\Entities\Snackspace\TransactionType;
 
 $factory->defineAs(Transaction::class, 'vend', function (Faker\Generator $faker, array $attributes) {
     $product = $faker->randomElement($attributes['products']);

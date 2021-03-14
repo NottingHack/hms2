@@ -3,8 +3,8 @@
 namespace HMS\Factories\Governance;
 
 use Carbon\Carbon;
-use HMS\Governance\VotingManager;
 use HMS\Entities\Governance\Meeting;
+use HMS\Governance\VotingManager;
 use HMS\Repositories\Governance\MeetingRepository;
 
 class MeetingFactory

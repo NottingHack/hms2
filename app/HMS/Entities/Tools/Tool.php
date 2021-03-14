@@ -2,8 +2,8 @@
 
 namespace HMS\Entities\Tools;
 
-use Illuminate\Support\Str;
 use Doctrine\Common\Collections\ArrayCollection;
+use Illuminate\Support\Str;
 
 class Tool
 {

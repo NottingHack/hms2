@@ -3,10 +3,10 @@
 namespace App\Listeners\Governance;
 
 use App\Events\Governance\ProxyUpdated;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Notifications\Governance\Proxy\PrincipalAccepted;
 use App\Notifications\Governance\Proxy\PrincipalCancelled;
 use App\Notifications\Governance\Proxy\ProxyUpdated as ProxyUpdatedNotification;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class NotifyUpdatedProxy implements ShouldQueue
 {

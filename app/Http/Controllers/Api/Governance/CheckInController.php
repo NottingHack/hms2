@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Api\Governance;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use HMS\Entities\Governance\Meeting;
-use HMS\Repositories\RoleRepository;
-use HMS\Repositories\UserRepository;
-use App\Events\Governance\ProxyCheckedIn;
-use HMS\Entities\Gatekeeper\RfidTagState;
 use App\Events\Governance\AttendeeCheckIn;
-use HMS\Repositories\Governance\ProxyRepository;
+use App\Events\Governance\ProxyCheckedIn;
+use App\Http\Controllers\Controller;
+use HMS\Entities\Gatekeeper\RfidTagState;
+use HMS\Entities\Governance\Meeting;
 use HMS\Repositories\Gatekeeper\RfidTagRepository;
 use HMS\Repositories\Governance\MeetingRepository;
+use HMS\Repositories\Governance\ProxyRepository;
+use HMS\Repositories\RoleRepository;
+use HMS\Repositories\UserRepository;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response as IlluminateResponse;
 
 class CheckInController extends Controller

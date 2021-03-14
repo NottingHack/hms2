@@ -2,9 +2,9 @@
 
 namespace HMS\Repositories\Gatekeeper\Doctrine;
 
-use HMS\Entities\User;
-use HMS\Entities\Gatekeeper\Pin;
 use Doctrine\ORM\EntityRepository;
+use HMS\Entities\Gatekeeper\Pin;
+use HMS\Entities\User;
 use HMS\Repositories\Gatekeeper\PinRepository;
 
 class DoctrinePinRepository extends EntityRepository implements PinRepository

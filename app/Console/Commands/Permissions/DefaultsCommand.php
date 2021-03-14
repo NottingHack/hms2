@@ -2,11 +2,11 @@
 
 namespace App\Console\Commands\Permissions;
 
-use HMS\Entities\Role;
-use Illuminate\Console\Command;
 use App\Events\Roles\RoleCreated;
-use HMS\Repositories\RoleRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use HMS\Entities\Role;
+use HMS\Repositories\RoleRepository;
+use Illuminate\Console\Command;
 use LaravelDoctrine\ACL\Permissions\Permission;
 
 class DefaultsCommand extends BaseCommand

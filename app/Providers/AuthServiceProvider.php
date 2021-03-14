@@ -2,13 +2,13 @@
 
 namespace App\Providers;
 
-use HMS\Auth\PasswordStore;
-use Illuminate\Support\Str;
-use HMS\Auth\HmsUserProvider;
-use Laravel\Passport\Passport;
-use Illuminate\Support\Facades\Auth;
 use Doctrine\ORM\EntityManagerInterface;
+use HMS\Auth\HmsUserProvider;
+use HMS\Auth\PasswordStore;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
 {

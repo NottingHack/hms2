@@ -2,9 +2,9 @@
 
 namespace HMS\Factories\Banking;
 
-use HMS\Entities\User;
 use HMS\Entities\Banking\Account;
 use HMS\Entities\Banking\MembershipStatusNotification;
+use HMS\Entities\User;
 use HMS\Repositories\Banking\MembershipStatusNotificationRepository;
 
 class MembershipStatusNotificationFactory

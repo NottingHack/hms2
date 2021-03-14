@@ -3,9 +3,9 @@
 namespace HMS\Repositories\Tools;
 
 use Carbon\Carbon;
-use HMS\Entities\User;
 use HMS\Entities\Tools\Tool;
 use HMS\Entities\Tools\Usage;
+use HMS\Entities\User;
 
 interface UsageRepository
 {

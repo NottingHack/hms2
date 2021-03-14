@@ -2,14 +2,14 @@
 
 namespace App\Events\Governance;
 
-use HMS\Entities\User;
 use HMS\Entities\Governance\Meeting;
-use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Foundation\Events\Dispatchable;
+use HMS\Entities\User;
 use HMS\Repositories\Governance\ProxyRepository;
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 
 class AttendeeCheckIn implements ShouldBroadcast
 {

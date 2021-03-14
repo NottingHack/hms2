@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Gatekeeper;
 
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use HMS\Entities\Gatekeeper\BookableArea;
-use HMS\Factories\Gatekeeper\BookableAreaFactory;
-use HMS\Repositories\Gatekeeper\BuildingRepository;
 use HMS\Entities\Gatekeeper\BookableAreaBookingColor;
+use HMS\Factories\Gatekeeper\BookableAreaFactory;
 use HMS\Repositories\Gatekeeper\BookableAreaRepository;
+use HMS\Repositories\Gatekeeper\BuildingRepository;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class BookableAreaController extends Controller
 {

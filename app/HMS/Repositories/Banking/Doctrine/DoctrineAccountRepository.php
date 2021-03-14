@@ -2,8 +2,8 @@
 
 namespace HMS\Repositories\Banking\Doctrine;
 
-use HMS\Entities\Banking\Account;
 use Doctrine\ORM\EntityRepository;
+use HMS\Entities\Banking\Account;
 use HMS\Repositories\Banking\AccountRepository;
 use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 

@@ -2,16 +2,16 @@
 
 namespace App\Listeners\Gatekeeper;
 
-use Carbon\Carbon;
-use HMS\Facades\Meta;
-use HMS\Entities\Role;
-use HMS\Repositories\RoleRepository;
 use App\Events\Gatekeeper\NewBooking;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use HMS\Repositories\Gatekeeper\TemporaryAccessBookingRepository;
+use App\Notifications\Gatekeeper\BookingApprovedAutomatically as BookingApprovedAutomaticallyNotification;
 use App\Notifications\Gatekeeper\BookingMade as BookingMadeNotification;
 use App\Notifications\Gatekeeper\BookingRequested as BookingRequestedNotification;
-use App\Notifications\Gatekeeper\BookingApprovedAutomatically as BookingApprovedAutomaticallyNotification;
+use Carbon\Carbon;
+use HMS\Entities\Role;
+use HMS\Facades\Meta;
+use HMS\Repositories\Gatekeeper\TemporaryAccessBookingRepository;
+use HMS\Repositories\RoleRepository;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class NotifyNewBooking implements ShouldQueue
 {

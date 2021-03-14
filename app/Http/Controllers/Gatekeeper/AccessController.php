@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Gatekeeper;
 
-use HMS\Entities\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use HMS\Repositories\MetaRepository;
-use Illuminate\Support\Facades\Gate;
-use HMS\Entities\Gatekeeper\Building;
-use HMS\Gatekeeper\TemporaryAccessBookingManager;
 use App\Jobs\Gatekeeper\UserHasLeftTheBuildingJob;
+use HMS\Entities\Gatekeeper\Building;
+use HMS\Entities\User;
+use HMS\Gatekeeper\TemporaryAccessBookingManager;
 use HMS\Repositories\Gatekeeper\BuildingRepository;
+use HMS\Repositories\MetaRepository;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class AccessController extends Controller
 {

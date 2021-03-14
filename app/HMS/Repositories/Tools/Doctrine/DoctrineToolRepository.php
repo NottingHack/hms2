@@ -2,8 +2,8 @@
 
 namespace HMS\Repositories\Tools\Doctrine;
 
-use HMS\Entities\Tools\Tool;
 use Doctrine\ORM\EntityRepository;
+use HMS\Entities\Tools\Tool;
 use HMS\Repositories\Tools\ToolRepository;
 
 class DoctrineToolRepository extends EntityRepository implements ToolRepository

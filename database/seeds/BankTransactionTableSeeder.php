@@ -2,13 +2,13 @@
 
 use Carbon\Carbon;
 use Faker\Generator;
+use HMS\Entities\Banking\Account;
 use HMS\Entities\Role;
 use HMS\Entities\User;
-use Illuminate\Database\Seeder;
-use HMS\Entities\Banking\Account;
-use HMS\Repositories\Banking\BankRepository;
-use HMS\Repositories\Banking\AccountRepository;
 use HMS\Factories\Banking\BankTransactionFactory;
+use HMS\Repositories\Banking\AccountRepository;
+use HMS\Repositories\Banking\BankRepository;
+use Illuminate\Database\Seeder;
 
 class BankTransactionTableSeeder extends Seeder
 {

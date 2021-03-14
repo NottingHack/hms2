@@ -2,12 +2,12 @@
 
 namespace App\Providers;
 
-use Stripe\Stripe;
-use HMS\Facades\Features;
 use HMS\Auth\PasswordStore;
 use HMS\Auth\PasswordStoreManager;
+use HMS\Facades\Features;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Stripe\Stripe;
 
 class AppServiceProvider extends ServiceProvider
 {

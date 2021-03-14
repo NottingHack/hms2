@@ -2,12 +2,12 @@
 
 namespace App\Exceptions;
 
-use Exception;
 use Doctrine\ORM\EntityNotFoundException;
-use Illuminate\Auth\AuthenticationException;
+use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Http\Response as IlluminateResponse;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Response as IlluminateResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler

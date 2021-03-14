@@ -3,16 +3,16 @@
 namespace HMS\Factories\Banking;
 
 use Carbon\Carbon;
-use HMS\Helpers\Features;
-use HMS\Entities\Banking\Bank;
 use HMS\Entities\Banking\Account;
-use HMS\Repositories\UserRepository;
+use HMS\Entities\Banking\Bank;
 use HMS\Entities\Banking\BankTransaction;
 use HMS\Entities\Snackspace\TransactionType;
+use HMS\Factories\Snackspace\TransactionFactory as SnackspaceTransactionFactory;
+use HMS\Helpers\Features;
 use HMS\Repositories\Banking\AccountRepository;
 use HMS\Repositories\Banking\BankTransactionRepository;
-use HMS\Factories\Snackspace\TransactionFactory as SnackspaceTransactionFactory;
 use HMS\Repositories\Snackspace\TransactionRepository as SnackspaceTransactionRepository;
+use HMS\Repositories\UserRepository;
 
 class BankTransactionFactory
 {

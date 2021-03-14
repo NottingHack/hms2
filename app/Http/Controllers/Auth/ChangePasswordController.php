@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use HMS\Entities\User;
-use HMS\Auth\PasswordStore;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use App\Events\Users\UserPasswordChanged;
+use App\Http\Controllers\Controller;
+use HMS\Auth\PasswordStore;
+use HMS\Entities\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ChangePasswordController extends Controller
 {

@@ -3,8 +3,8 @@
 namespace HMS\Repositories\Snackspace;
 
 use Carbon\Carbon;
-use HMS\Entities\User;
 use HMS\Entities\Snackspace\Transaction;
+use HMS\Entities\User;
 
 interface TransactionRepository
 {

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use HMS\Repositories\UserRepository;
-use Illuminate\Support\Facades\Gate;
 use HMS\Repositories\InviteRepository;
+use HMS\Repositories\UserRepository;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class SearchController extends Controller
 {

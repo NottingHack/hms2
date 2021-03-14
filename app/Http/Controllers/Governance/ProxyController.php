@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\Governance;
 
-use HMS\Entities\User;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use HMS\Entities\Governance\Meeting;
-use HMS\Repositories\UserRepository;
-use Illuminate\Support\Facades\Auth;
-use App\Events\Governance\ProxyUpdated;
 use App\Events\Governance\ProxyCancelled;
 use App\Events\Governance\ProxyRegistered;
-use HMS\Factories\Governance\ProxyFactory;
+use App\Events\Governance\ProxyUpdated;
+use App\Http\Controllers\Controller;
+use HMS\Entities\Governance\Meeting;
+use HMS\Entities\User;
 use HMS\Factories\Governance\MeetingFactory;
-use HMS\Repositories\Governance\ProxyRepository;
+use HMS\Factories\Governance\ProxyFactory;
 use HMS\Repositories\Governance\MeetingRepository;
+use HMS\Repositories\Governance\ProxyRepository;
+use HMS\Repositories\UserRepository;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProxyController extends Controller
 {

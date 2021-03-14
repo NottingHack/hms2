@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands\Meta;
 
-use Illuminate\Console\Command;
 use HMS\Repositories\MetaRepository;
+use Illuminate\Console\Command;
 
 class SyncCommand extends Command
 {

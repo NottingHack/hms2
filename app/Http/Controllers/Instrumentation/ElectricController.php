@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Instrumentation;
 
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use HMS\Entities\Instrumentation\ElectricReading;
 use HMS\Repositories\Instrumentation\ElectricMeterRepository;
 use HMS\Repositories\Instrumentation\ElectricReadingRepository;
+use Illuminate\Http\Request;
 
 class ElectricController extends Controller
 {

@@ -1,12 +1,12 @@
 <?php
 
-use HMS\Entities\Role;
-use Illuminate\Database\Seeder;
-use HMS\Repositories\RoleRepository;
-use HMS\Repositories\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use HMS\Entities\Role;
 use HMS\Factories\Banking\AccountFactory;
 use HMS\Repositories\Banking\AccountRepository;
+use HMS\Repositories\RoleRepository;
+use HMS\Repositories\UserRepository;
+use Illuminate\Database\Seeder;
 
 class AccountTableSeeder extends Seeder
 {

@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use HMS\Entities\User;
 use HMS\Governance\VotingManager;
-use HMS\Repositories\RoleRepository;
-use HMS\Repositories\Tools\ToolRepository;
-use HMS\Repositories\Members\BoxRepository;
-use HMS\Repositories\Tools\UsageRepository;
-use HMS\Repositories\Tools\BookingRepository;
-use HMS\Repositories\Members\ProjectRepository;
-use HMS\Repositories\Snackspace\TransactionRepository;
 use HMS\Repositories\Banking\BankTransactionRepository;
+use HMS\Repositories\Members\BoxRepository;
+use HMS\Repositories\Members\ProjectRepository;
+use HMS\Repositories\RoleRepository;
+use HMS\Repositories\Snackspace\TransactionRepository;
+use HMS\Repositories\Tools\BookingRepository;
+use HMS\Repositories\Tools\ToolRepository;
+use HMS\Repositories\Tools\UsageRepository;
 
 class AdminController extends Controller
 {

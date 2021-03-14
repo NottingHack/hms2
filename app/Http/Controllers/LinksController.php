@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use HMS\Entities\Link;
-use Illuminate\Http\Request;
 use HMS\Factories\LinkFactory;
 use HMS\Repositories\LinkRepository;
+use Illuminate\Http\Request;
 
 class LinksController extends Controller
 {

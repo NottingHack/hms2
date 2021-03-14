@@ -2,11 +2,11 @@
 
 namespace App\Console\Commands\Permissions;
 
-use Illuminate\Console\Command;
-use HMS\Repositories\RoleRepository;
-use HMS\User\Permissions\RoleManager;
 use Doctrine\ORM\EntityManagerInterface;
 use HMS\Repositories\PermissionRepository;
+use HMS\Repositories\RoleRepository;
+use HMS\User\Permissions\RoleManager;
+use Illuminate\Console\Command;
 use LaravelDoctrine\ACL\Permissions\Permission;
 
 class SyncCommand extends BaseCommand

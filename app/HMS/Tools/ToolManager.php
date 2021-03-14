@@ -2,14 +2,14 @@
 
 namespace HMS\Tools;
 
-use HMS\Entities\User;
 use HMS\Entities\Tools\Tool;
 use HMS\Entities\Tools\ToolState;
+use HMS\Entities\User;
 use HMS\Factories\Tools\ToolFactory;
-use HMS\Repositories\RoleRepository;
-use HMS\User\Permissions\RoleManager;
 use HMS\Repositories\PermissionRepository;
+use HMS\Repositories\RoleRepository;
 use HMS\Repositories\Tools\ToolRepository;
+use HMS\User\Permissions\RoleManager;
 use LaravelDoctrine\ACL\Permissions\Permission;
 
 class ToolManager

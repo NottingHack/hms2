@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use HMS\Entities\Snackspace\Product;
 use HMS\Repositories\Snackspace\ProductRepository;
+use Illuminate\Database\Seeder;
 
 class ProductTableSeeder extends Seeder
 {

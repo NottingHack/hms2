@@ -3,13 +3,13 @@
 namespace App\Mail\Membership;
 
 use HMS\Entities\User;
-use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
-use HMS\Repositories\MetaRepository;
-use Illuminate\Queue\SerializesModels;
-use HMS\Repositories\Members\BoxRepository;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use HMS\Repositories\Banking\BankRepository;
+use HMS\Repositories\Members\BoxRepository;
+use HMS\Repositories\MetaRepository;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
 
 class MembershipRevoked extends Mailable implements ShouldQueue
 {

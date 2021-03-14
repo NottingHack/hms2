@@ -3,8 +3,8 @@
 namespace HMS\Repositories;
 
 use Carbon\Carbon;
-use HMS\Entities\Role;
 use HMS\Entities\Email;
+use HMS\Entities\Role;
 
 // TODO: findByUserPaginate(????);
 interface EmailRepository

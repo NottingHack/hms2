@@ -2,11 +2,11 @@
 
 namespace App\Notifications\Banking\Stripe;
 
-use Stripe\Dispute;
-use Illuminate\Bus\Queueable;
 use HMS\Entities\Banking\Stripe\Charge;
-use Illuminate\Notifications\Notification;
+use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
+use Stripe\Dispute;
 
 class DisputeDonationFundsWithdrawn extends Notification
 {

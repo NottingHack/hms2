@@ -2,13 +2,13 @@
 
 namespace HMS\Doctrine;
 
+use Carbon\Carbon;
 use DateTime;
 use DateTimeZone;
-use Carbon\Carbon;
-use InvalidArgumentException;
-use Doctrine\DBAL\Types\DateTimeType;
-use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Types\ConversionException;
+use Doctrine\DBAL\Types\DateTimeType;
+use InvalidArgumentException;
 
 class CarbonType extends DateTimeType
 {

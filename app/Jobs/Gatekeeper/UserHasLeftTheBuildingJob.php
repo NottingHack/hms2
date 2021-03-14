@@ -3,18 +3,18 @@
 namespace App\Jobs\Gatekeeper;
 
 use Carbon\Carbon;
-use HMS\Entities\User;
-use Illuminate\Bus\Queueable;
-use HMS\Entities\Gatekeeper\Zone;
 use HMS\Entities\Gatekeeper\Building;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
+use HMS\Entities\Gatekeeper\Zone;
+use HMS\Entities\Gatekeeper\ZoneOccupancyLog;
+use HMS\Entities\User;
+use HMS\Repositories\Gatekeeper\ZoneOccupancyLogRepository;
+use HMS\Repositories\Gatekeeper\ZoneOccupantRepository;
+use HMS\Repositories\Gatekeeper\ZoneRepository;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use HMS\Entities\Gatekeeper\ZoneOccupancyLog;
-use HMS\Repositories\Gatekeeper\ZoneRepository;
-use HMS\Repositories\Gatekeeper\ZoneOccupantRepository;
-use HMS\Repositories\Gatekeeper\ZoneOccupancyLogRepository;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 class UserHasLeftTheBuildingJob implements ShouldQueue
 {

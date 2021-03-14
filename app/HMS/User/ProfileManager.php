@@ -3,11 +3,11 @@
 namespace HMS\User;
 
 use Carbon\Carbon;
-use HMS\Entities\User;
 use HMS\Entities\Profile;
+use HMS\Entities\User;
 use HMS\Repositories\MetaRepository;
-use HMS\Repositories\UserRepository;
 use HMS\Repositories\ProfileRepository;
+use HMS\Repositories\UserRepository;
 
 class ProfileManager
 {

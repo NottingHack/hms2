@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Api\Gatekeeper;
 
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use HMS\Repositories\UserRepository;
-use HMS\Gatekeeper\TemporaryAccessBookingManager;
-use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
-use HMS\Repositories\Gatekeeper\BuildingRepository;
-use Illuminate\Http\Response as IlluminateResponse;
-use HMS\Repositories\Gatekeeper\BookableAreaRepository;
-use HMS\Repositories\Gatekeeper\TemporaryAccessBookingRepository;
 use App\Http\Resources\Gatekeeper\TemporaryAccessBooking as TemporaryAccessBookingResources;
+use Carbon\Carbon;
+use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
+use HMS\Gatekeeper\TemporaryAccessBookingManager;
+use HMS\Repositories\Gatekeeper\BookableAreaRepository;
+use HMS\Repositories\Gatekeeper\BuildingRepository;
+use HMS\Repositories\Gatekeeper\TemporaryAccessBookingRepository;
+use HMS\Repositories\UserRepository;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response as IlluminateResponse;
 
 class TemporaryAccessBookingController extends Controller
 {

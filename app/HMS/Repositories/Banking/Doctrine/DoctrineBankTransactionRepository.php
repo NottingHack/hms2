@@ -3,9 +3,9 @@
 namespace HMS\Repositories\Banking\Doctrine;
 
 use Carbon\Carbon;
-use HMS\Entities\Banking\Bank;
-use HMS\Entities\Banking\Account;
 use Doctrine\ORM\EntityRepository;
+use HMS\Entities\Banking\Account;
+use HMS\Entities\Banking\Bank;
 use HMS\Entities\Banking\BankTransaction;
 use HMS\Repositories\Banking\BankTransactionRepository;
 use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;

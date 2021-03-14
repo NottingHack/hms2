@@ -3,10 +3,10 @@
 namespace HMS\Repositories\Doctrine;
 
 use Carbon\Carbon;
-use HMS\Entities\Invite;
-use Doctrine\ORM\EntityRepository;
-use HMS\Repositories\InviteRepository;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\EntityRepository;
+use HMS\Entities\Invite;
+use HMS\Repositories\InviteRepository;
 use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 
 class DoctrineInviteRepository extends EntityRepository implements InviteRepository

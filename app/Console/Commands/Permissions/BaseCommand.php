@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands\Permissions;
 
-use Hms\Entities\Role;
-use Illuminate\Console\Command;
-use HMS\Repositories\RoleRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Hms\Entities\Role;
+use HMS\Repositories\RoleRepository;
+use Illuminate\Console\Command;
 use LaravelDoctrine\ACL\Permissions\Permission;
 
 abstract class BaseCommand extends Command

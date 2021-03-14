@@ -3,8 +3,8 @@
 namespace HMS\Repositories\Gatekeeper\Doctrine;
 
 use Doctrine\ORM\EntityRepository;
-use HMS\Entities\Gatekeeper\Building;
 use HMS\Entities\Gatekeeper\BookableArea;
+use HMS\Entities\Gatekeeper\Building;
 use HMS\Repositories\Gatekeeper\BookableAreaRepository;
 use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 

@@ -3,8 +3,8 @@
 namespace HMS\Factories;
 
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use HMS\Entities\LabelTemplate;
+use Illuminate\Http\Request;
 
 class LabelTemplateFactory
 {

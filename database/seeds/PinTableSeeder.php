@@ -1,10 +1,10 @@
 <?php
 
 use HMS\Entities\Role;
-use Illuminate\Database\Seeder;
-use HMS\Repositories\RoleRepository;
 use HMS\Factories\Gatekeeper\PinFactory;
 use HMS\Repositories\Gatekeeper\PinRepository;
+use HMS\Repositories\RoleRepository;
+use Illuminate\Database\Seeder;
 
 class PinTableSeeder extends Seeder
 {

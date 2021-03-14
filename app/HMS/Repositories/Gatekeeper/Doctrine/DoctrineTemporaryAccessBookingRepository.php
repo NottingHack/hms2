@@ -3,13 +3,13 @@
 namespace HMS\Repositories\Gatekeeper\Doctrine;
 
 use Carbon\Carbon;
-use HMS\Entities\User;
-use Doctrine\ORM\Query\Expr\Join;
-use Doctrine\ORM\EntityRepository;
-use HMS\Entities\Gatekeeper\Building;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use HMS\Entities\Gatekeeper\BookableArea;
+use HMS\Entities\Gatekeeper\Building;
 use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
+use HMS\Entities\User;
 use HMS\Repositories\Gatekeeper\TemporaryAccessBookingRepository;
 
 class DoctrineTemporaryAccessBookingRepository extends EntityRepository implements TemporaryAccessBookingRepository

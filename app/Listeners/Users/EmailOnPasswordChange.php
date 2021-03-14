@@ -3,8 +3,8 @@
 namespace App\Listeners\Users;
 
 use App\Events\Users\UserPasswordChanged;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Notifications\Users\PasswordChanged;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class EmailOnPasswordChange implements ShouldQueue
 {

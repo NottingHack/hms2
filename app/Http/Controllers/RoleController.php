@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use HMS\Entities\Role;
-use HMS\Entities\User;
-use HMS\User\UserManager;
-use Carbon\CarbonInterval;
-use Illuminate\Http\Request;
-use HMS\Repositories\MetaRepository;
-use HMS\Repositories\RoleRepository;
-use HMS\Repositories\UserRepository;
-use Illuminate\Support\Facades\Auth;
-use HMS\User\Permissions\RoleManager;
-use HMS\Repositories\PermissionRepository;
-use HMS\Repositories\RoleUpdateRepository;
-use App\Notifications\Membership\MemberBanned;
-use HMS\Repositories\Banking\BankTransactionRepository;
 use App\Notifications\Membership\BannedMemberReinstated;
+use App\Notifications\Membership\MemberBanned;
 use App\Notifications\Membership\MemberTemporarilyBanned;
 use App\Notifications\Membership\TemporarilyBannedMemberReinstated;
+use Carbon\Carbon;
+use Carbon\CarbonInterval;
+use HMS\Entities\Role;
+use HMS\Entities\User;
+use HMS\Repositories\Banking\BankTransactionRepository;
+use HMS\Repositories\MetaRepository;
+use HMS\Repositories\PermissionRepository;
+use HMS\Repositories\RoleRepository;
+use HMS\Repositories\RoleUpdateRepository;
+use HMS\Repositories\UserRepository;
+use HMS\User\Permissions\RoleManager;
+use HMS\User\UserManager;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RoleController extends Controller
 {

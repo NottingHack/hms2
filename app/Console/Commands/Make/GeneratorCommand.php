@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands\Make;
 
-use Illuminate\Support\Str;
 use Illuminate\Console\GeneratorCommand as LaravelGeneratorCommand;
+use Illuminate\Support\Str;
 
 abstract class GeneratorCommand extends LaravelGeneratorCommand
 {

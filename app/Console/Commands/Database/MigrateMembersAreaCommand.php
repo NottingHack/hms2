@@ -3,20 +3,20 @@
 namespace App\Console\Commands\Database;
 
 use Carbon\Carbon;
-use HMS\Entities\Role;
-use Illuminate\Support\Str;
-use Illuminate\Console\Command;
+use Doctrine\ORM\EntityManagerInterface;
 use HMS\Entities\Banking\BankType;
-use Illuminate\Support\Facades\DB;
+use HMS\Entities\Gatekeeper\AccessLogResult;
+use HMS\Entities\Gatekeeper\RfidTagState;
+use HMS\Entities\Role;
+use HMS\Factories\Banking\AccountFactory;
+use HMS\Factories\Gatekeeper\PinFactory;
+use HMS\Repositories\Banking\AccountRepository;
+use HMS\Repositories\Gatekeeper\PinRepository;
 use HMS\Repositories\RoleRepository;
 use HMS\User\Permissions\RoleManager;
-use Doctrine\ORM\EntityManagerInterface;
-use HMS\Factories\Gatekeeper\PinFactory;
-use HMS\Entities\Gatekeeper\RfidTagState;
-use HMS\Factories\Banking\AccountFactory;
-use HMS\Entities\Gatekeeper\AccessLogResult;
-use HMS\Repositories\Gatekeeper\PinRepository;
-use HMS\Repositories\Banking\AccountRepository;
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class MigrateMembersAreaCommand extends Command
 {

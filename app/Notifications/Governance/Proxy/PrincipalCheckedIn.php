@@ -2,12 +2,12 @@
 
 namespace App\Notifications\Governance\Proxy;
 
+use HMS\Entities\Governance\Meeting;
 use HMS\Entities\User;
 use Illuminate\Bus\Queueable;
-use HMS\Entities\Governance\Meeting;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
 class PrincipalCheckedIn extends Notification implements ShouldQueue
 {

@@ -2,9 +2,9 @@
 
 namespace HMS\Repositories\Snackspace;
 
-use HMS\Entities\User;
-use HMS\Entities\Snackspace\Transaction;
 use HMS\Entities\Snackspace\PurchasePayment;
+use HMS\Entities\Snackspace\Transaction;
+use HMS\Entities\User;
 
 interface PurchasePaymentRepository
 {

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Instrumentation;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use HMS\Entities\Instrumentation\Service;
 use HMS\Repositories\Instrumentation\EventRepository;
 use HMS\Repositories\Instrumentation\ServiceRepository;
+use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {

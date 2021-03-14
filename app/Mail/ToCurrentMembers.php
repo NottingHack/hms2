@@ -2,12 +2,12 @@
 
 namespace App\Mail;
 
-use Soundasleep\Html2Text;
 use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
 use Illuminate\Container\Container;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
+use Soundasleep\Html2Text;
 
 class ToCurrentMembers extends Mailable implements ShouldQueue
 {

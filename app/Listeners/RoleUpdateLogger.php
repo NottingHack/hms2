@@ -2,16 +2,16 @@
 
 namespace App\Listeners;
 
+use App\Events\Roles\UserAddedToRole;
+use App\Events\Roles\UserRemovedFromRole;
+use Doctrine\ORM\EntityManagerInterface;
 use HMS\Entities\Role;
 use HMS\Entities\RoleUpdate;
 use HMS\Repositories\RoleRepository;
-use HMS\Repositories\UserRepository;
-use App\Events\Roles\UserAddedToRole;
-use Doctrine\ORM\EntityManagerInterface;
-use Illuminate\Queue\InteractsWithQueue;
-use App\Events\Roles\UserRemovedFromRole;
 use HMS\Repositories\RoleUpdateRepository;
+use HMS\Repositories\UserRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
 
 class RoleUpdateLogger implements ShouldQueue
 {

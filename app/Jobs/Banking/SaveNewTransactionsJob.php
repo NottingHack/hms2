@@ -2,17 +2,17 @@
 
 namespace App\Jobs\Banking;
 
+use App\Notifications\Banking\UnmatchedTransaction;
 use Carbon\Carbon;
 use HMS\Entities\Role;
-use Illuminate\Bus\Queueable;
+use HMS\Factories\Banking\BankTransactionFactory;
+use HMS\Repositories\Banking\BankRepository;
 use HMS\Repositories\RoleRepository;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use HMS\Repositories\Banking\BankRepository;
-use HMS\Factories\Banking\BankTransactionFactory;
-use App\Notifications\Banking\UnmatchedTransaction;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 class SaveNewTransactionsJob implements ShouldQueue
 {

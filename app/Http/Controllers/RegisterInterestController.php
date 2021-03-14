@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use HMS\Repositories\InviteRepository;
 use App\Events\MembershipInterestRegistered;
+use HMS\Repositories\InviteRepository;
+use Illuminate\Http\Request;
 
 class RegisterInterestController extends Controller
 {

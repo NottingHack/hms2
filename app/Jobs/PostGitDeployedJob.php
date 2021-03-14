@@ -2,15 +2,15 @@
 
 namespace App\Jobs;
 
-use Exception;
+use App\Notifications\PostGitDeployedResults;
 use Carbon\Carbon;
+use Exception;
 use HMS\Entities\Role;
-use Illuminate\Bus\Queueable;
 use HMS\Repositories\RoleRepository;
-use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use App\Notifications\PostGitDeployedResults;
+use Illuminate\Queue\InteractsWithQueue;
 
 class PostGitDeployedJob implements ShouldQueue
 {

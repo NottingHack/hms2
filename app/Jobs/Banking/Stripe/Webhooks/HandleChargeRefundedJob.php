@@ -2,14 +2,14 @@
 
 namespace App\Jobs\Banking\Stripe\Webhooks;
 
-use HMS\Entities\Role;
-use Stripe\Charge as StripeCharge;
-use HMS\Entities\Banking\Stripe\Charge;
-use HMS\Entities\Banking\Stripe\ChargeType;
-use HMS\Entities\Snackspace\TransactionType;
 use App\Notifications\Banking\Stripe\DonationRefund;
 use App\Notifications\Banking\Stripe\ProcessingIssue;
 use App\Notifications\Banking\Stripe\SnackspaceRefund;
+use HMS\Entities\Banking\Stripe\Charge;
+use HMS\Entities\Banking\Stripe\ChargeType;
+use HMS\Entities\Role;
+use HMS\Entities\Snackspace\TransactionType;
+use Stripe\Charge as StripeCharge;
 
 class HandleChargeRefundedJob extends EventHandler
 {

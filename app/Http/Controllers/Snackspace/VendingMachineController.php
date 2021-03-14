@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers\Snackspace;
 
+use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use Doctrine\Common\Collections\Criteria;
+use HMS\Entities\Snackspace\TransactionState;
+use HMS\Entities\Snackspace\VendingLocation;
+use HMS\Entities\Snackspace\VendingMachine;
+use HMS\Entities\Snackspace\VendingMachineType;
+use HMS\Entities\Snackspace\VendLog;
+use HMS\Repositories\Snackspace\ProductRepository;
+use HMS\Repositories\Snackspace\TransactionRepository;
+use HMS\Repositories\Snackspace\VendingLocationRepository;
+use HMS\Repositories\Snackspace\VendingMachineRepository;
+use HMS\Repositories\Snackspace\VendLogRepository;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use App\Http\Controllers\Controller;
-use HMS\Entities\Snackspace\VendLog;
-use Doctrine\Common\Collections\Criteria;
-use HMS\Entities\Snackspace\VendingMachine;
-use HMS\Entities\Snackspace\VendingLocation;
-use HMS\Entities\Snackspace\TransactionState;
-use HMS\Entities\Snackspace\VendingMachineType;
-use HMS\Repositories\Snackspace\ProductRepository;
-use HMS\Repositories\Snackspace\VendLogRepository;
-use HMS\Repositories\Snackspace\TransactionRepository;
-use HMS\Repositories\Snackspace\VendingMachineRepository;
-use HMS\Repositories\Snackspace\VendingLocationRepository;
 
 class VendingMachineController extends Controller
 {

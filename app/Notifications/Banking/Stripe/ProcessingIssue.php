@@ -3,10 +3,10 @@
 namespace App\Notifications\Banking\Stripe;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Spatie\WebhookClient\Models\WebhookCall;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
+use Spatie\WebhookClient\Models\WebhookCall;
 
 class ProcessingIssue extends Notification implements ShouldQueue
 {

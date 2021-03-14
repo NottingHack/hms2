@@ -3,9 +3,9 @@
 namespace HMS\Repositories\Gatekeeper\Doctrine;
 
 use Carbon\Carbon;
-use HMS\Entities\User;
 use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Gatekeeper\AccessLog;
+use HMS\Entities\User;
 use HMS\Repositories\Gatekeeper\AccessLogRepository;
 use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 

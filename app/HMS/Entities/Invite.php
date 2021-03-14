@@ -3,8 +3,8 @@
 namespace HMS\Entities;
 
 use Carbon\Carbon;
-use Illuminate\Support\Str;
 use HMS\Traits\Entities\Timestampable;
+use Illuminate\Support\Str;
 use LaravelDoctrine\ORM\Notifications\Notifiable;
 
 class Invite

@@ -2,15 +2,15 @@
 
 namespace HMS\User\Permissions;
 
+use App\Events\Roles\RoleCreated;
+use App\Events\Roles\UserAddedToRole;
+use App\Events\Roles\UserRemovedFromRole;
+use Doctrine\ORM\EntityManagerInterface;
 use HMS\Entities\Role;
 use HMS\Entities\User;
-use App\Events\Roles\RoleCreated;
+use HMS\Repositories\PermissionRepository;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
-use App\Events\Roles\UserAddedToRole;
-use Doctrine\ORM\EntityManagerInterface;
-use App\Events\Roles\UserRemovedFromRole;
-use HMS\Repositories\PermissionRepository;
 
 class RoleManager
 {

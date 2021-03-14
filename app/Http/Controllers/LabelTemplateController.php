@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use HMS\Entities\LabelTemplate;
 use App\Events\Labels\ManualPrint;
+use HMS\Entities\LabelTemplate;
 use HMS\Factories\LabelTemplateFactory;
 use HMS\Repositories\LabelTemplateRepository;
+use Illuminate\Http\Request;
 
 class LabelTemplateController extends Controller
 {

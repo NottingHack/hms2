@@ -2,12 +2,12 @@
 
 namespace App\Listeners\Gatekeeper;
 
+use App\Events\Gatekeeper\BookingApproved;
+use App\Notifications\Gatekeeper\BookingApproved as BookingApprovedNotification;
 use Carbon\Carbon;
 use HMS\Facades\Meta;
-use App\Events\Gatekeeper\BookingApproved;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use HMS\Repositories\Gatekeeper\TemporaryAccessBookingRepository;
-use App\Notifications\Gatekeeper\BookingApproved as BookingApprovedNotification;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class NotifyBookingApproved implements ShouldQueue
 {

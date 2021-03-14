@@ -2,9 +2,9 @@
 
 namespace HMS\Repositories\Gatekeeper\Doctrine;
 
-use HMS\Entities\User;
 use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Gatekeeper\ZoneOccupant;
+use HMS\Entities\User;
 use HMS\Repositories\Gatekeeper\ZoneOccupantRepository;
 
 class DoctrineZoneOccupantRepository extends EntityRepository implements ZoneOccupantRepository

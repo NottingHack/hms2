@@ -2,11 +2,11 @@
 
 namespace App\Listeners\Invites;
 
+use App\Events\MembershipInterestRegistered;
 use App\Mail\InterestRegistered;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Events\MembershipInterestRegistered;
 
 class MailInvite implements ShouldQueue
 {

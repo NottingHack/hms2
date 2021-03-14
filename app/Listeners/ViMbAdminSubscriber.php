@@ -2,21 +2,21 @@
 
 namespace App\Listeners;
 
+use App\Events\Roles\RoleCreated;
+use App\Events\Roles\UserAddedToRole;
+use App\Events\Roles\UserRemovedFromRole;
+use App\Events\Users\UserEmailChanged;
 use Exception;
 use HMS\Entities\Role;
-use LWK\ViMbAdmin\Model\Link;
-use LWK\ViMbAdmin\Model\Alias;
-use LWK\ViMbAdmin\Model\Error;
-use LWK\ViMbAdmin\Model\Domain;
-use LWK\ViMbAdmin\Model\Mailbox;
-use App\Events\Roles\RoleCreated;
-use LWK\ViMbAdmin\ViMbAdminClient;
 use HMS\Repositories\UserRepository;
-use App\Events\Roles\UserAddedToRole;
-use App\Events\Users\UserEmailChanged;
-use Illuminate\Queue\InteractsWithQueue;
-use App\Events\Roles\UserRemovedFromRole;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
+use LWK\ViMbAdmin\Model\Alias;
+use LWK\ViMbAdmin\Model\Domain;
+use LWK\ViMbAdmin\Model\Error;
+use LWK\ViMbAdmin\Model\Link;
+use LWK\ViMbAdmin\Model\Mailbox;
+use LWK\ViMbAdmin\ViMbAdminClient;
 
 class ViMbAdminSubscriber implements ShouldQueue
 {

@@ -2,8 +2,8 @@
 
 namespace HMS\Repositories\Banking;
 
-use HMS\Entities\User;
 use HMS\Entities\Banking\MembershipStatusNotification;
+use HMS\Entities\User;
 
 interface MembershipStatusNotificationRepository
 {

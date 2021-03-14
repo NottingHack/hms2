@@ -4,16 +4,16 @@ namespace App\Jobs\Gatekeeper;
 
 use Carbon\Carbon;
 use HMS\Entities\Role;
-use Illuminate\Bus\Queueable;
-use Illuminate\Support\Facades\Log;
+use HMS\Repositories\Gatekeeper\TemporaryAccessBookingRepository;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
 use HMS\User\Permissions\RoleManager;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use HMS\Repositories\Gatekeeper\TemporaryAccessBookingRepository;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class UpdateTemporaryAccessRoleJob implements ShouldQueue
 {

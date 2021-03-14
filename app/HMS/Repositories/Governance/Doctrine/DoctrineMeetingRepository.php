@@ -3,9 +3,9 @@
 namespace HMS\Repositories\Governance\Doctrine;
 
 use Carbon\Carbon;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Governance\Meeting;
-use Doctrine\Common\Collections\Criteria;
 use HMS\Repositories\Governance\MeetingRepository;
 use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 

@@ -2,13 +2,13 @@
 
 namespace App\Events\Gatekeeper;
 
-use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use App\Http\Resources\Gatekeeper\TemporaryAccessBooking as TemporaryAccessBookingResources;
+use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
+use Illuminate\Broadcasting\Channel;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 
 class NewBooking implements ShouldBroadcast
 {

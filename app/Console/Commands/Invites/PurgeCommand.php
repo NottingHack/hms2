@@ -3,9 +3,9 @@
 namespace App\Console\Commands\Invites;
 
 use Carbon\Carbon;
-use Illuminate\Console\Command;
-use HMS\Repositories\MetaRepository;
 use HMS\Repositories\InviteRepository;
+use HMS\Repositories\MetaRepository;
+use Illuminate\Console\Command;
 
 class PurgeCommand extends Command
 {

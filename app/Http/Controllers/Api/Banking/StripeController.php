@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api\Banking;
 
-use Stripe\PaymentIntent;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response as IlluminateResponse;
+use Illuminate\Support\Facades\Auth;
+use Stripe\PaymentIntent;
 
 class StripeController extends Controller
 {

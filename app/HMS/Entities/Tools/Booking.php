@@ -3,10 +3,10 @@
 namespace HMS\Entities\Tools;
 
 use Carbon\Carbon;
-use JsonSerializable;
 use HMS\Entities\User;
-use LaravelDoctrine\Extensions\Timestamps\Timestamps;
 use Illuminate\Contracts\Support\Arrayable as ArrayableContract;
+use JsonSerializable;
+use LaravelDoctrine\Extensions\Timestamps\Timestamps;
 
 class Booking implements ArrayableContract, JsonSerializable
 {

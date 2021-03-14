@@ -2,25 +2,25 @@
 
 namespace App\Jobs\Gatekeeper;
 
+use App\Notifications\Gatekeeper\NotifyTrusteeOverstay;
+use App\Notifications\Gatekeeper\NotifyUserOverstay;
 use Carbon\Carbon;
+use HMS\Entities\Gatekeeper\Building;
+use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
 use HMS\Entities\Role;
 use HMS\Entities\User;
-use Illuminate\Bus\Queueable;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Log;
+use HMS\Repositories\Gatekeeper\BuildingRepository;
+use HMS\Repositories\Gatekeeper\TemporaryAccessBookingRepository;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
-use HMS\Entities\Gatekeeper\Building;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
-use HMS\Repositories\Gatekeeper\BuildingRepository;
-use App\Notifications\Gatekeeper\NotifyUserOverstay;
-use App\Notifications\Gatekeeper\NotifyTrusteeOverstay;
-use HMS\Repositories\Gatekeeper\TemporaryAccessBookingRepository;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class TemporaryAcccessCheckZoneOccupancyJob implements ShouldQueue
 {

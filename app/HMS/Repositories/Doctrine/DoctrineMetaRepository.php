@@ -2,8 +2,8 @@
 
 namespace HMS\Repositories\Doctrine;
 
-use HMS\Entities\Meta;
 use Doctrine\ORM\EntityRepository;
+use HMS\Entities\Meta;
 use HMS\Repositories\MetaRepository;
 use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 

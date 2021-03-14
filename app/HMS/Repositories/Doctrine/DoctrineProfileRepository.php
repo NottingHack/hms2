@@ -2,9 +2,9 @@
 
 namespace HMS\Repositories\Doctrine;
 
-use HMS\Entities\Role;
-use HMS\Entities\Profile;
 use Doctrine\ORM\EntityRepository;
+use HMS\Entities\Profile;
+use HMS\Entities\Role;
 use HMS\Repositories\ProfileRepository;
 
 class DoctrineProfileRepository extends EntityRepository implements ProfileRepository

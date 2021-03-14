@@ -2,10 +2,10 @@
 
 namespace HMS\Factories\Members;
 
-use HMS\Entities\User;
 use HMS\Entities\Members\Box;
-use Illuminate\Support\Facades\Auth;
+use HMS\Entities\User;
 use HMS\Repositories\Members\BoxRepository;
+use Illuminate\Support\Facades\Auth;
 
 class BoxFactory
 {

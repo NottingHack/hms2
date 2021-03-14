@@ -3,13 +3,13 @@
 namespace App\Notifications\Gatekeeper;
 
 use Carbon\Carbon;
-use Illuminate\Support\Str;
+use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
 use Illuminate\Notifications\Messages\SlackMessage;
+use Illuminate\Notifications\Notification;
+use Illuminate\Support\Str;
 
 class BookingRequested extends Notification implements ShouldQueue
 {

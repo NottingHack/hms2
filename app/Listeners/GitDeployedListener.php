@@ -3,9 +3,9 @@
 namespace App\Listeners;
 
 use App\Jobs\PostGitDeployedJob;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Orphans\GitDeploy\Events\GitDeployed;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class GitDeployedListener implements ShouldQueue
 {

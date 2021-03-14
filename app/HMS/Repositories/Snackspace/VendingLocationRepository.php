@@ -2,8 +2,8 @@
 
 namespace HMS\Repositories\Snackspace;
 
-use HMS\Entities\Snackspace\VendingMachine;
 use HMS\Entities\Snackspace\VendingLocation;
+use HMS\Entities\Snackspace\VendingMachine;
 
 interface VendingLocationRepository
 {

@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Snackspace;
 
-use HMS\Entities\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use HMS\Repositories\UserRepository;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Doctrine\ORM\EntityNotFoundException;
 use HMS\Entities\Snackspace\TransactionType;
+use HMS\Entities\User;
 use HMS\Factories\Snackspace\TransactionFactory;
 use HMS\Repositories\Snackspace\TransactionRepository;
+use HMS\Repositories\UserRepository;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class TransactionsController extends Controller
 {

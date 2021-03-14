@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api\Banking;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Jobs\Banking\SaveNewTransactionsJob;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response as IlluminateResponse;
 
 class TransactionUploadController extends Controller

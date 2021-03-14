@@ -2,8 +2,8 @@
 
 namespace HMS\Repositories\Gatekeeper;
 
-use HMS\Entities\Gatekeeper\Building;
 use HMS\Entities\Gatekeeper\BookableArea;
+use HMS\Entities\Gatekeeper\Building;
 
 interface BookableAreaRepository
 {

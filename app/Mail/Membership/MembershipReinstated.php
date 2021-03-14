@@ -4,12 +4,12 @@ namespace App\Mail\Membership;
 
 use HMS\Entities\Role;
 use HMS\Entities\User;
-use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
-use Illuminate\Queue\SerializesModels;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
 
 class MembershipReinstated extends Mailable implements ShouldQueue
 {

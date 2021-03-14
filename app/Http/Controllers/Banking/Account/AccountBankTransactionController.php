@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Banking\Account;
 
-use Carbon\Carbon;
-use HMS\Helpers\Features;
-use Illuminate\Http\Request;
-use HMS\Entities\Banking\Account;
-use HMS\Entities\Banking\BankType;
 use App\Http\Controllers\Controller;
 use App\Jobs\Banking\AccountAuditJob;
-use HMS\Repositories\Banking\BankRepository;
+use Carbon\Carbon;
+use HMS\Entities\Banking\Account;
+use HMS\Entities\Banking\BankType;
 use HMS\Factories\Banking\BankTransactionFactory;
+use HMS\Helpers\Features;
+use HMS\Repositories\Banking\BankRepository;
+use Illuminate\Http\Request;
 
 class AccountBankTransactionController extends Controller
 {

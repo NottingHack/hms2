@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Governance;
 
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use HMS\Entities\Governance\Meeting;
-use HMS\Repositories\UserRepository;
-use App\Events\Governance\ProxyCheckedIn;
 use App\Events\Governance\AttendeeCheckIn;
+use App\Events\Governance\ProxyCheckedIn;
+use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use HMS\Entities\Governance\Meeting;
 use HMS\Factories\Governance\MeetingFactory;
-use HMS\Repositories\Governance\ProxyRepository;
 use HMS\Repositories\Governance\MeetingRepository;
+use HMS\Repositories\Governance\ProxyRepository;
+use HMS\Repositories\UserRepository;
+use Illuminate\Http\Request;
 
 class MeetingController extends Controller
 {

@@ -3,8 +3,8 @@
 namespace HMS\Entities\Governance;
 
 use Carbon\Carbon;
-use HMS\Entities\User;
 use Doctrine\Common\Collections\ArrayCollection;
+use HMS\Entities\User;
 
 class Meeting
 {

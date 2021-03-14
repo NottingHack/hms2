@@ -4,21 +4,21 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use HMS\Entities\Role;
+use HMS\Governance\VotingManager;
+use HMS\Repositories\EmailRepository;
+use HMS\Repositories\Gatekeeper\ZoneRepository;
+use HMS\Repositories\InviteRepository;
+use HMS\Repositories\Members\BoxRepository;
+use HMS\Repositories\MetaRepository;
+use HMS\Repositories\RoleRepository;
+use HMS\Repositories\RoleUpdateRepository;
+use HMS\Repositories\Tools\BookingRepository;
+use HMS\Repositories\Tools\ToolRepository;
+use HMS\Repositories\Tools\UsageRepository;
 use HMS\Views\LaserUsage;
 use HMS\Views\MemberStats;
 use HMS\Views\SnackspaceMonthly;
-use HMS\Governance\VotingManager;
-use HMS\Repositories\MetaRepository;
-use HMS\Repositories\RoleRepository;
-use HMS\Repositories\EmailRepository;
 use Illuminate\Support\Facades\Cache;
-use HMS\Repositories\InviteRepository;
-use HMS\Repositories\RoleUpdateRepository;
-use HMS\Repositories\Tools\ToolRepository;
-use HMS\Repositories\Members\BoxRepository;
-use HMS\Repositories\Tools\UsageRepository;
-use HMS\Repositories\Tools\BookingRepository;
-use HMS\Repositories\Gatekeeper\ZoneRepository;
 
 class StatisticsController extends Controller
 {

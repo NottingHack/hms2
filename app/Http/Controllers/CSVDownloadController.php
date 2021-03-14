@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use HMS\Entities\Role;
-use HMS\Views\LowPayer;
-use HMS\Repositories\RoleRepository;
 use HMS\Repositories\Banking\BankTransactionRepository;
+use HMS\Repositories\RoleRepository;
+use HMS\Views\LowPayer;
 
 class CSVDownloadController extends Controller
 {

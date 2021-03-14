@@ -1,12 +1,12 @@
 <?php
 
-use HMS\Entities\Role;
-use Illuminate\Database\Seeder;
-use HMS\Repositories\RoleRepository;
-use HMS\Entities\Snackspace\Transaction;
 use Doctrine\Common\Collections\Collection;
+use HMS\Entities\Role;
+use HMS\Entities\Snackspace\Transaction;
+use HMS\Repositories\RoleRepository;
 use HMS\Repositories\Snackspace\ProductRepository;
 use HMS\Repositories\Snackspace\TransactionRepository;
+use Illuminate\Database\Seeder;
 
 class TransactionTableSeeder extends Seeder
 {

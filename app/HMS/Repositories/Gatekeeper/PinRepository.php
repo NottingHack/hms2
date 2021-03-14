@@ -2,8 +2,8 @@
 
 namespace HMS\Repositories\Gatekeeper;
 
-use HMS\Entities\User;
 use HMS\Entities\Gatekeeper\Pin;
+use HMS\Entities\User;
 
 interface PinRepository
 {

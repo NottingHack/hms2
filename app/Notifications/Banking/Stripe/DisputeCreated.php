@@ -2,14 +2,14 @@
 
 namespace App\Notifications\Banking\Stripe;
 
-use DateTimeZone;
 use Carbon\Carbon;
-use Stripe\Dispute;
-use Illuminate\Bus\Queueable;
+use DateTimeZone;
 use HMS\Entities\Banking\Stripe\Charge;
-use Illuminate\Notifications\Notification;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
+use Stripe\Dispute;
 
 class DisputeCreated extends Notification implements ShouldQueue
 {

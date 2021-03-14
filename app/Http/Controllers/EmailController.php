@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use HMS\Entities\Role;
-use Illuminate\Http\Request;
-use App\Mail\ToCurrentMembers;
-use Illuminate\Support\HtmlString;
 use App\Jobs\EmailCurrentMembersJob;
+use App\Mail\ToCurrentMembers;
+use HMS\Entities\Role;
 use HMS\Repositories\RoleRepository;
 use Illuminate\Contracts\View\Factory as ViewFactory;
+use Illuminate\Http\Request;
+use Illuminate\Support\HtmlString;
 use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
 
 class EmailController extends Controller

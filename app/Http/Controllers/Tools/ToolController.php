@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Tools;
 
-use HMS\Tools\ToolManager;
-use HMS\Entities\Tools\Tool;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
-use HMS\Repositories\RoleRepository;
-use HMS\Repositories\UserRepository;
-use Illuminate\Support\Facades\Gate;
+use HMS\Entities\Tools\Tool;
 use HMS\Factories\Tools\UsageFactory;
+use HMS\Repositories\RoleRepository;
 use HMS\Repositories\RoleUpdateRepository;
+use HMS\Repositories\Tools\BookingRepository;
 use HMS\Repositories\Tools\ToolRepository;
 use HMS\Repositories\Tools\UsageRepository;
-use HMS\Repositories\Tools\BookingRepository;
+use HMS\Repositories\UserRepository;
+use HMS\Tools\ToolManager;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\Rule;
 
 class ToolController extends Controller
 {

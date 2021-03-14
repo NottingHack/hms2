@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Governance;
 
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
-use HMS\Governance\VotingManager;
 use App\Http\Controllers\Controller;
+use HMS\Governance\VotingManager;
 use HMS\Governance\VotingPreference;
 use HMS\Repositories\UserRepository;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class VotingController extends Controller
 {

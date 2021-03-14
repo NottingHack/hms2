@@ -3,15 +3,15 @@
 namespace App\Jobs\Snackspace;
 
 use Carbon\Carbon;
-use Illuminate\Bus\Queueable;
 use HMS\Entities\Snackspace\Debt;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Queue\SerializesModels;
 use HMS\Repositories\ProfileRepository;
-use Illuminate\Queue\InteractsWithQueue;
+use HMS\Repositories\Snackspace\DebtRepository;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use HMS\Repositories\Snackspace\DebtRepository;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class LogDebtJob implements ShouldQueue
 {

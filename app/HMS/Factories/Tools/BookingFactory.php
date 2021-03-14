@@ -3,9 +3,9 @@
 namespace HMS\Factories\Tools;
 
 use Carbon\Carbon;
-use HMS\Entities\User;
-use HMS\Entities\Tools\Tool;
 use HMS\Entities\Tools\Booking;
+use HMS\Entities\Tools\Tool;
+use HMS\Entities\User;
 use HMS\Repositories\Tools\BookingRepository;
 
 class BookingFactory

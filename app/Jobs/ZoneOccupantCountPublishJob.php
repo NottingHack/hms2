@@ -2,13 +2,13 @@
 
 namespace App\Jobs;
 
-use Illuminate\Bus\Queueable;
 use HMS\Entities\Gatekeeper\Zone;
-use karpy47\PhpMqttClient\MQTTClient;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use karpy47\PhpMqttClient\MQTTClient;
 
 class ZoneOccupantCountPublishJob implements ShouldQueue
 {

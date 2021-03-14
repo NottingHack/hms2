@@ -2,13 +2,13 @@
 
 namespace HMS\Entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use HMS\Traits\Entities\SoftDeletable;
 use HMS\Traits\Entities\Timestampable;
 use LaravelDoctrine\ACL\Contracts\Permission;
-use Doctrine\Common\Collections\ArrayCollection;
-use LaravelDoctrine\ORM\Notifications\Notifiable;
-use LaravelDoctrine\ACL\Permissions\HasPermissions;
 use LaravelDoctrine\ACL\Contracts\Role as RoleContract;
+use LaravelDoctrine\ACL\Permissions\HasPermissions;
+use LaravelDoctrine\ORM\Notifications\Notifiable;
 
 class Role implements RoleContract
 {

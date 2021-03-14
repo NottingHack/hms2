@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use HMS\Entities\Role;
 use HMS\Entities\User;
-use HMS\User\UserManager;
-use HMS\User\ProfileManager;
-use Illuminate\Http\Request;
 use HMS\Repositories\UserRepository;
+use HMS\User\ProfileManager;
+use HMS\User\UserManager;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 

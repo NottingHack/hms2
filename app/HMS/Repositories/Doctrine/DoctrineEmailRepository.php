@@ -3,9 +3,9 @@
 namespace HMS\Repositories\Doctrine;
 
 use Carbon\Carbon;
-use HMS\Entities\Role;
-use HMS\Entities\Email;
 use Doctrine\ORM\EntityRepository;
+use HMS\Entities\Email;
+use HMS\Entities\Role;
 use HMS\Repositories\EmailRepository;
 
 // TODO: findByUserPaginate(????);

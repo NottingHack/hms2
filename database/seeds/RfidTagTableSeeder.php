@@ -1,12 +1,12 @@
 <?php
 
-use HMS\Entities\Role;
-use Illuminate\Database\Seeder;
 use HMS\Entities\Gatekeeper\RfidTag;
-use HMS\Repositories\RoleRepository;
 use HMS\Entities\Gatekeeper\RfidTagState;
+use HMS\Entities\Role;
 use HMS\Repositories\Gatekeeper\PinRepository;
 use HMS\Repositories\Gatekeeper\RfidTagRepository;
+use HMS\Repositories\RoleRepository;
+use Illuminate\Database\Seeder;
 
 class RfidTagTableSeeder extends Seeder
 {

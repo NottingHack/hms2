@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
-use HMS\Entities\User;
-use HMS\User\UserManager;
-use HMS\User\ProfileManager;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\User as UserResource;
+use HMS\Entities\User;
 use HMS\Repositories\UserRepository;
+use HMS\User\ProfileManager;
+use HMS\User\UserManager;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use App\Http\Resources\User as UserResource;
 
 class UserController extends Controller
 {

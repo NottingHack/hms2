@@ -2,16 +2,16 @@
 
 namespace App\Listeners\Membership;
 
+use App\Events\Banking\MembershipPaymentWarning;
+use App\Mail\Membership\MembershipMayBeRevoked;
+use HMS\Factories\Banking\MembershipStatusNotificationFactory;
+use HMS\Repositories\Banking\BankRepository;
+use HMS\Repositories\Banking\MembershipStatusNotificationRepository;
+use HMS\Repositories\Members\BoxRepository;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
-use HMS\Repositories\Members\BoxRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use HMS\Repositories\Banking\BankRepository;
-use App\Mail\Membership\MembershipMayBeRevoked;
-use App\Events\Banking\MembershipPaymentWarning;
-use HMS\Factories\Banking\MembershipStatusNotificationFactory;
-use HMS\Repositories\Banking\MembershipStatusNotificationRepository;
 
 class WarnMembershipMayExpire implements ShouldQueue
 {

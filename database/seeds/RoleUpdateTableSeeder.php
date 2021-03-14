@@ -2,9 +2,9 @@
 
 use HMS\Entities\Role;
 use HMS\Entities\RoleUpdate;
-use Illuminate\Database\Seeder;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\RoleUpdateRepository;
+use Illuminate\Database\Seeder;
 
 class RoleUpdateTableSeeder extends Seeder
 {

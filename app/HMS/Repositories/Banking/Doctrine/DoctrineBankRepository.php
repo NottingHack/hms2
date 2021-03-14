@@ -2,10 +2,10 @@
 
 namespace HMS\Repositories\Banking\Doctrine;
 
-use HMS\Entities\Banking\Bank;
-use Doctrine\ORM\EntityRepository;
-use HMS\Entities\Banking\BankType;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\EntityRepository;
+use HMS\Entities\Banking\Bank;
+use HMS\Entities\Banking\BankType;
 use HMS\Repositories\Banking\BankRepository;
 use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 

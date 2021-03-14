@@ -2,10 +2,10 @@
 
 namespace HMS\Entities\Gatekeeper;
 
-use JsonSerializable;
 use HMS\Traits\Entities\SoftDeletable;
 use HMS\Traits\Entities\Timestampable;
 use Illuminate\Contracts\Support\Arrayable as ArrayableContract;
+use JsonSerializable;
 
 class BookableArea implements ArrayableContract, JsonSerializable
 {

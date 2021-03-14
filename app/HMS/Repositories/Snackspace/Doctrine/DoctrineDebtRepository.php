@@ -3,8 +3,8 @@
 namespace HMS\Repositories\Snackspace\Doctrine;
 
 use Carbon\Carbon;
-use HMS\Entities\Snackspace\Debt;
 use Doctrine\ORM\EntityRepository;
+use HMS\Entities\Snackspace\Debt;
 use HMS\Repositories\Snackspace\DebtRepository;
 
 class DoctrineDebtRepository extends EntityRepository implements DebtRepository

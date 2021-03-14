@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use HMS\Entities\User;
-use HMS\User\UserManager;
-use HMS\User\ProfileManager;
 use App\Http\Controllers\Controller;
+use HMS\Entities\User;
 use HMS\Repositories\InviteRepository;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use HMS\User\ProfileManager;
+use HMS\User\UserManager;
 use Illuminate\Contracts\Validation\Factory as Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {

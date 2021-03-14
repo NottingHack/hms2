@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use HMS\Entities\User;
-use HMS\Auth\PasswordStore;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Support\Facades\Password;
+use HMS\Auth\PasswordStore;
+use HMS\Entities\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 
 class ResetPasswordController extends Controller
 {

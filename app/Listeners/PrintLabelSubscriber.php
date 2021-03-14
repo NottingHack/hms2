@@ -2,11 +2,11 @@
 
 namespace App\Listeners;
 
-use HMS\Repositories\MetaRepository;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use HMS\Repositories\LabelTemplateRepository;
 use App\Events\Labels\LabelPrintEventInterface;
+use HMS\Repositories\LabelTemplateRepository;
+use HMS\Repositories\MetaRepository;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
 
 class PrintLabelSubscriber implements ShouldQueue
 {

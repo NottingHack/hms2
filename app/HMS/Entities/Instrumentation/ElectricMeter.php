@@ -2,8 +2,8 @@
 
 namespace HMS\Entities\Instrumentation;
 
-use HMS\Entities\Gatekeeper\Room;
 use Doctrine\Common\Collections\ArrayCollection;
+use HMS\Entities\Gatekeeper\Room;
 
 class ElectricMeter
 {

@@ -84,7 +84,7 @@ $rules = [
     'normalize_index_brace' => true,
     'not_operator_with_successor_space' => true,
     'object_operator_without_whitespace' => true,
-    'ordered_imports' => ['sortAlgorithm' => 'length'], // lwk, HMS is still length based
+    'ordered_imports' => ['sortAlgorithm' => 'alpha'], // lwk, HMS is still length based
     'phpdoc_indent' => true,
     'phpdoc_inline_tag' => true,
     'phpdoc_no_access' => true,

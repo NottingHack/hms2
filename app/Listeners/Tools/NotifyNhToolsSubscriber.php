@@ -2,12 +2,12 @@
 
 namespace App\Listeners\Tools;
 
-use App\Events\Tools\NewBooking;
-use App\Events\Tools\BookingChanged;
-use karpy47\PhpMqttClient\MQTTClient;
 use App\Events\Tools\BookingCancelled;
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\Tools\BookingChanged;
+use App\Events\Tools\NewBooking;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
+use karpy47\PhpMqttClient\MQTTClient;
 
 class NotifyNhToolsSubscriber implements ShouldQueue
 {

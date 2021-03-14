@@ -3,8 +3,8 @@
 namespace HMS\Repositories\Snackspace\Doctrine;
 
 use Doctrine\ORM\EntityRepository;
-use HMS\Entities\Snackspace\VendingMachine;
 use HMS\Entities\Snackspace\VendingLocation;
+use HMS\Entities\Snackspace\VendingMachine;
 use HMS\Repositories\Snackspace\VendingLocationRepository;
 
 class DoctrineVendingLocationRepository extends EntityRepository implements VendingLocationRepository

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api\Gatekeeper;
 
-use Illuminate\Http\Request;
-use HMS\Gatekeeper\BuildingManager;
 use App\Http\Controllers\Controller;
-use HMS\Entities\Gatekeeper\Building;
-use HMS\Repositories\Gatekeeper\BuildingRepository;
-use Illuminate\Http\Response as IlluminateResponse;
 use App\Http\Resources\Gatekeeper\Building as BuildingResource;
+use HMS\Entities\Gatekeeper\Building;
+use HMS\Gatekeeper\BuildingManager;
+use HMS\Repositories\Gatekeeper\BuildingRepository;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response as IlluminateResponse;
 
 class BuildingController extends Controller
 {

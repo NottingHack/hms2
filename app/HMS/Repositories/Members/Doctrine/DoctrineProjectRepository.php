@@ -2,10 +2,10 @@
 
 namespace HMS\Repositories\Members\Doctrine;
 
-use HMS\Entities\User;
-use HMS\Entities\Members\Project;
 use Doctrine\ORM\EntityRepository;
+use HMS\Entities\Members\Project;
 use HMS\Entities\Members\ProjectState;
+use HMS\Entities\User;
 use HMS\Repositories\Members\ProjectRepository;
 use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 

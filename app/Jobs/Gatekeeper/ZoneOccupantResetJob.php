@@ -2,21 +2,21 @@
 
 namespace App\Jobs\Gatekeeper;
 
+use App\Jobs\ZoneOccupantCountPublishJob;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
-use Illuminate\Bus\Queueable;
 use HMS\Entities\Gatekeeper\Zone;
-use Illuminate\Support\Facades\Log;
+use HMS\Entities\Gatekeeper\ZoneOccupancyLog;
+use HMS\Repositories\Gatekeeper\ZoneOccupancyLogRepository;
+use HMS\Repositories\Gatekeeper\ZoneOccupantRepository;
+use HMS\Repositories\Gatekeeper\ZoneRepository;
 use HMS\Repositories\MetaRepository;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use App\Jobs\ZoneOccupantCountPublishJob;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use HMS\Entities\Gatekeeper\ZoneOccupancyLog;
-use HMS\Repositories\Gatekeeper\ZoneRepository;
-use HMS\Repositories\Gatekeeper\ZoneOccupantRepository;
-use HMS\Repositories\Gatekeeper\ZoneOccupancyLogRepository;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class ZoneOccupantResetJob implements ShouldQueue
 {

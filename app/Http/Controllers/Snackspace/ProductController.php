@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Snackspace;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use HMS\Entities\Snackspace\Product;
 use HMS\Factories\Snackspace\ProductFactory;
 use HMS\Repositories\Snackspace\ProductRepository;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {

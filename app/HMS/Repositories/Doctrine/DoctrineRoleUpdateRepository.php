@@ -2,10 +2,10 @@
 
 namespace HMS\Repositories\Doctrine;
 
-use HMS\Entities\Role;
-use HMS\Entities\User;
-use HMS\Entities\RoleUpdate;
 use Doctrine\ORM\EntityRepository;
+use HMS\Entities\Role;
+use HMS\Entities\RoleUpdate;
+use HMS\Entities\User;
 use HMS\Repositories\RoleUpdateRepository;
 
 class DoctrineRoleUpdateRepository extends EntityRepository implements RoleUpdateRepository

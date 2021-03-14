@@ -2,19 +2,19 @@
 
 namespace App\Jobs\Membership;
 
-use Carbon\Carbon;
-use HMS\Entities\Role;
-use Illuminate\Bus\Queueable;
-use HMS\Repositories\RoleRepository;
-use HMS\Repositories\UserRepository;
-use Illuminate\Support\Facades\Mail;
-use HMS\User\Permissions\RoleManager;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
 use App\Mail\Membership\EighteenCongratulations;
 use App\Notifications\Membership\YoungHackerTurnedEighteen;
+use Carbon\Carbon;
+use HMS\Entities\Role;
+use HMS\Repositories\RoleRepository;
+use HMS\Repositories\UserRepository;
+use HMS\User\Permissions\RoleManager;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Mail;
 
 class AuditYoungHackersJob implements ShouldQueue
 {

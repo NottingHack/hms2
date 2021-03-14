@@ -2,18 +2,18 @@
 
 namespace App\Jobs;
 
-use HMS\Entities\Role;
-use Soundasleep\Html2Text;
-use Illuminate\Bus\Queueable;
 use App\Mail\ToCurrentMembers;
-use Illuminate\Support\HtmlString;
-use HMS\Repositories\RoleRepository;
 use Bogardo\Mailgun\Contracts\Mailgun;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
+use HMS\Entities\Role;
+use HMS\Repositories\RoleRepository;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Contracts\View\Factory as ViewFactory;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\HtmlString;
+use Soundasleep\Html2Text;
 use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
 
 class EmailCurrentMembersJob implements ShouldQueue

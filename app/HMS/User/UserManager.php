@@ -2,12 +2,12 @@
 
 namespace HMS\User;
 
+use App\Events\Users\UserEmailChanged;
+use HMS\Auth\PasswordStore;
 use HMS\Entities\Role;
 use HMS\Entities\User;
-use HMS\Auth\PasswordStore;
 use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
-use App\Events\Users\UserEmailChanged;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class UserManager

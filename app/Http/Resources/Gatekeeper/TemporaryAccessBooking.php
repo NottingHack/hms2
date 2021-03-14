@@ -2,10 +2,10 @@
 
 namespace App\Http\Resources\Gatekeeper;
 
+use App\Http\Resources\Gatekeeper\BookableArea as BookableAreaResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Gatekeeper\BookableArea as BookableAreaResource;
 
 class TemporaryAccessBooking extends JsonResource
 {

@@ -2,10 +2,10 @@
 
 namespace HMS\Repositories\Snackspace\Doctrine;
 
-use HMS\Entities\User;
 use Doctrine\ORM\EntityRepository;
-use HMS\Entities\Snackspace\Transaction;
 use HMS\Entities\Snackspace\PurchasePayment;
+use HMS\Entities\Snackspace\Transaction;
+use HMS\Entities\User;
 use HMS\Repositories\Snackspace\PurchasePaymentRepository;
 
 class DoctrinePurchasePaymentRepository extends EntityRepository implements PurchasePaymentRepository

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Snackspace;
 
+use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use HMS\Repositories\Snackspace\TransactionRepository;
 use HMS\Views\Payment;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use HMS\Repositories\Snackspace\TransactionRepository;
 
 class PurchasePaymentController extends Controller
 {

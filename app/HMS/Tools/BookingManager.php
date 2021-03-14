@@ -2,17 +2,17 @@
 
 namespace HMS\Tools;
 
-use Carbon\Carbon;
-use HMS\Entities\User;
-use HMS\Entities\Tools\Tool;
-use HMS\Entities\Tools\Booking;
-use App\Events\Tools\NewBooking;
-use HMS\Entities\Tools\BookingType;
-use App\Events\Tools\BookingChanged;
-use Illuminate\Support\Facades\Auth;
 use App\Events\Tools\BookingCancelled;
+use App\Events\Tools\BookingChanged;
+use App\Events\Tools\NewBooking;
+use Carbon\Carbon;
+use HMS\Entities\Tools\Booking;
+use HMS\Entities\Tools\BookingType;
+use HMS\Entities\Tools\Tool;
+use HMS\Entities\User;
 use HMS\Factories\Tools\BookingFactory;
 use HMS\Repositories\Tools\BookingRepository;
+use Illuminate\Support\Facades\Auth;
 
 class BookingManager
 {

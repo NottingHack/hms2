@@ -3,11 +3,11 @@
 namespace App\Listeners;
 
 use HMS\Entities\Email;
+use HMS\Repositories\EmailRepository;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
-use HMS\Repositories\EmailRepository;
-use Illuminate\Mail\Events\MessageSending;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Events\MessageSending;
 
 class LogSentMessage implements ShouldQueue
 {

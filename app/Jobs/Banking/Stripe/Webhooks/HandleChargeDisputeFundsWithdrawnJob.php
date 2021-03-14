@@ -2,12 +2,12 @@
 
 namespace App\Jobs\Banking\Stripe\Webhooks;
 
-use HMS\Entities\Role;
-use HMS\Entities\Banking\Stripe\ChargeType;
-use HMS\Entities\Snackspace\TransactionType;
-use App\Notifications\Banking\Stripe\ProcessingIssue;
 use App\Notifications\Banking\Stripe\DisputeDonationFundsWithdrawn;
 use App\Notifications\Banking\Stripe\DisputeSnackspaceFundsWithdrawn;
+use App\Notifications\Banking\Stripe\ProcessingIssue;
+use HMS\Entities\Banking\Stripe\ChargeType;
+use HMS\Entities\Role;
+use HMS\Entities\Snackspace\TransactionType;
 
 class HandleChargeDisputeFundsWithdrawnJob extends EventHandler
 {

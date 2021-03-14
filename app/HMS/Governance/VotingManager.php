@@ -5,11 +5,11 @@ namespace HMS\Governance;
 use Carbon\Carbon;
 use HMS\Entities\Role;
 use HMS\Entities\User;
+use HMS\Repositories\Governance\MeetingRepository;
+use HMS\Repositories\Governance\ProxyRepository;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
-use HMS\Repositories\Governance\ProxyRepository;
-use HMS\Repositories\Governance\MeetingRepository;
 
 class VotingManager
 {

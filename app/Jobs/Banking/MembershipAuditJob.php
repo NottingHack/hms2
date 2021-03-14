@@ -2,23 +2,23 @@
 
 namespace App\Jobs\Banking;
 
-use Carbon\Carbon;
-use HMS\Entities\Role;
-use Carbon\CarbonInterval;
-use Illuminate\Bus\Queueable;
-use HMS\Repositories\MetaRepository;
-use HMS\Repositories\RoleRepository;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use App\Notifications\Banking\AuditIssues;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
+use App\Events\Banking\MembershipPaymentWarning;
 use App\Events\Banking\NewMembershipPaidFor;
 use App\Events\Banking\NonPaymentOfMembership;
-use App\Events\Banking\MembershipPaymentWarning;
-use HMS\Repositories\Banking\BankTransactionRepository;
 use App\Events\Banking\ReinstatementOfMembershipPayment;
+use App\Notifications\Banking\AuditIssues;
+use Carbon\Carbon;
+use Carbon\CarbonInterval;
+use HMS\Entities\Role;
+use HMS\Repositories\Banking\BankTransactionRepository;
 use HMS\Repositories\Banking\MembershipStatusNotificationRepository;
+use HMS\Repositories\MetaRepository;
+use HMS\Repositories\RoleRepository;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 class MembershipAuditJob implements ShouldQueue
 {

@@ -4,8 +4,8 @@ namespace App\Events\Roles;
 
 use HMS\Entities\Role;
 use HMS\Entities\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Auth;
 
 class UserAddedToRole
 {

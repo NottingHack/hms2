@@ -2,9 +2,9 @@
 
 namespace HMS\Entities\Banking\Stripe;
 
+use HMS\Entities\Snackspace\Transaction;
 use HMS\Entities\User;
 use HMS\Traits\Entities\Timestampable;
-use HMS\Entities\Snackspace\Transaction;
 
 class Charge
 {

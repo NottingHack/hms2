@@ -2,8 +2,8 @@
 
 namespace DummyRepositoryImplementationNamespace;
 
-use DummyNamespace\DummyClass;
 use Doctrine\ORM\EntityRepository;
+use DummyNamespace\DummyClass;
 use NamespacedDummyRepositoryInterface;
 
 class DoctrineDummyClassRepository extends EntityRepository implements DummyClassRepository

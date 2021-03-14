@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use HMS\Entities\Role;
 use HMS\Governance\VotingManager;
-use HMS\Repositories\RoleRepository;
-use Illuminate\Support\Facades\Auth;
-use HMS\Repositories\Tools\ToolRepository;
 use HMS\Repositories\Members\BoxRepository;
-use HMS\Repositories\Tools\BookingRepository;
 use HMS\Repositories\Members\ProjectRepository;
 use HMS\Repositories\Membership\RejectedLogRepository;
+use HMS\Repositories\RoleRepository;
 use HMS\Repositories\Snackspace\TransactionRepository;
+use HMS\Repositories\Tools\BookingRepository;
+use HMS\Repositories\Tools\ToolRepository;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {

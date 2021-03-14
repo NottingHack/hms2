@@ -2,23 +2,23 @@
 
 namespace HMS\Gatekeeper;
 
+use App\Events\Gatekeeper\BookingApproved;
+use App\Events\Gatekeeper\BookingCancelled;
+use App\Events\Gatekeeper\BookingChanged;
+use App\Events\Gatekeeper\BookingRejected;
+use App\Events\Gatekeeper\NewBooking;
 use Carbon\Carbon;
-use HMS\Entities\User;
 use Carbon\CarbonInterval;
+use HMS\Entities\Gatekeeper\BookableArea;
+use HMS\Entities\Gatekeeper\Building;
+use HMS\Entities\Gatekeeper\BuildingAccessState;
+use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
+use HMS\Entities\User;
+use HMS\Factories\Gatekeeper\TemporaryAccessBookingFactory;
+use HMS\Repositories\Gatekeeper\TemporaryAccessBookingRepository;
 use HMS\Repositories\MetaRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use App\Events\Gatekeeper\NewBooking;
-use HMS\Entities\Gatekeeper\Building;
-use App\Events\Gatekeeper\BookingChanged;
-use HMS\Entities\Gatekeeper\BookableArea;
-use App\Events\Gatekeeper\BookingApproved;
-use App\Events\Gatekeeper\BookingRejected;
-use App\Events\Gatekeeper\BookingCancelled;
-use HMS\Entities\Gatekeeper\BuildingAccessState;
-use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
-use HMS\Factories\Gatekeeper\TemporaryAccessBookingFactory;
-use HMS\Repositories\Gatekeeper\TemporaryAccessBookingRepository;
 
 class TemporaryAccessBookingManager
 {

@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Banking;
 
-use HMS\Entities\User;
-use Illuminate\Http\Request;
-use HMS\Entities\Banking\Account;
 use App\Http\Controllers\Controller;
-use HMS\Repositories\UserRepository;
 use App\Jobs\Banking\AccountAuditJob;
+use HMS\Entities\Banking\Account;
+use HMS\Entities\User;
 use HMS\Factories\Banking\AccountFactory;
 use HMS\Repositories\Banking\AccountRepository;
 use HMS\Repositories\Banking\BankTransactionRepository;
+use HMS\Repositories\UserRepository;
+use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {

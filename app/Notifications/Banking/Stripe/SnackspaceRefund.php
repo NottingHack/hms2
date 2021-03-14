@@ -2,13 +2,13 @@
 
 namespace App\Notifications\Banking\Stripe;
 
+use HMS\Entities\Banking\Stripe\Charge;
 use HMS\Entities\Role;
 use HMS\Entities\User;
 use Illuminate\Bus\Queueable;
-use HMS\Entities\Banking\Stripe\Charge;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
 class SnackspaceRefund extends Notification implements ShouldQueue
 {

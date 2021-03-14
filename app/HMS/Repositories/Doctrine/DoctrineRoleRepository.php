@@ -2,11 +2,11 @@
 
 namespace HMS\Repositories\Doctrine;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Role;
 use HMS\Entities\User;
-use Doctrine\ORM\EntityRepository;
 use HMS\Repositories\RoleRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 
 class DoctrineRoleRepository extends EntityRepository implements RoleRepository
 {

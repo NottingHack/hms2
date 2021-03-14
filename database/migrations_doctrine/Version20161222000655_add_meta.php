@@ -3,8 +3,8 @@
 namespace Database\Migrations;
 
 use Carbon\Carbon;
-use Doctrine\DBAL\Schema\Schema as Schema;
 use Doctrine\DBAL\Migrations\AbstractMigration;
+use Doctrine\DBAL\Schema\Schema as Schema;
 
 class Version20161222000655_add_meta extends AbstractMigration
 {

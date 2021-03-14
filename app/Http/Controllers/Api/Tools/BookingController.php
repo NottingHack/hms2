@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Api\Tools;
 
-use Carbon\Carbon;
-use HMS\Entities\Tools\Tool;
-use Illuminate\Http\Request;
-use HMS\Tools\BookingManager;
-use HMS\Entities\Tools\Booking;
-use Illuminate\Validation\Rule;
-use HMS\Entities\Tools\BookingType;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use HMS\Entities\Tools\Booking;
+use HMS\Entities\Tools\BookingType;
+use HMS\Entities\Tools\Tool;
 use HMS\Repositories\Tools\BookingRepository;
+use HMS\Tools\BookingManager;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response as IlluminateResponse;
+use Illuminate\Validation\Rule;
 
 class BookingController extends Controller
 {

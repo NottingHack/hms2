@@ -5,10 +5,10 @@ namespace App\Notifications;
 use Carbon\Carbon;
 use HMS\Entities\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackMessage;
+use Illuminate\Notifications\Notification;
 
 class NewMemberApprovalNeeded extends Notification implements ShouldQueue
 {

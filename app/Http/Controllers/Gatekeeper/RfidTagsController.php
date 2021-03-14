@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Gatekeeper;
 
-use HMS\Entities\User;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
-use HMS\Entities\Gatekeeper\Pin;
 use App\Http\Controllers\Controller;
-use HMS\Entities\Gatekeeper\RfidTag;
-use HMS\Repositories\UserRepository;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
-use HMS\Entities\Gatekeeper\PinState;
 use Doctrine\ORM\EntityNotFoundException;
+use HMS\Entities\Gatekeeper\Pin;
+use HMS\Entities\Gatekeeper\PinState;
+use HMS\Entities\Gatekeeper\RfidTag;
 use HMS\Entities\Gatekeeper\RfidTagState;
+use HMS\Entities\User;
 use HMS\Repositories\Gatekeeper\PinRepository;
 use HMS\Repositories\Gatekeeper\RfidTagRepository;
+use HMS\Repositories\UserRepository;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\Rule;
 
 class RfidTagsController extends Controller
 {

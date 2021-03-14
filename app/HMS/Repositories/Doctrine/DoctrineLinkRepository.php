@@ -2,8 +2,8 @@
 
 namespace HMS\Repositories\Doctrine;
 
-use HMS\Entities\Link;
 use Doctrine\ORM\EntityRepository;
+use HMS\Entities\Link;
 use HMS\Repositories\LinkRepository;
 use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 

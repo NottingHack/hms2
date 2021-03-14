@@ -2,13 +2,13 @@
 
 namespace App\Listeners\Governance;
 
+use App\Events\Governance\ProxyCancelled;
+use App\Notifications\Governance\Proxy\NotifyTrusteesProxyCancelled;
+use App\Notifications\Governance\Proxy\PrincipalCancelled;
+use App\Notifications\Governance\Proxy\ProxyCancelled as ProxyCancelledNotification;
 use HMS\Entities\Role;
 use HMS\Repositories\RoleRepository;
-use App\Events\Governance\ProxyCancelled;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Notifications\Governance\Proxy\PrincipalCancelled;
-use App\Notifications\Governance\Proxy\NotifyTrusteesProxyCancelled;
-use App\Notifications\Governance\Proxy\ProxyCancelled as ProxyCancelledNotification;
 
 class NotifyCancelledProxy implements ShouldQueue
 {

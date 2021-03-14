@@ -3,8 +3,8 @@
 namespace HMS\Repositories;
 
 use HMS\Entities\Role;
-use HMS\Entities\User;
 use HMS\Entities\RoleUpdate;
+use HMS\Entities\User;
 
 interface RoleUpdateRepository
 {

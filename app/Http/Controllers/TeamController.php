@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use HMS\Entities\Role;
-use Illuminate\Http\Request;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
+use HMS\User\Permissions\RoleManager;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use HMS\User\Permissions\RoleManager;
 
 class TeamController extends Controller
 {

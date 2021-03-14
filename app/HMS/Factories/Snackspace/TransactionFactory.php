@@ -2,9 +2,9 @@
 
 namespace HMS\Factories\Snackspace;
 
+use HMS\Entities\Snackspace\Transaction;
 use HMS\Entities\User;
 use Illuminate\Support\Facades\Auth;
-use HMS\Entities\Snackspace\Transaction;
 
 class TransactionFactory
 {

@@ -2,17 +2,17 @@
 
 namespace App\Listeners\Membership;
 
+use App\Events\Banking\NewMembershipPaidFor;
+use App\Mail\Membership\MembershipComplete;
 use Carbon\Carbon;
 use HMS\Entities\Role;
+use HMS\Factories\Gatekeeper\PinFactory;
+use HMS\Repositories\Gatekeeper\PinRepository;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
-use HMS\Factories\Gatekeeper\PinFactory;
-use App\Mail\Membership\MembershipComplete;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Events\Banking\NewMembershipPaidFor;
-use HMS\Repositories\Gatekeeper\PinRepository;
 
 class ApproveNewMembership implements ShouldQueue
 {

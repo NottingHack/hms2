@@ -2,16 +2,16 @@
 
 namespace App\Jobs\Gatekeeper;
 
-use HMS\Entities\Role;
-use Illuminate\Bus\Queueable;
-use HMS\Repositories\RoleRepository;
 use HMS\Entities\Gatekeeper\Building;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
+use HMS\Entities\Role;
+use HMS\Repositories\Gatekeeper\BuildingRepository;
 use HMS\Repositories\PermissionRepository;
+use HMS\Repositories\RoleRepository;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use HMS\Repositories\Gatekeeper\BuildingRepository;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 class AddZonePermissionForBuilding implements ShouldQueue
 {

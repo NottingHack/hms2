@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use HMS\Entities\Gatekeeper\RfidTagState;
 use HMS\Repositories\Gatekeeper\RfidTagRepository;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response as IlluminateResponse;
 
 class RfidAccessTokenController extends Controller

@@ -2,8 +2,8 @@
 
 namespace HMS\Repositories\Doctrine;
 
-use HMS\Entities\LabelTemplate;
 use Doctrine\ORM\EntityRepository;
+use HMS\Entities\LabelTemplate;
 use HMS\Repositories\LabelTemplateRepository;
 use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 

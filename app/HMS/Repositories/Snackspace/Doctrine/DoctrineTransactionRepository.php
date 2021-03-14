@@ -2,12 +2,12 @@
 
 namespace HMS\Repositories\Snackspace\Doctrine;
 
+use App\Jobs\Snackspace\ProcessTransaction;
 use Carbon\Carbon;
-use HMS\Entities\User;
 use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Snackspace\Transaction;
-use App\Jobs\Snackspace\ProcessTransaction;
 use HMS\Entities\Snackspace\TransactionState;
+use HMS\Entities\User;
 use HMS\Repositories\Snackspace\TransactionRepository;
 use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 

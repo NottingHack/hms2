@@ -2,16 +2,16 @@
 
 namespace App\Listeners\Membership;
 
+use App\Events\Banking\NonPaymentOfMembership;
+use App\Mail\Membership\MembershipRevoked;
 use HMS\Entities\Role;
+use HMS\Repositories\Banking\BankRepository;
+use HMS\Repositories\Banking\MembershipStatusNotificationRepository;
+use HMS\Repositories\Members\BoxRepository;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
-use App\Mail\Membership\MembershipRevoked;
-use HMS\Repositories\Members\BoxRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use HMS\Repositories\Banking\BankRepository;
-use App\Events\Banking\NonPaymentOfMembership;
-use HMS\Repositories\Banking\MembershipStatusNotificationRepository;
 
 class RevokeMembership implements ShouldQueue
 {

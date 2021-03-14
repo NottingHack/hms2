@@ -3,8 +3,8 @@
 namespace HMS\Repositories\Gatekeeper;
 
 use Carbon\Carbon;
-use HMS\Entities\User;
 use HMS\Entities\Gatekeeper\AccessLog;
+use HMS\Entities\User;
 
 interface AccessLogRepository
 {

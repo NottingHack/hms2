@@ -2,9 +2,9 @@
 
 namespace HMS\Factories\Governance;
 
-use HMS\Entities\User;
-use HMS\Entities\Governance\Proxy;
 use HMS\Entities\Governance\Meeting;
+use HMS\Entities\Governance\Proxy;
+use HMS\Entities\User;
 use HMS\Repositories\Governance\ProxyRepository;
 
 class ProxyFactory

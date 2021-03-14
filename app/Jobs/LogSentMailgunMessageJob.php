@@ -3,14 +3,14 @@
 namespace App\Jobs;
 
 use HMS\Entities\Email;
-use Illuminate\Bus\Queueable;
+use HMS\Repositories\EmailRepository;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
-use HMS\Repositories\EmailRepository;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 class LogSentMailgunMessageJob implements ShouldQueue
 {

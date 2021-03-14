@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Banking;
 
-use Illuminate\Http\Request;
-use HMS\Entities\Banking\Bank;
-use Illuminate\Validation\Rule;
-use HMS\Entities\Banking\BankType;
 use App\Http\Controllers\Controller;
+use HMS\Entities\Banking\Bank;
+use HMS\Entities\Banking\BankType;
 use HMS\Factories\Banking\BankFactory;
 use HMS\Repositories\Banking\BankRepository;
 use HMS\Repositories\Banking\BankTransactionRepository;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class BankController extends Controller
 {

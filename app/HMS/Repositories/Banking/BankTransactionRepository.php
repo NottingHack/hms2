@@ -3,8 +3,8 @@
 namespace HMS\Repositories\Banking;
 
 use Carbon\Carbon;
-use HMS\Entities\Banking\Bank;
 use HMS\Entities\Banking\Account;
+use HMS\Entities\Banking\Bank;
 use HMS\Entities\Banking\BankTransaction;
 
 interface BankTransactionRepository

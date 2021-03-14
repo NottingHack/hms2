@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Api\Snackspace;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use HMS\Entities\Snackspace\VendingMachine;
 use HMS\Repositories\Snackspace\ProductRepository;
-use Illuminate\Http\Response as IlluminateResponse;
 use HMS\Repositories\Snackspace\VendingLocationRepository;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response as IlluminateResponse;
 
 class VendingMachineController extends Controller
 {

@@ -1,10 +1,10 @@
 <?php
 
-use HMS\Entities\Role;
 use HMS\Entities\Profile;
-use Illuminate\Database\Seeder;
+use HMS\Entities\Role;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
+use Illuminate\Database\Seeder;
 use LaravelDoctrine\ORM\Facades\EntityManager;
 
 class ProfileTableSeeder extends Seeder

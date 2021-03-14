@@ -2,8 +2,8 @@
 
 namespace HMS\Traits;
 
-use Laravel\Passport\Passport;
 use Illuminate\Container\Container;
+use Laravel\Passport\Passport;
 use Laravel\Passport\PersonalAccessTokenFactory;
 
 trait HasApiTokens

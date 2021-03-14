@@ -2,19 +2,19 @@
 
 namespace App\Jobs\Banking;
 
+use App\Notifications\Banking\AuditResult;
 use HMS\Entities\Role;
 use HMS\Entities\User;
-use Illuminate\Bus\Queueable;
+use HMS\Repositories\Banking\BankTransactionRepository;
+use HMS\Repositories\Gatekeeper\AccessLogRepository;
 use HMS\Repositories\RoleRepository;
-use HMS\Repositories\UserRepository;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use App\Notifications\Banking\AuditResult;
 use HMS\Repositories\RoleUpdateRepository;
+use HMS\Repositories\UserRepository;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use HMS\Repositories\Gatekeeper\AccessLogRepository;
-use HMS\Repositories\Banking\BankTransactionRepository;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 class AuditResultJob implements ShouldQueue
 {

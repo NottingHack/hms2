@@ -3,15 +3,15 @@
 namespace App\Notifications\Gatekeeper;
 
 use Carbon\Carbon;
-use HMS\Entities\Role;
-use Illuminate\Bus\Queueable;
-use Illuminate\Support\Facades\URL;
-use HMS\Repositories\RoleRepository;
 use HMS\Entities\Gatekeeper\Building;
-use Illuminate\Notifications\Notification;
+use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
+use HMS\Entities\Role;
+use HMS\Repositories\RoleRepository;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
+use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\URL;
 
 class NotifyUserOverstay extends Notification implements ShouldQueue
 {

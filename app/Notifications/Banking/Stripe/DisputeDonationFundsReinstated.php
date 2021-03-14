@@ -2,12 +2,12 @@
 
 namespace App\Notifications\Banking\Stripe;
 
-use Stripe\Dispute;
-use Illuminate\Bus\Queueable;
 use HMS\Entities\Banking\Stripe\Charge;
-use Illuminate\Notifications\Notification;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
+use Stripe\Dispute;
 
 class DisputeDonationFundsReinstated extends Notification implements ShouldQueue
 {

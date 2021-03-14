@@ -2,9 +2,9 @@
 
 namespace App\Jobs\Banking\Stripe\Webhooks;
 
-use HMS\Entities\Role;
 use App\Notifications\Banking\Stripe\DisputeCreated;
 use App\Notifications\Banking\Stripe\ProcessingIssue;
+use HMS\Entities\Role;
 
 class HandleChargeDisputeCreatedJob extends EventHandler
 {

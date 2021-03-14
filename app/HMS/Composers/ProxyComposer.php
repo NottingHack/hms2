@@ -2,10 +2,10 @@
 
 namespace HMS\Composers;
 
-use Illuminate\View\View;
-use Illuminate\Support\Facades\Auth;
-use HMS\Repositories\Governance\ProxyRepository;
 use HMS\Repositories\Governance\MeetingRepository;
+use HMS\Repositories\Governance\ProxyRepository;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class ProxyComposer
 {

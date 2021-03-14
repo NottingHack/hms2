@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use HMS\Repositories\PermissionRepository;
-use LaravelDoctrine\ACL\Permissions\Permission;
 use HMS\Repositories\Doctrine\DoctrinePermissionRepository;
+use HMS\Repositories\PermissionRepository;
+use Illuminate\Support\ServiceProvider;
+use LaravelDoctrine\ACL\Permissions\Permission;
 
 class RepositoryServiceProvider extends ServiceProvider
 {

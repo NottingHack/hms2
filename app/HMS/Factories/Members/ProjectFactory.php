@@ -3,8 +3,8 @@
 namespace HMS\Factories\Members;
 
 use HMS\Entities\Members\Project;
-use Illuminate\Support\Facades\Auth;
 use HMS\Repositories\Members\ProjectRepository;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectFactory
 {

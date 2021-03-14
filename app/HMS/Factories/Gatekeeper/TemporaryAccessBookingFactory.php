@@ -3,9 +3,9 @@
 namespace HMS\Factories\Gatekeeper;
 
 use Carbon\Carbon;
-use HMS\Entities\User;
 use HMS\Entities\Gatekeeper\BookableArea;
 use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
+use HMS\Entities\User;
 use HMS\Repositories\Gatekeeper\TemporaryAccessBookingRepository;
 
 class TemporaryAccessBookingFactory

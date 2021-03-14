@@ -2,9 +2,9 @@
 
 namespace HMS\Repositories\Banking\Doctrine;
 
-use HMS\Entities\User;
 use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Banking\MembershipStatusNotification;
+use HMS\Entities\User;
 use HMS\Repositories\Banking\MembershipStatusNotificationRepository;
 
 class DoctrineMembershipStatusNotificationRepository extends EntityRepository implements

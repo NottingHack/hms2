@@ -3,9 +3,9 @@
 namespace HMS\Repositories\Doctrine;
 
 use Carbon\Carbon;
+use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Role;
 use HMS\Entities\User;
-use Doctrine\ORM\EntityRepository;
 use HMS\Governance\VotingPreference;
 use HMS\Repositories\UserRepository;
 use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;

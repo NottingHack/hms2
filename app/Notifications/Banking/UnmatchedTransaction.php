@@ -2,12 +2,12 @@
 
 namespace App\Notifications\Banking;
 
+use HMS\Entities\Banking\BankTransaction;
 use HMS\Entities\Role;
 use Illuminate\Bus\Queueable;
-use HMS\Entities\Banking\BankTransaction;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
 class UnmatchedTransaction extends Notification implements ShouldQueue
 {

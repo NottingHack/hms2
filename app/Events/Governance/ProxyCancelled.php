@@ -2,11 +2,11 @@
 
 namespace App\Events\Governance;
 
-use HMS\Entities\User;
 use HMS\Entities\Governance\Meeting;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Foundation\Events\Dispatchable;
+use HMS\Entities\User;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 
 class ProxyCancelled
 {

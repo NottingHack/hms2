@@ -3,21 +3,21 @@
 namespace App\Jobs\Banking\Stripe\Webhooks;
 
 use Carbon\Carbon;
-use Illuminate\Bus\Queueable;
-use Stripe\Event as StripeEvent;
-use HMS\Repositories\RoleRepository;
-use HMS\Repositories\UserRepository;
 use HMS\Entities\Banking\Stripe\Event;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Spatie\WebhookClient\Models\WebhookCall;
 use HMS\Factories\Banking\Stripe\ChargeFactory;
 use HMS\Factories\Snackspace\TransactionFactory;
-use HMS\Repositories\Banking\Stripe\EventRepository;
 use HMS\Repositories\Banking\Stripe\ChargeRepository;
+use HMS\Repositories\Banking\Stripe\EventRepository;
+use HMS\Repositories\RoleRepository;
 use HMS\Repositories\Snackspace\TransactionRepository;
+use HMS\Repositories\UserRepository;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Spatie\WebhookClient\Models\WebhookCall;
+use Stripe\Event as StripeEvent;
 
 abstract class EventHandler implements ShouldQueue
 {

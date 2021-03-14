@@ -2,16 +2,16 @@
 
 namespace App\Jobs\Snackspace;
 
-use HMS\Entities\User;
-use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
+use HMS\Entities\Snackspace\PurchasePayment;
 use HMS\Entities\Snackspace\Transaction;
-use Illuminate\Queue\InteractsWithQueue;
+use HMS\Entities\User;
+use HMS\Repositories\Snackspace\PurchasePaymentRepository;
+use HMS\Repositories\Snackspace\TransactionRepository;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use HMS\Entities\Snackspace\PurchasePayment;
-use HMS\Repositories\Snackspace\TransactionRepository;
-use HMS\Repositories\Snackspace\PurchasePaymentRepository;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 class ProcessTransaction implements ShouldQueue
 {

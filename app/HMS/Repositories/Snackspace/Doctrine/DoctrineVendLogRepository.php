@@ -2,12 +2,12 @@
 
 namespace HMS\Repositories\Snackspace\Doctrine;
 
-use Doctrine\ORM\Query\Expr\Join;
-use Doctrine\ORM\EntityRepository;
-use HMS\Entities\Snackspace\VendLog;
 use App\Jobs\Snackspace\ProcessTransaction;
-use HMS\Entities\Snackspace\VendingMachine;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use HMS\Entities\Snackspace\TransactionState;
+use HMS\Entities\Snackspace\VendingMachine;
+use HMS\Entities\Snackspace\VendLog;
 use HMS\Repositories\Snackspace\VendLogRepository;
 use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 

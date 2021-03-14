@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Banking\Bank;
 
-use Exception;
-use HMS\Helpers\Features;
-use Illuminate\Http\Request;
-use HMS\Entities\Banking\Bank;
-use Illuminate\Support\Carbon;
-use HMS\Entities\Banking\BankType;
-use OfxParser\Parser as OfxParser;
 use App\Http\Controllers\Controller;
 use App\Jobs\Banking\SaveNewOFXTransactionsJob;
+use Exception;
+use HMS\Entities\Banking\Bank;
+use HMS\Entities\Banking\BankType;
 use HMS\Factories\Banking\BankTransactionFactory;
+use HMS\Helpers\Features;
 use HMS\Repositories\Banking\BankTransactionRepository;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use OfxParser\Parser as OfxParser;
 
 class BankBankTransactionController extends Controller
 {

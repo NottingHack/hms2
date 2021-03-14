@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Gatekeeper;
 
+use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use HMS\Entities\User;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use HMS\Repositories\Gatekeeper\AccessLogRepository;
+use Illuminate\Http\Request;
 
 class AccessLogController extends Controller
 {

@@ -2,25 +2,25 @@
 
 namespace HMS\Entities;
 
-use HMS\Traits\HasApiTokens;
-use HMS\Entities\Gatekeeper\Pin;
+use Doctrine\Common\Collections\ArrayCollection;
 use HMS\Entities\Banking\Account;
+use HMS\Entities\Gatekeeper\Pin;
 use HMS\Entities\Gatekeeper\RfidTag;
+use HMS\Traits\Entities\DoctrineMustVerifyEmail;
 use HMS\Traits\Entities\SoftDeletable;
 use HMS\Traits\Entities\Timestampable;
-use LaravelDoctrine\ACL\Roles\HasRoles;
+use HMS\Traits\HasApiTokens;
 use Illuminate\Auth\Passwords\CanResetPassword;
-use Doctrine\Common\Collections\ArrayCollection;
-use HMS\Traits\Entities\DoctrineMustVerifyEmail;
-use LaravelDoctrine\ORM\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\Access\Authorizable;
-use LaravelDoctrine\ACL\Permissions\HasPermissions;
-use LaravelDoctrine\ACL\Contracts\HasRoles as HasRoleContract;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 use LaravelDoctrine\ACL\Contracts\HasPermissions as HasPermissionsContract;
+use LaravelDoctrine\ACL\Contracts\HasRoles as HasRoleContract;
+use LaravelDoctrine\ACL\Permissions\HasPermissions;
+use LaravelDoctrine\ACL\Roles\HasRoles;
+use LaravelDoctrine\ORM\Notifications\Notifiable;
 
 class User implements
     AuthenticatableContract,

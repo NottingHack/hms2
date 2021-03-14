@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers\Api\Members;
 
-use HMS\Entities\User;
-use Illuminate\Http\Request;
-use HMS\Entities\Members\Box;
 use App\Events\Labels\BoxPrint;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Members\Box as BoxResource;
+use Doctrine\ORM\EntityNotFoundException;
+use HMS\Entities\Members\Box;
+use HMS\Entities\Snackspace\TransactionType;
+use HMS\Entities\User;
+use HMS\Factories\Members\BoxFactory;
+use HMS\Factories\Snackspace\TransactionFactory;
+use HMS\Repositories\Members\BoxRepository;
 use HMS\Repositories\MetaRepository;
+use HMS\Repositories\Snackspace\TransactionRepository;
 use HMS\Repositories\UserRepository;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response as IlluminateResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use HMS\Factories\Members\BoxFactory;
-use Doctrine\ORM\EntityNotFoundException;
-use HMS\Repositories\Members\BoxRepository;
-use HMS\Entities\Snackspace\TransactionType;
-use HMS\Factories\Snackspace\TransactionFactory;
-use App\Http\Resources\Members\Box as BoxResource;
-use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Http\Response as IlluminateResponse;
-use HMS\Repositories\Snackspace\TransactionRepository;
 
 class BoxController extends Controller
 {

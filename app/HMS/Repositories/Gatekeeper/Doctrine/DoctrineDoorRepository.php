@@ -2,8 +2,8 @@
 
 namespace HMS\Repositories\Gatekeeper\Doctrine;
 
-use HMS\Entities\Gatekeeper\Door;
 use Doctrine\ORM\EntityRepository;
+use HMS\Entities\Gatekeeper\Door;
 use HMS\Repositories\Gatekeeper\DoorRepository;
 
 class DoctrineDoorRepository extends EntityRepository implements DoorRepository

@@ -2,11 +2,11 @@
 
 namespace HMS\Repositories\Members\Doctrine;
 
+use Doctrine\ORM\EntityRepository;
+use HMS\Entities\Members\Box;
+use HMS\Entities\Members\BoxState;
 use HMS\Entities\Role;
 use HMS\Entities\User;
-use HMS\Entities\Members\Box;
-use Doctrine\ORM\EntityRepository;
-use HMS\Entities\Members\BoxState;
 use HMS\Repositories\Members\BoxRepository;
 use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 

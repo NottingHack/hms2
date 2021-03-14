@@ -2,10 +2,10 @@
 
 namespace HMS\Repositories\Gatekeeper\Doctrine;
 
-use HMS\Entities\User;
 use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Gatekeeper\RfidTag;
 use HMS\Entities\Gatekeeper\RfidTagState;
+use HMS\Entities\User;
 use HMS\Repositories\Gatekeeper\RfidTagRepository;
 use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 

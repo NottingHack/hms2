@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Members;
 
-use Illuminate\Http\Request;
-use HMS\Entities\Members\Project;
 use App\Events\Labels\ProjectPrint;
 use App\Http\Controllers\Controller;
-use HMS\Repositories\UserRepository;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Doctrine\ORM\EntityNotFoundException;
+use HMS\Entities\Members\Project;
 use HMS\Factories\Members\ProjectFactory;
 use HMS\Repositories\Members\ProjectRepository;
+use HMS\Repositories\UserRepository;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class ProjectController extends Controller
 {

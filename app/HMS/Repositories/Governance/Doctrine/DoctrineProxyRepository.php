@@ -2,11 +2,11 @@
 
 namespace HMS\Repositories\Governance\Doctrine;
 
-use HMS\Entities\User;
-use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\EntityRepository;
-use HMS\Entities\Governance\Proxy;
+use Doctrine\ORM\Query\Expr\Join;
 use HMS\Entities\Governance\Meeting;
+use HMS\Entities\Governance\Proxy;
+use HMS\Entities\User;
 use HMS\Repositories\Governance\ProxyRepository;
 
 class DoctrineProxyRepository extends EntityRepository implements ProxyRepository

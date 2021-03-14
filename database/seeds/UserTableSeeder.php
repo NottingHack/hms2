@@ -1,11 +1,11 @@
 <?php
 
 use Carbon\Carbon;
+use HMS\Auth\PasswordStore;
 use HMS\Entities\Role;
 use HMS\Entities\User;
-use HMS\Auth\PasswordStore;
-use Illuminate\Database\Seeder;
 use HMS\Repositories\RoleRepository;
+use Illuminate\Database\Seeder;
 use LaravelDoctrine\ORM\Facades\EntityManager;
 
 class UserTableSeeder extends Seeder

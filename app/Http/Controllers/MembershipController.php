@@ -2,29 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MembershipInterestRegistered;
+use App\Jobs\Banking\AccountAuditJob;
+use App\Mail\MembershipDetailsApproved;
+use App\Mail\MembershipDetailsRejected;
+use App\Notifications\NewMemberApprovalNeeded;
 use Carbon\Carbon;
+use HMS\Entities\Invite;
+use HMS\Entities\Membership\RejectedLog;
 use HMS\Entities\Role;
 use HMS\Entities\User;
-use HMS\Entities\Invite;
-use HMS\User\UserManager;
-use HMS\User\ProfileManager;
-use Illuminate\Http\Request;
+use HMS\Factories\Banking\AccountFactory;
+use HMS\Repositories\Banking\AccountRepository;
+use HMS\Repositories\Banking\BankRepository;
+use HMS\Repositories\Membership\RejectedLogRepository;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
+use HMS\User\Permissions\RoleManager;
+use HMS\User\ProfileManager;
+use HMS\User\UserManager;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use App\Jobs\Banking\AccountAuditJob;
-use HMS\User\Permissions\RoleManager;
-use App\Mail\MembershipDetailsApproved;
-use App\Mail\MembershipDetailsRejected;
-use HMS\Entities\Membership\RejectedLog;
-use HMS\Factories\Banking\AccountFactory;
-use App\Events\MembershipInterestRegistered;
-use HMS\Repositories\Banking\BankRepository;
-use App\Notifications\NewMemberApprovalNeeded;
-use HMS\Repositories\Banking\AccountRepository;
-use HMS\Repositories\Membership\RejectedLogRepository;
 
 class MembershipController extends Controller
 {

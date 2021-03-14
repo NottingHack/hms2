@@ -3,11 +3,11 @@
 namespace App\Notifications\Governance\Proxy;
 
 use Carbon\Carbon;
-use Illuminate\Bus\Queueable;
 use HMS\Entities\Governance\Proxy;
-use Illuminate\Notifications\Notification;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\SlackMessage;
+use Illuminate\Notifications\Notification;
 
 class NotifyTrusteesProxyRegistered extends Notification implements ShouldQueue
 {

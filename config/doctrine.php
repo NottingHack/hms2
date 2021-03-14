@@ -26,12 +26,7 @@ return [
             'meta'       => env('DOCTRINE_METADATA', 'annotations'),
             'connection' => env('DB_CONNECTION', 'mysql'),
             'namespaces' => [
-                'HMS',
                 'HMS\Entities',
-                'HMS\Entities\Gatekeeper',
-                'HMS\Entities\Banking',
-                'HMS\Entities\Members',
-                'HMS\Entities\Snackspace',
             ],
             'paths'      => [
                 base_path('app/HMS/Mappings'),

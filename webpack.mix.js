@@ -68,7 +68,6 @@ mix.sourceMaps()
     .js('resources/js/app.js', 'public/js')
     .vue({
       extractStyles: 'public/css/vue.css',
-      // need mix 6 and webpack 5 :(
       globalStyles: {
         scss: [
           '~bootstrap/scss/functions',

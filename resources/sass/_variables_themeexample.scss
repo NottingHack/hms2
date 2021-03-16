@@ -1,0 +1,75 @@
+@import "variables";
+
+// HMS colours
+$hackspace-green: #cb00ff;
+$hackspace-gray: blue;
+$hackspace-green-tint: tint($hackspace-green, 25%);
+
+// Header
+$header-background-colour: $hackspace-green;
+$header-text-colour: $hackspace-gray;
+
+// Navbar
+$navbar-background-tint: $gray-200;
+$navbar-background-colour: $gray-300;
+$navbar-background-shade: $gray-400;
+$navbar-background-active: $hackspace-green-tint;
+$navbar-text-colour: black;
+$navbar-link-colour: $hackspace-green;
+$navbar-link-active-colour: white;
+
+// Footer
+$footer-background-colour: $gray-600;
+$footer-text-colour: white;
+$footer-link-colour: $hackspace-gray;
+$footer-link-hover-colour: white;
+$social-networks-colour: $footer-text-colour;
+
+// Tools
+$tool-booking-normal: $hackspace-green;
+$tool-booking-induction: red;
+$tool-booking-maintenance: goldenrod;
+
+// =============================================================
+// original bootstrap theme colours
+//
+// $primary:       $blue !default;
+// $secondary:     $gray-600 !default;
+// $success:       $green !default;
+// $info:          $cyan !default;
+// $warning:       $yellow !default;
+// $danger:        $red !default;
+// $light:         $gray-100 !default;
+// $dark:          $gray-800 !default;
+// =============================================================
+
+// Override theme colours
+$primary: $hackspace-green;
+$link-color: $hackspace-green;
+$link-hover-color: black;
+
+$theme-colors: (
+  "hackspace-gray": $hackspace-gray,
+  "booking-normal": $tool-booking-normal,
+  "booking-induction": $tool-booking-induction,
+  "booking-maintenance": $tool-booking-maintenance,
+  "indigo":     $indigo,
+  "pink":       $pink,
+  "red":        $red,
+  "orange":     $orange,
+  "yellow":     $yellow,
+  "green":      $green,
+  "teal":       $teal,
+  "cyan":       $cyan,
+);
+
+$sizes: (
+  10: 10%,
+  15: 15%,
+  20: 20%,
+  35: 35%,
+  40: 40%
+);
+
+// Override font family Oxygen + $font-family-sans-serif
+$font-family-base: 'Oxygen', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" ;

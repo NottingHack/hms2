@@ -65,7 +65,7 @@ class DisputeSnackspaceFundsReinstated extends Notification implements ShouldQue
             $balanceString = money($balance, 'GBP');
 
             return (new MailMessage)
-                ->subject('Snackspace card payment in dispute, funds reinstated.')
+                ->subject('Snackspace card payment in dispute, funds reinstated')
                 ->greeting('Hello ' . $notifiable->getFirstname())
                 ->line(
                     'Your Snackspace card payment is in dispute and ' .
@@ -74,7 +74,7 @@ class DisputeSnackspaceFundsReinstated extends Notification implements ShouldQue
                 ->line('Your balance is now ' . $balanceString);
         } elseif ($notifiable instanceof Role) {
             return (new MailMessage)
-                ->subject('Snackspace Stripe payment in dispute, funds reinstated.')
+                ->subject('Snackspace Stripe payment in dispute, funds reinstated')
                 ->greeting('Hello ' . $notifiable->getDisplayName())
                 ->line(
                     $this->charge->getUser()->getFullname() .

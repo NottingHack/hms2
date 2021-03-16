@@ -66,14 +66,14 @@ class SnackspaceRefund extends Notification implements ShouldQueue
             $balanceString = money($balance, 'GBP');
 
             return (new MailMessage)
-                ->subject('Snackspace payment refunded.')
+                ->subject('Snackspace payment refunded')
                 ->greeting('Hello ' . $notifiable->getFirstname())
                 ->line('Your Snackspace payment has been refunded by ' . $amountString)
                 ->line('Your balance is now ' . $balanceString)
                 ->line('Refund may take 5-10 days to appear on your card\'s statement.');
         } elseif ($notifiable instanceof Role) {
             return (new MailMessage)
-                ->subject('Snackspace Stripe payment refunded.')
+                ->subject('Snackspace Stripe payment refunded')
                 ->greeting('Hello ' . $notifiable->getDisplayName())
                 ->line(
                     $this->charge->getUser()->getFullname() .

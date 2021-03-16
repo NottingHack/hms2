@@ -72,12 +72,12 @@ class DonationRefund extends Notification implements ShouldQueue
 
         if ($notifiable instanceof User) {
             return (new MailMessage)
-                ->subject('Donation refunded.')
+                ->subject('Donation refunded')
                 ->greeting('Hello ' . $notifiable->getFirstname())
                 ->line('Your donation has been refunded by ' . $amountString);
         } elseif ($notifiable instanceof AnonymousNotifiable) {
             return (new MailMessage)
-                ->subject('Donation refunded.')
+                ->subject('Donation refunded')
                 ->greeting('Hello ' . $this->stripeCharge->billing_details->name)
                 ->line('Your donation has been refunded by ' . $amountString);
         } elseif ($notifiable instanceof Role) {
@@ -88,7 +88,7 @@ class DonationRefund extends Notification implements ShouldQueue
             }
 
             return (new MailMessage)
-                ->subject('Donation refunded.')
+                ->subject('Donation refunded')
                 ->greeting('Hello ' . $notifiable->getDisplayName())
                 ->line(
                     $fullname .

@@ -58,7 +58,7 @@ class ProcessingIssue extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Stripe webhook processing issue.')
+            ->subject('Stripe webhook processing issue')
             ->line('There was an issue processing a stripe payment during ' . $this->description . '.')
             ->line('WebhookCall ID is: ' . $this->webhookcall->id);
     }

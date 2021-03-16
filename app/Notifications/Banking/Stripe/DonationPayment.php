@@ -66,12 +66,12 @@ class DonationPayment extends Notification implements ShouldQueue
 
         if ($notifiable instanceof User) {
             return (new MailMessage)
-                ->subject('Donation received.')
+                ->subject('Donation received')
                 ->greeting('Hello ' . $notifiable->getFirstname())
                 ->line('Thank you for your Donation of ' . $amountString . ' to Nottingham Hackspace.');
         } elseif ($notifiable instanceof AnonymousNotifiable) {
             return (new MailMessage)
-                ->subject('Donation received.')
+                ->subject('Donation received')
                 ->greeting('Hello ' . $this->stripeCharge->billing_details->name)
                 ->line('Thank you for your Donation of ' . $amountString . ' to Nottingham Hackspace.');
         } elseif ($notifiable instanceof Role) {
@@ -82,7 +82,7 @@ class DonationPayment extends Notification implements ShouldQueue
             }
 
             return (new MailMessage)
-                ->subject('Donation received (via Stripe).')
+                ->subject('Donation received (via Stripe)')
                 ->greeting('Hello ' . $notifiable->getDisplayName())
                 ->line(
                     $fullname .

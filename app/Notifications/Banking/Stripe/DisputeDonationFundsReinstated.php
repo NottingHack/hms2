@@ -59,7 +59,7 @@ class DisputeDonationFundsReinstated extends Notification implements ShouldQueue
         $amountString = money($amount, 'GBP');
 
         return (new MailMessage)
-            ->subject('Donation payment in dispute, funds reinstated.')
+            ->subject('Donation payment in dispute, funds reinstated')
             ->greeting('Hello ' . $notifiable->getDisplayName())
             ->line(
                 $this->charge->getUser()->getFullname() .

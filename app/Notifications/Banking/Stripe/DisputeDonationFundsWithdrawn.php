@@ -58,7 +58,7 @@ class DisputeDonationFundsWithdrawn extends Notification
         $amountString = money($amount, 'GBP');
 
         return (new MailMessage)
-            ->subject('Donation payment in dispute, funds withdrawn.')
+            ->subject('Donation payment in dispute, funds withdrawn')
             ->greeting('Hello ' . $notifiable->getDisplayName())
             ->line(
                 $this->charge->getUser()->getFullname() .

@@ -67,7 +67,7 @@ class SnackspacePayment extends Notification implements ShouldQueue
         $balanceString = money($balance, 'GBP');
 
         return (new MailMessage)
-            ->subject('Snackspace card payment complete.')
+            ->subject('Snackspace card payment complete')
             ->greeting('Hello ' . $notifiable->getFirstname())
             ->line('Your Snackspace payment of ' . $amountString . ' has been successful.')
             ->line('Your balance is now ' . $balanceString)

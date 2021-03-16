@@ -89,7 +89,7 @@ class MembershipMayBeRevoked extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->subject('Nottingham Hackspace: Your Membership May Be Revoked.')
+        return $this->subject('Nottingham Hackspace: Your Membership May Be Revoked')
                     ->markdown('emails.membership.membershipMayBeRevoked');
     }
 }

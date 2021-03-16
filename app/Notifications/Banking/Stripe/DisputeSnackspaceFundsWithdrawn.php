@@ -65,7 +65,7 @@ class DisputeSnackspaceFundsWithdrawn extends Notification implements ShouldQueu
             $balanceString = money($balance, 'GBP');
 
             return (new MailMessage)
-                ->subject('Snackspace card payment in dispute, funds withdrawn.')
+                ->subject('Snackspace card payment in dispute, funds withdrawn')
                 ->greeting('Hello ' . $notifiable->getFirstname())
                 ->line(
                     'Your Snackspace card payment is in dispute and ' .
@@ -74,7 +74,7 @@ class DisputeSnackspaceFundsWithdrawn extends Notification implements ShouldQueu
                 ->line('Your balance is now ' . $balanceString);
         } elseif ($notifiable instanceof Role) {
             return (new MailMessage)
-                ->subject('Snackspace Stripe payment in dispute, funds withdrawn.')
+                ->subject('Snackspace Stripe payment in dispute, funds withdrawn')
                 ->greeting('Hello ' . $notifiable->getDisplayName())
                 ->line(
                     $this->charge->getUser()->getFullname() .

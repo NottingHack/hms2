@@ -2,7 +2,7 @@
  * File to hold all our VueJS related JavaScript
  */
 
-window.Vue = require('vue');
+window.Vue = require('vue').default;
 
 /**
  * unique id helper, gives this.uid, this.$id(), this.$idRef()

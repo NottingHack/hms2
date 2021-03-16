@@ -767,10 +767,6 @@
 /*
  * ToolCalendar.vue
  */
-@import "~sass/variables";
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/mixins";
 
 // override the bootstrap 4 theme today highlight
 .fc-today {

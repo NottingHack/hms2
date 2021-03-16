@@ -66,17 +66,21 @@ mix.sourceMaps()
         path: 'resources/js/ziggy.js',
     })
     .js('resources/js/app.js', 'public/js')
+    .vue({
+      extractStyles: 'public/css/vue.css',
+      // need mix 6 and webpack 5 :(
+      globalStyles: {
+        scss: [
+          '~bootstrap/scss/functions',
+          '~bootstrap/scss/variables',
+          '~bootstrap/scss/mixins',
+          'resources/sass/_variables.scss',
+        ],
+      }
+    })
     .extract()
     .sass('resources/sass/app.scss', 'public/css')
     .options({
-        extractVueStyles: 'public/css/vue.css',
-        // need mix 6 and webpack 5 :(
-        // globalVueStyles: [
-        //   '~bootstrap/scss/functions',
-        //   '~bootstrap/scss/variables',
-        //   '~bootstrap/scss/mixins',
-        //   'resources/sass/_variables.scss',
-        // ],
     })
     .version();
 

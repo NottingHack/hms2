@@ -38,7 +38,7 @@ return [
     | A regular expression to match descriptions with the Account legacyRef column
     | Needed when FEATURE_MATCH_LEGACY_REF is enabled
     */
-    'account_legacy_regex' => env('ACCOUNT_LEGACY_REGEX', '\b(M0[0-9]+)\b'),
+    'account_legacy_regex' => env('ACCOUNT_LEGACY_REGEX', '/\b(M0[0-9]+)\b/'),
 
     /*
     |--------------------------------------------------------------------------

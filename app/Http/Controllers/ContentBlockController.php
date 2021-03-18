@@ -77,6 +77,8 @@ class ContentBlockController extends Controller
 
         $this->contentBlockRepository->save($contentBlock);
 
+        flash('Content Block updated')->success();
+
         return redirect()->route('content-blocks.show', $contentBlock->getId());
     }
 }

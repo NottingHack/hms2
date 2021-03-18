@@ -37,5 +37,20 @@ Viewing block {{ $contentBlock->getView() }}:{{ $contentBlock->getBlock() }}
   <a href="{{ route('content-blocks.edit', $contentBlock->getId()) }}" class="btn btn-info btn-block"> <i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
   @endcan
   <br>
+  <hr>
+  <dl>
+    <dt>Type</dt>
+    <dd>
+      <ul>
+        <li><strong>Page</strong>: pure HTML for display on site</li>
+        <li><strong>Email</strong>: markdown for rendering to both text and HTML</li>
+      </ul>
+    </dd>
+    <dt>View</dt>
+    <dd>The blade file this chunk is use in</dd>
+    <dt>Block</dt>
+    <dd>Name for the block of content within the page</dd>
+  </dl>
 </div>
+
 @endsection

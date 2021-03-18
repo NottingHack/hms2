@@ -45,8 +45,23 @@ class UserController extends Controller
         $this->userManager = $userManager;
         $this->profileManager = $profileManager;
 
-        $this->middleware('can:profile.view.self')->only(['show']);
+        $this->middleware('can:profile.view.self')->only(['index', 'show']);
         $this->middleware('can:profile.edit.self')->only(['update']);
+    }
+
+    /**
+     * Show the current user.
+     *
+     * @param User $user
+     *
+     * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function index()
+    {
+        $user = Auth::user();
+
+        return new UserResource($user);
     }
 
     /**

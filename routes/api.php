@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -45,7 +47,7 @@ Route::name('api.')->namespace('Api')->group(function () {
             ->name('search.invites');
 
         Route::apiResource('users', 'UserController')
-            ->except(['index', 'store', 'destroy']);
+            ->except(['store', 'destroy']);
 
         // Snackspace
         Route::patch(

@@ -136,6 +136,91 @@ class ContentBlockSeeder extends Seeder
      * @var array
      */
     protected $emailBlocks = [
+        [
+            'view' => 'emails.gatekeeper.booking_approved',
+            'block' => 'additional',
+            'content' => "You must leave and swipe out of the Hackspace before the end time of your booking. You must swipe your RFID card on an exit door (this is any door, except the door at the top of the spiral staircase. This door is only an “in” door.  \r\nPlease ensure that you wipe all surfaces you have been in contact with before you leave.",
+        ],
+        [
+            'view' => 'emails.gatekeeper.booking_approved_automatically',
+            'block' => 'additional',
+            'content' => "You must leave and swipe out of the Hackspace before the end time of your booking. You must swipe your RFID card on an exit door (this is any door, except the door at the top of the spiral staircase. This door is only an “in” door.  \r\nPlease ensure that you wipe all surfaces you have been in contact with before you leave.",
+        ],
+        [
+            'view' => 'emails.gatekeeper.booking_cancelled_with_reason',
+            'block' => 'additional',
+            'content' => '',
+        ],
+        [
+            'view' => 'emails.gatekeeper.booking_ended',
+            'block' => 'additional',
+            'content' => "You must leave and swipe out of the Hackspace before the end time of your booking. You must swipe your RFID card on an exit door (this is any door, except the door at the top of the spiral staircase. This door is only an “in” door.  \r\nPlease ensure that you wipe all surfaces you have been in contact with before you leave.",
+        ],
+        [
+            'view' => 'emails.gatekeeper.booking_made',
+            'block' => 'additional',
+            'content' => '',
+        ],
+        [
+            'view' => 'emails.gatekeeper.booking_rejected',
+            'block' => 'additional',
+            'content' => '',
+        ],
+        [
+            'view' => 'emails.membership.approved',
+            'block' => 'main',
+            'content' => "Your details have now been approved by the Membership Team.\r\n\r\nThe next step in setting up your hackspace membership is for you to set up a bank standing order to Nottingham Hackspace using the details below.\r\n\r\nAs explained on your tour around the Hackspace, we have a \"Pay what you think the space is worth to you\" system. We are entirely member funded and rely almost exclusively on membership contributions to keep the Hackspace open.  \r\nWe recommend, if you are planning on using the space semi-regularly, that £15 is a fair monthly membership contribution.\r\n\r\nFrom time to time all membership contributions will be reviewed and members may be asked to increase their contribution.  \r\nRead more about the rules governing membership here: [Membership of the Hackspace](https://rules.nottinghack.org.uk/en/latest/membership-of-the-hackspace.html)",
+        ],
+        [
+            'view' => 'emails.membership.approved',
+            'block' => 'additional',
+            'content' => "Once we've received your first payment (which may take 3-4 days to show up in our account after it leaves yours), we'll send an email confirming membership. You can then collect your RFID card at a Wednesday Open Hack Night. You will then have 24 hour access to the space.",
+        ],
+        [
+            'view' => 'emails.membership.eighteenCongratulations',
+            'block' => 'additional',
+            'content' => '',
+        ],
+        [
+            'view' => 'emails.membership.membershipComplete',
+            'block' => 'main',
+            'content' => "Thanks for becoming a member of Nottingham Hackspace. Here are all of the remaining details you need, though there's one last step before you'll have full 24 hour access.\r\n\r\nGatekeeper is our RFID entry system for which you need a suitable card set up, which we provide. Visit on a Wednesday Open Hack Night and ask people to point you to one of the membership team, or please contact membership@nottinghack.org.uk if you are unable to attend one.",
+        ],
+        [
+            'view' => 'emails.membership.membershipMayBeRevoked',
+            'block' => 'main',
+            'content' => 'We have not seen a membership payment from you recently. If we do not see one soon your membership to Nottingham Hackspace will be revoked.',
+        ],
+        [
+            'view' => 'emails.membership.membershipMayBeRevoked',
+            'block' => 'additional',
+            'content' => 'If you no longer wish to be a member and have intentionally cancelled your standing order we are sorry to see you go, but would like to thank you for being a member and supporting the hackspace. Your membership will end in a couple of weeks time. Before your membership finally ends please ensure you remove any projects or materials you may have at the hackspace.',
+        ],
+        [
+            'view' => 'emails.membership.membershipReinstated',
+            'block' => 'main',
+            'content' => "Thanks for reinstating your membership of Nottingham Hackspace. Here is a reminder of some details you might need.\r\n\r\nGatekeeper is our RFID entry system for which you need a suitable card set up, which we provide. If you aren't sure if your former RFID card will work, or if you need a new one, please visit on the next open hack night and ask people to point you to one of the membership team, or please contact membership@nottinghack.org.uk if you are unable to attend one. It will be £1 for a new RFID card.",
+        ],
+        [
+            'view' => 'emails.membership.membershipRevoked',
+            'block' => 'main',
+            'content' => 'We are sorry to see you go, but as you have not made a payment recently your Nottingham Hackspace membership has been revoked and your access to the space has been suspended.',
+        ],
+        [
+            'view' => 'emails.snackspace.current_member_debt',
+            'block' => 'additional',
+            'content' => "For the first eight years of Nottingham Hackspace, we allowed members up to £20 credit. However in 2019, this became unsustainable when the combined debt of all members, current and former, surpassed £2,500.\r\n\r\nIn July 2019, that credit limit was reduced to zero.",
+        ],
+        [
+            'view' => 'emails.snackspace.ex_member_debt',
+            'block' => 'additional',
+            'content' => 'For the first eight years of Nottingham Hackspace, we allowed members up to £20 credit. However in 2019, this became unsustainable when the combined debt of all members, current and former, surpassed £2,500.',
+        ],
+        [
+            'view' => 'emails.teams.reminder',
+            'block' => 'main',
+            'content' => "Please note this is your reminder that in one week we will have the monthly Member's Meeting.\r\n\r\nIf you believe your team has anything to report back over the past 4 weeks, please let us know by the SUNDAY before the Member's Meeting. The Member's Meeting is always the first Wednesday of the month.\r\n\r\nIf we do not hear from you with a round up, there won't be time to discuss any news at the meeting so it will have to be delayed until the month after.\r\n\r\nIf you've got any questions, please do email us at <trustees@nottinghack.org.uk>, or reply to this email.",
+        ],
     ];
 
     /**

@@ -2,8 +2,7 @@
 # Hello {{ $name }},
 
 Your access booking request has been created by a Trustee and authorised.  
-You must leave and swipe out of the Hackspace before the end time of your booking. You must swipe your RFID card on an exit door (this is any door, except the door at the top of the spiral staircase. This door is only an “in” door.  
-Please ensure that you wipe all surfaces you have been in contact with before you leave.  
+@content('emails.gatekeeper.booking_made', 'additional')
 
 **Building:** {{ $buildingName }}  
 **Start:** {{ $start }}  

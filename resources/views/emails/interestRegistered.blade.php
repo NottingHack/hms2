@@ -10,6 +10,7 @@ Create an HMS account
 
 Also, please add "{{ $membershipEmail }}" and "{{ $trusteesEmail }}" to your address book to reduce the chances of hackspace email going into your spam.
 
+@content('emails.interestRegistered', 'main')
 After setting up login details, you'll be asked to fill in some more information about yourself, namely your address and a contact phone number. Don't worry, we won't share this information with anyone, unless legally obliged to do so.
 
 Once you've submitted the information we need, one of our member admins will be notified. They'll give your information a quick check, and if all is well they'll move your membership on to the next stage. This is the part where you get the Nottingham Hackspace bank details, as well as a unique payment reference code for your account. It is very important you include this reference on your payments. 

@@ -1,10 +1,10 @@
 @component('mail::message')
 # Hello {{ $fullname }}
 
-We are sorry to see you go, but as you have not made a payment recently your Nottingham Hackspace membership has been revoked and your access to the space has been suspended.
+@content('emails.membership.membershipRevoked', 'main')
 
 @if ($boxCount > 0)
-Our records show that you have left a members box at the space please arange to collect it on a Wednesday Open Hack Night.  
+Our records show that you have left a members box at the space please arrange to collect it on a Wednesday Open Hack Night.  
 @endif
 
 @if ($snackspaceBalance < 0)

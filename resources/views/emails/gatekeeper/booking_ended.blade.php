@@ -12,6 +12,8 @@ However if you are still in the space please leave as soon as possible, by over 
 Yes I Have Left
 @endcomponent
 
+@content('emails.gatekeeper.booking_ended', 'additional')
+
 **Start:** {{ $start }}  
 **End:** {{ $end }}  
 **Area:** {{ $bookableAreaName }}  

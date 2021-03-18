@@ -6,12 +6,7 @@ Voting Status
 
 @section('content')
 <div class="container">
-  <p>
-    On this page you can see your current calculated status and also state a voting preference<br>
-    There are many ways in which your status can automatically change between Voting and Non-Voting, even with a stated preference.<br>
-    <strong>Voting & Non-voting member</strong> status is a complicated subject for more information please read up about it on the wiki.<br>
-    <a href="https://wiki.nottinghack.org.uk/wiki/Voting_%26_Non-voting_member" target="_blank">Wiki: Voting & Non-voting member</a><br>
-  </p>
+  @content('governance.voting.index', 'main')
   <h2>Current Status</h2>
   <p>
     Your current calculated voting status is <strong>{{ $votingStatus }}</strong><br>

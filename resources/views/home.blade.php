@@ -4,8 +4,9 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <h1 >Welcome, {{ $user->getFirstName() }}</h1>
+      <h1>Welcome, {{ $user->getFirstName() }}</h1>
       <hr>
+      @content('home', 'welcome')
     </div>
   </div>
   <div class="card-columns">

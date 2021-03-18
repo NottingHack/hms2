@@ -4,6 +4,7 @@
 
 @section('content')
 <div class="container">
+  @content('tools.tool.index', 'main')
   <p>
     To book a tool click on the <span style="color: #195905"><i class="far fa-calendar-alt" aria-hidden="true"></i></span> or name.<br>
     Use of some tools is restricted and needs an induction first.

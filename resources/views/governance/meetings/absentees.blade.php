@@ -7,7 +7,7 @@ Absentees for {{ $meeting->getTitle() }}
 @section('content')
 <div class="container">
   <p>
-    The following members have comunicated their Absence.
+    The following members have communicated their Absence.
   </p>
   @can('governance.meeting.recordAbsence')
   @if ($meeting->getStartTime()->isFuture() || $meeting->getStartTime()->isToday())

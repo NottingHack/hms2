@@ -242,6 +242,7 @@ return [
         'Features' => HMS\Facades\Features::class,
         'SiteVisitor' => HMS\Facades\SiteVisitor::class,
         'Meta' => HMS\Facades\Meta::class,
+        'Content' => HMS\Facades\Content::class,
 
     ],
 

@@ -27,7 +27,7 @@
   <hr>
   <h4>A few important details:</h4>
   <p>
-    Nottingham Hackspace is incorporated as a non-profit company, registration number 07766826.<br>
+    Nottingham Hackspace is incorporated as a non-profit company, registration number {{ config('branding.company_number', '07766826') }}.<br>
     Everyone who works on stuff for the hackspace is a volunteer; the hackspace has no staff, just members.<br>
     So far, it has also been entirely funded and is self-sustaining through members contributions rather than grants.
   </p>

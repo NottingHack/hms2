@@ -18,7 +18,7 @@ Use these details to set up a bank standing order for your membership fee. Membe
 
 When your standing order is set up and your first payment is made, even if the money leaves your account, payments are not instant between all banks and records don't update immediately, so it may take 3 to 4 days before it's visible in the hackspace account. Our automated system checks our account at midnight on weekdays. When your payment does show, you'll receive an email confirming membership, you'll get the door codes and an invitation to collect your RFID card at a Wednesday Open Hack Night. Once you've collected your card, you are free to visit at any time, twenty four hours a day.
 
-A few important details: Nottingham Hackspace is incorporated as a non-profit company, registration number 07766826. Everyone who works on stuff for the hackspace is a volunteer; the hackspace has no staff, just members. So far, it has also been entirely funded and is self-sustaining through members contributions rather than grants.
+A few important details: Nottingham Hackspace is incorporated as a non-profit company, registration number {{ config('branding.company_number', '07766826') }}. Everyone who works on stuff for the hackspace is a volunteer; the hackspace has no staff, just members. So far, it has also been entirely funded and is self-sustaining through members contributions rather than grants.
 
 Please do consider volunteering. We are always looking for help.
 

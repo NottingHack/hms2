@@ -36,17 +36,27 @@
     <div class="col-sm-3 d-none d-sm-block">
       <h5>Address</h5>
       <ul>
-        <li>Unit F6 Roden House</li>
-        <li>Roden Street</li>
-        <li>Nottingham</li>
-        <li>NG3 1JH</li>
+        <li>{{ config('branding.address_1') }}</li>
+        <li>{{ config('branding.address_2') }}</li>
+
+        @if (config('branding.address_3'))
+        <li>{{ config('branding.address_3') }}</li>
+        @endif
+
+        <li>{{ config('branding.city') }}</li>
+
+        @if (config('branding.county'))
+        <li>{{ config('branding.county') }}</li>
+        @endif
+
+        <li>{{ config('branding.postcode') }}</li>
       </ul>
     </div>
     <div class="col-sm-3">
       <h5>Legal</h5>
       <ul>
-        <li>Nottingham Hackspace Ltd</li>
-        <li>No. 07766826</li>
+        <li>{{ config('branding.company_name') }}</li>
+        <li>No. {{ config('branding.company_number') }}</li>
         <li>Reg. in England & Wales</li>
         <li><a href="{{ route('privacy-and-terms') }}">Privacy & Terms</a></li>
         <li><a href="{{ route('cookie-policy') }}">Cookie Policy</a></li>
@@ -54,11 +64,11 @@
     </div>
     <div class="w-100"><hr></div>
     <div class="col social-networks">
-      <a href="https://twitter.com/HSNOTTS" class="twitter" target="_blank"><i class="fab fa-twitter"></i></a>
-      <a href="https://www.facebook.com/nottinghack/" class="facebook" target="_blank"><i class="fab fa-facebook"></i></a>
-      <a href="https://groups.google.com/group/nottinghack?hl=en" class="google" target="_blank"><i class="fab fa-google"></i></a>
-      <a href="https://www.flickr.com/photos/nottinghack" class="flickr" target="_blank"><i class="fab fa-flickr"></i></a>
-      <a href="https://www.youtube.com/user/nottinghack" class="youtube" target="_blank"><i class="fab fa-youtube"></i></a>
+      @foreach (config('branding.social_networks') as $network)
+      @if ($network['link'])
+      <a href="{{ $network['link'] }}" target="_blank"><i class="{{ $network['icon'] }}"></i></a>
+      @endif
+      @endforeach
     </div>
   </div>
 </footer>

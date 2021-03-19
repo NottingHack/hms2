@@ -82,7 +82,6 @@ class RfidAccessTokenController extends Controller
             'token_type' =>'Bearer',
             'expires_in' => Carbon::now()->diffInSeconds($token->token->expires_at),
             'access_token' => $token->accessToken,
-            'user_id' => $user->getId(),
         ];
 
         return response()->json($response);

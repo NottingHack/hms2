@@ -23,6 +23,7 @@ use HMS\User\Permissions\RoleManager;
 use HMS\User\ProfileManager;
 use HMS\User\UserManager;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
@@ -141,9 +142,23 @@ class MembershipController extends Controller
             ];
         }
 
+        $pageName = 'page';
+        $page = LengthAwarePaginator::resolveCurrentPage($pageName);
+        $perPage = 15;
+
+        $approvalsPagination = new LengthAwarePaginator(
+            array_slice($approvals, ($page - 1) * $perPage, $perPage),
+            count($approvals),
+            $perPage,
+            $page,
+            [
+                'path' => LengthAwarePaginator::resolveCurrentPath(),
+                'pageName' => $pageName,
+            ]
+        );
+
         return view('membership.index')
-            ->with('users', $users)
-            ->with('approvals', $approvals);
+            ->with('approvals', $approvalsPagination);
     }
 
     /**

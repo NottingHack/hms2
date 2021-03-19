@@ -310,6 +310,10 @@ return [
             'name' => 'Building Access User',
             'description' => 'Non members with 24/7 building access. e.g. Landlord, Cleaners',
             'permissions' => [
+                'profile.view.self',
+                'profile.edit.self',
+                'accessCodes.view',
+                'link.view',
                 'gatekeeper.zoneEntry.upstairs',
                 'gatekeeper.zoneEntry.cncBlueRoom',
                 'gatekeeper.zoneEntry.classRoomMetalworking',

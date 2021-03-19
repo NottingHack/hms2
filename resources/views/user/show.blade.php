@@ -4,8 +4,7 @@
 
 @section('content')
 <div class="container">
-  <p>The Hackspace only uses these details to get in touch with you if needed, or if we are legally mandated to pass them on.</p>
-  <p>We highly recommend you keep your details updated, especially your email address, as this is our main method of communication, including when door codes are changed and other important information.</p>
+  @content('user.show', 'main')
   <p>To change your details, please click the Edit button below.</p>
   <div class="table-responsive">
     <table class="table table-bordered">

@@ -73,11 +73,7 @@
 <br>
 <br>
 <div class="container">
-  <p>Stay informed, find the latest information <a href="https://wiki.nottinghack.org.uk/wiki/Coronavirus_guidelines">on the wiki.</a></p>
-  <p>
-    Please note that the <strong>22nd March - 2nd April</strong> we expect the new Hackspace toilets to be installed. This means no Hackspace toilet use.<br>
-    There are some available in the main Roden House corridors, but if you feel these are inadequate or not suitable please do not book during this time.
-  </p>
+  @content('gatekeeper.space_access', 'temporaryAccess')
 </div>
 @foreach($buildings as $building)
 <div class="container">

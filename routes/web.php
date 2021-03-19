@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -107,6 +110,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Meta area covers various setting for HMS
     Route::resource('metas', 'MetaController')
         ->except(['show', 'store', 'create', 'destroy']);
+    Route::resource('content-blocks', 'ContentBlockController')
+        ->except(['store', 'create', 'destroy'])
+        ->parameters(['content-blocks' => 'contentBlock']);
 
     // Usefull links editing (index is no auth)
     Route::resource('links', 'LinksController')

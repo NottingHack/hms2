@@ -10,9 +10,8 @@ You can view your full purchase/payment history using the 'Snackspace' tab on HM
 View your Snackspace history
 @endcomponent
 
-For the first eight years of Nottingham Hackspace, we allowed members up to £20 credit. However in 2019, this became unsustainable when the combined debt of all members, current and former, surpassed £2,500.
-
-In July 2019, that credit limit was reduced to zero. As of today the space is still owed **@money(-$latetsTotalDebt, 'GBP')**.
+@content('emails.snackspace.current_member_debt', 'additional')
+As of today the space is still owed **@money(-$latetsTotalDebt, 'GBP')**.
 
 
 ## Payment Instructions

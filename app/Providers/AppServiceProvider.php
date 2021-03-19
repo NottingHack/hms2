@@ -58,7 +58,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('content', function ($expression) {
             [$view, $block] = explode(', ', str_replace('\'', '', $expression));
 
-            return "<?php echo Content::get('{$view}', '{$block}', 'ContentBlock missing for {$view}:{$block}'); ?>";
+            return "<?php echo Content::get('{$view}', '{$block}', 'ContentBlock missing for {$view}:{$block}  '); ?>";
         });
     }
 }

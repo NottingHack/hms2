@@ -35,6 +35,7 @@ class VotingController extends Controller
         $this->userRepository = $userRepository;
         $this->votingManager = $votingManager;
 
+        $this->middleware('feature:voting_status');
         $this->middleware('can:governance.voting.canVote')->only(['index', 'update']);
     }
 

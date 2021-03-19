@@ -20,6 +20,7 @@ return [
         'match_legacy_ref' => env('FEATURE_MATCH_LEGACY_REF', false),
         'email_all_members' => env('FEATURE_EMAIL_ALL_MEMBERS', true)
             && (env('MAILGUN_DOMAIN', false) && env('MAILGUN_SECRET', false)),
+        'voting_status' => env('FEATURE_VOTING_STATUS', true),
     ],
 
     /*

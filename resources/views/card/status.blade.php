@@ -12,6 +12,7 @@
           @endisset
         </td>
       </tr>
+      @feature('voting_status')
       @can('governance.voting.canVote')
       <tr>
         <th scope="row">Voting Status:</th>
@@ -25,6 +26,7 @@
         </td>
       </tr>
       @endcan
+      @endfeature
     </tbody>
   </table>
 </div>

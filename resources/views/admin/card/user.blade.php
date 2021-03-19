@@ -20,14 +20,18 @@
           </span>
         </td>
       </tr>
-      @can('governance.voting.canVote')
+      @feature('voting_status')
+      @can('profile.view.all')
+      @if ($user->can('governance.voting.canVote'))
       <tr>
         <th scope="row">Voting Status:</th>
         <td class="align-middle">
             {{ $votingStatus }}
         </td>
       </tr>
+      @endif
       @endcan
+      @endfeature
       <tr>
         <th scope="row">Name:</th>
         <td>{{ $user->getFullname() }}</td>

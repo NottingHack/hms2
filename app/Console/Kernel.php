@@ -11,6 +11,7 @@ use App\Jobs\Governance\RecalculateMeetingQuorumJob;
 use App\Jobs\Membership\AuditYoungHackersJob;
 use App\Jobs\Snackspace\LogDebtJob;
 use App\Jobs\Snackspace\MemberDebtNotificationJob;
+use HMS\Facades\Features;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -53,7 +54,11 @@ class Kernel extends ConsoleKernel
 
         $schedule->job(new LogDebtJob)->daily();
         $schedule->job(new ZoneOccupantResetJob)->hourly();
-        $schedule->job(new MemberDebtNotificationJob)->monthlyOn(1, '7:00');
+
+        if (Features::isEnabled('snackspace')) {
+            $schedule->job(new MemberDebtNotificationJob)->monthlyOn(1, '7:00');
+        }
+
         $schedule->job(new EmailTeamReminderJob)->weeklyOn(2, '7:27');
         $schedule->job(new RecalculateMeetingQuorumJob)->everyFiveMinutes()
             ->environments(['local', 'rommie', 'production']);

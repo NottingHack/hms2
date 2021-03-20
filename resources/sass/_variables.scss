@@ -96,3 +96,5 @@ $sizes: (
 
 // Override font family Oxygen + $font-family-sans-serif
 $font-family-base: 'Oxygen', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" ;
+
+// select2 styles can be overridden using $s2bs-* variables as found in ~select2-theme-bootstrap4/src/select2-bootstrap

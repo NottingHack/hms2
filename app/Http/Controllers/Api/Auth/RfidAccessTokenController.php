@@ -33,7 +33,7 @@ class RfidAccessTokenController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Http\JsonResponse
      */
-    public function issueRfidToken(Request $request)
+    public function __invoke(Request $request)
     {
         $validatedData = $request->validate([
             'rfidSerial' => [

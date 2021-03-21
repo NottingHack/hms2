@@ -20,6 +20,7 @@ class User extends JsonResource
             'id' => $this->getId(),
             'name' => $this->getFirstname(),
             'lastname' => $this->getLastname(),
+            'fullname' => $this->getFullname(),
             'username' => $this->getUsername(),
             'email' => $this->getEmail(),
             'profile' => new ProfileResource($this->getProfile()),

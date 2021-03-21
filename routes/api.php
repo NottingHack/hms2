@@ -46,6 +46,9 @@ Route::name('api.')->namespace('Api')->group(function () {
         Route::get('search/invites/{searchQuery?}', 'SearchController@invites')
             ->name('search.invites');
 
+        // Users
+        Route::post('can', 'Auth\CanCheckController')
+            ->name('user.can');
         Route::apiResource('users', 'UserController')
             ->except(['store', 'destroy']);
 
@@ -129,7 +132,7 @@ Route::name('client.')->prefix('cc')->namespace('Api')->middleware('client')->gr
             ->name('meetings.check-in-rfid');
     });
 
-    Route::post('rfid-token', 'Auth\RfidAccessTokenController@issueRfidToken')
+    Route::post('rfid-token', 'Auth\RfidAccessTokenController')
         ->name('rfid-token');
 });
 

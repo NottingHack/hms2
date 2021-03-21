@@ -7,7 +7,6 @@ use HMS\Repositories\PermissionRepository;
 use HMS\Repositories\RoleRepository;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
-use LaravelDoctrine\ACL\Permissions\Permission;
 
 class CompareCommand extends BaseCommand
 {

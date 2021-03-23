@@ -40,9 +40,7 @@ class CanCheckController extends Controller
         $results = [];
 
         foreach ($permissionsToCheck as $permission) {
-            $results[] = [
-                $permission => Gate::allows($permission),
-            ];
+            $results[$permission] = Gate::allows($permission);
         }
 
         return response()->json($results);

@@ -134,6 +134,9 @@ Route::name('client.')->prefix('cc')->namespace('Api')->middleware('client')->gr
 
     Route::post('rfid-token', 'Auth\RfidAccessTokenController')
         ->name('rfid-token');
+
+    Route::post('rfid-tags/register', 'Gatekeeper\RegisterRfidTagController')
+        ->name('rfid-tags.register');
 });
 
 Route::name('webhook.')->group(function () {

@@ -96,6 +96,18 @@ class RfidTag
     }
 
     /**
+     * @param null|string $rfidSerial
+     *
+     * @return self
+     */
+    public function setRfidSerial($rfidSerial)
+    {
+        $this->rfidSerial = $rfidSerial;
+
+        return $this;
+    }
+
+    /**
      * Gets the value of rfidSerialLegacy.
      *
      * @return null|string
@@ -159,6 +171,18 @@ class RfidTag
     public function getLastUsed()
     {
         return $this->lastUsed;
+    }
+
+    /**
+     * @param \Carbon\Carbon|null $lastUsed
+     *
+     * @return self
+     */
+    public function setLastUsed($lastUsed)
+    {
+        $this->lastUsed = $lastUsed;
+
+        return $this;
     }
 
     /**

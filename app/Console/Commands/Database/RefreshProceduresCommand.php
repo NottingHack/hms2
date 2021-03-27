@@ -43,7 +43,7 @@ class RefreshProceduresCommand extends Command
         $hostname = gethostname();
         if ($hostname == 'hmsdev') {
             $hostname = '%';
-        } else {
+        } elseif (in_array($hostname, ['holly', 'rommie'])) {
             $hostname .= '.lspace';
         }
 

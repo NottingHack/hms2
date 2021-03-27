@@ -84,6 +84,9 @@ class RfidAccessTokenController extends Controller
             'access_token' => $token->accessToken,
         ];
 
+        $rfidTag->setLastUsed(Carbon::now());
+        $this->rfidTagRepository->save($rfidTag);
+
         return response()->json($response);
     }
 }

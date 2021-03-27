@@ -2,10 +2,10 @@
 
 namespace App\Http\Resources\Gatekeeper;
 
-use App\Http\Resources\User as UserResource;
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RfidTag extends JsonResource
+class RfidTagResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

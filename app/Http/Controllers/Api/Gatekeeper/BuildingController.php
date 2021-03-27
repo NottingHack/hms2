@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Gatekeeper;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Gatekeeper\Building as BuildingResource;
+use App\Http\Resources\Gatekeeper\BuildingResource;
 use HMS\Entities\Gatekeeper\Building;
 use HMS\Gatekeeper\BuildingManager;
 use HMS\Repositories\Gatekeeper\BuildingRepository;

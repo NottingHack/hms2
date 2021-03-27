@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Members;
 
 use App\Events\Labels\ProjectPrint;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Members\Project as ProjectResource;
+use App\Http\Resources\Members\ProjectResource;
 use Doctrine\ORM\EntityNotFoundException;
 use HMS\Entities\Members\Project;
 use HMS\Factories\Members\ProjectFactory;

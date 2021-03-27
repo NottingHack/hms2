@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\User as UserResource;
+use App\Http\Resources\UserResource;
 use HMS\Entities\User;
 use HMS\Repositories\UserRepository;
 use HMS\User\ProfileManager;

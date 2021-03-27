@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Gatekeeper;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Gatekeeper\RfidTag as RfidTagResource;
+use App\Http\Resources\Gatekeeper\RfidTagResource;
 use HMS\Entities\Gatekeeper\PinState;
 use HMS\Factories\Gatekeeper\RfidTagFactory;
 use HMS\Repositories\Gatekeeper\PinRepository;

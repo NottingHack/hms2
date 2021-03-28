@@ -17,7 +17,7 @@ class ProfileResource extends JsonResource
     {
         return [
             'user_id' => $this->getUser()->getId(),
-            'joinDate' => $this->getJoinDate(),
+            'joinDate' => $this->getJoinDate() ? $this->getJoinDate()->toDateString() : null,
             'creditLimit' => $this->getCreditLimit(),
             'address1' => $this->getAddress1(),
             'address2' => $this->getAddress2(),

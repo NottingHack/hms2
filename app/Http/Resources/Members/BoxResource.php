@@ -17,8 +17,8 @@ class BoxResource extends JsonResource
     {
         return [
             'id' => $this->getId(),
-            'boughtDate' => $this->getBoughtDate(),
-            'removedDate' => $this->getRemovedDate(),
+            'boughtDate' => $this->getBoughtDate() ? $this->getBoughtDate()->toDateString() : null,
+            'removedDate' => $this->getRemovedDate() ? $this->getRemovedDate()->toDateString() : null,
             'state' => $this->getState(),
             'stateString' => $this->getStateString(),
             'userId' => $this->getUser()->getId(),

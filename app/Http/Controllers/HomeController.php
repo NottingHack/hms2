@@ -133,7 +133,6 @@ class HomeController extends Controller
         $toolIds = array_map(function ($tool) {
             return $tool->getId();
         }, $tools);
-        $memberStatus = $this->roleRepository->findMemberStatusForUser($user);
         $votingStatus = $this->votingManager->getVotingStatusForUser($user);
 
         return view('home')->with([
@@ -144,7 +143,6 @@ class HomeController extends Controller
             'teams' => $teams,
             'bookings' => $bookings,
             'toolIds' => $toolIds,
-            'memberStatus' => $memberStatus,
             'votingStatus' => $votingStatus,
         ]);
     }

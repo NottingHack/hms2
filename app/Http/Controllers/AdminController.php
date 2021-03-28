@@ -123,8 +123,6 @@ class AdminController extends Controller
             $toolsFreeTime[$tool->getId()] = $this->toolUsageRepository->freeTimeForToolUser($tool, $user);
         }
 
-        $memberStatus = $this->roleRepository->findMemberStatusForUser($user);
-
         $bankTransactions = [];
         if ($user->getAccount()) {
             $bankTransactions = $this->bankTransactionRepository->paginateByAccount($user->getAccount(), 3);
@@ -142,7 +140,6 @@ class AdminController extends Controller
             'tools' => $tools,
             'toolIds' => $toolIds,
             'toolsFreeTime' => $toolsFreeTime,
-            'memberStatus' => $memberStatus,
             'bankTransactions' => $bankTransactions,
             'votingStatus' => $votingStatus,
         ]);

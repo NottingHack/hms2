@@ -10,7 +10,6 @@ use HMS\Entities\Governance\Meeting;
 use HMS\Repositories\Gatekeeper\RfidTagRepository;
 use HMS\Repositories\Governance\MeetingRepository;
 use HMS\Repositories\Governance\ProxyRepository;
-use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response as IlluminateResponse;
@@ -33,11 +32,6 @@ class CheckInController extends Controller
     protected $proxyRepository;
 
     /**
-     * @var RoleRepository
-     */
-    protected $roleRepository;
-
-    /**
      * @var UserRepository
      */
     protected $userRepository;
@@ -48,19 +42,16 @@ class CheckInController extends Controller
      * @param MeetingRepository $meetingRepository
      * @param RfidTagRepository $rfidTagRepository
      * @param ProxyRepository $proxyRepository
-     * @param RoleRepository $roleRepository
      */
     public function __construct(
         MeetingRepository $meetingRepository,
         RfidTagRepository $rfidTagRepository,
         ProxyRepository $proxyRepository,
-        RoleRepository $roleRepository,
         UserRepository $userRepository
     ) {
         $this->meetingRepository = $meetingRepository;
         $this->rfidTagRepository = $rfidTagRepository;
         $this->proxyRepository = $proxyRepository;
-        $this->roleRepository = $roleRepository;
         $this->userRepository = $userRepository;
 
         // $this->middleware('can:governance.meeting.view')->only(['show']); // applied in routes files so only applies when coming from web not client api
@@ -160,8 +151,7 @@ class CheckInController extends Controller
         $user = $this->userRepository->findOneById($validatedData['user_id']);
 
         if ($user->cannot('governance.voting.canVote')) {
-            $memberStatus = $this->roleRepository->findMemberStatusForUser($user);
-            $message = 'Is not allowed to vote. Status: ' . $memberStatus->getDisplayName();
+            $message = 'Is not allowed to vote. Status: ' . $user->getMemberStatusString();
         } elseif ($meeting->getAttendees()->contains($user)) {
             $message = 'Already Checked-in';
         } else {
@@ -256,8 +246,7 @@ class CheckInController extends Controller
         $user = $rfidTag->getUser();
 
         if ($user->cannot('governance.voting.canVote')) {
-            $memberStatus = $this->roleRepository->findMemberStatusForUser($user);
-            $message = 'Is not allowed to vote. Status: ' . $memberStatus->getDisplayName();
+            $message = 'Is not allowed to vote. Status: ' . $user->getMemberStatusString();
         } elseif ($meeting->getAttendees()->contains($user)) {
             $message = 'Already Checked-in';
         } else {

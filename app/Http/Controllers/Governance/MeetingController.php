@@ -235,8 +235,7 @@ class MeetingController extends Controller
         $user = $this->userRepository->findOneById($validatedData['user_id']);
 
         if ($user->cannot('governance.voting.canVote')) {
-            $memberStatus = $this->roleRepository->findMemberStatusForUser($user);
-            flash($user->getFullname() . ' is not allowed to vote. Status: ' . $memberStatus->getDisplayName())
+            flash($user->getFullname() . ' is not allowed to vote. Status: ' . $user->getMemberStatusString())
                 ->warning();
         } elseif ($meeting->getAttendees()->contains($user)) {
             flash($user->getFullname() . ' already Checked-in.');
@@ -326,8 +325,7 @@ class MeetingController extends Controller
         $user = $this->userRepository->findOneById($validatedData['user_id']);
 
         if ($user->cannot('governance.voting.canVote')) {
-            $memberStatus = $this->roleRepository->findMemberStatusForUser($user);
-            flash($user->getFullname() . ' is not allowed to vote. Status: ' . $memberStatus->getDisplayName())
+            flash($user->getFullname() . ' is not allowed to vote. Status: ' . $user->getMemberStatusString())
                 ->warning();
         } elseif ($meeting->getAbsentees()->contains($user)) {
             flash($user->getFullname() . ' already recorded absent.');

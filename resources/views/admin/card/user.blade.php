@@ -7,11 +7,7 @@
         <th scope="row">Status:</th>
         <td>
           <span class="align-middle">
-          @isset($memberStatus)
-            {{ $memberStatus->getDisplayName() }}&nbsp;
-          @else
-          Not a Member&nbsp;
-          @endisset
+            {{ $user->getMemberStatusString() }}&nbsp;
             <div class="btn-group float-right" role="group">
               @canany('profile.view.limited', 'profile.view.all')
               <a href="{{ route('users.admin.role-updates', $user->getId()) }}" class="btn btn-primary btn-sm"><i class="fas fa-history" aria-hidden="true"></i></a>

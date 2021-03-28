@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="card-columns">
-    @component('card.status', ['user' => $user, 'memberStatus' => $memberStatus, 'votingStatus' => $votingStatus])
+    @component('card.status', ['user' => $user, 'votingStatus' => $votingStatus])
     @endcomponent
     @component('card.proxy')
     @endcomponent

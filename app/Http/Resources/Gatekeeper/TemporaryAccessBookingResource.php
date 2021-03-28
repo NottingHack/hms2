@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Gatekeeper;
 
-use App\Http\Resources\Gatekeeper\BookableAreaResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;

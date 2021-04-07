@@ -27,7 +27,7 @@
     "docs-soap": "^1.2.1",
     "highcharts": "^7.2.2",
     "humanize-duration": "^3.25.1",
-    "jquery": "^3.6.0",
+    "jquery": "3.5.*",
     "laravel-echo": "^1.10.0",
     "laravel-mix": "^6.0.6",
     "laravel-mix-bundle-analyzer": "^1.0.5",

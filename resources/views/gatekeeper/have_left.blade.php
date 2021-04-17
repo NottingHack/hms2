@@ -7,7 +7,7 @@
       <div class="card  text-center">
         <h5 class="card-header">Gatekeeper</h5>
         <div class="card-body">
-          Thank you for confirming you have left the space.
+          @content('gatekeeper.have_left', 'card')
         </div>
       </div>
     </div>

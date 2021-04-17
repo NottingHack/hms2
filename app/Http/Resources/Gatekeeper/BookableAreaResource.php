@@ -4,12 +4,12 @@ namespace App\Http\Resources\Gatekeeper;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Building extends JsonResource
+class BookableAreaResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
      *
-     * @param Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return array
      */

@@ -4,7 +4,6 @@
 
 @section('content')
 <div class="container">
-  <p>Lots of words
-  </p>
+  @content('pages.privacy_and_terms', 'main')
 </div>
 @endsection

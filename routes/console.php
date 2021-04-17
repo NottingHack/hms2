@@ -5,6 +5,7 @@ use App\Jobs\Gatekeeper\ZoneOccupantResetJob;
 use App\Jobs\Membership\AuditYoungHackersJob;
 use App\Jobs\PostGitDeployedJob;
 use Illuminate\Foundation\Inspiring;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------

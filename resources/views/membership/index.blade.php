@@ -32,6 +32,10 @@
       </tbody>
     </table>
   </div>
+
+  <div class="pagination-links">
+    {{ $approvals->links() }}
+  </div>
   @endif
   @empty
   <p>Nothing to approve.</p>

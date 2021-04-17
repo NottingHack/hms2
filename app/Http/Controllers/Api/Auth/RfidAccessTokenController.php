@@ -33,7 +33,7 @@ class RfidAccessTokenController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Http\JsonResponse
      */
-    public function issueRfidToken(Request $request)
+    public function __invoke(Request $request)
     {
         $validatedData = $request->validate([
             'rfidSerial' => [
@@ -82,8 +82,10 @@ class RfidAccessTokenController extends Controller
             'token_type' =>'Bearer',
             'expires_in' => Carbon::now()->diffInSeconds($token->token->expires_at),
             'access_token' => $token->accessToken,
-            'user_id' => $user->getId(),
         ];
+
+        $rfidTag->setLastUsed(Carbon::now());
+        $this->rfidTagRepository->save($rfidTag);
 
         return response()->json($response);
     }

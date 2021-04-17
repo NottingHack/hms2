@@ -6,12 +6,7 @@ Proxy request for {{ $meeting->getTitle() }}
 
 @section('content')
 <div class="container">
-  <p>
-    Another member has ask you to represent them at an upcoming Meeting by acting as their Proxy.<br>
-    Before accepting be sure you will be at the meeting yourself.<br>
-    If the meeting will include items to vote on make sure to talk over your opinions and how you wish your proxy votes to be cast.<br>
-    Most votes, including Resolutions to change the Constitution, are asked as a Yes/No/Abstain decision.
-  </p>
+  @content('governance.proxies.designate', 'main')
   <hr>
   <form role="form" method="POST" action="{{ route('governance.proxies.store', ['meeting' => $meeting->getId()]) }}">
     @csrf

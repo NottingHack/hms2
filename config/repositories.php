@@ -35,6 +35,7 @@ return [
     'repositories' => [
         'Link',
         'Meta',
+        'ContentBlock',
         'Role',
         'User',
         'Invite',

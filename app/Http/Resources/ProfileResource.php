@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Profile extends JsonResource
+class ProfileResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,7 +17,7 @@ class Profile extends JsonResource
     {
         return [
             'user_id' => $this->getUser()->getId(),
-            'joinDate' => $this->getJoinDate(),
+            'joinDate' => $this->getJoinDate() ? $this->getJoinDate()->toDateString() : null,
             'creditLimit' => $this->getCreditLimit(),
             'address1' => $this->getAddress1(),
             'address2' => $this->getAddress2(),

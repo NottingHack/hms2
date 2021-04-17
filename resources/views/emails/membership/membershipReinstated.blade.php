@@ -1,9 +1,7 @@
 @component('mail::message')
 # Hello {{ $fullname }}
 
-Thanks for reinstating your membership of Nottingham Hackspace. Here is a reminder of some details you might need.
-
-Gatekeeper is our RFID entry system for which you need a suitable card set up, which we provide. If you aren't sure if your former RFID card will work, or if you need a new one, please visit on the next open hack night and ask people to point you to one of the membership team, or please contact membership@nottinghack.org.uk if you are unable to attend one. It will be £1 for a new RFID card.
+@content('emails.membership.membershipReinstated', 'main')
 
 The hackspace members guide can be found at {{ $membersGuideHTML }} and it is a recommended read for all members. <br>
 A PDF version is also available [here.]({{ $membersGuidePDF }})

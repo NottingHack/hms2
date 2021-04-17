@@ -2,10 +2,9 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Resources\Profile as ProfileResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class User extends JsonResource
+class UserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -20,9 +19,11 @@ class User extends JsonResource
             'id' => $this->getId(),
             'name' => $this->getFirstname(),
             'lastname' => $this->getLastname(),
+            'fullname' => $this->getFullname(),
             'username' => $this->getUsername(),
             'email' => $this->getEmail(),
             'profile' => new ProfileResource($this->getProfile()),
+            'memberStatusString' => $this->getMemberStatusString(),
         ];
     }
 }

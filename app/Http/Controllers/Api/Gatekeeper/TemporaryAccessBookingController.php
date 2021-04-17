@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Gatekeeper;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Gatekeeper\TemporaryAccessBooking as TemporaryAccessBookingResources;
+use App\Http\Resources\Gatekeeper\TemporaryAccessBookingResource;
 use Carbon\Carbon;
 use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
 use HMS\Gatekeeper\TemporaryAccessBookingManager;
@@ -92,7 +92,7 @@ class TemporaryAccessBookingController extends Controller
         $temporaryAccessBookings = $this->temporaryAccessBookingRepository
             ->findBetweenForBuilding($start, $end, $building);
 
-        return TemporaryAccessBookingResources::collection($temporaryAccessBookings);
+        return TemporaryAccessBookingResource::collection($temporaryAccessBookings);
     }
 
     /**
@@ -132,7 +132,7 @@ class TemporaryAccessBookingController extends Controller
             return response()->json($response, IlluminateResponse::HTTP_UNPROCESSABLE_ENTITY);
         } else {
             // response is the new booking object
-            return (new TemporaryAccessBookingResources($response))
+            return (new TemporaryAccessBookingResource($response))
                 ->response()
                 ->setStatusCode(IlluminateResponse::HTTP_CREATED);
         }
@@ -147,7 +147,7 @@ class TemporaryAccessBookingController extends Controller
      */
     public function show(TemporaryAccessBooking $temporaryAccessBooking)
     {
-        return new TemporaryAccessBookingResources($response);
+        return new TemporaryAccessBookingResource($response);
     }
 
     /**
@@ -182,7 +182,7 @@ class TemporaryAccessBookingController extends Controller
             return response()->json($response, IlluminateResponse::HTTP_UNPROCESSABLE_ENTITY);
         } else {
             // response is the updated booking object
-            return (new TemporaryAccessBookingResources($response))
+            return (new TemporaryAccessBookingResource($response))
                 ->response()
                 ->setStatusCode(IlluminateResponse::HTTP_OK);
         }

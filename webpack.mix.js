@@ -70,10 +70,10 @@ mix.sourceMaps()
       extractStyles: 'public/css/vue.css',
       globalStyles: {
         scss: [
-          '~bootstrap/scss/functions',
-          '~bootstrap/scss/variables',
-          '~bootstrap/scss/mixins',
           'resources/sass/_variables.scss',
+          'node_modules/bootstrap/scss/_functions.scss',
+          'node_modules/bootstrap/scss/_variables.scss',
+          'node_modules/bootstrap/scss/_mixins.scss',
         ],
       }
     })

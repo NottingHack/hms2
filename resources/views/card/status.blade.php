@@ -4,14 +4,9 @@
     <tbody>
       <tr>
         <th scope="row" class="w-25">Status:</th>
-        <td>
-          @isset($memberStatus)
-          {{ $memberStatus->getDisplayName() }}
-          @else
-          Not a Member
-          @endisset
-        </td>
+        <td>{{ $user->getMemberStatusString() }}</td>
       </tr>
+      @feature('voting_status')
       @can('governance.voting.canVote')
       <tr>
         <th scope="row">Voting Status:</th>
@@ -25,6 +20,7 @@
         </td>
       </tr>
       @endcan
+      @endfeature
     </tbody>
   </table>
 </div>

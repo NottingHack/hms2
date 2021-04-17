@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Members;
 
 use App\Events\Labels\BoxPrint;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Members\Box as BoxResource;
+use App\Http\Resources\Members\BoxResource;
 use Doctrine\ORM\EntityNotFoundException;
 use HMS\Entities\Members\Box;
 use HMS\Entities\Snackspace\TransactionType;

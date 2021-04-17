@@ -27,16 +27,6 @@ class Temperature
     protected $time;
 
     /**
-     * Gets the value of id.
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
      * @return string
      */
     public function getDallasAddress()

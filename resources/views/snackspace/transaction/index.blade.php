@@ -14,9 +14,9 @@ Snackspace account for {{ $user->getFirstname() }}
   </div>
 
   <br>
+  @content('snackspace.transaction.index', 'acceptors')
+  @if (Auth::user() == $user && null != config('services.stripe.key'))
   <p>
-    Please use the note or coin acceptors located in the first floor members box room to add money to your Snackspace account.<br>
-    @if (Auth::user() == $user && null != config('services.stripe.key'))
     @if ($user->can('snackspace.payment') || ($user->can('snackspace.payment.debtOnly') && $user->getProfile()->getBalance() < -100))
     Or click the button below to add money using a card.<br>
     <snackspace-stripe-payment
@@ -26,12 +26,12 @@ Snackspace account for {{ $user->getFirstname() }}
     >
     </snackspace-stripe-payment>
     @endif
-    @endif
   </p>
+  @endif
   <hr>
   <p>
     Details of your Snackspace and Tool Usage transactions are shown below.<br>
-    We do not store card detials and only ever see the last 4 digits.
+    We do not store card details and only ever see the last 4 digits.
   </p>
 </div>
 

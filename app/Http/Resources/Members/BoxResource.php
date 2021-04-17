@@ -4,7 +4,7 @@ namespace App\Http\Resources\Members;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Project extends JsonResource
+class BoxResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,10 +17,8 @@ class Project extends JsonResource
     {
         return [
             'id' => $this->getId(),
-            'projectName' => $this->getProjectName(),
-            'description' => $this->getDescription(),
-            'startDate' => $this->getStartDate(),
-            'completeDate' => $this->getCompleteDate(),
+            'boughtDate' => $this->getBoughtDate() ? $this->getBoughtDate()->toDateString() : null,
+            'removedDate' => $this->getRemovedDate() ? $this->getRemovedDate()->toDateString() : null,
             'state' => $this->getState(),
             'stateString' => $this->getStateString(),
             'userId' => $this->getUser()->getId(),

@@ -25,8 +25,7 @@
         </div>
         @endif
 
-        <p>Thank you for showing your interest in becoming a member of Nottingham Hackspace, please fill in the fields below to create your account. Once submitted your details will be reviewed by a member of our Membership Team (this normally takes less than 24 hours). Once reviewed you will be emailed details on the next step to becoming a member.</p>
-
+        @content('auth.register', 'user')
         <hr>
 
         <div class="form-group">
@@ -85,9 +84,7 @@
         </div>
 
         <hr>
-
-        <p>Nottingham Hackspace is an incorporated non-profit, run entirely by members. As such, we have to maintain a membership register for inspection by Companies House. Any information you provide won't be used for anything other than hackspace business, and certainly won't be passed on or sold to any third parties.</p>
-
+        @content('auth.register', 'profile')
         <hr>
 
         <div class="form-group">

@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -44,8 +46,11 @@ Route::name('api.')->namespace('Api')->group(function () {
         Route::get('search/invites/{searchQuery?}', 'SearchController@invites')
             ->name('search.invites');
 
+        // Users
+        Route::post('can', 'Auth\CanCheckController')
+            ->name('user.can');
         Route::apiResource('users', 'UserController')
-            ->except(['index', 'store', 'destroy']);
+            ->except(['store', 'destroy']);
 
         // Snackspace
         Route::patch(
@@ -127,8 +132,11 @@ Route::name('client.')->prefix('cc')->namespace('Api')->middleware('client')->gr
             ->name('meetings.check-in-rfid');
     });
 
-    Route::post('rfid-token', 'Auth\RfidAccessTokenController@issueRfidToken')
+    Route::post('rfid-token', 'Auth\RfidAccessTokenController')
         ->name('rfid-token');
+
+    Route::post('rfid-tags/register', 'Gatekeeper\RegisterRfidTagController')
+        ->name('rfid-tags.register');
 });
 
 Route::name('webhook.')->group(function () {

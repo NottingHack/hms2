@@ -16,6 +16,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Support\Str;
 use LaravelDoctrine\ACL\Contracts\HasPermissions as HasPermissionsContract;
 use LaravelDoctrine\ACL\Contracts\HasRoles as HasRoleContract;
 use LaravelDoctrine\ACL\Permissions\HasPermissions;
@@ -427,5 +428,27 @@ class User implements
         $this->rfidTags = $rfidTags;
 
         return $this;
+    }
+
+    /**
+     * Get the member role if this user has one.
+     *
+     * @return null|Role
+     */
+    public function getMemberRole(): ?Role
+    {
+        return $this->getRoles()->filter(function (Role $role) {
+            return Str::startsWith($role->getName(), 'member.');
+        })->first() ?: null;
+    }
+
+    /**
+     * Get the member status as a string.
+     *
+     * @return string
+     */
+    public function getMemberStatusString(): string
+    {
+        return $this->getMemberRole() ? $this->getMemberRole()->getDisplayName() : 'Not a Member';
     }
 }

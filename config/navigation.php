@@ -193,6 +193,12 @@ return [
                     'match'         => 'metas.index',
                     'permissions'   => ['meta.view'],
                 ],
+                'content'          => [
+                    'text'          => 'Content Blocks',
+                    'route'         => 'content-blocks.index',
+                    'match'         => 'content-blocks.index',
+                    'permissions'   => ['contentBlock.view'],
+                ],
                 'labels'          => [
                     'text'          => 'Label Templates',
                     'route'         => 'labels.index',

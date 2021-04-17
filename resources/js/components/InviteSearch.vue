@@ -11,6 +11,7 @@
         :settings="mySettings"
         style="width: 100%"
         :disabled="disabled"
+        :required="true"
         />
     </div>
     <div class="form-group text-center">

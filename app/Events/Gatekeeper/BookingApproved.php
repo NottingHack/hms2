@@ -2,7 +2,7 @@
 
 namespace App\Events\Gatekeeper;
 
-use App\Http\Resources\Gatekeeper\TemporaryAccessBooking as TemporaryAccessBookingResources;
+use App\Http\Resources\Gatekeeper\TemporaryAccessBookingResource;
 use HMS\Entities\Gatekeeper\TemporaryAccessBooking;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -55,7 +55,7 @@ class BookingApproved implements ShouldBroadcast
     public function broadcastWith()
     {
         return [
-            'booking' => (new TemporaryAccessBookingResources($this->booking))->resolve(),
+            'booking' => (new TemporaryAccessBookingResource($this->booking))->resolve(),
         ];
     }
 }

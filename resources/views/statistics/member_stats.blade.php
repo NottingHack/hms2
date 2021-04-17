@@ -41,10 +41,12 @@
       <td>{{ $memberStats->total_current_members }}</td>
       <td></td>
     </tr>
+    @feature('voting_status')
     <tr>
       <th>Voting Members:</th>
       <td>{{ $votingMembers }}</td><td>({{ $memberStats->total_current_members ? round($votingMembers / $memberStats->total_current_members * 100, 0) : 0 }}% of total membership)</td>
     </tr>
+    @endfeature
   </table>
   <h3>Conversions</h3>
   <table class="table">

@@ -9,8 +9,8 @@ Membership Payments for {{ $user->getFirstname() }}
   <div class="card w-100">
     <h3 class="card-header"><i class="fad fa-university" aria-hidden="true"></i> Standing order details</h3>
     <div class="card-body">
-      <p>These are the details needed to start or change your standing order with the Hackspace.</p>
-      <p>To set up your standing order, you need our account number, sort code, and reference code.  In order for your membership to start, these all need to be correct in your standing order - especially your reference code.</p>
+      @content('banking.transactions.index', 'details')
+
       <p>For convenience, if you click on the Copy icon next to the codes (<i class="far fa-copy"></i>), it will automatically copy to your system, allowing you to easily paste it into your standing order details without having to retype any digits.</p>
       <dl>
         <dt>Account number</dt>
@@ -47,8 +47,7 @@ Membership Payments for {{ $user->getFirstname() }}
   </div>
 
   <br>
-  <p>These are the transactions we have received from you.</p>
-  <p>If a transaction has not appeared, please check with your bank that you have entered in the right account number, sort code, and reference code.  <strong>We cannot automatically match your transactions with your HMS account unless you use the correct reference code.</strong></p>
+  @content('banking.transactions.index', 'transactions')
   @if ( Auth::user() == $user || Gate::allows('bankTransactions.view.all'))
   @forelse ($bankTransactions as $bankTransaction)
   @if ($loop->first)

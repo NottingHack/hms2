@@ -1,9 +1,7 @@
 @component('mail::message')
 # Hello {{ $fullname }}
 
-Thanks for becoming a member of Nottingham Hackspace. Here are all of the remaining details you need, though there's one last step before you'll have full 24 hour access.
-
-Gatekeeper is our RFID entry system for which you need a suitable card set up, which we provide. Visit on a Wednesday Open Hack Night and ask people to point you to one of the membership team, or please contact membership@nottinghack.org.uk if you are unable to attend one.
+@content('emails.membership.membershipComplete', 'main')
 
 The hackspace members guide can be found at {{ $membersGuideHTML }} and it is a recommended read for all members. <br>
 A PDF version is also available [here.]({{ $membersGuidePDF }})

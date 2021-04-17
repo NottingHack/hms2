@@ -3,6 +3,8 @@
 use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 
+// https://gist.github.com/laravel-shift/cab527923ed2a109dda047b97d53c200
+
 $rules = [
     'array_syntax' => ['syntax' => 'short'],
     'binary_operator_spaces' => [
@@ -14,7 +16,9 @@ $rules = [
     'blank_line_before_statement' => [
         'statements' => ['return'],
     ],
-    'braces' => true,
+    'braces' => [
+        'allow_single_line_anonymous_class_with_empty_body' => true,
+    ],
     'cast_spaces' => true,
     'class_attributes_separation' => [
         'elements' => ['method'],
@@ -84,7 +88,7 @@ $rules = [
     'normalize_index_brace' => true,
     'not_operator_with_successor_space' => true,
     'object_operator_without_whitespace' => true,
-    'ordered_imports' => ['sortAlgorithm' => 'alpha'], // lwk, HMS is still length based
+    'ordered_imports' => ['sortAlgorithm' => 'alpha'],
     'phpdoc_indent' => true,
     'phpdoc_inline_tag' => true,
     'phpdoc_no_access' => true,
@@ -98,6 +102,7 @@ $rules = [
     'phpdoc_types' => true,
     'phpdoc_var_without_name' => true,
     'psr4' => false, // disabled by lwk (causes issue with )
+    'return_type_declaration' => true,
     'self_accessor' => true,
     'short_scalar_cast' => true,
     'simplified_null_return' => false, // disabled by Shift

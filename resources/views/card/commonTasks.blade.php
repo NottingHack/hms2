@@ -3,7 +3,9 @@
   <div class="list-group list-group-flush">
     <a href="{{ route('users.show', $user->getId()) }}" class="list-group-item list-group-item-action">Update Details</a>
     <a href="{{ route('users.changePassword') }}" class="list-group-item list-group-item-action">Change Password</a>
+    @if ($user->getAccount())
     <a href="{{ route('banking.bank-transactions.index') }}" class="list-group-item list-group-item-action">Standing Order Details</a>
+    @endif
     @feature('label_printer')
     <a href="{{ route('projects.index') }}" class="list-group-item list-group-item-action">Print Do-Not-Hack Label</a>
     @endfeature

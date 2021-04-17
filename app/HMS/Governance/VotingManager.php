@@ -5,6 +5,7 @@ namespace HMS\Governance;
 use Carbon\Carbon;
 use HMS\Entities\Role;
 use HMS\Entities\User;
+use HMS\Helpers\Features;
 use HMS\Repositories\Governance\MeetingRepository;
 use HMS\Repositories\Governance\ProxyRepository;
 use HMS\Repositories\MetaRepository;
@@ -43,6 +44,11 @@ class VotingManager
     protected $userRepository;
 
     /**
+     * @var Features
+     */
+    protected $features;
+
+    /**
      * VotingManager constructor.
      *
      * @param RoleRepository $roleRepository
@@ -50,19 +56,22 @@ class VotingManager
      * @param MeetingRepository $meetingRepository
      * @param ProxyRepository $proxyRepository
      * @param UserRepository $userRepository
+     * @param Features $features
      */
     public function __construct(
         RoleRepository $roleRepository,
         MetaRepository $metaRepository,
         MeetingRepository $meetingRepository,
         ProxyRepository $proxyRepository,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        Features $features
     ) {
         $this->roleRepository = $roleRepository;
         $this->metaRepository = $metaRepository;
         $this->meetingRepository = $meetingRepository;
         $this->proxyRepository = $proxyRepository;
         $this->userRepository = $userRepository;
+        $this->features = $features;
     }
 
     /**
@@ -82,6 +91,10 @@ class VotingManager
      */
     public function votingMembers()
     {
+        if ($this->features->isDisabled('voting_status')) {
+            return $this->countCurrentMembers();
+        }
+
         $v = collect();
 
         $statedVoting = $this->userRepository->findVotingStated();
@@ -162,7 +175,8 @@ class VotingManager
     public function getVotingStatusForUser(User $user)
     {
         // Likely not a current member
-        if ($user->cannot('governance.voting.canVote')) {
+        if ($user->cannot('governance.voting.canVote')
+            || is_null($user->getProfile())) {
             return self::CANNOT_VOTE;
         }
 

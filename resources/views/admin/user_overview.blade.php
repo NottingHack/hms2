@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="card-columns">
-    @component('admin.card.user', ['user' => $user, 'memberStatus' => $memberStatus, 'votingStatus' => $votingStatus])
+    @component('admin.card.user', ['user' => $user, 'votingStatus' => $votingStatus])
     @endcomponent
     @component('admin.card.profile', ['user' => $user])
     @endcomponent

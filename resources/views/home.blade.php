@@ -4,12 +4,13 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <h1 >Welcome, {{ $user->getFirstName() }}</h1>
+      <h1>Welcome, {{ $user->getFirstName() }}</h1>
       <hr>
+      @content('home', 'welcome')
     </div>
   </div>
   <div class="card-columns">
-    @component('card.status', ['user' => $user, 'memberStatus' => $memberStatus, 'votingStatus' => $votingStatus])
+    @component('card.status', ['user' => $user, 'votingStatus' => $votingStatus])
     @endcomponent
     @component('card.proxy')
     @endcomponent

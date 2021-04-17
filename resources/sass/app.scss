@@ -2,8 +2,6 @@
 
 @import url('https://fonts.googleapis.com/css?family=Oxygen:300,400,700');
 
-@import 'color-helpers';
-@import 'variables';
 @import '~bootstrap/scss/bootstrap';
 @import "~bootstrap4-card-tables/src/bootstrap4-card-tables";
 @import '~pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker';
@@ -46,6 +44,7 @@
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+
   svg {
     margin-bottom: 0.5rem;
   }

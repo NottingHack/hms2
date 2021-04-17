@@ -40,3 +40,4 @@ ziggy.js
 .php_cs.cache
 dump.html
 report.html
+/resources/sass/_variables_*.scss

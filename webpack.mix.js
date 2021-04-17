@@ -1,6 +1,6 @@
 const mix = require('laravel-mix');
 const path = require('path');
-const { exec } = require('child_process');
+const {exec} = require('child_process');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 require('laravel-mix-bundle-analyzer');
 
@@ -70,7 +70,7 @@ mix.sourceMaps()
       extractStyles: 'public/css/vue.css',
       globalStyles: {
         scss: [
-          'resources/sass/_variables.scss',
+          process.env.THEME ? `resources/sass/_variables_${process.env.THEME}.scss` : 'resources/sass/_variables.scss',
           'node_modules/bootstrap/scss/_functions.scss',
           'node_modules/bootstrap/scss/_variables.scss',
           'node_modules/bootstrap/scss/_mixins.scss',
@@ -78,8 +78,8 @@ mix.sourceMaps()
       }
     })
     .extract()
-    .sass('resources/sass/app.scss', 'public/css')
-    .options({
+    .sass('resources/sass/app.scss', 'public/css', {
+        additionalData: process.env.THEME ? `@import 'variables_${process.env.THEME}';` : "@import 'variables';",
     })
     .version();
 

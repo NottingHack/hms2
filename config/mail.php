@@ -113,7 +113,7 @@ return [
     */
 
     'markdown' => [
-        'theme' => 'hms',
+        'theme' => env('THEME_EMAIL', 'hms'),
 
         'paths' => [
             resource_path('views/vendor/mail'),

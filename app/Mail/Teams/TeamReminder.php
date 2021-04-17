@@ -3,6 +3,7 @@
 namespace App\Mail\Teams;
 
 use Carbon\Carbon;
+use HMS\Entities\Role;
 use HMS\Repositories\RoleRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

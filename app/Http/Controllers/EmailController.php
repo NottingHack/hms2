@@ -95,7 +95,7 @@ class EmailController extends Controller
         $renderedHtmlCSS = new HtmlString(
             $cssToInlineStyles->convert(
                 $renderedHtml,
-                $viewFactory->make('vendor.mail.html.themes.hms')->render()
+                $viewFactory->make('vendor.mail.html.themes.' . config('mail.markdown.theme', 'default'))->render()
             )
         );
 

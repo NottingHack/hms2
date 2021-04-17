@@ -76,6 +76,7 @@ class EmailCurrentMembersJob implements ShouldQueue
     ) {
         $trusteesRole = $roleRepository->findOneByName(Role::TEAM_TRUSTEES);
         $trusteesEmail = $trusteesRole->getEmail();
+        $trusteesDisplayName = $trusteesRole->getDisplayName();
 
         $currentMembers = $roleRepository->findOneByName(Role::MEMBER_CURRENT)->getUsers();
 
@@ -90,7 +91,7 @@ class EmailCurrentMembersJob implements ShouldQueue
         $renderedHtmlCSS = new HtmlString(
             $cssToInlineStyles->convert(
                 $renderedHtml,
-                $viewFactory->make('vendor.mail.html.themes.default')->render()
+                $viewFactory->make('vendor.mail.html.themes.' . config('mail.markdown.theme', 'default'))->render()
             )
         );
 
@@ -122,13 +123,13 @@ class EmailCurrentMembersJob implements ShouldQueue
         $response = $mailgun->send(
             $views,
             $data,
-            function ($message) use ($subject, $trusteesEmail, $trusteesMgEmail, $to) {
+            function ($message) use ($subject, $trusteesEmail, $trusteesDisplayName, $trusteesMgEmail, $to) {
                 $message
                     ->trackOpens(true)
                     ->subject($subject)
-                    ->header('sender', $trusteesRole->getDisplayName() . ' <' . $trusteesMgEmail . '>')
-                    ->replyTo($trusteesEmail, $trusteesRole->getDisplayName())
-                    ->from($trusteesMgEmail, $trusteesRole->getDisplayName())
+                    ->header('sender', $trusteesDisplayName . ' <' . $trusteesMgEmail . '>')
+                    ->replyTo($trusteesEmail, $trusteesDisplayName)
+                    ->from($trusteesMgEmail, $trusteesDisplayName)
                     ->to($to);
             }
         );

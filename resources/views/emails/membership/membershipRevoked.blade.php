@@ -27,5 +27,5 @@ Our Account Name: {{ $accountName }}
 Once we've received your standing order (which may take 3-4 days to show up in our account after it leaves yours), your membership will be automatically reinstated.
 
 Thanks,  
-Nottinghack Membership Team
+{{ config('branding.community_name') }} Membership Team
 @endcomponent

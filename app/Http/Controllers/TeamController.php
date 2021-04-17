@@ -105,7 +105,7 @@ class TeamController extends Controller
             'team.' . $validatedData['name'],
             $validatedData['displayName'],
             $validatedData['description'],
-            $validatedData['email'] . '@nottinghack.org.uk',
+            $validatedData['email'] . config('branding.email_domain'),
             '#' . $validatedData['slackChannel']
         );
 

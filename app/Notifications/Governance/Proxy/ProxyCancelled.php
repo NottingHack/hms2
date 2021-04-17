@@ -56,7 +56,7 @@ class ProxyCancelled extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Nottingham Hackspace: Proxy vote cancelled')
+            ->subject(config('branding.space_name') . ': Proxy vote cancelled')
             ->line('This email is to confirm that your Proxy vote for \'' . $this->meeting->getTitle() . '\' on ' . $this->meeting->getStartTime()->toFormattedDateString() . ' has been cancelled.')
             ->line($this->proxy->getFullname() . ' will no longer be representing you at the meeting.')
             ->line('If you are still not going to make it, please consider finding a new member to designate as your proxy.')

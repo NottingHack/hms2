@@ -1,7 +1,7 @@
 @component('mail::message')
 # Hello,
 
-{{ $userFullName }} has requested access to Hackspace and this requires Trustee authorisation. Details are below. Please click the Review Booking button to authorise/decline. Always give reasons if declining.
+{{ $userFullName }} has requested access to the {{ ucfirst(config('branding.space_type')) }} and this requires Trustee authorisation. Details are below. Please click the Review Booking button to authorise/decline. Always give reasons if declining.
 
 **Building:** {{ $buildingName }}  
 **Start:** {{ $start }}  

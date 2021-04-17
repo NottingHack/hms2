@@ -68,12 +68,18 @@ class DonationPayment extends Notification implements ShouldQueue
             return (new MailMessage)
                 ->subject('Donation received')
                 ->greeting('Hello ' . $notifiable->getFirstname())
-                ->line('Thank you for your Donation of ' . $amountString . ' to Nottingham Hackspace.');
+                ->line(
+                    'Thank you for your Donation of ' . $amountString
+                    . ' to ' . config('branding.sapce_name') . '.'
+                );
         } elseif ($notifiable instanceof AnonymousNotifiable) {
             return (new MailMessage)
                 ->subject('Donation received')
                 ->greeting('Hello ' . $this->stripeCharge->billing_details->name)
-                ->line('Thank you for your Donation of ' . $amountString . ' to Nottingham Hackspace.');
+                ->line(
+                    'Thank you for your Donation of ' . $amountString
+                    . ' to ' . config('branding.sapce_name') . '.'
+                );
         } elseif ($notifiable instanceof Role) {
             if ($this->charge->getUser()) {
                 $fullname = $this->charge->getUser()->getFullname();

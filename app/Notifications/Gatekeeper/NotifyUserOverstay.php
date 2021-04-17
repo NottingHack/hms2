@@ -11,6 +11,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 
 class NotifyUserOverstay extends Notification implements ShouldQueue
@@ -73,13 +74,13 @@ class NotifyUserOverstay extends Notification implements ShouldQueue
             ]
         );
 
-        $roleRepository = \App::make(RoleRepository::class);
+        $roleRepository = App::make(RoleRepository::class);
         $trusteesTeamRole = $roleRepository->findOneByName(Role::TEAM_TRUSTEES);
         $trusteesEmail = $trusteesTeamRole->getEmail();
 
         return (new MailMessage)
-            ->from($trusteesEmail, 'Nottingham Hackspace Trustees')
-            ->subject('Nottingham Hackspace: Access Booking Ended')
+            ->from($trusteesEmail, $trusteesTeamRole->getDisplayName())
+            ->subject(config('branding.space_name') . ': Access Booking Ended')
             ->markdown(
                 'emails.gatekeeper.booking_ended',
                 [

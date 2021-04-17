@@ -59,7 +59,7 @@ src="{{ url('/images/nottinghack_with_white@3x.png') }}"
 <table class="footer" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation">
 <tr>
 <td class="content-cell" align="center">
-This email was sent by Nottingham Hackspace Trustees to you as a current member of Nottingham Hackspace
+This email was sent by {{ config('branding.space_name') }} Trustees to you as a current member of {{ config('branding.space_name') }}
 </td>
 </tr>
 </table>

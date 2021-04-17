@@ -101,7 +101,7 @@ class MembershipReinstated extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->subject('Nottingham Hackspace: Your Membership Has Been Reinstated')
+        return $this->subject(config('branding.space_name') . ': Your Membership Has Been Reinstated')
                     ->markdown('emails.membership.membershipReinstated');
     }
 }

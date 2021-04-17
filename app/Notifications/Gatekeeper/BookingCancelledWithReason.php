@@ -9,6 +9,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\App;
 
 class BookingCancelledWithReason extends Notification implements ShouldQueue
 {
@@ -59,13 +60,13 @@ class BookingCancelledWithReason extends Notification implements ShouldQueue
     {
         $bookableArea = $this->booking->getBookableArea();
 
-        $roleRepository = \App::make(RoleRepository::class);
+        $roleRepository = App::make(RoleRepository::class);
         $trusteesTeamRole = $roleRepository->findOneByName(Role::TEAM_TRUSTEES);
         $trusteesEmail = $trusteesTeamRole->getEmail();
 
         return (new MailMessage)
-            ->from($trusteesEmail, 'Nottingham Hackspace Trustees')
-            ->subject('Nottingham Hackspace: Access Booking Cancelled')
+            ->from($trusteesEmail, $trusteesTeamRole->getDisplayName())
+            ->subject(config('branding.space_name') . ': Access Booking Cancelled')
             ->markdown(
                 'emails.gatekeeper.booking_cancelled_with_reason',
                 [

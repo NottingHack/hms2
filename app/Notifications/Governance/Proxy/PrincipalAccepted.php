@@ -49,7 +49,7 @@ class PrincipalAccepted extends Notification implements ShouldQueue
         $meeting = $this->proxy->getMeeting();
 
         return (new MailMessage)
-            ->subject('Nottingham Hackspace: Proxy representation accepted')
+            ->subject(config('branding.space_name') . ': Proxy representation accepted')
             ->line('This email is to confirm that you have consented to act as proxy for ' . $this->proxy->getPrincipal()->getFullname() . ' for the \'' . $meeting->getTitle() . '\' on ' . $meeting->getStartTime()->toFormattedDateString())
             ->line('If the meeting will include items to vote on make sure to talk over their opinions and how they wish their proxy votes to be cast.');
     }

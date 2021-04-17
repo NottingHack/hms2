@@ -89,7 +89,7 @@ class MembershipRevoked extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->subject('Nottingham Hackspace: Your Membership Has Been Revoked')
+        return $this->subject(config('branding.space_name') . ': Your Membership Has Been Revoked')
                     ->markdown('emails.membership.membershipRevoked');
     }
 }

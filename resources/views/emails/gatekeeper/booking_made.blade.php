@@ -10,7 +10,7 @@ Your access booking request has been created by a Trustee and authorised.
 **Area:** {{ $bookableAreaName }}  
 **Guests:** {{ $guests }}  
 
-Please keep up to date with the status of Hackspace with regards to Membership entry [here]({{ Meta::get('temporary_access_email_link', Meta::get('wiki_html')) }}).  
+Please keep up to date with the status of the {{ ucfirst(config('branding.space_type')) }} with regards to Membership entry [here]({{ Meta::get('temporary_access_email_link', Meta::get('wiki_html')) }}).  
 
 Thank you,  
 HMS

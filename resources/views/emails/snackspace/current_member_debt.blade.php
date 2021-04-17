@@ -1,7 +1,7 @@
 @component('mail::message')
 # Hello {{ $fullname }}
 
-As a member of Nottingham Hackspace you have made use of a chargeable tool, purchased a members box or used one of the Snackspace vending machines.
+As a member of {{ config('branding.space_name') }} you have made use of a chargeable tool, purchased a members box or used one of the Snackspace vending machines.
 
 **Our records show you have @money(-$snackspaceBalance, 'GBP') outstanding to pay**.
 
@@ -23,5 +23,5 @@ If you have any issues with the acceptor, please let the snackspace team know vi
 To pay off with a card, please log into HMS where you will see a button to "Add Money To Snackspace"
 
 Thanks,<br>
-Nottingham Hackspace
+{{ config('branding.space_name') }}
 @endcomponent

@@ -109,7 +109,7 @@ class ViMbAdminSubscriber implements ShouldQueue
                 $email = strtolower(
                     $event->user->getFirstname()
                     . '.' . $event->user->getLastname()
-                    . '@nottinghack.org.uk'
+                    . config('branding.email_domain')
                 );
                 // TODO: check $email is now valid (utf8?)
 
@@ -154,7 +154,7 @@ class ViMbAdminSubscriber implements ShouldQueue
                 $email = strtolower(
                     $event->user->getFirstname()
                     . '.' . $event->user->getLastname()
-                    . '@nottinghack.org.uk'
+                    . config('branding.email_domain')
                 );
                 // TODO: check $email is now valid (utf8?)
             }

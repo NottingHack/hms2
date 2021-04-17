@@ -66,7 +66,7 @@ class InterestRegistered extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->subject('Nottingham Hackspace: Interest registered')
+        return $this->subject(config('branding.space_name') . ': Interest registered')
                     ->markdown('emails.interestRegistered');
     }
 }

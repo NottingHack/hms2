@@ -29,5 +29,5 @@ Or via bank transfer using the reference **{{ $snackspaceRef }}** to the Account
 @endif
 
 Thanks,  
-Nottinghack Membership Team
+{{ config('branding.community_name') }} Membership Team
 @endcomponent

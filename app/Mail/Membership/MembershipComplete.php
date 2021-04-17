@@ -101,7 +101,7 @@ class MembershipComplete extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->subject('Nottingham Hackspace: Membership Complete')
+        return $this->subject(config('branding.space_name') . ': Membership Complete')
                     ->markdown('emails.membership.membershipComplete');
     }
 }

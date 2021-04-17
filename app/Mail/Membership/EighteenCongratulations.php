@@ -34,7 +34,7 @@ class EighteenCongratulations extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->subject('Nottingham Hackspace: Happy 18th Birthday')
+        return $this->subject(config('branding.space_name') . ': Happy 18th Birthday')
                     ->markdown('emails.membership.eighteenCongratulations');
     }
 }

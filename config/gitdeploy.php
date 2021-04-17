@@ -19,7 +19,7 @@ return [
     */
 
     'email_recipients' => [
-        ['name' => 'Software Team', 'address' => 'software@nottinghack.org.uk'],
+        ['name' => 'Software Team', 'address' => 'software' . env('BRANDING_EMAIL_DOMAIN', '@' . env('BRANDING_MAIN_DOMAIN', 'nottinghack.org.uk'))],
     ],
 
     /*

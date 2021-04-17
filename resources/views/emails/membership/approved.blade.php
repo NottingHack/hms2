@@ -15,5 +15,5 @@ Our Account Name: {{ $accountName }}
 @content('emails.membership.approved', 'additional')
 
 Thanks,  
-Nottinghack Membership Team
+{{ config('branding.community_name') }} Membership Team
 @endcomponent

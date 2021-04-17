@@ -363,11 +363,11 @@ class StatisticsController extends Controller
 
         $ism = $this->emailRepository->countSentAfterWithSubject(
             $monthAgo,
-            'Nottingham Hackspace: Interest registered'
+            config('branding.space_name') . ': Interest registered'
         );
         $isw = $this->emailRepository->countSentAfterWithSubject(
             $weekAgo,
-            'Nottingham Hackspace: Interest registered'
+            config('branding.space_name') . ': Interest registered'
         );
 
         $iom = $this->inviteRepository->findCreatedBetween($monthAgo, Carbon::now());

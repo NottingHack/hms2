@@ -1,7 +1,7 @@
 @component('mail::message')
 # Hello {{ $fullname }}
 
-During your time as a member of Nottingham Hackspace you made use of a chargeable tool, purchased a members box or used one of the Snackspace vending machines.
+During your time as a member of {{ config('branding.space_name') }} you made use of a chargeable tool, purchased a members box or used one of the Snackspace vending machines.
 
 **Our records show you have @money(-$snackspaceBalance, 'GBP') outstanding to pay**.
 
@@ -34,5 +34,5 @@ Our Account Name: {{ $accountName }}
 @endcomponent
 
 Thanks,  
-Nottingham Hackspace
+{{ config('branding.space_name') }}
 @endcomponent

@@ -126,9 +126,9 @@ class EmailCurrentMembersJob implements ShouldQueue
                 $message
                     ->trackOpens(true)
                     ->subject($subject)
-                    ->header('sender', 'Nottingham Hackspace Trustees <' . $trusteesMgEmail . '>')
-                    ->replyTo($trusteesEmail, 'Nottingham Hackspace Trustees')
-                    ->from($trusteesMgEmail, 'Nottingham Hackspace Trustees')
+                    ->header('sender', $trusteesRole->getDisplayName() . ' <' . $trusteesMgEmail . '>')
+                    ->replyTo($trusteesEmail, $trusteesRole->getDisplayName())
+                    ->from($trusteesMgEmail, $trusteesRole->getDisplayName())
                     ->to($to);
             }
         );

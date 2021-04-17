@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use HMS\Repositories\RoleRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -52,11 +53,16 @@ class ToCurrentMembers extends Mailable implements ShouldQueue
     /**
      * Build the message.
      *
+     * @param RoleRepository $roleRepository
+     *
      * @return $this
      */
-    public function build()
+    public function build(RoleRepository $roleRepository)
     {
-        return $this->from('trustees@nottinghack.org.uk', 'Nottingham Hackspace Trustees')
+        $trusteesTeamRole = $roleRepository->findOneByName(Role::TEAM_TRUSTEES);
+        $trusteesEmail = $trusteesTeamRole->getEmail();
+
+        return $this->from($trusteesEmail, $trusteesTeamRole->getDisplayName())
             ->subject($this->subject)
             ->view('emails.emailMembers.toCurrentMembers')
             ->text('emails.emailMembers.toCurrentMembers_plain');

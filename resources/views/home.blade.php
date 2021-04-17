@@ -29,7 +29,7 @@
     @component('card.access', ['user' => $user])
     @endcomponent
     @if (null != config('services.stripe.key'))
-    <donation-stripe-payment></donation-stripe-payment>
+    <donation-stripe-payment space-type="{{ ucfirst(config('branding.space_type')) }}"></donation-stripe-payment>
     @endif
   </div>
 </div>

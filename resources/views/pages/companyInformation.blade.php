@@ -11,7 +11,7 @@
 
   <h5>Registered Address</h5>
   <ul class="list-unstyled">
-    <li>Nottingham Hackspace</li>
+    <li>{{ config('branding.space_name') }}</li>
     <li>{{ config('branding.address_1') }}</li>
     <li>{{ config('branding.address_2') }}</li>
 

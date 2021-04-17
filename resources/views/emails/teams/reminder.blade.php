@@ -5,5 +5,5 @@
 
 
 Thank you,
-Nottinghack Trustees
+{{ config('branding.community_name') }} Trustees
 @endcomponent

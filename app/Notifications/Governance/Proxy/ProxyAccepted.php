@@ -51,7 +51,7 @@ class ProxyAccepted extends Notification implements ShouldQueue
         $meeting = $this->proxy->getMeeting();
 
         return (new MailMessage)
-            ->subject('Nottingham Hackspace: Proxy vote accepted')
+            ->subject(config('branding.space_name') . ': Proxy vote accepted')
             ->line('This email is to confirm that your Proxy vote for \'' . $meeting->getTitle() . '\' on ' . $meeting->getStartTime()->toFormattedDateString() . ' has been accepted by:')
             ->line($this->proxy->getProxy()->getFullname())
             ->line('If the meeting will include items to vote on make sure to talk over your opinions and how you wish your proxy votes to be cast.');

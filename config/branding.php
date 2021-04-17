@@ -12,7 +12,8 @@ return [
     'space_type' => env('BRANDING_SPACE_TYPE', 'hackspace'),
     'company_name' => env('BRANDING_COMPANY_NAME', 'Nottingham Hackspace Ltd'),
     'company_number' => env('BRANDING_COMPANY_NUMBER', '07766826'),
-    'email_domain' => env('BRANDING_EMAIL_DOMAIN', '@nottinghack.org.uk'),
+    'main_domain' => env('BRANDING_MAIN_DOMAIN', 'nottinghack.org.uk'),
+    'email_domain' => env('BRANDING_EMAIL_DOMAIN', '@' . env('BRANDING_MAIN_DOMAIN', 'nottinghack.org.uk')),
 
     /*
     |--------------------------------------------------------------------------

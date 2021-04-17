@@ -14,5 +14,5 @@ Update my Details
 @endcomponent
 
 Thanks,<br>
-Nottinghack Membership Team
+{{ config('branding.community_name') }} Membership Team
 @endcomponent

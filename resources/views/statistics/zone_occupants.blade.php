@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-  <p>This shows the number of current members in each area of the hackspace</p>
+  <p>This shows the number of current members in each area of the {{ config('branding.space_type') }}</p>
 
   <p>These are very rough numbers based on RFID entries and exits where available. We don't track exits at all doors and tailgating can no be account for. Every 12 hours we reset any members in a zone for over {{ $resetHours }} hours back to off-site.</p>
   <table class="table">

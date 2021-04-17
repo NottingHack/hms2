@@ -14,10 +14,10 @@
       <div class="row align-items-center">
         <div class="col-md-10 col-lg-8">
 @hasSection('pageTitle')
-          <h1 class="tiny-header d-none d-md-block"><a href="/">Nottingham Hackspace</a></h1>
+          <h1 class="tiny-header d-none d-md-block"><a href="/">{{ config('branding.space_name') }}</a></h1>
           <h2 class="big-header">@yield('pageTitle')</h2>
 @else
-          <h1><a href="/">Nottingham Hackspace</a></h1>
+          <h1><a href="/">{{ config('branding.space_name') }}</a></h1>
 @endif
         </div>
 @can('search.users')

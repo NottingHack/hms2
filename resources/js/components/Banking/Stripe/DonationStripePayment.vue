@@ -4,7 +4,7 @@
       <div class="card-header">Make a Donation</div>
       <div class="card-body">
         <p>
-          The hackspace is entirely funded by its members and donations.<br>
+          The {{ spaceType }} is entirely funded by its members and donations.<br>
           If you would like to make a one off donation please enter an amount below and click the Donate button to pay by card.
         </p>
         <div class="input-group">
@@ -24,7 +24,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" :id="$id('addMoneyToSnackspaceLabel')">Donate to the hackspace</h5>
+            <h5 class="modal-title" :id="$id('addMoneyToSnackspaceLabel')">Donate to the {{ spaceType }}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -84,7 +84,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" :id="$id('addMoneyToSnackspaceLabel')">Donate to the hackspace</h5>
+            <h5 class="modal-title" :id="$id('addMoneyToSnackspaceLabel')">Donate to the {{ spaceType }}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -114,6 +114,7 @@
     props: {
       guest: false,
       // userId: Number,
+      spaceType: String,
     },
 
     data() {

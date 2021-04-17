@@ -6,7 +6,7 @@
       <ul>
         <li><a href="https://github.com/NottingHack/hms2" target="_blank">Get Source</a></li>
         <li><a href="{{ route('credits') }}">Credits</a></li>
-        <li><a href="https://nottinghack.org.uk" target="_blank">Nottinghack Website</a></li>
+        <li><a href="https://{{ config('branding.main_domain') }}" target="_blank">{{ config('branding.community_name') }} Website</a></li>
         <li>© {{ Carbon\Carbon::now()->year }} Nottinghack</li>
         @if (config('app.env') != 'production')
         <li>
@@ -36,6 +36,7 @@
     <div class="col-sm-3 d-none d-sm-block">
       <h5>Address</h5>
       <ul>
+        <li>{{ config('branding.space_name') }}</li>
         <li>{{ config('branding.address_1') }}</li>
         <li>{{ config('branding.address_2') }}</li>
 

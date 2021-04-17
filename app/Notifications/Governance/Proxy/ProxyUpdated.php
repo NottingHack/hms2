@@ -59,7 +59,7 @@ class ProxyUpdated extends Notification implements ShouldQueue
         $meeting = $this->proxy->getMeeting();
 
         return (new MailMessage)
-            ->subject('Nottingham Hackspace: Proxy vote updated')
+            ->subject(config('branding.space_name') . ': Proxy vote updated')
             ->line('This email is to confirm that your Proxy vote for \'' . $meeting->getTitle() . '\' on ' . $meeting->getStartTime()->toFormattedDateString() . ' has been updated.')
             ->line($this->proxy->getProxy()->getFullname() . ' has now accepted your Proxy vote')
             ->line($this->oldProxy->getFullname() . ' has been notified that they no longer be need to represent you.')

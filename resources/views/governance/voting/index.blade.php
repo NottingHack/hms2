@@ -19,9 +19,9 @@ Voting Status
     A stated preference is one of the following.
     <dl>
       <dt>Voting:</dt>
-      <dd>You wish to be counted as <strong>Voting Member</strong> of the hackspace</dd>
+      <dd>You wish to be counted as <strong>Voting Member</strong> of the {{ config('branding.space_type') }}</dd>
       <dt>Non-voting:</dt>
-      <dd>You wish to be counted as <strong>Non-voting Member</strong> of the hackspace</dd>
+      <dd>You wish to be counted as <strong>Non-voting Member</strong> of the {{ config('branding.space_type') }}</dd>
       <dt>Automatic:</dt>
       <dd>Let the process decide automatically</dd>
     </dl>

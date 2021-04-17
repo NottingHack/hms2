@@ -5,7 +5,7 @@
 @section('content')
 <div class="container">
   <p>Use the form below to draft an email to all members</p>
-  <p>Note the formatting template will add "Hello name", at the top and "This email was sent to you as a current member of Nottingham Hackspace" as a footer</p>
+  <p>Note the formatting template will add "Hello name", at the top and "This email was sent by {{ config('branding.space_name') }} Trustees to you as a current member of {{ config('branding.space_name') }}" as a footer</p>
   <form class="form-group" id="emailMembers-draft-from" role="form" method="POST" action="{{  route('email-members.review') }}">
     @csrf
 

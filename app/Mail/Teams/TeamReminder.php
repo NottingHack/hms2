@@ -3,6 +3,7 @@
 namespace App\Mail\Teams;
 
 use Carbon\Carbon;
+use HMS\Repositories\RoleRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -32,14 +33,20 @@ class TeamReminder extends Mailable implements ShouldQueue
     /**
      * Build the message.
      *
+     * @param RoleRepository $roleRepository
+     *
      * @return $this
      */
-    public function build()
+    public function build(RoleRepository $roleRepository)
     {
+        $trusteesTeamRole = $roleRepository->findOneByName(Role::TEAM_TRUSTEES);
+        $trusteesEmail = $trusteesTeamRole->getEmail();
+        $trusteesMgEmail = preg_replace('/@/m', '@mg.', $trusteesEmail);
+
         $month = Carbon::now()->addDays(8)->format('F');
 
-        return $this->from('trustees@mg.nottinghack.org.uk', 'Nottingham Hackspace Trustees')
-            ->replyTo('trustees@nottinghack.org.uk', 'Nottingham Hackspace Trustees')
+        return $this->from($trusteesMgEmail, $trusteesTeamRole->getDisplayName())
+            ->replyTo($trusteesEmail, $trusteesTeamRole->getDisplayName())
             ->subject('Team Reminder: ' . $month . ' Members Meeting Update')
             ->markdown('emails.teams.reminder');
     }

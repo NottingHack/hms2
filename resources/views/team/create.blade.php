@@ -48,7 +48,7 @@
       <div class="input-group mb-2">
         <input class="form-control" id="email" type="text" name="email" value="{{ old('email') }}" required>
         <div class="input-group-append">
-          <div class="input-group-text">@nottinghack.org.uk</div>
+          <div class="input-group-text">{{ config('branding.email_domain') }}</div>
         </div>
       </div>
       @if ($errors->has('email'))

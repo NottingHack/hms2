@@ -51,7 +51,7 @@ class CurrentMemberDebt extends Notification implements ShouldQueue
     public function toMail(User $notifiable)
     {
         return (new MailMessage)
-            ->subject('Nottingham Hackspace: Outstanding Snackspace/Tool-Usage balance')
+            ->subject(config('branding.space_name') . ': Outstanding Snackspace/Tool-Usage balance')
             ->markdown(
                 'emails.snackspace.current_member_debt',
                 [

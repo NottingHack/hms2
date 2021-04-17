@@ -88,7 +88,7 @@ class ExMemberDebt extends Notification implements ShouldQueue
         $paymentRef = preg_replace('/[^-a-zA-Z0-9]/', '', $paymentRef);
 
         return (new MailMessage)
-            ->subject('Nottingham Hackspace: Outstanding Snackspace/Tool-Usage balance')
+            ->subject(config('branding.space_name') . ': Outstanding Snackspace/Tool-Usage balance')
             ->markdown(
                 'emails.snackspace.ex_member_debt',
                 [

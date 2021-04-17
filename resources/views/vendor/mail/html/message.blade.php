@@ -24,7 +24,7 @@ src="{{ url('/images/nottinghack_with_white@3x.png') }}"
 {{-- Footer --}}
 @slot('footer')
 @component('mail::footer')
-© {{ date('Y') }} Nottingham Hackspace. @lang('All rights reserved.')
+© {{ date('Y') }} {{ config('branding.space_name') }}. @lang('All rights reserved.')
 @endcomponent
 @endslot
 @endcomponent

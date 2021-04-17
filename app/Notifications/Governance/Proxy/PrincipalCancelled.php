@@ -56,7 +56,7 @@ class PrincipalCancelled extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Nottingham Hackspace: Proxy representation cancelled')
+            ->subject(config('branding.space_name') . ': Proxy representation cancelled')
             ->line('This email is to notify you that your representation of ' . $this->principal->getFullname() . ' at the \'' . $this->meeting->getTitle() . '\' has been cancelled.');
     }
 }

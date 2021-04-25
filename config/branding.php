@@ -17,15 +17,29 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Address details
+    | Registered Address details
     |--------------------------------------------------------------------------
+    | Registered address of the company
     */
-    'address_1' => env('BRANDING_ADDRESS_1', 'Unit F6 Roden House'),
-    'address_2' => env('BRANDING_ADDRESS_2', 'Roden Street'),
-    'address_3' => env('BRANDING_ADDRESS_3', null),
-    'city' => env('BRANDING_CITY', 'Nottingham'),
-    'county' => env('BRANDING_COUNTY', null),
-    'postcode' => env('BRANDING_POSTCODE', 'NG3 1JH'),
+    'registred_address_1' => env('BRANDING_REGISTERED_ADDRESS_1', 'Unit F6 Roden House'),
+    'registred_address_2' => env('BRANDING_REGISTERED_ADDRESS_2', 'Roden Street'),
+    'registred_address_3' => env('BRANDING_REGISTERED_ADDRESS_3', null),
+    'registred_city' => env('BRANDING_REGISTERED_CITY', 'Nottingham'),
+    'registred_county' => env('BRANDING_REGISTERED_COUNTY', null),
+    'registred_postcode' => env('BRANDING_REGISTERED_POSTCODE', 'NG3 1JH'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Space Address details
+    |--------------------------------------------------------------------------
+    | If the space address is different form the above registered company address
+    */
+    'space_address_1' => env('BRANDING_ADDRESS_1', env('BRANDING_REGISTERED_ADDRESS_1', 'Unit F6 Roden House')),
+    'space_address_2' => env('BRANDING_ADDRESS_2', env('BRANDING_REGISTERED_ADDRESS_2', 'Roden Street')),
+    'space_address_3' => env('BRANDING_ADDRESS_3', env('BRANDING_REGISTERED_ADDRESS_3', null)),
+    'space_city' => env('BRANDING_CITY', env('BRANDING_REGISTERED_CITY', 'Nottingham')),
+    'space_county' => env('BRANDING_COUNTY', env('BRANDING_REGISTERED_COUNTY', null)),
+    'space_postcode' => env('BRANDING_POSTCODE', env('BRANDING_REGISTERED_POSTCODE', 'NG3 1JH')),
 
     /*
     |--------------------------------------------------------------------------

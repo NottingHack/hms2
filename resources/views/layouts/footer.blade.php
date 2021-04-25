@@ -37,20 +37,20 @@
       <h5>Address</h5>
       <ul>
         <li>{{ config('branding.space_name') }}</li>
-        <li>{{ config('branding.address_1') }}</li>
-        <li>{{ config('branding.address_2') }}</li>
+        <li>{{ config('branding.space_address_1') }}</li>
+        <li>{{ config('branding.space_address_2') }}</li>
 
-        @if (config('branding.address_3'))
-        <li>{{ config('branding.address_3') }}</li>
+        @if (config('branding.space_address_3'))
+        <li>{{ config('branding.space_address_3') }}</li>
         @endif
 
-        <li>{{ config('branding.city') }}</li>
+        <li>{{ config('branding.space_city') }}</li>
 
-        @if (config('branding.county'))
-        <li>{{ config('branding.county') }}</li>
+        @if (config('branding.space_county'))
+        <li>{{ config('branding.space_county') }}</li>
         @endif
 
-        <li>{{ config('branding.postcode') }}</li>
+        <li>{{ config('branding.space_postcode') }}</li>
       </ul>
     </div>
     <div class="col-sm-3">

@@ -12,20 +12,20 @@
   <h5>Registered Address</h5>
   <ul class="list-unstyled">
     <li>{{ config('branding.space_name') }}</li>
-    <li>{{ config('branding.address_1') }}</li>
-    <li>{{ config('branding.address_2') }}</li>
+    <li>{{ config('branding.registered_address_1') }}</li>
+    <li>{{ config('branding.registered_address_2') }}</li>
 
-    @if (config('branding.address_3'))
-    <li>{{ config('branding.address_3') }}</li>
+    @if (config('branding.registered_address_3'))
+    <li>{{ config('branding.registered_address_3') }}</li>
     @endif
 
-    <li>{{ config('branding.city') }}</li>
+    <li>{{ config('branding.registered_city') }}</li>
 
-    @if (config('branding.county'))
-    <li>{{ config('branding.county') }}</li>
+    @if (config('branding.registered_county'))
+    <li>{{ config('branding.registered_county') }}</li>
     @endif
 
-    <li>{{ config('branding.postcode') }}</li>
+    <li>{{ config('branding.registered_postcode') }}</li>
   </ul>
 </div>
 @endsection

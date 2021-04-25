@@ -21,12 +21,12 @@ return [
     |--------------------------------------------------------------------------
     | Registered address of the company
     */
-    'registred_address_1' => env('BRANDING_REGISTERED_ADDRESS_1', 'Unit F6 Roden House'),
-    'registred_address_2' => env('BRANDING_REGISTERED_ADDRESS_2', 'Roden Street'),
-    'registred_address_3' => env('BRANDING_REGISTERED_ADDRESS_3', null),
-    'registred_city' => env('BRANDING_REGISTERED_CITY', 'Nottingham'),
-    'registred_county' => env('BRANDING_REGISTERED_COUNTY', null),
-    'registred_postcode' => env('BRANDING_REGISTERED_POSTCODE', 'NG3 1JH'),
+    'registered_address_1' => env('BRANDING_REGISTERED_ADDRESS_1', 'Unit F6 Roden House'),
+    'registered_address_2' => env('BRANDING_REGISTERED_ADDRESS_2', 'Roden Street'),
+    'registered_address_3' => env('BRANDING_REGISTERED_ADDRESS_3', null),
+    'registered_city' => env('BRANDING_REGISTERED_CITY', 'Nottingham'),
+    'registered_county' => env('BRANDING_REGISTERED_COUNTY', null),
+    'registered_postcode' => env('BRANDING_REGISTERED_POSTCODE', 'NG3 1JH'),
 
     /*
     |--------------------------------------------------------------------------

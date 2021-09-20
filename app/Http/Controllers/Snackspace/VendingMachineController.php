@@ -147,10 +147,12 @@ class VendingMachineController extends Controller
                     'price' => null,
                 ];
             } else {
+                $fmt = new NumberFormatter( 'en_GB', NumberFormatter::CURRENCY );
+
                 $productArray = [
                     'id' => $product->getId(),
                     'shortDescription' => $product->getShortDescription(),
-                    'price' => money_format('%n', $product->getPrice() / 100),
+                    'price' => $fmt->formatCurrency($product->getPrice() / 100, "GBP")
                 ];
             }
 
@@ -164,9 +166,10 @@ class VendingMachineController extends Controller
         $products = $this->productRepository->findAll();
         // map for select two usage
         $products = array_map(function ($product) {
+            $fmt = new NumberFormatter( 'en_GB', NumberFormatter::CURRENCY );
             return [
                 'id' => $product->getId(),
-                'text' => $product->getShortDescription() . ' (' . money_format('%n', $product->getPrice() / 100) . ')',
+                'text' => $product->getShortDescription() . ' (' . $fmt->formatCurrency($product->getPrice() / 100, "GBP") . ')',
             ];
         }, $products);
         array_unshift($products, [

@@ -150,7 +150,7 @@ class VendingMachineController extends Controller
                 $productArray = [
                     'id' => $product->getId(),
                     'shortDescription' => $product->getShortDescription(),
-                    'price' => money_format('%n', $product->getPrice() / 100),
+                    'price' => money($product->getPrice(), 'GBP'),
                 ];
             }
 
@@ -166,7 +166,7 @@ class VendingMachineController extends Controller
         $products = array_map(function ($product) {
             return [
                 'id' => $product->getId(),
-                'text' => $product->getShortDescription() . ' (' . money_format('%n', $product->getPrice() / 100) . ')',
+                'text' => $product->getShortDescription() . ' (' . money($product->getPrice(), 'GBP') . ')',
             ];
         }, $products);
         array_unshift($products, [

@@ -17,6 +17,7 @@ use HMS\Repositories\Snackspace\VendingMachineRepository;
 use HMS\Repositories\Snackspace\VendLogRepository;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use \NumberFormatter;
 
 class VendingMachineController extends Controller
 {

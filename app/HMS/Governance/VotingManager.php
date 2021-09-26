@@ -92,7 +92,7 @@ class VotingManager
     public function votingMembers()
     {
         if ($this->features->isDisabled('voting_status')) {
-            return $this->countCurrentMembers();
+            return $this->roleRepository->findOneByName(Role::MEMBER_CURRENT)->getUsers();
         }
 
         $v = collect();
@@ -139,6 +139,10 @@ class VotingManager
      */
     public function countVotingMembers()
     {
+        if ($this->features->isDisabled('voting_status')) {
+            return $this->countCurrentMembers();
+        }
+
         return $this->votingMembers()->count();
     }
 

@@ -220,16 +220,19 @@ return [
                 'membershipApprovals' => [
                     'text'          => 'Review Approvals',
                     'route'         => 'membership.index',
+                    'match'         => 'membership.index',
                     'permissions'   => ['membership.approval'],
                 ],
                 'csvDownload' => [
                     'text'          => 'CSV Downloads',
                     'route'         => 'csv-download.index',
+                    'match'         => 'csv-download.index',
                     'permissions'   => ['profile.view.all'],
                 ],
                 'meetings' => [
                     'text'          => 'Annual Meetings',
                     'route'         => 'governance.meetings.index',
+                    'match'         => 'governance.meetings.index',
                     'permissions'   => ['governance.meeting.view'],
                 ],
             ],
@@ -247,16 +250,19 @@ return [
                 'bookableAreas' => [
                     'text'          => 'Bookable Areas',
                     'route'         => 'gatekeeper.bookable-area.index',
+                    'match'         => 'gatekeeper.bookable-area.index',
                     'permissions'   => ['gatekeeper.access.manage'],
                 ],
                 'temporaryAccess' => [
                     'text'          => 'Temporary Access Bookings',
                     'route'         => 'gatekeeper.temporary-access',
-                    'permissions'   => ['gatekeeper.temporaryAccess.view.all'], // TODO: all
+                    'match'         => 'gatekeeper.temporary-access',
+                    'permissions'   => ['gatekeeper.temporaryAccess.view.all'],
                 ],
                 'accessLogs' => [
                     'text'          => 'Access Logs',
                     'route'         => 'access-logs.index',
+                    'match'         => 'access-logs.index',
                     'permissions'   => ['profile.view.all'],
                 ],
             ],

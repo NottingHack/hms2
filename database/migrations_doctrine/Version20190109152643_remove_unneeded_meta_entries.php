@@ -10,6 +10,7 @@ class Version20190109152643_remove_unneeded_meta_entries extends AbstractMigrati
 {
     /**
      * Links we will be removing or adding.
+     *
      * @var string[]
      */
     protected $settings = [

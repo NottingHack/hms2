@@ -180,9 +180,9 @@ class ViMbAdminSubscriber implements ShouldQueue
      *
      * @param Role $role
      *
-     * @throws Exception
-     *
      * @return null|Alias
+     *
+     * @throws Exception
      */
     public function getAliasForRole(Role $role)
     {

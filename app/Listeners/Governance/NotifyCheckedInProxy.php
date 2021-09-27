@@ -22,6 +22,7 @@ class NotifyCheckedInProxy implements ShouldQueue
      * Handle the event.
      *
      * @param  ProxyCheckedIn  $event
+     *
      * @return void
      */
     public function handle(ProxyCheckedIn $event)

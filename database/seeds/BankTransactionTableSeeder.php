@@ -123,6 +123,7 @@ class BankTransactionTableSeeder extends Seeder
 
     /**
      * Generate a new BankTransaction.
+     *
      * @param User   $user
      * @param string $startDate
      * @param string $endDate
@@ -139,6 +140,7 @@ class BankTransactionTableSeeder extends Seeder
 
     /**
      * Generate a new BankTransaction for CSV.
+     *
      * @param User   $user
      * @param string $startDate
      * @param string $endDate

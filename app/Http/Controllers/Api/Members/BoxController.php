@@ -115,6 +115,7 @@ class BoxController extends Controller
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
+     *
      * @throws \Doctrine\ORM\EntityNotFoundException
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -144,6 +145,7 @@ class BoxController extends Controller
      * @param Box $box the Box
      *
      * @return \Illuminate\Http\Response
+     *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Box $box)
@@ -161,6 +163,7 @@ class BoxController extends Controller
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
+     *
      * @throws \Doctrine\ORM\EntityNotFoundException
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -261,6 +264,7 @@ class BoxController extends Controller
      * @param Box $box
      *
      * @return \Illuminate\Http\Response
+     *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function printLabel(Box $box)
@@ -280,6 +284,7 @@ class BoxController extends Controller
      * @param Box $box
      *
      * @return \Illuminate\Http\Response
+     *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function markInUse(Box $box)
@@ -342,6 +347,7 @@ class BoxController extends Controller
      * @param Box $box
      *
      * @return \Illuminate\Http\Response
+     *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function markAbandoned(Box $box)
@@ -366,6 +372,7 @@ class BoxController extends Controller
      * @param Box $box
      *
      * @return \Illuminate\Http\Response
+     *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function markRemoved(Box $box)

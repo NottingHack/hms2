@@ -56,6 +56,7 @@ class CarbonType extends DateTimeType
      * @param AbstractPlatform $platform
      *
      * @return Carbon|null
+     *
      * @throws ConversionException
      * @throws InvalidArgumentException
      */

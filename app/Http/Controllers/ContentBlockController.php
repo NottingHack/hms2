@@ -42,6 +42,7 @@ class ContentBlockController extends Controller
      * Display the specified resource.
      *
      * @param  \HMS\Entities\ContentBlock  $contentBlock
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(ContentBlock $contentBlock)
@@ -53,6 +54,7 @@ class ContentBlockController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \HMS\Entities\ContentBlock  $contentBlock
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(ContentBlock $contentBlock)
@@ -65,6 +67,7 @@ class ContentBlockController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \HMS\Entities\ContentBlock  $contentBlock
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, ContentBlock $contentBlock)

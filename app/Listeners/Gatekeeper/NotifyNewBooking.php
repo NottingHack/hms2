@@ -45,6 +45,7 @@ class NotifyNewBooking implements ShouldQueue
      * Handle the event.
      *
      * @param  NewBooking  $event
+     *
      * @return void
      */
     public function handle(NewBooking $event)

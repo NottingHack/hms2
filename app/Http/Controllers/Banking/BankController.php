@@ -76,6 +76,7 @@ class BankController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -109,6 +110,7 @@ class BankController extends Controller
      * Display the specified resource.
      *
      * @param  \HMS\Entities\Banking\Bank  $bank
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Bank $bank)
@@ -124,6 +126,7 @@ class BankController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \HMS\Entities\Banking\Bank  $bank
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Bank $bank)
@@ -137,6 +140,7 @@ class BankController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \HMS\Entities\Banking\Bank  $bank
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Bank $bank)

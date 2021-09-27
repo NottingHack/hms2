@@ -18,6 +18,7 @@ interface EventRepository
 
     /**
      * save Event to the DB.
+     *
      * @param  Event $event
      */
     public function save(Event $event);

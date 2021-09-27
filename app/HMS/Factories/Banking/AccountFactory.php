@@ -59,6 +59,7 @@ class AccountFactory
      * Generate a unique payment reference.
      *
      * @return string A unique (at the time of function-call) payment reference.
+     *
      * @link   http://www.bacs.co.uk/Bacs/Businesses/BacsDirectCredit/Receiving/Pages/PaymentReferenceInformation.aspx
      */
     protected function generateUniquePaymentRef()

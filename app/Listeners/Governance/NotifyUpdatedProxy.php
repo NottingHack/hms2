@@ -24,6 +24,7 @@ class NotifyUpdatedProxy implements ShouldQueue
      * Handle the event.
      *
      * @param  ProxyUpdated  $event
+     *
      * @return void
      */
     public function handle(ProxyUpdated $event)

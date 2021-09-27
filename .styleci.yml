@@ -2,10 +2,13 @@ preset: laravel
 
 enabled:
     - concat_with_spaces
+    - phpdoc_separation
 
 disabled:
     - phpdoc_no_package
     - concat_without_spaces
+    - laravel_phpdoc_alignment
+    - laravel_phpdoc_separation
 
 finder:
     exclude:

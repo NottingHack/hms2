@@ -23,6 +23,7 @@ class Proxy
 
     /**
      * User designating a proxy.
+     *
      * @var User
      */
     protected $principal;

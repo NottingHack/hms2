@@ -15,6 +15,7 @@ interface ServiceRepository
 
     /**
      * save Service to the DB.
+     *
      * @param  Service $service
      */
     public function save(Service $service);

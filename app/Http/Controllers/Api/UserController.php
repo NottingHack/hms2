@@ -55,6 +55,7 @@ class UserController extends Controller
      * @param User $user
      *
      * @return \Illuminate\Http\Response
+     *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
@@ -70,6 +71,7 @@ class UserController extends Controller
      * @param User $user
      *
      * @return \Illuminate\Http\Response
+     *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(User $user)
@@ -88,6 +90,7 @@ class UserController extends Controller
      * @param User $user
      *
      * @return \Illuminate\Http\Response
+     *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Request $request, User $user)

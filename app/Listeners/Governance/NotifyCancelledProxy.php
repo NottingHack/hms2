@@ -33,6 +33,7 @@ class NotifyCancelledProxy implements ShouldQueue
      * Handle the event.
      *
      * @param  ProxyCancelled  $event
+     *
      * @return void
      */
     public function handle(ProxyCancelled $event)

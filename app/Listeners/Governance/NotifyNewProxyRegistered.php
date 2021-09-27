@@ -33,6 +33,7 @@ class NotifyNewProxyRegistered implements ShouldQueue
      * Handle the event.
      *
      * @param  ProxyRegistered  $event
+     *
      * @return void
      */
     public function handle(ProxyRegistered $event)

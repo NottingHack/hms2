@@ -63,6 +63,7 @@ class ProjectController extends Controller
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
+     *
      * @throws \Doctrine\ORM\EntityNotFoundException
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -112,6 +113,7 @@ class ProjectController extends Controller
      * @param Project $project
      *
      * @return \Illuminate\Http\Response
+     *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Project $project)
@@ -130,6 +132,7 @@ class ProjectController extends Controller
      * @param Project $project
      *
      * @return \Illuminate\Http\Response
+     *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Request $request, Project $project)
@@ -156,6 +159,7 @@ class ProjectController extends Controller
      * @param Project $project
      *
      * @return \Illuminate\Http\Response
+     *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function printLabel(Project $project)
@@ -175,6 +179,7 @@ class ProjectController extends Controller
      * @param Project $project
      *
      * @return \Illuminate\Http\Response
+     *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function markActive(Project $project)
@@ -195,6 +200,7 @@ class ProjectController extends Controller
      * @param Project $project
      *
      * @return \Illuminate\Http\Response
+     *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function markAbandoned(Project $project)
@@ -215,6 +221,7 @@ class ProjectController extends Controller
      * @param Project $project
      *
      * @return \Illuminate\Http\Response
+     *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function markComplete(Project $project)

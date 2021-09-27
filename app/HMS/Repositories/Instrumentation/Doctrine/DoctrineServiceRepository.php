@@ -20,6 +20,7 @@ class DoctrineServiceRepository extends EntityRepository implements ServiceRepos
 
     /**
      * save Service to the DB.
+     *
      * @param  Service $service
      */
     public function save(Service $service)

@@ -98,7 +98,7 @@ class AccountBankTransactionController extends Controller
 
             return redirect()->route('banking.accounts.show', $account->getId());
         } elseif (BankType::CASH == $bank->getType()
-             && $this->features->isEnabled('cash_membership_payments')) {
+             && $this->features->isDisabled('cash_membership_payments')) {
             flash('Bank ' . $bank->getName() . ' is type Cash and cash membership payments are not currently allowed.')
                 ->error();
 

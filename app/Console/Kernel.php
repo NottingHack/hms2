@@ -59,7 +59,7 @@ class Kernel extends ConsoleKernel
             $schedule->job(new MemberDebtNotificationJob)->monthlyOn(1, '7:00');
         }
 
-        $schedule->job(new EmailTeamReminderJob)->weeklyOn(2, '7:27');
+        $schedule->job(new EmailTeamReminderJob)->dailyAt('7:27');
         $schedule->job(new RecalculateMeetingQuorumJob)->everyFiveMinutes()
             ->environments(['local', 'rommie', 'production']);
         $schedule->job(new UpdateTemporaryAccessRoleJob)->everyFiveMinutes()

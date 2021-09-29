@@ -29,6 +29,8 @@ return [
         'member_credit_limit' => 0,
         'members_guide_html' => 'https://guide.nottinghack.org.uk',
         'members_guide_pdf' => 'https://readthedocs.org/projects/nottingham-hackspace-members-guide/downloads/pdf/latest/',
+        'members_meeting_schedule' => 'first wednesday',
+        'members_meeting_reminder_days_before' => 8,
         'purge_cutoff_interval' => 'P6M',
         'quorum_percent' => 20,
         'rules_html' => 'https://rules.nottinghack.org.uk',

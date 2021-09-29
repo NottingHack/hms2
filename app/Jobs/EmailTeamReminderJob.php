@@ -30,26 +30,33 @@ class EmailTeamReminderJob implements ShouldQueue
      * Execute the job.
      *
      * @param RoleRepository $roleRepository
+     * @param MetaRepository $metaRepository
      *
      * @return void
      */
-    public function handle(RoleRepository $roleRepository)
-    {
-        // first we need to check which tuesday this is
-        $date = Carbon::now();
-        if ($date->dayOfWeekIso != 2) {
-            // not a Tuesday do nothing
-            return;
-        }
+    public function handle(
+        RoleRepository $roleRepository,
+        MetaRepository $metaRepository
+    ) {
+        $membersMeetingSchedule = $metaRepository->get('members_meeting_schedule', 'first wednesday');
+        $membersMeetingReminderDaysBefore = $metaRepository->get('members_meeting_reminder_days_before', 8);
 
-        if ($date->addDays(8)->day >= 8) {
-            // not the Tuesday we want
+        $date = Carbon::today();
+        $thisMonthsMeetingDate = new Carbon($membersMeetingSchedule . ' of this month');
+        $nextMonthsMeetingDate = new Carbon($membersMeetingSchedule . ' of next month');
+
+        if ($thisMonthsMeetingDate->copy()->subDays($membersMeetingReminderDaysBefore) != $date
+            && $nextMonthsMeetingDate->copy()->subDays($membersMeetingReminderDaysBefore) != $date) {
             return;
         }
 
         $teams = $roleRepository->findAllTeams();
 
         foreach ($teams as $team) {
+            if (is_null($team->getEmail())) {
+                continue;
+            }
+
             $to = [['email' => $team->getEmail(), 'name' => $team->getDisplayName()]];
 
             Mail::to($to)->send(new TeamReminder($team->getDisplayName()));

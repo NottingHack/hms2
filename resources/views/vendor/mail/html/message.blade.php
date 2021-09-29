@@ -3,8 +3,8 @@
 @slot('header')
 @component('mail::header', ['url' => config('app.url')])
 <img width="135px" height="135px"
-srcset="{{ url('/images/nottinghack_with_white@3x.png') }} 3x, {{ url('/images/nottinghack_with_white@2x.png') }} 2x, {{ url('/images/nottinghack_with_white.png') }} 1x"
-src="{{ url('/images/nottinghack_with_white@3x.png') }}"
+srcset="{{ url('/images/' . config('branding.theme', 'nottinghack') . '_with_white@3x.png') }} 3x, {{ url('/images/' . config('branding.theme', 'nottinghack') . '_with_white@2x.png') }} 2x, {{ url('/images/' . config('branding.theme', 'nottinghack') . '_with_white.png') }} 1x"
+src="{{ url('/images/' . config('branding.theme', 'nottinghack') . '_with_white@3x.png') }}"
 >
 @endcomponent
 @endslot

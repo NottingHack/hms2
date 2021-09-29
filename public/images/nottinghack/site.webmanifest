@@ -3,12 +3,12 @@
     "short_name": "HMS",
     "icons": [
         {
-            "src": "/android-chrome-192x192.png?v=XBJgQp70gw",
+            "src": "/images/nottinghack/android-chrome-192x192.png?v=XBJgQp70gw",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "/android-chrome-512x512.png?v=XBJgQp70gw",
+            "src": "/images/nottinghack/android-chrome-512x512.png?v=XBJgQp70gw",
             "sizes": "512x512",
             "type": "image/png"
         }

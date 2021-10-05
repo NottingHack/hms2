@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Mail\Teams\TeamReminder;
 use Carbon\Carbon;
+use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

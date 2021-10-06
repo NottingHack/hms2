@@ -77,7 +77,7 @@ class SaveNewOFXTransactionsJob implements ShouldQueue
                 continue;
             }
 
-            $transactionDate = new Carbon($transaction->date->format('Y-m-d'), 'UTC');
+            $transactionDate = new Carbon($transaction->date);
 
             $bankTransaction = $bankTransactionFactory
                 ->matchOrCreate(

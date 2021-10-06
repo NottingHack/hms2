@@ -42,7 +42,7 @@ class DoctrineBankTransactionRepository extends EntityRepository implements Bank
     ) {
         return parent::findOneBy([
             'bank' => $bank,
-            'transactionDate' => $date,
+            'transactionDate' =>  new Carbon($date->copy()->setTimezone('UTC')->format('Y-m-d'), 'UTC'),
             'description' => $description,
             'amount' => $amount,
         ]);

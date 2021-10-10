@@ -119,7 +119,11 @@ class RoleManager
 
         $defaultPermissions = config('roles.defaultTeamPermissions');
         foreach ($defaultPermissions as $permissionName) {
-            $roleEntity->addPermission($this->permissionRepository->findOneByName($permissionName));
+            $permission = $this->permissionRepository->findOneByName($permissionName);
+
+            if ($permission) {
+                $roleEntity->addPermission($permission);
+            }
         }
 
         $this->roleRepository->save($roleEntity);

@@ -53,6 +53,5 @@
     "vue-mq": "^1.0.1",
     "vue-template-compiler": "^2.6.14",
     "vue-unique-id": "^3.2.1"
-  },
-  "dependencies": {}
+  }
 }

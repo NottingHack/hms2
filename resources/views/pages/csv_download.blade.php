@@ -21,6 +21,13 @@
     @can('profile.view.all')
     <li><a href="{{ route('csv-download.member-payments') }}" target="_blank">Download CSV for All Matched Payments</a></li>
     @endcan
+    @feature('boxes')
+    @can('profile.view.all')
+    @can('box.view.all')
+    <li><a href="{{ route('csv-download.member-boxes') }}" target="_blank">Download CSV of Members Boxes</a></li>
+    @endcan
+    @endcan
+    @endfeature
   </ul>
 </div>
 @endsection

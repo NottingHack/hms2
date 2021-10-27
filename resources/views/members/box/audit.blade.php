@@ -43,6 +43,13 @@ Box Audit
               </form>
               <i class="fas fa-frown" aria-hidden="true"></i> Mark Abandoned
             </a><br>
+            @feature('label_printer')
+            @can('box.printLabel.self')
+            @if (SiteVisitor::inTheSpace() && $box->getState() == \HMS\Entities\Members\BoxState::INUSE)
+            <a href="{{ route('boxes.print', $box->getId()) }}" class="btn btn-primary btn-sm mb-1"><i class="fas fa-print" aria-hidden="true"></i> Print Box Label</a><br>
+            @endif
+            @endcan
+            @endfeature
           </td>
         </tr>
   @if ($loop->last)

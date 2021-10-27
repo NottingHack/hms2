@@ -300,6 +300,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('csv-download.payment-change');
     Route::get('csv-download/member-payments', 'CSVDownloadController@memberPayments')
         ->name('csv-download.member-payments');
+    Route::get('csv-download/member-boxes', 'CSVDownloadController@memberBoxes')
+        ->name('csv-download.member-boxes');
 
     // Instrumentation/Electric
     Route::prefix('instrumentation')->namespace('Instrumentation')->name('instrumentation.')->group(function () {

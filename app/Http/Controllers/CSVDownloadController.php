@@ -6,6 +6,7 @@ use HMS\Entities\Role;
 use HMS\Repositories\Banking\BankTransactionRepository;
 use HMS\Repositories\RoleRepository;
 use HMS\Views\LowPayer;
+use HMS\Views\MemberBoxes;
 
 class CSVDownloadController extends Controller
 {
@@ -33,6 +34,8 @@ class CSVDownloadController extends Controller
         $this->bankTransactionRepository = $bankTransactionRepository;
 
         $this->middleware('can:profile.view.all');
+        $this->middleware('can:box.view.all')->only(['memberBoxes']);
+        $this->middleware('feature:boxes')->only(['memberBoxes']);
     }
 
     /**
@@ -220,5 +223,37 @@ class CSVDownloadController extends Controller
         };
 
         return response()->streamDownload($callback, 'member-payments-' . date('d-m-Y-H:i:s') . '.csv', $headers);
+    }
+
+    /**
+     * Download a csv of member boxes.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function memberBoxes()
+    {
+        $headers = [
+            'Content-type' => 'text/csv',
+            'Pragma' => 'no-cache',
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires' => '0',
+        ];
+
+        $memberBoxes = MemberBoxes::all();
+
+        $callback = function () use ($memberBoxes) {
+            $file = fopen('php://output', 'w');
+
+            fputcsv($file, array_keys($memberBoxes->first()->toArray()));
+            foreach ($memberBoxes as $memberBox) {
+                fputcsv(
+                    $file,
+                    $memberBox->toArray()
+                );
+            }
+            fclose($file);
+        };
+
+        return response()->streamDownload($callback, 'member-boxes-' . date('d-m-Y-H:i:s') . '.csv', $headers);
     }
 }

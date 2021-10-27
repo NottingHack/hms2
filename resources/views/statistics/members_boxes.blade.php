@@ -8,11 +8,11 @@
   <table class="table">
     <tr>
       <th>Total Spaces:</th>
-      <td>{{ $totalSpaces }}</td><td>This is the number of toal shelf spaces we have accross the two "Member's storage" rooms.</td>
+      <td>{{ $totalSpaces }}</td><td>This is the number of total shelf spaces we have across the two "Member's storage" rooms.</td>
     </tr>
     <tr>
-      <th>Avalible Spaces:</th>
-      <td>{{ $totalSpaces - $inUse }}</td><td>This is the number of avalible shelf spaces we have accross the two "Member's storage" rooms, this number needs to be above 0 for you to buy a box.</td>
+      <th>Available Spaces:</th>
+      <td>{{ $totalSpaces - $inUse }}</td><td>This is the number of available shelf spaces we have across the two "Member's storage" rooms, this number needs to be above 0 for you to buy a box.</td>
     </tr>
     <tr>
       <th>In Use:</th>

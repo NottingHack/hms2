@@ -32,6 +32,9 @@
             @endif
           </dl>
         </div>
+        <div class="card-footer">
+          <a href="{{ route('rfid-tags.index') }}" class="btn btn-primary mb-1">Manage RFID Cards</a>
+        </div>
       </div>
     </div>
     @endif

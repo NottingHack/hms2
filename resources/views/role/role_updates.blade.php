@@ -45,6 +45,10 @@
       </tbody>
     </table>
   </div>
+
+  <div class="pagination-links">
+    {{ $roleUpdates->links() }}
+  </div>
   @endif
   @empty
   <p>Nothing history for this user.</p>

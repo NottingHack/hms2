@@ -7,9 +7,12 @@ use HMS\Entities\Role;
 use HMS\Entities\RoleUpdate;
 use HMS\Entities\User;
 use HMS\Repositories\RoleUpdateRepository;
+use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 
 class DoctrineRoleUpdateRepository extends EntityRepository implements RoleUpdateRepository
 {
+    use PaginatesFromRequest;
+
     /**
      * @param int $id
      *
@@ -41,6 +44,23 @@ class DoctrineRoleUpdateRepository extends EntityRepository implements RoleUpdat
     public function findLatestRoleAddedByUser(Role $role, User $user)
     {
         return parent::findOneBy(['user' => $user, 'roleAdded' => $role], ['createdAt' => 'DESC']);
+    }
+
+    /**
+     * @param User $user
+     * @param int $perPage
+     * @param string $pageName
+     *
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function paginateByUser(User $user, $perPage = 15, $pageName = 'page')
+    {
+        $q = parent::createQueryBuilder('roleUpdate')
+            ->where('roleUpdate.user = :user_id');
+
+        $q = $q->setParameter('user_id', $user->getId())->getQuery();
+
+        return $this->paginate($q, $perPage, $pageName);
     }
 
     /**

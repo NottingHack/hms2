@@ -461,7 +461,7 @@ class RoleController extends Controller
      */
     public function roleUpdates(User $user)
     {
-        $roleUpdates = $this->roleUpdateRepository->findByUser($user);
+        $roleUpdates = $this->roleUpdateRepository->paginateByUser($user);
 
         return view('role.role_updates')
             ->with([

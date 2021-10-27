@@ -33,6 +33,15 @@ interface RoleUpdateRepository
     public function findLatestRoleAddedByUser(Role $role, User $user);
 
     /**
+     * @param User $user
+     * @param int $perPage
+     * @param string $pageName
+     *
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function paginateByUser(User $user, $perPage = 15, $pageName = 'page');
+
+    /**
      * Save RoleUpdate to the DB.
      *
      * @param RoleUpdate $roleUpdate

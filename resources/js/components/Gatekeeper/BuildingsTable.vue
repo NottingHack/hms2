@@ -172,7 +172,8 @@
       fetchBuildings() {
         this.loading(true);
 
-        axios.get(this.route('api.gatekeeper.buildings.index').url())
+        axios.get(this.route('api.gatekeeper.buildings.index')
+)
           .then((response) => {
             if (response.status == '200') { // HTTP_OK
               this.buildings = response.data.data; // axios data, then laravel api resource data
@@ -231,7 +232,8 @@
         console.log('updateOccupancy', event);
         this.loading(true, true);
 
-        axios.patch(this.route('api.gatekeeper.buildings.update-occupancy', this.editingId).url(), {
+        axios.patch(this.route('api.gatekeeper.buildings.update-occupancy', this.editingId)
+, {
             selfBookMaxOccupancy: this.editingSelfBookMaxOccupancy
           })
           .then((response) => {
@@ -279,7 +281,8 @@
 
         this.loading(true, true);
 
-        axios.patch(this.route('api.gatekeeper.buildings.update-access-state', this.editingId).url(), {
+        axios.patch(this.route('api.gatekeeper.buildings.update-access-state', this.editingId)
+, {
             accessState: newAccessState
           })
           .then((response) => {

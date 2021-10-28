@@ -27,7 +27,7 @@ php artisan permissions:defaults
 php artisan meta:sync
 php artisan db:seed
 php artisan passport:install
-php artisan ziggy:generate "/vagrant/resources/js/ziggy.js"
+php artisan ziggy:generate
 
 # Setup task scheduler cron
 line="* * * * * php /vagrant/artisan schedule:run >> /dev/null 2>&1"

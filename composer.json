@@ -36,7 +36,7 @@
         "spatie/laravel-stripe-webhooks": "^2.0",
         "stripe/stripe-php": "^7.0",
         "symfony/yaml": "^5.0",
-        "tightenco/ziggy": "^0.8.1",
+        "tightenco/ziggy": "^1.0",
         "tremby/laravel-git-version": "^1.1"
     },
     "require-dev": {

@@ -869,7 +869,8 @@
           this.axiosCancle('New events range requested');
         }
 
-        const request = axios.get(this.route('api.gatekeeper.temporary-access-bookings.index').url(), {
+        const request = axios.get(this.route('api.gatekeeper.temporary-access-bookings.index')
+, {
           params: {
             start: fetchInfo.startStr,
             end: fetchInfo.endStr,
@@ -978,7 +979,8 @@
       createBooking(booking) {
         // console.log('createBooking', booking);
         this.loading(true, true);
-        axios.post(this.route('api.gatekeeper.temporary-access-bookings.store').url(), booking)
+        axios.post(this.route('api.gatekeeper.temporary-access-bookings.store')
+, booking)
           .then((response) => {
             if (response.status == '201') { // HTTP_CREATED
               const responseBooking = this.mapBookings(response.data.data);
@@ -1066,7 +1068,8 @@
 
         this.loading(true);
 
-        axios.patch(this.route('api.gatekeeper.temporary-access-bookings.update', event.id).url(), booking)
+        axios.patch(this.route('api.gatekeeper.temporary-access-bookings.update', event.id)
+, booking)
           .then((response) => {
             if (response.status == '200') { // HTTP_OK
               const responseBooking = this.mapBookings(response.data.data);
@@ -1143,7 +1146,8 @@
           this.loading(true);
         }
 
-        axios.delete(this.route('api.gatekeeper.temporary-access-bookings.destroy', event.id).url(), {
+        axios.delete(this.route('api.gatekeeper.temporary-access-bookings.destroy', event.id)
+, {
           data: payload,
         })
           .then((response) => {
@@ -1199,7 +1203,8 @@
 
         this.loading(true);
 
-        axios.patch(this.route('api.gatekeeper.temporary-access-bookings.update', event.id).url(), booking)
+        axios.patch(this.route('api.gatekeeper.temporary-access-bookings.update', event.id)
+, booking)
           .then((response) => {
             if (response.status == '200') { // HTTP_OK
               const responseBooking = this.mapBookings(response.data.data);

@@ -59,7 +59,7 @@ class PostGitDeployedJob implements ShouldQueue
         'meta:sync',
         'db:seed --class ContentBlockSeeder',
         'horizon:terminate',
-        'ziggy:generate resources/js/ziggy.js',
+        'ziggy:generate',
     ];
 
     /**

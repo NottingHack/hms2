@@ -53,7 +53,7 @@ mix.sourceMaps()
         resolve: {
             alias: {
                 'sass': path.resolve(__dirname, 'resources/sass'),
-                ziggy: path.resolve('vendor/tightenco/ziggy/src/js/route.js'),
+                ziggy: path.resolve('vendor/tightenco/ziggy/dist'),
                 // https://github.com/brockpetrie/vue-moment/issues/117
                 'vue-moment': path.resolve(
                     __dirname,
@@ -62,9 +62,7 @@ mix.sourceMaps()
             }
         }
     })
-    .ziggy({
-        path: 'resources/js/ziggy.js',
-    })
+    .ziggy()
     .js('resources/js/app.js', 'public/js')
     .vue({
       extractStyles: 'public/css/vue.css',

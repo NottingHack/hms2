@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "69fc2195f0cadfeeca82614faf9b3a7b",
+    "content-hash": "9eab301ae6ffb5328543d20c7e4b8231",
     "packages": [
         {
             "name": "agenciasys/ofxparser",
@@ -9367,24 +9367,24 @@
         },
         {
             "name": "tightenco/ziggy",
-            "version": "v0.8.1",
+            "version": "v1.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tighten/ziggy.git",
-                "reference": "4c4b29bc658153f0771b0a145173ce83a7b6b885"
+                "reference": "620c135281062b9f6b53a75b07f99a4339267277"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tighten/ziggy/zipball/4c4b29bc658153f0771b0a145173ce83a7b6b885",
-                "reference": "4c4b29bc658153f0771b0a145173ce83a7b6b885",
+                "url": "https://api.github.com/repos/tighten/ziggy/zipball/620c135281062b9f6b53a75b07f99a4339267277",
+                "reference": "620c135281062b9f6b53a75b07f99a4339267277",
                 "shasum": ""
             },
             "require": {
                 "laravel/framework": ">=5.4@dev"
             },
             "require-dev": {
-                "mikey179/vfsstream": "^1.6",
-                "orchestra/testbench": "~3.6"
+                "orchestra/testbench": "^6.0",
+                "phpunit/phpunit": "^9.2"
             },
             "type": "library",
             "extra": {
@@ -9409,16 +9409,27 @@
                     "email": "daniel@tighten.co"
                 },
                 {
-                    "name": "Matt Stauffer",
-                    "email": "matt@tighten.co"
+                    "name": "Jake Bathman",
+                    "email": "jake@tighten.co"
+                },
+                {
+                    "name": "Jacob Baker-Kretzmar",
+                    "email": "jacob@tighten.co"
                 }
             ],
             "description": "Generates a Blade directive exporting all of your named Laravel routes. Also provides a nice route() helper function in JavaScript.",
+            "homepage": "https://github.com/tighten/ziggy",
+            "keywords": [
+                "Ziggy",
+                "javascript",
+                "laravel",
+                "routes"
+            ],
             "support": {
                 "issues": "https://github.com/tighten/ziggy/issues",
-                "source": "https://github.com/tighten/ziggy/tree/v0.8.1"
+                "source": "https://github.com/tighten/ziggy/tree/v1.4.2"
             },
-            "time": "2019-10-18T22:42:36+00:00"
+            "time": "2021-10-01T13:55:26+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",

@@ -29,15 +29,13 @@ import route from 'ziggy';
 import { Ziggy } from './ziggy';
 
 if (process.env.NODE_ENV != 'production') {
-    // use dynamic baseUrl's for ziggy in dev, great for ngrok
-    Ziggy.baseUrl = location.protocol+'//'+location.hostname;
-    Ziggy.baseProtocol = location.protocol;
-    Ziggy.baseDomain = location.hostname;
+    // use dynamic url's for ziggy in dev, great for ngrok
+    Ziggy.url = location.protocol+'//'+location.hostname;
 }
 
 Vue.mixin({
     methods: {
-        route: (name, params, absolute) => route(name, params, absolute, Ziggy),
+        route: (name, params, absolute, config = Ziggy) => route(name, params, absolute, config),
     },
 });
 

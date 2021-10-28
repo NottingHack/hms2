@@ -119,7 +119,8 @@
           user_id: this.userId,
         };
 
-        axios.post(this.route('api.governance.meetings.check-in-user', {'meeting': this.meetingId}).url(), checkIn)
+        axios.post(this.route('api.governance.meetings.check-in-user', {'meeting': this.meetingId})
+, checkIn)
          .then((response) => {
             if (response.status == '200') {
               this.attendeeCheckInEvent(response.data);
@@ -168,7 +169,8 @@
       },
 
       fetchConuts() {
-        axios.get(this.route('api.governance.meetings.show', {'meeting': this.meetingId}).url())
+        axios.get(this.route('api.governance.meetings.show', {'meeting': this.meetingId})
+)
           .then((response) => {
             if (response.status == '200') {
               this.updateConuts(response.data);

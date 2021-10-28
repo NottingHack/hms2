@@ -44,7 +44,7 @@
     "select2": "^4.0.13",
     "select2-theme-bootstrap4": "^1.0.0",
     "socket.io-client": "^2.4.0",
-    "summernote": "^0.8.20",
+    "summernote": "0.8.18",
     "vue": "^2.6.14",
     "vue-bootstrap-datetimepicker": "^5.0.1",
     "vue-loader": "^15.9.8",

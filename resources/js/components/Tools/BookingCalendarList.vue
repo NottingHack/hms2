@@ -2,41 +2,7 @@
   <div ref="calendar">
     <full-calendar
       ref="fullCalendar"
-
-      :plugins="calendarPlugins"
-      locale="en-gb"
-      timeZone="Europe/London"
-      :firstDay=1
-      :eventSources="eventSources"
-
-      @loading="loading"
-      @unselect="unselect"
-      @eventClick="eventClick"
-      :datesDestroy="removeConfirmation"
-      :viewSkeletonRender="viewSkeletonRender"
-
-      :selectable=true
-      :selectOverlap=false
-      :selectMirror=true
-      unselectCancel=".popover"
-      :eventOverlap=false
-      defaultView="bookingList"
-      themeSystem="bootstrap"
-      noEventsMessage="No bookings to display"
-      :header="false"
-      :footer="false"
-      :visibleRange="visibleRange"
-      :views="{
-        bookingList: {
-          type: 'list',
-          duration: { days: 7 },
-          eventTimeFormat: {
-            hour12: false,
-            hour: '2-digit',
-            minute: '2-digit',
-          },
-        },
-      }"
+      :options="calendarOptions"
       />
   </div>
 </template>
@@ -70,13 +36,6 @@
         axiosCancle: null,
         bookings: null,
         calendarApi: null,
-        calendarPlugins: [
-          listPlugin,
-          interactionPlugin,
-          momentPlugin,
-          momentTimezonePlugin,
-          bootstrapPlugin,
-        ],
         interval: null,
         isLoading: true,
         loader: null,
@@ -84,6 +43,51 @@
     },
 
     computed: {
+      calendarOptions() {
+        return {
+          plugins: [
+            listPlugin,
+            interactionPlugin,
+            momentPlugin,
+            momentTimezonePlugin,
+            bootstrapPlugin,
+          ],
+          locale: "en-gb",
+          timeZone: "Europe/London",
+          firstDay: 1,
+          eventSources: this.eventSources,
+
+          loading: this.loading,
+          unselect: this.unselect,
+          eventClick: this.eventClick,
+          dayCellWillUnmount: this.removeConfirmation,
+          viewDidMount: this.viewDidMount,
+
+          selectable: true,
+          selectOverlap: false,
+          selectMirror: true,
+          unselectCancel: ".popover",
+          eventOverlap: false,
+          initialView: "bookingList",
+          themeSystem: "bootstrap",
+          noEventsContent: "No bookings to display",
+          headerToolbar: false,
+          footerToolbar: false,
+          visibleRange: this.visibleRange,
+          views: {
+            bookingList: {
+              type: 'list',
+              duration: { days: 7 },
+              eventTimeFormat: {
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit',
+              },
+            },
+          },
+        };
+      },
+
       eventSources() {
         return [
           {
@@ -92,6 +96,7 @@
           },
         ];
       },
+
       visibleRange() {
         return {
           start: moment().startOf('day').toDate(),
@@ -243,7 +248,7 @@
         return booking;
       },
 
-      viewSkeletonRender(info) {
+      viewDidMount(info) {
         // FullCalendar's bootstrap theme uses card on there fc-list-view class
         // this causes a card inside a card
         if (this.removeCardClass) {
@@ -340,22 +345,25 @@
 /*
  * Tool related bits
  */
-.tool-list-normal .fc-event-dot {
+.tool-list-normal .fc-list-event-dot {
   background-color: $tool-booking-normal !important;
+  border: none !important;
   // Make the dot bigger and more of a square
   width: 25px;
   height: 25px;
 }
 
-.tool-list-induction .fc-event-dot {
+.tool-list-induction .fc-list-event-dot {
   background-color: $tool-booking-induction !important;
+  border: none !important;
   // Make the dot bigger and more of a square
   width: 25px;
   height: 25px;
 }
 
-.tool-list-maintenance .fc-event-dot {
+.tool-list-maintenance .fc-list-event-dot {
   background-color: $tool-booking-maintenance !important;
+  border: none !important;
   // Make the dot bigger and more of a square
   width: 25px;
   height: 25px;

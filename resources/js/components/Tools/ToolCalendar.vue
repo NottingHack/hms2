@@ -2,73 +2,7 @@
   <div class="container vld-parent" ref="calendar">
     <full-calendar
       ref="fullCalendar"
-
-      :plugins="calendarPlugins"
-      locale="en-gb"
-      timeZone="Europe/London"
-      :firstDay=1
-      :eventSources="eventSources"
-
-      @loading="loading"
-      @select="select"
-      @unselect="unselect"
-      :selectAllow="selectAllow"
-      @eventClick="eventClick"
-      :eventAllow="eventAllow"
-      @eventDragStart="removeConfirmation"
-      @eventDrop="eventDrop"
-      @eventResizeStart="removeConfirmation"
-      @eventResize="eventResize"
-      :datesDestroy="removeConfirmation"
-
-      :selectable=true
-      :selectOverlap=false
-      :selectMirror=true
-      unselectCancel=".popover"
-      :eventOverlap=false
-      :defaultView="defaultView"
-      noEventsMessage="No bookings to display"
-      themeSystem="bootstrap"
-      :header="{
-        left:   'prev',
-        center: 'today',
-        right:  'next',
-      }"
-      :footer="{
-        left:   'prev',
-        center: 'today',
-        right:  'next',
-      }"
-      :buttonText="{
-        today:  'Today',
-      }"
-      :aspectRatio="aspectRatio"
-      :views="{
-        timeGrid: {
-          // options apply to timeGridWeek and timeGridDay views
-          allDaySlot: false,
-          nowIndicator: true,
-          slotDuration: '00:15',
-          slotLabelInterval: '01:00',
-          slotLabelFormat: {
-            hour12: false,
-            hour: '2-digit',
-            minute: '2-digit',
-          },
-          // scrollTime: moment().format('HH:mm'),
-          columnHeaderFormat: {
-            weekday: 'narrow',
-            day: '2-digit',
-            month: '2-digit',
-            year: '2-digit',
-          },
-          eventTimeFormat: {
-            hour12: false,
-            hour: '2-digit',
-            minute: '2-digit',
-          },
-        },
-      }"
+      :options="calendaOptions"
       />
   </div>
 </template>
@@ -113,14 +47,7 @@
       return {
         axiosCancle: null,
         calendarApi: null,
-        calendarPlugins: [
-          timeGridPlugin,
-          interactionPlugin,
-          momentPlugin,
-          momentTimezonePlugin,
-          bootstrapPlugin,
-        ],
-        defaultView: 'timeGridDay',
+        initialView: 'timeGridDay',
         dayAspectRatio: 0.8,
         weekAspectRatio: 1.35, // full calender default
         aspectRatio: this.dayAspectRatio,
@@ -131,6 +58,82 @@
     },
 
     computed: {
+      calendaOptions() {
+        return {
+          plugins: [
+            timeGridPlugin,
+            interactionPlugin,
+            momentPlugin,
+            momentTimezonePlugin,
+            bootstrapPlugin,
+          ],
+          locale: "en-gb",
+          timeZone: "Europe/London",
+          firstDay: 1,
+          eventSources: this.eventSources,
+
+          loading: this.loading,
+          select: this.select,
+          unselect: this.unselect,
+          selectAllow: this.selectAllow,
+          eventClick: this.eventClick,
+          eventAllow: this.eventAllow,
+          eventDragStart: this.removeConfirmation,
+          eventDrop: this.eventDrop,
+          eventResizeStart: this.removeConfirmation,
+          eventResize: this.eventResize,
+          dayCellWillUnmount: this.removeConfirmation,
+
+          selectable: true,
+          selectOverlap: false,
+          selectMirror: true,
+          unselectCancel: ".popover",
+          eventOverlap: false,
+          initialView: this.initialView,
+          themeSystem: "bootstrap",
+          headerToolbar: {
+            left:   'prev',
+            center: 'today',
+            right:  'next',
+          },
+          footerToolbar: {
+            left:   'prev',
+            center: 'today',
+            right:  'next',
+          },
+          buttonText: {
+            today:  'Today',
+          },
+          aspectRatio: this.aspectRatio,
+          views: {
+            timeGrid: {
+              // options apply to timeGridWeek and timeGridDay views
+              allDaySlot: false,
+              nowIndicator: true,
+              slotDuration: '00:15',
+              slotLabelInterval: '01:00',
+              slotLabelFormat: {
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit',
+              },
+              // scrollTime: moment().format('HH:mm'),
+              dayHeaderFormat: {
+                weekday: 'narrow',
+                day: '2-digit',
+                month: '2-digit',
+                year: '2-digit',
+              },
+              eventTimeFormat: {
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit',
+              },
+            },
+          },
+        };
+      },
+
       eventSources() {
         return [
           {
@@ -142,7 +145,7 @@
               {
                 start: moment().startOf('day').toDate(),
                 end: moment().toDate(),
-                rendering: 'background'
+                display: 'background'
               },
             ],
             id: 'pastEvent',
@@ -532,8 +535,8 @@
 
         let options = {
           container: 'body',
-          rootSelector: '.fc-mirror',
-          selector: '.fc-mirror',
+          rootSelector: '.fc-event-mirror',
+          selector: '.fc-event-mirror',
           title: 'Add booking?',
           popout: true,
           singleton: true,
@@ -545,7 +548,7 @@
           },
           buttons: [
             {
-              label: this.defaultView == 'timeGridWeek' ? '&nbsp;' : '',
+              label: this.initialView == 'timeGridWeek' ? '&nbsp;' : '',
               class: 'btn btn-sm btn-outline-dark',
               iconClass: 'fas fa-times',
               cancel: true,
@@ -556,7 +559,7 @@
         if (this.userCanBook.maintenance) {
           options.buttons.splice(0, 0,
             {
-              label: this.defaultView == 'timeGridWeek' ? '&nbsp;Maintenance' : '',
+              label: this.initialView == 'timeGridWeek' ? '&nbsp;Maintenance' : '',
               value: 'MAINTENANCE',
               class: 'btn btn-sm btn-booking-maintenance',
               iconClass: 'fas fa-wrench',
@@ -567,7 +570,7 @@
         if (this.userCanBook.induction) {
           options.buttons.splice(0, 0,
             {
-              label: this.defaultView == 'timeGridWeek' ? '&nbsp;Induction' : '',
+              label: this.initialView == 'timeGridWeek' ? '&nbsp;Induction' : '',
               value: 'INDUCTION',
               class: 'btn btn-sm btn-booking-induction',
               iconClass: 'fas fa-chalkboard-teacher',
@@ -585,7 +588,7 @@
           if (this.userCanBook.normalCurrentCount < this.bookingsMax) {
             options.buttons.splice(0, 0,
               {
-                label: this.defaultView == 'timeGridWeek' ? normalLabel : '',
+                label: this.initialView == 'timeGridWeek' ? normalLabel : '',
                 value: 'NORMAL',
                 class: 'btn btn-sm btn-booking-normal',
                 iconClass: 'fas fa-check',
@@ -599,9 +602,9 @@
 
         }
 
-        $('.fc-mirror').confirmation(options);
+        $('.fc-event-mirror').confirmation(options);
 
-        $('.fc-mirror').confirmation('show');
+        $('.fc-event-mirror').confirmation('show');
       },
 
       /**
@@ -649,15 +652,15 @@
         const windowWidth = document.documentElement.clientWidth;
 
         if (windowWidth < 767.98) {
-          this.defaultView = 'timeGridDay';
+          this.initialView = 'timeGridDay';
           this.aspectRatio = this.dayAspectRatio;
         } else {
-          this.defaultView = 'timeGridWeek';
+          this.initialView = 'timeGridWeek';
           this.aspectRatio = this.weekAspectRatio;
         }
 
         if (this.calendarApi !== null) {
-          this.calendarApi.changeView(this.defaultView);
+          this.calendarApi.changeView(this.initialView);
           this.removeConfirmation();
         }
       },
@@ -769,19 +772,19 @@
  */
 
 // override the bootstrap 4 theme today highlight
-.fc-today {
+.fc-day-today {
   background-color:inherit !important;
 }
 
-.fc-bgevent  {
-  background: #7c7c7c;
+.fc-bg-event {
+  background: #7c7c7c !important;
 }
 
-.fc-past {
+.fc-day-past {
   background: #d7d7d7;
 }
 
-.fc-slats table tbody tr:nth-of-type(odd) {
+.fc-timegrid-slots table tbody tr:nth-of-type(odd) {
   background-color: rgba(0, 0, 0, 0.05);
 }
 

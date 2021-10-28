@@ -59,71 +59,7 @@
     <div class="container vld-parent" ref="calendar">
       <full-calendar
         ref="fullCalendar"
-
-        :plugins="calendarPlugins"
-        locale="en-gb"
-        timeZone="Europe/London"
-        :firstDay=1
-        :eventSources="eventSources"
-        :rerenderDelay="5"
-
-        @loading="loading"
-        @select="select"
-        @unselect="unselect"
-        :selectAllow="selectAllow"
-        @eventClick="eventClick"
-        :eventAllow="eventAllow"
-        @eventDragStart="removePopoverConfirmation"
-        @eventDrop="eventDrop"
-        @eventResizeStart="removePopoverConfirmation"
-        @eventResize="eventResize"
-        :datesDestroy="removePopoverConfirmation"
-        :eventRender="eventRender"
-        :eventDestroy="eventDestroy"
-
-        :selectOverlap=true
-        :selectable="selectable"
-        :selectMirror=true
-        unselectCancel=".modal-content"
-        :eventOverlap="eventOverlap"
-        :defaultView="initialView"
-        :defaultDate="initialDate"
-        noEventsMessage="No bookings to display"
-        themeSystem="bootstrap"
-        :header="dayOnlyButtons"
-        :footer="dayOnlyButtons"
-        :buttonText="{
-          today: 'Today',
-          day: 'Day',
-          week: 'Week',
-        }"
-        :aspectRatio="this.dayAspectRatio"
-        :views="{
-          timeGrid: {
-            // options apply to timeGridWeek and timeGridDay views
-            allDaySlot: false,
-            nowIndicator: true,
-            slotDuration: '00:15',
-            slotLabelInterval: '01:00',
-            slotLabelFormat: {
-              hour12: false,
-              hour: '2-digit',
-              minute: '2-digit',
-            },
-            // scrollTime: moment().format('HH:mm'),
-            columnHeaderFormat: {
-              weekday: 'narrow',
-              day: '2-digit',
-              month: '2-digit',
-              year: '2-digit',
-            },
-            eventTimeFormat: {
-              hour12: false,
-              hour: '2-digit',
-              minute: '2-digit',
-            },
-          },
-        }"
+        :options='calendarOptions'
         />
     </div>
 
@@ -387,13 +323,6 @@
       return {
         axiosCancle: null,
         calendarApi: null,
-        calendarPlugins: [
-          timeGridPlugin,
-          interactionPlugin,
-          momentPlugin,
-          momentTimezonePlugin,
-          bootstrapPlugin,
-        ],
         initialView: 'timeGridDay',
         initialDate: null,
         dayAspectRatio: 0.8,
@@ -452,6 +381,80 @@
     },
 
     computed: {
+      calendarOptions() {
+        return {
+          plugins: [
+            timeGridPlugin,
+            interactionPlugin,
+            momentPlugin,
+            momentTimezonePlugin,
+            bootstrapPlugin,
+          ],
+          locale: "en-gb",
+          timeZone: "Europe/London",
+          firstDay: 1,
+          eventSources: this.eventSources,
+          rerenderDelay: 5,
+
+          loading: this.loading,
+          select: this.select,
+          unselect: this.unselect,
+          selectAllow: this.selectAllow,
+          eventClick: this.eventClick,
+          eventAllow: this.eventAllow,
+          eventDragStart: this.removePopoverConfirmation,
+          eventDrop: this.eventDrop,
+          eventResizeStart: this.removePopoverConfirmation,
+          eventResize: this.eventResize,
+          dayCellWillUnmount: this.removePopoverConfirmation,
+          eventDidMount: this.eventDidMount,
+          eventWillUnmount: this.eventWillUnmount,
+
+          selectOverlap: true,
+          selectable: this.selectable,
+          selectMirror: true,
+          unselectCancel: ".modal-content",
+          eventOverlap: this.eventOverlap,
+          initialView: this.initialView,
+          initialDate: this.initialDate,
+          themeSystem: "bootstrap",
+          headerToolbar: this.dayOnlyButtons,
+          footerToolbar: this.dayOnlyButtons,
+          buttonText: {
+            today: 'Today',
+            day: 'Day',
+            week: 'Week',
+          },
+          aspectRatio: this.dayAspectRatio,
+          views: {
+            timeGrid: {
+              // options apply to timeGridWeek and timeGridDay views
+              allDaySlot: false,
+              nowIndicator: true,
+              slotDuration: '00:15',
+              slotLabelInterval: '01:00',
+              slotLabelFormat: {
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit',
+              },
+              // scrollTime: moment().format('HH:mm'),
+              dayHeaderFormat: {
+                weekday: 'narrow',
+                day: '2-digit',
+                month: '2-digit',
+                year: '2-digit',
+              },
+              eventTimeFormat: {
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit',
+              },
+            },
+          },
+        };
+      },
+
       eventSources() {
         return [
           {
@@ -463,7 +466,7 @@
               {
                 start: moment().startOf('day').toDate(),
                 end: moment().toDate(),
-                rendering: 'background'
+                display: 'background'
               },
             ],
             id: 'pastEvent',
@@ -770,9 +773,9 @@
         this.patchBooking(eventResizeInfo.event, eventResizeInfo.revert)
       },
 
-      eventRender: function (info) {
-        // console.log('eventRender', info);
-        if (info.isMirror || info.event.rendering == 'background') {
+      eventDidMount: function (info) {
+        // console.log('eventDidMount', info);
+        if (info.isMirror || info.event.display == 'background') {
           return;
         }
         let extendedProps = info.event.extendedProps;
@@ -851,8 +854,8 @@
         }
       },
 
-      eventDestroy(info) {
-        // console.log('eventDestroy', info)
+      eventWillUnmount(info) {
+        // console.log('eventWillUnmount', info)
         $(info.el).tooltip('dispose');
         $(info.el).confirmation('dispose');
       },
@@ -1460,13 +1463,13 @@
 
         if (this.calendarApi !== null) {
           if (windowWidth < 767.98) {
-            this.calendarApi.setOption('header', this.dayOnlyButtons);
-            this.calendarApi.setOption('footer', this.dayOnlyButtons);
+            this.calendarApi.setOption('headerToolbar', this.dayOnlyButtons);
+            this.calendarApi.setOption('footerToolbar', this.dayOnlyButtons);
             this.calendarApi.setOption('aspectRatio', this.dayAspectRatio);
             this.calendarApi.changeView('timeGridDay');
           } else {
-            this.calendarApi.setOption('header', this.dayMonthButtons);
-            this.calendarApi.setOption('footer', this.dayMonthButtons);
+            this.calendarApi.setOption('headerToolbar', this.dayMonthButtons);
+            this.calendarApi.setOption('footerToolbar', this.dayMonthButtons);
             this.calendarApi.setOption('aspectRatio', this.weekAspectRatio);
             // this.calendarApi.changeView('timeGridWeek');
           }
@@ -2050,7 +2053,7 @@
   font-size: inherit
 }
 
-.fc-mirror {
+.fc-event-mirror {
   background-color: rgba(55, 136, 216, 0.60)
 }
 </style>

@@ -32,7 +32,7 @@ class Version20190109152643_remove_unneeded_meta_entries extends AbstractMigrati
     /**
      * @param Schema $schema
      */
-    public function up(Schema $schema)
+    public function up(Schema $schema): void
     {
         foreach ($this->settings as $key => $value) {
             $this->addSql('DELETE FROM meta WHERE `key` = \'' . $key . '\'');
@@ -45,7 +45,7 @@ class Version20190109152643_remove_unneeded_meta_entries extends AbstractMigrati
     /**
      * @param Schema $schema
      */
-    public function down(Schema $schema)
+    public function down(Schema $schema): void
     {
         $now = Carbon::now();
 

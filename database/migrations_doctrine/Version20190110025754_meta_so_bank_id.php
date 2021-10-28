@@ -11,7 +11,7 @@ class Version20190110025754_meta_so_bank_id extends AbstractMigration
     /**
      * @param Schema $schema
      */
-    public function up(Schema $schema)
+    public function up(Schema $schema): void
     {
         $now = Carbon::now();
 
@@ -24,7 +24,7 @@ class Version20190110025754_meta_so_bank_id extends AbstractMigration
     /**
      * @param Schema $schema
      */
-    public function down(Schema $schema)
+    public function down(Schema $schema): void
     {
         $now = Carbon::now();
 

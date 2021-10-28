@@ -20,7 +20,7 @@ class Version20200519095301_populate_booakable_area extends AbstractMigration
     /**
      * @param Schema $schema
      */
-    public function up(Schema $schema)
+    public function up(Schema $schema): void
     {
         $now = Carbon::now();
 
@@ -35,7 +35,7 @@ class Version20200519095301_populate_booakable_area extends AbstractMigration
     /**
      * @param Schema $schema
      */
-    public function down(Schema $schema)
+    public function down(Schema $schema): void
     {
         foreach ($this->areas as [$name, $description, $booking_color, $self_bookable]) {
             $this->addSql(

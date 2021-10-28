@@ -3,7 +3,7 @@
 namespace Database\Migrations;
 
 use Carbon\Carbon;
-use Doctrine\DBAL\Migrations\AbstractMigration;
+use Doctrine\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema as Schema;
 
 class Version20170209091949_populate_starter_links extends AbstractMigration
@@ -11,7 +11,7 @@ class Version20170209091949_populate_starter_links extends AbstractMigration
     /**
      * @param Schema $schema
      */
-    public function up(Schema $schema)
+    public function up(Schema $schema): void
     {
         $now = Carbon::now();
         $links = [
@@ -36,7 +36,7 @@ class Version20170209091949_populate_starter_links extends AbstractMigration
     /**
      * @param Schema $schema
      */
-    public function down(Schema $schema)
+    public function down(Schema $schema): void
     {
     }
 }

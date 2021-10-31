@@ -5,6 +5,15 @@ RFID cards for {{ $user->getFirstname() }}
 @endsection
 
 @section('content')
+@if (Route::currentRouteName() == 'users.rfid-tags')
+<div class="container">
+  <h3>
+    RFID cards for {{ $user->getFullname() }} <a class="btn-sm btn-primary mb-2" href="{{ route('users.admin.show', $user->getId()) }}"><i class="fa fa-eye"></i></a>
+  </h3>
+  <hr>
+</div>
+@endif
+
 @can('pins.view.all')
 @foreach ($pins as $pin)
   @if ($loop->first)

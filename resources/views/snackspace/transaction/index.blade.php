@@ -5,6 +5,15 @@ Snackspace account for {{ $user->getFirstname() }}
 @endsection
 
 @section('content')
+@if (Auth::user() != $user)
+<div class="container">
+  <h3>
+    {{ $user->getFullname() }} <a class="btn-sm btn-primary mb-2" href="{{ route('users.admin.show', $user->getId()) }}"><i class="fa fa-eye"></i></a>
+  </h3>
+  <hr>
+</div>
+@endif
+
 <div class="container">
   <div class="card w-100">
     <h3 class="card-header"><i class="fad fa-money-bill" aria-hidden="true"></i> Balance</h3>

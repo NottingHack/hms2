@@ -5,6 +5,15 @@ Access Logs for {{ $user->getFirstname() }}
 @endsection
 
 @section('content')
+@if (Route::currentRouteName() == 'users.admin.access-logs')
+<div class="container">
+  <h4>
+    {{ $user->getFullname() }} <a class="btn-sm btn-primary mb-2" href="{{ route('users.admin.show', $user->getId()) }}"><i class="fa fa-eye"></i></a>
+  </h4>
+  <hr>
+</div>
+@endif
+
 <div class="container">
   @forelse ($accessLogs as $accessLog)
   @if ($loop->first)

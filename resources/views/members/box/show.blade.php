@@ -12,7 +12,7 @@ Box {{ $box->getId() }}
         <tr>
           <th>Box Id</th>
           @if ($box->getUser() != \Auth::user())
-          <th>Owner</t>
+          <th>Owner</th>
           @endif
           <th>Bought Date</th>
           <th>Removed Date</th>
@@ -26,7 +26,7 @@ Box {{ $box->getId() }}
           @if ($box->getUser() != \Auth::user())
           <th data-title="Owner">
             {{ $box->getUser()->getFullname() }} <a class="float-right btn-sm btn-primary mb-1" href="{{ route('users.admin.show', $box->getUser()->getId()) }}"><i class="fa fa-eye"></i></a>
-          </t>
+          </th>
           @endif
           <td data-title="Bought Date">{{ $box->getBoughtDate()->toDateString() }}</td>
           <td data-title="Removed Date">{{ $box->getRemovedDate() ? $box->getRemovedDate()->toDateString() : '' }}&nbsp;</td>

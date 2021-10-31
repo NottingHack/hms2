@@ -3,6 +3,15 @@
 @section('pageTitle', 'Role history for ' . $user->getFullname())
 
 @section('content')
+@if (Route::currentRouteName() == 'users.admin.role-updates')
+<div class="container">
+  <h4>
+    {{ $user->getFullname() }} <a class="btn-sm btn-primary mb-2" href="{{ route('users.admin.show', $user->getId()) }}"><i class="fa fa-eye"></i></a>
+  </h4>
+  <hr>
+</div>
+@endif
+
 <div class="container">
   <p></p>
   @forelse ($roleUpdates as $roleUpdate)

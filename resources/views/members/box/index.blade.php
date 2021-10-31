@@ -6,6 +6,13 @@ Boxes for {{ $user->getFirstname() }}
 
 @section('content')
 <div class="container">
+  @if (Route::currentRouteName() == 'users.boxes')
+  <h3>
+    Boxes for {{ $user->getFullname() }} <a class="btn-sm btn-primary mb-2" href="{{ route('users.admin.show', $user->getId()) }}"><i class="fa fa-eye"></i></a>
+  </h3>
+  <hr>
+  @endif
+
   <p>All members are entitled to a member's box in the storage room, but we have limited space.</p>
 
   <p>If there is an empty box available (please check in real life first!) you can purchase it using the "Buy new box" button below. This will debit your Snackspace account by @money($boxCost, 'GBP') and assign a box to you. The system will also check that there is space available for your box.</p>

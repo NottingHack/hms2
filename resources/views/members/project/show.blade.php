@@ -7,6 +7,12 @@
   <div class="table-responsive">
     <table class="table table-bordered">
       <tbody>
+        @if ($project->getUser() != \Auth::user())
+        <tr>
+          <th>Owner</th>
+          <td>{{ $project->getUser()->getFullname() }} <a class="float-right btn-sm btn-primary mb-1" href="{{ route('users.admin.show', $project->getUser()->getId()) }}"><i class="fa fa-eye"></i></a></td>
+        </tr>
+        @endif
         <tr>
           <th>Name</th>
           <td>{{ $project->getProjectName() }}</td>

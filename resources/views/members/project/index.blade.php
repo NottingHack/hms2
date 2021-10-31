@@ -5,6 +5,15 @@ Projects for {{ $user->getFirstname() }}
 @endsection
 
 @section('content')
+@if (Route::currentRouteName() == 'users.projects')
+<div class="container">
+  <h3>
+    Boxes for {{ $user->getFullname() }} <a class="btn-sm btn-primary mb-2" href="{{ route('users.admin.show', $user->getId()) }}"><i class="fa fa-eye"></i></a>
+  </h3>
+  <hr>
+</div>
+@endif
+
 <div class="container">
   @content('members.project.index', 'main')
 </div>

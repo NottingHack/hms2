@@ -48,6 +48,11 @@ class AccessLog
     protected $deniedReason;
 
     /**
+     * @var null|Zone
+     */
+    protected $enteredZone;
+
+    /**
      * Gets the value of id.
      *
      * @return int
@@ -205,5 +210,13 @@ class AccessLog
         $this->deniedReason = $deniedReason;
 
         return $this;
+    }
+
+    /**
+     * @return null|Zone
+     */
+    public function getEnteredZone()
+    {
+        return $this->enteredZone;
     }
 }

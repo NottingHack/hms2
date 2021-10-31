@@ -27,7 +27,7 @@
         </template>
       </p>
       <p v-if="settings.grant != 'ALL'">Some areas can only be booked by Trustees.</p>
-      <h5>Booking  Key</h5>
+      <h5>Booking Key</h5>
       <p>
         <span
           class="badge badge-success ta-badge-font-inherit p-3 temporary-booking-success"

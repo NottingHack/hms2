@@ -40,3 +40,5 @@ HMS\Entities\Gatekeeper\AccessLog:
       targetEntity: \HMS\Entities\User
     door:
       targetEntity: \HMS\Entities\Gatekeeper\Door
+    enteredZone:
+      targetEntity: \HMS\Entities\Gatekeeper\Zone

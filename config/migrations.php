@@ -65,5 +65,15 @@ return [
                 . 'webhook_calls'
                 . ').*$/',
         ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Migration Version Column Length
+        |--------------------------------------------------------------------------
+        |
+        | The length for the version column in the migrations table.
+        |
+        */
+        'version_column_length' => 255,
     ],
 ];

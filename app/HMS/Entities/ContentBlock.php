@@ -2,6 +2,8 @@
 
 namespace HMS\Entities;
 
+use HMS\Facades\Meta;
+
 class ContentBlock
 {
     /**
@@ -133,5 +135,17 @@ class ContentBlock
         $this->content = $content;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getViewGithubUrl()
+    {
+        $githubUrl = Meta::get('content_block_github_url', 'https://github.com/NottingHack/hms2');
+        $githubUrl .= '/blob/main/resources/views/';
+        $githubUrl .= str_replace('.', '/', $this->getView()) . '.blade.php';
+
+        return $githubUrl;
     }
 }

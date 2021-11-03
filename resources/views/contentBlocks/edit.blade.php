@@ -16,7 +16,9 @@ Editing block for {{ $contentBlock->getView() }}:{{ $contentBlock->getBlock() }}
         </tr>
         <tr>
           <th>View:</th>
-          <td>{{ $contentBlock->getView() }}</td>
+          <td>
+            {{ $contentBlock->getView() }} <a href="{{ $contentBlock->getViewGithubUrl() }}" class="btn btn-primary btn-sm mb-1" target="_blank">View Template on Github</a>
+          </td>
         </tr>
         <tr>
           <th>Block name:</th>

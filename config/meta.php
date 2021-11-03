@@ -20,6 +20,7 @@ return [
         'access_wifi_ssid' => 'HSNOTTS',
         'audit_revoke_interval' => 'P2M',
         'audit_warn_interval' => 'P1M14D',
+        'content_block_github_url' => 'https://github.com/NottingHack/hms2',
         'google_group_html' => 'https://groups.google.com/group/nottinghack?hl=en',
         'induction_request_html' => 'https://goo.gl/Jl59IM',
         'label_printer_ip' => 'localhost',

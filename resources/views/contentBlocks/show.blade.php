@@ -15,7 +15,9 @@ Viewing block {{ $contentBlock->getView() }}:{{ $contentBlock->getBlock() }}
         </tr>
         <tr>
           <th>View:</th>
-          <td>{{ $contentBlock->getView() }}</td>
+          <td>
+            {{ $contentBlock->getView() }} <a href="{{ $contentBlock->getViewGithubUrl() }}" class="btn btn-primary btn-sm mb-1" target="_blank">View Template on Github</a>
+          </td>
         </tr>
         <tr>
           <th>Block name:</th>
@@ -47,7 +49,7 @@ Viewing block {{ $contentBlock->getView() }}:{{ $contentBlock->getBlock() }}
       </ul>
     </dd>
     <dt>View</dt>
-    <dd>The blade file this chunk is use in</dd>
+    <dd>The blade file this chunk is use in, this can be seen on Github using the button above. look for the <strong>&#64;content()</strong> tags</dd>
     <dt>Block</dt>
     <dd>Name for the block of content within the page</dd>
   </dl>

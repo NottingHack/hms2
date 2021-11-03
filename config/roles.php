@@ -329,6 +329,8 @@ return [
             'permissions' => [
                 'profile.view.limited',
                 'profile.edit.limited',
+                'contentBlock.view',
+                'contentBlock.edit',
                 'membership.approval',
                 'search.users',
                 'project.view.all',

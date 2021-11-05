@@ -321,7 +321,7 @@
 
     data() {
       return {
-        axiosCancle: null,
+        axiosCancel: null,
         calendarApi: null,
         initialView: 'timeGridDay',
         initialDate: null,
@@ -682,7 +682,7 @@
         // (is it ours or do we have grant ALL) and does it end in the future?
         if ((info.event.extendedProps.userId == this.settings.userId || this.settings.grant == 'ALL')
           && moment().diff(info.event.end) < 0) {
-          this.setupApproveRejcectCancleConfirmation(info);
+          this.setupApproveRejcectCancelConfirmation(info);
         }
       },
 
@@ -868,8 +868,8 @@
         // TODO: look at caching bookings on the Vue and only do axios call when we don't have the data in the Vue cache
         const self = this;
         const CancelToken = axios.CancelToken;
-        if (this.axiosCancle !== null) {
-          this.axiosCancle('New events range requested');
+        if (this.axiosCancel !== null) {
+          this.axiosCancel('New events range requested');
         }
 
         const request = axios.get(this.route('api.gatekeeper.temporary-access-bookings.index')
@@ -880,7 +880,7 @@
             building_id: this.building.id,
           },
           cancelToken: new CancelToken((c) => {
-            self.axiosCancle = c;
+            self.axiosCancel = c;
           }),
         });
 
@@ -1290,8 +1290,8 @@
       /**
        * Display bootstrap confirmation popover for event click.
        */
-      setupApproveRejcectCancleConfirmation(info) {
-        // console.log('setupApproveRejcectCancleConfirmation', info.el);
+      setupApproveRejcectCancelConfirmation(info) {
+        // console.log('setupApproveRejcectCancelConfirmation', info.el);
         const self = this;
 
 

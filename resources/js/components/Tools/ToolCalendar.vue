@@ -2,7 +2,7 @@
   <div class="container vld-parent" ref="calendar">
     <full-calendar
       ref="fullCalendar"
-      :options="calendaOptions"
+      :options="calendarOptions"
       />
   </div>
 </template>
@@ -45,7 +45,7 @@
 
     data() {
       return {
-        axiosCancle: null,
+        axiosCancel: null,
         calendarApi: null,
         initialView: 'timeGridDay',
         dayAspectRatio: 0.8,
@@ -58,7 +58,7 @@
     },
 
     computed: {
-      calendaOptions() {
+      calendarOptions() {
         return {
           plugins: [
             timeGridPlugin,
@@ -224,7 +224,7 @@
         }
         // is it ours and does it end in the future
         if (info.event.extendedProps.userId == this.userCanBook.userId && moment().diff(info.event.end) < 0) {
-          this.setupCancleConfirmation(info);
+          this.setupCancelConfirmation(info);
         }
       },
 
@@ -287,8 +287,8 @@
         // TODO: look at caching bookings on the Vue and only do axios call when we don't have the data in the Vue cache
         const self = this;
         const CancelToken = axios.CancelToken;
-        if (this.axiosCancle !== null) {
-          this.axiosCancle('New events range requested');
+        if (this.axiosCancel !== null) {
+          this.axiosCancel('New events range requested');
         }
 
         const request = axios.get(this.bookingsUrl, {
@@ -297,7 +297,7 @@
             end: fetchInfo.endStr,
           },
           cancelToken: new CancelToken((c) => {
-            self.axiosCancle = c;
+            self.axiosCancel = c;
           }),
         });
 
@@ -610,7 +610,7 @@
       /**
        * Display bootstrap confirmation popover for a new selection.
        */
-      setupCancleConfirmation(info) {
+      setupCancelConfirmation(info) {
         const self = this;
 
         // info.el attach booking-selected class to the <a>

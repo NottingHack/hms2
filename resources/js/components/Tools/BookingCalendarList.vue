@@ -33,7 +33,7 @@
 
     data() {
       return {
-        axiosCancle: null,
+        axiosCancel: null,
         bookings: null,
         calendarApi: null,
         interval: null,
@@ -131,7 +131,7 @@
 
         // is it ours and is does it end in the future
         if (moment().diff(info.event.end) < 0) {
-          this.setupCancleConfirmation(info);
+          this.setupCancelConfirmation(info);
         }
       },
 
@@ -181,8 +181,8 @@
       /**
        * Display bootstrap confirmation popover for a new selection.
        */
-      setupCancleConfirmation(info) {
-        console.log('setupCancleConfirmation')
+      setupCancelConfirmation(info) {
+        console.log('setupCancelConfirmation')
         const self = this;
 
         // info.el attach booking-selected class to the <a>

@@ -2,8 +2,8 @@
 
 namespace Database\Migrations;
 
-use Doctrine\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema as Schema;
+use Doctrine\Migrations\AbstractMigration;
 
 class Version20170711080613_add_access_log_table extends AbstractMigration
 {

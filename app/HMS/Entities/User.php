@@ -41,7 +41,10 @@ class User implements
         HasApiTokens,
         DoctrineMustVerifyEmail;
 
-    const MIN_PASSWORD_LENGTH = 8;
+    /**
+     * Min Password length.
+     */
+    public const MIN_PASSWORD_LENGTH = 8;
 
     /**
      * @var int

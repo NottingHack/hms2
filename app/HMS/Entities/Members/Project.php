@@ -10,7 +10,7 @@ class Project
     /**
      * Length of the trimmed description.
      */
-    const TRIMMED_LENGHT = 100;
+    public const TRIMMED_LENGHT = 100;
 
     /**
      * @var int

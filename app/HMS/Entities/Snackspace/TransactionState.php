@@ -4,7 +4,7 @@ namespace HMS\Entities\Snackspace;
 
 abstract class TransactionState
 {
-    const COMPLETE = 'COMPLETE';
-    const PENDING = 'PENDING';
-    const ABORTED = 'ABORTED';
+    public const COMPLETE = 'COMPLETE';
+    public const PENDING = 'PENDING';
+    public const ABORTED = 'ABORTED';
 }

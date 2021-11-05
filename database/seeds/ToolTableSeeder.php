@@ -30,10 +30,11 @@ class ToolTableSeeder extends Seeder
      * @param RoleManager $roleManager
      * @param RoleRepository $roleRepository
      */
-    public function __construct(ToolManager $toolManager,
+    public function __construct(
+        ToolManager $toolManager,
         RoleManager $roleManager,
-        RoleRepository $roleRepository)
-    {
+        RoleRepository $roleRepository
+    ) {
         $this->toolManager = $toolManager;
         $this->roleManager = $roleManager;
         $this->roleRepository = $roleRepository;
@@ -87,7 +88,8 @@ class ToolTableSeeder extends Seeder
                 $toolSettings['pph'],
                 $toolSettings['bookingLength'],
                 $toolSettings['lengthMax'],
-                $toolSettings['bookingsMax']);
+                $toolSettings['bookingsMax']
+            );
 
             $this->toolManager->enableTool($tool);
 

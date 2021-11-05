@@ -14,9 +14,9 @@ use HMS\Repositories\UserRepository;
 
 class VotingManager
 {
-    const VOTING_MEMBER = 'Voting Member';
-    const NONVOTING_MEMBER = 'Non-voting Member';
-    const CANNOT_VOTE = 'Cannot vote';
+    public const VOTING_MEMBER = 'Voting Member';
+    public const NONVOTING_MEMBER = 'Non-voting Member';
+    public const CANNOT_VOTE = 'Cannot vote';
 
     /**
      * @var RoleRepository
@@ -187,7 +187,8 @@ class VotingManager
         $sixMonthsAgo = Carbon::now()->subMonthsNoOverflow(6);
 
         // Has stated a preference for VOTING
-        if ($user->getProfile()->getVotingPreference() == VotingPreference::VOTING && $user->getProfile()->getVotingPreferenceStatedAt()->isAfter($sixMonthsAgo)) {
+        if ($user->getProfile()->getVotingPreference() == VotingPreference::VOTING
+            && $user->getProfile()->getVotingPreferenceStatedAt()->isAfter($sixMonthsAgo)) {
             return self::VOTING_MEMBER . ', Stated';
         }
 
@@ -211,7 +212,8 @@ class VotingManager
         }
 
         // Has stated a preference for NONVOTING
-        if ($user->getProfile()->getVotingPreference() == VotingPreference::NONVOTING && $user->getProfile()->getVotingPreferenceStatedAt()->isAfter($sixMonthsAgo)) {
+        if ($user->getProfile()->getVotingPreference() == VotingPreference::NONVOTING
+            && $user->getProfile()->getVotingPreferenceStatedAt()->isAfter($sixMonthsAgo)) {
             return self::NONVOTING_MEMBER . ', Stated';
         }
 

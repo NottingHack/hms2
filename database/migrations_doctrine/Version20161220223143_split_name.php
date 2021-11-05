@@ -2,8 +2,8 @@
 
 namespace Database\Migrations;
 
-use Doctrine\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema as Schema;
+use Doctrine\Migrations\AbstractMigration;
 
 class Version20161220223143_split_name extends AbstractMigration
 {

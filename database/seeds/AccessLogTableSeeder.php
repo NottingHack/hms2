@@ -37,11 +37,12 @@ class AccessLogTableSeeder extends Seeder
      * @param AccessLogRepository $accessLogRepository
      * @param DoorRepository      $doorRepository
      */
-    public function __construct(RoleRepository $roleRepository,
+    public function __construct(
+        RoleRepository $roleRepository,
         RfidTagRepository $rfidTagRepository,
         AccessLogRepository $accessLogRepository,
-        DoorRepository $doorRepository)
-    {
+        DoorRepository $doorRepository
+    ) {
         $this->roleRepository = $roleRepository;
         $this->rfidTagRepository = $rfidTagRepository;
         $this->accessLogRepository = $accessLogRepository;

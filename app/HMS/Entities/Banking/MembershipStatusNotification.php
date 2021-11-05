@@ -10,17 +10,17 @@ class MembershipStatusNotification
     /**
      * The Notification was cleared due to a payment before membership was revoked.
      */
-    const PAYMENT = 'PAYMENT';
+    public const PAYMENT = 'PAYMENT';
 
     /**
      * The Notification was cleared when the membership was revoked.
      */
-    const REVOKED = 'REVOKED';
+    public const REVOKED = 'REVOKED';
 
     /**
      * The Notification was cleared manually, likely due to audit issues.
      */
-    const MANUAL = 'MANUAL';
+    public const MANUAL = 'MANUAL';
 
     /**
      * @var int

@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class Zone
 {
-    const OFF_SITE = 'Off-site';
+    public const OFF_SITE = 'Off-site';
 
     /**
      * @var int

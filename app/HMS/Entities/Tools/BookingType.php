@@ -7,22 +7,22 @@ abstract class BookingType
     /**
      * Regular booking.
      */
-    const NORMAL = 'NORMAL';
+    public const NORMAL = 'NORMAL';
 
     /**
      * Tool is booked for an Induction.
      */
-    const INDUCTION = 'INDUCTION';
+    public const INDUCTION = 'INDUCTION';
 
     /**
      * Tool is booked for maintenance.
      */
-    const MAINTENANCE = 'MAINTENANCE';
+    public const MAINTENANCE = 'MAINTENANCE';
 
     /**
      * String representation of types for display.
      */
-    const TYPE_STRINGS =
+    public const TYPE_STRINGS =
     [
         self::NORMAL => 'Normal',
         self::INDUCTION => 'Induction',

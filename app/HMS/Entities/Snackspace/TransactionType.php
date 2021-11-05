@@ -7,47 +7,47 @@ abstract class TransactionType
     /*
      * Vending machine purchase.
      */
-    const VEND = 'VEND';
+    public const VEND = 'VEND';
 
     /*
      * Transaction is a manually entered (via web interface) record of a payment or purchase.
      */
-    const MANUAL = 'MANUAL';
+    public const MANUAL = 'MANUAL';
 
     /*
      * Tool usage.
      */
-    const TOOL = 'TOOL';
+    public const TOOL = 'TOOL';
 
     /*
      * Purchase of a members box.
      */
-    const MEMBER_BOX = 'BOX';
+    public const MEMBER_BOX = 'BOX';
 
     /*
      * Payment received by cash acceptor.
      */
-    const CASH_PAYMENT = 'CASHPAYMENT';
+    public const CASH_PAYMENT = 'CASHPAYMENT';
 
     /*
      * Payment made on-line (stripe).
      */
-    const ONLINE_PAYMENT = 'ONLINEPAYMENT';
+    public const ONLINE_PAYMENT = 'ONLINEPAYMENT';
 
     /*
      * Payment received by Direct Debit (GoCardless).
      */
-    const DD_PAYMENT = 'DDPAYMENT';
+    public const DD_PAYMENT = 'DDPAYMENT';
 
     /*
      * Payment received by Bank Transfer (direct).
      */
-    const BANK_PAYMENT = 'BANKPAYMENT';
+    public const BANK_PAYMENT = 'BANKPAYMENT';
 
     /**
      * String representation of types for display.
      */
-    const TYPE_STRINGS = [
+    public const TYPE_STRINGS = [
         self::VEND => 'Vend',
         self::MANUAL => 'Manual',
         self::TOOL => 'Tool',

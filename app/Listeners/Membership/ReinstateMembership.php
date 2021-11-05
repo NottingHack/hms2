@@ -23,7 +23,9 @@ class ReinstateMembership implements ShouldQueue
      * @var RoleManager
      */
     protected $roleManager;
+
     protected $metaRepository;
+
     protected $roleRepository;
 
     /**

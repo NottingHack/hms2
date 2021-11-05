@@ -4,30 +4,21 @@ namespace HMS\Entities\Instrumentation;
 
 abstract class EventType
 {
-    const LAST_OUT = 'LAST_OUT';
-
-    const FIRST_IN = 'FIRST_IN';
-
-    const DOOR_OPENED = 'DOOR_OPENED';
-
-    const DOOR_CLOSED = 'DOOR_CLOSED';
-
-    const DOOR_TIMEOUT = 'DOOR_TIMEOUT';
-
-    const DOORBELL = 'DOORBELL';
-
-    const PROCESS_RESTART = 'PROCESS_RESTART';
-
-    const WARN = 'WARN';
-
-    const DOOR_LOCKED = 'DOOR_LOCKED';
-
-    const UNKNOWN = 'UNKNOWN';
+    public const LAST_OUT = 'LAST_OUT';
+    public const FIRST_IN = 'FIRST_IN';
+    public const DOOR_OPENED = 'DOOR_OPENED';
+    public const DOOR_CLOSED = 'DOOR_CLOSED';
+    public const DOOR_TIMEOUT = 'DOOR_TIMEOUT';
+    public const DOORBELL = 'DOORBELL';
+    public const PROCESS_RESTART = 'PROCESS_RESTART';
+    public const WARN = 'WARN';
+    public const DOOR_LOCKED = 'DOOR_LOCKED';
+    public const UNKNOWN = 'UNKNOWN';
 
     /**
      * String representation of types for display.
      */
-    const TYPE_STRINGS = [
+    public const TYPE_STRINGS = [
         self::LAST_OUT          => 'Last Out',
         self::FIRST_IN          => 'First In',
         self::DOOR_OPENED       => 'Door Opened',

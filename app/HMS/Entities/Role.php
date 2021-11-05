@@ -14,15 +14,21 @@ class Role implements RoleContract
 {
     use HasPermissions, SoftDeletable, Timestampable, Notifiable;
 
-    const MEMBER_CURRENT = 'member.current';
-    const MEMBER_APPROVAL = 'member.approval';
-    const MEMBER_PAYMENT = 'member.payment';
-    const MEMBER_YOUNG = 'member.young';
-    const MEMBER_EX = 'member.ex';
-    const MEMBER_TEMPORARYBANNED = 'member.temporarybanned';
-    const MEMBER_BANNED = 'member.banned';
+    /*
+     * Member roles names.
+     */
+    public const MEMBER_CURRENT = 'member.current';
+    public const MEMBER_APPROVAL = 'member.approval';
+    public const MEMBER_PAYMENT = 'member.payment';
+    public const MEMBER_YOUNG = 'member.young';
+    public const MEMBER_EX = 'member.ex';
+    public const MEMBER_TEMPORARYBANNED = 'member.temporarybanned';
+    public const MEMBER_BANNED = 'member.banned';
 
-    const MEMBER_ROLES = [
+    /*
+     * Member roles.
+     */
+    public const MEMBER_ROLES = [
         self::MEMBER_CURRENT,
         self::MEMBER_APPROVAL,
         self::MEMBER_PAYMENT,
@@ -32,19 +38,21 @@ class Role implements RoleContract
         self::MEMBER_BANNED,
     ];
 
-    const SUPERUSER = 'user.super';
-    const TEMPORARY_ACCESS = 'user.temporaryAccess';
-    const BUILDING_ACCESS = 'user.buildingAccess';
-
-    const TEAM_MEMBERSHIP = 'team.membership';
-    const TEAM_TRUSTEES = 'team.trustees';
-    const TEAM_SOFTWARE = 'team.software';
-    const TEAM_FINANCE = 'team.finance';
+    /**
+     * Role names.
+     */
+    public const SUPERUSER = 'user.super';
+    public const TEMPORARY_ACCESS = 'user.temporaryAccess';
+    public const BUILDING_ACCESS = 'user.buildingAccess';
+    public const TEAM_MEMBERSHIP = 'team.membership';
+    public const TEAM_TRUSTEES = 'team.trustees';
+    public const TEAM_SOFTWARE = 'team.software';
+    public const TEAM_FINANCE = 'team.finance';
 
     /**
      * Length of the trimmed description.
      */
-    const TRIMMED_LENGHT = 100;
+    public const TRIMMED_LENGHT = 100;
 
     /**
      * @var int

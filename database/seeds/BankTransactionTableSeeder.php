@@ -45,11 +45,12 @@ class BankTransactionTableSeeder extends Seeder
      * @param BankTransactionFactory    $bankTransactionFactory
      * @param Generator                 $faker
      */
-    public function __construct(AccountRepository $accountRepository,
+    public function __construct(
+        AccountRepository $accountRepository,
         BankRepository $bankRepository,
         BankTransactionFactory $bankTransactionFactory,
-        Generator $faker)
-    {
+        Generator $faker
+    ) {
         $this->accountRepository = $accountRepository;
         $this->bank = $bankRepository->find(2);
         $this->bankTransactionFactory = $bankTransactionFactory;

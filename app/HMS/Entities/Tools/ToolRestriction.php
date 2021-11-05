@@ -7,10 +7,10 @@ abstract class ToolRestriction
     /**
      * Tool can be freely used by any member.
      */
-    const UNRESTRICTED = 'UNRESTRICTED';
+    public const UNRESTRICTED = 'UNRESTRICTED';
 
     /**
      * Tool requires an induction before use.
      */
-    const RESTRICTED = 'RESTRICTED';
+    public const RESTRICTED = 'RESTRICTED';
 }

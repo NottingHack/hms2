@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 class ElectricController extends Controller
 {
     protected $electricMeterRepository;
+
     protected $electricReadingRepository;
 
     public function __construct(

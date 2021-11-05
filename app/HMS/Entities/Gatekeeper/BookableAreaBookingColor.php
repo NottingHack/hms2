@@ -4,19 +4,19 @@ namespace HMS\Entities\Gatekeeper;
 
 abstract class BookableAreaBookingColor
 {
-    const PRIMARY = 'primary';
-    const GREEN = 'green';
-    const RED = 'red';
-    const INDIGO = 'indigo';
-    const YELLOW = 'yellow';
-    const PINK = 'pink';
-    const ORANGE = 'orange';
-    const CYAN = 'cyan';
+    public const PRIMARY = 'primary';
+    public const GREEN = 'green';
+    public const RED = 'red';
+    public const INDIGO = 'indigo';
+    public const YELLOW = 'yellow';
+    public const PINK = 'pink';
+    public const ORANGE = 'orange';
+    public const CYAN = 'cyan';
 
     /**
      * String representation of states for display.
      */
-    const COLOR_STRINGS = [
+    public const COLOR_STRINGS = [
         self::PRIMARY => 'Hackspace Green',
         self::GREEN => 'Green',
         self::RED => 'Red',

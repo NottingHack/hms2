@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 class FileBasedPasswordStore implements PasswordStore
 {
     protected $usersFile;
+
     protected $users;
 
     /**

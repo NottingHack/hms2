@@ -7,22 +7,22 @@ class BoxState
     /**
      * This box is considered active and being used.
      */
-    const INUSE = 10;
+    public const INUSE = 10;
 
     /**
      * Box has been removed from the hackspace.
      */
-    const REMOVED = 20;
+    public const REMOVED = 20;
 
     /**
      * Box has been identified as abandoned and not beeing worked on.
      */
-    const ABANDONED = 30;
+    public const ABANDONED = 30;
 
     /**
      * String representation of states for display.
      */
-    const STATE_STRINGS =
+    public const STATE_STRINGS =
     [
         self::INUSE => 'In Use',
         self::REMOVED => 'Removed',

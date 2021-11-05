@@ -11,22 +11,27 @@ class Pin
      * @var int
      */
     protected $id;
+
     /**
      * @var string
      */
     protected $pin;
+
     /**
      * @var Carbon
      */
     protected $dateAdded;
+
     /**
      * @var Carbon
      */
     protected $expiry;
+
     /**
      * @var int
      */
     protected $state;
+
     /**
      * @var User
      */

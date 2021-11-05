@@ -42,7 +42,6 @@ $rules = [
             'extra',
             'throw',
             'use',
-            'use_trait',
         ],
     ],
     'no_blank_lines_after_class_opening' => true,
@@ -127,15 +126,15 @@ $rules = [
     ],
     'class_attributes_separation' => [
         'elements' => [
-            'const' => 'one',
+            'const' => 'only_if_meta',
             'method' => 'one',
             'property' => 'one',
         ],
     ],
     'class_definition' => [
         'multi_line_extends_each_single_line' => true,
-        'single_item_single_line' => true,
-        'single_line' => true,
+        'single_item_single_line' => false,
+        'single_line' => false,
     ],
     'ordered_imports' => [
         'sort_algorithm' => 'alpha',
@@ -156,12 +155,12 @@ $rules = [
 
 $finder = Finder::create()
     ->in([
-        __DIR__.'/app',
-        __DIR__.'/config',
-        __DIR__.'/database',
-        __DIR__.'/resources',
-        __DIR__.'/routes',
-        __DIR__.'/tests',
+        __DIR__ . '/app',
+        __DIR__ . '/config',
+        __DIR__ . '/database',
+        __DIR__ . '/resources',
+        __DIR__ . '/routes',
+        __DIR__ . '/tests',
     ])
     ->name('*.php')
     ->notName('*.blade.php')

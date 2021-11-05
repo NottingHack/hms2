@@ -39,6 +39,10 @@ class RevokeMembership implements ShouldQueue
      * @var BankRepository
      */
     protected $bankRepository;
+
+    /**
+     *  @var BoxRepository
+     */
     protected $boxRepository;
 
     /**

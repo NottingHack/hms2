@@ -38,6 +38,7 @@ mixwatch.log
 laravel-echo-server.lock
 ziggy.js
 .php_cs.cache
+.php-cs-fixer.cache
 dump.html
 report.html
 /resources/sass/_variables_*.scss

@@ -79,7 +79,8 @@ class ToCurrentMembers extends Mailable implements ShouldQueue
         Container::getInstance()->call([$this, 'build']);
 
         return Container::getInstance()->make('mailer')->render(
-            'emails.emailMembers.toCurrentMembers_plain', $this->buildViewData()
+            'emails.emailMembers.toCurrentMembers_plain',
+            $this->buildViewData()
         );
     }
 }

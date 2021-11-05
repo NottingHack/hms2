@@ -7,17 +7,17 @@ abstract class VendingMachineConnectionType
     /**
      * A vending machine.
      */
-    const UDP = 'UDP';
+    public const UDP = 'UDP';
 
     /**
      * A cash acceptor.
      */
-    const MQTT = 'MQTT';
+    public const MQTT = 'MQTT';
 
     /**
      * String representation of machine connection type for display.
      */
-    const CONNECTION_STRINGS =
+    public const CONNECTION_STRINGS =
     [
         self::UDP => 'UDP',
         self::MQTT => 'MQTT',

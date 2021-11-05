@@ -14,17 +14,23 @@ use LaravelDoctrine\ACL\Permissions\Permission;
 
 class ToolManager
 {
-    const MAINTAINER = 'MAINTAINER';
-    const INDUCTOR = 'INDUCTOR';
-    const USER = 'USER';
+    public const MAINTAINER = 'MAINTAINER';
+    public const INDUCTOR = 'INDUCTOR';
+    public const USER = 'USER';
 
-    const GRANT_STRINGS = [
+    /*
+     * String representations of grants for display.
+     */
+    public const GRANT_STRINGS = [
         self::MAINTAINER => 'Maintainer',
         self::INDUCTOR => 'Inductor',
         self::USER => 'User',
     ];
 
-    const PERMISSION_NAME_TEMPLATES = [
+    /*
+     * Permission templates.
+     */
+    public const PERMISSION_NAME_TEMPLATES = [
         'tools._TOOL_PERMISSION_NAME_.use',                 // can turn on the machin_e
         'tools._TOOL_PERMISSION_NAME_.book',                // can make a tool booking
         'tools._TOOL_PERMISSION_NAME_.induct',              // can induct a member on a tool
@@ -35,7 +41,10 @@ class ToolManager
         'tools.search.users',               // assigend to tool sepcfic mainter roles, allows search for grant
     ];
 
-    const ROLE_TEMPLATES = [
+    /*
+     * Role templates.
+     */
+    public const ROLE_TEMPLATES = [
         'tools._TOOL_PERMISSION_NAME_.user' => [
             'name'          => 'Tool: _TOOL_NAME_ User',
             'description'   => 'Can make bookings and use the tool',

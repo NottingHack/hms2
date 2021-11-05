@@ -29,6 +29,7 @@ class BankTransactionController extends Controller
      * @var BankTransactionRepository
      */
     protected $bankTransactionRepository;
+
     /**
      * @var UserRepository
      */

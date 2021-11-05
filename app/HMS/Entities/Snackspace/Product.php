@@ -7,8 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Product
 {
     // avaliblity
-    const AVAILABLE = 1;
-    const UNAVAILABLE = 0;
+    public const AVAILABLE = 1;
+    public const UNAVAILABLE = 0;
 
     /**
      * @var int

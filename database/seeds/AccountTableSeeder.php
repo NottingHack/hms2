@@ -29,6 +29,7 @@ class AccountTableSeeder extends Seeder
      * @var AccountRepository
      */
     protected $accountRepository;
+
     protected $entityManager;
 
     /**
@@ -39,12 +40,13 @@ class AccountTableSeeder extends Seeder
      * @param AccountFactory    $accountFactory
      * @param AccountRepository $accountRepository
      */
-    public function __construct(RoleRepository $roleRepository,
+    public function __construct(
+        RoleRepository $roleRepository,
         UserRepository $userRepository,
         AccountFactory $accountFactory,
         AccountRepository $accountRepository,
-        EntityManagerInterface $entityManager)
-    {
+        EntityManagerInterface $entityManager
+    ) {
         $this->roleRepository = $roleRepository;
         $this->userRepository = $userRepository;
         $this->accountFactory = $accountFactory;

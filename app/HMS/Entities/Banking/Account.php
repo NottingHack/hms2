@@ -9,7 +9,7 @@ class Account
     /**
      * Maximum length for a Payment reference.
      */
-    const MAX_REFERENCE_LENGHT = 16;
+    public const MAX_REFERENCE_LENGHT = 16;
 
     /**
      * @var int

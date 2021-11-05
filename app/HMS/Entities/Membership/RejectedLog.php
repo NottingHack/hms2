@@ -19,14 +19,17 @@ class RejectedLog
      * @var User
      */
     protected $user;
+
     /**
      * @var string
      */
     protected $reason;
+
     /**
      * @var User
      */
     protected $rejectedBy;
+
     /**
      * @var Carbon|null
      */

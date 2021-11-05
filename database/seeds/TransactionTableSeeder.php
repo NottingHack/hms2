@@ -32,10 +32,11 @@ class TransactionTableSeeder extends Seeder
      * @param RoleRepository $roleRepository
      * @param ProductRepository $productRepository
      */
-    public function __construct(TransactionRepository $transactionRepository,
+    public function __construct(
+        TransactionRepository $transactionRepository,
         RoleRepository $roleRepository,
-        ProductRepository $productRepository)
-    {
+        ProductRepository $productRepository
+    ) {
         $this->transactionRepository = $transactionRepository;
         $this->roleRepository = $roleRepository;
         $this->products = $productRepository->findAll();

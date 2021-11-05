@@ -3,8 +3,8 @@
 namespace Database\Migrations;
 
 use Carbon\Carbon;
-use Doctrine\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema as Schema;
+use Doctrine\Migrations\AbstractMigration;
 
 class Version20170209091949_populate_starter_links extends AbstractMigration
 {

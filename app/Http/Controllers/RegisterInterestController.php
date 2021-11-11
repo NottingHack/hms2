@@ -5,9 +5,18 @@ namespace App\Http\Controllers;
 use App\Events\MembershipInterestRegistered;
 use HMS\Repositories\InviteRepository;
 use Illuminate\Http\Request;
+use Spatie\Honeypot\ProtectAgainstSpam;
 
 class RegisterInterestController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     */
+    public function __construct()
+    {
+        $this->middleware(ProtectAgainstSpam::class);
+    }
+
     /**
      * Show the Register interest form.
      *

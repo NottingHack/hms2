@@ -14,6 +14,7 @@
 
           <form role="form" method="POST" action="{{ route('registerInterest') }}">
             @csrf
+            @honeypot
 
             <div class="form-group">
               <input id="email" type="email" name="email" value="{{ old('email') }}" class="form-control{{ $errors->has('email') ? ' is-invalid ' : '' }}" placeholder="Email address" required autofocus>

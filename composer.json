@@ -33,6 +33,7 @@
         "php-http/guzzle6-adapter": "^1.1",
         "soundasleep/html2text": "^1.1",
         "spatie/laravel-cookie-consent": "^2.0",
+        "spatie/laravel-honeypot": "^2.0",
         "spatie/laravel-stripe-webhooks": "^2.0",
         "stripe/stripe-php": "^7.0",
         "symfony/yaml": "^5.0",

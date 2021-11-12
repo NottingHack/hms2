@@ -248,7 +248,7 @@ class BankTransactionController extends Controller
 
         if ($validatedData['action'] == 'membership') {
             if (BankType::CASH == $bankTransaction->getBank()->getType()
-             && $this->features->isDisable('cash_membership_payments')) {
+             && $this->features->isDisabled('cash_membership_payments')) {
                 flash(
                     'Bank ' . $bankTransaction->getBank()->getName()
                     . ' is type Cash and cash membership payments are not currently allowed.'

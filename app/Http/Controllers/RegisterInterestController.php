@@ -14,7 +14,7 @@ class RegisterInterestController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(ProtectAgainstSpam::class);
+        $this->middleware(ProtectAgainstSpam::class)->only(['registerInterest']);
     }
 
     /**

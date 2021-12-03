@@ -58,7 +58,7 @@ Route::prefix('statistics')->name('statistics.')->group(function () {
     ->middleware('signed');
 
 // Routes in the following group can only be access from inside the hackspace (as defined by the ip range in .env)
-Route::middleware(['ipcheck'])->group(function () {
+Route::middleware(['ipcheck', 'throttle:6,1'])->group(function () {
     Route::get('register-interest', 'RegisterInterestController@index')->name('registerInterest');
     Route::post('register-interest', 'RegisterInterestController@registerInterest');
 });

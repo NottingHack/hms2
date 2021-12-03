@@ -14,6 +14,7 @@ use App\Jobs\Snackspace\MemberDebtNotificationJob;
 use HMS\Facades\Features;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Laravel\Horizon\Contracts\MasterSupervisorRepository;
 
 class Kernel extends ConsoleKernel
 {
@@ -66,6 +67,16 @@ class Kernel extends ConsoleKernel
             ->environments(['local', 'rommie', 'production']);
         $schedule->job(new TemporaryAcccessCheckZoneOccupancyJob)->everyFiveMinutes()
             ->environments(['local', 'rommie', 'production']);
+
+        if (config('services.healthchecks.check_uuid')) {
+            $schedule->call(function () {
+                file_get_contents(
+                    'https://hc-ping.com/' . config('services.healthchecks.check_uuid')
+                    . ($this->isHorizonActive() ? '' : '/fail')
+                );
+            })
+            ->everyFiveMinutes();
+        }
     }
 
     /**
@@ -78,5 +89,16 @@ class Kernel extends ConsoleKernel
         $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
+    }
+
+    protected function isHorizonActive() : bool
+    {
+        if (! $masters = app(MasterSupervisorRepository::class)->all()) {
+            return false;
+        }
+
+        return collect($masters)->some(function ($master) {
+            return $master->status !== 'paused';
+        });
     }
 }

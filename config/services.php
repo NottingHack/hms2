@@ -44,4 +44,8 @@ return [
         'host' => env('MQTT_HOST', '127.0.0.1'),
         'port' => env('MQTT_PORT', 1883),
     ],
+
+    'healthchecks' => [
+        'check_uuid' => env('HEALTHCHECKS_UUID'),
+    ],
 ];

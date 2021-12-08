@@ -19,7 +19,7 @@
   <div class="card-footer">
     @if ($principal)
     <a href="{{ route('governance.proxies.link', ['meeting' => $meeting->getId()]) }}" class="btn btn-primary mb-1"><i class="fas fa-user-friends" aria-hidden="true"></i> Designate a different Proxy</a>
-    <a href="javascript:void(0);" onclick="$(this).find('form').submit();"  class="btn btn-danger">
+    <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-danger">
       <form action="{{ route('governance.proxies.destroy', ['meeting' => $meeting->getId()]) }}" method="POST" style="display: none">
         @method('DELETE')
         @csrf

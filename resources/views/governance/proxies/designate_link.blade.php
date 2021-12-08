@@ -12,7 +12,7 @@ Designate a Proxy for {{ $meeting->getTitle() }}
     If you wish to have someone else act as you proxy just follow the steps below.n And when a new Proxy is accepted the old one will be automaticly cancled.<br>
     Your Proxy can be cancelled by clicking below.
   </p>
-  <a href="javascript:void(0);" onclick="$(this).find('form').submit();"  class="btn btn-danger btn-block">
+  <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-danger btn-block">
     <form action="{{ route('governance.proxies.destroy', ['meeting' => $meeting->getId()]) }}" method="POST" style="display: none">
       @method('DELETE')
       @csrf

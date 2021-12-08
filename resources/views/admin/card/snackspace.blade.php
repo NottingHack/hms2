@@ -34,7 +34,7 @@
   <div class="card-footer">
     <a href="{{ route('users.snackspace.transactions', $user->getId()) }}" class="btn btn-primary mb-1"><i class="far fa-eye" aria-hidden="true"></i> View Transactions</a>
     @can('snackspace.transaction.create.all')
-    <a href="{{ route('users.snackspace.transactions.create', $user->getId()) }}"  class="btn btn-primary mb-1"><i class="fas fa-plus" aria-hidden="true"></i> Add manual transaction</a>
+    <a href="{{ route('users.snackspace.transactions.create', $user->getId()) }}" class="btn btn-primary mb-1"><i class="fas fa-plus" aria-hidden="true"></i> Add manual transaction</a>
     @endcan
     {{-- <a href="#" class="btn btn-primary">Make a Payment</a> --}} {{-- Vue/Stripe --}}
   </div>

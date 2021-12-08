@@ -5,7 +5,7 @@
 @section('content')
 <div class="container">
   <p>You can add a new Snackspace product by clicking on the Add New Product button. Or you can edit the existing products below.</p>
-  <a href="{{ route('snackspace.products.create') }}"  class="btn btn-primary btn-block"><i class="fas fa-plus" aria-hidden="true"></i> Add new product</a>
+  <a href="{{ route('snackspace.products.create') }}" class="btn btn-primary btn-block"><i class="fas fa-plus" aria-hidden="true"></i> Add new product</a>
   <hr>
   <div class="table-responsive no-more-tables">
     <table class="table table-bordered table-hover">

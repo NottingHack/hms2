@@ -77,7 +77,7 @@ Snackspace account for {{ $user->getFirstname() }}
 @unless (Auth::user() == $user)
 <div class="container">
   <hr>
-  <a href="{{ route('users.snackspace.transactions.create', $user->getId()) }}"  class="btn btn-primary btn-block"><i class="fas fa-plus" aria-hidden="true"></i> Add manual transaction</a>
+  <a href="{{ route('users.snackspace.transactions.create', $user->getId()) }}" class="btn btn-primary btn-block"><i class="fas fa-plus" aria-hidden="true"></i> Add manual transaction</a>
 </div>
 @endunless
 @endcan

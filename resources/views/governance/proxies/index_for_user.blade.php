@@ -26,7 +26,7 @@ Proxies you have accepted for {{ $meeting->getTitle() }}
           <td>{{ $proxy->getPrincipal()->getFullname() }}</td>
           <td>{{ $proxy->getCreatedAt()->toDateTimeString() }}</td>
           <td>
-            <a href="javascript:void(0);" onclick="$(this).find('form').submit();"  class="btn btn-danger">
+            <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-danger">
               <form action="{{ route('governance.proxies.destroy', ['meeting' => $meeting->getId()]) }}" method="POST" style="display: none">
                 @method('DELETE')
                 @csrf

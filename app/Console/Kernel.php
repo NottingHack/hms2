@@ -91,7 +91,7 @@ class Kernel extends ConsoleKernel
         require base_path('routes/console.php');
     }
 
-    protected function isHorizonActive() : bool
+    protected function isHorizonActive(): bool
     {
         if (! $masters = app(MasterSupervisorRepository::class)->all()) {
             return false;

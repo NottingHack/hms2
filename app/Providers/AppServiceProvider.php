@@ -35,13 +35,6 @@ class AppServiceProvider extends ServiceProvider
         // Globally set the money format
         setlocale(LC_MONETARY, 'en_GB.UTF-8');
 
-        // setup Guzzle6 for mailgun batch sender
-        $this->app->bind('mailgun.client', function () {
-            return \Http\Adapter\Guzzle6\Client::createWithConfig([
-                // your Guzzle6 configuration
-            ]);
-        });
-
         if (config('services.stripe.secret')) {
             Stripe::setApiKey(config('services.stripe.secret'));
         }

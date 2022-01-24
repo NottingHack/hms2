@@ -15,7 +15,9 @@
   <link href="{{ mix('/css/vue.css') }}" rel="stylesheet">
 
   <!-- Scripts -->
+  @if (null != config('services.stripe.key'))
   <script src="https://js.stripe.com/v3/"></script>{{-- Stripe.JS can not be webpacked--}}
+  @endif
   <script src="{{ mix('/js/manifest.js') }}" defer></script>
   <script src="{{ mix('/js/vendor.js') }}" defer></script>
   <script src="{{ mix('/js/app.js') }}" defer></script>

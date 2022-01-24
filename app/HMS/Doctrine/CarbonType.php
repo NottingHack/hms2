@@ -70,11 +70,15 @@ class CarbonType extends DateTimeType
             self::$utc = new \DateTimeZone('UTC');
         }
 
-        $converted = Carbon::createFromFormat(
-            $platform->{$this->getFormatString}(),
-            $value,
-            self::$utc
-        );
+        if ($value instanceof DateTime) {
+            $converted = Carbon::create($value, self::$utc);
+        } else {
+            $converted = Carbon::createFromFormat(
+                $platform->{$this->getFormatString}(),
+                $value,
+                self::$utc
+            );
+        }
         $converted->setTimezone(new DateTimeZone(date_default_timezone_get()));
 
         if (! $converted) {

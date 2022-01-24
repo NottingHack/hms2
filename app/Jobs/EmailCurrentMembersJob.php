@@ -3,7 +3,6 @@
 namespace App\Jobs;
 
 use App\Mail\ToCurrentMembers;
-use Bogardo\Mailgun\Contracts\Mailgun;
 use HMS\Entities\Role;
 use HMS\Repositories\RoleRepository;
 use Illuminate\Bus\Queueable;
@@ -13,6 +12,10 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\HtmlString;
+use Illuminate\Support\Str;
+use Mailgun\HttpClient\HttpClientConfigurator;
+use Mailgun\Hydrator\NoopHydrator;
+use Mailgun\Mailgun;
 use Soundasleep\Html2Text;
 use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
 
@@ -61,7 +64,6 @@ class EmailCurrentMembersJob implements ShouldQueue
     /**
      * Execute the job.
      *
-     * @param Mailgun $mailgun
      * @param CssToInlineStyles $cssToInlineStyles
      * @param ViewFactory $viewFactory
      * @param RoleRepository $roleRepository
@@ -69,7 +71,6 @@ class EmailCurrentMembersJob implements ShouldQueue
      * @return void
      */
     public function handle(
-        Mailgun $mailgun,
         CssToInlineStyles $cssToInlineStyles,
         ViewFactory $viewFactory,
         RoleRepository $roleRepository
@@ -104,7 +105,7 @@ class EmailCurrentMembersJob implements ShouldQueue
             // only send to the trustees address
             $to = [
                 $trusteesEmail => [
-                    'name' => 'Trustees',
+                    'full_name' => 'Trustees',
                 ],
             ];
         } else {
@@ -112,28 +113,54 @@ class EmailCurrentMembersJob implements ShouldQueue
             // this converts to an Illuminate\Support\Collection first then maps our User object
             $to = collect($currentMembers)->mapWithKeys(function ($user) {
                 return [$user->getEmail() => [
-                    'name' => $user->getFirstname(),
+                    'full_name' => $user->getFirstname(),
                 ],
                 ];
             })->toArray();
         }
 
         $trusteesMgEmail = preg_replace('/@/m', '@mg.', $trusteesEmail);
-        $subject = $this->subject;
-        $response = $mailgun->send(
-            $views,
-            $data,
-            function ($message) use ($subject, $trusteesEmail, $trusteesDisplayName, $trusteesMgEmail, $to) {
-                $message
-                    ->trackOpens(true)
-                    ->subject($subject)
-                    ->header('sender', $trusteesDisplayName . ' <' . $trusteesMgEmail . '>')
-                    ->replyTo($trusteesEmail, $trusteesDisplayName)
-                    ->from($trusteesMgEmail, $trusteesDisplayName)
-                    ->to($to);
-            }
+
+        // Build the Mailgun service
+        if (Str::contains(config('services.mailgun.endpoint'), 'bin.mailgun.net')) {
+            $configurator = (new HttpClientConfigurator())
+                ->setEndpoint(config('services.mailgun.endpoint'))
+                ->setApiKey(config('services.mailgun.secret'))
+                ->setDebug(true);
+
+            $mailgun = new Mailgun($configurator, new NoopHydrator());
+        } else {
+            $mailgun = Mailgun::create(
+                config('services.mailgun.secret'),
+                'https://' . config('services.mailgun.endpoint')
+            );
+        }
+
+        $batchMessage = $mailgun->messages()->getBatchMessage(
+            config('services.mailgun.domain')
         );
 
-        LogSentMailgunMessageJob::dispatch($to, $subject, $data['htmlContent'], $response->id);
+        $batchMessage
+            ->setOpenTracking(true)
+            ->setSubject($this->subject)
+            ->addCustomHeader('sender', $trusteesDisplayName . ' <' . $trusteesMgEmail . '>')
+            ->setReplyToAddress($trusteesEmail, ['full_name' => $trusteesDisplayName])
+            ->setFromAddress($trusteesMgEmail, ['full_name' => $trusteesDisplayName]);
+
+        $batchMessage->setHtmlBody($viewFactory->make($views['html'], $data)->render());
+        $batchMessage->setTextBody($viewFactory->make($views['text'], $data)->render());
+
+        foreach ($to as $email => $details) {
+            $batchMessage->addToRecipient($email, $details);
+        }
+
+        $batchMessage->finalize();
+
+        LogSentMailgunMessageJob::dispatch(
+            $to,
+            $subject,
+            $data['htmlContent'],
+            implode(',', $batchMessage->getMessageIds())
+        );
     }
 }

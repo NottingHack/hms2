@@ -46,7 +46,7 @@ src="{{ url('/images/' . config('branding.theme', 'nottinghack') . '_with_white@
 <!-- Body content -->
 <tr>
 <td class="content-cell">
-<h1>Hello %recipient.name%,</h1>
+<h1>Hello %recipient.full_name%,</h1>
 {!! $htmlContent !!}
 </td>
 </tr>

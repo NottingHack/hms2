@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Doctrine\ORM\EntityManagerInterface;
 use HMS\Entities\Role;
 use HMS\Factories\Banking\AccountFactory;

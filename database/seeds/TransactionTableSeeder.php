@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Doctrine\Common\Collections\Collection;
 use HMS\Entities\Role;
 use HMS\Entities\Snackspace\Transaction;

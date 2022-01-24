@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Carbon\Carbon;
 use HMS\Auth\PasswordStore;
 use HMS\Entities\Role;

@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use HMS\Entities\Role;
 use HMS\Repositories\RoleRepository;
 use HMS\Tools\ToolManager;

@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use HMS\Entities\Gatekeeper\AccessLog;
 use HMS\Repositories\Gatekeeper\AccessLogRepository;
 use HMS\Repositories\Gatekeeper\DoorRepository;

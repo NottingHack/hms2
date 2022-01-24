@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use HMS\Entities\ContentBlock;
 use HMS\Entities\ContentBlockType;
 use HMS\Repositories\ContentBlockRepository;

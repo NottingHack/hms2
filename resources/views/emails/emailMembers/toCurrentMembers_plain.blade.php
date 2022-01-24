@@ -1,4 +1,4 @@
-Hello %recipient.name%,
+Hello %recipient.full_name%,
 
 {{ $textPlain }}
 

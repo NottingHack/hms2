@@ -283,7 +283,7 @@ class MembershipController extends Controller
 
         return view('membership.editDetails')
             ->with('user', $user)
-            ->with('rejectedLog', $rejectedLog->getUserUpdatedAt() ? null : $rejectedLog);
+            ->with('rejectedLog', optional($rejectedLog)->getUserUpdatedAt() ? null : $rejectedLog);
     }
 
     /**

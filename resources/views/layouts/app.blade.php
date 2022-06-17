@@ -46,7 +46,7 @@
   <!-- main body -->
   <main id="app" class="flex-fill my-3">
 @include('partials.flash')
-    <div class="row">
+    <div class="row mr-0">
       <div class="col-sm-12">
 @yield('content')
       </div>

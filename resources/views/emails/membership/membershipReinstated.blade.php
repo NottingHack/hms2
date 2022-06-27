@@ -15,6 +15,9 @@ Pass: {{ $wifiPass }}
 Our Google Group is where a lot of online discussion takes place:<br>
 {{ $groupLink }}
 
+Slack is also used for team discussions. You can join NH teams slack at:<br>
+{{ $slackHTML }}
+
 The {{ config('branding.space_type') }} rules:<br>
 {{ $rulesHTML }}
 

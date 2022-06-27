@@ -35,6 +35,7 @@ return [
         'purge_cutoff_interval' => 'P6M',
         'quorum_percent' => 20,
         'rules_html' => 'https://rules.nottinghack.org.uk',
+        'slack_html' => 'https://slack.nottinghack.org.uk',
         'self_book_info_text' => 'Based on current government guidelines your can only bring guest from you household into the space!',
         'self_book_max_concurrent_per_user' => 1,
         'self_book_max_guests_per_user' => 1,

@@ -60,6 +60,7 @@ class MembershipReinstated extends Mailable implements ShouldQueue
      */
     public $rulesHTML;
     
+    
     /**
      * @var string
      */

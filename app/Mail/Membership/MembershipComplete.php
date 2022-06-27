@@ -63,6 +63,11 @@ class MembershipComplete extends Mailable implements ShouldQueue
     /**
      * @var string
      */
+    public $slackHTML;
+
+    /**
+     * @var string
+     */
     public $wikiLink;
 
     /**
@@ -89,6 +94,7 @@ class MembershipComplete extends Mailable implements ShouldQueue
         $this->wifiPass = $metaRepository->get('access_wifi_password');
         $this->groupLink = $metaRepository->get('google_group_html');
         $this->rulesHTML = $metaRepository->get('rules_html');
+        $this->slackHTML = $metaRepository->get('slack_html');
         $this->wikiLink = $metaRepository->get('wiki_html');
 
         $this->membershipTeamEmail = $roleRepository->findOneByName(Role::TEAM_MEMBERSHIP)->getEmail();

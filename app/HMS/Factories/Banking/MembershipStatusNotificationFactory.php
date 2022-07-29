@@ -5,6 +5,7 @@ namespace HMS\Factories\Banking;
 use HMS\Entities\Banking\Account;
 use HMS\Entities\Banking\MembershipStatusNotification;
 use HMS\Entities\User;
+use HMS\Repositories\Banking\BankTransactionRepository;
 use HMS\Repositories\Banking\MembershipStatusNotificationRepository;
 
 class MembershipStatusNotificationFactory
@@ -15,24 +16,53 @@ class MembershipStatusNotificationFactory
     protected $membershipStatusNotificationRepository;
 
     /**
-     * @param MembershipStatusNotificationRepository $membershipStatusNotificationRepository
+     * @var BankTransactionRepository
      */
-    public function __construct(MembershipStatusNotificationRepository $membershipStatusNotificationRepository)
-    {
+    protected $bankTransactionRepository;
+
+    /**
+     * @param MembershipStatusNotificationRepository $membershipStatusNotificationRepository
+     * @param BankTransactionRepository $bankTransactionRepository
+     */
+    public function __construct(
+        MembershipStatusNotificationRepository $membershipStatusNotificationRepository,
+        BankTransactionRepository $bankTransactionRepository
+    ) {
         $this->membershipStatusNotificationRepository = $membershipStatusNotificationRepository;
+        $this->bankTransactionRepository = $bankTransactionRepository;
     }
 
     /**
-     * Function to instantiate a new MembershipStatusNotification from given params.
+     * Function to instantiate a new non payment MembershipStatusNotification from given params.
      *
      * @param Uaer $user
      * @param Account $account
      */
-    public function create(User $user, Account $account)
+    public function createForNonPayment(User $user, Account $account)
     {
         $_membershipStatusNotification = new MembershipStatusNotification();
         $_membershipStatusNotification->setUser($user);
         $_membershipStatusNotification->setAccount($account);
+        $_membershipStatusNotification->setIssuedReasonForNonPayment();
+
+        return $_membershipStatusNotification;
+    }
+
+    /**
+     * Function to instantiate a new under minimum payment MembershipStatusNotification from given params.
+     *
+     * @param Uaer $user
+     * @param Account $account
+     */
+    public function createForUnderPayment(User $user, Account $account)
+    {
+        $_membershipStatusNotification = new MembershipStatusNotification();
+        $_membershipStatusNotification->setUser($user);
+        $_membershipStatusNotification->setAccount($account);
+        $_membershipStatusNotification->setIssuedReasonForUnderMinimumPayment();
+        $_membershipStatusNotification->setBankTransaction(
+            $this->bankTransactionRepository->findLatestTransactionByAccount($account)
+        );
 
         return $_membershipStatusNotification;
     }

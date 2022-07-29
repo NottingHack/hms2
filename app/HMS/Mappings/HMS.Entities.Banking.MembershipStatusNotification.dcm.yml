@@ -16,6 +16,11 @@ HMS\Entities\Banking\MembershipStatusNotification:
       gedmo:
         timestampable:
           on: create
+    issuedReason:
+      type: string
+      length: 20
+      options:
+        default: 'NON_PAYMENT'
     timeCleared:
       type: datetime
       nullable: true
@@ -28,3 +33,5 @@ HMS\Entities\Banking\MembershipStatusNotification:
       targetEntity: \HMS\Entities\User
     account:
       targetEntity: \HMS\Entities\Banking\Account
+    bankTransaction:
+      targetEntity: \HMS\Entities\Banking\BankTransaction

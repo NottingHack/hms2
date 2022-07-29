@@ -8,6 +8,16 @@ use HMS\Entities\User;
 class MembershipStatusNotification
 {
     /**
+     * The Notification was issued due to Non payment of membership.
+     */
+    public const NON_PAYMENT = 'NON_PAYMENT';
+
+    /**
+     * The Notification was issued due to payment but under the minimum threshold.
+     */
+    public const UNDER_MINIMUM_PAYMENT = 'UNDER_MINIMUM_PAYMENT';
+
+    /**
      * The Notification was cleared due to a payment before membership was revoked.
      */
     public const PAYMENT = 'PAYMENT';
@@ -38,9 +48,19 @@ class MembershipStatusNotification
     protected $account;
 
     /**
+     * @var BankTransaction
+     */
+    protected $bankTransaction;
+
+    /**
      * @var Carbon
      */
     protected $timeIssued;
+
+    /**
+     * @var string
+     */
+    protected $issuedReason;
 
     /**
      * @var Carbon
@@ -51,6 +71,14 @@ class MembershipStatusNotification
      * @var string
      */
     protected $clearedReason;
+
+    /**
+     * MembershipStatusNotification constructor.
+     */
+    public function __construct()
+    {
+        $this->issuedReason = self::NON_PAYMENT;
+    }
 
     /**
      * Gets the value of id.
@@ -186,5 +214,89 @@ class MembershipStatusNotification
         $this->timeCleared = Carbon::now();
 
         return $this;
+    }
+
+    /**
+     * @return BankTransaction
+     */
+    public function getBankTransaction()
+    {
+        return $this->bankTransaction;
+    }
+
+    /**
+     * @param BankTransaction $bankTransaction
+     *
+     * @return self
+     */
+    public function setBankTransaction(BankTransaction $bankTransaction)
+    {
+        $this->bankTransaction = $bankTransaction;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIssuedReason()
+    {
+        return $this->issuedReason;
+    }
+
+    /**
+     * @param string $issuedReason
+     *
+     * @return self
+     */
+    public function setIssuedReason($issuedReason)
+    {
+        $this->issuedReason = $issuedReason;
+
+        return $this;
+    }
+
+    /**
+     * Set the issued reason to non payment.
+     *
+     * @return self
+     */
+    public function setIssuedReasonForNonPayment()
+    {
+        $this->issuedReason = self::NON_PAYMENT;
+
+        return $this;
+    }
+
+    /**
+     * Set the issued reason to under minimum payment.
+     *
+     * @return self
+     */
+    public function setIssuedReasonForUnderMinimumPayment()
+    {
+        $this->issuedReason = self::UNDER_MINIMUM_PAYMENT;
+
+        return $this;
+    }
+
+    /**
+     * Is this issued for non payment.
+     *
+     * @return bool
+     */
+    public function isNonPayment()
+    {
+        return $this->issuedReason == self::NON_PAYMENT;
+    }
+
+    /**
+     * Is this issued for under minimum payment.
+     *
+     * @return bool
+     */
+    public function isUnderMinimumPayment()
+    {
+        return $this->issuedReason == self::UNDER_MINIMUM_PAYMENT;
     }
 }

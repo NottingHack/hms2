@@ -2,7 +2,7 @@
 
 namespace Database\Migrations;
 
-use Doctrine\DBAL\Schema\Schema as Schema;
+use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
 class Version20190112002932_add_vending_tables extends AbstractMigration

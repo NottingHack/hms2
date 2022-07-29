@@ -2,7 +2,7 @@
 
 namespace Database\Migrations;
 
-use Doctrine\DBAL\Schema\Schema as Schema;
+use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
 class Version20170531080558_add_rfid_tags_table extends AbstractMigration

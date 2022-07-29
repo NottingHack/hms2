@@ -2,7 +2,7 @@
 
 namespace Database\Migrations;
 
-use Doctrine\DBAL\Schema\Schema as Schema;
+use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
 class Version20190112205350_change_product_location_association extends AbstractMigration

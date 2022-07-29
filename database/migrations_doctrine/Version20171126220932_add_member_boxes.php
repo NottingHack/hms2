@@ -2,7 +2,7 @@
 
 namespace Database\Migrations;
 
-use Doctrine\DBAL\Schema\Schema as Schema;
+use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
 class Version20171126220932_add_member_boxes extends AbstractMigration

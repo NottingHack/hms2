@@ -3,7 +3,7 @@
 namespace Database\Migrations;
 
 use Carbon\Carbon;
-use Doctrine\DBAL\Schema\Schema as Schema;
+use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
 class Version20190708220136_add_zone_occupant_reset_interval_to_meta extends AbstractMigration

@@ -3,7 +3,7 @@
 namespace Database\Migrations;
 
 use Carbon\Carbon;
-use Doctrine\DBAL\Schema\Schema as Schema;
+use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
 class Version20190708042840_add_induction_request_to_meta extends AbstractMigration

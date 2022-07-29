@@ -21,6 +21,7 @@ return [
         'access_street_door' => 1234,
         'access_wifi_password' => 123456,
         'access_wifi_ssid' => 'HSNOTTS',
+        'audit_minimum_amount' => 500,
         'audit_revoke_interval' => 'P2M',
         'audit_warn_interval' => 'P1M14D',
         'content_block_github_url' => 'https://github.com/NottingHack/hms2',

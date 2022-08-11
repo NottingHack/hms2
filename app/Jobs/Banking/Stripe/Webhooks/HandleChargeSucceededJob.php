@@ -86,8 +86,11 @@ class HandleChargeSucceededJob extends EventHandler
      */
     protected function donationPayment(StripeCharge $stripeCharge, Charge $charge)
     {
-        $userId = $stripeCharge->metadata->user_id;
-        $user = $this->userRepository->findOneById($userId);
+        $userId = optional($stripeCharge->metadata)->user_id;
+        $user = null;
+        if ($userId) {
+            $user = $this->userRepository->findOneById($userId);
+        }
 
         if ($user) {
             $charge->setUser($user);

@@ -12,6 +12,7 @@ use HMS\Helpers\Features;
 use HMS\Repositories\Banking\BankTransactionRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 use OfxParser\Parser as OfxParser;
 
 class BankBankTransactionController extends Controller
@@ -172,8 +173,12 @@ class BankBankTransactionController extends Controller
                 'file',
                 function ($attribute, $value, $fail) {
                     try {
-                        $this->ofxParser->loadFromString($value->get());
+                        // because Barclays suck
+                        $ofxString = str_replace("\t", ' ', $value->get());
+
+                        $this->ofxParser->loadFromString($ofxString);
                     } catch (Exception $e) {
+                        Log::warning('BBTC@sO: Unable to parse OFX: ' . $e->getMessage());
                         $fail('Unable to parse OFX file');
                     }
                 },

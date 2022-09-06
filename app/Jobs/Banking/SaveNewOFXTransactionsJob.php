@@ -14,7 +14,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Str;
 use OfxParser\Parser as OfxParser;
 
 class SaveNewOFXTransactionsJob implements ShouldQueue
@@ -62,7 +61,8 @@ class SaveNewOFXTransactionsJob implements ShouldQueue
     ) {
         $bank = $bankRepository->findOneById($this->bank_id);
 
-        $this->ofxString = Str::replace("\t", ' ', $this->ofxString);
+        // because Barclays suck
+        $this->ofxString = str_replace("\t", ' ', $this->ofxString);
 
         $ofx = $ofxParser->loadFromString($this->ofxString);
 

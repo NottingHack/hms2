@@ -49,5 +49,6 @@ return [
         'temporary_access_uesr_notification' => 30,
         'wiki_html' => 'https://wiki.nottinghack.org.uk',
         'zone_occupant_reset_interval' => 'P1D',
+        'gatekeeper_setup_guide' => 'https://wiki.nottinghack.org.uk/wiki/HMS/Gatekeeper_Setup',
     ],
 ];

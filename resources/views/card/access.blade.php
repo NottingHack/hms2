@@ -12,10 +12,10 @@
     <li class="list-group-item">Roden Street Door: {{ $roden }}</li>
     @endif
     <li class="list-group-item">{{ Auth::user() == $user ? 'You have' : $user->getFirstname() . ' has' }} {{ count($user->getRfidTags()) }} RFID cards.</li>
-    @can('pins.view.all')
     @if ($user->getPin())
+    @if ($user->getPin()->getState() == \HMS\Entities\Gatekeeper\PinState::ENROLL)
     <li class="list-group-item">Pin <b>{{ $user->getPin()->getPin() }}</b> is currently set to <i>{{ $user->getPin()->getStateString() }}.</i></li>
-    @endcan
+    @endif
     @endif
   </ul>
   <div class="card-footer">

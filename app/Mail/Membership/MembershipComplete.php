@@ -23,6 +23,11 @@ class MembershipComplete extends Mailable implements ShouldQueue
     /**
      * @var string
      */
+    public $membershipPIN;
+
+    /**
+     * @var string
+     */
     public $membersGuideHTML;
 
     /**
@@ -75,6 +80,13 @@ class MembershipComplete extends Mailable implements ShouldQueue
      */
     public $membershipTeamEmail;
 
+    /*
+     * @var string
+     */
+    public $gatekeeperSetupGuide;
+
+
+
     /**
      * Create a new message instance.
      *
@@ -85,6 +97,7 @@ class MembershipComplete extends Mailable implements ShouldQueue
     public function __construct(User $user, MetaRepository $metaRepository, RoleRepository $roleRepository)
     {
         $this->fullname = $user->getFullname();
+        $this->membershipPIN = $user->getPin()->getPin();
 
         $this->membersGuideHTML = $metaRepository->get('members_guide_html');
         $this->membersGuidePDF = $metaRepository->get('members_guide_pdf');
@@ -96,6 +109,7 @@ class MembershipComplete extends Mailable implements ShouldQueue
         $this->rulesHTML = $metaRepository->get('rules_html');
         $this->slackHTML = $metaRepository->get('slack_html');
         $this->wikiLink = $metaRepository->get('wiki_html');
+        $this->gatekeeperSetupGuide = $metaRepository->get('gatekeeper_setup_guide');
 
         $this->membershipTeamEmail = $roleRepository->findOneByName(Role::TEAM_MEMBERSHIP)->getEmail();
     }

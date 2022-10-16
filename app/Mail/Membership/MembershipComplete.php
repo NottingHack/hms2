@@ -85,8 +85,6 @@ class MembershipComplete extends Mailable implements ShouldQueue
      */
     public $gatekeeperSetupGuide;
 
-
-
     /**
      * Create a new message instance.
      *

@@ -6,6 +6,7 @@ use HMS\Entities\Role;
 use HMS\Entities\User;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
+use HMS\Repositories\UserRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -16,8 +17,8 @@ class MembershipComplete extends Mailable implements ShouldQueue
     use Queueable, SerializesModels;
 
     /*
-    * @var string
-    */
+     * @var string
+     */
     public $fullname;
 
     /**
@@ -91,11 +92,12 @@ class MembershipComplete extends Mailable implements ShouldQueue
      * @param User $user
      * @param MetaRepository $metaRepository
      * @param RoleRepository $roleRepository
+     * @param UserRepository $userRepository
      */
-    public function __construct(User $user, MetaRepository $metaRepository, RoleRepository $roleRepository)
+    public function __construct(User $user, MetaRepository $metaRepository, RoleRepository $roleRepository, UserRepository $userRepository)
     {
         // get a fresh copy of the user
-        $user = $this->userRepository->findOneById($user->getId());
+        $user = $userRepository->findOneById($user->getId());
 
         $this->fullname = $user->getFullname();
         $this->membershipPin = $user->getPin()->getPin();

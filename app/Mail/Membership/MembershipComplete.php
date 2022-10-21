@@ -23,7 +23,7 @@ class MembershipComplete extends Mailable implements ShouldQueue
     /**
      * @var string
      */
-    public $membershipPIN;
+    public $membershipPin;
 
     /**
      * @var string
@@ -98,7 +98,7 @@ class MembershipComplete extends Mailable implements ShouldQueue
         $user = $this->userRepository->findOneById($user->getId());
 
         $this->fullname = $user->getFullname();
-        $this->membershipPIN = $user->getPin()->getPin();
+        $this->membershipPin = $user->getPin()->getPin();
 
         $this->membersGuideHTML = $metaRepository->get('members_guide_html');
         $this->membersGuidePDF = $metaRepository->get('members_guide_pdf');

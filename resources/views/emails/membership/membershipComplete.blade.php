@@ -6,7 +6,7 @@
 The {{ config('branding.space_type') }} members guide can be found at {{ $membersGuideHTML }} and it is a recommended read for all members. <br>
 A PDF version is also available [here.]({{ $membersGuidePDF }})
 
-A guide to setting up your RFID door card can be found at {{ $gatekeeperSetupGuide }} - for this you will also need to know your unique, single-use PIN, {{ $membershipPIN }}.
+A guide to setting up your RFID door card can be found at {{ $gatekeeperSetupGuide }} - for this you will also need to know your unique, single-use PIN, {{ $membershipPin }}.
 
 In terms of access, the street door code is **{{ $outerDoorCode }}**, and all other doors, including the doors in the stairwell and studio, are **{{ $innerDoorCode }}**. Obviously, please do not share these with non-members.
 

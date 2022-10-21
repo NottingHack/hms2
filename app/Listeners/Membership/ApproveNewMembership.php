@@ -106,7 +106,6 @@ class ApproveNewMembership implements ShouldQueue
         if (count($this->pinRepository->findByUser($user)) == 0) {
             $pin = $this->pinFactory->createNewEnrollPinForUser($user);
             $this->pinRepository->save($pin);
-            $user->pin = $pin; // ensure pin is up to date for MembershipComplete email
         }
 
         // update join date

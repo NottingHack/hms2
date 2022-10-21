@@ -94,6 +94,9 @@ class MembershipComplete extends Mailable implements ShouldQueue
      */
     public function __construct(User $user, MetaRepository $metaRepository, RoleRepository $roleRepository)
     {
+        // get a fresh copy of the user
+        $user = $this->userRepository->findOneById($user->getId());
+
         $this->fullname = $user->getFullname();
         $this->membershipPIN = $user->getPin()->getPin();
 

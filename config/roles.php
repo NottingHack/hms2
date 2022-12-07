@@ -75,6 +75,7 @@ return [
         'rfidTags.edit.all',
         'rfidTags.destroy',
         'pins.view.all',
+        'pins.view.self',
         'pins.reactivate',
         'login.shell',
         'login.spacenet',
@@ -254,6 +255,7 @@ return [
                 'governance.voting.canVote',
                 'governance.proxy.designateProxy',
                 'governance.proxy.representPrincipal',
+                'pins.view.self',
             ],
         ],
         'member.temporarybanned' => [

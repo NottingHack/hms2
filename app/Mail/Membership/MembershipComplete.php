@@ -6,6 +6,7 @@ use HMS\Entities\Role;
 use HMS\Entities\User;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
+use HMS\Repositories\UserRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -16,9 +17,14 @@ class MembershipComplete extends Mailable implements ShouldQueue
     use Queueable, SerializesModels;
 
     /*
-    * @var string
-    */
+     * @var string
+     */
     public $fullname;
+
+    /**
+     * @var string
+     */
+    public $membershipPin;
 
     /**
      * @var string
@@ -75,16 +81,26 @@ class MembershipComplete extends Mailable implements ShouldQueue
      */
     public $membershipTeamEmail;
 
+    /*
+     * @var string
+     */
+    public $gatekeeperSetupGuide;
+
     /**
      * Create a new message instance.
      *
      * @param User $user
      * @param MetaRepository $metaRepository
      * @param RoleRepository $roleRepository
+     * @param UserRepository $userRepository
      */
-    public function __construct(User $user, MetaRepository $metaRepository, RoleRepository $roleRepository)
+    public function __construct(User $user, MetaRepository $metaRepository, RoleRepository $roleRepository, UserRepository $userRepository)
     {
+        // get a fresh copy of the user
+        $user = $userRepository->findOneById($user->getId());
+
         $this->fullname = $user->getFullname();
+        $this->membershipPin = $user->getPin()->getPin();
 
         $this->membersGuideHTML = $metaRepository->get('members_guide_html');
         $this->membersGuidePDF = $metaRepository->get('members_guide_pdf');
@@ -96,6 +112,7 @@ class MembershipComplete extends Mailable implements ShouldQueue
         $this->rulesHTML = $metaRepository->get('rules_html');
         $this->slackHTML = $metaRepository->get('slack_html');
         $this->wikiLink = $metaRepository->get('wiki_html');
+        $this->gatekeeperSetupGuide = $metaRepository->get('gatekeeper_setup_guide');
 
         $this->membershipTeamEmail = $roleRepository->findOneByName(Role::TEAM_MEMBERSHIP)->getEmail();
     }

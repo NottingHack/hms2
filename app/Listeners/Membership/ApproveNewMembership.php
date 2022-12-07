@@ -113,6 +113,6 @@ class ApproveNewMembership implements ShouldQueue
         $this->userRepository->save($user);
 
         // email user
-        \Mail::to($user)->send(new MembershipComplete($user, $this->metaRepository, $this->roleRepository));
+        \Mail::to($user)->send(new MembershipComplete($user, $this->metaRepository, $this->roleRepository, $this->userRepository));
     }
 }

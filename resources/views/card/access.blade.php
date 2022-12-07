@@ -12,7 +12,7 @@
     <li class="list-group-item">Roden Street Door: {{ $roden }}</li>
     @endif
     <li class="list-group-item">{{ Auth::user() == $user ? 'You have' : $user->getFirstname() . ' has' }} {{ count($user->getRfidTags()) }} RFID cards.</li>
-    @canany(['pins.view.all', 'pins.view.own'])
+    @canany(['pins.view.all', 'pins.view.self'])
     @if ($user->getPin())
     @if ($user->getPin()->getState() == \HMS\Entities\Gatekeeper\PinState::ENROLL || Gate::check('pins.view.all'))
     <li class="list-group-item">Pin <b>{{ $user->getPin()->getPin() }}</b> is currently set to <i>{{ $user->getPin()->getStateString() }}.</i></li>

@@ -327,6 +327,43 @@ class ToolController extends Controller
     }
 
     /**
+     * Revoke access to a Tool.
+     *
+     * @param Tool $tool
+     * @param string $grantType
+     * @param User $user
+     *
+     * @return \Illuminate\Http\Response
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function revoke(Tool $tool, string $grantType, User $user)
+    {
+        // complex permission checking based on the grantType
+        if ($grantType == ToolManager::MAINTAINER) {
+            Gate::authorize('tools.maintainer.grant');
+        } elseif ($grantType == ToolManager::INDUCTOR) {
+            if (Gate::none([
+                'tools.inductor.grant',
+                'tools.' . $tool->getPermissionName() . '.inductor.grant',
+            ])) {
+                throw new AuthorizationException('This action is unauthorized.');
+            }
+        } elseif ($grantType == ToolManager::USER) {
+            Gate::authorize('tools.user.grant');
+        } else {
+            // should never get here
+            throw new AuthorizationException('This action is unauthorized.');
+        }
+
+        $message = $this->toolManager->revoke($tool, $grantType, $user);
+
+        flash($message);
+
+        return redirect()->back();
+    }
+
+    /**
      * Add Free/pledge time for a user.
      *
      * @param Tool $tool

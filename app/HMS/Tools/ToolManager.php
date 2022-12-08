@@ -320,4 +320,30 @@ class ToolManager
                 . self::GRANT_STRINGS[$grantType]
                 . ' for the ' . $tool->getName();
     }
+
+    /**
+     * Revoke a given user access to a Tool.
+     *
+     * @param Tool $tool
+     * @param string $grantType
+     * @param User $user
+     *
+     * @return string
+     */
+    public function revoke(Tool $tool, string $grantType, User $user)
+    {
+        $roleName = 'tools.' . $tool->getPermissionName() . '.' . strtolower($grantType);
+
+        if (! $user->hasRoleByName($roleName)) {
+            return $user->getFullname() . ' is not a '
+                . self::GRANT_STRINGS[$grantType]
+                . ' of the ' . $tool->getName();
+        }
+
+        $this->roleManager->removeUserFromRoleByName($user, $roleName);
+
+        return $user->getFullname() . ' removed as a '
+                . self::GRANT_STRINGS[$grantType]
+                . ' for the ' . $tool->getName();
+    }
 }

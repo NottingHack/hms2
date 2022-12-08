@@ -271,8 +271,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     // Tools
-    Route::get('tools/{tool}/users/{grant}', 'Tools\ToolController@showUsersForGrant')->name('tools.users-for-grant');
+    Route::get('tools/{tool}/users/{grantType}', 'Tools\ToolController@showUsersForGrant')
+        ->name('tools.users-for-grant');
     Route::patch('tools/{tool}/grant', 'Tools\ToolController@grant')->name('tools.grant');
+    Route::delete('tools/{tool}/revoke/{grantType}/users/{user}', 'Tools\ToolController@revoke')
+        ->name('tools.revoke.users');
     Route::post('tools/{tool}/free-time', 'Tools\ToolController@addFreeTime')->name('tools.add-free-time');
     Route::resource('tools', 'Tools\ToolController');
     Route::resource('tools.bookings', 'Tools\BookingController')

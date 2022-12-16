@@ -37,7 +37,7 @@
           @endcanany
           @if (($grantType == "MAINTAINER" && Auth::user()->can('tools.maintainer.grant')) || ($grantType == "INDUCTOR" && Auth::user()->can('tools.inductor.grant')) || ($grantType == "USER" && Auth::user()->can('tools.user.grant')))
           <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-danger btn-sm mb-1" aria-label="delete">
-            <form action="{{ route('roles.removeUser', ['role' => $role->getId(), 'user' => $user->getId()]) }}" method="POST" style="display: inline">
+            <form action="{{ route('tools.revoke.users', ['tool' => $tool->getId(), 'grant' => $grantType, 'user' => $user->getId()]) }}" method="POST" style="display: inline">
               @method('DELETE')
               @csrf
             </form>

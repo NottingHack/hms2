@@ -21,6 +21,7 @@ return [
         'email_all_members' => env('FEATURE_EMAIL_ALL_MEMBERS', true)
             && (env('MAILGUN_DOMAIN', false) && env('MAILGUN_SECRET', false)),
         'voting_status' => env('FEATURE_VOTING_STATUS', true),
+        'members_enroll_pin' => env('FEATURE_MEMBERS_ENROLL_PIN', true),
     ],
 
     /*

@@ -50,6 +50,16 @@ interface BankTransactionRepository
     public function findLatestTransactionByAccount(Account $account);
 
     /**
+     * Find the latest transaction for given account and greater than or equal to amount.
+     *
+     * @param Account $account
+     * @param int $amount
+     *
+     * @return null|BankTransaction
+     */
+    public function findLatestTransactionByAccountGTeAmount(Account $account, int $amount);
+
+    /**
      * Find the latest transaction for given Bank.
      *
      * @param Bank $bank

@@ -76,6 +76,31 @@ class DoctrineBankTransactionRepository extends EntityRepository implements Bank
     }
 
     /**
+     * Find the latest transaction for given account and greater than or equal to amount.
+     *
+     * @param Account $account
+     * @param int $amount
+     *
+     * @return null|BankTransaction
+     */
+    public function findLatestTransactionByAccountGTeAmount(Account $account, int $amount)
+    {
+        $qb = parent::createQueryBuilder('bankTransaction');
+
+        $qb->where('bankTransaction.account = :account_id')
+            ->andWhere('bankTransaction.amount >= :amount')
+            ->orderBy('bankTransaction.transactionDate', 'DESC')
+            ->setMaxResults(1);
+
+        $qb->setParameter('account_id', $account->getId())
+            ->setParameter('amount', $amount);
+
+        $q = $qb->getQuery();
+
+        return $q->getSingleResult();
+    }
+
+    /**
      * Find the latest transaction for given Bank.
      *
      * @param Bank $bank

@@ -40,12 +40,12 @@ class SearchController extends Controller
     /**
      * Search for users.
      *
-     * @param string $searchQuery
      * @param Request $request
+     * @param string $searchQuery
      *
      * @return \Illuminate\Http\Response
      */
-    public function users(string $searchQuery = null, Request $request)
+    public function users(Request $request, string $searchQuery = null)
     {
         if ($request['q']) {
             $searchQuery = $request['q'];
@@ -95,12 +95,12 @@ class SearchController extends Controller
     /**
      * Search for Invites.
      *
-     * @param string $searchQuery
      * @param Request $request
+     * @param string $searchQuery
      *
      * @return \Illuminate\Http\Response
      */
-    public function invites(string $searchQuery = null, Request $request)
+    public function invites(Request $request, string $searchQuery = null)
     {
         if ($request['q']) {
             $searchQuery = $request['q'];

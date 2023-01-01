@@ -33,7 +33,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.trigger.after :up, :resume, :reload do |trigger|
       trigger.info = "Restaring Nginx & PHP"
-      trigger.run_remote = {inline: "sudo systemctl restart nginx php7.2-fpm php7.4-fpm laravel-echo-server horizon"}
+      trigger.run_remote = {inline: "sudo systemctl restart nginx php* laravel-echo-server horizon"}
   end
 
 end

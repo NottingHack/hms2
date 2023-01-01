@@ -43,7 +43,7 @@
 <body class="d-flex flex-column min-vh-100">
   @include('layouts.header')
 
-  @include('cookieConsent::index')
+  @include('cookie-consent::index')
 
   <!-- main body -->
   <main id="app" class="flex-fill my-3">

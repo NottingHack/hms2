@@ -90,7 +90,7 @@ class FileBasedPasswordStore implements PasswordStore
      */
     public function checkPassword($username, $password)
     {
-        return Hash::check($password, $this->users[$username]);
+        return $this->exists($username) && Hash::check($password, $this->users[$username]);
     }
 
     private function persistUsers()

@@ -191,7 +191,7 @@ class MembershipStatusNotification
     }
 
     /**
-     * Clear this notifiaction and set the reason as paid.
+     * Clear this notification and set the reason as paid.
      *
      * @return self
      */
@@ -204,7 +204,7 @@ class MembershipStatusNotification
     }
 
     /**
-     * Clear this notifiaction and set the reason as revoked.
+     * Clear this notification and set the reason as revoked.
      *
      * @return self
      */
@@ -285,7 +285,7 @@ class MembershipStatusNotification
      *
      * @return bool
      */
-    public function isNonPayment()
+    public function isForNonPayment()
     {
         return $this->issuedReason == self::NON_PAYMENT;
     }
@@ -295,7 +295,7 @@ class MembershipStatusNotification
      *
      * @return bool
      */
-    public function isUnderMinimumPayment()
+    public function isForUnderMinimumPayment()
     {
         return $this->issuedReason == self::UNDER_MINIMUM_PAYMENT;
     }

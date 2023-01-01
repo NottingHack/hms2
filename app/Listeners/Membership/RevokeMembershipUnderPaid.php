@@ -2,8 +2,8 @@
 
 namespace App\Listeners\Membership;
 
-use App\Events\Banking\NonPaymentOfMembership;
-use App\Mail\Membership\MembershipRevoked;
+use App\Events\Banking\NonPaymentOfMinimumMembership;
+use App\Mail\Membership\MembershipRevokedDueToUnderPayment;
 use HMS\Entities\Role;
 use HMS\Repositories\Banking\BankRepository;
 use HMS\Repositories\Banking\MembershipStatusNotificationRepository;
@@ -13,7 +13,7 @@ use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class RevokeMembership implements ShouldQueue
+class RevokeMembershipUnderPaid implements ShouldQueue
 {
     /**
      * @var UserRepository
@@ -74,11 +74,11 @@ class RevokeMembership implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param NonPaymentOfMembership $event
+     * @param NonPaymentOfMinimumMembership $event
      *
      * @return void
      */
-    public function handle(NonPaymentOfMembership $event)
+    public function handle(NonPaymentOfMinimumMembership $event)
     {
         // get a fresh copy of the user
         $user = $this->userRepository->findOneById($event->user->getId());
@@ -108,7 +108,7 @@ class RevokeMembership implements ShouldQueue
 
         // email user
         \Mail::to($user)->send(
-            new MembershipRevoked(
+            new MembershipRevokedDueToUnderPayment(
                 $user,
                 $this->metaRepository,
                 $this->bankRepository,

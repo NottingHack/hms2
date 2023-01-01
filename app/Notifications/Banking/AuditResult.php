@@ -45,26 +45,55 @@ class AuditResult extends Notification implements ShouldQueue
     protected $paymentNotificationsClearCount;
 
     /**
+     * @var array
+     */
+    protected $formattedAwaitingUsersUnderMinimum;
+    /**
+     * @var array
+     */
+    protected $formattedWarnUsersMinimumAmount;
+    /**
+     * @var array
+     */
+    protected $formattedRevokeUsersMinimumAmount;
+    /**
+     * @var array
+     */
+    protected $formattedExUsersUnderMinimum;
+
+    /**
      * Create a new notification instance.
      *
-     * @param User[]                    $formatedApproveUsers
-     * @param User[]                    $formatedWarnUsers
-     * @param User[]                    $formatedRevokeUsers
-     * @param User[]                    $formatedReinstateUsers
-     * @param int                       $paymentNotificationsClearCount
+     * @param User[] $formatedApproveUsers
+     * @param User[] $formatedWarnUsers
+     * @param User[] $formatedRevokeUsers
+     * @param User[] $formatedReinstateUsers
+     * @param int    $paymentNotificationsClearCount
+     * @param User[] $formattedAwaitingUsersUnderMinimum
+     * @param User[] $formattedWarnUsersMinimumAmount
+     * @param User[] $formattedRevokeUsersMinimumAmount
+     * @param User[] $formattedExUsersUnderMinimum
      */
     public function __construct(
         $formatedApproveUsers,
         $formatedWarnUsers,
         $formatedRevokeUsers,
         $formatedReinstateUsers,
-        $paymentNotificationsClearCount
+        $paymentNotificationsClearCount,
+        $formattedAwaitingUsersUnderMinimum,
+        $formattedWarnUsersMinimumAmount,
+        $formattedRevokeUsersMinimumAmount,
+        $formattedExUsersUnderMinimum
     ) {
         $this->formattedApproveUsers = $formatedApproveUsers;
         $this->formattedWarnUsers = $formatedWarnUsers;
         $this->formattedRevokeUsers = $formatedRevokeUsers;
         $this->formattedReinstateUsers = $formatedReinstateUsers;
         $this->paymentNotificationsClearCount = $paymentNotificationsClearCount;
+        $this->$formattedAwaitingUsersUnderMinimum = $formattedAwaitingUsersUnderMinimum;
+        $this->$formattedWarnUsersMinimumAmount = $formattedWarnUsersMinimumAmount;
+        $this->$formattedRevokeUsersMinimumAmount = $formattedRevokeUsersMinimumAmount;
+        $this->$formattedExUsersUnderMinimum = $formattedExUsersUnderMinimum;
     }
 
     /**
@@ -108,6 +137,10 @@ class AuditResult extends Notification implements ShouldQueue
                     'formattedRevokeUsers' => $this->formattedRevokeUsers,
                     'formattedReinstateUsers' => $this->formattedReinstateUsers,
                     'paymentNotificationsClearCount' => $this->paymentNotificationsClearCount,
+                    'formattedAwaitingUsersUnderMinimum' => $this->formattedAwaitingUsersUnderMinimum,
+                    'formattedWarnUsersMinimumAmount' => $this->formattedWarnUsersMinimumAmount,
+                    'formattedRevokeUsersMinimumAmount' => $this->formattedRevokeUsersMinimumAmount,
+                    'formattedExUsersUnderMinimum' => $this->formattedExUsersUnderMinimum,
                 ]
             );
     }
@@ -122,9 +155,9 @@ class AuditResult extends Notification implements ShouldQueue
     public function toSlack($notifiable)
     {
         $approveCount = count($this->formattedApproveUsers);
-        $warnCount = count($this->formattedWarnUsers);
-        $revokeCount = count($this->formattedRevokeUsers);
-        $reinstateCount = count($this->formattedReinstateUsers);
+        $warnCount = count($this->formattedWarnUsers) + count($this->formattedWarnUsersMinimumAmount);
+        $revokeCount = count($this->formattedRevokeUsers) + count($this->formattedRevokeUsersMinimumAmount);
+        $reinstateCount = count($this->formattedReinstateUsers) + count($this->formattedExUsersUnderMinimum);
 
         return (new SlackMessage)
             ->to($notifiable->getSlackChannel())

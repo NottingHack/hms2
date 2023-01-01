@@ -115,9 +115,9 @@ class ViMbAdminSubscriber implements ShouldQueue
 
                 // TODO: check if there is a mailbox with address $trusteeEmail
                 // if not then create one
-                // need to emial password to $user with link ot change it
-                // https://vba.lwk.me/auth/change-password
-                // or add a new view to allow password change from hms
+                    // need to email password to $user with link ot change it
+                    // https://vba.lwk.me/auth/change-password
+                    // or add a new view to allow password change from hms
             }
 
             if (is_null($alias)) {
@@ -223,7 +223,7 @@ class ViMbAdminSubscriber implements ShouldQueue
 
         foreach ($roles as $role) {
             if ($role->getName() == Role::TEAM_TRUSTEES) {
-                // skip as they have first.last emial boxes
+                // skip as they have first.last email boxes
                 continue;
             }
             if ($role->getEmail()) {

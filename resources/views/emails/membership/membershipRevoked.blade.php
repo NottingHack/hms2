@@ -15,7 +15,7 @@ Or via bank transfer using the reference **{{ $snackspaceRef }}** to the Account
 @endfeature
 @endif
 
-If you do wish to reinstate your membership you will need to set up your payments again.
+If you do wish to reinstate your membership you will need to set up your payments again with an amount equal or above the minimum amount of **@money($minimumAmount, 'GBP')**
 
 @feature('standing_order_membership_payments')
 Here are the details you need to set up a standing order:

@@ -791,7 +791,7 @@ class MigrateMembersAreaCommand extends Command
 
         $em->clear();
         $approvalMembers = $roleRepository->findOneByName(Role::MEMBER_APPROVAL)->getUsers();
-        $awatingMembers = $roleRepository->findOneByName(Role::MEMBER_PAYMENT)->getUsers();
+        $awaitingMembers = $roleRepository->findOneByName(Role::MEMBER_PAYMENT)->getUsers();
         $currentMembers = $roleRepository->findOneByName(Role::MEMBER_CURRENT)->getUsers();
 
         $this->info('Auditing Awaiting Approval');
@@ -804,7 +804,7 @@ class MigrateMembersAreaCommand extends Command
         }
 
         $this->info('Auditing Awaiting Payment');
-        foreach ($awatingMembers as $user) {
+        foreach ($awaitingMembers as $user) {
             if (count($user->getAccount()->getBankTransactions())) {
                 $this->warn('User: ' . $user->getId() . ' has payments, making Current');
                 $roleManager->removeUserFromRoleByName($user, Role::MEMBER_PAYMENT);

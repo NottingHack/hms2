@@ -3,7 +3,7 @@
 
 @content('emails.membership.membershipMayBeRevoked', 'main')
 
-If you do wish to maintain your membership you will need to check your payments are setup as below.
+If you do wish to maintain your membership you will need to check your payments is setup as below and is equal or above the minimum amount of **@money($minimumAmount, 'GBP')**
 
 @feature('standing_order_membership_payments')
 Here are the details your standing order should have:

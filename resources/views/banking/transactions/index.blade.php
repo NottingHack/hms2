@@ -12,6 +12,8 @@ Membership Payments for {{ $user->getFirstname() }}
     <div class="card-body">
       @content('banking.transactions.index', 'details')
 
+      <p>Membership requires a minimum payment amount of <strong>@money($minimumAmount, 'GBP')</strong>, any payments below this amount are treated as donations to {{ config('branding.space_name') }}.</p>
+
       <p>For convenience, if you click on the Copy icon next to the codes (<i class="far fa-copy"></i>), it will automatically copy to your system, allowing you to easily paste it into your standing order details without having to retype any digits.</p>
       <dl>
         <dt>Account number</dt>

@@ -35,7 +35,7 @@ class DoctrineInviteRepository extends EntityRepository implements InviteReposit
     }
 
     /**
-     * Find an invite by emial.
+     * Find an invite by email.
      *
      * @param string $email
      *

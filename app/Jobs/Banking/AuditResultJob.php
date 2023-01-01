@@ -46,6 +46,23 @@ class AuditResultJob implements ShouldQueue
     protected $paymentNotificationsClearCount;
 
     /**
+     * @var User[]
+     */
+    protected $awaitingUsersUnderMinimum;
+    /**
+     * @var User[]
+     */
+    protected $warnUsersMinimumAmount;
+    /**
+     * @var User[]
+     */
+    protected $revokeUsersMinimumAmount;
+    /**
+     * @var User[]
+     */
+    protected $exUsersUnderMinimum;
+
+    /**
      * Create a new job instance.
      *
      * @param User[] $approveUsers
@@ -53,6 +70,10 @@ class AuditResultJob implements ShouldQueue
      * @param User[] $revokeUsers
      * @param User[] $reinstateUsers
      * @param int    $paymentNotificationsClearCount
+     * @param User[] $awaitingUsersUnderMinimum
+     * @param User[] $warnUsersMinimumAmount
+     * @param User[] $revokeUsersMinimumAmount
+     * @param User[] $exUsersUnderMinimum
      *
      * @return void
      */
@@ -61,13 +82,21 @@ class AuditResultJob implements ShouldQueue
         $warnUsers,
         $revokeUsers,
         $reinstateUsers,
-        int $paymentNotificationsClearCount
+        int $paymentNotificationsClearCount,
+        $awaitingUsersUnderMinimum,
+        $warnUsersMinimumAmount,
+        $revokeUsersMinimumAmount,
+        $exUsersUnderMinimum
     ) {
         $this->approveUsers = $approveUsers;
         $this->warnUsers = $warnUsers;
         $this->revokeUsers = $revokeUsers;
         $this->reinstateUsers = $reinstateUsers;
         $this->paymentNotificationsClearCount = $paymentNotificationsClearCount;
+        $this->awaitingUsersUnderMinimum = $awaitingUsersUnderMinimum;
+        $this->warnUsersMinimumAmount = $warnUsersMinimumAmount;
+        $this->revokeUsersMinimumAmount = $revokeUsersMinimumAmount;
+        $this->exUsersUnderMinimum = $exUsersUnderMinimum;
     }
 
     /**
@@ -180,13 +209,114 @@ class AuditResultJob implements ShouldQueue
             ];
         }
 
+        $formattedAwaitingUsersUnderMinimum = [];
+        foreach ($this->awaitingUsersUnderMinimum as $user) {
+            // grab fresh user.
+            $user = $userRepository->findOneById($user->getId());
+
+            $formattedAwaitingUsersUnderMinimum[] = [
+                'id' => $user->getId(),
+                'fullName' => $user->getFullname(),
+                'email' => $user->getEmail(),
+                'jointAccount' => count($user->getAccount()->getUsers()) > 1 ? 'yes' : 'no',
+            ];
+        }
+
+        $formattedWarnUsersMinimumAmount = [];
+        foreach ($this->warnUsersMinimumAmount as $user) {
+            // grab fresh user.
+            $user = $userRepository->findOneById($user->getId());
+
+            $accessLog = $accessLogRepository->findLatestByUser($user);
+            if (! is_null($accessLog)) {
+                $lastAccess = $accessLog->getAccessTime()->toDateString();
+            } else {
+                $lastAccess = 'Never Visited';
+            }
+
+            $formattedWarnUsersMinimumAmount[] = [
+                'id' => $user->getId(),
+                'fullName' => $user->getFullname(),
+                'email' => $user->getEmail(),
+                'jointAccount' => count($user->getAccount()->getUsers()) > 1 ? 'yes' : 'no',
+                'balance' => $user->getProfile()->getBalance(),
+                'lastPaymentDate' => $bankTransactionRepository
+                    ->findLatestTransactionByAccount($user->getAccount())
+                    ->getTransactionDate()
+                    ->toDateString(),
+                'lastVisitDate' => $lastAccess,
+            ];
+        }
+
+        $formattedRevokeUsersMinimumAmount = [];
+        foreach ($this->revokeUsersMinimumAmount as $user) {
+            // grab fresh user.
+            $user = $userRepository->findOneById($user->getId());
+
+            $accessLog = $accessLogRepository->findLatestByUser($user);
+            if (! is_null($accessLog)) {
+                $lastAccess = $accessLog->getAccessTime()->toDateString();
+            } else {
+                $lastAccess = 'Never Visited';
+            }
+
+            $formattedRevokeUsersMinimumAmount[] = [
+                'id' => $user->getId(),
+                'fullName' => $user->getFullname(),
+                'email' => $user->getEmail(),
+                'jointAccount' => count($user->getAccount()->getUsers()) > 1 ? 'yes' : 'no',
+                'balance' => $user->getProfile()->getBalance(),
+                'lastPaymentDate' => $bankTransactionRepository
+                    ->findLatestTransactionByAccount($user->getAccount())
+                    ->getTransactionDate()
+                    ->toDateString(),
+                'lastVisitDate' => $lastAccess,
+            ];
+        }
+
+        $formattedExUsersUnderMinimum = [];
+        foreach ($this->exUsersUnderMinimum as $user) {
+            // grab fresh user.
+            $user = $userRepository->findOneById($user->getId());
+
+            $accessLog = $accessLogRepository->findLatestByUser($user);
+            if (! is_null($accessLog)) {
+                $lastAccess = $accessLog->getAccessTime()->toDateString();
+            } else {
+                $lastAccess = 'Never Visited';
+            }
+
+            $exRole = $roleRepository->findOneByName(Role::MEMBER_EX);
+            $madeExRoleUpdate = $roleUpdateRepository->findLatestRoleAddedByUser($exRole, $user);
+            if (is_null($madeExRoleUpdate)) {
+                // crap, should not get here.
+                $dateMadeExMember = 'Never, Tell the Software team';
+            } else {
+                $dateMadeExMember = $madeExRoleUpdate->getCreatedAt()->toDateString();
+            }
+
+            $formattedExUsersUnderMinimum[] = [
+                'id' => $user->getId(),
+                'fullName' => $user->getFullname(),
+                'email' => $user->getEmail(),
+                'jointAccount' => count($user->getAccount()->getUsers()) > 1 ? 'yes' : 'no',
+                'balance' => $user->getProfile()->getBalance(),
+                'dateMadeExMember' => $dateMadeExMember,
+                'lastVisitDate' => $lastAccess,
+            ];
+        }
+
         // now email the audit results
         $auditResultNotification = new AuditResult(
             $formattedApproveUsers,
             $formattedWarnUsers,
             $formattedRevokeUsers,
             $formattedReinstateUsers,
-            $this->paymentNotificationsClearCount
+            $this->paymentNotificationsClearCount,
+            $formattedAwaitingUsersUnderMinimum,
+            $formattedWarnUsersMinimumAmount,
+            $formattedRevokeUsersMinimumAmount,
+            $formattedExUsersUnderMinimum
         );
 
         $membershipTeamRole = $roleRepository->findOneByName(Role::TEAM_MEMBERSHIP);

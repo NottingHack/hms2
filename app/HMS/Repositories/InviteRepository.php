@@ -17,7 +17,7 @@ interface InviteRepository
     public function findOrCreateByEmail($email);
 
     /**
-     * Find an invite by emial.
+     * Find an invite by email.
      *
      * @param string $email
      *

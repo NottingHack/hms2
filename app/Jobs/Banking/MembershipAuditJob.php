@@ -177,7 +177,7 @@ class MembershipAuditJob implements ShouldQueue
 
                     $transaction = $bankTransactionRepository->findLatestTransactionByAccountGTeAmount(
                         $user->getAccount(),
-                        $minimumAmount / $jointCount
+                        $minimumAmount / max($jointCount, 1)
                     );
 
                     if (is_null($transaction) || $transaction->getTransactionDate() < $revokeDate) { // either no transaction for amount found or the found transaction date is older than revoke date
@@ -235,7 +235,7 @@ class MembershipAuditJob implements ShouldQueue
 
                     $transaction = $bankTransactionRepository->findLatestTransactionByAccountAboveAmount(
                         $user->getAccount(),
-                        $minimumAmount / $jointCount
+                        $minimumAmount / max($jointCount, 1)
                     );
 
                     if (is_null($transaction) || $transaction->getTransactionDate() < $revokeDate) { // either no transaction for amount found or the found transaction date is older than revoke date

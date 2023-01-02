@@ -97,7 +97,7 @@ class DoctrineBankTransactionRepository extends EntityRepository implements Bank
 
         $q = $qb->getQuery();
 
-        return $q->getSingleResult();
+        return $q->getOneOrNullResult();
     }
 
     /**

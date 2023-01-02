@@ -90,10 +90,10 @@ class AuditResult extends Notification implements ShouldQueue
         $this->formattedRevokeUsers = $formatedRevokeUsers;
         $this->formattedReinstateUsers = $formatedReinstateUsers;
         $this->paymentNotificationsClearCount = $paymentNotificationsClearCount;
-        $this->$formattedAwaitingUsersUnderMinimum = $formattedAwaitingUsersUnderMinimum;
-        $this->$formattedWarnUsersMinimumAmount = $formattedWarnUsersMinimumAmount;
-        $this->$formattedRevokeUsersMinimumAmount = $formattedRevokeUsersMinimumAmount;
-        $this->$formattedExUsersUnderMinimum = $formattedExUsersUnderMinimum;
+        $this->formattedAwaitingUsersUnderMinimum = $formattedAwaitingUsersUnderMinimum;
+        $this->formattedWarnUsersMinimumAmount = $formattedWarnUsersMinimumAmount;
+        $this->formattedRevokeUsersMinimumAmount = $formattedRevokeUsersMinimumAmount;
+        $this->formattedExUsersUnderMinimum = $formattedExUsersUnderMinimum;
     }
 
     /**

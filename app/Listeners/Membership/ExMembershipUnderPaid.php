@@ -3,6 +3,7 @@
 namespace App\Listeners\Membership;
 
 use App\Events\Banking\ExMemberPaymentUnderMinimum;
+use App\Mail\Membership\MembershipExUnderPaid;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;

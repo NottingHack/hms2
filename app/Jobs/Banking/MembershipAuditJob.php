@@ -10,6 +10,7 @@ use App\Events\Banking\NewMembershipPaidUnderMinimum;
 use App\Events\Banking\NonPaymentOfMembership;
 use App\Events\Banking\NonPaymentOfMinimumMembership;
 use App\Events\Banking\ReinstatementOfMembershipPayment;
+use App\HMS\Views\LowLastPaymentAmount;
 use App\Notifications\Banking\AuditIssues;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;

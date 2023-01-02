@@ -18,7 +18,7 @@ HMS\Entities\Banking\MembershipStatusNotification:
           on: create
     issuedReason:
       type: string
-      length: 20
+      length: 30
       options:
         default: 'NON_PAYMENT'
     timeCleared:

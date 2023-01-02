@@ -5,6 +5,7 @@ namespace App\Mail\Membership;
 use HMS\Entities\Role;
 use HMS\Entities\User;
 use HMS\Repositories\MetaRepository;
+use HMS\Repositories\RoleRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -34,8 +35,9 @@ class MembershipExUnderPaid extends Mailable implements ShouldQueue
      *
      * @param User $user
      * @param MetaRepository $metaRepository
+     * @param RoleRepository $roleRepository
      */
-    public function __construct(User $user, MetaRepository $metaRepository)
+    public function __construct(User $user, MetaRepository $metaRepository, RoleRepository $roleRepository)
     {
         $this->fullname = $user->getFullname();
 

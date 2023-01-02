@@ -3,8 +3,10 @@
 
 @content('emails.membership.membershipMayBeRevokedDueToUnderPayment', 'main')
 
-If you do wish to maintain your membership you will need to check your standing order is setup as below and is equal or above the minimum amount of **@money($minimumAmount, 'GBP')**
 
+If you do wish to maintain your membership you will need to check your payments are setup as below and is equal or above the minimum amount of **@money($minimumAmount, 'GBP')**  
+
+@feature('standing_order_membership_payments')
 Here are the details your standing order should have:
 
 @component('mail::panel')
@@ -13,8 +15,9 @@ Sort Code: {{ $sortCode }}
 Reference: {{ $paymentRef }}  
 Our Account Name: {{ $accountName }}
 @endcomponent
+@endfeature
 
-If we receive a payment soon your membership will carry on unaffected.
+If we receive a payment soon your membership will carry on unaffected.  
 
 @content('emails.membership.membershipMayBeRevokedDueToUnderPayment', 'additional')
 

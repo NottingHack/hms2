@@ -74,7 +74,7 @@ class BankTransactionTableSeeder extends Seeder
             $user = $account->getUsers()[0];
 
             if ($user->hasRoleByName(Role::MEMBER_PAYMENT)) {
-                // Gen a record that is less than 2 weeks old so if we run an audit we get some member movememnt
+                // Gen a record that is less than 2 weeks old so if we run an audit we get some member movement
                 $ran = rand(1, 3);
                 // random number 1 gen bank, 4 gen csv, else none
                 if ($ran == 1) {

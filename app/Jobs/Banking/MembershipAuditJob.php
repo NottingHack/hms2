@@ -172,15 +172,18 @@ class MembershipAuditJob implements ShouldQueue
                 } else { // ? not sure
                     // latest tx date is good but amount is too low, we have sent them a warning
                     // how long before we move to revoke?
+
                     // find there last payment that was above the minimum and if that was before revokeDate?
                     $jointCount = $latestTransactionForAccounts[$user->getAccount()->getId()]->joint_count;
 
                     $transaction = $bankTransactionRepository->findLatestTransactionByAccountGTeAmount(
                         $user->getAccount(),
-                        $minimumAmount / max($jointCount, 1)
+                        $minimumAmount * max($jointCount, 1)
                     );
 
-                    if (is_null($transaction) || $transaction->getTransactionDate() < $revokeDate) { // either no transaction for amount found or the found transaction date is older than revoke date
+                    if (is_null($transaction) || $transaction->getTransactionDate() < $revokeDate) {
+                        // either no transaction for amount found or the found transaction date is older than revoke date
+
                         // make ex member
                         $revokeUsersMinimumAmount[] = $user;
                     }
@@ -235,10 +238,12 @@ class MembershipAuditJob implements ShouldQueue
 
                     $transaction = $bankTransactionRepository->findLatestTransactionByAccountAboveAmount(
                         $user->getAccount(),
-                        $minimumAmount / max($jointCount, 1)
+                        $minimumAmount * max($jointCount, 1)
                     );
 
-                    if (is_null($transaction) || $transaction->getTransactionDate() < $revokeDate) { // either no transaction for amount found or the found transaction date is older than revoke date
+                    if (is_null($transaction) || $transaction->getTransactionDate() < $revokeDate) {
+                        // either no transaction for amount found or the found transaction date is older than revoke date
+
                         // make ex member
                         $revokeUsersMinimumAmount[] = $user;
                     }
@@ -265,30 +270,47 @@ class MembershipAuditJob implements ShouldQueue
             }
 
             if ($transactionDate > $revokeDate) { // transaction date is newer than revoke date
-                if ($latestTransactionForAccounts[$user->getAccount()->getId()]->amount_joint_adjusted < $minimumAmount) {
-                    // but have not paid enough
-                    // only email if there previous payment was before the revoke date
-
-                    // ordered DESC so first should be latestTransactionForAccounts second is one we need to check date on
-                    $accountTransactions = $bankTransactionRepository->paginateByAccount($user->getAccount())->items();
-
-                    if (count($accountTransactions) < 2) {
-                        // oh crap?
-                        continue;
-                    }
-
-                    if ($accountTransactions[1]->getTransactionDate() < $revokeDate) {
-                        // previous transaction was before revokeDate
-                        $exUsersUnderMinimum[] = $user;
-                    }
-                } else {
+                if ($latestTransactionForAccounts[$user->getAccount()->getId()]->amount_joint_adjusted >= $minimumAmount) {
+                    // paid equal or above the minimumAmount
                     // reinstate member
                     $reinstateUsers[] = $user;
+
+                    continue;
+                }
+
+                // but have not paid enough
+                // only email if there previous payment was before the revoke date and we have not emailed about the transaction before
+
+                // ordered DESC so first should be latestTransaction second is one we need to check date on
+                $accountTransactions = $bankTransactionRepository->paginateByAccount($user->getAccount())->items();
+
+                if (count($accountTransactions) < 2) {
+                    // oh crap?
+                    continue;
+                }
+
+                $latestTransaction = $accountTransactions[0];
+                $previousTransaction = $accountTransactions[1];
+
+                $userNotifications = collect($membershipStatusNotificationRepository->findByUser($user));
+
+                if ($userNotifications->contains(
+                    function ($membershipStatusNotification) use ($latestTransaction) {
+                        return optional($membershipStatusNotification->getBankTransaction())->getId() == $latestTransaction->getId();
+                    }
+                )) {
+                    // the latestTransaction was associated with a previous MembershipStatusNotification
+                    continue;
+                }
+
+                if ($previousTransaction->getTransactionDate() < $revokeDate) {
+                    // previous transaction was before revokeDate
+                    $exUsersUnderMinimum[] = $user;
                 }
             }
         }
 
-        // right should now have 5 arrays of Id's to go and process
+        // right should now have 9 arrays of Id's to go and process
         // by batching the id's we can send just one email to membership team with tables of members
         // showing different bits of info for different states
         // approve, name, email, pin, joint?

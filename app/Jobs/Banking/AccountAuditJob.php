@@ -74,11 +74,11 @@ class AccountAuditJob implements ShouldQueue
         $account = $accountRepository->findOneById($this->accountId);
 
         // get the latest transaction date for the account, store in $latestTransaction
-        $latestTransaction = LowLastPaymentAmount::firstWhere('account_id', $account->getId());
+        $latestTransactionForAccount = LowLastPaymentAmount::firstWhere('account_id', $account->getId());
 
         // since there is only one account to deal with we can pull out the transactionDate now
-        if (isset($latestTransaction)) {
-            $transactionDate = $latestTransaction->last_payment_date;
+        if (isset($latestTransactionForAccount)) {
+            $transactionDate = $latestTransactionForAccount->last_payment_date;
         } else {
             $transactionDate = null;
         }
@@ -154,7 +154,7 @@ class AccountAuditJob implements ShouldQueue
             if ($transactionDate === null) {
                 continue; // not paid us yet nothing to do here
             } elseif ($transactionDate > $revokeDate) { // transaction date is newer than revoke date
-                if ($latestTransactionForAccounts[$user->getAccount()->getId()]->amount_joint_adjusted < $minimumAmount) {
+                if ($latestTransactionForAccount->amount_joint_adjusted < $minimumAmount) {
                     // have made a payment but it is below the limit
                     $awaitingUsersUnderMinimum[] = $user;
                 } else {
@@ -183,7 +183,7 @@ class AccountAuditJob implements ShouldQueue
                     // warn membership may be terminated if we don't see one soon
                     $warnUsersNotPaid[] = $user;
                 }
-            } elseif ($latestTransactionForAccounts[$user->getAccount()->getId()]->amount_joint_adjusted < $minimumAmount) {
+            } elseif ($latestTransactionForAccount->amount_joint_adjusted < $minimumAmount) {
                 // date diff should be less than 1.5 months
                 // but have not paid enough
                 if (! in_array($user->getId(), $memberIdsForCurrentUnderPaymentNotifications)) {
@@ -193,15 +193,18 @@ class AccountAuditJob implements ShouldQueue
                 } else { // ? not sure
                     // latest tx date is good but amount is too low, we have sent them a warning
                     // how long before we move to revoke?
+
                     // find there last payment that was above the minimum and if that was before revokeDate?
-                    $jointCount = $latestTransactionForAccounts[$user->getAccount()->getId()]->joint_count;
+                    $jointCount = $latestTransactionForAccount->joint_count;
 
                     $transaction = $bankTransactionRepository->findLatestTransactionByAccountGTeAmount(
                         $user->getAccount(),
-                        $minimumAmount / max($jointCount, 1)
+                        $minimumAmount * max($jointCount, 1)
                     );
 
-                    if (is_null($transaction) || $transaction->getTransactionDate() < $revokeDate) { // either no transaction for amount found or the found transaction date is older than revoke date
+                    if (is_null($transaction) || $transaction->getTransactionDate() < $revokeDate) {
+                        // either no transaction for amount found or the found transaction date is older than revoke date
+
                         // make ex member
                         $revokeUsersMinimumAmount[] = $user;
                     }
@@ -236,7 +239,7 @@ class AccountAuditJob implements ShouldQueue
                     // warn membership may be terminated if we don't see one soon
                     $warnUsersNotPaid[] = $user;
                 }
-            } elseif ($latestTransactionForAccounts[$user->getAccount()->getId()]->amount_joint_adjusted < $minimumAmount) {
+            } elseif ($latestTransactionForAccount->amount_joint_adjusted < $minimumAmount) {
                 // date diff should be less than 1.5 months
                 // but have not paid enough
                 if (! in_array($user->getId(), $memberIdsForCurrentUnderPaymentNotifications)) {
@@ -245,15 +248,18 @@ class AccountAuditJob implements ShouldQueue
                 } else { // ? not sure
                     // latest tx date is good but amount is too low, we have sent them a warning
                     // how long before we move to revoke?
+
                     // find there last payment that was above the minimum and if that was before revokeDate?
-                    $jointCount = $latestTransactionForAccounts[$user->getAccount()->getId()]->joint_count;
+                    $jointCount = $latestTransactionForAccount->joint_count;
 
                     $transaction = $bankTransactionRepository->findLatestTransactionByAccountAboveAmount(
                         $user->getAccount(),
-                        $minimumAmount / max($jointCount, 1)
+                        $minimumAmount * max($jointCount, 1)
                     );
 
-                    if (is_null($transaction) || $transaction->getTransactionDate() < $revokeDate) { // either no transaction for amount found or the found transaction date is older than revoke date
+                    if (is_null($transaction) || $transaction->getTransactionDate() < $revokeDate) {
+                        // either no transaction for amount found or the found transaction date is older than revoke date
+
                         // make ex member
                         $revokeUsersMinimumAmount[] = $user;
                     }
@@ -274,25 +280,42 @@ class AccountAuditJob implements ShouldQueue
 
         foreach ($exMembers as $user) {
             if ($transactionDate > $revokeDate) { // transaction date is newer than revoke date
-                if ($latestTransactionForAccounts[$user->getAccount()->getId()]->amount_joint_adjusted < $minimumAmount) {
-                    // but have not paid enough
-                    // only email if there previous payment was before the revoke date
-
-                    // ordered DESC so first should be latestTransactionForAccounts second is one we need to check date on
-                    $accountTransactions = $bankTransactionRepository->paginateByAccount($user->getAccount())->items();
-
-                    if (count($accountTransactions) < 2) {
-                        // oh crap?
-                        continue;
-                    }
-
-                    if ($accountTransactions[1]->getTransactionDate() < $revokeDate) {
-                        // previous transaction was before revokeDate
-                        $exUsersUnderMinimum[] = $user;
-                    }
-                } else {
+                if ($latestTransactionForAccount->amount_joint_adjusted >= $minimumAmount) {
+                    // paid equal or above the minimumAmount
                     // reinstate member
                     $reinstateUsers[] = $user;
+
+                    continue;
+                }
+
+                // but have not paid enough
+                // only email if there previous payment was before the revoke date and we have not emailed about the transaction before
+
+                // ordered DESC so first should be latestTransaction second is one we need to check date on
+                $accountTransactions = $bankTransactionRepository->paginateByAccount($user->getAccount())->items();
+
+                if (count($accountTransactions) < 2) {
+                    // oh crap?
+                    continue;
+                }
+
+                $latestTransaction = $accountTransactions[0];
+                $previousTransaction = $accountTransactions[1];
+
+                $userNotifications = collect($membershipStatusNotificationRepository->findByUser($user));
+
+                if ($userNotifications->contains(
+                    function ($membershipStatusNotification) use ($latestTransaction) {
+                        return optional($membershipStatusNotification->getBankTransaction())->getId() == $latestTransaction->getId();
+                    }
+                )) {
+                    // the latestTransaction was associated with a previous MembershipStatusNotification
+                    continue;
+                }
+
+                if ($previousTransaction->getTransactionDate() < $revokeDate) {
+                    // previous transaction was before revokeDate
+                    $exUsersUnderMinimum[] = $user;
                 }
             }
         }

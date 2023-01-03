@@ -28,7 +28,7 @@ The following awaiting payment members have sent a payment but it is under the m
 @endcomponent
 @endif
 
-## Notified Members: {{ count($formattedWarnUsers) }}
+## Notified Members: {{ count($formattedWarnUsers) + count($formattedWarnUsersMinimumAmount) }}
 We have not seen a payment from these members in a while, they may soon have their membership revoked.
 @component('mail::table')
 | Name                                       | Joint Account | Balance | Last payment date | Last visit date |
@@ -54,7 +54,7 @@ We have seen a payment from these members but is it below the minimum, they may 
 @endif
 
 
-## Revoked Members: {{ count($formattedRevokeUsers) }}
+## Revoked Members: {{ count($formattedRevokeUsers) + count($formattedRevokeUsersMinimumAmount)}}
 These members' last payment was too long ago, so their membership has been revoked.
 @component('mail::table')
 | Name                                       | Joint Account | Balance | Last payment date | Last visit date |

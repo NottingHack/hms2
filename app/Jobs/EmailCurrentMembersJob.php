@@ -158,7 +158,7 @@ class EmailCurrentMembersJob implements ShouldQueue
 
         LogSentMailgunMessageJob::dispatch(
             $to,
-            $subject,
+            $this->subject,
             $data['htmlContent'],
             implode(',', $batchMessage->getMessageIds())
         );

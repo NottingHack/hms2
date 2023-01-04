@@ -177,7 +177,7 @@ class Booking implements ArrayableContract, JsonSerializable
         ];
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->toArray();
     }

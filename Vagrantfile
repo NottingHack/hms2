@@ -26,14 +26,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/mix.sh", privileged: false
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/labelprinter.sh"
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/laravel-queue.sh"
-  config.vm.provision :shell, path: "dev/vagrant-config/scripts/echo.sh"
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/finish.sh"
 
   config.vm.network "private_network", ip: "192.168.25.35"
 
   config.trigger.after :up, :resume, :reload do |trigger|
       trigger.info = "Restaring Nginx & PHP"
-      trigger.run_remote = {inline: "sudo systemctl restart nginx php* laravel-echo-server horizon"}
+      trigger.run_remote = {inline: "sudo systemctl restart nginx php* soketi horizon"}
   end
 
 end

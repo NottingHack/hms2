@@ -36,7 +36,7 @@ window.Pusher = require('pusher-js');
 window.Echo = new Echo({
     broadcaster: 'pusher',
     key: process.env.MIX_PUSHER_APP_KEY,
-    wsHost: process.env.MIX_PUSHER_HOST,
+    wsHost: process.env.MIX_PUSHER_HOST ? process.env.MIX_PUSHER_HOST : window.location.hostname,
     wsPort: process.env.MIX_PUSHER_PORT,
     wssPort: process.env.MIX_PUSHER_PORT,
     forceTLS: false,
@@ -47,7 +47,7 @@ window.Echo = new Echo({
 
 // Setup jQuery ajax with the CSRF token
 $.ajaxSetup({
-   headers: {
-     'X-CSRF-Token': document.head.querySelector('meta[name="csrf-token"]').content,
-   }
+    headers: {
+        'X-CSRF-Token': document.head.querySelector('meta[name="csrf-token"]').content,
+    }
 });

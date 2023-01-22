@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Carbon\Carbon;
 use Faker\Generator;
 use HMS\Entities\Banking\Account;
@@ -9,6 +11,7 @@ use HMS\Factories\Banking\BankTransactionFactory;
 use HMS\Repositories\Banking\AccountRepository;
 use HMS\Repositories\Banking\BankRepository;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class BankTransactionTableSeeder extends Seeder
 {

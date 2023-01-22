@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use HMS\Entities\Gatekeeper\RfidTag;
 use HMS\Entities\Gatekeeper\RfidTagState;
 use HMS\Entities\Role;

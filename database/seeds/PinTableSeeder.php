@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use HMS\Entities\Role;
 use HMS\Factories\Gatekeeper\PinFactory;
 use HMS\Repositories\Gatekeeper\PinRepository;

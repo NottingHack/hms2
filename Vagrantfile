@@ -11,7 +11,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "NottingHack/hms2"
-  config.vm.box_version = ">=1.5.0"
+  config.vm.box_version = ">=1.6.0"
   config.vm.hostname = "hmsdev.nottingtest.org.uk"
 
   config.vm.provider :virtualbox do |vb|
@@ -26,14 +26,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/mix.sh", privileged: false
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/labelprinter.sh"
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/laravel-queue.sh"
-  config.vm.provision :shell, path: "dev/vagrant-config/scripts/echo.sh"
   config.vm.provision :shell, path: "dev/vagrant-config/scripts/finish.sh"
 
   config.vm.network "private_network", ip: "192.168.25.35"
 
   config.trigger.after :up, :resume, :reload do |trigger|
       trigger.info = "Restaring Nginx & PHP"
-      trigger.run_remote = {inline: "sudo systemctl restart nginx php7.2-fpm php7.4-fpm laravel-echo-server horizon"}
+      trigger.run_remote = {inline: "sudo systemctl restart nginx php* soketi horizon"}
   end
 
 end

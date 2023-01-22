@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use HMS\Entities\Snackspace\Product;
 use HMS\Repositories\Snackspace\ProductRepository;
 use Illuminate\Database\Seeder;

@@ -31,7 +31,7 @@ return [
     | users are actually retrieved out of your database or other storage
     | mechanisms used by this application to persist your user's data.
     |
-    | Supported: "session", "token"
+    | Supported: "session"
     |
     */
 
@@ -110,6 +110,7 @@ return [
     | confirmation screen. By default, the timeout lasts for three hours.
     |
     */
+
     'password_timeout' => 10800,
 
     /*
@@ -119,6 +120,7 @@ return [
     |
     | Specify an override to the default validation period of the link
      */
+
     'verification' => [
         'expire' => 120, // 2 hours, default is 60 minutes.
     ],

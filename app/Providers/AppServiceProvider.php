@@ -5,6 +5,7 @@ namespace App\Providers;
 use HMS\Auth\PasswordStore;
 use HMS\Auth\PasswordStoreManager;
 use HMS\Facades\Features;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Stripe\Stripe;
@@ -53,5 +54,7 @@ class AppServiceProvider extends ServiceProvider
 
             return "<?php echo Content::get('{$view}', '{$block}', 'ContentBlock missing for {$view}:{$block}  '); ?>";
         });
+
+        Paginator::useBootstrap();
     }
 }

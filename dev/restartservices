@@ -1,1 +1,1 @@
-vagrant ssh -c 'sudo systemctl restart nginx.service php7.2-fpm.service php7.4-fpm.service horizon.service laravel-echo-server.service'
+vagrant ssh -c 'sudo systemctl restart nginx.service php* horizon.service soketi.service'

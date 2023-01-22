@@ -5,8 +5,10 @@ namespace App\Providers;
 use Doctrine\ORM\EntityManagerInterface;
 use HMS\Auth\HmsUserProvider;
 use HMS\Auth\PasswordStore;
+use HMS\Entities\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Laravel\Passport\Passport;
 
@@ -46,5 +48,9 @@ class AuthServiceProvider extends ServiceProvider
         Passport::personalAccessTokensExpireIn(
             now()->addDays(config('hms.passport_personal_access_token_expire_days', 20))
         );
+
+        Gate::define('viewLogViewer', function (?User $user) {
+            return $user->can('logViewer.view');
+        });
     }
 }

@@ -34,6 +34,8 @@ return [
         '#^horizon#',
         '#^telescope#',
         '#^oauth#',
+        '#^log-viewer#',
+        '#^livewire#',
     ],
 
 ];

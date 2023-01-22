@@ -32,6 +32,7 @@
         "laravel/ui": "^3.4",
         "lwk/vimbadmin-laravel-client": "^1.2",
         "mailgun/mailgun-php": "^3.5",
+        "opcodesio/log-viewer": "^1.9",
         "pusher/pusher-php-server": "^7.2",
         "soundasleep/html2text": "^1.1",
         "spatie/laravel-cookie-consent": "^2.0|^3.0",

@@ -271,17 +271,23 @@ return [
             'text'          => '<i class="fad fa-bug fa-lg"></i>',
             'permissions'   => [],
             'links'         => [
-                'telescope'          => [
+                'telescope' => [
                     'text'          => 'Telescope',
                     'route'         => 'telescope',
                     'match'         => 'telescope',
                     'permissions'   => ['telescope.view'],
                 ],
-                'horizon'          => [
+                'horizon' => [
                     'text'          => 'Horizon',
                     'route'         => 'horizon.index',
                     'match'         => 'horizon.index',
                     'permissions'   => ['horizon.view'],
+                ],
+                'logViewer' => [
+                    'text'          => 'Log Viewer',
+                    'route'         => 'blv.index',
+                    'match'         => 'blv.index',
+                    'permissions'   => ['logViewer.view'],
                 ],
             ],
         ],

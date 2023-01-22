@@ -49,6 +49,8 @@ return [
     'space_city' => env('BRANDING_SPACE_CITY', env('BRANDING_REGISTERED_CITY', 'Nottingham')),
     'space_county' => env('BRANDING_SPACE_COUNTY', env('BRANDING_REGISTERED_COUNTY', null)),
     'space_postcode' => env('BRANDING_SPACE_POSTCODE', env('BRANDING_REGISTERED_POSTCODE', 'NG3 1JH')),
+    'space_latitude' => env('BRANDING_LATITUDE', 52.9557),
+    'space_longitude' => env('BRANDING_LONGITUDE', -1.1350),
 
     /*
     |--------------------------------------------------------------------------
@@ -57,23 +59,25 @@ return [
     | Setting env var to equal null will hide link
     */
     'social_networks' => [
-        [
-            'link' => env('SOCIAL_TWITTER', 'https://twitter.com/HSNOTTS'),
+        'twitter' => [
+            'link' => 'https://twitter.com/' . env('SOCIAL_TWITTER', 'HSNOTTS'),
             'icon' => 'fab fa-twitter',
+            'handle' => '@' . env('SOCIAL_TWITTER', 'HSNOTTS')
         ],
-        [
+        'facebook' => [
             'link' => env('SOCIAL_FACEBOOK', 'https://www.facebook.com/nottinghack/'),
             'icon' => 'fab fa-facebook',
         ],
-        [
-            'link' => env('SOCIAL_GOOGLE', 'https://groups.google.com/group/nottinghack?hl=en'),
+        'google_groups' => [
+            'link' => 'https://groups.google.com/group/' . env('SOCIAL_GOOGLE', 'nottinghack') . '?hl=en',
             'icon' => 'fab fa-google',
+            'email' => env('SOCIAL_GOOGLE', 'nottinghack') . '@googlegroups.com',
         ],
-        [
+        'flickr' => [
             'link' => env('SOCIAL_FLICKR', 'https://www.flickr.com/photos/nottinghack'),
             'icon' => 'fab fa-flickr',
         ],
-        [
+        'youtube' => [
             'link' => env('SOCIAL_YOUTUBE', 'https://www.youtube.com/user/nottinghack'),
             'icon' => 'fab fa-youtube',
         ],

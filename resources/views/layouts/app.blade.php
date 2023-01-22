@@ -23,16 +23,16 @@
   <script src="{{ mix('/js/app.js') }}" defer></script>
 
   <!-- fav icons -->
-  <link rel="shortcut icon" href="/images/{{ config('branding.theme', "nottinghack") }}/favicon.ico?v=XBJgQp70gw{{ config('branding.theme', "nottinghack") }}" type="image/x-icon">
-  <link rel="apple-touch-icon" sizes="60x60" href="/images/{{ config('branding.theme', "nottinghack") }}/apple-touch-icon-60x60.png">
-  <link rel="apple-touch-icon" sizes="76x76" href="/images/{{ config('branding.theme', "nottinghack") }}/apple-touch-icon-76x76.png">
-  <link rel="apple-touch-icon" sizes="120x120" href="/images/{{ config('branding.theme', "nottinghack") }}/apple-touch-icon-120x120.png">
-  <link rel="apple-touch-icon" sizes="152x152" href="/images/{{ config('branding.theme', "nottinghack") }}/apple-touch-icon-152x152.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/{{ config('branding.theme', "nottinghack") }}/apple-touch-icon.png?v=XBJgQp70gw{{ config('branding.theme', "nottinghack") }}">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/{{ config('branding.theme', "nottinghack") }}/favicon-32x32.png?v=XBJgQp70gw{{ config('branding.theme', "nottinghack") }}">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/{{ config('branding.theme', "nottinghack") }}/favicon-16x16.png?v=XBJgQp70gw{{ config('branding.theme', "nottinghack") }}">
-  <link rel="manifest" href="/images/{{ config('branding.theme', "nottinghack") }}/site.webmanifest?v=XBJgQp70gw{{ config('branding.theme', "nottinghack") }}">
-  <link rel="mask-icon" href="/images/{{ config('branding.theme', "nottinghack") }}/safari-pinned-tab.svg?v=XBJgQp70gw{{ config('branding.theme', "nottinghack") }}" color="#195905">
+  <link rel="shortcut icon" href="/images/{{ config('branding.theme', 'nottinghack') }}/favicon.ico?v=XBJgQp70gw{{ config('branding.theme', 'nottinghack') }}" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="60x60" href="/images/{{ config('branding.theme', 'nottinghack') }}/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/{{ config('branding.theme', 'nottinghack') }}/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/images/{{ config('branding.theme', 'nottinghack') }}/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/images/{{ config('branding.theme', 'nottinghack') }}/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/{{ config('branding.theme', 'nottinghack') }}/apple-touch-icon.png?v=XBJgQp70gw{{ config('branding.theme', 'nottinghack') }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/{{ config('branding.theme', 'nottinghack') }}/favicon-32x32.png?v=XBJgQp70gw{{ config('branding.theme', 'nottinghack') }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/{{ config('branding.theme', 'nottinghack') }}/favicon-16x16.png?v=XBJgQp70gw{{ config('branding.theme', 'nottinghack') }}">
+  <link rel="manifest" href="/images/{{ config('branding.theme', 'nottinghack') }}/site.webmanifest?v=XBJgQp70gw{{ config('branding.theme', 'nottinghack') }}">
+  <link rel="mask-icon" href="/images/{{ config('branding.theme', 'nottinghack') }}/safari-pinned-tab.svg?v=XBJgQp70gw{{ config('branding.theme', 'nottinghack') }}" color="#195905">
   <meta name="apple-mobile-web-app-title" content="HMS">
   <meta name="application-name" content="HMS">
   <meta name="msapplication-TileColor" content="#195905">

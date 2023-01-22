@@ -33,6 +33,7 @@ Access Logs
         <th>Door</th>
         <th>User</th>
         <th>Result</th>
+        <th>Zone Entered</th>
         <th>Denied Reason</th>
       </thead>
       <tbody>
@@ -55,6 +56,7 @@ Access Logs
             @endif
           </td>
           <td data-title="Result">{{ $accessLog->getAccessResultString() }}</td>
+          <td data-title="Zone Entered">{{ $accessLog->getEnteredZone()?->getDescription() }}</td>
           <td data-title="Denied Reason">{!! $accessLog->getDeniedReason() ?? '&nbsp;' !!}</td>
         </tr>
   @if ($loop->last)

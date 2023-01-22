@@ -26,6 +26,7 @@ Access Logs for {{ $user->getFirstname() }}
         <th>Pin</th>
         <th>Door</th>
         <th>Result</th>
+        <th>Zone Entered</th>
         <th>Denied Reason</th>
       </thead>
       <tbody>
@@ -36,6 +37,7 @@ Access Logs for {{ $user->getFirstname() }}
           <td data-title="Pin">{{ $accessLog->getPin() }}</td>
           <td data-title="Door">{{ $accessLog->getDoor() ? $accessLog->getDoor()->getDescription() : ''}}</td>
           <td data-title="Result">{{ $accessLog->getAccessResultString() }}</td>
+          <td data-title="Zone Entered">{{ $accessLog->getEnteredZone()?->getDescription() }}</td>
           <td data-title="Denied Reason">{!! $accessLog->getDeniedReason() ?? '&nbsp;' !!}</td>
         </tr>
   @if ($loop->last)

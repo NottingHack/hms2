@@ -11,6 +11,9 @@
     @if ($roden = Meta::get('access_roden_street_door'))
     <li class="list-group-item">Roden Street Door: {{ $roden }}</li>
     @endif
+    @if ($bins = Meta::get('access_roden_house_bins'))
+    <li class="list-group-item">Roden House Bins: {{ $bins }}</li>
+    @endif
     <li class="list-group-item">{{ Auth::user() == $user ? 'You have' : $user->getFirstname() . ' has' }} {{ count($user->getRfidTags()) }} RFID cards.</li>
     @canany(['pins.view.all', 'pins.view.self'])
     @if ($user->getPin())

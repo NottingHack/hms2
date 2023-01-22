@@ -15,6 +15,7 @@ return [
         'access_guest_wifi_ssid' => 'HSNOTTS-guest',
         'access_inner_door' => 1234,
         'access_roden_street_door' => 1234,
+        'access_roden_house_bins' => 1234,
         'access_street_door' => 1234,
         'access_wifi_password' => 123456,
         'access_wifi_ssid' => 'HSNOTTS',

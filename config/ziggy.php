@@ -8,5 +8,15 @@ return [
     | Either `only` or `except` never both
     */
     // 'only' => ['home', 'api.*'],
-    'except' => ['debugbar.*', 'horizon.*', 'telescope.*', 'pretty-routes.*', 'client.*'],
+    'except' => [
+        'debugbar.*',
+        'ignition.*',
+        'passport.*',
+        'horizon.*',
+        'telescope*',
+        'pretty-routes.*',
+        'blv.*', // log-viewer
+        'livewire.*',
+        'client.*'
+    ],
 ];

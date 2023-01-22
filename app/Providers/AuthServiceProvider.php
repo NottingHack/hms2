@@ -49,8 +49,10 @@ class AuthServiceProvider extends ServiceProvider
             now()->addDays(config('hms.passport_personal_access_token_expire_days', 20))
         );
 
-        Gate::define('viewLogViewer', function (?User $user) {
-            return $user->can('logViewer.view');
-        });
+        if (! $this->app->environment('local')) {
+            Gate::define('viewLogViewer', function (?User $user) {
+                return $user?->can('logViewer.view') ?? false;
+            });
+        }
     }
 }

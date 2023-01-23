@@ -184,6 +184,7 @@ return [
         App\Providers\RepositoryServiceProvider::class,
         App\Providers\HmsHelperServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
+        App\Providers\PassportServiceProvider::class,
     ],
 
     /*

@@ -45,6 +45,8 @@ class RefreshProceduresCommand extends Command
             $hostname = '%';
         } elseif (in_array($hostname, ['holly', 'rommie'])) {
             $hostname .= '.lspace';
+        } elseif (in_array($hostname, ['members'])) {
+            $hostname = 'localhost';
         }
 
         $proceduresDirectory = config('hms.procedures_directory');

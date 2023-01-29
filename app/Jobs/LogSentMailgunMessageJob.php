@@ -74,7 +74,7 @@ class LogSentMailgunMessageJob implements ShouldQueue
         RoleRepository $roleRepository
     ) {
         $toAddresses = collect($this->to)->mapWithKeys(function ($name, $key) {
-            return [$key => $name['name']];
+            return [$key => $name['full_name']];
         })->toArray();
 
         $fullString = '';

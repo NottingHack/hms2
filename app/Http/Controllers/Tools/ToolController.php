@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Tools;
 
 use App\Http\Controllers\Controller;
 use HMS\Entities\Tools\Tool;
+use HMS\Entities\User;
 use HMS\Factories\Tools\UsageFactory;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\RoleUpdateRepository;

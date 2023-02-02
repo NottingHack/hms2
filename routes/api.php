@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 // All api route names are prefixed with api.
 Route::name('api.')->namespace('Api')->group(function () {
     Route::get('spaceapi', 'SpaceApiController')->name('spaceapi');
+    Route::post('mw-auth-hms', 'MwAuthHmsController')->name('mw-auth-hms');
 
     // Stripe (not auth restricted)
     Route::post('stripe/intent/makeGuest', 'Banking\StripeController@makeIntent')

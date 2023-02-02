@@ -23,6 +23,7 @@ return [
         'voting_status' => env('FEATURE_VOTING_STATUS', true),
         'members_enroll_pin' => env('FEATURE_MEMBERS_ENROLL_PIN', true),
         'space_api' => env('FEATURE_SPACEAPI', true),
+        'mw_auth_hms' => env('FEATURE_MW_AUTH_WIKI', true),
     ],
 
     /*

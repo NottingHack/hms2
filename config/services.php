@@ -48,4 +48,9 @@ return [
     'healthchecks' => [
         'check_uuid' => env('HEALTHCHECKS_UUID'),
     ],
+
+    'mw_auth_hms' => [
+        'secret' => env('MW_AUTH_HMS_SECRET'),
+        'salt' => env('MW_AUTH_HMS_SALT'),
+    ],
 ];

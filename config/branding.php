@@ -62,7 +62,7 @@ return [
         'twitter' => [
             'link' => 'https://twitter.com/' . env('SOCIAL_TWITTER', 'HSNOTTS'),
             'icon' => 'fab fa-twitter',
-            'handle' => '@' . env('SOCIAL_TWITTER', 'HSNOTTS')
+            'handle' => '@' . env('SOCIAL_TWITTER', 'HSNOTTS'),
         ],
         'facebook' => [
             'link' => env('SOCIAL_FACEBOOK', 'https://www.facebook.com/nottinghack/'),

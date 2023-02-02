@@ -19,7 +19,8 @@ class SpaceApiController extends Controller
     /**
      * Handle the incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request request
+     *
      * @return \Illuminate\Http\Response
      */
     public function __invoke(Request $request)
@@ -82,7 +83,7 @@ class SpaceApiController extends Controller
             ],
 
             'issue_report_channels' => [
-                'issue_mail'
+                'issue_mail',
             ],
 
             'spacefed' => [
@@ -95,14 +96,14 @@ class SpaceApiController extends Controller
                 'open' => $spaceOpen == 'Yes',
                 'lastchange' => intval($lastChange),
                 'icon' => [
-                  'open' => asset('images/' . config('branding.theme', 'nottinghack') . '/logo_open.png'),
-                  'closed' => asset('images/' . config('branding.theme', 'nottinghack') . '/logo_closed.png'),
+                    'open' => asset('images/' . config('branding.theme', 'nottinghack') . '/logo_open.png'),
+                    'closed' => asset('images/' . config('branding.theme', 'nottinghack') . '/logo_closed.png'),
                 ],
                 'message' => $statusMessage,
             ],
 
             'sensors' => [
-              'temperature' => $spaceTemps,
+                'temperature' => $spaceTemps,
             ],
         ];
 

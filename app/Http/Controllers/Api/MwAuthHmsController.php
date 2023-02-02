@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class MwAuthHmsController extends Controller
@@ -17,7 +16,8 @@ class MwAuthHmsController extends Controller
     /**
      * Handle the incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function __invoke(Request $request)
@@ -43,9 +43,9 @@ class MwAuthHmsController extends Controller
         /* Replace anything that isn't a-Z, 0-9 with an underscore (mostly after spaces...) */
         $username = preg_replace('/[^a-zA-Z0-9]/', '_', $validatedData['username']);
         if (! Auth::once([
-                'username' => lcfirst($username),
-                'password' => $validatedData['password'],
-            ])
+            'username' => lcfirst($username),
+            'password' => $validatedData['password'],
+        ])
             || ! Auth::once([
                 'username' => ucfirst($username),
                 'password' => $validatedData['password'],

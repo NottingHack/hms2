@@ -17,6 +17,6 @@ return [
         'pretty-routes.*',
         'blv.*', // log-viewer
         'livewire.*',
-        'client.*'
+        'client.*',
     ],
 ];

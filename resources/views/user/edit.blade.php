@@ -133,6 +133,20 @@
           </p>
           @endif
         </div>
+
+        <hr>
+
+        <div class="form-group">
+          <label for="discordUserId" class="form-label">Discord Username</label>
+          <input class="form-control" id="discordUserId" type="text" name="discordUserId" value="{{ old('discordUserId', $user->getProfile()->getDiscordUserId()) }}">
+	  <small class="form-text text-muted">
+	    This can be copied by clicking on your username at the bottom left. It should include the &num; and four digit number.
+	  </small>
+          @if ($errors->has('discordUserId'))
+            <p class="help-text">
+              <strong>{{ $errors->first('discordUserId') }}</strong>
+            </p>
+          @endif
         @endif {{-- userProfile() --}}
       </div>
       <div class="card-footer">

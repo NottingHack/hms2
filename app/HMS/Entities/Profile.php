@@ -71,6 +71,11 @@ class Profile
     protected $dateOfBirth;
 
     /**
+     * @var null|string
+     */
+    protected $discordUserId;
+
+    /**
      * @var int
      */
     protected $balance;
@@ -340,6 +345,26 @@ class Profile
     public function setDateOfBirth(?Carbon $dateOfBirth): self
     {
         $this->dateOfBirth = $dateOfBirth;
+
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getDiscordUserId(): ?string
+    {
+        return $this->discordUserId;
+    }
+
+    /**
+     * @param null|string
+     *
+     * @return self
+     */
+    public function setDiscordUserId(?string $discordUserId): self
+    {
+        $this->discordUserId = $discordUserId;
 
         return $this;
     }

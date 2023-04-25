@@ -62,6 +62,11 @@ HMS\Entities\Profile:
       type: date
       column: date_of_birth
       nullable: true
+    discordUserId:
+      type: string
+      column: discord_id
+      length: 32
+      nullable: true
     balance:
       type: integer
       options:

@@ -140,6 +140,7 @@ class UserController extends Controller
             'addressPostcode' => 'sometimes|required|max:10',
             'contactNumber' => 'sometimes|required|max:50',
             'dateOfBirth' => 'sometimes|nullable|date_format:Y-m-d',
+            'discordUserId' => 'sometimes|nullable|max:32',
             'unlockText' => 'sometimes|nullable|max:95',
         ]);
 

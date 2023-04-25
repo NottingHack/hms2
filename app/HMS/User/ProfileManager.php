@@ -55,6 +55,7 @@ class ProfileManager
      * @param string $addressPostcode
      * @param string $contactNumber
      * @param null|string $dateOfBirth
+     * @param null|string $discordUserId
      *
      * @return User
      */
@@ -67,7 +68,8 @@ class ProfileManager
         string $addressCounty,
         string $addressPostcode,
         string $contactNumber,
-        ?string $dateOfBirth
+        ?string $dateOfBirth,
+        ?string $discordUserId
     ): User {
         $profile = new Profile($user);
 
@@ -88,6 +90,10 @@ class ProfileManager
 
         if (! empty($dateOfBirth)) {
             $profile->setDateOfBirth(new Carbon($dateOfBirth));
+        }
+
+        if (! empty($discordUserId)) {
+            $profile->setDiscordUserId($discordUserId);
         }
 
         $profile->setCreditLimit($this->metaRepository->get('member_credit_limit'));
@@ -150,6 +156,15 @@ class ProfileManager
                 $profile->setDateOfBirth(null);
             } else {
                 $profile->setDateOfBirth(new Carbon($request['dateOfBirth']));
+            }
+        }
+
+        // Nullable field
+        if (array_key_exists('discordUserId', $request)) {
+            if (is_null($request['discordUserId'])) {
+                $profile->setDiscordUserId(null);
+            } else {
+                $profile->setDiscordUserId($request['discordUserId']);
             }
         }
 

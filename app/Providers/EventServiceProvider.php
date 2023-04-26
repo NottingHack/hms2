@@ -6,6 +6,7 @@ use App\Listeners\PrintLabelSubscriber;
 use App\Listeners\RoleUpdateLogger;
 use App\Listeners\Tools\NotifyNhToolsSubscriber;
 use App\Listeners\ViMbAdminSubscriber;
+use App\Listeners\RoleUpdateDiscordUpdater;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -34,6 +35,7 @@ class EventServiceProvider extends ServiceProvider
         RoleUpdateLogger::class,
         PrintLabelSubscriber::class,
         NotifyNhToolsSubscriber::class,
+	RoleUpdateDiscordUpdater::class,
     ];
 
     /**

@@ -8,6 +8,7 @@ use HMS\Entities\User;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\ProfileRepository;
 use HMS\Repositories\UserRepository;
+use App\Events\Users\DiscordUsernameUpdated;
 
 class ProfileManager
 {
@@ -161,10 +162,17 @@ class ProfileManager
 
         // Nullable field
         if (array_key_exists('discordUserId', $request)) {
+            $oldDiscordUserId = $profile->getDiscordUserId();
             if (is_null($request['discordUserId'])) {
                 $profile->setDiscordUserId(null);
             } else {
                 $profile->setDiscordUserId($request['discordUserId']);
+            }
+
+            // When a user sets their discord user ID, we want to
+            // fire an event to push all roles.
+            if ($oldDiscordUserId != $profile->getDiscordUserId()) {
+                event(new DiscordUsernameUpdated($user, $profile));
             }
         }
 

@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Events\Roles\UserAddedToRole;
 use App\Events\Roles\UserRemovedFromRole;
+use App\Events\Users\DiscordUsernameUpdated;
 use Doctrine\ORM\EntityManagerInterface;
 use HMS\Entities\Role;
 use HMS\Entities\Profile;
@@ -120,6 +121,44 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
     }
 
     /**
+     * Handles user setting their Discord username field
+     * i.e. push all current roles
+     *
+     * @param DiscordUsernameUpdated $event
+     */
+    public function onDiscordUsernameUpdated(DiscordUsernameUpdated $event) {
+        $user = $event->user;
+        $profile = $event->profile;
+
+        if (! $profile->getDiscordUserId()) return;
+
+        $memberRole = $this->roleRepository->findMemberStatusForUser($user);
+        $memberTeams = $this->roleRepository->findTeamsForUser($user);
+
+        $discordMember = $this->discord->findMemberByUsername($profile->getDiscordUserId());
+
+        $discordMemberRole = $this->discord->findRoleByName($memberRole->getDisplayName());
+        if ($discordMemberRole) {
+            $this->discord->getDiscordClient()->guild->addGuildMemberRole([
+                'guild.id' => (int)env('DISCORD_GUILD_ID'),
+                'user.id' => $discordMember->user->id,
+                'role.id' => $discordMemberRole->id
+            ]);
+        }
+
+        foreach ($memberTeams as $team) {
+            $discordTeamRole = $this->discord->findRoleByName($team->getDisplayName());
+            if (! $discordTeamRole) continue;
+
+            $this->discord->getDiscordClient()->guild->addGuildMemberRole([
+                'guild.id' => (int)env('DISCORD_GUILD_ID'),
+                'user.id' => $discordMember->user->id,
+                'role.id' => $discordTeamRole->id
+            ]);
+        }
+    }
+
+    /**
      * Register the listeners for the subscriber.
      *
      * @param Illuminate\Events\Dispatcher $events
@@ -137,5 +176,12 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
             'App\Events\Roles\UserRemovedFromRole',
             'App\Listeners\RoleUpdateDiscordUpdater@onUserRemovedFromRole'
         );
+
+        $events->listen(
+            'App\Events\Users\DiscordUsernameUpdated',
+            'App\Listeners\RoleUpdateDiscordUpdater@onDiscordUsernameUpdated'
+        );
     }
 }
+
+// asjackson#5316

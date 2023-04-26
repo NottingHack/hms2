@@ -4,8 +4,8 @@ namespace HMS\Helpers;
 
 use RestCord\DiscordClient;
 
-class Discord {
-
+class Discord
+{
     /**
      * @var RestCord\DiscordClient
      */
@@ -32,11 +32,12 @@ class Discord {
      * @param string $token  The Discord token.
      * @param int $guildId   The Discord server guild ID.
      */
-    public function __construct (string $token, int $guildId) {
+    public function __construct(string $token, int $guildId)
+    {
         $this->guildId = $guildId;
 
         $this->client = new DiscordClient([
-            'token' => $token
+            'token' => $token,
         ]);
     }
 
@@ -45,25 +46,27 @@ class Discord {
      *
      * @return DiscordClient
      */
-    public function getDiscordClient() {
+    public function getDiscordClient()
+    {
         return $this->client;
     }
 
     /**
      * Find a Discord role by its name.
      *
-     * @var string $name  The role name
+     * @var string  The role name
      *
      * @return null|DiscordRole
      */
-    public function findRoleByName (string $name) {
-        if (! $this->roles ) {
+    public function findRoleByName(string $name)
+    {
+        if (! $this->roles) {
             $this->roles = $this->client->guild->getGuildRoles([
-                'guild.id' => $this->guildId
+                'guild.id' => $this->guildId,
             ]);
         }
 
-        foreach($this->roles as $r) {
+        foreach ($this->roles as $r) {
             if ($r->name == $name) {
                 return $r;
             }
@@ -75,12 +78,13 @@ class Discord {
     /**
      * Find a Discord member by their username.
      *
-     * @var string $username  The full username (with discriminator)
+     * @var string  The full username (with discriminator)
      *
      * @return null|DiscordMember
      */
-    public function findMemberByUsername (string $username) {
-        if (! $this->members ) {
+    public function findMemberByUsername(string $username)
+    {
+        if (! $this->members) {
             // This supports pagination in chunks of 1000 by setting the
             // 'after' parameter to the last member user id. I don't think
             // we need to worry about this yet.
@@ -96,7 +100,7 @@ class Discord {
         // a # character.
         $parts = explode('#', $username);
         $userPart = $parts[0];
-        $discrPart = (int)$parts[1];
+        $discrPart = (int) $parts[1];
 
         foreach ($this->members as $m) {
             if ($m->user->username == $userPart ||

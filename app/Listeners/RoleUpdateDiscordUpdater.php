@@ -7,12 +7,10 @@ use App\Events\Roles\UserRemovedFromRole;
 use App\Events\Users\DiscordUsernameUpdated;
 use Doctrine\ORM\EntityManagerInterface;
 use HMS\Entities\Role;
-use HMS\Entities\Profile;
-use HMS\Entities\RoleUpdate;
+use HMS\Helpers\Discord;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\RoleUpdateRepository;
 use HMS\Repositories\UserRepository;
-use HMS\Helpers\Discord;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Log;
@@ -63,10 +61,12 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
         $this->roleRepository = $roleRepository;
 
         // If the token isn't set, we can give up now.
-        if (! env('DISCORD_TOKEN', null)) return;
+        if (! env('DISCORD_TOKEN', null)) {
+            return;
+        }
 
         $this->discord = new Discord(
-            env('DISCORD_TOKEN'), (int)env('DISCORD_GUILD_ID')
+            env('DISCORD_TOKEN'), (int) env('DISCORD_GUILD_ID')
         );
     }
 
@@ -81,21 +81,25 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
         $role = $this->roleRepository->findOneById($event->role->getId());
         $profile = $user->getProfile();
 
-        if (! $profile->getDiscordUserId()) return;
+        if (! $profile->getDiscordUserId()) {
+            return;
+        }
 
         $discordMember = $this->discord->findMemberByUsername($profile->getDiscordUserId());
         $discordRole = $this->discord->findRoleByName($role->getDisplayName());
 
-        if (! $discordMember || ! $discordRole) return;
+        if (! $discordMember || ! $discordRole) {
+            return;
+        }
 
         $this->discord->getDiscordClient()->guild->addGuildMemberRole([
-            'guild.id' => (int)env('DISCORD_GUILD_ID'),
+            'guild.id' => (int) env('DISCORD_GUILD_ID'),
             'user.id' => $discordMember->user->id,
-            'role.id' => $discordRole->id
+            'role.id' => $discordRole->id,
         ]);
 
-        Log::info("RoleUpdateDiscordUpdater@onUserAddedToRole: " .
-                  $user->getUsername() . " added to discord role " . $role->getDisplayName());
+        Log::info('RoleUpdateDiscordUpdater@onUserAddedToRole: ' .
+                  $user->getUsername() . ' added to discord role ' . $role->getDisplayName());
     }
 
     /**
@@ -109,34 +113,41 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
         $role = $this->roleRepository->findOneById($event->role->getId());
         $profile = $user->getProfile();
 
-        if (! $profile->getDiscordUserId()) return;
+        if (! $profile->getDiscordUserId()) {
+            return;
+        }
 
         $discordMember = $this->discord->findMemberByUsername($profile->getDiscordUserId());
         $discordRole = $this->discord->findRoleByName($role->getDisplayName());
 
-        if (! $discordMember || ! $discordRole) return;
+        if (! $discordMember || ! $discordRole) {
+            return;
+        }
 
         $this->discord->getDiscordClient()->guild->removeGuildMemberRole([
-            'guild.id' => (int)env('DISCORD_GUILD_ID'),
+            'guild.id' => (int) env('DISCORD_GUILD_ID'),
             'user.id' => $discordMember->user->id,
-            'role.id' => $discordRole->id
+            'role.id' => $discordRole->id,
         ]);
 
-        Log::info("RoleUpdateDiscordUpdater@onUserRemovedFromRole: " .
-                  $user->getUsername() . " removed from discord role " . $role->getDisplayName());
+        Log::info('RoleUpdateDiscordUpdater@onUserRemovedFromRole: ' .
+                  $user->getUsername() . ' removed from discord role ' . $role->getDisplayName());
     }
 
     /**
      * Handles user setting their Discord username field
-     * i.e. push all current roles
+     * i.e. push all current roles.
      *
      * @param DiscordUsernameUpdated $event
      */
-    public function onDiscordUsernameUpdated(DiscordUsernameUpdated $event) {
+    public function onDiscordUsernameUpdated(DiscordUsernameUpdated $event)
+    {
         $user = $event->user;
         $profile = $event->profile;
 
-        if (! $profile->getDiscordUserId()) return;
+        if (! $profile->getDiscordUserId()) {
+            return;
+        }
 
         $memberRole = $this->roleRepository->findMemberStatusForUser($user);
         $memberTeams = $this->roleRepository->findTeamsForUser($user);
@@ -146,25 +157,27 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
         $discordMemberRole = $this->discord->findRoleByName($memberRole->getDisplayName());
         if ($discordMemberRole) {
             $this->discord->getDiscordClient()->guild->addGuildMemberRole([
-                'guild.id' => (int)env('DISCORD_GUILD_ID'),
+                'guild.id' => (int) env('DISCORD_GUILD_ID'),
                 'user.id' => $discordMember->user->id,
-                'role.id' => $discordMemberRole->id
+                'role.id' => $discordMemberRole->id,
             ]);
-            Log::info("RoleUpdateDiscordUpdater@onDiscordUsernameUpdated: " .
-                      $user->getUsername() . " added to discord role " . $memberRole->getDisplayName());
+            Log::info('RoleUpdateDiscordUpdater@onDiscordUsernameUpdated: ' .
+                      $user->getUsername() . ' added to discord role ' . $memberRole->getDisplayName());
         }
 
         foreach ($memberTeams as $team) {
             $discordTeamRole = $this->discord->findRoleByName($team->getDisplayName());
-            if (! $discordTeamRole) continue;
+            if (! $discordTeamRole) {
+                continue;
+            }
 
             $this->discord->getDiscordClient()->guild->addGuildMemberRole([
-                'guild.id' => (int)env('DISCORD_GUILD_ID'),
+                'guild.id' => (int) env('DISCORD_GUILD_ID'),
                 'user.id' => $discordMember->user->id,
-                'role.id' => $discordTeamRole->id
+                'role.id' => $discordTeamRole->id,
             ]);
-            Log::info("RoleUpdateDiscordUpdater@onDiscordUsernameUpdated: " .
-                      $user->getUsername() . " added to discord role " . $team->getDisplayName());
+            Log::info('RoleUpdateDiscordUpdater@onDiscordUsernameUpdated: ' .
+                      $user->getUsername() . ' added to discord role ' . $team->getDisplayName());
         }
     }
 
@@ -175,7 +188,9 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
      */
     public function subscribe($events)
     {
-        if (! env('DISCORD_TOKEN', null)) return;
+        if (! env('DISCORD_TOKEN', null)) {
+            return;
+        }
 
         $events->listen(
             'App\Events\Roles\UserAddedToRole',

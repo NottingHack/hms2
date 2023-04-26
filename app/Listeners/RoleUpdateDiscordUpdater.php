@@ -93,6 +93,9 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
             'user.id' => $discordMember->user->id,
             'role.id' => $discordRole->id
         ]);
+
+        Log::info("RoleUpdateDiscordUpdater@onUserAddedToRole: " .
+                  $user->getUsername() . " added to discord role " . $role->getDisplayName());
     }
 
     /**
@@ -118,6 +121,9 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
             'user.id' => $discordMember->user->id,
             'role.id' => $discordRole->id
         ]);
+
+        Log::info("RoleUpdateDiscordUpdater@onUserRemovedFromRole: " .
+                  $user->getUsername() . " removed from discord role " . $role->getDisplayName());
     }
 
     /**
@@ -144,6 +150,8 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
                 'user.id' => $discordMember->user->id,
                 'role.id' => $discordMemberRole->id
             ]);
+            Log::info("RoleUpdateDiscordUpdater@onDiscordUsernameUpdated: " .
+                      $user->getUsername() . " added to discord role " . $memberRole->getDisplayName());
         }
 
         foreach ($memberTeams as $team) {
@@ -155,6 +163,8 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
                 'user.id' => $discordMember->user->id,
                 'role.id' => $discordTeamRole->id
             ]);
+            Log::info("RoleUpdateDiscordUpdater@onDiscordUsernameUpdated: " .
+                      $user->getUsername() . " added to discord role " . $team->getDisplayName());
         }
     }
 

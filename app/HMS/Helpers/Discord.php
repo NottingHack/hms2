@@ -63,11 +63,11 @@ class Discord {
             ]);
         }
 
-	foreach($this->roles as $r) {
-	    if ($r->name == $name) {
+        foreach($this->roles as $r) {
+            if ($r->name == $name) {
                 return $r;
             }
-	}
+        }
 
         return null;
     }

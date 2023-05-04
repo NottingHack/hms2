@@ -140,7 +140,7 @@
           <label for="discordUserId" class="form-label">Discord Username</label>
           <input class="form-control" id="discordUserId" type="text" name="discordUserId" value="{{ old('discordUserId', $user->getProfile()->getDiscordUserId()) }}">
 	  <small class="form-text text-muted">
-	    This can be copied by clicking on your username at the bottom left. It should include the &num; and four digit number.
+	    This can be copied by clicking on your username at the bottom left from the Discord app.
 	  </small>
           @if ($errors->has('discordUserId'))
             <p class="help-text">

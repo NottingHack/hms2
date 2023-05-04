@@ -94,18 +94,33 @@ class Discord
             ]);
         }
 
-        // A discord username is made up of the user's chosen username,
-        // and a randomly generated discriminator. The discriminator
-        // is a four digit number and the two are stuck together with
-        // a # character.
-        $parts = explode('#', $username);
-        $userPart = $parts[0];
-        $discrPart = (int) $parts[1];
+        // Evolving Usernames on Discord
+        // https://discord.com/blog/usernames
+        // https://support-dev.discord.com/hc/en-us/articles/13667755828631
+        //
+        // They decided to remove the discriminator component and just
+        // have a single username - this can be removed once they've
+        // completed that change
+        if (str_contains($username, '#')) {
+            // A discord username is made up of the user's chosen username,
+            // and a randomly generated discriminator. The discriminator
+            // is a four digit number and the two are stuck together with
+            // a # character.
+            $parts = explode('#', $username);
+            $userPart = $parts[0];
+            $discrPart = (int) $parts[1];
 
-        foreach ($this->members as $m) {
-            if ($m->user->username == $userPart ||
-                $m->user->discriminator == $discrPart) {
-                return $m;
+            foreach ($this->members as $m) {
+                if ($m->user->username == $userPart ||
+                    $m->user->discriminator == $discrPart) {
+                    return $m;
+                }
+            }
+        } else {
+            foreach ($this->members as $m) {
+                if ($m->user->username == $username) {
+                    return $m;
+                }
             }
         }
 

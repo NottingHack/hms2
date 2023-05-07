@@ -146,8 +146,8 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
      */
     public function onDiscordUsernameUpdated(DiscordUsernameUpdated $event)
     {
-        $user = $event->user;
-        $profile = $event->profile;
+        $user = $this->userRepository->findOneById($event->user->getId());
+        $profile = $user->getProfile();
 
         if (! $profile->getDiscordUserId()) {
             return;
@@ -165,12 +165,12 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
         }
 
         $message = <<<EOF
-Hi **$discordUserId**.
+        Hi **$discordUserId**.
 
-Your Discord account has been linked to the HMS profile **$hmsUsername**. If you did not do this, contact a trustee, including the username mentioned above.
+        Your Discord account has been linked to the HMS profile **$hmsUsername**. If you did not do this, contact a trustee, including the username mentioned above.
 
-Have fun!
-EOF;
+        Have fun!
+        EOF;
         $dm = $this->discord->getDiscordClient()->user->createDm([
             'recipient_id' => $discordMember->user->id,
         ]);
@@ -233,5 +233,3 @@ EOF;
         );
     }
 }
-
-// asjackson#5316

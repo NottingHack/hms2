@@ -8,7 +8,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackMessage;
-use Nwilging\LaravelDiscordBot\Contracts\Notifications\DiscordNotificationContract;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Discord\DiscordChannel;
 use NotificationChannels\Discord\DiscordMessage;
@@ -138,7 +137,6 @@ class NewMemberApprovalNeeded extends Notification implements ShouldQueue
 
             return DiscordMessage::create($message);
         }
-
 
         $link = route('membership.index');
         $message = <<<EOF

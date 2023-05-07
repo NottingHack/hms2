@@ -133,7 +133,7 @@ class Discord
     }
 
     /**
-     * Find a discord channel by name
+     * Find a discord channel by name.
      *
      * @param string $channelName
      *

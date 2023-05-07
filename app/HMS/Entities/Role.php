@@ -3,9 +3,9 @@
 namespace HMS\Entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use HMS\Helpers\Discord;
 use HMS\Traits\Entities\SoftDeletable;
 use HMS\Traits\Entities\Timestampable;
-use HMS\Helpers\Discord;
 use LaravelDoctrine\ACL\Contracts\Permission;
 use LaravelDoctrine\ACL\Contracts\Role as RoleContract;
 use LaravelDoctrine\ACL\Permissions\HasPermissions;
@@ -329,7 +329,7 @@ class Role implements RoleContract
     }
 
     /**
-     * Route notifications to the Discord channel
+     * Route notifications to the Discord channel.
      *
      * @return null|string
      */

@@ -84,8 +84,8 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
     private function checkRoleName($roleName)
     {
         return str_starts_with($roleName, 'team.') ||
-                $roleName == Role::MEMBER_CURRENT ||
-                $roleName == Role::MEMBER_YOUNG;
+               $roleName == Role::MEMBER_CURRENT ||
+               $roleName == Role::MEMBER_YOUNG;
     }
 
     /**
@@ -160,6 +160,21 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
                   $user->getUsername() . ' removed from discord role ' . $role->getDisplayName());
     }
 
+    private function cleanupOldDiscordUserRoles($oldDiscordUserId) {
+        $discordMember = $this->discord->findMemberByUsername($oldDiscordUserId);
+        if (! $discordMember) {
+            return;
+        }
+
+        foreach($discordMember->roles as $discordRoleId) {
+            $this->discord->getDiscordClient()->guild->removeGuildMemberRole([
+                'guild.id' => config('services.discord.guild_id'),
+                'user.id' => $discordMember->user->id,
+                'role.id' => $discordRoleId,
+            ]);
+        }
+    }
+
     /**
      * Handles user setting their Discord username field
      * i.e. push all current roles.
@@ -170,15 +185,21 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
     {
         $user = $this->userRepository->findOneById($event->user->getId());
         $profile = $user->getProfile();
+        $oldDiscordUserId = $event->oldDiscordUserId;
+
+        $memberRole = $this->roleRepository->findMemberStatusForUser($user);
+        $memberTeams = $this->roleRepository->findTeamsForUser($user);
+
+        if ($oldDiscordUserId) {
+            $this->cleanupOldDiscordUserRoles($oldDiscordUserId);
+        }
 
         if (! $profile->getDiscordUserId()) {
             return;
         }
+
         $discordUserId = $profile->getDiscordUserId();
         $hmsUsername = $user->getUsername();
-
-        $memberRole = $this->roleRepository->findMemberStatusForUser($user);
-        $memberTeams = $this->roleRepository->findTeamsForUser($user);
 
         $discordMember = $this->discord->findMemberByUsername($discordUserId);
 

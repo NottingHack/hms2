@@ -22,6 +22,11 @@ class DiscordUsernameUpdated
     public $profile;
 
     /**
+     * @var string|null
+     */
+    public $oldDiscordUserId;
+
+    /**
      * @var User|null
      */
     public $updateBy;
@@ -31,13 +36,15 @@ class DiscordUsernameUpdated
      *
      * @param User $user
      * @param Profile $profile
+     * @param string|null $oldDiscordUserId
      *
      * @return void
      */
-    public function __construct(User $user, Profile $profile)
+    public function __construct(User $user, Profile $profile, ?string $oldDiscordUserId)
     {
         $this->user = $user;
         $this->profile = $profile;
+        $this->oldDiscordUserId = $oldDiscordUserId;
         $this->updateBy = Auth::user();
     }
 }

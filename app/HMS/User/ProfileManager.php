@@ -95,7 +95,7 @@ class ProfileManager
 
         if (! empty($discordUserId)) {
             $profile->setDiscordUserId($discordUserId);
-            event(new DiscordUsernameUpdated($user, $profile));
+            event(new DiscordUsernameUpdated($user, $profile, null));
         }
 
         $profile->setCreditLimit($this->metaRepository->get('member_credit_limit'));
@@ -173,7 +173,7 @@ class ProfileManager
             // When a user sets their discord user ID, we want to
             // fire an event to push all roles.
             if ($oldDiscordUserId != $profile->getDiscordUserId()) {
-                event(new DiscordUsernameUpdated($user, $profile));
+                event(new DiscordUsernameUpdated($user, $profile, $oldDiscordUserId));
             }
         }
 

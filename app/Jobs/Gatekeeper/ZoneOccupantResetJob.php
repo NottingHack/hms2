@@ -2,7 +2,6 @@
 
 namespace App\Jobs\Gatekeeper;
 
-use App\Jobs\ZoneOccupantCountPublishJob;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use HMS\Entities\Gatekeeper\Zone;
@@ -17,8 +16,9 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
+use Laravel\Horizon\Contracts\Silenced;
 
-class ZoneOccupantResetJob implements ShouldQueue
+class ZoneOccupantResetJob implements ShouldQueue, Silenced
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 

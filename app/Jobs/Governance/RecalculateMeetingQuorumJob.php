@@ -10,7 +10,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class RecalculateMeetingQuorumJob implements ShouldQueue
+class RecalculateMeetingQuorumJob implements ShouldQueue, Silenced
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 

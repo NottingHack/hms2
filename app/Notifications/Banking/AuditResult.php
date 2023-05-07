@@ -5,10 +5,13 @@ namespace App\Notifications\Banking;
 use Carbon\Carbon;
 use HMS\Entities\Role;
 use HMS\Entities\User;
+use HMS\Helpers\Discord;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackMessage;
+use NotificationChannels\Discord\DiscordChannel;
+use NotificationChannels\Discord\DiscordMessage;
 use Illuminate\Notifications\Notification;
 
 class AuditResult extends Notification implements ShouldQueue
@@ -72,7 +75,7 @@ class AuditResult extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail', 'slack'];
+        return ['mail', 'slack', DiscordChannel::class];
     }
 
     /**
@@ -125,5 +128,31 @@ class AuditResult extends Notification implements ShouldQueue
                             ])
                             ->timestamp(Carbon::now());
             });
+    }
+
+    /**
+     * Get the Discord representation of the notification.
+     *
+     * @param mixed $notifiable
+     *
+     * @return NotificationChannels\Discord\DiscordMessage
+     */
+    public function toDiscord($notifiable)
+    {
+        $approveCount = count($this->formattedApproveUsers);
+        $warnCount = count($this->formattedWarnUsers);
+        $revokeCount = count($this->formattedRevokeUsers);
+        $reinstateCount = count($this->formattedReinstateUsers);
+
+        $message = <<<EOF
+        __**Membership Audit Results**__
+
+        **New Members**: $approveCount
+        **Notified Members**: $warnCount
+        **Revoked Members**: $revokeCount
+        **Reinstated Members**: $reinstateCount
+        EOF;
+
+        return DiscordMessage::create($message);
     }
 }

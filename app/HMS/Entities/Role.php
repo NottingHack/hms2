@@ -5,6 +5,7 @@ namespace HMS\Entities;
 use Doctrine\Common\Collections\ArrayCollection;
 use HMS\Traits\Entities\SoftDeletable;
 use HMS\Traits\Entities\Timestampable;
+use HMS\Helpers\Discord;
 use LaravelDoctrine\ACL\Contracts\Permission;
 use LaravelDoctrine\ACL\Contracts\Role as RoleContract;
 use LaravelDoctrine\ACL\Permissions\HasPermissions;
@@ -324,6 +325,31 @@ class Role implements RoleContract
             return config('hms.trustees_slack_webhook');
         } else {
             return config('hms.team_slack_webhook');
+        }
+    }
+
+    /**
+     * Route notifications to the Discord channel
+     *
+     * @return null|string
+     */
+    public function routeNotificationForDiscord(): ?string
+    {
+        if (! config('services.discord.token')) {
+            return null;
+        }
+
+        $discord = new Discord(
+            config('services.discord.token'),
+            config('services.discord.guild_id')
+        );
+
+        if ($this->name == self::TEAM_TRUSTEES) {
+            // Trustee discord role has access to membership private channel.
+            // Returning null to avoid duplicate message on membership audit.
+            return null;
+        } else {
+            return $discord->findChannelByName('membership-private')->id;
         }
     }
 

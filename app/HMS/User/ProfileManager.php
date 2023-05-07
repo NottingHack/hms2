@@ -70,7 +70,7 @@ class ProfileManager
         string $addressPostcode,
         string $contactNumber,
         ?string $dateOfBirth,
-        ?string $discordUserId
+        ?string $discordUserId = null
     ): User {
         $profile = new Profile($user);
 

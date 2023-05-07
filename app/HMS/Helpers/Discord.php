@@ -17,6 +17,11 @@ class Discord
     protected $members;
 
     /**
+     * @var RestCord\Channel[]
+     */
+    protected $channels;
+
+    /**
      * @var RestCord\Role[]
      */
     protected $roles;
@@ -121,6 +126,30 @@ class Discord
                 if ($member->user->username == $username) {
                     return $member;
                 }
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Find a discord channel by name
+     *
+     * @param string $channelName
+     *
+     * @return null|DiscordChannel
+     */
+    public function findChannelByName(string $channelName)
+    {
+        if (! $this->channels) {
+            $this->channels = $this->client->guild->getGuildChannels([
+                'guild.id' => $this->guildId,
+            ]);
+        }
+
+        foreach ($this->channels as $channel) {
+            if ($channel->name == $channelName) {
+                return $channel;
             }
         }
 

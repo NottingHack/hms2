@@ -9,6 +9,7 @@ use HMS\Entities\User;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\ProfileRepository;
 use HMS\Repositories\UserRepository;
+use App\Notifications\Users\DiscordRegistered;
 
 class ProfileManager
 {
@@ -174,6 +175,9 @@ class ProfileManager
             // fire an event to push all roles.
             if ($oldDiscordUserId != $profile->getDiscordUserId()) {
                 event(new DiscordUsernameUpdated($user, $profile, $oldDiscordUserId));
+                if ($profile->getDiscordUserId()) {
+                    $user->notify(new DiscordRegistered());
+                }
             }
         }
 

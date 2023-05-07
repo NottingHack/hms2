@@ -208,21 +208,6 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
             return;
         }
 
-        $message = <<<EOF
-        Hi **$discordUserId**.
-
-        Your Discord account has been linked to the HMS profile **$hmsUsername**. If you did not do this, contact a trustee, including the username mentioned above.
-
-        Have fun!
-        EOF;
-        $dm = $this->discord->getDiscordClient()->user->createDm([
-            'recipient_id' => $discordMember->user->id,
-        ]);
-        $this->discord->getDiscordClient()->channel->createMessage([
-            'channel.id' => $dm->id,
-            'content' => $message,
-        ]);
-
         $discordMemberRole = $this->discord->findRoleByName($memberRole->getDisplayName());
         if ($discordMemberRole) {
             $this->discord->getDiscordClient()->guild->addGuildMemberRole([

@@ -10,6 +10,7 @@ use HMS\Traits\Entities\DoctrineMustVerifyEmail;
 use HMS\Traits\Entities\SoftDeletable;
 use HMS\Traits\Entities\Timestampable;
 use HMS\Traits\HasApiTokens;
+use HMS\Helpers\Discord;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -454,4 +455,34 @@ class User implements
     {
         return $this->getMemberRole() ? $this->getMemberRole()->getDisplayName() : 'Not a Member';
     }
+
+    /**
+     * Route notifications to the Discord DM channel.
+     *
+     * @return null|string
+     */
+    public function routeNotificationForDiscord()
+    {
+        if (! config('services.discord.token') ||
+            ! $this->getProfile()->getDiscordUserId()) {
+            return null;
+        }
+
+        $discord = new Discord(
+            config('services.discord.token'),
+            config('services.discord.guild_id')
+        );
+
+        $discordUserId = $this->getProfile()->getDiscordUserId();
+        $discordMember = $discord->findMemberByUsername($discordUserId);
+
+        if (! $discordMember) {
+            return null;
+        }
+
+        return $discord->getDiscordClient()->user->createDm([
+            'recipient_id' => $discordMember->user->id,
+        ])->id;
+    }
+
 }

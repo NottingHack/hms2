@@ -95,6 +95,7 @@ class ProfileManager
 
         if (! empty($discordUserId)) {
             $profile->setDiscordUserId($discordUserId);
+            event(new DiscordUsernameUpdated($user, $profile));
         }
 
         $profile->setCreditLimit($this->metaRepository->get('member_credit_limit'));

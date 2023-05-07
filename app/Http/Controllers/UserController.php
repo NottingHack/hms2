@@ -140,7 +140,12 @@ class UserController extends Controller
             'addressPostcode' => 'sometimes|required|max:10',
             'contactNumber' => 'sometimes|required|max:50',
             'dateOfBirth' => 'sometimes|nullable|date_format:Y-m-d',
-            'discordUserId' => ['sometimes', 'nullable', 'max:36', 'regex:/^.{2,32}#[0-9]{4}$|^[a-zA-Z0-9_\.]{2,32}$/'],
+            'discordUserId' => [
+                'sometimes',
+                'nullable',
+                'max:36',
+                'regex:/^.{2,32}#[0-9]{4}$|^[a-zA-Z0-9_\.]{2,32}$/'
+            ],
             'unlockText' => 'sometimes|nullable|max:95',
         ]);
 
@@ -149,10 +154,6 @@ class UserController extends Controller
         // rule can be removed at some point, once Discord have
         // finished migrating old usernames to the new style.
         // https://support-dev.discord.com/hc/en-us/articles/13667755828631
-        //
-        // Also, discordUserId validation rule has to be an array as
-        // the regular expression contains a pipe
-        // https://laravel.com/docs/10.x/validation#rule-regex
 
         $user = $this->userManager->updateFromRequest($user, $validatedData);
         $user = $this->profileManager->updateUserProfileFromRequest($user, $validatedData);

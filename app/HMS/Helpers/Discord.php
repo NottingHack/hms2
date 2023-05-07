@@ -66,9 +66,9 @@ class Discord
             ]);
         }
 
-        foreach ($this->roles as $r) {
-            if ($r->name == $name) {
-                return $r;
+        foreach ($this->roles as $role) {
+            if ($role->name == $name) {
+                return $role;
             }
         }
 
@@ -110,16 +110,16 @@ class Discord
             $userPart = $parts[0];
             $discrPart = (int) $parts[1];
 
-            foreach ($this->members as $m) {
-                if ($m->user->username == $userPart ||
-                    $m->user->discriminator == $discrPart) {
-                    return $m;
+            foreach ($this->members as $member) {
+                if ($member->user->username == $userPart ||
+                    $member->user->discriminator == $discrPart) {
+                    return $member;
                 }
             }
         } else {
-            foreach ($this->members as $m) {
-                if ($m->user->username == $username) {
-                    return $m;
+            foreach ($this->members as $member) {
+                if ($member->user->username == $username) {
+                    return $member;
                 }
             }
         }

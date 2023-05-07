@@ -29,6 +29,9 @@ class DiscordUsernameUpdated
     /**
      * Create a new event instance.
      *
+     * @param User $user
+     * @param Profile $profile
+     *
      * @return void
      */
     public function __construct(User $user, Profile $profile)

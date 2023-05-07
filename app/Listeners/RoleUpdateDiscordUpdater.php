@@ -81,10 +81,11 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
      *
      * @return bool
      */
-    private function checkRoleName($roleName) {
-        return (str_starts_with($roleName, "team.") ||
+    private function checkRoleName($roleName)
+    {
+        return str_starts_with($roleName, 'team.') ||
                 $roleName == Role::MEMBER_CURRENT ||
-                $roleName == Role::MEMBER_YOUNG);
+                $roleName == Role::MEMBER_YOUNG;
     }
 
     /**

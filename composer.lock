@@ -7580,7 +7580,7 @@
         },
         {
             "name": "restcord/restcord",
-            "version": "dev-develop",
+            "version": "0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/restcord/restcord.git",

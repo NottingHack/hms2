@@ -53,7 +53,7 @@ Route::prefix('statistics')->name('statistics.')->group(function () {
     Route::get('tools', 'StatisticsController@tools')->name('tools');
 });
 
- Route::get('gatekeeper/b/{building}/u/{user}/have-left', 'Gatekeeper\AccessController@haveLeft')
+Route::get('gatekeeper/b/{building}/u/{user}/have-left', 'Gatekeeper\AccessController@haveLeft')
     ->name('gatekeeper.building.user.have-left')
     ->middleware('signed');
 

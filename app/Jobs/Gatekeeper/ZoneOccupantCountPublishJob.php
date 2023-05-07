@@ -8,8 +8,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Laravel\Horizon\Contracts\Silenced;
 use karpy47\PhpMqttClient\MQTTClient;
+use Laravel\Horizon\Contracts\Silenced;
 
 class ZoneOccupantCountPublishJob implements ShouldQueue, Silenced
 {

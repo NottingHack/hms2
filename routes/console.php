@@ -23,11 +23,11 @@ Artisan::command('inspire', function () {
 })->describe('Display an inspiring quote');
 
 Artisan::command('hms:auto-deploy', function () {
-    PostGitDeployedJob::dispatchNow();
+    PostGitDeployedJob::dispatchSync();
 })->describe('Run the GitDeployedJob');
 
 Artisan::command('hms:reset-zones', function () {
-    ZoneOccupantResetJob::dispatchNow();
+    ZoneOccupantResetJob::dispatchSync();
 })->describe('Audit Zone Occupant and reset people back to Off-site');
 
 Artisan::command('hms:members:audit', function () {
@@ -35,5 +35,5 @@ Artisan::command('hms:members:audit', function () {
 })->describe('Audit the members against current banking records');
 
 Artisan::command('hms:members:youngHackerAudit', function () {
-    AuditYoungHackersJob::dispatchNow();
+    AuditYoungHackersJob::dispatchSync();
 })->describe('Audit young hackers for any that have turned 18');

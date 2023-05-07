@@ -55,8 +55,8 @@ return [
     ],
 
     'discord' => [
-      'token' => env('DISCORD_TOKEN', null),
-      'guild_id' => (int)env('DISCORD_GUILD_ID'),
+        'token' => env('DISCORD_TOKEN', null),
+        'guild_id' => (int)env('DISCORD_GUILD_ID'),
     ],
 
 ];

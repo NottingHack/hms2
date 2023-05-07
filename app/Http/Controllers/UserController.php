@@ -144,7 +144,7 @@ class UserController extends Controller
                 'sometimes',
                 'nullable',
                 'max:36',
-                'regex:/^.{2,32}#[0-9]{4}$|^[a-zA-Z0-9_\.]{2,32}$/'
+                'regex:/^.{2,32}#[0-9]{4}$|^[a-zA-Z0-9_\.]{2,32}$/',
             ],
             'unlockText' => 'sometimes|nullable|max:95',
         ]);

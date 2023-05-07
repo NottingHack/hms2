@@ -2,8 +2,8 @@
 
 namespace Database\Migrations;
 
+use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
-use Doctrine\DBAL\Schema\Schema as Schema;
 
 class Version20230425175640_add_discord_username extends AbstractMigration
 {

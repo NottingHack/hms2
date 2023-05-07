@@ -3,13 +3,13 @@
 namespace HMS\User;
 
 use App\Events\Users\DiscordUsernameUpdated;
+use App\Notifications\Users\DiscordRegistered;
 use Carbon\Carbon;
 use HMS\Entities\Profile;
 use HMS\Entities\User;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\ProfileRepository;
 use HMS\Repositories\UserRepository;
-use App\Notifications\Users\DiscordRegistered;
 
 class ProfileManager
 {

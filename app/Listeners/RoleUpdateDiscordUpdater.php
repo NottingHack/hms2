@@ -75,6 +75,19 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
     }
 
     /**
+     * Check that the role is suitable for being updated on Discord.
+     *
+     * @param string $roleName
+     *
+     * @return bool
+     */
+    private function checkRoleName($roleName) {
+        return (str_starts_with($roleName, "team.") ||
+                $roleName == Role::MEMBER_CURRENT ||
+                $roleName == Role::MEMBER_YOUNG);
+    }
+
+    /**
      * Handle user added to role events.
      *
      * @param UserAddedToRole $event
@@ -84,6 +97,10 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
         $user = $this->userRepository->findOneById($event->user->getId());
         $role = $this->roleRepository->findOneById($event->role->getId());
         $profile = $user->getProfile();
+
+        if (! $this->checkRoleName($role->getName())) {
+            return;
+        }
 
         if (! $profile->getDiscordUserId()) {
             return;
@@ -116,6 +133,10 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
         $user = $this->userRepository->findOneById($event->user->getId());
         $role = $this->roleRepository->findOneById($event->role->getId());
         $profile = $user->getProfile();
+
+        if (! $this->checkRoleName($role->getName())) {
+            return;
+        }
 
         if (! $profile->getDiscordUserId()) {
             return;

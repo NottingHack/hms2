@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a0b8999b838e6c003df446bc7b62a493",
+    "content-hash": "aaf418c0a4043614cf86cb7d6d16bd74",
     "packages": [
         {
             "name": "agenciasys/ofxparser",
@@ -7754,16 +7754,16 @@
         },
         {
             "name": "restcord/restcord",
-            "version": "0.1.1",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/restcord/restcord.git",
-                "reference": "4c7c38e9ef5d1d69e2c31d973b386a6be0a2656a"
+                "reference": "4c7c38e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/restcord/restcord/zipball/4c7c38e9ef5d1d69e2c31d973b386a6be0a2656a",
-                "reference": "4c7c38e9ef5d1d69e2c31d973b386a6be0a2656a",
+                "url": "https://api.github.com/repos/restcord/restcord/zipball/4c7c38e",
+                "reference": "4c7c38e",
                 "shasum": ""
             },
             "require": {
@@ -14714,7 +14714,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "restcord/restcord": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

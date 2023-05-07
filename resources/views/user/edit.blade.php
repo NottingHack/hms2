@@ -147,6 +147,7 @@
               <strong>{{ $errors->first('discordUserId') }}</strong>
             </p>
           @endif
+	</div>
         @endif {{-- userProfile() --}}
       </div>
       <div class="card-footer">

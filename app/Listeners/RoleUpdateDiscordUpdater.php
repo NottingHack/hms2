@@ -160,13 +160,14 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
                   $user->getUsername() . ' removed from discord role ' . $role->getDisplayName());
     }
 
-    private function cleanupOldDiscordUserRoles($oldDiscordUserId) {
+    private function cleanupOldDiscordUserRoles($oldDiscordUserId)
+    {
         $discordMember = $this->discord->findMemberByUsername($oldDiscordUserId);
         if (! $discordMember) {
             return;
         }
 
-        foreach($discordMember->roles as $discordRoleId) {
+        foreach ($discordMember->roles as $discordRoleId) {
             $this->discord->getDiscordClient()->guild->removeGuildMemberRole([
                 'guild.id' => config('services.discord.guild_id'),
                 'user.id' => $discordMember->user->id,

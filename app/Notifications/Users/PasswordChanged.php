@@ -6,6 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use NotificationChannels\Discord\DiscordChannel;
+use NotificationChannels\Discord\DiscordMessage;
 
 class PasswordChanged extends Notification implements ShouldQueue
 {
@@ -30,7 +32,7 @@ class PasswordChanged extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', DiscordChannel::class];
     }
 
     /**
@@ -52,6 +54,30 @@ class PasswordChanged extends Notification implements ShouldQueue
                     ->line("If, however, you didn't change your password please")
                     ->action('Reset Password Here', route('password.request'))
                     ->line('If you have any problems please reply to this email.');
+    }
+
+    /**
+     * Get the Discord representation of the notification.
+     *
+     * @param mixed $notifiable
+     *
+     * @return NotificationChannels\Discord\DiscordMessage
+     */
+    public function toDiscord($notifiable)
+    {
+        $link = route('password.request');
+
+        $message = <<<EOF
+        __**Hackspace Account Password Changed**__
+
+        Your password for signing into HMS was changed recently.
+
+        If you made this change then ignore me! Otherwise, you can reset your password here
+
+        $link
+        EOF;
+
+        return DiscordMessage::create($message);
     }
 
     /**

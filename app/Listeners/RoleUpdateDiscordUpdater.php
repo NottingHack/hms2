@@ -48,6 +48,9 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
      * Create the event listener.
      *
      * @param RoleUpdateRepository $roleUpdateRepository
+     * @param EntityManagerInterface $entityManager
+     * @param UserRepository $userRepository
+     * @param RoleRepository $roleRepository
      */
     public function __construct(
         RoleUpdateRepository $roleUpdateRepository,
@@ -61,12 +64,13 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
         $this->roleRepository = $roleRepository;
 
         // If the token isn't set, we can give up now.
-        if (! env('DISCORD_TOKEN', null)) {
+        if (! config('services.discord.token')) {
             return;
         }
 
         $this->discord = new Discord(
-            env('DISCORD_TOKEN'), (int) env('DISCORD_GUILD_ID')
+            config('services.discord.token'),
+            config('services.discord.guild_id')
         );
     }
 
@@ -93,7 +97,7 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
         }
 
         $this->discord->getDiscordClient()->guild->addGuildMemberRole([
-            'guild.id' => (int) env('DISCORD_GUILD_ID'),
+            'guild.id' => config('services.discord.guild_id'),
             'user.id' => $discordMember->user->id,
             'role.id' => $discordRole->id,
         ]);
@@ -125,7 +129,7 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
         }
 
         $this->discord->getDiscordClient()->guild->removeGuildMemberRole([
-            'guild.id' => (int) env('DISCORD_GUILD_ID'),
+            'guild.id' => config('services.discord.guild_id'),
             'user.id' => $discordMember->user->id,
             'role.id' => $discordRole->id,
         ]);
@@ -178,7 +182,7 @@ EOF;
         $discordMemberRole = $this->discord->findRoleByName($memberRole->getDisplayName());
         if ($discordMemberRole) {
             $this->discord->getDiscordClient()->guild->addGuildMemberRole([
-                'guild.id' => (int) env('DISCORD_GUILD_ID'),
+                'guild.id' => config('services.discord.guild_id'),
                 'user.id' => $discordMember->user->id,
                 'role.id' => $discordMemberRole->id,
             ]);
@@ -193,7 +197,7 @@ EOF;
             }
 
             $this->discord->getDiscordClient()->guild->addGuildMemberRole([
-                'guild.id' => (int) env('DISCORD_GUILD_ID'),
+                'guild.id' => config('services.discord.guild_id'),
                 'user.id' => $discordMember->user->id,
                 'role.id' => $discordTeamRole->id,
             ]);
@@ -209,7 +213,7 @@ EOF;
      */
     public function subscribe($events)
     {
-        if (! env('DISCORD_TOKEN', null)) {
+        if (! config('services.discord.token')) {
             return;
         }
 

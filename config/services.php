@@ -53,4 +53,10 @@ return [
         'secret' => env('MW_AUTH_HMS_SECRET'),
         'salt' => env('MW_AUTH_HMS_SALT'),
     ],
+
+    'discord' => [
+      'token' => env('DISCORD_TOKEN', null),
+      'guild_id' => (int)env('DISCORD_GUILD_ID'),
+    ],
+
 ];

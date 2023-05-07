@@ -35,6 +35,11 @@
             <dt class="h5">Roden House Bins</dt>
             <h4><span class="badge badge-primary">{{  $bins }}</span></h4>
             @endif
+            @if ($toilet = Meta::get('access_roden_house_toilet'))
+            <hr>
+            <dt class="h5">Roden House Toilet</dt>
+            <h4><span class="badge badge-primary">{{  $toilet }}</span></h4>
+            @endif
           </dl>
         </div>
         <div class="card-footer">

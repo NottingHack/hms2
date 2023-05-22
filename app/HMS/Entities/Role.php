@@ -96,6 +96,16 @@ class Role implements RoleContract
     protected $slackChannel;
 
     /**
+     * @var null|string Public Discord channel for the team
+     */
+    protected $discordChannel;
+
+    /**
+     * @var null|string Private Discord channel (if needed) for the team
+     */
+    protected $discordPrivateChannel;
+
+    /**
      * @var bool Should this role be retained by ex members
      */
     protected $retained;
@@ -291,6 +301,54 @@ class Role implements RoleContract
     }
 
     /**
+     * Gets the value of discordChannel
+     *
+     * @return string team's discord channel
+     */
+    public function getDiscordChannel(): ?string
+    {
+        return $this->discordChannel;
+    }
+
+    /**
+     * Sets the value of slackChannel.
+     *
+     * @param string team's discord channel
+     *
+     * @return self
+     */
+    public function setDiscordChannel($discordChannel): self
+    {
+        $this->discordChannel = $discordChannel;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of discordPrivateChannel.
+     *
+     * @return string team's private discord channel
+     */
+    public function getDiscordPrivateChannel(): ?string
+    {
+        return $this->discordPrivateChannel;
+    }
+
+    /**
+     * Sets the value of discordPrivateChannel.
+     *
+     * @param string team's private discord channel
+     *
+     * @return self
+     */
+    public function setDiscordPrivateChannel($discordPrivateChannel): self
+    {
+        $this->discordPrivateChannel = $discordPrivateChannel;
+
+        return $this;
+    }
+
+    /**
      * Gets the value of retained.
      *
      * @return bool Should this role be retained by ex members
@@ -349,7 +407,11 @@ class Role implements RoleContract
             // Returning null to avoid duplicate message on membership audit.
             return null;
         } else {
-            return $discord->findChannelByName('membership-private')->id;
+            if ($this->getDiscordPrivateChannel()) {
+                return $discord->findChannelByName($this->getDiscordPrivateChannel())->id;
+            } else {
+                return $discord->findChannelByName($this->getDiscordChannel())->id;
+            }
         }
     }
 

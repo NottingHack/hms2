@@ -53,6 +53,26 @@
       @endif
     </div>
 
+    <div class="form-group">
+      <label for="discordChannel" class="form-label">Discord channel</label>
+      <input class="form-control" id="discordChannel" type="text" name="discordChannel" value="{{ old('discordChannel', $role->getDiscordChannel()) }}">
+      @if ($errors->has('discordChannel'))
+	<p class="help-text">
+          <strong>{{ $errors->first('discordChannel') }}</strong>
+	</p>
+      @endif
+    </div>
+
+    <div class="form-group">
+      <label for="discordPrivateChannel" class="form-label">Discord channel (Private)</label>
+      <input class="form-control" id="discordPrivateChannel" type="text" name="discordPrivateChannel" value="{{ old('discordPrivateChannel', $role->getDiscordPrivateChannel()) }}">
+      @if ($errors->has('discordPrivateChannel'))
+	<p class="help-text">
+          <strong>{{ $errors->first('discordPrivateChannel') }}</strong>
+	</p>
+      @endif
+    </div>
+
     <div class="form-check">
       <input class="form-check-input" id="retained" type="checkbox" name="retained"
       {{ old('retained', $role->getRetained()) ? 'checked="checked"' : '' }}>

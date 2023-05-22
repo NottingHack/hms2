@@ -94,11 +94,13 @@ class TeamController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name'          => 'required|string',
-            'displayName'   => 'required|string',
-            'description'   => 'required|string',
-            'email'         => 'nullable|string',
-            'slackChannel'  => 'nullable|string',
+            'name'                  => 'required|string',
+            'displayName'           => 'required|string',
+            'description'           => 'required|string',
+            'email'                 => 'nullable|string',
+            'slackChannel'          => 'nullable|string',
+            'discordChannel'        => 'nullable|string',
+            'discordPrivateChannel' => 'nullable|string',
         ]);
 
         $this->roleManager->createTeam(

@@ -15,8 +15,14 @@
       @endif
     </h5>
     <div class="card-body">
-      <h6 class="card-subtitle mb-2 text-muted">Email: {{ $team->getEmail() }}</h6>
-      <h6 class="card-subtitle mb-2 text-muted">Slack Channel: {{ $team->getSlackChannel() }}</h6>
+
+      <div class="row text-muted">
+	<div class="col-md-4">Email: {{ $team->getEmail() }}</div>
+	<div class="col-md-4">Slack: {{ $team->getSlackChannel() }}</div>
+	<div class="col-md-4">Discord: {{ $team->getDiscordChannel() }}</div>
+      </div>
+      <hr />
+
       <p class="card-text">{!! $team->getDescription() !!}</p>
       <a class="btn btn-primary" href="{{ route('teams.show', $team->getId()) }}"><i class="far fa-eye" aria-hidden="true"></i> View</a>
       @can('role.edit.all')

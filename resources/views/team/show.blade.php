@@ -18,6 +18,10 @@
           <th scope="row">Slack Channel:</th>
           <td>{{ $team->getSlackChannel() }}</td>
         </tr>
+        <tr>
+          <th scope="row">Discord Channel:</th>
+          <td>{{ $team->getDiscordChannel() }}</td>
+        </tr>
         {{-- <tr>
           <th scope="row">Members:</th>
           <td>1</td>

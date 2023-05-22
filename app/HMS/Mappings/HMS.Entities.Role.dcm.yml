@@ -31,6 +31,14 @@ HMS\Entities\Role:
     slackChannel:
       type: string
       nullable: true
+    discordChannel:
+      type: string
+      column: discord_channel
+      nullable: true
+    discordPrivateChannel:
+      type: string
+      column: discord_private_channel
+      nullable: true
     retained:
       type: boolean
       options:

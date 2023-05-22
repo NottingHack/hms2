@@ -136,6 +136,7 @@
 
         <hr>
 
+        @feature('discord')
         <div class="form-group">
           <label for="discordUsername" class="form-label">Discord Username</label>
           <input class="form-control" id="discordUsername" type="text" name="discordUsername" value="{{ old('discordUsername', $user->getProfile()->getDiscordUsername()) }}">
@@ -148,6 +149,7 @@
           </p>
           @endif
 	</div>
+        @endfeature
         @endif {{-- userProfile() --}}
       </div>
       <div class="card-footer">

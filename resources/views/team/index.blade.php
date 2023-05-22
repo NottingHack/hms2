@@ -17,9 +17,13 @@
     <div class="card-body">
 
       <div class="row text-muted">
-	<div class="col-md-4">Email: {{ $team->getEmail() }}</div>
-	<div class="col-md-4">Slack: {{ $team->getSlackChannel() }}</div>
-	<div class="col-md-4">Discord: {{ $team->getDiscordChannel() }}</div>
+        <div class="col-md-4">Email: {{ $team->getEmail() }}</div>
+        @feature('slack')
+        <div class="col-md-4">Slack: {{ $team->getSlackChannel() }}</div>
+        @endfeature
+        @feature('discord')
+        <div class="col-md-4">Discord: {{ $team->getDiscordChannel() }}</div>
+        @endfeature
       </div>
       <hr />
 

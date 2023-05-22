@@ -14,14 +14,18 @@
           <th scope="row">Email:</th>
           <td>{{ $team->getEmail() }}</td>
         </tr>
+        @feature('slack')
         <tr>
           <th scope="row">Slack Channel:</th>
           <td>{{ $team->getSlackChannel() }}</td>
         </tr>
+        @endfeature
+        @feature('discord')
         <tr>
           <th scope="row">Discord Channel:</th>
           <td>{{ $team->getDiscordChannel() }}</td>
         </tr>
+        @endfeature
         {{-- <tr>
           <th scope="row">Members:</th>
           <td>1</td>

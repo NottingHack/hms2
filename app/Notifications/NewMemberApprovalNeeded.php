@@ -50,6 +50,7 @@ class NewMemberApprovalNeeded extends Notification implements ShouldQueue
         if (config('services.discord.token')) {
             array_push($channels, DiscordChannel::class);
         }
+
         return $channels;
     }
 

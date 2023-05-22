@@ -79,6 +79,7 @@ class AuditResult extends Notification implements ShouldQueue
         if (config('services.discord.token')) {
             array_push($channels, DiscordChannel::class);
         }
+
         return $channels;
     }
 
@@ -149,7 +150,7 @@ class AuditResult extends Notification implements ShouldQueue
         $reinstateCount = count($this->formattedReinstateUsers);
 
         $embed = [
-            'title' => "Membership Audit Results",
+            'title' => 'Membership Audit Results',
             'fields' => [
                 [
                     'name' => 'New Members',

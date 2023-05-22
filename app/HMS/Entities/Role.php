@@ -301,7 +301,7 @@ class Role implements RoleContract
     }
 
     /**
-     * Gets the value of discordChannel
+     * Gets the value of discordChannel.
      *
      * @return string team's discord channel
      */

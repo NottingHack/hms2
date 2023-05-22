@@ -29,12 +29,12 @@
           <th>Discord Channel:</th>
           <td>{{ $role->getDiscordChannel() }}</td>
         </tr>
-	@can('role.edit.all')
+        @can('role.edit.all')
         <tr>
           <th>Discord Channel (Private):</th>
           <td>{{ $role->getDiscordPrivateChannel() }}</td>
         </tr>
-	@endcan
+        @endcan
         <tr>
           <th>Retained:</th>
           <td>{{ $role->getRetained() ? 'Yes' : 'No' }}</td>

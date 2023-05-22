@@ -34,7 +34,7 @@ class DiscordRegistered extends Notification implements ShouldQueue
     {
         $channels = ['mail'];
         if (config('services.discord.token')) {
-            array_push($channels, DiscordChannel::class);
+            $channels[] = DiscordChannel::class;
         }
 
         return $channels;

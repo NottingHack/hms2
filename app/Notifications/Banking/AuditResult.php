@@ -77,7 +77,7 @@ class AuditResult extends Notification implements ShouldQueue
     {
         $channels = ['mail', 'slack'];
         if (config('services.discord.token')) {
-            array_push($channels, DiscordChannel::class);
+            $channels[] = DiscordChannel::class;
         }
 
         return $channels;

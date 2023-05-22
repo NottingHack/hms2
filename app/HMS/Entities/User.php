@@ -480,8 +480,11 @@ class User implements
             return null;
         }
 
-        return $discord->getDiscordClient()->user->createDm([
-            'recipient_id' => $discordMember->user->id,
-        ])->id;
+        return $discord->getDiscordClient()
+            ->user
+            ->createDm([
+                'recipient_id' => $discordMember->user->id,
+            ])
+            ->id;
     }
 }

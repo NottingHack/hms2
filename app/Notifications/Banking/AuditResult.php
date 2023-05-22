@@ -5,11 +5,14 @@ namespace App\Notifications\Banking;
 use Carbon\Carbon;
 use HMS\Entities\Role;
 use HMS\Entities\User;
+use HMS\Helpers\Discord;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
+use NotificationChannels\Discord\DiscordChannel;
+use NotificationChannels\Discord\DiscordMessage;
 
 class AuditResult extends Notification implements ShouldQueue
 {
@@ -72,7 +75,12 @@ class AuditResult extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail', 'slack'];
+        $channels = ['mail', 'slack'];
+        if (config('services.discord.token')) {
+            $channels[] = DiscordChannel::class;
+        }
+
+        return $channels;
     }
 
     /**
@@ -125,5 +133,44 @@ class AuditResult extends Notification implements ShouldQueue
                             ])
                             ->timestamp(Carbon::now());
             });
+    }
+
+    /**
+     * Get the Discord representation of the notification.
+     *
+     * @param mixed $notifiable
+     *
+     * @return NotificationChannels\Discord\DiscordMessage
+     */
+    public function toDiscord($notifiable)
+    {
+        $approveCount = count($this->formattedApproveUsers);
+        $warnCount = count($this->formattedWarnUsers);
+        $revokeCount = count($this->formattedRevokeUsers);
+        $reinstateCount = count($this->formattedReinstateUsers);
+
+        $embed = [
+            'title' => 'Membership Audit Results',
+            'fields' => [
+                [
+                    'name' => 'New Members',
+                    'value' => $approveCount,
+                ],
+                [
+                    'name' => 'Notified Members',
+                    'value' => $warnCount,
+                ],
+                [
+                    'name' => 'Revoked Members',
+                    'value' => $revokeCount,
+                ],
+                [
+                    'name' => 'Reinstated Members',
+                    'value' => $reinstateCount,
+                ],
+            ],
+        ];
+
+        return (new DiscordMessage())->embed($embed);
     }
 }

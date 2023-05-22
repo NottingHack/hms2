@@ -133,6 +133,23 @@
           </p>
           @endif
         </div>
+
+        <hr>
+
+        @feature('discord')
+        <div class="form-group">
+          <label for="discordUsername" class="form-label">Discord Username</label>
+          <input class="form-control" id="discordUsername" type="text" name="discordUsername" value="{{ old('discordUsername', $user->getProfile()->getDiscordUsername()) }}">
+          <small class="form-text text-muted">
+            This can be copied by clicking on your username at the bottom left from the Discord app.
+          </small>
+          @if ($errors->has('discordUsername'))
+          <p class="help-text">
+            <strong>{{ $errors->first('discordUsername') }}</strong>
+          </p>
+          @endif
+        </div>
+        @endfeature
         @endif {{-- userProfile() --}}
       </div>
       <div class="card-footer">

@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use HMS\Entities\Banking\Account;
 use HMS\Entities\Gatekeeper\Pin;
 use HMS\Entities\Gatekeeper\RfidTag;
+use HMS\Helpers\Discord;
 use HMS\Traits\Entities\DoctrineMustVerifyEmail;
 use HMS\Traits\Entities\SoftDeletable;
 use HMS\Traits\Entities\Timestampable;
@@ -453,5 +454,37 @@ class User implements
     public function getMemberStatusString(): string
     {
         return $this->getMemberRole() ? $this->getMemberRole()->getDisplayName() : 'Not a Member';
+    }
+
+    /**
+     * Route notifications to the Discord DM channel.
+     *
+     * @return null|string
+     */
+    public function routeNotificationForDiscord()
+    {
+        if (! config('services.discord.token') ||
+            ! $this->getProfile()->getDiscordUsername()) {
+            return null;
+        }
+
+        $discord = new Discord(
+            config('services.discord.token'),
+            config('services.discord.guild_id')
+        );
+
+        $discordUsername = $this->getProfile()->getDiscordUsername();
+        $discordMember = $discord->findMemberByUsername($discordUsername);
+
+        if (! $discordMember) {
+            return null;
+        }
+
+        return $discord->getDiscordClient()
+            ->user
+            ->createDm([
+                'recipient_id' => $discordMember->user->id,
+            ])
+            ->id;
     }
 }

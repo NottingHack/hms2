@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Listeners\PrintLabelSubscriber;
+use App\Listeners\RoleUpdateDiscordUpdater;
 use App\Listeners\RoleUpdateLogger;
 use App\Listeners\Tools\NotifyNhToolsSubscriber;
 use App\Listeners\ViMbAdminSubscriber;
@@ -34,6 +35,7 @@ class EventServiceProvider extends ServiceProvider
         RoleUpdateLogger::class,
         PrintLabelSubscriber::class,
         NotifyNhToolsSubscriber::class,
+        RoleUpdateDiscordUpdater::class,
     ];
 
     /**

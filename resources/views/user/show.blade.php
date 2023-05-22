@@ -62,6 +62,12 @@
           <th>Contact Number:</th>
           <td>{{ $user->getProfile()->getContactNumber() }}</td>
         </tr>
+        @feature('discord')
+        <tr>
+          <th>Discord Username:</th>
+          <td>{{ $user->getProfile()->getDiscordUsername() }}</td>
+        </tr>
+        @endfeature
         @endif
       </tbody>
     </table>

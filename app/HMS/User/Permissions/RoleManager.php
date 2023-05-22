@@ -72,6 +72,12 @@ class RoleManager
         if (isset($role['slackChannel'])) {
             $roleEntity->setSlackChannel($role['slackChannel']);
         }
+        if (isset($role['discordChannel'])) {
+            $roleEntity->setDiscordChannel($role['discordChannel']);
+        }
+        if (isset($role['discordPrivateChannel'])) {
+            $roleEntity->setDiscordPrivateChannel($role['discordPrivateChannel']);
+        }
         if (isset($role['retained'])) {
             $roleEntity->setRetained($role['retained']);
         }
@@ -106,7 +112,9 @@ class RoleManager
         string $displayName,
         string $description,
         ?string $email = null,
-        ?string $slackChannel = null
+        ?string $slackChannel = null,
+        ?string $discordChannel = null,
+        ?string $discordPrivateChannel = null
     ) {
         $roleEntity = new Role($name, $displayName, $description);
 
@@ -115,6 +123,12 @@ class RoleManager
         }
         if (isset($slackChannel)) {
             $roleEntity->setSlackChannel($slackChannel);
+        }
+        if (isset($discordChannel)) {
+            $roleEntity->setDiscordChannel($discordChannel);
+        }
+        if (isset($discordPrivateChannel)) {
+            $roleEntity->setDiscordPrivateChannel($discordPrivateChannel);
         }
 
         $defaultPermissions = config('roles.defaultTeamPermissions');
@@ -154,6 +168,14 @@ class RoleManager
 
         if (isset($details['slackChannel'])) {
             $role->setSlackChannel($details['slackChannel']);
+        }
+
+        if (isset($details['discordChannel'])) {
+            $role->setDiscordChannel($details['discordChannel']);
+        }
+
+        if (isset($details['discordPrivateChannel'])) {
+            $role->setDiscordPrivateChannel($details['discordPrivateChannel']);
         }
 
         if (isset($details['retained'])) {

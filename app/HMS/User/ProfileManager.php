@@ -2,6 +2,8 @@
 
 namespace HMS\User;
 
+use App\Events\Users\DiscordUsernameUpdated;
+use App\Notifications\Users\DiscordRegistered;
 use Carbon\Carbon;
 use HMS\Entities\Profile;
 use HMS\Entities\User;
@@ -55,6 +57,7 @@ class ProfileManager
      * @param string $addressPostcode
      * @param string $contactNumber
      * @param null|string $dateOfBirth
+     * @param null|string $discordUsername
      *
      * @return User
      */
@@ -67,7 +70,8 @@ class ProfileManager
         string $addressCounty,
         string $addressPostcode,
         string $contactNumber,
-        ?string $dateOfBirth
+        ?string $dateOfBirth,
+        ?string $discordUsername = null
     ): User {
         $profile = new Profile($user);
 
@@ -88,6 +92,11 @@ class ProfileManager
 
         if (! empty($dateOfBirth)) {
             $profile->setDateOfBirth(new Carbon($dateOfBirth));
+        }
+
+        if (! empty($discordUsername)) {
+            $profile->setDiscordUsername($discordUsername);
+            event(new DiscordUsernameUpdated($user, $profile, null));
         }
 
         $profile->setCreditLimit($this->metaRepository->get('member_credit_limit'));
@@ -150,6 +159,27 @@ class ProfileManager
                 $profile->setDateOfBirth(null);
             } else {
                 $profile->setDateOfBirth(new Carbon($request['dateOfBirth']));
+            }
+        }
+
+        // Nullable field
+        if (array_key_exists('discordUsername', $request)) {
+            $oldDiscordUsername = $profile->getDiscordUsername();
+
+            if (is_null($request['discordUsername'])) {
+                $profile->setDiscordUsername(null);
+            } else {
+                $profile->setDiscordUsername($request['discordUsername']);
+            }
+
+            // When a user sets their discord user ID, we want to
+            // fire an event to push all roles.
+            if ($oldDiscordUsername != $profile->getDiscordUsername()) {
+                event(new DiscordUsernameUpdated($user, $profile, $oldDiscordUsername));
+
+                if ($profile->getDiscordUsername()) {
+                    $user->notify(new DiscordRegistered());
+                }
             }
         }
 

@@ -3,6 +3,7 @@
 namespace HMS\Entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use HMS\Helpers\Discord;
 use HMS\Traits\Entities\SoftDeletable;
 use HMS\Traits\Entities\Timestampable;
 use LaravelDoctrine\ACL\Contracts\Permission;
@@ -93,6 +94,16 @@ class Role implements RoleContract
      * @var null|string Team slack channel
      */
     protected $slackChannel;
+
+    /**
+     * @var null|string Public Discord channel for the team
+     */
+    protected $discordChannel;
+
+    /**
+     * @var null|string Private Discord channel (if needed) for the team
+     */
+    protected $discordPrivateChannel;
 
     /**
      * @var bool Should this role be retained by ex members
@@ -290,6 +301,54 @@ class Role implements RoleContract
     }
 
     /**
+     * Gets the value of discordChannel.
+     *
+     * @return string team's discord channel
+     */
+    public function getDiscordChannel(): ?string
+    {
+        return $this->discordChannel;
+    }
+
+    /**
+     * Sets the value of slackChannel.
+     *
+     * @param string team's discord channel
+     *
+     * @return self
+     */
+    public function setDiscordChannel($discordChannel): self
+    {
+        $this->discordChannel = $discordChannel;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of discordPrivateChannel.
+     *
+     * @return string team's private discord channel
+     */
+    public function getDiscordPrivateChannel(): ?string
+    {
+        return $this->discordPrivateChannel;
+    }
+
+    /**
+     * Sets the value of discordPrivateChannel.
+     *
+     * @param string team's private discord channel
+     *
+     * @return self
+     */
+    public function setDiscordPrivateChannel($discordPrivateChannel): self
+    {
+        $this->discordPrivateChannel = $discordPrivateChannel;
+
+        return $this;
+    }
+
+    /**
      * Gets the value of retained.
      *
      * @return bool Should this role be retained by ex members
@@ -324,6 +383,35 @@ class Role implements RoleContract
             return config('hms.trustees_slack_webhook');
         } else {
             return config('hms.team_slack_webhook');
+        }
+    }
+
+    /**
+     * Route notifications to the Discord channel.
+     *
+     * @return null|string
+     */
+    public function routeNotificationForDiscord(): ?string
+    {
+        if (! config('services.discord.token')) {
+            return null;
+        }
+
+        $discord = new Discord(
+            config('services.discord.token'),
+            config('services.discord.guild_id')
+        );
+
+        if ($this->name == self::TEAM_TRUSTEES) {
+            // Trustee discord role has access to membership private channel.
+            // Returning null to avoid duplicate message on membership audit.
+            return null;
+        } else {
+            if ($this->getDiscordPrivateChannel()) {
+                return $discord->findChannelByName($this->getDiscordPrivateChannel())->id;
+            } else {
+                return $discord->findChannelByName($this->getDiscordChannel())->id;
+            }
         }
     }
 

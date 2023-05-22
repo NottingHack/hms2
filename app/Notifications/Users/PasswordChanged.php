@@ -32,7 +32,11 @@ class PasswordChanged extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail', DiscordChannel::class];
+        $channels = ['mail'];
+        if (config('services.discord.token')) {
+            array_push($channels, DiscordChannel::class);
+        }
+        return $channels;
     }
 
     /**

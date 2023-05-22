@@ -14,7 +14,7 @@ class Version20230425175640_add_discord_username extends AbstractMigration
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE profile ADD discord_id VARCHAR(32) DEFAULT NULL');
+        $this->addSql('ALTER TABLE profile ADD discord_username VARCHAR(32) DEFAULT NULL');
     }
 
     /**
@@ -24,6 +24,6 @@ class Version20230425175640_add_discord_username extends AbstractMigration
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE profile DROP discord_id');
+        $this->addSql('ALTER TABLE profile DROP discord_username');
     }
 }

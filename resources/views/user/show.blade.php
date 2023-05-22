@@ -64,7 +64,7 @@
         </tr>
         <tr>
           <th>Discord Username:</th>
-          <td>{{ $user->getProfile()->getDiscordUserId() }}</td>
+          <td>{{ $user->getProfile()->getDiscordUsername() }}</td>
         </tr>
         @endif
       </tbody>

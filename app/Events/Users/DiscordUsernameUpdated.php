@@ -24,7 +24,7 @@ class DiscordUsernameUpdated
     /**
      * @var string|null
      */
-    public $oldDiscordUserId;
+    public $oldDiscordUsername;
 
     /**
      * @var User|null
@@ -36,15 +36,15 @@ class DiscordUsernameUpdated
      *
      * @param User $user
      * @param Profile $profile
-     * @param string|null $oldDiscordUserId
+     * @param string|null $oldDiscordUsername
      *
      * @return void
      */
-    public function __construct(User $user, Profile $profile, ?string $oldDiscordUserId)
+    public function __construct(User $user, Profile $profile, ?string $oldDiscordUsername)
     {
         $this->user = $user;
         $this->profile = $profile;
-        $this->oldDiscordUserId = $oldDiscordUserId;
+        $this->oldDiscordUsername = $oldDiscordUsername;
         $this->updateBy = Auth::user();
     }
 }

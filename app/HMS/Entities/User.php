@@ -464,7 +464,7 @@ class User implements
     public function routeNotificationForDiscord()
     {
         if (! config('services.discord.token') ||
-            ! $this->getProfile()->getDiscordUserId()) {
+            ! $this->getProfile()->getDiscordUsername()) {
             return null;
         }
 
@@ -473,8 +473,8 @@ class User implements
             config('services.discord.guild_id')
         );
 
-        $discordUserId = $this->getProfile()->getDiscordUserId();
-        $discordMember = $discord->findMemberByUsername($discordUserId);
+        $discordUsername = $this->getProfile()->getDiscordUsername();
+        $discordMember = $discord->findMemberByUsername($discordUsername);
 
         if (! $discordMember) {
             return null;

@@ -137,14 +137,14 @@
         <hr>
 
         <div class="form-group">
-          <label for="discordUserId" class="form-label">Discord Username</label>
-          <input class="form-control" id="discordUserId" type="text" name="discordUserId" value="{{ old('discordUserId', $user->getProfile()->getDiscordUserId()) }}">
+          <label for="discordUsername" class="form-label">Discord Username</label>
+          <input class="form-control" id="discordUsername" type="text" name="discordUsername" value="{{ old('discordUsername', $user->getProfile()->getDiscordUsername()) }}">
 	  <small class="form-text text-muted">
 	    This can be copied by clicking on your username at the bottom left from the Discord app.
 	  </small>
-          @if ($errors->has('discordUserId'))
+          @if ($errors->has('discordUsername'))
             <p class="help-text">
-              <strong>{{ $errors->first('discordUserId') }}</strong>
+              <strong>{{ $errors->first('discordUsername') }}</strong>
             </p>
           @endif
 	</div>

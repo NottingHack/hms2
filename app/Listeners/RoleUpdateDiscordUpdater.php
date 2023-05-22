@@ -103,11 +103,11 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
             return;
         }
 
-        if (! $profile->getDiscordUserId()) {
+        if (! $profile->getDiscordUsername()) {
             return;
         }
 
-        $discordMember = $this->discord->findMemberByUsername($profile->getDiscordUserId());
+        $discordMember = $this->discord->findMemberByUsername($profile->getDiscordUsername());
         $discordRole = $this->discord->findRoleByName($role->getDisplayName());
 
         if (! $discordMember || ! $discordRole) {
@@ -139,11 +139,11 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
             return;
         }
 
-        if (! $profile->getDiscordUserId()) {
+        if (! $profile->getDiscordUsername()) {
             return;
         }
 
-        $discordMember = $this->discord->findMemberByUsername($profile->getDiscordUserId());
+        $discordMember = $this->discord->findMemberByUsername($profile->getDiscordUsername());
         $discordRole = $this->discord->findRoleByName($role->getDisplayName());
 
         if (! $discordMember || ! $discordRole) {
@@ -160,9 +160,9 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
                   $user->getUsername() . ' removed from discord role ' . $role->getDisplayName());
     }
 
-    private function cleanupOldDiscordUserRoles($oldDiscordUserId)
+    private function cleanupOldDiscordUserRoles($oldDiscordUsername)
     {
-        $discordMember = $this->discord->findMemberByUsername($oldDiscordUserId);
+        $discordMember = $this->discord->findMemberByUsername($oldDiscordUsername);
         if (! $discordMember) {
             return;
         }
@@ -186,23 +186,23 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
     {
         $user = $this->userRepository->findOneById($event->user->getId());
         $profile = $user->getProfile();
-        $oldDiscordUserId = $event->oldDiscordUserId;
+        $oldDiscordUsername = $event->oldDiscordUsername;
 
         $memberRole = $this->roleRepository->findMemberStatusForUser($user);
         $memberTeams = $this->roleRepository->findTeamsForUser($user);
 
-        if ($oldDiscordUserId) {
-            $this->cleanupOldDiscordUserRoles($oldDiscordUserId);
+        if ($oldDiscordUsername) {
+            $this->cleanupOldDiscordUserRoles($oldDiscordUsername);
         }
 
-        if (! $profile->getDiscordUserId()) {
+        if (! $profile->getDiscordUsername()) {
             return;
         }
 
-        $discordUserId = $profile->getDiscordUserId();
+        $discordUsername = $profile->getDiscordUsername();
         $hmsUsername = $user->getUsername();
 
-        $discordMember = $this->discord->findMemberByUsername($discordUserId);
+        $discordMember = $this->discord->findMemberByUsername($discordUsername);
 
         if (! $discordMember) {
             return;

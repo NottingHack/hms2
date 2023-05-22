@@ -73,7 +73,7 @@ class Profile
     /**
      * @var null|string
      */
-    protected $discordUserId;
+    protected $discordUsername;
 
     /**
      * @var int
@@ -352,9 +352,9 @@ class Profile
     /**
      * @return null|string
      */
-    public function getDiscordUserId(): ?string
+    public function getDiscordUsername(): ?string
     {
-        return $this->discordUserId;
+        return $this->discordUsername;
     }
 
     /**
@@ -362,9 +362,9 @@ class Profile
      *
      * @return self
      */
-    public function setDiscordUserId(?string $discordUserId): self
+    public function setDiscordUsername(?string $discordUsername): self
     {
-        $this->discordUserId = $discordUserId;
+        $this->discordUsername = $discordUsername;
 
         return $this;
     }

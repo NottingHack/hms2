@@ -57,7 +57,7 @@ class ProfileManager
      * @param string $addressPostcode
      * @param string $contactNumber
      * @param null|string $dateOfBirth
-     * @param null|string $discordUserId
+     * @param null|string $discordUsername
      *
      * @return User
      */
@@ -71,7 +71,7 @@ class ProfileManager
         string $addressPostcode,
         string $contactNumber,
         ?string $dateOfBirth,
-        ?string $discordUserId = null
+        ?string $discordUsername = null
     ): User {
         $profile = new Profile($user);
 
@@ -94,8 +94,8 @@ class ProfileManager
             $profile->setDateOfBirth(new Carbon($dateOfBirth));
         }
 
-        if (! empty($discordUserId)) {
-            $profile->setDiscordUserId($discordUserId);
+        if (! empty($discordUsername)) {
+            $profile->setDiscordUsername($discordUsername);
             event(new DiscordUsernameUpdated($user, $profile, null));
         }
 
@@ -163,19 +163,19 @@ class ProfileManager
         }
 
         // Nullable field
-        if (array_key_exists('discordUserId', $request)) {
-            $oldDiscordUserId = $profile->getDiscordUserId();
-            if (is_null($request['discordUserId'])) {
-                $profile->setDiscordUserId(null);
+        if (array_key_exists('discordUsername', $request)) {
+            $oldDiscordUsername = $profile->getDiscordUsername();
+            if (is_null($request['discordUsername'])) {
+                $profile->setDiscordUsername(null);
             } else {
-                $profile->setDiscordUserId($request['discordUserId']);
+                $profile->setDiscordUsername($request['discordUsername']);
             }
 
             // When a user sets their discord user ID, we want to
             // fire an event to push all roles.
-            if ($oldDiscordUserId != $profile->getDiscordUserId()) {
-                event(new DiscordUsernameUpdated($user, $profile, $oldDiscordUserId));
-                if ($profile->getDiscordUserId()) {
+            if ($oldDiscordUsername != $profile->getDiscordUsername()) {
+                event(new DiscordUsernameUpdated($user, $profile, $oldDiscordUsername));
+                if ($profile->getDiscordUsername()) {
                     $user->notify(new DiscordRegistered());
                 }
             }

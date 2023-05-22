@@ -14,8 +14,9 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
+use Laravel\Horizon\Contracts\Silenced;
 
-class UpdateTemporaryAccessRoleJob implements ShouldQueue
+class UpdateTemporaryAccessRoleJob implements ShouldQueue, Silenced
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 

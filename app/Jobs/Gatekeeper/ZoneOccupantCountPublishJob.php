@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Gatekeeper;
 
 use HMS\Entities\Gatekeeper\Zone;
 use Illuminate\Bus\Queueable;
@@ -9,8 +9,9 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use karpy47\PhpMqttClient\MQTTClient;
+use Laravel\Horizon\Contracts\Silenced;
 
-class ZoneOccupantCountPublishJob implements ShouldQueue
+class ZoneOccupantCountPublishJob implements ShouldQueue, Silenced
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 

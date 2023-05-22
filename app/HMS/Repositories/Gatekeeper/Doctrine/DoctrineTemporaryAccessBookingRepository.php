@@ -95,7 +95,7 @@ class DoctrineTemporaryAccessBookingRepository extends EntityRepository implemen
         $results = $qb1->getQuery()->getResult();
 
         $results = collect($results)->mapWithKeys(function ($item) {
-            return [($item['building']->getId()) => (int) $item['booking_count']];
+            return [$item['building']->getId() => (int) $item['booking_count']];
         });
 
         return $results->all();

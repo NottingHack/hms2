@@ -40,19 +40,19 @@ class ProfileTableSeeder extends Seeder
             foreach ($role->getUsers() as $user) {
                 $p = null;
                 switch ($role->getName()) {
-                case Role::SUPERUSER:
-                    $p = entity(Profile::class, 'superuser')->make(['user' => $user]);
-                    break;
-                case Role::MEMBER_APPROVAL:
-                case Role::MEMBER_PAYMENT:
-                    $p = entity(Profile::class, 'approval')->make(['user' => $user]);
-                    break;
-                case Role::MEMBER_YOUNG:
-                    $p = entity(Profile::class, 'youngHacker')->make(['user' => $user]);
-                    break;
-                default:
-                    $p = entity(Profile::class)->make(['user' => $user]);
-                    break;
+                    case Role::SUPERUSER:
+                        $p = entity(Profile::class, 'superuser')->make(['user' => $user]);
+                        break;
+                    case Role::MEMBER_APPROVAL:
+                    case Role::MEMBER_PAYMENT:
+                        $p = entity(Profile::class, 'approval')->make(['user' => $user]);
+                        break;
+                    case Role::MEMBER_YOUNG:
+                        $p = entity(Profile::class, 'youngHacker')->make(['user' => $user]);
+                        break;
+                    default:
+                        $p = entity(Profile::class)->make(['user' => $user]);
+                        break;
                 }
                 EntityManager::persist($p);
             }

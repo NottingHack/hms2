@@ -21,8 +21,9 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
+use Laravel\Horizon\Contracts\Silenced;
 
-class TemporaryAcccessCheckZoneOccupancyJob implements ShouldQueue
+class TemporaryAcccessCheckZoneOccupancyJob implements ShouldQueue, Silenced
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 

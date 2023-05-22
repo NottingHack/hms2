@@ -148,7 +148,7 @@
             <strong>{{ $errors->first('discordUsername') }}</strong>
           </p>
           @endif
-	</div>
+        </div>
         @endfeature
         @endif {{-- userProfile() --}}
       </div>

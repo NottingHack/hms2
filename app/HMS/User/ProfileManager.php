@@ -165,6 +165,7 @@ class ProfileManager
         // Nullable field
         if (array_key_exists('discordUsername', $request)) {
             $oldDiscordUsername = $profile->getDiscordUsername();
+ 
             if (is_null($request['discordUsername'])) {
                 $profile->setDiscordUsername(null);
             } else {

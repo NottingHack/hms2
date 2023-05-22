@@ -175,6 +175,7 @@ class ProfileManager
             // fire an event to push all roles.
             if ($oldDiscordUsername != $profile->getDiscordUsername()) {
                 event(new DiscordUsernameUpdated($user, $profile, $oldDiscordUsername));
+
                 if ($profile->getDiscordUsername()) {
                     $user->notify(new DiscordRegistered());
                 }

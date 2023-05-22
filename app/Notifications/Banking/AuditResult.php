@@ -148,15 +148,28 @@ class AuditResult extends Notification implements ShouldQueue
         $revokeCount = count($this->formattedRevokeUsers);
         $reinstateCount = count($this->formattedReinstateUsers);
 
-        $message = <<<EOF
-        __**Membership Audit Results**__
+        $embed = [
+            'title' => "Membership Audit Results",
+            'fields' => [
+                [
+                    'name' => 'New Members',
+                    'value' => $approveCount,
+                ],
+                [
+                    'name' => 'Notified Members',
+                    'value' => $warnCount,
+                ],
+                [
+                    'name' => 'Revoked Members',
+                    'value' => $revokeCount,
+                ],
+                [
+                    'name' => 'Reinstated Members',
+                    'value' => $reinstateCount,
+                ],
+            ],
+        ];
 
-        **New Members**: $approveCount
-        **Notified Members**: $warnCount
-        **Revoked Members**: $revokeCount
-        **Reinstated Members**: $reinstateCount
-        EOF;
-
-        return DiscordMessage::create($message);
+        return (new DiscordMessage())->embed($embed);
     }
 }

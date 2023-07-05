@@ -17,6 +17,9 @@
     @if ($toilet = Meta::get('access_roden_house_toilet'))
     <li class="list-group-item">Roden House Toilet: {{ $toilet }}</li>
     @endif
+    @if ($ashley_street = Meta::get('access_roden_house_ashley_street'))
+    <li class="list-group-item">Roden House Ashley Street Door: {{ $ashley_street }}</li>
+    @endif
     <li class="list-group-item">{{ Auth::user() == $user ? 'You have' : $user->getFirstname() . ' has' }} {{ count($user->getRfidTags()) }} RFID cards.</li>
     @canany(['pins.view.all', 'pins.view.self'])
     @if ($user->getPin())

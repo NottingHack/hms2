@@ -40,6 +40,11 @@
             <dt class="h5">Roden House Toilet</dt>
             <h4><span class="badge badge-primary">{{  $toilet }}</span></h4>
             @endif
+            @if ($ashley_street = Meta::get('access_roden_house_ashley_street'))
+            <hr>
+            <dt class="h5">Roden House Ashley Street Door</dt>
+            <h4><span class="badge badge-primary">{{  $ashley_street }}</span></h4>
+            @endif
           </dl>
         </div>
         <div class="card-footer">

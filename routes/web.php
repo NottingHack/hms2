@@ -297,6 +297,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // CSV downlaods
     Route::get('csv-download', 'CSVDownloadController@index')->name('csv-download.index');
+    Route::get('csv-download/current-members', 'CSVDownloadController@currentMembers')->name('csv-download.current-members');
     Route::get('csv-download/opa-csv', 'CSVDownloadController@currentMemberEmails')->name('csv-download.opa-csv');
     Route::get('csv-download/low-payers', 'CSVDownloadController@lowPayers')->name('csv-download.low-payers');
     Route::get('csv-download/payment-change', 'CSVDownloadController@paymentChange')

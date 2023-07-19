@@ -53,6 +53,37 @@ class CSVDownloadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function currentMembers()
+    {
+        $headers = [
+            'Content-type' => 'text/csv',
+            'Pragma' => 'no-cache',
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires' => '0',
+        ];
+
+        $members = $this->roleRepository->findOneByName(Role::MEMBER_CURRENT)->getUsers();
+
+        $callback = function () use ($members) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, ['fullname','email']);
+            foreach ($members as $member) {
+                fputcsv(
+                    $file,
+                    [$member->getFullname(), $member->getEmail()]
+                );
+            }
+            fclose($file);
+        };
+
+        return response()->streamDownload($callback, 'currentMemberEmails-' . date('d-m-Y-H:i:s') . '.csv', $headers);
+    }
+
+    /**
+     * Download a csv of current member email addresses.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function currentMemberEmails()
     {
         $headers = [

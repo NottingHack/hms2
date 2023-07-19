@@ -10,6 +10,9 @@
   </p>
   <ul>
     @can('profile.view.all')
+    <li><a href="{{ route('csv-download.current-members') }}" target="_blank">Download CSV of current Member names and emails</a></li>
+    @endcan
+    @can('profile.view.all')
     <li><a href="{{ route('csv-download.opa-csv') }}" target="_blank">Download CSV of current Member emails for use with OPA Vote</a></li>
     @endcan
     @can('profile.view.all')

@@ -66,7 +66,7 @@ class CSVDownloadController extends Controller
 
         $callback = function () use ($members) {
             $file = fopen('php://output', 'w');
-            fputcsv($file, ['fullname','email']);
+            fputcsv($file, ['fullname', 'email']);
             foreach ($members as $member) {
                 fputcsv(
                     $file,

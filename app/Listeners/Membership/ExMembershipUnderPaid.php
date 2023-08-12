@@ -4,6 +4,8 @@ namespace App\Listeners\Membership;
 
 use App\Events\Banking\ExMemberPaymentUnderMinimum;
 use App\Mail\Membership\MembershipExUnderPaid;
+use HMS\Factories\Banking\MembershipStatusNotificationFactory;
+use HMS\Repositories\Banking\MembershipStatusNotificationRepository;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
@@ -35,16 +37,25 @@ class ExMembershipUnderPaid implements ShouldQueue
     /**
      * Create the event listener.
      *
-     * @return void
+     * @param UserRepository                         $userRepository
+     * @param RoleManager                            $roleManager
+     * @param MembershipStatusNotificationFactory    $membershipStatusNotificationFactory
+     * @param MembershipStatusNotificationRepository $membershipStatusNotificationRepository
+     * @param MetaRepository                         $metaRepository
+     * @param RoleRepository                         $roleRepository
      */
     public function __construct(
         UserRepository $userRepository,
         RoleManager $roleManager,
+        MembershipStatusNotificationFactory $membershipStatusNotificationFactory,
+        MembershipStatusNotificationRepository $membershipStatusNotificationRepository,
         MetaRepository $metaRepository,
         RoleRepository $roleRepository
     ) {
         $this->userRepository = $userRepository;
         $this->roleManager = $roleManager;
+        $this->membershipStatusNotificationFactory = $membershipStatusNotificationFactory;
+        $this->membershipStatusNotificationRepository = $membershipStatusNotificationRepository;
         $this->metaRepository = $metaRepository;
         $this->roleRepository = $roleRepository;
     }
@@ -60,6 +71,12 @@ class ExMembershipUnderPaid implements ShouldQueue
     {
         // get a fresh copy of the user
         $user = $this->userRepository->findOneById($event->user->getId());
+
+        // File an already cleared MembershipStatusNotification against the bankTransaction
+        $membershipStatusNotification = $this->membershipStatusNotificationFactory
+            ->createForUnderPayment($user, $user->getAccount())
+            ->clearNotificationsByRevoke();
+        $this->membershipStatusNotificationRepository->save($membershipStatusNotification);
 
         // email user
         \Mail::to($user)->send(new MembershipExUnderPaid($user, $this->metaRepository, $this->roleRepository));

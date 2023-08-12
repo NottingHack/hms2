@@ -14,6 +14,7 @@ use App\HMS\Views\LowLastPaymentAmount;
 use App\Notifications\Banking\AuditIssues;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
+use HMS\Entities\Banking\MembershipStatusNotification;
 use HMS\Entities\Role;
 use HMS\Repositories\Banking\BankTransactionRepository;
 use HMS\Repositories\Banking\MembershipStatusNotificationRepository;
@@ -61,25 +62,31 @@ class MembershipAuditJob implements ShouldQueue
         $lastPaymentAmounts = LowLastPaymentAmount::all();
         /*
             Results data format
-            [account_id] => LowLastPaymentAmount
+            [
+                account_id => LowLastPaymentAmount,
+                ...
+            ]
          */
         $latestTransactionForAccounts = $lastPaymentAmounts->keyBy('account_id');
 
         // need to grab a list of all members with current notifications
-        $outstandingNotifications = $membershipStatusNotificationRepository->findOutstandingNotifications();
+        $outstandingNotifications = collect(
+            $membershipStatusNotificationRepository->findOutstandingNotifications()
+        );
         /*
             Results data format
-            [user_id, ...]
+            [
+                user_id => MembershipStatusNotification,
+                ...
+            ]
         */
-        $memberIdsForCurrentNonPaymentNotifications = [];
-        $memberIdsForCurrentUnderPaymentNotifications = [];
-        foreach ($outstandingNotifications as $membershipStatusNotification) {
-            if ($membershipStatusNotification->isForNonPayment()) {
-                $memberIdsForCurrentNonPaymentNotifications[] = $membershipStatusNotification->getUser()->getId();
-            } else {
-                $memberIdsForCurrentUnderPaymentNotifications[] = $membershipStatusNotification->getUser()->getId();
-            }
-        }
+        $memberIdsForCurrentNonPaymentNotifications = $outstandingNotifications
+          ->filter(fn (MembershipStatusNotification $membershipStatusNotification) => $membershipStatusNotification->isForNonPayment())
+          ->keyBy(fn (MembershipStatusNotification $membershipStatusNotification) => $membershipStatusNotification->getUser()->getId());
+
+        $memberIdsForCurrentUnderPaymentNotifications = $outstandingNotifications
+          ->filter(fn (MembershipStatusNotification $membershipStatusNotification) => $membershipStatusNotification->isForUnderMinimumPayment())
+          ->keyBy(fn (MembershipStatusNotification $membershipStatusNotification) => $membershipStatusNotification->getUser()->getId());
 
         // grab the users in each of the various role states we need to audit
         $awaitingMembers = $roleRepository->findOneByName(Role::MEMBER_PAYMENT)->getUsers();
@@ -158,33 +165,25 @@ class MembershipAuditJob implements ShouldQueue
                 $notificationRevokeUsers[] = $user;
             } elseif ($transactionDate < $warnDate) { // transaction date is older than warning date
                 // if not already warned
-                if (! in_array($user->getId(), $memberIdsForCurrentNonPaymentNotifications)) {
+                if ($memberIdsForCurrentNonPaymentNotifications->keys()->doesntContain($user->getId())) {
                     // warn membership may be terminated if we don't see one soon
                     $warnUsersNotPaid[] = $user;
                 }
             } elseif ($latestTransactionForAccounts[$user->getAccount()->getId()]->amount_joint_adjusted < $minimumAmount) {
                 // date diff should be less than 1.5 months
                 // but have not paid enough
-                if (! in_array($user->getId(), $memberIdsForCurrentUnderPaymentNotifications)) {
+                if ($memberIdsForCurrentUnderPaymentNotifications->keys()->doesntContain($user->getId())) {
                     // first time processing at under minimum so
                     // warn them about under payment
                     $warnUsersMinimumAmount[] = $user;
                 } else { // ? not sure
                     // latest tx date is good but amount is too low, we have sent them a warning
-                    // how long before we move to revoke?
+                    // grab that notification
+                    $membershipStatusNotification = $memberIdsForCurrentUnderPaymentNotifications[$user->getId()];
 
-                    // find there last payment that was above the minimum and if that was before revokeDate?
-                    $jointCount = $latestTransactionForAccounts[$user->getAccount()->getId()]->joint_count;
-
-                    $transaction = $bankTransactionRepository->findLatestTransactionByAccountGTeAmount(
-                        $user->getAccount(),
-                        $minimumAmount * max($jointCount, 1)
-                    );
-
-                    if (is_null($transaction) || $transaction->getTransactionDate() < $revokeDate) {
-                        // either no transaction for amount found or the found transaction date is older than revoke date
-
-                        // make ex member
+                    // is the warned transaction Date now < revokeDate
+                    if ($membershipStatusNotification->getBankTransaction()->getTransactionDate() < $revokeDate) {
+                        //  yes time to revoke them
                         $revokeUsersMinimumAmount[] = $user;
                     }
                 }
@@ -192,11 +191,11 @@ class MembershipAuditJob implements ShouldQueue
                 // date diff should be less than 1.5 months
                 // and have paid at least the minimum
                 // clear any out standing warnings
-                if (in_array($user->getId(), $memberIdsForCurrentNonPaymentNotifications)) {
+                if ($memberIdsForCurrentNonPaymentNotifications->keys()->contains($user->getId())) {
                     $notificationPaymentUsers[] = $user;
                 }
 
-                if (in_array($user->getId(), $memberIdsForCurrentUnderPaymentNotifications)) {
+                if ($memberIdsForCurrentUnderPaymentNotifications->keys()->contains($user->getId())) {
                     $notificationUnderPaymentUsers[] = $user;
                 }
             }
@@ -220,31 +219,25 @@ class MembershipAuditJob implements ShouldQueue
                 $notificationRevokeUsers[] = $user;
             } elseif ($transactionDate < $warnDate) { // transaction date is older than warning date
                 // if not already warned
-                if (! in_array($user->getId(), $memberIdsForCurrentNonPaymentNotifications)) {
+                if ($memberIdsForCurrentNonPaymentNotifications->keys()->doesntContain($user->getId())) {
                     // warn membership may be terminated if we don't see one soon
                     $warnUsersNotPaid[] = $user;
                 }
             } elseif ($latestTransactionForAccounts[$user->getAccount()->getId()]->amount_joint_adjusted < $minimumAmount) {
                 // date diff should be less than 1.5 months
                 // but have not paid enough
-                if (! in_array($user->getId(), $memberIdsForCurrentUnderPaymentNotifications)) {
+                if ($memberIdsForCurrentUnderPaymentNotifications->keys()->doesntContain($user->getId())) {
+                    // first time processing at under minimum so
                     // warn them about under payment
                     $warnUsersMinimumAmount[] = $user;
                 } else { // ? not sure
                     // latest tx date is good but amount is too low, we have sent them a warning
-                    // how long before we move to revoke?
-                    // find there last payment that was above the minimum and if that was before revokeDate?
-                    $jointCount = $latestTransactionForAccounts[$user->getAccount()->getId()]->joint_count;
+                    // grab that notification
+                    $membershipStatusNotification = $memberIdsForCurrentUnderPaymentNotifications[$user->getId()];
 
-                    $transaction = $bankTransactionRepository->findLatestTransactionByAccountAboveAmount(
-                        $user->getAccount(),
-                        $minimumAmount * max($jointCount, 1)
-                    );
-
-                    if (is_null($transaction) || $transaction->getTransactionDate() < $revokeDate) {
-                        // either no transaction for amount found or the found transaction date is older than revoke date
-
-                        // make ex member
+                    // is the warned transaction Date now < revokeDate
+                    if ($membershipStatusNotification->getBankTransaction()->getTransactionDate() < $revokeDate) {
+                        //  yes time to revoke them
                         $revokeUsersMinimumAmount[] = $user;
                     }
                 }
@@ -252,11 +245,11 @@ class MembershipAuditJob implements ShouldQueue
                 // date diff should be less than 1.5 months
                 // and have paid at least the minimum
                 // clear any out standing warnings
-                if (in_array($user->getId(), $memberIdsForCurrentNonPaymentNotifications)) {
+                if ($memberIdsForCurrentNonPaymentNotifications->keys()->contains($user->getId())) {
                     $notificationPaymentUsers[] = $user;
                 }
 
-                if (in_array($user->getId(), $memberIdsForCurrentUnderPaymentNotifications)) {
+                if ($memberIdsForCurrentUnderPaymentNotifications->keys()->contains($user->getId())) {
                     $notificationUnderPaymentUsers[] = $user;
                 }
             }
@@ -295,7 +288,7 @@ class MembershipAuditJob implements ShouldQueue
                 $userNotifications = collect($membershipStatusNotificationRepository->findByUser($user));
 
                 if ($userNotifications->contains(
-                    function ($membershipStatusNotification) use ($latestTransaction) {
+                    function (MembershipStatusNotification $membershipStatusNotification) use ($latestTransaction) {
                         return optional($membershipStatusNotification->getBankTransaction())->getId() == $latestTransaction->getId();
                     }
                 )) {
@@ -305,12 +298,12 @@ class MembershipAuditJob implements ShouldQueue
 
                 if ($previousTransaction->getTransactionDate() < $revokeDate) {
                     // previous transaction was before revokeDate
-                    $exUsersUnderMinimum[] = $user;
+                    $exUsersUnderMinimum[$user] = $latestTransaction;
                 }
             }
         }
 
-        // right should now have 9 arrays of Id's to go and process
+        // right should now have 8 arrays of Id's to go and process
         // by batching the id's we can send just one email to membership team with tables of members
         // showing different bits of info for different states
         // approve, name, email, pin, joint?
@@ -347,8 +340,8 @@ class MembershipAuditJob implements ShouldQueue
             event(new NonPaymentOfMinimumMembership($user));
         }
 
-        foreach ($exUsersUnderMinimum as $user) {
-            event(new ExMemberPaymentUnderMinimum($user));
+        foreach ($exUsersUnderMinimum as $user => $latestTransaction) {
+            event(new ExMemberPaymentUnderMinimum($user, $latestTransaction));
         }
 
         if (count($ohCrapUsers) != 0) {

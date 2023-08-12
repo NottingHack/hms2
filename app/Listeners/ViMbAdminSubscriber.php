@@ -115,7 +115,7 @@ class ViMbAdminSubscriber implements ShouldQueue
 
                 // TODO: check if there is a mailbox with address $trusteeEmail
                 // if not then create one
-                // need to email password to $user with link ot change it
+                // need to email password to $user with link to change it
                 // https://vba.lwk.me/auth/change-password
                 // or add a new view to allow password change from hms
             }

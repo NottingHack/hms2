@@ -19,4 +19,13 @@ class LowLastPaymentAmount extends Model
      * @var bool
      */
     public $timestamps = false;
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'last_payment_date' => 'date',
+    ];
 }

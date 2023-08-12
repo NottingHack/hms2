@@ -8,6 +8,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\View;
 
 class UnmatchedTransaction extends Notification implements ShouldQueue
 {
@@ -56,7 +57,11 @@ class UnmatchedTransaction extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
+        $theme = config('mail.markdown.theme');
+        $themeWide = $theme . '-wide';
+
         return (new MailMessage)
+            ->theme(View::exists('vendor.mail.html.themes.' . $themeWide) ? $themeWide : $theme)
             ->subject('HMS Unmatched transactions')
             ->markdown('emails.banking.unmatchedTransaction', [
                 'teamName' => ($notifiable instanceof Role) ? $notifiable->getDisplayName() : $notifiable->getName(),

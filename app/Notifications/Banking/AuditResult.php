@@ -11,6 +11,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\View;
 use NotificationChannels\Discord\DiscordChannel;
 use NotificationChannels\Discord\DiscordMessage;
 
@@ -92,7 +93,11 @@ class AuditResult extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
+        $theme = config('mail.markdown.theme');
+        $themeWide = $theme . '-wide';
+
         return (new MailMessage)
+            ->theme(View::exists('vendor.mail.html.themes.' . $themeWide) ? $themeWide : $theme)
             ->subject('HMS Audit results')
             ->markdown(
                 'emails.banking.auditResults',

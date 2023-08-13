@@ -6,6 +6,7 @@ Membership Payments for {{ $user->getFirstname() }}
 
 @section('content')
 <div class="container">
+  @feature('standing_order_membership_payments')
   <div class="card w-100">
     <h3 class="card-header"><i class="fad fa-university" aria-hidden="true"></i> Standing order details</h3>
     <div class="card-body">
@@ -45,6 +46,7 @@ Membership Payments for {{ $user->getFirstname() }}
       </dl>
     </div>
   </div>
+  @endfeature
 
   <br>
   @content('banking.transactions.index', 'transactions')

@@ -154,7 +154,7 @@ return [
         ],
         'member.payment' => [
             'name' => 'Awaiting Payment',
-            'description' => 'Awaiting standing order payment',
+            'description' => 'Awaiting membership payment',
             'permissions' => [
                 'profile.view.self',
                 'profile.edit.self',

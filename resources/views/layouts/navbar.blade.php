@@ -68,7 +68,7 @@
             <a class="dropdown-item" href="{{ route('users.show', Auth::user()->getId()) }}">Update Details</a>
             <a class="dropdown-item" href="{{ route('users.changePassword') }}">Change Password</a>
             @if (Auth::user()->getAccount())
-            <a class="dropdown-item" href="{{ route('banking.bank-transactions.index') }}">Standing Order Details</a>
+            <a class="dropdown-item" href="{{ route('banking.bank-transactions.index') }}">Membership Payment Details</a>
             @endif
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
@@ -89,7 +89,7 @@
         </li>
         @if (Auth::user()->getAccount())
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('banking.bank-transactions.index') }}">Standing Order Details</a>
+          <a class="nav-link" href="{{ route('banking.bank-transactions.index') }}">Membership Payment Details</a>
         </li>
         @endif
         <li class="nav-item"><hr class="border-top-3"></li>

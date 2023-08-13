@@ -15,6 +15,7 @@ return [
         'vending' => env('FEATURE_VENDING_ENABLE', true),
         'tools' => env('FEATURE_TOOLS_ENABLE', true),
         'label_printer' => env('FEATURE_LABEL_PRINTER_ENABLE', true),
+        'standing_order_membership_payments' => env('FEATURE_STANDING_ORDER_MEMBERSHIP_PAYMENTS', true),
         'cash_membership_payments' => env('FEATURE_CASH_MEMBERSHIP_PAYMENTS_ENABLE', false),
         'ofx_bank_upload' => env('FEATURE_OFX_BANK_UPLOAD_ENABLE', false),
         'match_legacy_ref' => env('FEATURE_MATCH_LEGACY_REF', false),

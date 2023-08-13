@@ -1,7 +1,7 @@
 @canany(['bankTransactions.view.limited', 'bankTransactions.view.all'])
 @if ($user->getAccount())
 <div class="card">
-  <div class="card-header">Standing Order</div>
+  <div class="card-header">Membership Payments</div>
   <ul class="list-group list-group-flush">
     <li class="list-group-item">
       <span class="align-middle">

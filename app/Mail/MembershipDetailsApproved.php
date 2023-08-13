@@ -67,7 +67,7 @@ class MembershipDetailsApproved extends Mailable implements ShouldQueue
     public function build()
     {
         return $this
-            ->subject(config('branding.space_name') . ': Please setup your standing order')
+            ->subject(config('branding.space_name') . ': Please setup your membership payments')
             ->markdown('emails.membership.approved');
     }
 }

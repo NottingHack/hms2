@@ -69,13 +69,13 @@
         <th>Invites Outstanding</th>
         <td>{{ $invitesOutstandingLastWeek }}</td>
         <td>{{ $invitesOutstandingLastMonth }}</td>
-        <td>Interests there where registered in the last week/month but have not yet created a HMS account.</td>
+        <td>Interests registered in the last week/month but have not yet created a HMS account.</td>
       </tr>
       <tr>
         <th>Awaiting Payment</th>
         <td>{{ $awaitingPaymentLastWeek }}</td>
         <td>{{ $awaitingPaymentLastMonth }}</td>
-        <td>Members that have been thought the membership sign up process in the last week/month, but payment has not yet arrived. There interest could have been registered any time.</td>
+        <td>Members that have been through the membership sign up process in the last week/month, but payment has not yet arrived. Their interest could have been registered any time.</td>
       </tr>
       <tr>
         <th>New Members</th>

@@ -3,6 +3,7 @@
 
 @content('emails.membership.approved', 'main')
 
+@feature('standing_order_membership_payments')
 **Please note it is very important that you use the reference code exactly as provided.**
 
 @component('mail::panel')
@@ -11,6 +12,7 @@ Sort Code: {{ $sortCode }}
 Reference: {{ $paymentRef }}  
 Our Account Name: {{ $accountName }}
 @endcomponent
+@endfeature
 
 @content('emails.membership.approved', 'additional')
 

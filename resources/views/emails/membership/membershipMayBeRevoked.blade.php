@@ -3,8 +3,9 @@
 
 @content('emails.membership.membershipMayBeRevoked', 'main')
 
-If you do wish to maintain your membership you will need to check your standing order is setup as below.
+If you do wish to maintain your membership you will need to check your payments are setup as below.
 
+@feature('standing_order_membership_payments')
 Here are the details your standing order should have:
 
 @component('mail::panel')
@@ -13,6 +14,7 @@ Sort Code: {{ $sortCode }}
 Reference: {{ $paymentRef }}  
 Our Account Name: {{ $accountName }}
 @endcomponent
+@endfeature
 
 If we receive a payment soon your membership will carry on unaffected.
 
@@ -24,8 +26,11 @@ Please also empty your members box.
 
 @if ($snackspaceBalance < 0)
 We also request that you settle your snackspace balance of @money($snackspaceBalance, 'GBP')  
-This can be paid off by cash in the space or by card online in HMS  
-Or via bank transfer using the reference **{{ $snackspaceRef }}** to the Account number ans Sort Code above.  
+This can be paid off by card online in HMS @feature('cash_acceptors') or by cash in the space @endfeature  
+@feature('standing_order_membership_payments')
+Or via bank transfer using the reference **{{ $snackspaceRef }}** to the Account number and Sort Code above.  
+@endfeature
+
 @endif
 
 Thanks,  

@@ -19,6 +19,7 @@ return [
         'cash_membership_payments' => env('FEATURE_CASH_MEMBERSHIP_PAYMENTS_ENABLE', false),
         'ofx_bank_upload' => env('FEATURE_OFX_BANK_UPLOAD_ENABLE', false),
         'match_legacy_ref' => env('FEATURE_MATCH_LEGACY_REF', false),
+        'cash_acceptors' => env('FEATURE_CASH_ACCEPTORS', true),
         'email_all_members' => env('FEATURE_EMAIL_ALL_MEMBERS', true)
             && (env('MAILGUN_DOMAIN', false) && env('MAILGUN_SECRET', false)),
         'voting_status' => env('FEATURE_VOTING_STATUS', true),

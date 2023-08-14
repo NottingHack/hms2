@@ -15,12 +15,14 @@ As of today the space is still owed **@money(-$latetsTotalDebt, 'GBP')**.
 
 
 ## Payment Instructions
-We can take cash or online card payments (in HMS). Please use the cash acceptors in the members box storage room to pay off your snackspace debt. You can pay in notes and coins.
-
-To use a cash acceptor, simply scan your membership card against the 'H' on the front, and then insert cash. The machine will record your payment and credit your account.<br>
-If you have any issues with the acceptor, please let the snackspace team know via the #snackspace channel on slack.
+We can take online card payments via HMS @feature('cash_acceptors') or cash. Please use the cash acceptors in the members box storage room to pay off your snackspace debt. You can pay in notes and coins @endfeature.
 
 To pay off with a card, please log into HMS where you will see a button to "Add Money To Snackspace"
+
+@feature('cash_acceptors')
+To use a cash acceptor, simply scan your membership card against the 'H' on the front, and then insert cash. The machine will record your payment and credit your account.<br>
+If you have any issues with the acceptor, please let the snackspace team know.
+@endfeature
 
 Thanks,<br>
 {{ config('branding.space_name') }}

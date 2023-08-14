@@ -8,6 +8,7 @@ use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Events\MessageSending;
+use Illuminate\Mail\Events\MessageSent;
 
 class LogSentMessage implements ShouldQueue
 {
@@ -48,18 +49,25 @@ class LogSentMessage implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param IlluminateMailEventsMessageSending $event
+     * @param MessageSending $event
      *
      * @return void
      */
-    public function handle(MessageSending $event)
+    public function handle(MessageSent $event)
     {
-        // grab the various bits of info from the Swift_Message
-        $messageId = $event->message->getHeaders()->get('message-id')->getId();
-        $toAddresses = $event->message->getHeaders()->get('to')->getNameAddresses();
-        $subject = $event->message->getHeaders()->get('subject')->getValue();
-        $body = $event->message->getBody();
-        $fullString = $event->message->toString();
+        // grab the various bits of info from the Symfony Sent Message
+        $messageId = $event->sent->getMessageId();
+        $toAddresses = collect($event->sent->getOriginalMessage()->getTo())
+            ->mapWithKeys(fn ($a, $k) => [$a->getAddress() => $a->getName() ?: null])
+            ->toArray();
+        $subject = $event->sent->getOriginalMessage()->getSubject();
+        $body = collect(
+            $event->sent->getOriginalMessage()->getBody()->getParts()
+        )
+            ->filter(fn ($tp) => $tp->getMediaSubtype() == 'html')
+            ->first()
+            ->getBody();
+        $fullString = $event->sent->getOriginalMessage()->toString();
 
         $email = new Email($toAddresses, $subject, $body, $fullString, $messageId);
 

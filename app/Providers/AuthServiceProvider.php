@@ -15,7 +15,7 @@ use Laravel\Passport\Passport;
 class AuthServiceProvider extends ServiceProvider
 {
     /**
-     * The policy mappings for the application.
+     * The model to policy mappings for the application.
      *
      * @var array<class-string, class-string>
      */
@@ -37,7 +37,6 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         // Passport bits.
-        Passport::routes();
         Passport::cookie(Str::slug(config('app.name'), '_') . '_passport');
         Passport::tokensExpireIn(
             now()->addDays(config('hms.passport_token_expire_days', 15))

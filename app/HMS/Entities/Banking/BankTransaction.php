@@ -4,8 +4,9 @@ namespace HMS\Entities\Banking;
 
 use Carbon\Carbon;
 use HMS\Entities\Snackspace\Transaction;
+use HMS\Entities\EntityObfuscatableInterface;
 
-class BankTransaction
+class BankTransaction implements EntityObfuscatableInterface
 {
     /**
      * @var int
@@ -168,6 +169,22 @@ class BankTransaction
     public function setTransaction($transaction)
     {
         $this->transaction = $transaction;
+
+        return $this;
+    }
+
+    /**
+     * Remove any personal information from the transaction.
+     * This should only happen after 7 years if the member has deleted their account.
+     */
+    public function obfuscate() {
+        $historic = Carbon::now();
+        $historic->subYears(7);
+
+        if ($this->transactionDate() < $historic) {
+            // The description may contain names etc.
+            $this->description = "obfuscated";
+        }
 
         return $this;
     }

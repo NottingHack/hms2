@@ -11,6 +11,7 @@ use HMS\Traits\Entities\DoctrineMustVerifyEmail;
 use HMS\Traits\Entities\SoftDeletable;
 use HMS\Traits\Entities\Timestampable;
 use HMS\Traits\HasApiTokens;
+use HMS\Entities\EntityObfuscatableInterface;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -30,7 +31,8 @@ class User implements
     HasRoleContract,
     HasPermissionsContract,
     AuthorizableContract,
-    MustVerifyEmailContract
+    MustVerifyEmailContract,
+    EntityObfuscatableInterface
 {
     use CanResetPassword,
         Notifiable,
@@ -486,5 +488,14 @@ class User implements
                 'recipient_id' => $discordMember->user->id,
             ])
             ->id;
+    }
+
+    /**
+     * Obfuscate personal information
+     */
+    public function obfuscate()
+    {
+        $this->email = null;
+        return $this;
     }
 }

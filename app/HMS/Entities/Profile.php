@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use HMS\Governance\VotingPreference;
 use HMS\Traits\Entities\Timestampable;
 
-class Profile
+class Profile implements EntityObfuscatableInterface
 {
     use Timestampable;
 
@@ -448,6 +448,20 @@ class Profile
     public function setVotingPreferenceStatedAt(?Carbon $votingPreferenceStatedAt): self
     {
         $this->votingPreferenceStatedAt = $votingPreferenceStatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Remove any personal information from the profile
+     */
+    public function obfuscate() {
+        $this->unlockText = "deleted";
+        $this->contactNumber = "deleted";
+        $this->dateOfBirth = Carbon::create(1900, 1, 1, 0, 0, 0);
+        $this->discordUsername = null;
+        $this->creditLimit = 0;
+        $this->balance = 0;
 
         return $this;
     }

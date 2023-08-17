@@ -4,8 +4,9 @@ namespace HMS\Entities\Tools;
 
 use Carbon\Carbon;
 use HMS\Entities\User;
+use HMS\Entities\EntityObfuscatableInterface;
 
-class Usage
+class Usage implements EntityObfuscatableInterface
 {
     /**
      * @var int
@@ -176,6 +177,15 @@ class Usage
     public function setStatus($status)
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Disassociate the usage from a specific user
+     */
+    public function obfuscate() {
+        $this->user = null;
 
         return $this;
     }

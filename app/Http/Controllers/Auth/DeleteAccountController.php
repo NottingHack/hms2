@@ -56,7 +56,14 @@ class DeleteAccountController extends Controller
             return redirect()->back();
         }
 
-        //event(new AccountDeletion($user));
+        // BankTransactions will be handled by audit job. These will
+        // be obfuscated if they are older than seven years and the
+        // account has been removed. Same for VendLog.
+        // Unimportant information from Profile will be removed.
+        // Email address is removed from User.
+
+
+
 
         return redirect()->route('home');
     }

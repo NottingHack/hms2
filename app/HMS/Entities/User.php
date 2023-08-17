@@ -483,7 +483,7 @@ class User implements
         return $discord->getDiscordClient()
             ->user
             ->createDm([
-                'recipient_id' => (int)$discordMember['user']['id'],
+                'recipient_id' => (int) $discordMember['user']['id'],
             ])['id'];
     }
 }

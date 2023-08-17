@@ -116,8 +116,8 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
 
         $this->discord->getDiscordClient()->guild->addGuildMemberRole([
             'guild.id' => config('services.discord.guild_id'),
-            'user.id' => (int)$discordMember['user']['id'],
-            'role.id' => (int)$discordRole['id'],
+            'user.id' => (int) $discordMember['user']['id'],
+            'role.id' => (int) $discordRole['id'],
         ]);
 
         Log::info('RoleUpdateDiscordUpdater@onUserAddedToRole: ' .
@@ -152,8 +152,8 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
 
         $this->discord->getDiscordClient()->guild->removeGuildMemberRole([
             'guild.id' => config('services.discord.guild_id'),
-            'user.id' => (int)$discordMember['user']['id'],
-            'role.id' => (int)$discordRole['id'],
+            'user.id' => (int) $discordMember['user']['id'],
+            'role.id' => (int) $discordRole['id'],
         ]);
 
         Log::info('RoleUpdateDiscordUpdater@onUserRemovedFromRole: ' .
@@ -170,8 +170,8 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
         foreach ($discordMember['roles'] as $discordRoleId) {
             $this->discord->getDiscordClient()->guild->removeGuildMemberRole([
                 'guild.id' => config('services.discord.guild_id'),
-                'user.id' => (int)$discordMember['user']['id'],
-                'role.id' => (int)$discordRoleId,
+                'user.id' => (int) $discordMember['user']['id'],
+                'role.id' => (int) $discordRoleId,
             ]);
         }
     }
@@ -212,8 +212,8 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
         if ($discordMemberRole) {
             $this->discord->getDiscordClient()->guild->addGuildMemberRole([
                 'guild.id' => config('services.discord.guild_id'),
-                'user.id' => (int)$discordMember['user']['id'],
-                'role.id' => (int)$discordMemberRole['id'],
+                'user.id' => (int) $discordMember['user']['id'],
+                'role.id' => (int) $discordMemberRole['id'],
             ]);
             Log::info('RoleUpdateDiscordUpdater@onDiscordUsernameUpdated: ' .
                       $user->getUsername() . ' added to discord role ' . $memberRole->getDisplayName());
@@ -227,8 +227,8 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
 
             $this->discord->getDiscordClient()->guild->addGuildMemberRole([
                 'guild.id' => config('services.discord.guild_id'),
-                'user.id' => (int)$discordMember['user']['id'],
-                'role.id' => (int)$discordTeamRole['id'],
+                'user.id' => (int) $discordMember['user']['id'],
+                'role.id' => (int) $discordTeamRole['id'],
             ]);
             Log::info('RoleUpdateDiscordUpdater@onDiscordUsernameUpdated: ' .
                       $user->getUsername() . ' added to discord role ' . $team->getDisplayName());

@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\User\AccountDeletion;
 use App\Http\Controllers\Controller;
 use HMS\Auth\PasswordStore;
 use HMS\Entities\User;
+use HMS\Repositories\UserRepository;
+use HMS\Repositories\ProfileRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class DeleteAccountController extends Controller
 {
@@ -16,13 +20,28 @@ class DeleteAccountController extends Controller
     protected $passwordStore;
 
     /**
+     * @var UserRepository
+     */
+    protected $userRepository;
+
+    /**
+     * @var ProfileRepository
+     */
+    protected $profileRepository;
+
+    /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(PasswordStore $passwordStore)
-    {
+    public function __construct(
+        PasswordStore $passwordStore,
+        UserRepository $userRepository,
+        ProfileRepository $profileRepository
+    ) {
         $this->passwordStore = $passwordStore;
+        $this->userRepository = $userRepository;
+        $this->profileRepository = $profileRepository;
     }
 
     /**
@@ -62,22 +81,20 @@ class DeleteAccountController extends Controller
         // Unimportant information from Profile will be removed.
         // Email address is removed from User.
 
+        $profile = $user->getProfile();
 
+        $user->setDeletedAt(Carbon::now())
+             ->obfuscate();
 
+        $profile->obfuscate();
+
+        $this->userRepository->save($user);
+        $this->profileRepository->save($profile);
+
+//        event(new AccountDeletion($user));
 
         return redirect()->route('home');
     }
 
-    /**
-     * Set the user's password.
-     *
-     * @param \Illuminate\Contracts\Auth\CanResetPassword  $user
-     * @param string  $password
-     *
-     * @return void
-     */
-    protected function setUserPassword($user, $password)
-    {
-        $this->passwordStore->setPassword($user->getUsername(), $password);
-    }
+
 }

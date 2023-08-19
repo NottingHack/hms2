@@ -497,6 +497,7 @@ class User implements
     public function obfuscate()
     {
         $this->email = 'deleted-account+' . $this->username . '@deleted-accounts.local';
+        $this->account = null;
         return $this;
     }
 }

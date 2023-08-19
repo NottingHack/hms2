@@ -48,7 +48,7 @@ class EmailController extends Controller
     }
 
     /**
-     * Clear draft cache
+     * Clear draft cache.
      *
      * @return \Illuminate\Http\Response
      */

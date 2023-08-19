@@ -456,12 +456,10 @@ class Profile implements EntityObfuscatableInterface
      * Remove any personal information from the profile
      */
     public function obfuscate() {
-        $this->unlockText = "deleted";
-        $this->contactNumber = "deleted";
+        $this->unlockText = null;
+        $this->contactNumber = null;
         $this->dateOfBirth = Carbon::create(1900, 1, 1, 0, 0, 0);
         $this->discordUsername = null;
-        $this->creditLimit = 0;
-        $this->balance = 0;
 
         return $this;
     }

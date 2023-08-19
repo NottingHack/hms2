@@ -24,6 +24,7 @@ use LaravelDoctrine\ACL\Contracts\HasRoles as HasRoleContract;
 use LaravelDoctrine\ACL\Permissions\HasPermissions;
 use LaravelDoctrine\ACL\Roles\HasRoles;
 use LaravelDoctrine\ORM\Notifications\Notifiable;
+use Carbon\Carbon;
 
 class User implements
     AuthenticatableContract,
@@ -495,7 +496,7 @@ class User implements
      */
     public function obfuscate()
     {
-        $this->email = null;
+        $this->email = 'deleted-account+' . $this->username . '@deleted-accounts.local';
         return $this;
     }
 }

@@ -64,6 +64,11 @@ return [
             'icon' => 'fab fa-twitter',
             'handle' => '@' . env('SOCIAL_TWITTER', 'HSNOTTS'),
         ],
+        'mastodon' => [
+            'link' => env('SOCIAL_MASTODON', 'https://hachyderm.io/@nottinghack'),
+            'icon' => 'fab fa-mastodon',
+            'handle' => '@nottinghack@hachyderm.io',
+        ],
         'facebook' => [
             'link' => env('SOCIAL_FACEBOOK', 'https://www.facebook.com/nottinghack/'),
             'icon' => 'fab fa-facebook',

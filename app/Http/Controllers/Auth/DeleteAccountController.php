@@ -8,6 +8,7 @@ use HMS\Auth\PasswordStore;
 use HMS\Entities\User;
 use HMS\Repositories\UserRepository;
 use HMS\Repositories\ProfileRepository;
+use HMS\User\Permissions\RoleManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -30,6 +31,11 @@ class DeleteAccountController extends Controller
     protected $profileRepository;
 
     /**
+     * @var RoleManager
+     */
+    private $roleManager;
+
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -37,11 +43,13 @@ class DeleteAccountController extends Controller
     public function __construct(
         PasswordStore $passwordStore,
         UserRepository $userRepository,
-        ProfileRepository $profileRepository
+        ProfileRepository $profileRepository,
+        RoleManager $roleManager
     ) {
         $this->passwordStore = $passwordStore;
         $this->userRepository = $userRepository;
         $this->profileRepository = $profileRepository;
+        $this->roleManager = $roleManager;
     }
 
     /**
@@ -83,11 +91,18 @@ class DeleteAccountController extends Controller
 
         $profile = $user->getProfile();
 
+        // Remove all roles regardless of whether it's retained.
+        foreach ($user->getRoles() as $role) {
+            $this->roleManager->removeUserFromRole($user, $role);
+        }
+
+        // Obfuscate user and profile and flag user as soft deleted.
+        // Soft delete will result in logout on next page load.
         $user->setDeletedAt(Carbon::now())
              ->obfuscate();
-
         $profile->obfuscate();
 
+        // Commit all changes.
         $this->userRepository->save($user);
         $this->profileRepository->save($profile);
 

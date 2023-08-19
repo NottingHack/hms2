@@ -37,5 +37,16 @@
       </div>
     </div>
   </form>
+
+  <form class="form-group" id="emailMembers-forget" role="form" method="POST" action="{{ route('email-members.forget')  }}">
+    @csrf
+    <div class="form-group">
+      <div class="card">
+        <button type="submit" class="btn btn-danger" data-toggle="confirmation">
+          <i class="far fa-trash"></i> Cache email
+        </button>
+      </div>
+    </div>
+  </form>
 </div>
 @endsection

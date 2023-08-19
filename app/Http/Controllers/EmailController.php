@@ -48,6 +48,18 @@ class EmailController extends Controller
     }
 
     /**
+     * Clear draft cache
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function forget()
+    {
+        \Cache::forget('emailMembers.draft');
+
+        return redirect()->route('email-members.draft');
+    }
+
+    /**
      * Store the draft email and return a preview.
      *
      * @param Illuminate\Http\Request $request

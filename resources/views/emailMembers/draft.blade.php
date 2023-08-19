@@ -43,7 +43,7 @@
     <div class="form-group">
       <div class="card">
         <button type="submit" class="btn btn-danger" data-toggle="confirmation">
-          <i class="far fa-trash"></i> Cache email
+          <i class="far fa-trash"></i> Clear email
         </button>
       </div>
     </div>

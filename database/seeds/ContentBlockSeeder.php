@@ -243,12 +243,12 @@ class ContentBlockSeeder extends Seeder
         [
             'view' => 'emails.membership.membershipMayBeRevokedDueToUnderPayment',
             'block' => 'main',
-            'content' => 'Though we have seen payments from you recently they are below the minimum amount. If we do not see a payment equal or above the minimum soon your membership to Nottingham Hackspace will be revoked.',
+            'content' => 'Your membership is at risk of ending due to recent payments being below the minimum, unless a suitable payment is received soon.',
         ],
         [
             'view' => 'emails.membership.membershipMayBeRevokedDueToUnderPayment',
             'block' => 'additional',
-            'content' => 'If you no longer wish to be a member and have intentionally reduced your standing order below the minimum to continue supporting us we are sorry to see you go, but would like to thank you for being a member and continuing to supporting the hackspace with your donation. Your membership will end in a couple of weeks time. Before your membership finally ends please ensure you remove any projects or materials you may have at the hackspace.',
+            'content' => 'If you've reduced your monthly contribution with the intention of ending your membership, but still want to support the space, we are thankful for your support! Your membership will end in a couple of weeks time. Please ensure you remove any projects or materials from the hackspace before this time.',
         ],
         [
             'view' => 'emails.membership.membershipRevokedDueToUnderPayment',

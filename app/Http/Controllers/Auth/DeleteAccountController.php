@@ -106,10 +106,12 @@ class DeleteAccountController extends Controller
         $this->userRepository->save($user);
         $this->profileRepository->save($profile);
 
-//        event(new AccountDeletion($user));
+        //        event(new AccountDeletion($user));
+
+        // TODO: illuminate unique is excluding deleted items during validation
+        // but database insertion fails. i dont want usernames to be recycled anyway.
 
         return redirect()->route('home');
     }
-
 
 }

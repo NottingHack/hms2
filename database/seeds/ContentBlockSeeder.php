@@ -248,7 +248,7 @@ class ContentBlockSeeder extends Seeder
         [
             'view' => 'emails.membership.membershipMayBeRevokedDueToUnderPayment',
             'block' => 'additional',
-            'content' => 'If you've reduced your monthly contribution with the intention of ending your membership, but still want to support the space, we are thankful for your support! Your membership will end in a couple of weeks time. Please ensure you remove any projects or materials from the hackspace before this time.',
+            'content' => 'If you\'ve reduced your monthly contribution with the intention of ending your membership, but still want to support the space, we are thankful for your support! Your membership will end in a couple of weeks time. Please ensure you remove any projects or materials from the hackspace before this time.',
         ],
         [
             'view' => 'emails.membership.membershipRevokedDueToUnderPayment',

@@ -104,6 +104,10 @@ class SpaceApiController extends Controller
             ],
         ];
 
+        if (config('branding.social_networks.mastodon.link')) {
+            $spaceApi['contact']['mastodon'] = config('branding.social_networks.mastodon.handle');
+        }
+
         if (config('branding.theme') == 'nottinghack') {
             $spaceApi['contact']['irc'] = 'ircs://irc.libera.chat:6697/#nottinghack';
             $spaceApi['spacefed']['spacenet'] = true;

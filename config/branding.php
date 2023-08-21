@@ -67,7 +67,7 @@ return [
         'mastodon' => [
             'link' => env('SOCIAL_MASTODON_USERNAME', 'nottinghack') ? 'https://' . env('SOCIAL_MASTODON_DOMAIN', 'hachyderm.io') . '/@' . env('SOCIAL_MASTODON_USERNAME', 'nottinghack') : null,
             'icon' => 'fab fa-mastodon',
-            'handle' =>'@' . env('SOCIAL_MASTODON_USERNAME', 'nottinghack') . '@' . env('SOCIAL_MASTODON_DOMAIN', 'hachyderm.io'),,
+            'handle' =>'@' . env('SOCIAL_MASTODON_USERNAME', 'nottinghack') . '@' . env('SOCIAL_MASTODON_DOMAIN', 'hachyderm.io'),
         ],
         'facebook' => [
             'link' => env('SOCIAL_FACEBOOK', 'https://www.facebook.com/nottinghack/'),

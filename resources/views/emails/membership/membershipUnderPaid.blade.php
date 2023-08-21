@@ -4,9 +4,9 @@
 @content('emails.membership.membershipUnderPaid', 'main')
 
 
-Thank you for your membership payment to {{ config('branding.space_name') }}, however your payment was below our require minimum amount of **@money($minimumAmount, 'GBP')** for membership. In order to complete you membership your payments must be equal or above the minimum amount. 
+Thank you for your membership payment to {{ config('branding.space_name') }}. Your payment must be at least **@money($minimumAmount, 'GBP')** for membership. In order to complete your membership, please make a payment of @money($minimumAmount, 'GBP') or more, using your payment reference.
 
-Any payments under the minimum amount are consider as purely donations.  
+Any amount below the minimum is considered a donation.
 
 If you have any questions, feel free to email: {{ $membershipTeamEmail }}
 

@@ -408,9 +408,9 @@ class Role implements RoleContract
             return null;
         } else {
             if ($this->getDiscordPrivateChannel()) {
-                return $discord->findChannelByName($this->getDiscordPrivateChannel())->id;
+                return $discord->findChannelByName($this->getDiscordPrivateChannel())['id'];
             } else {
-                return $discord->findChannelByName($this->getDiscordChannel())->id;
+                return $discord->findChannelByName($this->getDiscordChannel())['id'];
             }
         }
     }

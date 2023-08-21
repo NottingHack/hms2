@@ -43,7 +43,7 @@ class Discord
 
         $this->client = new DiscordClient([
             'token' => $token,
-            'logger' => \Log::getLogger()
+            'logger' => \Log::getLogger(),
         ]);
     }
 

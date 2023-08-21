@@ -1,21 +1,22 @@
 ### Laravel ###
 /node_modules
+/public/build
 /public/hot
 /public/storage
 /storage/*.key
-/public/build
 /vendor
-/.idea
-/.vscode
-/.vagrant*
-Homestead.json
-Homestead.yaml
-npm-debug.log
-yarn-error.log
 .env
 .env.backup
-database/database.sqlite
+.env.production
 .phpunit.result.cache
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log
+/.fleet
+/.idea
+/.vscode
 
 ### OS generated files ###
 .DS_Store
@@ -27,6 +28,7 @@ Icon?
 ehthumbs.db
 Thumbs.db
 
+/.vagrant*
 /public/css
 /public/js
 /public/fonts/vendor

@@ -285,8 +285,8 @@ return [
                 ],
                 'logViewer' => [
                     'text'          => 'Log Viewer',
-                    'route'         => 'blv.index',
-                    'match'         => 'blv.index',
+                    'route'         => 'log-viewer.index',
+                    'match'         => 'log-viewer.index',
                     'permissions'   => ['logViewer.view'],
                 ],
             ],

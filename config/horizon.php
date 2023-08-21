@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'domain' => env('HORIZON_DOMAIN', null),
+    'domain' => env('HORIZON_DOMAIN'),
 
     /*
     |--------------------------------------------------------------------------
@@ -109,6 +109,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Silenced Jobs
+    |--------------------------------------------------------------------------
+    |
+    | Silencing a job will instruct Horizon to not place the job in the list
+    | of completed jobs within the Horizon dashboard. This setting may be
+    | used to fully remove any noisy jobs from the completed jobs list.
+    |
+    */
+
+    'silenced' => [
+        // App\Jobs\ExampleJob::class,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Metrics
     |--------------------------------------------------------------------------
     |
@@ -170,6 +185,8 @@ return [
             'queue' => ['default', 'maintenance'],
             'balance' => 'simple',
             'maxProcesses' => 1,
+            'maxTime' => 0,
+            'maxJobs' => 0,
             'memory' => 128,
             'tries' => 1,
             'nice' => 0,
@@ -180,6 +197,8 @@ return [
         'production' => [
             'supervisor-1' => [
                 'maxProcesses' => 3,
+                'balanceMaxShift' => 1,
+                'balanceCooldown' => 3,
                 'tries' => 3,
             ],
         ],

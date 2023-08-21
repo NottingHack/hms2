@@ -15,7 +15,7 @@ return [
         'horizon.*',
         'telescope*',
         'pretty-routes.*',
-        'blv.*', // log-viewer
+        'log-viewer.*',
         'livewire.*',
         'client.*',
     ],

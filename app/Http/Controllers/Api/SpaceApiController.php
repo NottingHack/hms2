@@ -73,9 +73,6 @@ class SpaceApiController extends Controller
             ],
 
             'contact' => [
-                'twitter' => config('branding.social_networks.twitter.handle'),
-                'ml' => config('branding.social_networks.google_groups.email'),
-                'facebook' => config('branding.social_networks.facebook.link'),
                 'issue_mail' => base64_encode('realm-admin' . config('branding.email_domain')),
             ],
 
@@ -104,10 +101,21 @@ class SpaceApiController extends Controller
             ],
         ];
 
+        if (config('branding.social_networks.twitter.link')) {
+            $spaceApi['contact']['twitter'] = config('branding.social_networks.twitter.handle');
+        }
+
         if (config('branding.social_networks.mastodon.link')) {
             $spaceApi['contact']['mastodon'] = config('branding.social_networks.mastodon.handle');
         }
 
+        if (config('branding.social_networks.google_groups.link')) {
+            $spaceApi['contact']['ml'] = config('branding.social_networks.google_groups.email');
+        }
+
+        if (config('branding.social_networks.facebook.link')) {
+            $spaceApi['contact']['facebook'] = config('branding.social_networks.facebook.link');
+        }
         if (config('branding.theme') == 'nottinghack') {
             $spaceApi['contact']['irc'] = 'ircs://irc.libera.chat:6697/#nottinghack';
             $spaceApi['spacefed']['spacenet'] = true;

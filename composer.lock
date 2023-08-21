@@ -4,62 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3edc1589b6d16483f68c9f4444c57f80",
+    "content-hash": "6f55753305246d9ec58cde52d93e8d10",
     "packages": [
-        {
-            "name": "aaronjackson/nh-restcord",
-            "version": "v9.x-dev",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/AaronJackson/nh-restcord.git",
-                "reference": "e577a97855084c2a8524729b4edc2848dd7c1b5e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/AaronJackson/nh-restcord/zipball/e577a97855084c2a8524729b4edc2848dd7c1b5e",
-                "reference": "e577a97855084c2a8524729b4edc2848dd7c1b5e",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "^7.0",
-                "guzzlehttp/guzzle-services": "^1.0",
-                "monolog/monolog": "^1.22|^2.0|^3.0",
-                "netresearch/jsonmapper": "^1.4",
-                "php": "^7.3|^8.0",
-                "symfony/options-resolver": "^3.4|^4.4|^5.1"
-            },
-            "require-dev": {
-                "beberlei/assert": "^2.7",
-                "gossi/php-code-generator": "^0.5.0",
-                "phpunit/phpunit": "^8.0|^9.0",
-                "symfony/console": "^2.6|^3.0|^4.0",
-                "symfony/process": "^2.6|^3.0|^4.0",
-                "symfony/var-dumper": "^2.6|^3.0|^4.0",
-                "twig/twig": "^1.20|^2.0"
-            },
-            "default-branch": true,
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "RestCord\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Aaron Scherer",
-                    "email": "aequasi@gmail.com"
-                }
-            ],
-            "description": "REST Library for the Discord API",
-            "support": {
-                "source": "https://github.com/AaronJackson/nh-restcord/tree/v9"
-            },
-            "time": "2023-08-17T23:32:09+00:00"
-        },
         {
             "name": "agenciasys/ofxparser",
             "version": "1.5.1",
@@ -7719,6 +7665,60 @@
             "time": "2023-04-15T23:01:58+00:00"
         },
         {
+            "name": "restcord/restcord",
+            "version": "v9.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/restcord/restcord.git",
+                "reference": "8646bdd6865e9cf1c8edb560e7a22622228e6e71"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/restcord/restcord/zipball/8646bdd6865e9cf1c8edb560e7a22622228e6e71",
+                "reference": "8646bdd6865e9cf1c8edb560e7a22622228e6e71",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.0",
+                "guzzlehttp/guzzle-services": "^1.0",
+                "netresearch/jsonmapper": "^1.4",
+                "php": "^7.3|^8.0",
+                "psr/log": "^2.0|^3.0",
+                "symfony/options-resolver": "^3.4|^4.4|^5.1"
+            },
+            "require-dev": {
+                "beberlei/assert": "^2.7",
+                "gossi/php-code-generator": "^0.5.0",
+                "phpunit/phpunit": "^8.0|^9.0",
+                "symfony/console": "^2.6|^3.0|^4.0",
+                "symfony/process": "^2.6|^3.0|^4.0",
+                "symfony/var-dumper": "^2.6|^3.0|^4.0",
+                "twig/twig": "^1.20|^2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RestCord\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aaron Scherer",
+                    "email": "aequasi@gmail.com"
+                }
+            ],
+            "description": "REST Library for the Discord API",
+            "support": {
+                "issues": "https://github.com/restcord/restcord/issues",
+                "source": "https://github.com/restcord/restcord/tree/v9"
+            },
+            "time": "2023-08-19T23:39:04+00:00"
+        },
+        {
             "name": "sainsburys/guzzle-oauth2-plugin",
             "version": "v3.0.7",
             "source": {
@@ -11613,16 +11613,16 @@
         },
         {
             "name": "tightenco/ziggy",
-            "version": "v1.6.1",
+            "version": "v1.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tighten/ziggy.git",
-                "reference": "7e34b12d14242d2bebbfc533ef58c7776db173cd"
+                "reference": "41eb6384a9f9ae85cf54d6dc8f98dab282b07890"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tighten/ziggy/zipball/7e34b12d14242d2bebbfc533ef58c7776db173cd",
-                "reference": "7e34b12d14242d2bebbfc533ef58c7776db173cd",
+                "url": "https://api.github.com/repos/tighten/ziggy/zipball/41eb6384a9f9ae85cf54d6dc8f98dab282b07890",
+                "reference": "41eb6384a9f9ae85cf54d6dc8f98dab282b07890",
                 "shasum": ""
             },
             "require": {
@@ -11674,9 +11674,9 @@
             ],
             "support": {
                 "issues": "https://github.com/tighten/ziggy/issues",
-                "source": "https://github.com/tighten/ziggy/tree/v1.6.1"
+                "source": "https://github.com/tighten/ziggy/tree/v1.6.2"
             },
-            "time": "2023-08-04T19:01:59+00:00"
+            "time": "2023-08-18T20:28:21+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -13255,16 +13255,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.6.10",
+            "version": "9.6.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "a6d351645c3fe5a30f5e86be6577d946af65a328"
+                "reference": "810500e92855eba8a7a5319ae913be2da6f957b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a6d351645c3fe5a30f5e86be6577d946af65a328",
-                "reference": "a6d351645c3fe5a30f5e86be6577d946af65a328",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/810500e92855eba8a7a5319ae913be2da6f957b0",
+                "reference": "810500e92855eba8a7a5319ae913be2da6f957b0",
                 "shasum": ""
             },
             "require": {
@@ -13338,7 +13338,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.10"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.11"
             },
             "funding": [
                 {
@@ -13354,7 +13354,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-07-10T04:04:23+00:00"
+            "time": "2023-08-19T07:10:56+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -14392,16 +14392,16 @@
         },
         {
             "name": "spatie/ignition",
-            "version": "1.9.0",
+            "version": "1.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/ignition.git",
-                "reference": "de24ff1e01814d5043bd6eb4ab36a5a852a04973"
+                "reference": "d92b9a081e99261179b63a858c7a4b01541e7dd1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/ignition/zipball/de24ff1e01814d5043bd6eb4ab36a5a852a04973",
-                "reference": "de24ff1e01814d5043bd6eb4ab36a5a852a04973",
+                "url": "https://api.github.com/repos/spatie/ignition/zipball/d92b9a081e99261179b63a858c7a4b01541e7dd1",
+                "reference": "d92b9a081e99261179b63a858c7a4b01541e7dd1",
                 "shasum": ""
             },
             "require": {
@@ -14471,7 +14471,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-06-28T13:24:59+00:00"
+            "time": "2023-08-21T15:06:37+00:00"
         },
         {
             "name": "spatie/laravel-ignition",
@@ -14617,7 +14617,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "aaronjackson/nh-restcord": 20
+        "restcord/restcord": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

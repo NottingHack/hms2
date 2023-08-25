@@ -298,7 +298,7 @@ class MembershipAuditJob implements ShouldQueue
 
                 if ($previousTransaction->getTransactionDate() < $revokeDate) {
                     // previous transaction was before revokeDate
-                    $exUsersUnderMinimum[$user] = $latestTransaction;
+                    $exUsersUnderMinimum[$user->getId()] = $latestTransaction;
                 }
             }
         }

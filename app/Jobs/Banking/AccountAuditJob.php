@@ -290,7 +290,7 @@ class AccountAuditJob implements ShouldQueue
                 $userNotifications = collect($membershipStatusNotificationRepository->findByUser($user));
 
                 if ($userNotifications->contains(
-                    function ($membershipStatusNotification) use ($latestTransaction) {
+                    function (MembershipStatusNotification $membershipStatusNotification) use ($latestTransaction) {
                         return optional($membershipStatusNotification->getBankTransaction())->getId() == $latestTransaction->getId();
                     }
                 )) {
@@ -300,7 +300,7 @@ class AccountAuditJob implements ShouldQueue
 
                 if ($previousTransaction->getTransactionDate() < $revokeDate) {
                     // previous transaction was before revokeDate
-                    $exUsersUnderMinimum[] = $user;
+                    $exUsersUnderMinimum[$user->getId()] = $latestTransaction;
                 }
             }
         }
@@ -342,8 +342,8 @@ class AccountAuditJob implements ShouldQueue
             event(new NonPaymentOfMinimumMembership($user));
         }
 
-        foreach ($exUsersUnderMinimum as $user) {
-            event(new ExMemberPaymentUnderMinimum($user));
+        foreach ($exUsersUnderMinimum as $user => $latestTransaction) {
+            event(new ExMemberPaymentUnderMinimum($user, $latestTransaction));
         }
 
         if (count($ohCrapUsers) != 0) {

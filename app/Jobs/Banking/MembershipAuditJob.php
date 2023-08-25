@@ -298,7 +298,10 @@ class MembershipAuditJob implements ShouldQueue
 
                 if ($previousTransaction->getTransactionDate() < $revokeDate) {
                     // previous transaction was before revokeDate
-                    $exUsersUnderMinimum[$user->getId()] = $latestTransaction;
+                    $exUsersUnderMinimum[$user->getId()] = [
+                        'user' => $user,
+                        'latestTransaction' => $latestTransaction,
+                    ];
                 }
             }
         }
@@ -340,8 +343,8 @@ class MembershipAuditJob implements ShouldQueue
             event(new NonPaymentOfMinimumMembership($user));
         }
 
-        foreach ($exUsersUnderMinimum as $user => $latestTransaction) {
-            event(new ExMemberPaymentUnderMinimum($user, $latestTransaction));
+        foreach ($exUsersUnderMinimum as $userId => $details) {
+            event(new ExMemberPaymentUnderMinimum($details['user'], $details['latestTransaction']));
         }
 
         if (count($ohCrapUsers) != 0) {
@@ -380,7 +383,7 @@ class MembershipAuditJob implements ShouldQueue
             $awaitingUsersUnderMinimum,
             $warnUsersMinimumAmount,
             $revokeUsersMinimumAmount,
-            $exUsersUnderMinimum
+            collect($exUsersUnderMinimum)->pluck('user'),
         )->delay(now()->addMinutes(1));
     }
 }

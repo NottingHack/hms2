@@ -3,11 +3,11 @@
 
 @content('emails.membership.membershipExUnderPaid', 'main')
 
-Thank you for your membership payment to {{ config('branding.space_name') }}, however your payment was below our required minimum amount of **@money($minimumAmount, 'GBP')** for membership. In order to reinstate your membership your payments must be at least the minimum membership amount.
+Thank you for your payment supporting {{ config('branding.space_name') }}. Supporter payments are below **@money($minimumAmount, 'GBP')** and help us keep the space open.
 
-Any amount below the minimum is considered a donation.
+For membership, payments need to be at least @money($minimumAmount, 'GBP'). We generally recommend @money($recommendedAmount, 'GBP') for users of the space.
 
-If you have any questions, feel free to email: {{ $membershipTeamEmail }}
+Thanks again for your donation. If you have any questions, please email {{ $membershipTeamEmail }}
 
 Thanks,<br>
 {{ config('branding.community_name') }} Membership Team

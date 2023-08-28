@@ -133,6 +133,10 @@
           markup += '<div class="address">' + user.address1 + ', ' + user.addressPostcode + '</div>';
         }
 
+        if(user.discordUsername) {
+          markup += '<div class="discordUsername">' + user.discordUsername + ' <i>on discord</i></div>';
+        }
+
         markup += '<div class="paymentref">' + user.paymentRef + '</div>' +
           '</div>';
         return $(markup);

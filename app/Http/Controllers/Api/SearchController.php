@@ -77,7 +77,7 @@ class SearchController extends Controller
                 'email' => $user->getEmail(),
                 'accountId' => $user->getAccount() ? $user->getAccount()->getId() : null,
                 'paymentRef' => $user->getAccount() ? $user->getAccount()->getPaymentRef() : '',
-                'discordUsername' => $user->getProfile()->getDiscordUsername()
+                'discordUsername' => $user->getProfile()->getDiscordUsername(),
             ];
 
             if (Gate::allows('profile.view.all')) {

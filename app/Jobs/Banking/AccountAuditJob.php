@@ -150,6 +150,8 @@ class AccountAuditJob implements ShouldQueue
                 new \DateInterval($metaRepository->get('audit_revoke_interval', 'P2M'))
             )
         );
+        $notificationRevokeDate = clone $dateNow;
+        $notificationRevokeDate->subDays(14);
 
         foreach ($awaitingMembers as $user) {
             if ($transactionDate === null) {
@@ -244,7 +246,8 @@ class AccountAuditJob implements ShouldQueue
                     $membershipStatusNotification = $memberIdsForCurrentUnderPaymentNotifications[$user->getId()];
 
                     // is the warned transaction Date now < revokeDate
-                    if ($membershipStatusNotification->getBankTransaction()->getTransactionDate() < $revokeDate) {
+                    if ($membershipStatusNotification->getBankTransaction()->getTransactionDate() < $revokeDate
+                        || $membershipStatusNotification->getTimeIssued() < $notificationRevokeDate) {
                         //  yes time to revoke them
                         $revokeUsersMinimumAmount[] = $user;
                     }

@@ -26,6 +26,11 @@ class MembershipExUnderPaid extends Mailable implements ShouldQueue
     public $minimumAmount;
 
     /**
+     * @var int
+     */
+    public $recommendedAmount;
+
+    /**
      * @var string
      */
     public $membershipTeamEmail;
@@ -42,6 +47,7 @@ class MembershipExUnderPaid extends Mailable implements ShouldQueue
         $this->fullname = $user->getFullname();
 
         $this->minimumAmount = $metaRepository->getInt('audit_minimum_amount', 200);
+        $this->recommendedAmount = $metaRepository->getInt('recommended_amount', $this->minimumAmount);
 
         $this->membershipTeamEmail = $roleRepository->findOneByName(Role::TEAM_MEMBERSHIP)->getEmail();
     }
@@ -53,7 +59,7 @@ class MembershipExUnderPaid extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->subject(config('branding.space_name') . ': Membership Payment Under Minimum')
+        return $this->subject(config('branding.space_name') . ': Thank you for your donation')
                     ->markdown('emails.membership.membershipExUnderPaid');
     }
 }

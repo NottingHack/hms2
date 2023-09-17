@@ -9,7 +9,7 @@
   <p>To cancel a booking, click on the booking then confirm cancellation.</p>
 </div>
 
-@foreach($buildings as $building)
+@foreach ($buildings as $building)
 <div class="container">
   <h2 id="{{ Str::slug($building->getName()) }}">{{ $building->getName() }}</h2>
   <hr>

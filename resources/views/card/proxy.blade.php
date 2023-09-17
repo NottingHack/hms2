@@ -26,7 +26,7 @@
       </form>
       <i class="fas fa-trash" aria-hidden="true"></i> Cancel Proxy
     </a>
-    @elseif($proxies)
+    @elseif ($proxies)
     <a href="{{ route('governance.proxies.index-for-user', ['meeting' => $meeting->getId()]) }}" class="btn btn-primary mb-1"><i class="far fa-eye" aria-hidden="true"></i> View Proxies</a>
     @else
     <a href="{{ route('governance.proxies.link', ['meeting' => $meeting->getId()]) }}" class="btn btn-primary"><i class="fas fa-user-friends" aria-hidden="true"></i> Designate a Proxy</a>

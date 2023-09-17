@@ -99,7 +99,7 @@ Account {{ $account->getPaymentRef() }}
   @empty
   <p>No payments matched to this account.</p>
   @endforelse
-  @elseif(Auth::user() != $user && Gate::allows('bankTransactions.view.limited'))
+  @elseif (Auth::user() != $user && Gate::allows('bankTransactions.view.limited'))
   @if ($bankTransactions->count() > 0)
   <div class="card">
     <h5 class="card-header">Last Payment Date:</h5>

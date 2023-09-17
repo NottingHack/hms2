@@ -93,7 +93,7 @@
 <div class="container">
   @content('gatekeeper.space_access', 'temporaryAccess')
 </div>
-@foreach($buildings as $building)
+@foreach ($buildings as $building)
 <div class="container">
   <h2 id="{{ Str::slug($building->getName()) }}">{{ $building->getName() }}</h2>
   <hr>

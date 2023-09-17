@@ -50,7 +50,7 @@ Editing Bank - {{ $bank->getName() }}
 
     <label for="type" class="form-label">Type</label>
     <fieldset class="form-group">
-      @foreach(HMS\Entities\Banking\BankType::TYPE_STRINGS as $type => $string)
+      @foreach (HMS\Entities\Banking\BankType::TYPE_STRINGS as $type => $string)
       <div class="form-check form-check-inline">
         <input
           id="type-{{ $type }}"

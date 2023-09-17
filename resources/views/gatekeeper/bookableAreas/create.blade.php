@@ -64,7 +64,7 @@
 
     <label for="bookingColor" class="form-label">Booking colour</label>
     <fieldset class="form-group">
-      @foreach(HMS\Entities\Gatekeeper\BookableAreaBookingColor::COLOR_STRINGS as $color => $string)
+      @foreach (HMS\Entities\Gatekeeper\BookableAreaBookingColor::COLOR_STRINGS as $color => $string)
       <div class="form-check form-check-inline">
         <input id="bookingColor-{{ $color }}" class="form-check-input" type="radio" id="bookingColor-{{ $color }}"name="bookingColor" value="{{ $color }}">
         <label class="form-check-label h4" for="bookingColor-{{ $color }}"><span class="badge badge-{{ $color }} pb-2">{{ $string }}</span></label>

@@ -6,7 +6,7 @@ Your access booking request which was previously accepted has been **cancelled**
 {{ $reason }}
 @endcomponent
 
-@content('emails.gatekeeper.booking_cancelled_with_reason', 'additional')
+@content('emails.gatekeeper.booking_cancelled_with_reason', 'additional')  
 
 **Building:** {{ $buildingName }} 
 **Start:** {{ $start }}  

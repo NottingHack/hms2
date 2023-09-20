@@ -2,7 +2,7 @@
 # Hello {{ $name }},
 
 Your access booking request has been authorised.  
-@content('emails.gatekeeper.booking_approved', 'additional')
+@content('emails.gatekeeper.booking_approved', 'additional')  
 
 **Building:** {{ $buildingName }}  
 **Start:** {{ $start }}  

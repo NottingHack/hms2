@@ -2,9 +2,8 @@
 # Hello {{ $name }},
 
 Your access booking request has been completed.  
-@content('emails.gatekeeper.booking_approved_automatically', 'additional')
+@content('emails.gatekeeper.booking_approved_automatically', 'additional')  
  
-
 **Building:** {{ $buildingName }}  
 **Start:** {{ $start }}  
 **End:** {{ $end }}  

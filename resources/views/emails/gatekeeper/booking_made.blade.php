@@ -2,7 +2,7 @@
 # Hello {{ $name }},
 
 Your access booking request has been created by a Trustee and authorised.  
-@content('emails.gatekeeper.booking_made', 'additional')
+@content('emails.gatekeeper.booking_made', 'additional')  
 
 **Building:** {{ $buildingName }}  
 **Start:** {{ $start }}  

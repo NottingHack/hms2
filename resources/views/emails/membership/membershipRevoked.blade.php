@@ -1,7 +1,7 @@
 @component('mail::message')
 # Hello {{ $fullname }}
 
-@content('emails.membership.membershipRevoked', 'main')
+@content('emails.membership.membershipRevoked', 'main')  
 
 
 @if ($boxCount > 0)
@@ -29,7 +29,7 @@ Our Account Name: {{ $accountName }}
 @endcomponent
 @endfeature
 
-Once we've received your payment (which may take 3-4 days to show up in our account after it leaves yours), your membership will be automatically reinstated.
+Once we've received your payment (which may take 3-4 days to show up in our account after it leaves yours), your membership will be automatically reinstated.  
 
 Thanks,  
 {{ config('branding.community_name') }} Membership Team

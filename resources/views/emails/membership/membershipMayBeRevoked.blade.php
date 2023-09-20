@@ -1,7 +1,7 @@
 @component('mail::message')
 # Hello {{ $fullname }}
 
-@content('emails.membership.membershipMayBeRevoked', 'main')
+@content('emails.membership.membershipMayBeRevoked', 'main')  
 
 If you do wish to maintain your membership you will need to check your payment is setup as below and is equal or above the minimum amount of **@money($minimumAmount, 'GBP')**  
 
@@ -18,7 +18,7 @@ Our Account Name: {{ $accountName }}
 
 If we receive a payment soon your membership will carry on unaffected.  
 
-@content('emails.membership.membershipMayBeRevoked', 'additional')
+@content('emails.membership.membershipMayBeRevoked', 'additional')  
 
 @if ($boxCount > 0)
 Please also empty your members box.  

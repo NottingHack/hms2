@@ -7,7 +7,7 @@ Your access booking request has been **rejected**. The given reason is:
 @endcomponent
 Your booking request has been removed from the calendar, should you wish to add further details, the request must be made through the calendar again.  
 
-@content('emails.gatekeeper.booking_rejected', 'additional')
+@content('emails.gatekeeper.booking_rejected', 'additional')  
 
 **Building:** {{ $buildingName }}  
 **Start:** {{ $start }}  

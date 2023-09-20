@@ -1,7 +1,7 @@
 @component('mail::message')
 # Hello {{ $fullname }},
 
-@content('emails.membership.approved', 'main')
+@content('emails.membership.approved', 'main')  
 
 The minimum payment amount for membership at {{ config('branding.space_name') }} is **@money($minimumAmount, 'GBP')**  
 
@@ -16,7 +16,7 @@ Our Account Name: {{ $accountName }}
 @endcomponent
 @endfeature
 
-@content('emails.membership.approved', 'additional')
+@content('emails.membership.approved', 'additional')  
 
 Thanks,  
 {{ config('branding.community_name') }} Membership Team

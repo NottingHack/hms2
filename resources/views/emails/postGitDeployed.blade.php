@@ -2,14 +2,14 @@
 # Hello {{ $teamName }},
 
 @if ($success)
-Auto deploy has **successfully** finish with the following results.
+Auto deploy has **successfully** finish with the following results.  
 @else
-Auto deploy has **failed** finish with the following results.
+Auto deploy has **failed** finish with the following results.  
 @endif
 
-Start Time: {{ $startTime->toDateTimeString() }}<br>
-End Time: {{ $stopTime->toDateTimeString() }}<br>
-Run Time: {{ $runTime }} Minutes
+Start Time: {{ $startTime->toDateTimeString() }}  
+End Time: {{ $stopTime->toDateTimeString() }}  
+Run Time: {{ $runTime }} Minutes  
 
 ---
 @foreach ($commandResults as $commandResult)
@@ -22,6 +22,6 @@ Run Time: {{ $runTime }} Minutes
 
 @endforeach
 
-Thank you,<br>
+Thank you,  
 HMS
 @endcomponent

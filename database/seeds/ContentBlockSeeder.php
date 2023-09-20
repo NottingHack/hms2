@@ -38,7 +38,7 @@ class ContentBlockSeeder extends Seeder
         [
             'view' => 'pages.awaitingPayment',
             'block' => 'main',
-            'content' => "<p>\r\n  Your membership details have been approved and we are now waiting on your payment to show up in our account. If you have further questions, please talk to the Membership Team.\r\n</p>",
+            'content' => "<p>\r\n  Your membership details have been approved and we are now waiting on you to setup your membership payments and for the first payment to show up in our account. If you have further questions, please talk to the Membership Team.\r\n</p>",
         ],
         [
             'view' => 'pages.donate',
@@ -68,7 +68,7 @@ class ContentBlockSeeder extends Seeder
         [
             'view' => 'auth.register',
             'block' => 'profile',
-            'content' => "<p>Nottingham Hackspace is an incorporated non-profit, run entirely by members. As such, we have to maintain a membership register for inspection by Companies House. Any information you provide won't be used for anything other than hackspace business, and certainly won't be passed on or sold to any third parties.</p>",
+            'content' => "<p>Nottingham Hackspace is an incorporated non-profit, run entirely by members. As such, we have to maintain a membership register under the Companies Act 2006. Any information you provide won't be used for anything other than hackspace business, and certainly won't be passed on or sold to any third parties.</p>",
         ],
         [
             'view' => 'banking.transactions.index',

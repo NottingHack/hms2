@@ -13,6 +13,6 @@ Please log into HMS and update your details.
 Update my Details
 @endcomponent
 
-Thanks,<br>
+Thanks,  
 {{ config('branding.community_name') }} Membership Team
 @endcomponent

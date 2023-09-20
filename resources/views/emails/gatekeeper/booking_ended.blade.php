@@ -2,11 +2,11 @@
 # Hello {{ $name }},
 
 Your access to {{ $buildingName }} ended at {{ $end }} but Gatekeeper still things you are still in the building.  
-Gatekeeper is not perfect, it may be that you have already left the space but did not swipe out.
+Gatekeeper is not perfect, it may be that you have already left the space but did not swipe out.  
 
 If you have left just click the button below to confirm.  
 
-However if you are still in the space please leave as soon as possible, by over staying you booking you are in of the rules and putting yourselves and others at risk. 
+However if you are still in the space please leave as soon as possible, by over staying you booking you are in of the rules and putting yourselves and others at risk.  
 
 @component('mail::button', ['url' => $actionUrl])
 Yes I Have Left

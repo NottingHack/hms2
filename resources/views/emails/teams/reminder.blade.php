@@ -1,9 +1,8 @@
 @component('mail::message')
 # Hello {{ $teamName }}!
 
-@content('emails.teams.reminder', 'main')
+@content('emails.teams.reminder', 'main')  
 
-
-Thank you,
+Thank you,  
 {{ config('branding.community_name') }} Trustees
 @endcomponent

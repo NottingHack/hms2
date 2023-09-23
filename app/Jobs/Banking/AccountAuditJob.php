@@ -69,7 +69,7 @@ class AccountAuditJob implements ShouldQueue
         MetaRepository $metaRepository,
         RoleRepository $roleRepository
     ) {
-        $minimumAmount = $metaRepository->getInt('audit_minimum_amount', 200);
+        $minimumAmount = $metaRepository->getInt('membership_minimum_amount', 200);
 
         // Get a fresh copy of the Account to audit
         $account = $accountRepository->findOneById($this->accountId);

@@ -60,16 +60,21 @@ return [
     */
     'social_networks' => [
         'twitter' => [
-            'link' => 'https://twitter.com/' . env('SOCIAL_TWITTER', 'HSNOTTS'),
+            'link' => env('SOCIAL_TWITTER', 'HSNOTTS') ? 'https://twitter.com/' . env('SOCIAL_TWITTER', 'HSNOTTS') : null,
             'icon' => 'fab fa-twitter',
             'handle' => '@' . env('SOCIAL_TWITTER', 'HSNOTTS'),
+        ],
+        'mastodon' => [
+            'link' => env('SOCIAL_MASTODON_USERNAME', 'nottinghack') ? 'https://' . env('SOCIAL_MASTODON_DOMAIN', 'hachyderm.io') . '/@' . env('SOCIAL_MASTODON_USERNAME', 'nottinghack') : null,
+            'icon' => 'fab fa-mastodon',
+            'handle' =>'@' . env('SOCIAL_MASTODON_USERNAME', 'nottinghack') . '@' . env('SOCIAL_MASTODON_DOMAIN', 'hachyderm.io'),
         ],
         'facebook' => [
             'link' => env('SOCIAL_FACEBOOK', 'https://www.facebook.com/nottinghack/'),
             'icon' => 'fab fa-facebook',
         ],
         'google_groups' => [
-            'link' => 'https://groups.google.com/group/' . env('SOCIAL_GOOGLE', 'nottinghack') . '?hl=en',
+            'link' => env('SOCIAL_GOOGLE', 'nottinghack') ? 'https://groups.google.com/group/' . env('SOCIAL_GOOGLE', 'nottinghack') . '?hl=en' : null,
             'icon' => 'fab fa-google',
             'email' => env('SOCIAL_GOOGLE', 'nottinghack') . '@googlegroups.com',
         ],

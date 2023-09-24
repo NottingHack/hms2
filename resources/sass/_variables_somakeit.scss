@@ -1,0 +1,54 @@
+@import "variables";
+
+// HMS colours
+$hackspace-green: #005056;
+$hackspace-green-tint: tint($hackspace-green, 50%);
+
+// Header
+$header-background-colour: #222;
+$header-text-colour: $hackspace-gray;
+
+// Navbar
+$navbar-background-tint: $gray-200;
+$navbar-background-colour: $gray-300;
+$navbar-background-shade: $gray-400;
+$navbar-background-active: $hackspace-green-tint;
+$navbar-text-colour: black;
+$navbar-link-colour: $hackspace-green;
+$navbar-link-active-colour: white;
+
+// Footer
+$footer-background-colour: $header-background-colour;
+$footer-text-colour: white;
+$footer-link-colour: $hackspace-green-tint;
+$footer-link-hover-colour: white;
+$social-networks-colour: $hackspace-green-tint;
+
+// Override theme colours
+$primary: $hackspace-green;
+
+$theme-colors: (
+  "hackspace-gray": $hackspace-gray,
+  "booking-normal": $tool-booking-normal,
+  "booking-induction": $tool-booking-induction,
+  "booking-maintenance": $tool-booking-maintenance,
+  "indigo":     $indigo,
+  "pink":       $pink,
+  "red":        $red,
+  "orange":     $orange,
+  "yellow":     $yellow,
+  "green":      $green,
+  "teal":       $teal,
+  "cyan":       $cyan,
+);
+
+$sizes: (
+  10: 10%,
+  15: 15%,
+  20: 20%,
+  35: 35%,
+  40: 40%
+);
+
+// Override font family Oxygen + $font-family-sans-serif
+$font-family-base: 'Oxygen', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" ;

@@ -53,7 +53,7 @@ return [
         ],
 
         'migrations_paths' => [
-            'Database\\Migrations' => database_path('migrations_doctrine')
+            'Database\\Migrations' => database_path('migrations_doctrine'),
         ],
 
         /*

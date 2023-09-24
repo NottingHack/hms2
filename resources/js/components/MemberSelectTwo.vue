@@ -129,8 +129,12 @@
           '<div class="name"><span class="fullname">' + user.fullname + '</span> <span class="username">' + user.username + '</span></div>' +
           '<div class="email">' + user.email + '</div>';
 
-        if(user.address1) {
+        if (user.address1) {
           markup += '<div class="address">' + user.address1 + ', ' + user.addressPostcode + '</div>';
+        }
+
+        if (user.discordUsername) {
+          markup += '<div class="discordUsername">' + user.discordUsername + ' <i>on discord</i></div>';
         }
 
         markup += '<div class="paymentref">' + user.paymentRef + '</div>' +

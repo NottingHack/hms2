@@ -67,7 +67,7 @@
     <div class="col social-networks">
       @foreach (config('branding.social_networks') as $network)
       @if ($network['link'])
-      <a href="{{ $network['link'] }}" target="_blank"><i class="{{ $network['icon'] }}"></i></a>
+      <a href="{{ $network['link'] }}" target="_blank" rel="me"><i class="{{ $network['icon'] }}"></i></a>
       @endif
       @endforeach
     </div>

@@ -199,6 +199,17 @@ class MembershipController extends Controller
             return redirect()->route('home');
         }
 
+        // Check that it hasn't already been rejected by someone who got there first.
+        $rejectedLogs = $this->rejectedLogRepository->findByUser($user);
+        if (! empty($rejectedLogs)) {
+            $rejectedLog = array_pop($rejectedLogs);
+            if (! $rejectedLog->getUserUpdatedAt()) {
+                flash('This profile has already been rejected but not yet updated by the user.')->error();
+
+                return redirect()->route('membership.index');
+            }
+        }
+
         $this->validate($request, [
             'new-account' => 'required|boolean',
             'existing-account' => 'required_if:new-account,false|exists:HMS\Entities\Banking\Account,id',

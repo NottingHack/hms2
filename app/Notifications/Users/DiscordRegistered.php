@@ -54,13 +54,13 @@ class DiscordRegistered extends Notification implements ShouldQueue
         }
 
         return (new MailMessage)
-                    ->subject('Your HMS account has been linked to Discord')
-                    ->greeting('Hello ' . $notifiable->getFirstname() . ',')
-                    ->line(
-                        'Your hackspace account has been linked to a Discord account.'
-                      . 'If you made this change then ignore me!'
-                    )
-                    ->line("If, however, you didn't, contact a trustee!");
+            ->subject('Your HMS account has been linked to Discord')
+            ->greeting('Hello ' . $notifiable->getFirstname() . ',')
+            ->line(
+                'Your hackspace account has been linked to a Discord account.'
+                . 'If you made this change then ignore me!'
+            )
+            ->line("If, however, you didn't, contact a trustee!");
     }
 
     /**

@@ -7,7 +7,7 @@
   <p>Bookalbe areas are ....</p>
   <a href="{{ route('gatekeeper.bookable-area.create') }}" class="btn btn-primary btn-block"><i class="fas fa-plus" aria-hidden="true"></i> Add new bookable area</a>
   <br>
-  @foreach($bookableAreas as $buildingName => $bookableAreas)
+  @foreach ($bookableAreas as $buildingName => $bookableAreas)
   <h2>{{ $buildingName }} <small class="text-muted">({{ $buildingAccessStates[$buildingName] }})</small></h2>
   <hr>
   <div class="table-responsive no-more-tables">

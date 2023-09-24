@@ -98,7 +98,7 @@
       classes(propObject, type) {
         let classes = {};
 
-        if(propObject.hasOwnProperty('base')) {
+        if (propObject.hasOwnProperty('base')) {
           classes[propObject.base] = true;
         }
         if (propObject.hasOwnProperty(type)) {

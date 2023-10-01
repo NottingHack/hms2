@@ -3,6 +3,7 @@
 use App\Jobs\Banking\MembershipAuditJob;
 use App\Jobs\Gatekeeper\ZoneOccupantResetJob;
 use App\Jobs\Membership\AuditYoungHackersJob;
+use App\Jobs\DiscordAuditJob;
 use App\Jobs\PostGitDeployedJob;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
@@ -37,3 +38,7 @@ Artisan::command('hms:members:audit', function () {
 Artisan::command('hms:members:youngHackerAudit', function () {
     AuditYoungHackersJob::dispatchSync();
 })->describe('Audit young hackers for any that have turned 18');
+
+Artisan::command('hms:discord:audit', function () {
+    DiscordAuditJob::dispatchSync();
+})->describe('Audit Discord member roles');

@@ -49,6 +49,13 @@ interface ProfileRepository
     public function totalCreditForExMembers();
 
     /**
+     * @param string $discordUsername
+     *
+     * @return Profile|null
+     */
+    public function findOneByDiscordUsername(string $discordUsername);
+
+    /**
      * Save Profile to the DB.
      *
      * @param Profile $profile

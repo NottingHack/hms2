@@ -90,15 +90,7 @@ class Discord
      */
     public function findMemberByUsername(string $username)
     {
-        if (! $this->members) {
-            // This supports pagination in chunks of 1000 by setting the
-            // 'after' parameter to the last member user id. I don't think
-            // we need to worry about this yet.
-            $this->members = $this->client->guild->listGuildMembers([
-                'guild.id' => $this->guildId,
-                'limit' => 1000,
-            ]);
-        }
+        $this->listGuildMembers(); // populate cache
 
         // Evolving Usernames on Discord
         // https://discord.com/blog/usernames
@@ -131,6 +123,25 @@ class Discord
         }
 
         return null;
+    }
+
+    /**
+     * Return a list of all guild members
+     *
+     * @return array
+     */
+    public function listGuildMembers() {
+        if (! $this->members) {
+            // This supports pagination in chunks of 1000 by setting the
+            // 'after' parameter to the last member user id. I don't think
+            // we need to worry about this yet.
+            $this->members = $this->client->guild->listGuildMembers([
+                'guild.id' => $this->guildId,
+                'limit' => 1000,
+            ]);
+        }
+
+        return $this->members;
     }
 
     /**

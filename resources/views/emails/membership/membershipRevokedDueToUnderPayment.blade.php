@@ -1,7 +1,7 @@
 @component('mail::message')
 # Hello {{ $fullname }}
 
-@content('emails.membership.membershipRevoked', 'main')
+@content('emails.membership.membershipRevokedDueToUnderPayment', 'main')
 
 
 @if ($boxCount > 0)
@@ -10,13 +10,11 @@ Our records show that you have left a members box at the space please arrange to
 
 @if ($snackspaceBalance < 0)
 We request that you settle your snackspace balance of @money($snackspaceBalance, 'GBP')  
-This can be paid off by card online in HMS @feature('cash_acceptors') or by cash in the space @endfeature  
-@feature('standing_order_membership_payments')
-Or via bank transfer using the reference **{{ $snackspaceRef }}** to the Account number and Sort Code below.  
-@endfeature
+This can be paid off by cash in the space or by card online in HMS  
+Or via bank transfer using the reference **{{ $snackspaceRef }}** to the Account number ans Sort Code below.  
 @endif
 
-If you do wish to reinstate your membership you will need to set up your payments again with an amount equal or above the minimum amount of **@money($minimumAmount, 'GBP')**  
+If you do wish to reinstate your membership you will need to increase your payments to equal or above the minimum amount of **@money($minimumAmount, 'GBP')**  
 
 @feature('standing_order_membership_payments')
 Here are the details you need to set up a standing order:

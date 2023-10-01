@@ -56,6 +56,11 @@ class BankTransactionController extends Controller
     public $accountName;
 
     /**
+     * @var int
+     */
+    public $minimumAmount;
+
+    /**
      * @var SnackspaceTransactionFactory
      */
     protected $snackspaceTransactionFactory;
@@ -101,6 +106,7 @@ class BankTransactionController extends Controller
         $this->accountNo = $bank->getAccountNumber();
         $this->sortCode = $bank->getSortCode();
         $this->accountName = $bank->getAccountName();
+        $this->minimumAmount = $metaRepository->getInt('membership_minimum_amount', 200);
 
         $this->middleware('can:bankTransactions.view.self')->only(['index']);
         $this->middleware('can:bankTransactions.edit')->only(['edit', 'update']);
@@ -150,7 +156,8 @@ class BankTransactionController extends Controller
             ->with('accountNo', $this->accountNo)
             ->with('sortCode', $this->sortCode)
             ->with('accountName', $this->accountName)
-            ->with('paymentRef', $paymentRef);
+            ->with('paymentRef', $paymentRef)
+            ->with('minimumAmount', $this->minimumAmount);
     }
 
     /**

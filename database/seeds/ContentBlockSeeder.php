@@ -235,6 +235,31 @@ class ContentBlockSeeder extends Seeder
             'block' => 'main',
             'content' => "Please note this is your reminder that in one week we will have the monthly Member's Meeting.\r\n\r\nIf you believe your team has anything to report back over the past 4 weeks, please let us know by the SUNDAY before the Member's Meeting. The Member's Meeting is always the first Wednesday of the month.\r\n\r\nIf we do not hear from you with a round up, there won't be time to discuss any news at the meeting so it will have to be delayed until the month after.\r\n\r\nIf you've got any questions, please do email us at <trustees@nottinghack.org.uk>, or reply to this email.",
         ],
+        [
+            'view' => 'emails.membership.membershipUnderPaid',
+            'block' => 'main',
+            'content' => '',
+        ],
+        [
+            'view' => 'emails.membership.membershipMayBeRevokedDueToUnderPayment',
+            'block' => 'main',
+            'content' => 'Your membership is at risk of ending due to recent payments being below the minimum, unless a suitable payment is received soon.',
+        ],
+        [
+            'view' => 'emails.membership.membershipMayBeRevokedDueToUnderPayment',
+            'block' => 'additional',
+            'content' => 'If you\'ve reduced your monthly contribution with the intention of ending your membership, but still want to support the space, we are thankful for your support! Your membership will end in a couple of weeks time. Please ensure you remove any projects or materials from the hackspace before this time.',
+        ],
+        [
+            'view' => 'emails.membership.membershipRevokedDueToUnderPayment',
+            'block' => 'main',
+            'content' => 'We are sorry to see you go, but as your recent payments where below the minimum amount your Nottingham Hackspace membership has been revoked and your access to the space has been suspended.',
+        ],
+        [
+            'view' => 'emails.membership.membershipExUnderPaid',
+            'block' => 'main',
+            'content' => '',
+        ],
     ];
 
     /**
@@ -269,6 +294,8 @@ class ContentBlockSeeder extends Seeder
                 $contentBlock->setContent($blockDetails['content']);
 
                 $this->contentBlockRepository->save($contentBlock);
+
+                $this->command->info('Added page block: ' . $blockDetails['view'] . ':' . $blockDetails['block']);
             }
         }
 
@@ -282,6 +309,8 @@ class ContentBlockSeeder extends Seeder
                 $contentBlock->setContent($blockDetails['content']);
 
                 $this->contentBlockRepository->save($contentBlock);
+
+                $this->command->info('Added email block: ' . $blockDetails['view'] . ':' . $blockDetails['block']);
             }
         }
     }

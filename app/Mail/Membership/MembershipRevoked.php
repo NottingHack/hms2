@@ -56,6 +56,11 @@ class MembershipRevoked extends Mailable implements ShouldQueue
     public $snackspaceRef;
 
     /**
+     * @var int
+     */
+    public $minimumAmount;
+
+    /**
      * Create a new message instance.
      *
      * @param User $user
@@ -80,6 +85,7 @@ class MembershipRevoked extends Mailable implements ShouldQueue
         $snackspaceRef = 'SNACK-EX' . $user->getId()
             . $user->getFirstname()[0] . $user->getLastname()[0];
         $this->snackspaceRef = preg_replace('/[^-a-zA-Z0-9]/', '', $snackspaceRef);
+        $this->minimumAmount = $metaRepository->getInt('membership_minimum_amount', 200);
     }
 
     /**

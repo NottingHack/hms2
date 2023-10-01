@@ -24,8 +24,14 @@ class ReinstateMembership implements ShouldQueue
      */
     protected $roleManager;
 
+    /**
+     * @var MetaRepository
+     */
     protected $metaRepository;
 
+    /**
+     * @var RoleRepository
+     */
     protected $roleRepository;
 
     /**
@@ -80,7 +86,7 @@ class ReinstateMembership implements ShouldQueue
 
         $this->roleManager->removeUserFromRoleByName($user, Role::MEMBER_EX);
 
-        // emial user
+        // email user
         \Mail::to($user)->send(new MembershipReinstated($user, $this->metaRepository, $this->roleRepository));
     }
 }

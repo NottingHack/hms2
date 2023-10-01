@@ -1,9 +1,10 @@
 @component('mail::message')
 # Hello {{ $fullname }}
 
-@content('emails.membership.membershipMayBeRevoked', 'main')
+@content('emails.membership.membershipMayBeRevokedDueToUnderPayment', 'main')
 
-If you do wish to maintain your membership you will need to check your payment is setup as below and is equal or above the minimum amount of **@money($minimumAmount, 'GBP')**  
+
+If you do wish to maintain your membership you will need to check your payments are setup as below and is equal or above the minimum amount of **@money($minimumAmount, 'GBP')**  
 
 @feature('standing_order_membership_payments')
 Here are the details your standing order should have:
@@ -18,7 +19,7 @@ Our Account Name: {{ $accountName }}
 
 If we receive a payment soon your membership will carry on unaffected.  
 
-@content('emails.membership.membershipMayBeRevoked', 'additional')
+@content('emails.membership.membershipMayBeRevokedDueToUnderPayment', 'additional')
 
 @if ($boxCount > 0)
 Please also empty your members box.  
@@ -26,11 +27,8 @@ Please also empty your members box.
 
 @if ($snackspaceBalance < 0)
 We also request that you settle your snackspace balance of @money($snackspaceBalance, 'GBP')  
-This can be paid off by card online in HMS @feature('cash_acceptors') or by cash in the space @endfeature  
-@feature('standing_order_membership_payments')
-Or via bank transfer using the reference **{{ $snackspaceRef }}** to the Account number and Sort Code above.  
-@endfeature
-
+This can be paid off by cash in the space or by card online in HMS  
+Or via bank transfer using the reference **{{ $snackspaceRef }}** to the Account number ans Sort Code above.  
 @endif
 
 Thanks,  

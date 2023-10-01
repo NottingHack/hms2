@@ -11,7 +11,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class MembershipMayBeRevoked extends Mailable implements ShouldQueue
+class MembershipMayBeRevokedDueToUnderPayment extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -96,6 +96,6 @@ class MembershipMayBeRevoked extends Mailable implements ShouldQueue
     public function build()
     {
         return $this->subject(config('branding.space_name') . ': Your Membership May Be Revoked')
-                    ->markdown('emails.membership.membershipMayBeRevoked');
+                    ->markdown('emails.membership.membershipMayBeRevokedDueToUnderPayment');
     }
 }

@@ -2,18 +2,17 @@
 
 namespace App\Listeners\Membership;
 
-use App\Events\Banking\MembershipPaymentWarning;
-use App\Mail\Membership\MembershipMayBeRevoked;
+use App\Events\Banking\ExMemberPaymentUnderMinimum;
+use App\Mail\Membership\MembershipExUnderPaid;
 use HMS\Factories\Banking\MembershipStatusNotificationFactory;
-use HMS\Repositories\Banking\BankRepository;
 use HMS\Repositories\Banking\MembershipStatusNotificationRepository;
-use HMS\Repositories\Members\BoxRepository;
 use HMS\Repositories\MetaRepository;
+use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class WarnMembershipMayExpire implements ShouldQueue
+class ExMembershipUnderPaid implements ShouldQueue
 {
     /**
      * @var UserRepository
@@ -26,29 +25,14 @@ class WarnMembershipMayExpire implements ShouldQueue
     protected $roleManager;
 
     /**
-     * @var MembershipStatusNotificationFactory
-     */
-    protected $membershipStatusNotificationFactory;
-
-    /**
-     * @var MembershipStatusNotificationRepository
-     */
-    protected $membershipStatusNotificationRepository;
-
-    /**
      * @var MetaRepository
      */
     protected $metaRepository;
 
     /**
-     * @var BankRepository
+     *  @var RoleRepository
      */
-    protected $bankRepository;
-
-    /**
-     * @var BoxRepository
-     */
-    protected $boxRepository;
+    protected $roleRepository;
 
     /**
      * Create the event listener.
@@ -58,8 +42,7 @@ class WarnMembershipMayExpire implements ShouldQueue
      * @param MembershipStatusNotificationFactory    $membershipStatusNotificationFactory
      * @param MembershipStatusNotificationRepository $membershipStatusNotificationRepository
      * @param MetaRepository                         $metaRepository
-     * @param BankRepository                         $bankRepository
-     * @param BoxRepository                          $boxRepository
+     * @param RoleRepository                         $roleRepository
      */
     public function __construct(
         UserRepository $userRepository,
@@ -67,35 +50,35 @@ class WarnMembershipMayExpire implements ShouldQueue
         MembershipStatusNotificationFactory $membershipStatusNotificationFactory,
         MembershipStatusNotificationRepository $membershipStatusNotificationRepository,
         MetaRepository $metaRepository,
-        BankRepository $bankRepository,
-        BoxRepository $boxRepository
+        RoleRepository $roleRepository
     ) {
         $this->userRepository = $userRepository;
         $this->roleManager = $roleManager;
         $this->membershipStatusNotificationFactory = $membershipStatusNotificationFactory;
         $this->membershipStatusNotificationRepository = $membershipStatusNotificationRepository;
         $this->metaRepository = $metaRepository;
-        $this->bankRepository = $bankRepository;
-        $this->boxRepository = $boxRepository;
+        $this->roleRepository = $roleRepository;
     }
 
     /**
      * Handle the event.
      *
-     * @param MembershipPaymentWarning $event
+     * @param ExMemberPaymentUnderMinimum $event
      *
      * @return void
      */
-    public function handle(MembershipPaymentWarning $event)
+    public function handle(ExMemberPaymentUnderMinimum $event)
     {
         // get a fresh copy of the user
         $user = $this->userRepository->findOneById($event->user->getId());
 
+        // File an already cleared MembershipStatusNotification against the bankTransaction
         $membershipStatusNotification = $this->membershipStatusNotificationFactory
-            ->createForNonPayment($user, $user->getAccount());
+            ->createForUnderPayment($user, $user->getAccount())
+            ->clearNotificationsByRevoke();
         $this->membershipStatusNotificationRepository->save($membershipStatusNotification);
 
         // email user
-        \Mail::to($user)->send(new MembershipMayBeRevoked($user, $this->metaRepository, $this->bankRepository, $this->boxRepository));
+        \Mail::to($user)->send(new MembershipExUnderPaid($user, $this->metaRepository, $this->roleRepository));
     }
 }

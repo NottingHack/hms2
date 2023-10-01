@@ -123,7 +123,7 @@ class MembershipController extends Controller
     }
 
     /**
-     * Show a list of members awating approval.
+     * Show a list of members awaiting approval.
      *
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */

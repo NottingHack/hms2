@@ -2,9 +2,9 @@
 
 namespace App\Listeners\Membership;
 
-use App\Events\Banking\NonPaymentOfMembership;
-use App\Mail\Membership\MembershipRevoked;
-use HMS\Entities\Role;
+use App\Events\Banking\MembershipPaymentMinimumWarning;
+use App\Mail\Membership\MembershipMayBeRevokedDueToUnderPayment;
+use HMS\Factories\Banking\MembershipStatusNotificationFactory;
 use HMS\Repositories\Banking\BankRepository;
 use HMS\Repositories\Banking\MembershipStatusNotificationRepository;
 use HMS\Repositories\Members\BoxRepository;
@@ -13,7 +13,7 @@ use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class RevokeMembership implements ShouldQueue
+class WarnMembershipUnderMinimum implements ShouldQueue
 {
     /**
      * @var UserRepository
@@ -24,6 +24,11 @@ class RevokeMembership implements ShouldQueue
      * @var RoleManager
      */
     protected $roleManager;
+
+    /**
+     * @var MembershipStatusNotificationFactory
+     */
+    protected $membershipStatusNotificationFactory;
 
     /**
      * @var MembershipStatusNotificationRepository
@@ -41,23 +46,25 @@ class RevokeMembership implements ShouldQueue
     protected $bankRepository;
 
     /**
-     *  @var BoxRepository
+     * @var BoxRepository
      */
     protected $boxRepository;
 
     /**
      * Create the event listener.
      *
-     * @param UserRepository $userRepository
-     * @param RoleManager $roleManager
+     * @param UserRepository                         $userRepository
+     * @param RoleManager                            $roleManager
+     * @param MembershipStatusNotificationFactory    $membershipStatusNotificationFactory
      * @param MembershipStatusNotificationRepository $membershipStatusNotificationRepository
-     * @param MetaRepository $metaRepository
-     * @param BankRepository $bankRepository
-     * @param BoxRepository $boxRepository
+     * @param MetaRepository                         $metaRepository
+     * @param BankRepository                         $bankRepository
+     * @param BoxRepository                          $boxRepository
      */
     public function __construct(
         UserRepository $userRepository,
         RoleManager $roleManager,
+        MembershipStatusNotificationFactory $membershipStatusNotificationFactory,
         MembershipStatusNotificationRepository $membershipStatusNotificationRepository,
         MetaRepository $metaRepository,
         BankRepository $bankRepository,
@@ -65,6 +72,7 @@ class RevokeMembership implements ShouldQueue
     ) {
         $this->userRepository = $userRepository;
         $this->roleManager = $roleManager;
+        $this->membershipStatusNotificationFactory = $membershipStatusNotificationFactory;
         $this->membershipStatusNotificationRepository = $membershipStatusNotificationRepository;
         $this->metaRepository = $metaRepository;
         $this->bankRepository = $bankRepository;
@@ -74,46 +82,22 @@ class RevokeMembership implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param NonPaymentOfMembership $event
+     * @param MembershipPaymentMinimumWarning $event
      *
      * @return void
      */
-    public function handle(NonPaymentOfMembership $event)
+    public function handle(MembershipPaymentMinimumWarning $event)
     {
         // get a fresh copy of the user
         $user = $this->userRepository->findOneById($event->user->getId());
 
-        if (! $user->hasRoleByName([Role::MEMBER_CURRENT, Role::MEMBER_YOUNG])) {
-            // should not be here
-            // TODO: tell some one about it
-            return;
-        }
-
-        // remove all non retained roles (this will include MEMBER_CURRENT and MEMBER_YOUNG)
-        foreach ($user->getRoles() as $role) {
-            if (! $role->getRetained()) {
-                $this->roleManager->removeUserFromRole($user, $role);
-            }
-        }
-
-        // make ex member
-        $this->roleManager->addUserToRoleByName($user, Role::MEMBER_EX);
-
-        // clear their notifications
-        $userNotifications = $this->membershipStatusNotificationRepository->findOutstandingNotificationsByUser($user);
-        foreach ($userNotifications as $notification) {
-            $notification->clearNotificationsByRevoke();
-            $this->membershipStatusNotificationRepository->save($notification);
-        }
+        $membershipStatusNotification = $this->membershipStatusNotificationFactory
+            ->createForUnderPayment($user, $user->getAccount());
+        $this->membershipStatusNotificationRepository->save($membershipStatusNotification);
 
         // email user
         \Mail::to($user)->send(
-            new MembershipRevoked(
-                $user,
-                $this->metaRepository,
-                $this->bankRepository,
-                $this->boxRepository
-            )
+            new MembershipMayBeRevokedDueToUnderPayment($user, $this->metaRepository, $this->bankRepository, $this->boxRepository)
         );
     }
 }

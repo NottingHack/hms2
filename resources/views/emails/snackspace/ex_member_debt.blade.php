@@ -17,7 +17,7 @@ As of today the space is still owed **@money(-$latetsTotalDebt, 'GBP')** of whic
 The space is entirely funded by its members and they would greatly appreciate it if you could please pay off your outstanding balance.  
 
 ## Payment Instructions
-For former members we are allow payment by online card payments via HMS @feature('standing_order_membership_payments') or bank transfer@endfeature @feature('cash_acceptors') as well as the cash acceptors in the space@endfeature.  
+For former members we are allow payment by online card payments via HMS @feature('standing_order_membership_payments') or bank transfer @endfeature @feature('cash_acceptors') as well as the cash acceptors in the space @endfeature.  
 
 To pay off with a card, please log into HMS where you will see a button to "Add Money To Snackspace"  
 

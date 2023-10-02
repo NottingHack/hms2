@@ -40,6 +40,11 @@ class MembershipDetailsApproved extends Mailable implements ShouldQueue
     public $paymentRef;
 
     /**
+     * @var int
+     */
+    public $minimumAmount;
+
+    /**
      * Create a new notification instance.
      *
      * @param User $user
@@ -57,6 +62,7 @@ class MembershipDetailsApproved extends Mailable implements ShouldQueue
         $this->accountName = $bank->getAccountName();
         $this->fullname = $user->getFullname();
         $this->paymentRef = $user->getAccount()->getPaymentRef();
+        $this->minimumAmount = $metaRepository->getInt('membership_minimum_amount', 200);
     }
 
     /**

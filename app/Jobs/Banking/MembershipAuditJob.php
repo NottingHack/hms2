@@ -56,7 +56,7 @@ class MembershipAuditJob implements ShouldQueue
         MetaRepository $metaRepository,
         RoleRepository $roleRepository
     ) {
-        $minimumAmount = $metaRepository->getInt('membership_minimum_amount', 200);
+        $minimumAmount = $metaRepository->getInt('membership_minimum_amount', 500);
 
         // get the latest transaction date for all accounts, store in $latestTransactionForAccounts
         $lastPaymentAmounts = LowLastPaymentAmount::all();

@@ -85,7 +85,7 @@ class MembershipRevokedDueToUnderPayment extends Mailable implements ShouldQueue
         $snackspaceRef = 'SNACK-EX' . $user->getId()
             . $user->getFirstname()[0] . $user->getLastname()[0];
         $this->snackspaceRef = preg_replace('/[^-a-zA-Z0-9]/', '', $snackspaceRef);
-        $this->minimumAmount = $metaRepository->getInt('membership_minimum_amount', 200);
+        $this->minimumAmount = $metaRepository->getInt('membership_minimum_amount', 500);
     }
 
     /**

@@ -62,7 +62,7 @@ class MembershipDetailsApproved extends Mailable implements ShouldQueue
         $this->accountName = $bank->getAccountName();
         $this->fullname = $user->getFullname();
         $this->paymentRef = $user->getAccount()->getPaymentRef();
-        $this->minimumAmount = $metaRepository->getInt('membership_minimum_amount', 200);
+        $this->minimumAmount = $metaRepository->getInt('membership_minimum_amount', 500);
     }
 
     /**

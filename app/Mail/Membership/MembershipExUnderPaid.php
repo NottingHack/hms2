@@ -46,7 +46,7 @@ class MembershipExUnderPaid extends Mailable implements ShouldQueue
     {
         $this->fullname = $user->getFullname();
 
-        $this->minimumAmount = $metaRepository->getInt('membership_minimum_amount', 200);
+        $this->minimumAmount = $metaRepository->getInt('membership_minimum_amount', 500);
         $this->recommendedAmount = $metaRepository->getInt('membership_recommended_amount', $this->minimumAmount);
 
         $this->membershipTeamEmail = $roleRepository->findOneByName(Role::TEAM_MEMBERSHIP)->getEmail();

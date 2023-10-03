@@ -32,6 +32,7 @@ class DiscordAuditJob implements ShouldQueue
      * @param DiscordUser $discordMember
      *
      * @return void
+     */
     private function notifyDiscordUser(Discord $discord, $discordMember)
     {
         $link = route('redirector.user.edit');

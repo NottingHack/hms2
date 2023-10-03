@@ -78,7 +78,6 @@ Route::middleware(['auth'])->group(function () {
     // Users (show, edit, update) to allow users to update there email if they can't verify it
     Route::resource('users', 'UserController')
         ->except(['index', 'store', 'create', 'destroy']);
-
 });
 
 // Routes in the following group can only be access once logged-in and have verified your email address

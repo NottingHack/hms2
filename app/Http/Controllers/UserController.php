@@ -81,6 +81,20 @@ class UserController extends Controller
     }
 
     /**
+     * Redirects to edit($user) based on logged in user.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function editRedirect()
+    {
+        if (Auth::user()) {
+            return redirect()->route('users.edit', (Auth::user())->getId());
+        }
+
+        return redirect()->route('login');
+    }
+
+    /**
      * Show the form for editing the specified user.
      *
      * @param User $user

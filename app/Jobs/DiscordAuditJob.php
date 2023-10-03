@@ -34,7 +34,7 @@ class DiscordAuditJob implements ShouldQueue
      * @return void
     private function notifyDiscordUser(Discord $discord, $discordMember)
     {
-        $link = route('home');
+        $link = route('redirector.user.edit');
         $message = <<<EOF
         __**Discord username not found in HMS**__
 

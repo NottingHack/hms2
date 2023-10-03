@@ -126,11 +126,12 @@ class Discord
     }
 
     /**
-     * Return a list of all guild members
+     * Return a list of all guild members.
      *
      * @return array
      */
-    public function listGuildMembers() {
+    public function listGuildMembers()
+    {
         if (! $this->members) {
             // This supports pagination in chunks of 1000 by setting the
             // 'after' parameter to the last member user id. I don't think

@@ -3,8 +3,8 @@
 namespace App\Console;
 
 use App\Jobs\Banking\MembershipAuditJob;
-use App\Jobs\EmailTeamReminderJob;
 use App\Jobs\DiscordAuditJob;
+use App\Jobs\EmailTeamReminderJob;
 use App\Jobs\Gatekeeper\TemporaryAcccessCheckZoneOccupancyJob;
 use App\Jobs\Gatekeeper\UpdateTemporaryAccessRoleJob;
 use App\Jobs\Gatekeeper\ZoneOccupantResetJob;

@@ -2,10 +2,10 @@
 
 namespace App\Jobs;
 
-use HMS\Entities\Role;
 use HMS\Entities\Profile;
-use HMS\Repositories\ProfileRepository;
+use HMS\Entities\Role;
 use HMS\Helpers\Discord;
+use HMS\Repositories\ProfileRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -19,9 +19,9 @@ class DiscordAuditJob implements ShouldQueue
 
     /**
      * Create a new job instance.
-     *
      */
-    public function __construct() {
+    public function __construct()
+    {
         // Nothing to do here...
     }
 
@@ -47,12 +47,12 @@ class DiscordAuditJob implements ShouldQueue
         EOF;
 
         $channel = $discord->getDiscordClient()->user->createDm([
-                     'recipient_id' => (int) $discordMember['user']['id'],
-                 ]);
+            'recipient_id' => (int) $discordMember['user']['id'],
+        ]);
 
         $discord->getDiscordClient()->channel->createMessage([
-            'channel.id' => (int)$channel['id'],
-            'content' => $message
+            'channel.id' => (int) $channel['id'],
+            'content' => $message,
         ]);
     }
 
@@ -93,9 +93,9 @@ class DiscordAuditJob implements ShouldQueue
         $currentMember = $discord->findRoleByName('Current Member')['id'];
         $members = $discord->listGuildMembers();
 
-        foreach($members as $member) {
+        foreach ($members as $member) {
             // If the Discord user doesn't have the "Current Member" role, we can skip past them.
-            if(! in_array($currentMember, $member['roles'])) {
+            if (! in_array($currentMember, $member['roles'])) {
                 continue;
             }
 
@@ -104,11 +104,11 @@ class DiscordAuditJob implements ShouldQueue
             // included.
             $profile = $profileRepository->findOneByDiscordUsername($member['user']['username']);
             if (! $profile) {
-                if ((int)$member['user']['discriminator'] > 0) {
+                if ((int) $member['user']['discriminator'] > 0) {
                     $discordUsername = $member['user']['username'] . '#' . $member['user']['discriminator'];
                     $profile = $profileRepository->findOneByDiscordUsername($discordUsername);
                 }
-            };
+            }
 
             // Assuming we found a profile, make sure they are
             // actually a current member, otherwise strip off any Discord
@@ -118,7 +118,7 @@ class DiscordAuditJob implements ShouldQueue
                 $roles = $profile->getUser()->getRoles();
 
                 foreach ($roles as $role) {
-                    if ($role->getName() == "member.current") {
+                    if ($role->getName() == 'member.current') {
                         $found = true;
                         break;
                     }
@@ -133,6 +133,6 @@ class DiscordAuditJob implements ShouldQueue
                 $this->notifyDiscordUser($discord, $member);
                 $this->stripRoles($discord, $member);
             }
-        };
+        }
     }
 }

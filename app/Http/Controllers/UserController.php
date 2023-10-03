@@ -88,7 +88,7 @@ class UserController extends Controller
     public function editRedirect()
     {
         if (Auth::user()) {
-            return redirect()->route('users.edit', (Auth::user())->getId());
+            return redirect()->route('users.edit', Auth::user()->getId());
         }
 
         return redirect()->route('login');

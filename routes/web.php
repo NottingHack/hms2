@@ -72,9 +72,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('membership/update-details/{user}', 'MembershipController@editDetails')->name('membership.edit');
     Route::put('membership/update-details/{user}', 'MembershipController@updateDetails')->name('membership.update');
 
+    // A redirector to go to the currently logged in users edit user page.
+    Route::get('profile', 'UserController@editRedirect')->name('redirector.user.edit');
+
     // Users (show, edit, update) to allow users to update there email if they can't verify it
     Route::resource('users', 'UserController')
         ->except(['index', 'store', 'create', 'destroy']);
+
 });
 
 // Routes in the following group can only be access once logged-in and have verified your email address

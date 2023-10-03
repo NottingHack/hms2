@@ -119,7 +119,6 @@ class DoctrineProfileRepository extends EntityRepository implements ProfileRepos
         return (int) $q->getQuery()->getSingleScalarResult() ?? 0;
     }
 
-
     /**
      * @param string $discordUsername
      *

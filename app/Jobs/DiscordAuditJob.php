@@ -40,8 +40,8 @@ class DiscordAuditJob implements ShouldQueue
         __**Discord username not found in HMS**__
 
         Unfortunately we were not able to locate your Discord username in HMS.
-        Have you recently changed your Discord username? Please ensure you update
-        this on your HMS profile.
+
+        Have you recently changed your Discord username? Please ensure you update this on your HMS profile.
 
         $link
         EOF;

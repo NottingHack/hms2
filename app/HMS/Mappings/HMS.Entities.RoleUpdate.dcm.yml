@@ -16,6 +16,9 @@ HMS\Entities\RoleUpdate:
       gedmo:
         timestampable:
           on: create
+    reason:
+      type: text
+      nullable: true
   manyToOne:
     user:
       targetEntity: User

@@ -23,6 +23,7 @@
         <th>Role Added</th>
         <th>Role Removed</th>
         <th>Updated By</th>
+        <th>Reason</th>
       </thead>
       <tbody>
   @endif
@@ -45,6 +46,13 @@
           <td data-title="Updated By">
             @if ($roleUpdate->getUpdateBy())
             {{ $roleUpdate->getUpdateBy()->getFullname() }}
+            @else
+            &nbsp;
+            @endif
+          </td>
+          <td>
+            @if ($roleUpdate->getReason())
+            {{ $roleUpdate->getReason() }}
             @else
             &nbsp;
             @endif

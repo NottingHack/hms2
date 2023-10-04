@@ -37,6 +37,11 @@ class RoleUpdate
     protected $updateBy;
 
     /**
+     * @var string|null
+     */
+    protected $reason;
+
+    /**
      * Construct a new Role Update.
      *
      * @param User $user
@@ -48,13 +53,15 @@ class RoleUpdate
         User $user,
         ?Role $roleAdded = null,
         ?Role $roleRemoved = null,
-        ?User $updateBy = null
+        ?User $updateBy = null,
+        ?string $reason = null
     ) {
         $this->user = $user;
         $this->roleAdded = $roleAdded;
         $this->roleRemoved = $roleRemoved;
         $this->createdAt = Carbon::now();
         $this->updateBy = $updateBy;
+        $this->reason = $reason;
     }
 
     /**
@@ -113,5 +120,15 @@ class RoleUpdate
     public function getUpdateBy()
     {
         return $this->updateBy;
+    }
+
+    /**
+     * Gets the reason for the role update.
+     *
+     * @return string|null
+     */
+    public function getReason()
+    {
+        return $this->reason;
     }
 }

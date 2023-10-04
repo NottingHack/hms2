@@ -393,11 +393,12 @@ class RoleController extends Controller
     /**
      * Temporary Ban a specific user.
      *
+     * @param \Illuminate\Http\Request $request
      * @param User $user the user
      *
      * @return \Illuminate\Http\Response
      */
-    public function temporaryBanUser(User $user)
+    public function temporaryBanUser(Request $request, User $user)
     {
         // remove all non retained roles (this will include MEMBER_CURRENT and MEMBER_YOUNG)
         foreach ($user->getRoles() as $role) {
@@ -406,12 +407,16 @@ class RoleController extends Controller
             }
         }
 
+        $validatedData = $request->validate([
+            'reason' => 'required'
+        ]);
+
         if ($user->hasRoleByName(Role::MEMBER_BANNED)) {
             $this->roleManager->removeUserFromRoleByName($user, Role::MEMBER_BANNED);
         }
 
         // make temporary banned member
-        $this->roleManager->addUserToRoleByName($user, Role::MEMBER_TEMPORARYBANNED);
+        $this->roleManager->addUserToRoleByName($user, Role::MEMBER_TEMPORARYBANNED, $validatedData['reason']);
 
         flash($user->getFullname() . ' temporarily banned')->success();
 

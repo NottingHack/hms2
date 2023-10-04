@@ -68,7 +68,7 @@ class RoleUpdateLogger implements ShouldQueue
         $user = $this->userRepository->findOneById($event->user->getId());
         $role = $this->roleRepository->findOneById($event->role->getId());
         $updateBy = is_null($event->updateBy) ? null : $this->userRepository->findOneById($event->updateBy->getId());
-        $roleUpdate = new RoleUpdate($user, $role, null, $updateBy);
+        $roleUpdate = new RoleUpdate($user, $role, null, $updateBy, $event->reason);
         $this->roleUpdateRepository->save($roleUpdate);
     }
 

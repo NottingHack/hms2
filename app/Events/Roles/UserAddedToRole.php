@@ -22,6 +22,11 @@ class UserAddedToRole
     public $role;
 
     /**
+     * @var string|null
+     */
+    public $reason;
+
+    /**
      * @var User|null
      */
     public $updateBy;
@@ -31,10 +36,11 @@ class UserAddedToRole
      *
      * @return void
      */
-    public function __construct(User $user, Role $role)
+    public function __construct(User $user, Role $role, ?string $reason = null)
     {
         $this->user = $user;
         $this->role = $role;
+        $this->reason = $reason;
         $this->updateBy = Auth::user();
     }
 }

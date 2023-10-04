@@ -199,12 +199,13 @@ class RoleManager
      *
      * @param User $user
      * @param Role $role
+     * @param string|null reason
      */
-    public function addUserToRole(User $user, Role $role)
+    public function addUserToRole(User $user, Role $role, ?string $reason = null)
     {
         $user->getRoles()->add($role);
         $this->userRepository->save($user);
-        event(new UserAddedToRole($user, $role));
+        event(new UserAddedToRole($user, $role, $reason));
         $this->entityManager->refresh($user);
     }
 
@@ -213,14 +214,15 @@ class RoleManager
      *
      * @param User $user
      * @param string $roleName take a role name string rather than a role enitity
+     * @param string|null reason
      */
-    public function addUserToRoleByName(User $user, string $roleName)
+    public function addUserToRoleByName(User $user, string $roleName, ?string $reason = null)
     {
         if (! $role = $this->roleRepository->findOneByName($roleName)) {
             return;
         }
 
-        $this->addUserToRole($user, $role);
+        $this->addUserToRole($user, $role, $reason);
     }
 
     /**

@@ -28,7 +28,7 @@ return [
         'mw_auth_hms' => env('FEATURE_MW_AUTH_WIKI', true),
         'slack' => env('FEATURE_SLACK', false),
         'discord' => env('FEATURE_DISCORD', false),
-	'banned_listing' => env('FEATURE_BANNED_LISTING', true),
+        'banned_listing' => env('FEATURE_BANNED_LISTING', true),
     ],
 
     /*

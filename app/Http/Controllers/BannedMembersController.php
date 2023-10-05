@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use HMS\Entities\Role;
-use HMS\Repositories\UserRepository;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\RoleUpdateRepository;
-use Illuminate\Support\Facades\Auth;
+use HMS\Repositories\UserRepository;
 
 class BannedMembersController extends Controller
 {
@@ -74,7 +73,7 @@ class BannedMembersController extends Controller
         return view('members.banned')->with([
             'bannedUsers' => $bannedUsers,
             'temporaryBannedUsers' => $temporaryBannedUsers,
-            'updates' => $updates
+            'updates' => $updates,
         ]);
     }
 }

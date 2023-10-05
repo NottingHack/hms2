@@ -408,7 +408,7 @@ class RoleController extends Controller
         }
 
         $validatedData = $request->validate([
-            'reason' => 'required'
+            'reason' => 'required',
         ]);
 
         if ($user->hasRoleByName(Role::MEMBER_BANNED)) {
@@ -444,7 +444,7 @@ class RoleController extends Controller
         }
 
         $validatedData = $request->validate([
-            'reason' => 'required'
+            'reason' => 'required',
         ]);
 
         if ($user->hasRoleByName(Role::MEMBER_TEMPORARYBANNED)) {

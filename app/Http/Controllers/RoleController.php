@@ -429,11 +429,12 @@ class RoleController extends Controller
     /**
      * Ban a specific user.
      *
+     * @param \Illuminate\Http\Request $request
      * @param User $user the user
      *
      * @return \Illuminate\Http\Response
      */
-    public function banUser(User $user)
+    public function banUser(Request $request, User $user)
     {
         // remove all non retained roles (this will include MEMBER_CURRENT and MEMBER_YOUNG)
         foreach ($user->getRoles() as $role) {
@@ -442,12 +443,16 @@ class RoleController extends Controller
             }
         }
 
+        $validatedData = $request->validate([
+            'reason' => 'required'
+        ]);
+
         if ($user->hasRoleByName(Role::MEMBER_TEMPORARYBANNED)) {
             $this->roleManager->removeUserFromRoleByName($user, Role::MEMBER_TEMPORARYBANNED);
         }
 
         // make banned member
-        $this->roleManager->addUserToRoleByName($user, Role::MEMBER_BANNED);
+        $this->roleManager->addUserToRoleByName($user, Role::MEMBER_BANNED, $validatedData['reason']);
 
         $trusteesTeamRole = $this->roleRepository->findOneByName(Role::TEAM_TRUSTEES);
         $trusteesTeamRole->notify(new MemberBanned($user, Auth::user()));

@@ -111,6 +111,13 @@ return [
                     'match'         => 'statistics.zone-occupants',
                     'permissions'   => [],
                 ],
+                'banned-members' => [
+                    'text'          => 'Banned Members',
+                    'route'         => 'members.banned',
+                    'match'         => 'members.banned',
+                    'permissions'   => [],
+                    'feature'       => 'banned_listing',
+                ],
             ],
         ],
         'vending' => [

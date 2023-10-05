@@ -95,6 +95,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('admin/users/{user}/ban', 'RoleController@banUser')
         ->name('users.admin.ban');
 
+    // Banned Members
+    Route::get('members/banned', 'BannedMembersController@index')
+        ->name('members.banned');
+
     // USER (admin access only)
     Route::get('admin/users/{user}', 'AdminController@userOverview')->name('users.admin.show');
     Route::get('admin/users/{user}/edit', 'UserController@editAdmin')->name('users.admin.edit');

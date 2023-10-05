@@ -42,6 +42,8 @@ class BannedMembersController extends Controller
         $this->userRepository = $userRepository;
         $this->roleRepository = $roleRepository;
         $this->roleUpdateRepository = $roleUpdateRepository;
+
+        $this->middleware('feature:banned_listing');
     }
 
     /**

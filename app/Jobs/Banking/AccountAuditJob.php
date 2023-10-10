@@ -199,7 +199,8 @@ class AccountAuditJob implements ShouldQueue
                     $membershipStatusNotification = $memberIdsForCurrentUnderPaymentNotifications[$user->getId()];
 
                     // is the warned transaction Date now < revokeDate
-                    if ($membershipStatusNotification->getBankTransaction()->getTransactionDate() < $revokeDate) {
+                    if ($membershipStatusNotification->getBankTransaction()->getTransactionDate() < $revokeDate
+                        || $membershipStatusNotification->getTimeIssued() < $notificationRevokeDate) {
                         //  yes time to revoke them
                         $revokeUsersMinimumAmount[] = $user;
                     }

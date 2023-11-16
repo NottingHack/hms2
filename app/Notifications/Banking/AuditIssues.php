@@ -68,8 +68,8 @@ class AuditIssues extends Notification implements ShouldQueue
             ->to($notifiable->getSlackChannel())
             ->attachment(function ($attachment) {
                 $attachment->title('Audit Issues')
-                            ->content('There has been a issue during the membership audit.')
-                            ->fallback('There has been a issue during the membership audit')
+                            ->content('There has been an issue during the membership audit.')
+                            ->fallback('There has been an issue during the membership audit')
                             ->timestamp(Carbon::now());
             });
     }

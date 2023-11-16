@@ -53,7 +53,7 @@ class PasswordChanged extends Notification implements ShouldQueue
                     ->subject('Your HMS password has been changed')
                     ->greeting('Hello ' . $notifiable->getFirstname() . ',')
                     ->line(
-                        'Your password for signing into HMS was changed recently.'
+                        'Your password for signing into HMS was changed recently. '
                         . 'If you made this change then ignore me!'
                     )
                     ->line("If, however, you didn't change your password please")
@@ -77,7 +77,7 @@ class PasswordChanged extends Notification implements ShouldQueue
 
         Your password for signing into HMS was changed recently.
 
-        If you made this change then ignore me! Otherwise, you can reset your password here
+        If you made this change then ignore me! Otherwise, you can reset your password here:
 
         $link
         EOF;

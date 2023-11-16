@@ -70,7 +70,7 @@ class DonationPayment extends Notification implements ShouldQueue
                 ->greeting('Hello ' . $notifiable->getFirstname())
                 ->line(
                     'Thank you for your Donation of ' . $amountString
-                    . ' to ' . config('branding.sapce_name') . '.'
+                    . ' to ' . config('branding.space_name') . '.'
                 );
         } elseif ($notifiable instanceof AnonymousNotifiable) {
             return (new MailMessage)
@@ -78,7 +78,7 @@ class DonationPayment extends Notification implements ShouldQueue
                 ->greeting('Hello ' . $this->stripeCharge->billing_details->name)
                 ->line(
                     'Thank you for your Donation of ' . $amountString
-                    . ' to ' . config('branding.sapce_name') . '.'
+                    . ' to ' . config('branding.space_name') . '.'
                 );
         } elseif ($notifiable instanceof Role) {
             if ($this->charge->getUser()) {

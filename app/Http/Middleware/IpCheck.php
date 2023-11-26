@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 
 /**
- * Middleware to check that the incoming request has a source IP form the hacksapce network,
+ * Middleware to check that the incoming request has a source IP form the hackspace network,
  * bounce the request back to the index page if not.
  */
 class IpCheck

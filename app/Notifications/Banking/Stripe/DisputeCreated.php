@@ -67,13 +67,13 @@ class DisputeCreated extends Notification implements ShouldQueue
             ->setTimezone(new DateTimeZone(date_default_timezone_get()));
 
         return (new MailMessage)
-            ->subject('Stripe dispute has been rasied')
+            ->subject('Stripe dispute has been raised')
             ->greeting('Hello ' . $notifiable->getDisplayName())
             ->line(
                 'A dispute has been opened against the ' .
                 $this->charge->getTypeString() . ' payment of ' . $this->charge->getUser()->getFullname()
             )
-            ->line('The dispauted amount is ' . $amountString)
+            ->line('The disputed amount is ' . $amountString)
             ->line('Reason given is ' . $reason)
             ->line('Evidence is due by ' . $evidenceDueBy->toDateTimeString());
     }

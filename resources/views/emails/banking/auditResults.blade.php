@@ -87,7 +87,7 @@ These ex-members have started paying again, so their membership has been reinsta
 @endforelse
 @endcomponent
 
-These ex-members have started paying again but it is under the minimum, so their membership has NOT been reinstated.
+These ex-members ({{ count($formattedExUsersUnderMinimum) }}) have started paying again but it is under the minimum, so their membership has NOT been reinstated.
 @component('mail::table')
 | Name                                       | Joint Account | Balance | Date made Ex | Last visit date |
 | ------------------------------------------ | ------------- | ------- | ------------ | --------------- |

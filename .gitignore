@@ -45,3 +45,4 @@ dump.html
 report.html
 # /resources/sass/_variables_*.scss
 porter.yml
+.phpactor.json

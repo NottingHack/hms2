@@ -6,7 +6,7 @@
     "type": "project",
     "require": {
         "php": "^8.0.2",
-        "ext-redis": "^5.0",
+        "ext-redis": "^5.0|^6.0",
         "agenciasys/ofxparser": "^1.5",
         "akaunting/laravel-money": "^5.1",
         "beberlei/doctrineextensions": "^1.3",

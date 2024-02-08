@@ -41,6 +41,13 @@ interface BankTransactionRepository
     public function findLatestTransactionForAllAccounts();
 
     /**
+     * Find the latest transaction.
+     *
+     * @return array
+     */
+    public function findLatestTransaction();
+
+    /**
      * Find the latest transaction for given account.
      *
      * @param Account $account

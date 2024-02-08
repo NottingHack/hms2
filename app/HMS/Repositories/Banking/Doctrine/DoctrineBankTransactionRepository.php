@@ -42,7 +42,7 @@ class DoctrineBankTransactionRepository extends EntityRepository implements Bank
     ) {
         return parent::findOneBy([
             'bank' => $bank,
-            'transactionDate' =>  new Carbon($date->copy()->setTimezone('UTC')->format('Y-m-d'), 'UTC'),
+            'transactionDate' => new Carbon($date->copy()->setTimezone('UTC')->format('Y-m-d'), 'UTC'),
             'description' => $description,
             'amount' => $amount,
         ]);
@@ -59,6 +59,19 @@ class DoctrineBankTransactionRepository extends EntityRepository implements Bank
             ->addSelect('MAX(bankTransaction.transactionDate) AS latestTransactionDate')
             ->groupBy('bankTransaction.account')
             ->where('bankTransaction.account IS NOT NULL');
+
+        return $q->getQuery()->getResult();
+    }
+
+    /**
+     * Find the latest transaction.
+     *
+     * @return array
+     */
+    public function findLatestTransaction()
+    {
+        $q = parent::createQueryBuilder('bankTransaction')
+             ->addSelect('MAX(bankTransaction.transactionDate) AS latestTransactionDate');
 
         return $q->getQuery()->getResult();
     }

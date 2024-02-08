@@ -56,6 +56,16 @@ class MembershipAuditJob implements ShouldQueue
         MetaRepository $metaRepository,
         RoleRepository $roleRepository
     ) {
+        // Make sure that there are new transactions before we audit membership.
+        $latestTransaction = $bankTransactionRepository->findLatestTransaction();
+        $latestTransactionDate = $latestTransaction[0]['latestTransactionDate'];
+        $transactionThreshold = Carbon::now()->sub(
+            CarbonInterval::instance(new \DateInterval('P1D'))
+        );
+        if ($latestTransactionDate < $transactionThreshold) {
+            return;
+        }
+
         $minimumAmount = $metaRepository->getInt('membership_minimum_amount', 500);
 
         // get the latest transaction date for all accounts, store in $latestTransactionForAccounts

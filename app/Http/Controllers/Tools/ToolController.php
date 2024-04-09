@@ -382,7 +382,7 @@ class ToolController extends Controller
 
         $user = $this->userRepository->findOneById($validatedData['user_id']);
 
-        $duration = -1 * $validatedData['hours'] * 3600 + $validatedData['minutes'] * 60;
+        $duration = -1 * ($validatedData['hours'] * 3600 + $validatedData['minutes'] * 60);
 
         $usage = $this->usageFactory->createFreeTime($tool, $user, $duration);
         $this->usageRepository->save($usage);

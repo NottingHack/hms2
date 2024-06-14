@@ -4,8 +4,9 @@ namespace HMS\Entities\Snackspace;
 
 use Carbon\Carbon;
 use HMS\Entities\User;
+use HMS\Entities\EntityObfuscatableInterface;
 
-class VendLog
+class VendLog implements EntityObfuscatableInterface
 {
     /**
      * @var int
@@ -210,6 +211,23 @@ class VendLog
     public function setPosition($position)
     {
         $this->position = $position;
+
+        return $this;
+    }
+
+
+    /**
+     * Remove any personal information from the transaction.
+     * This should only happen after 7 years if the member has deleted their account.
+     */
+    public function obfuscate() {
+        $historic = Carbon::now();
+        $historic->subYears(7);
+
+        if ($this->transactionDate() < $historic) {
+            $this->rfidSerial = null;
+            $this->user = null;
+        }
 
         return $this;
     }

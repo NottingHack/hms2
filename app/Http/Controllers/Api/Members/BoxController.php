@@ -199,7 +199,7 @@ class BoxController extends Controller
                 'errors' => [
                     [
                         'status' => IlluminateResponse::HTTP_FORBIDDEN,
-                        'title'  => 'Forbidden',
+                        'title' => 'Forbidden',
                         'detail' => 'Sorry we have no room for any more boxes',
                     ],
                 ],
@@ -217,7 +217,7 @@ class BoxController extends Controller
                     'errors' => [
                         [
                             'status' => IlluminateResponse::HTTP_FORBIDDEN,
-                            'title'  => 'Forbidden',
+                            'title' => 'Forbidden',
                             'detail' => 'This member has too many boxes already',
                         ],
                     ],
@@ -233,7 +233,7 @@ class BoxController extends Controller
                     'errors' => [
                         [
                             'status' => IlluminateResponse::HTTP_FORBIDDEN,
-                            'title'  => 'Forbidden',
+                            'title' => 'Forbidden',
                             'detail' => 'Sorry you do not have enough credit to buy another box',
                         ],
                     ],
@@ -310,7 +310,7 @@ class BoxController extends Controller
                 'errors' => [
                     [
                         'status' => IlluminateResponse::HTTP_FORBIDDEN,
-                        'title'  => 'Forbidden',
+                        'title' => 'Forbidden',
                         'detail' => $message,
                     ],
                 ],
@@ -326,7 +326,7 @@ class BoxController extends Controller
                 'errors' => [
                     [
                         'status' => IlluminateResponse::HTTP_FORBIDDEN,
-                        'title'  => 'Forbidden',
+                        'title' => 'Forbidden',
                         'detail' => 'Sorry we have no room for any more boxes',
                     ],
                 ],

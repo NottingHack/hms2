@@ -62,7 +62,7 @@ class BookingChanged implements ShouldBroadcast
     public function broadcastWith()
     {
         return [
-            'orignalBooking' =>(new TemporaryAccessBookingResource($this->orignalBooking))->resolve(),
+            'orignalBooking' => (new TemporaryAccessBookingResource($this->orignalBooking))->resolve(),
             'booking' => (new TemporaryAccessBookingResource($this->booking))->resolve(),
         ];
     }

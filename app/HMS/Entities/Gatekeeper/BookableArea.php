@@ -242,7 +242,7 @@ class BookableArea implements ArrayableContract, JsonSerializable
             'maxOccupancy' => $this->getMaxOccupancy(),
             'additionalGuestOccupancy' => $this->getAdditionalGuestOccupancy(),
             'bookingColor' => $this->getBookingColor(),
-            'bookingColorString'  => $this->getBookingColorString(),
+            'bookingColorString' => $this->getBookingColorString(),
             'selfBookable' => $this->isSelfBookable(),
             'building' => $this->getBuilding(),
         ];

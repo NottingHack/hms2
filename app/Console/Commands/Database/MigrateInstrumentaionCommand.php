@@ -741,13 +741,13 @@ class MigrateInstrumentaionCommand extends Command
 
         foreach ($tools as $tool) {
             $toolRoleIds[$tool->id] = [
-                'MAINTAINER'    => DB::table('roles')
+                'MAINTAINER' => DB::table('roles')
                                         ->where('name', 'LIKE', 'tools.' . Str::camel($tool->name) . '.maintainer')
                                         ->value('id'),
-                'INDUCTOR'      => DB::table('roles')
+                'INDUCTOR' => DB::table('roles')
                                         ->where('name', 'LIKE', 'tools.' . Str::camel($tool->name) . '.inductor')
                                         ->value('id'),
-                'USER'          => DB::table('roles')
+                'USER' => DB::table('roles')
                                         ->where('name', 'LIKE', 'tools.' . Str::camel($tool->name) . '.user')
                                         ->value('id'),
             ];

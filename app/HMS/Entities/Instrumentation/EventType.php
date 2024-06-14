@@ -19,15 +19,15 @@ abstract class EventType
      * String representation of types for display.
      */
     public const TYPE_STRINGS = [
-        self::LAST_OUT          => 'Last Out',
-        self::FIRST_IN          => 'First In',
-        self::DOOR_OPENED       => 'Door Opened',
-        self::DOOR_CLOSED       => 'Door Closed',
-        self::DOOR_TIMEOUT      => 'Door Timeout',
-        self::DOORBELL          => 'Doorbell',
-        self::PROCESS_RESTART   => 'Process Restart',
-        self::WARN              => 'Warn',
-        self::DOOR_LOCKED       => 'Door Locked',
-        self::UNKNOWN           => 'Unknown',
+        self::LAST_OUT => 'Last Out',
+        self::FIRST_IN => 'First In',
+        self::DOOR_OPENED => 'Door Opened',
+        self::DOOR_CLOSED => 'Door Closed',
+        self::DOOR_TIMEOUT => 'Door Timeout',
+        self::DOORBELL => 'Doorbell',
+        self::PROCESS_RESTART => 'Process Restart',
+        self::WARN => 'Warn',
+        self::DOOR_LOCKED => 'Door Locked',
+        self::UNKNOWN => 'Unknown',
     ];
 }

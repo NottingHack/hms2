@@ -90,6 +90,7 @@ class KerberosPasswordStore implements PasswordStore
                 if ($this->debug) {
                     Log::warning('KerberosPasswordStore@add: ' . $e->getMessage());
                 }
+
                 // TODO: re throw?
                 return;
             }
@@ -123,6 +124,7 @@ class KerberosPasswordStore implements PasswordStore
             if ($this->debug) {
                 Log::warning('KerberosPasswordStore@remove: ' . $e->getMessage());
             }
+
             // TODO:: throw?
             return;
         }

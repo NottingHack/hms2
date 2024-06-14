@@ -113,7 +113,7 @@ class CheckInController extends Controller
                 'errors' => [
                     [
                         'status' => IlluminateResponse::HTTP_NOT_FOUND,
-                        'title'  => 'Not Found',
+                        'title' => 'Not Found',
                         'detail' => 'The requested resource does not exist.',
                     ],
                 ],
@@ -200,7 +200,7 @@ class CheckInController extends Controller
                 'errors' => [
                     [
                         'status' => IlluminateResponse::HTTP_FORBIDDEN,
-                        'title'  => 'Forbidden',
+                        'title' => 'Forbidden',
                         'detail' => 'Can not Check-in to a meeting in the past',
                     ],
                 ],
@@ -222,7 +222,7 @@ class CheckInController extends Controller
                 'errors' => [
                     [
                         'status' => IlluminateResponse::HTTP_NOT_FOUND,
-                        'title'  => 'Not Found',
+                        'title' => 'Not Found',
                         'detail' => 'RFID not found',
                     ],
                 ],
@@ -234,7 +234,7 @@ class CheckInController extends Controller
                 'errors' => [
                     [
                         'status' => IlluminateResponse::HTTP_FORBIDDEN,
-                        'title'  => 'Forbidden',
+                        'title' => 'Forbidden',
                         'detail' => 'RFID not active',
                     ],
                 ],

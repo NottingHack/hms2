@@ -78,7 +78,7 @@ class Handler extends ExceptionHandler
                 'errors' => [
                     [
                         'status' => IlluminateResponse::HTTP_FORBIDDEN,
-                        'title'  => 'Unauthorized',
+                        'title' => 'Unauthorized',
                         'detail' => $exception->getMessage(),
                     ],
                 ],
@@ -108,7 +108,7 @@ class Handler extends ExceptionHandler
                 'errors' => [
                     [
                         'status' => IlluminateResponse::HTTP_UNAUTHORIZED,
-                        'title'  => 'Unauthenticated',
+                        'title' => 'Unauthenticated',
                         'detail' => $exception->getMessage(),
                     ],
                 ],

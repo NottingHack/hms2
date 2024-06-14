@@ -46,18 +46,18 @@ class ToolManager
      */
     public const ROLE_TEMPLATES = [
         'tools._TOOL_PERMISSION_NAME_.user' => [
-            'name'          => 'Tool: _TOOL_NAME_ User',
-            'description'   => 'Can make bookings and use the tool',
-            'retained'      => true,
-            'permissions'   => [
+            'name' => 'Tool: _TOOL_NAME_ User',
+            'description' => 'Can make bookings and use the tool',
+            'retained' => true,
+            'permissions' => [
                 'tools._TOOL_PERMISSION_NAME_.use',
                 'tools._TOOL_PERMISSION_NAME_.book',
             ],
         ],
         'tools._TOOL_PERMISSION_NAME_.inductor' => [
-            'name'          => 'Tool: _TOOL_NAME_ Inductor',
-            'description'   => 'Can induct others in the us of the tool',
-            'permissions'   => [
+            'name' => 'Tool: _TOOL_NAME_ Inductor',
+            'description' => 'Can induct others in the us of the tool',
+            'permissions' => [
                 'tools._TOOL_PERMISSION_NAME_.use',
                 'tools._TOOL_PERMISSION_NAME_.book',
                 'tools._TOOL_PERMISSION_NAME_.induct',
@@ -65,9 +65,9 @@ class ToolManager
             ],
         ],
         'tools._TOOL_PERMISSION_NAME_.maintainer' => [
-            'name'          => 'Tool: _TOOL_NAME_ Maintainer',
-            'description'   => 'Maintainer of the tool, can disable the tool and can appoint inductors',
-            'permissions'   => [
+            'name' => 'Tool: _TOOL_NAME_ Maintainer',
+            'description' => 'Maintainer of the tool, can disable the tool and can appoint inductors',
+            'permissions' => [
                 'tools._TOOL_PERMISSION_NAME_.use',
                 'tools._TOOL_PERMISSION_NAME_.book',
                 'tools._TOOL_PERMISSION_NAME_.maintain',

@@ -71,7 +71,7 @@ class ElectricController extends Controller
         $validatedData = $request->validate([
             'meter' => 'required|exists:HMS\Entities\Instrumentation\ElectricMeter,id',
             'reading' => 'required|integer',
-            'date' =>  'required|date',
+            'date' => 'required|date',
         ]);
 
         $reading = new ElectricReading;

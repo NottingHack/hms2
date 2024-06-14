@@ -95,10 +95,10 @@ class NavComposer
             // populate the array if they can
             if ($allowed) {
                 $link = [
-                    'url'       => '#',
-                    'text'      =>  $navItem['text'],
-                    'active'    =>  false,
-                    'links'     =>  [],
+                    'url' => '#',
+                    'text' => $navItem['text'],
+                    'active' => false,
+                    'links' => [],
                 ];
 
                 if (isset($navItem['route'])) {

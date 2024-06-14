@@ -27,7 +27,7 @@ return [
             | the migrations on disk haven't actually been run in the database.
             |
             */
-            'table_name'     => 'migrations_doctrine',
+            'table_name' => 'migrations_doctrine',
 
             /*
             |--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return [
             | filter all tables.
             |
             */
-            'schema_filter'    => '/^(?!'
+            'schema_filter' => '/^(?!'
                 . 'migrations_eloquent|'
                 . 'jobs|'
                 . 'job_batches|'

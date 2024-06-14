@@ -7,7 +7,7 @@ return [
     | Roles
     |--------------------------------------------------------------------------
     */
-    'roles'         => [
+    'roles' => [
         'entity' => Hms\Entities\Role::class,
     ],
     /*
@@ -19,10 +19,10 @@ return [
     | When set to config, add the permission names to list
     |
     */
-    'permissions'   => [
+    'permissions' => [
         'driver' => 'doctrine',
         'entity' => LaravelDoctrine\ACL\Permissions\Permission::class,
-        'list'   => [],
+        'list' => [],
     ],
     /*
     |--------------------------------------------------------------------------

@@ -48,7 +48,7 @@ class RfidAccessTokenController extends Controller
                 'errors' => [
                     [
                         'status' => IlluminateResponse::HTTP_NOT_FOUND,
-                        'title'  => 'Not Found',
+                        'title' => 'Not Found',
                         'detail' => 'RFID not found',
                     ],
                 ],
@@ -60,7 +60,7 @@ class RfidAccessTokenController extends Controller
                 'errors' => [
                     [
                         'status' => IlluminateResponse::HTTP_FORBIDDEN,
-                        'title'  => 'Forbidden',
+                        'title' => 'Forbidden',
                         'detail' => 'RFID not active',
                     ],
                 ],
@@ -79,7 +79,7 @@ class RfidAccessTokenController extends Controller
 
         $token = $user->createToken('Rfid Authorized');
         $response = [
-            'token_type' =>'Bearer',
+            'token_type' => 'Bearer',
             'expires_in' => Carbon::now()->diffInSeconds($token->token->expires_at),
             'access_token' => $token->accessToken,
         ];

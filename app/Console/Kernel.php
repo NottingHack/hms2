@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Jobs\Banking\MembershipAuditJob;
+use App\Jobs\DiscordAuditJob;
 use App\Jobs\EmailTeamReminderJob;
 use App\Jobs\Gatekeeper\TemporaryAcccessCheckZoneOccupancyJob;
 use App\Jobs\Gatekeeper\UpdateTemporaryAccessRoleJob;
@@ -67,6 +68,11 @@ class Kernel extends ConsoleKernel
                 );
             })
             ->everyFiveMinutes();
+        }
+
+        if (config('services.discord.token')) {
+            $schedule->job(new DiscordAuditJob)
+                     ->dailyAt('12:15');
         }
     }
 

@@ -22,6 +22,7 @@ return [
         'access_wifi_password' => 123456,
         'access_wifi_ssid' => 'HSNOTTS',
         'audit_revoke_interval' => 'P2M',
+        'audit_skip_interval' => 'P3D',
         'audit_warn_interval' => 'P1M14D',
         'content_block_github_url' => 'https://github.com/NottingHack/hms2',
         'gatekeeper_setup_guide' => 'https://wiki.nottinghack.org.uk/wiki/HMS/Gatekeeper_Setup',

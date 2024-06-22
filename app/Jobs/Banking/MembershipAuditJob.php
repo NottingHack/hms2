@@ -58,9 +58,9 @@ class MembershipAuditJob implements ShouldQueue
     ) {
         // Make sure that there are new transactions before we audit membership.
         $latestTransaction = $bankTransactionRepository->findLatestTransaction();
-        $latestTransactionDate = $latestTransaction[0]['latestTransactionDate'];
+        $latestTransactionDate = $latestTransaction['latestTransactionDate'];
         $transactionThreshold = Carbon::now()->sub(
-            CarbonInterval::instance(new \DateInterval('P1D'))
+            CarbonInterval::instance(new \DateInterval($metaRepository->get('audit_skip_interval', 'P3D')))
         );
         if ($latestTransactionDate < $transactionThreshold) {
             return;

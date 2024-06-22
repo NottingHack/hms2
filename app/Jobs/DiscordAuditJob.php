@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use Exception;
 use HMS\Entities\Profile;
 use HMS\Entities\Role;
 use HMS\Helpers\Discord;

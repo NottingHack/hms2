@@ -10,6 +10,7 @@ use HMS\Entities\User;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\ProfileRepository;
 use HMS\Repositories\UserRepository;
+use Illuminate\Support\Facades\Log;
 
 class ProfileManager
 {

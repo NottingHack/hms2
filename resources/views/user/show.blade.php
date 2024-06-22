@@ -68,7 +68,7 @@
             <td>
               {{ $user->getProfile()->getDiscordUsername() }}
               @if ($user->getProfile()->getDiscordUserSnowflake())
-                <i>({{ $user->getProfile()->getDiscordUserSnowflake() }})</i>
+              <i>({{ $user->getProfile()->getDiscordUserSnowflake() }})</i>
               @endif
             </td>
           </tr>

@@ -158,7 +158,11 @@ class Discord
             return $this->findMemberBySnowflake($profile->getDiscordUserSnowflake());
         }
 
-        return $this->findMemberByUsername($profile->getDiscordUsername());
+        if ($profile->getDiscordUsername()) {
+            return $this->findMemberByUsername($profile->getDiscordUsername());
+        }
+
+        return null;
     }
 
     /**

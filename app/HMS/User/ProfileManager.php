@@ -5,6 +5,7 @@ namespace HMS\User;
 use App\Events\Users\DiscordUsernameUpdated;
 use App\Notifications\Users\DiscordRegistered;
 use Carbon\Carbon;
+use Exception;
 use HMS\Entities\Profile;
 use HMS\Entities\User;
 use HMS\Repositories\MetaRepository;
@@ -178,14 +179,10 @@ class ProfileManager
             if ($oldDiscordUsername != $profile->getDiscordUsername()) {
                 event(new DiscordUsernameUpdated($user, $profile, $oldDiscordUsername));
 
-                if ($profile->getDiscordUserSnowflake()) {
-                    try {
-                        $user->notify(new DiscordRegistered());
-                    } catch (ErrorException $ex) {
-                        Log::info('ProfileManager@updateUserProfileFromRequest: Failed to notify user via Discord');
-                    }
-                } else {
-                    $profile->setDiscordUsername(null);
+                try {
+                    $user->notify(new DiscordRegistered());
+                } catch (Exception $ex) {
+                    Log::info('ProfileManager@updateUserProfileFromRequest: Failed to notify user via Discord');
                 }
             }
         }

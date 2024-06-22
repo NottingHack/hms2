@@ -473,8 +473,7 @@ class User implements
             config('services.discord.guild_id')
         );
 
-        $discordUsername = $this->getProfile()->getDiscordUsername();
-        $discordMember = $discord->findMemberByUsername($discordUsername);
+        $discordMember = $discord->findMemberByProfile($this->getProfile());
 
         if (! $discordMember) {
             return null;

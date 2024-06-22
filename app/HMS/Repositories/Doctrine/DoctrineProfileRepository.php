@@ -130,6 +130,16 @@ class DoctrineProfileRepository extends EntityRepository implements ProfileRepos
     }
 
     /**
+     * @param string $discordUserSnowflake
+     *
+     * @return Profile|null
+     */
+    public function findOneByDiscordUserSnowflake(string $discordUserSnowflake)
+    {
+        return parent::findOneByDiscordUserSnowflake($discordUserSnowflake);
+    }
+
+    /**
      * Save Profile to the DB.
      *
      * @param Profile $profile

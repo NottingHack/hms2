@@ -126,6 +126,41 @@ class Discord
     }
 
     /**
+     * Get a member by their snowflake
+     *
+     * @param string  Discord user snowflake
+     *
+     * @return null|DiscordMember
+     */
+    public function findMemberBySnowflake(string $snowflake)
+    {
+        $this->listGuildMembers(); // populate cache
+
+        foreach ($this->members as $member) {
+            if ($member['user']['id'] == $snowflake) {
+                return $member;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Find a Discord member from a HMS Profile
+     *
+     * @param Profile A HMS User Profile object
+     *
+     * @return null|DiscordMember
+     */
+    public function findMemberByProfile($profile) {
+        if ($profile->getDiscordUserSnowflake()) {
+            return $this->findMemberBySnowflake($profile->getDiscordUserSnowflake());
+        }
+
+        return $this->findMemberByUsername($profile->getDiscordUsername());
+    }
+
+    /**
      * Return a list of all guild members.
      *
      * @return array

@@ -177,8 +177,14 @@ class ProfileManager
             if ($oldDiscordUsername != $profile->getDiscordUsername()) {
                 event(new DiscordUsernameUpdated($user, $profile, $oldDiscordUsername));
 
-                if ($profile->getDiscordUsername()) {
-                    $user->notify(new DiscordRegistered());
+                if ($profile->getDiscordUserSnowflake()) {
+                    try {
+                        $user->notify(new DiscordRegistered());
+                    } catch (ErrorException $ex) {
+                        Log::info('ProfileManager@updateUserProfileFromRequest: Failed to notify user via Discord');
+                    }
+                } else {
+                    $profile->setDiscordUsername(null);
                 }
             }
         }

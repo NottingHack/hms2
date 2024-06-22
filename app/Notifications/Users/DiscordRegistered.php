@@ -49,7 +49,7 @@ class DiscordRegistered extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        if (! $notifiable->getProfile()->getDiscordUsername()) {
+        if (! $notifiable->getProfile()->getDiscordUserSnowflake()) {
             return;
         }
 

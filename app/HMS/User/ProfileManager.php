@@ -2,10 +2,10 @@
 
 namespace HMS\User;
 
-use Exception;
 use App\Events\Users\DiscordUsernameUpdated;
 use App\Notifications\Users\DiscordRegistered;
 use Carbon\Carbon;
+use Exception;
 use HMS\Entities\Profile;
 use HMS\Entities\User;
 use HMS\Repositories\MetaRepository;

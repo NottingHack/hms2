@@ -76,6 +76,11 @@ class Profile
     protected $discordUsername;
 
     /**
+     * @var null|string
+     */
+    protected $discordUserSnowflake;
+
+    /**
      * @var int
      */
     protected $balance;
@@ -365,6 +370,26 @@ class Profile
     public function setDiscordUsername(?string $discordUsername): self
     {
         $this->discordUsername = $discordUsername;
+
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getDiscordUserSnowflake(): ?string
+    {
+        return $this->discordUserSnowflake;
+    }
+
+    /**
+     * @param null|string
+     *
+     * @return self
+     */
+    public function setDiscordUserSnowflake(?string $discordUserSnowflake): self
+    {
+        $this->discordUserSnowflake = $discordUserSnowflake;
 
         return $this;
     }

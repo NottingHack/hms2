@@ -67,6 +67,11 @@ HMS\Entities\Profile:
       column: discord_username
       length: 32
       nullable: true
+    discordUserSnowflake:
+      type: string
+      column: discord_user_snowflake
+      length: 32
+      nullable: true
     balance:
       type: integer
       options:

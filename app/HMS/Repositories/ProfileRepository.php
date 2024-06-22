@@ -56,6 +56,13 @@ interface ProfileRepository
     public function findOneByDiscordUsername(string $discordUsername);
 
     /**
+     * @param string $discordUserSnowflake
+     *
+     * @return Profile|null
+     */
+    public function findOneByDiscordUserSnowflake(string $discordUserSnowflake);
+
+    /**
      * Save Profile to the DB.
      *
      * @param Profile $profile

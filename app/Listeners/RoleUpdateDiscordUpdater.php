@@ -107,7 +107,7 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
             return;
         }
 
-        $discordMember = $this->discord->findMemberByUsername($profile->getDiscordUsername());
+        $discordMember = $this->discord->findMemberByProfile($profile);
         $discordRole = $this->discord->findRoleByName($role->getDisplayName());
 
         if (! $discordMember || ! $discordRole) {
@@ -143,7 +143,7 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
             return;
         }
 
-        $discordMember = $this->discord->findMemberByUsername($profile->getDiscordUsername());
+        $discordMember = $this->discord->findMemberByProfile($profile);
         $discordRole = $this->discord->findRoleByName($role->getDisplayName());
 
         if (! $discordMember || ! $discordRole) {
@@ -160,9 +160,16 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
                   $user->getUsername() . ' removed from discord role ' . $role->getDisplayName());
     }
 
-    private function cleanupOldDiscordUserRoles($oldDiscordUsername)
+    /**
+     * Removes roles from a Discord member, trying their snowflake first, then username.
+     *
+     * @param Profile the HMS profile
+     */
+    private function cleanupOldDiscordUserRoles($profile)
     {
-        $discordMember = $this->discord->findMemberByUsername($oldDiscordUsername);
+        $discordMember = $this->discord->findMemberByProfile($profile);
+
+        // Give up
         if (! $discordMember) {
             return;
         }
@@ -192,21 +199,23 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
         $memberTeams = $this->roleRepository->findTeamsForUser($user);
 
         if ($oldDiscordUsername) {
-            $this->cleanupOldDiscordUserRoles($oldDiscordUsername);
+            $this->cleanupOldDiscordUserRoles($profile);
+            $profile->setDiscordUserSnowflake(null);
         }
 
         if (! $profile->getDiscordUsername()) {
             return;
         }
 
-        $discordUsername = $profile->getDiscordUsername();
         $hmsUsername = $user->getUsername();
 
-        $discordMember = $this->discord->findMemberByUsername($discordUsername);
+        $discordMember = $this->discord->findMemberByProfile($profile);
 
         if (! $discordMember) {
             return;
         }
+
+        $profile->setDiscordUserSnowflake($discordMember['user']['id']);
 
         $discordMemberRole = $this->discord->findRoleByName($memberRole->getDisplayName());
         if ($discordMemberRole) {

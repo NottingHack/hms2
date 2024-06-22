@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use Exception;
 use HMS\Entities\Profile;
 use HMS\Entities\Role;
 use HMS\Helpers\Discord;
@@ -99,10 +100,15 @@ class DiscordAuditJob implements ShouldQueue
                 continue;
             }
 
-            // Attempt to find the user using just their Discord
-            // username, we need to try again with the discriminator
-            // included.
-            $profile = $profileRepository->findOneByDiscordUsername($member['user']['username']);
+            // Attempt to find the user by their snowflake.
+            $profile = $profileRepository->findOneByDiscordUserSnowflake($member['user']['id']);
+
+            // Attempt to find the user using just their Discord username
+            if (! $profile) {
+                $profile = $profileRepository->findOneByDiscordUsername($member['user']['username']);
+            }
+
+            // Still stuck, try with discriminator
             if (! $profile) {
                 if ((int) $member['user']['discriminator'] > 0) {
                     $discordUsername = $member['user']['username'] . '#' . $member['user']['discriminator'];
@@ -115,6 +121,23 @@ class DiscordAuditJob implements ShouldQueue
             // roles.
             $found = false;
             if ($profile) {
+                // If we got a profile but their snowflake is empty, populate it.
+                if ($profile->getDiscordUserSnowflake() != $member['user']['id']) {
+                    $profile->setDiscordUserSnowflake($member['user']['id']);
+                    $profileRepository->save($profile);
+                }
+
+                // We can also check the username in case it changed, but they have a snowflake set.
+                if ($profile->getDiscordUsername() != $member['user']['username']) {
+                    // Just in case, I think discriminators for users are gone though.
+                    if ($member['user']['discriminator']) {
+                        $profile->setDiscordUsername($member['user']['username'] . '#' . $member['user']['discriminator']);
+                    } else {
+                        $profile->setDiscordUsername($member['user']['username']);
+                    }
+                    $profileRepository->save($profile);
+                }
+
                 $roles = $profile->getUser()->getRoles();
 
                 foreach ($roles as $role) {
@@ -130,8 +153,14 @@ class DiscordAuditJob implements ShouldQueue
             if (! $found) {
                 Log::info('DiscordAuditJob@handle: Removing roles from unknown Discord user ' .
                           $member['user']['username'] . '#' . $member['user']['discriminator']);
-                $this->notifyDiscordUser($discord, $member);
-                $this->stripRoles($discord, $member);
+
+                try {
+                    $this->stripRoles($discord, $member); // Remove roles first (more likely to succeed than messaging)
+                    $this->notifyDiscordUser($discord, $member);
+                } catch (Exception $exception) {
+                    Log::info('DiscordAuditJob@handle: Failed to remove roles or message user. ' .
+                              $exception->getMessage());
+                }
             }
         }
     }

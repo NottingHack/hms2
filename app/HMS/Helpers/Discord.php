@@ -126,7 +126,7 @@ class Discord
     }
 
     /**
-     * Get a member by their snowflake
+     * Get a member by their snowflake.
      *
      * @param string  Discord user snowflake
      *
@@ -146,13 +146,14 @@ class Discord
     }
 
     /**
-     * Find a Discord member from a HMS Profile
+     * Find a Discord member from a HMS Profile.
      *
      * @param Profile A HMS User Profile object
      *
      * @return null|DiscordMember
      */
-    public function findMemberByProfile($profile) {
+    public function findMemberByProfile($profile)
+    {
         if ($profile->getDiscordUserSnowflake()) {
             return $this->findMemberBySnowflake($profile->getDiscordUserSnowflake());
         }

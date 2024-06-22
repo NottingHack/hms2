@@ -107,7 +107,7 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
             return;
         }
 
-        $discordMember = $this->discord->findMemberByUsername($profile->getDiscordUsername());
+        $discordMember = $this->discord->findMemberByProfile($profile);
         $discordRole = $this->discord->findRoleByName($role->getDisplayName());
 
         if (! $discordMember || ! $discordRole) {

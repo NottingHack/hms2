@@ -216,6 +216,8 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
         }
 
         $profile->setDiscordUserSnowflake($discordMember['user']['id']);
+        $user->setProfile($profile);
+        $this->userRepository->save($user);
 
         $discordMemberRole = $this->discord->findRoleByName($memberRole->getDisplayName());
         if ($discordMemberRole) {

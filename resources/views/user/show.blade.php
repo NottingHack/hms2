@@ -65,13 +65,13 @@
         @feature('discord')
         <tr>
           <th>Discord Username:</th>
-            <td>
-              {{ $user->getProfile()->getDiscordUsername() }}
-              @if ($user->getProfile()->getDiscordUserSnowflake())
-              <i>({{ $user->getProfile()->getDiscordUserSnowflake() }})</i>
-              @endif
-            </td>
-          </tr>
+          <td>
+            {{ $user->getProfile()->getDiscordUsername() }}
+            @if ($user->getProfile()->getDiscordUserSnowflake())
+            <i>({{ $user->getProfile()->getDiscordUserSnowflake() }})</i>
+            @endif
+          </td>
+        </tr>
         @endfeature
         @endif
       </tbody>

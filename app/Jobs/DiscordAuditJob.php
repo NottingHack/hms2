@@ -78,14 +78,15 @@ class DiscordAuditJob implements ShouldQueue
     }
 
     /**
-     * Performs audit by iterating through users in Discord
+     * Performs audit by iterating through users in Discord.
      *
      * @param Discord $discord The discord helper object
      * @param ProfileRepository $profileRepository Profile repository object
      *
      * @return void
      */
-    private function forward(Discord $discord, ProfileRepository $profileRepository) {
+    private function forward(Discord $discord, ProfileRepository $profileRepository)
+    {
         $currentMember = $discord->findRoleByName('Current Member')['id'];
         $members = $discord->listGuildMembers();
 
@@ -169,14 +170,15 @@ class DiscordAuditJob implements ShouldQueue
      *
      * @return void
      */
-    private function reverse(Discord $discord, ProfileRepository $profileRepository, RoleRepository $roleRepository) {
+    private function reverse(Discord $discord, ProfileRepository $profileRepository, RoleRepository $roleRepository)
+    {
         $currentMembers = $roleRepository->findOneByName(Role::MEMBER_CURRENT)->getUsers();
         $discordMembers = $discord->listGuildMembers();
 
         // Build an array of roles in Discord which match roles in HMS.
         $teams = $roleRepository->findAllTeams();
         $auditableRoles = [
-            $discord->findRoleByName('Current Member')
+            $discord->findRoleByName('Current Member'),
         ];
 
         foreach ($teams as $team) {
@@ -216,7 +218,7 @@ class DiscordAuditJob implements ShouldQueue
                     $discord->getDiscordClient()->guild->addGuildMemberRole([
                         'guild.id' => config('services.discord.guild_id'),
                         'user.id' => (int) $discordMember['user']['id'],
-                        'role.id' => (int) $auditableRole['id']
+                        'role.id' => (int) $auditableRole['id'],
                     ]);
                 }
             }

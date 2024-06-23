@@ -7,10 +7,8 @@ namespace Database\Migrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-
 final class Version20240622203546_add_tool_hidden_flag extends AbstractMigration
 {
-
     /**
      * @param Schema $schema
      */

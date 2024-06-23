@@ -7,6 +7,7 @@ use HMS\Entities\Profile;
 use HMS\Entities\Role;
 use HMS\Helpers\Discord;
 use HMS\Repositories\ProfileRepository;
+use HMS\Repositories\RoleRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -77,20 +78,14 @@ class DiscordAuditJob implements ShouldQueue
     }
 
     /**
-     * Execute the job.
+     * Performs audit by iterating through users in Discord
      *
-     * @param ProfileRepository $profileRepository
+     * @param Discord $discord The discord helper object
+     * @param ProfileRepository $profileRepository Profile repository object
      *
      * @return void
      */
-    public function handle(
-        ProfileRepository $profileRepository
-    ) {
-        $discord = new Discord(
-            config('services.discord.token'),
-            config('services.discord.guild_id')
-        );
-
+    private function forward(Discord $discord, ProfileRepository $profileRepository) {
         $currentMember = $discord->findRoleByName('Current Member')['id'];
         $members = $discord->listGuildMembers();
 
@@ -163,5 +158,88 @@ class DiscordAuditJob implements ShouldQueue
                 }
             }
         }
+    }
+
+    /**
+     * Performs audit by interating through HMS users, adding discord roles if they are missing.
+     *
+     * @param Discord $discord The discord helper object
+     * @param ProfileRepository $profileRepository Profile repository object
+     * @param RoleRepository $roleRepository Role repository object
+     *
+     * @return void
+     */
+    private function reverse(Discord $discord, ProfileRepository $profileRepository, RoleRepository $roleRepository) {
+        $currentMembers = $roleRepository->findOneByName(Role::MEMBER_CURRENT)->getUsers();
+        $discordMembers = $discord->listGuildMembers();
+
+        // Build an array of roles in Discord which match roles in HMS.
+        $teams = $roleRepository->findAllTeams();
+        $auditableRoles = [
+            $discord->findRoleByName('Current Member')
+        ];
+
+        foreach ($teams as $team) {
+            $discordRole = $discord->findRoleByName($team->getDisplayName());
+            if ($discordRole) {
+                array_push($auditableRoles, $discordRole);
+            }
+        }
+
+        Log::info('DiscordAuditJob@reverse: Identified ' . sizeof($auditableRoles) . ' roles for audit.');
+
+        foreach ($auditableRoles as $auditableRole) {
+            $hmsRole = $roleRepository->findOneByDisplayName($auditableRole['name']);
+            $hmsUsers = $hmsRole->getUsers();
+
+            foreach ($hmsUsers as $hmsUser) {
+                if (! $hmsUser->getProfile()->getDiscordUserSnowflake()) {
+                    continue;
+                }
+
+                $discordMember = $discord->findMemberByProfile($hmsUser->getProfile());
+
+                if (! $discordMember) {
+                    if ($hmsRole->getName() == Role::MEMBER_CURRENT) {
+                        $hmsUser->getProfile()->setDiscordUsername(null);
+                        $hmsUser->getProfile()->setDiscordUserSnowflake(null);
+                        $profileRepository->save($hmsUser->getProfile());
+                    }
+                    continue;
+                }
+
+                if (! in_array($auditableRole['id'], $discordMember['roles'])) {
+                    Log::info('DiscordAuditJob@reverse: Discord user ' .
+                              $discordMember['user']['username'] . ' missing role ' .
+                              $auditableRole['name'] . ' on Discord.');
+
+                    $discord->getDiscordClient()->guild->addGuildMemberRole([
+                        'guild.id' => config('services.discord.guild_id'),
+                        'user.id' => (int) $discordMember['user']['id'],
+                        'role.id' => (int) $auditableRole['id']
+                    ]);
+                }
+            }
+        }
+    }
+
+    /**
+     * Execute the job.
+     *
+     * @param ProfileRepository $profileRepository
+     *
+     * @return void
+     */
+    public function handle(
+        ProfileRepository $profileRepository,
+        RoleRepository $roleRepository
+    ) {
+        $discord = new Discord(
+            config('services.discord.token'),
+            config('services.discord.guild_id')
+        );
+
+        $this->forward($discord, $profileRepository);
+        $this->reverse($discord, $profileRepository, $roleRepository);
     }
 }

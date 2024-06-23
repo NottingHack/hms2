@@ -188,7 +188,7 @@ class DiscordAuditJob implements ShouldQueue
             }
         }
 
-        Log::info('DiscordAuditJob@reverse: Identified ' . sizeof($auditableRoles) . ' roles for audit.');
+        Log::info('DiscordAuditJob@reverse: Identified ' . count($auditableRoles) . ' roles for audit.');
 
         foreach ($auditableRoles as $auditableRole) {
             $hmsRole = $roleRepository->findOneByDisplayName($auditableRole['name']);
@@ -207,6 +207,7 @@ class DiscordAuditJob implements ShouldQueue
                         $hmsUser->getProfile()->setDiscordUserSnowflake(null);
                         $profileRepository->save($hmsUser->getProfile());
                     }
+
                     continue;
                 }
 
@@ -229,6 +230,7 @@ class DiscordAuditJob implements ShouldQueue
      * Execute the job.
      *
      * @param ProfileRepository $profileRepository
+     * @param RoleRepository $roleRepository
      *
      * @return void
      */

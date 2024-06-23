@@ -144,6 +144,7 @@ class ToolController extends Controller
             'bookingLength' => 'required|integer|min:0',
             'lengthMax' => 'required|integer|min:0',
             'bookingsMax' => 'required|integer|min:1',
+            'hidden' => 'sometimes|required',
         ]);
 
         $tool = $this->toolManager->create(
@@ -153,7 +154,8 @@ class ToolController extends Controller
             $request->cost,
             $request->bookingLength,
             $request->lengthMax,
-            $request->bookingsMax
+            $request->bookingsMax,
+            isset($request->hidden) ? true : false,
         );
         flash('Tool \'' . $tool->getName() . '\' created.')->success();
 
@@ -259,6 +261,7 @@ class ToolController extends Controller
             'bookingLength' => 'required|integer|min:0',
             'lengthMax' => 'required|integer|min:0',
             'bookingsMax' => 'required|integer|min:1',
+            'hidden' => 'sometimes|required',
         ]);
 
         $this->toolManager->update($tool, $request->all());

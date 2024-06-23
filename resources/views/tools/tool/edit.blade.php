@@ -95,6 +95,13 @@
       @enderror
     </div>
 
+    <div class="form-group form-check">
+      <input id="hidden" class="form-check-input" type="checkbox" name="hidden" {{ old('hidden', $tool->isHidden()) ? 'checked="checked"' : '' }}>
+      <label class="form-check-label" for="hidden">
+        Should the tool be hidden from regular users?
+      </label>
+    </div>
+
     <button type="submit" class="btn btn-primary btn-block">Update Tool</button>
   </form>
 </div>

@@ -64,6 +64,22 @@ class DoctrineBankTransactionRepository extends EntityRepository implements Bank
     }
 
     /**
+     * Find the latest transaction.
+     *
+     * @return null|array
+     */
+    public function findLatestTransaction()
+    {
+        $qb = parent::createQueryBuilder('bankTransaction')
+             ->addSelect('MAX(bankTransaction.transactionDate) AS latestTransactionDate')
+             ->setMaxResults(1);
+
+        $q = $qb->getQuery();
+
+        return $q->getOneOrNullResult();
+    }
+
+    /**
      * Find the latest transaction for given account.
      *
      * @param Account $account

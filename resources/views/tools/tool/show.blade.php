@@ -44,6 +44,10 @@
           <th>Maximum number of simultaneous bookings per user</th>
           <td>{{ $tool->getBookingsMax() }}</td>
         </tr>
+        <tr>
+          <th>Hidden</th>
+          <td>{{ $tool->isHidden() ? "Yes" : "No" }}</td>
+        </td>
       </tbody>
     </table>
   </div>

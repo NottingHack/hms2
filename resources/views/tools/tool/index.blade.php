@@ -25,6 +25,7 @@
       </thead>
       <tbody>
   @endif
+  @if (! $tool->isHidden() || \Auth::user()->can('tools.edit'))
         <tr>
           <td class="d-none d-md-table-cell" style="width:25px"><a href="{{ route('tools.bookings.index', $tool->getId()) }}"><span style="color: #195905"><i class="far fa-calendar-alt" aria-hidden="true"></i></span></a></td>
           <td data-title="Tool"><a href="{{ route('tools.bookings.index', $tool->getId()) }}"><span class="d-md-none" style="color: #195905"><i class="far fa-calendar-alt" aria-hidden="true"></i>&nbsp;</span>{{ $tool->getDisplayName() }}</a></td>
@@ -53,6 +54,7 @@
             @endif
           </td>
         </tr>
+  @endif
   @if ($loop->last)
       </tbody>
     </table>

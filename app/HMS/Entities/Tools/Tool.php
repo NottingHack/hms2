@@ -76,6 +76,11 @@ class Tool
     protected $bookingsMax;
 
     /**
+     * @var bool
+     */
+    protected $hidden;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection|Booking[]
      */
     protected $bookings;
@@ -282,6 +287,26 @@ class Tool
     public function setBookingsMax($bookingsMax)
     {
         $this->bookingsMax = $bookingsMax;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isHidden()
+    {
+        return $this->hidden;
+    }
+
+    /**
+     * @param bool $hidden
+     *
+     * @return self
+     */
+    public function setHidden(bool $hidden)
+    {
+        $this->hidden = $hidden;
 
         return $this;
     }

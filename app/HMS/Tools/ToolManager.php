@@ -136,6 +136,7 @@ class ToolManager
      * @param int    $bookingLength Default booking length for this tool, minutes
      * @param int    $lengthMax     Maximum amount of time a booking can be made for, minutes
      * @param int    $bookingsMax   Maximum number of bookings a user can have at any one time
+     * @param bool   $hidden        Whether the tool is visible to regular users
      *
      * @return Tool
      */
@@ -146,7 +147,8 @@ class ToolManager
         int $pph,
         int $bookingLength,
         int $lengthMax,
-        int $bookingsMax = 1
+        int $bookingsMax = 1,
+        bool $hidden = false
     ) {
         // TODO: check tool name is unique
 
@@ -157,7 +159,8 @@ class ToolManager
             $pph,
             $bookingLength,
             $lengthMax,
-            $bookingsMax
+            $bookingsMax,
+            $hidden
         );
 
         $this->toolRepository->save($_tool);
@@ -238,6 +241,11 @@ class ToolManager
         }
         if (isset($details['bookingsMax'])) {
             $tool->setBookingsMax($details['bookingsMax']);
+        }
+        if (isset($details['hidden'])) {
+            $tool->setHidden(true);
+        } else {
+            $tool->sethidden(false);
         }
 
         $this->toolRepository->save($tool);

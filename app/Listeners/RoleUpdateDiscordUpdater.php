@@ -204,6 +204,10 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
             $this->userRepository->save($user);
         }
 
+        if (! $this->checkRoleName($memberRole->getName())) {
+            return;
+        }
+
         if (! $profile->getDiscordUsername()) {
             return;
         }

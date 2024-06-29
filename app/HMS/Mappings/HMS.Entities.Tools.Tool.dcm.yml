@@ -40,9 +40,9 @@ HMS\Entities\Tools\Tool:
       column: bookings_max
       type: integer
     hidden:
-      column: hidden
       type: boolean
-      default: 0
+      options:
+        default: 0
   oneToMany:
     bookings:
       targetEntity: \HMS\Entities\Tools\Booking

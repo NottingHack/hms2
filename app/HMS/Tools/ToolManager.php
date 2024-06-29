@@ -245,7 +245,7 @@ class ToolManager
         if (isset($details['hidden'])) {
             $tool->setHidden(true);
         } else {
-            $tool->sethidden(false);
+            $tool->setHidden(false);
         }
 
         $this->toolRepository->save($tool);

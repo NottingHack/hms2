@@ -3,7 +3,6 @@
 namespace HMS\User;
 
 use App\Events\Users\DiscordUsernameUpdated;
-use App\Notifications\Users\DiscordRegistered;
 use Carbon\Carbon;
 use Exception;
 use HMS\Entities\Profile;
@@ -178,12 +177,6 @@ class ProfileManager
             // fire an event to push all roles.
             if ($oldDiscordUsername != $profile->getDiscordUsername()) {
                 event(new DiscordUsernameUpdated($user, $profile, $oldDiscordUsername));
-
-                try {
-                    $user->notify(new DiscordRegistered());
-                } catch (Exception $ex) {
-                    Log::info('ProfileManager@updateUserProfileFromRequest: Failed to notify user via Discord');
-                }
             }
         }
 

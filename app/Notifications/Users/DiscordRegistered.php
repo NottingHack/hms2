@@ -32,6 +32,10 @@ class DiscordRegistered extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
+        if (! $notifiable->getProfile()->getDiscordUserSnowflake()) {
+            return [];
+        }
+
         $channels = ['mail'];
         if (config('services.discord.token')) {
             $channels[] = DiscordChannel::class;
@@ -49,10 +53,6 @@ class DiscordRegistered extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        if (! $notifiable->getProfile()->getDiscordUserSnowflake()) {
-            return;
-        }
-
         return (new MailMessage)
             ->subject('Your HMS account has been linked to Discord')
             ->greeting('Hello ' . $notifiable->getFirstname() . ',')

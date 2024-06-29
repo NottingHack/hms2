@@ -5,6 +5,7 @@ namespace App\Listeners;
 use App\Events\Roles\UserAddedToRole;
 use App\Events\Roles\UserRemovedFromRole;
 use App\Events\Users\DiscordUsernameUpdated;
+use App\Notifications\Users\DiscordRegistered;
 use Doctrine\ORM\EntityManagerInterface;
 use HMS\Entities\Role;
 use HMS\Helpers\Discord;
@@ -248,6 +249,8 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
             Log::info('RoleUpdateDiscordUpdater@onDiscordUsernameUpdated: ' .
                       $user->getUsername() . ' added to discord role ' . $team->getDisplayName());
         }
+
+        $user->notify(new DiscordRegistered());
     }
 
     /**

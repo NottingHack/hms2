@@ -41,7 +41,7 @@ class MwAuthHmsController extends Controller
         }
 
         /* Replace anything that isn't a-Z, 0-9 with an underscore (mostly after spaces...) */
-        $username = preg_replace('/[^a-zA-Z0-9]/', '_', $validatedData['username']);
+        $username = preg_replace('/[^a-zA-Z0-9\-]/', '_', $validatedData['username']);
         if (! Auth::once([
             'username' => lcfirst($username),
             'password' => $validatedData['password'],

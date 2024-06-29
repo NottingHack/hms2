@@ -20,7 +20,7 @@ composer install --no-progress
 # Set up DB
 php artisan key:generate
 php artisan migrate
-php artisan doctrine:migration:refresh
+php artisan doctrine:migration:refresh -n
 php artisan hms:database:refresh-views
 php artisan hms:database:refresh-procedures
 php artisan permissions:defaults

@@ -16,7 +16,7 @@ final class Version20240622203546_add_tool_hidden_flag extends AbstractMigration
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE tools ADD hidden TINYINT(1) DEFAULT \'0\');
+        $this->addSql('ALTER TABLE tools ADD hidden TINYINT(1) DEFAULT \'0\' NOT NULL');
     }
 
     /**

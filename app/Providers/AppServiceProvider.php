@@ -5,8 +5,10 @@ namespace App\Providers;
 use HMS\Auth\PasswordStore;
 use HMS\Auth\PasswordStoreManager;
 use HMS\Facades\Features;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Stripe\Stripe;
 
@@ -49,6 +51,10 @@ class AppServiceProvider extends ServiceProvider
             [$view, $block] = explode(', ', str_replace('\'', '', $expression));
 
             return "<?php echo Content::get('{$view}', '{$block}', 'ContentBlock missing for {$view}:{$block}  '); ?>";
+        });
+
+        RateLimiter::for('membership.retention', function (object $job) {
+            return Limit::perDay(1);
         });
 
         Paginator::useBootstrap();

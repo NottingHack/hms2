@@ -19,18 +19,11 @@ class RetentionEmailJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
-     * The email content as text/html.
-     *
-     * @var string
-     */
-    public $htmlContent;
-
-    /**
      * Create a new job instance.
      */
     public function __construct()
     {
-        $this->htmlContent = '<p>hello</p>';
+        // Nothing to do here
     }
 
     /**

@@ -18,7 +18,6 @@ class RetentionEmailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-
     /**
      * The email content as text/html.
      *
@@ -26,15 +25,13 @@ class RetentionEmailJob implements ShouldQueue
      */
     public $htmlContent;
 
-
     /**
      * Create a new job instance.
      */
     public function __construct()
     {
-        $this->htmlContent = "<p>hello</p>";
+        $this->htmlContent = '<p>hello</p>';
     }
-
 
     /**
      * Execute the job.
@@ -56,11 +53,10 @@ class RetentionEmailJob implements ShouldQueue
         foreach ($profiles as $profile) {
             $user = $profile->getUser();
             $to = [
-                [ 'email' => $user->getEmail() ]
+                ['email' => $user->getEmail()],
             ];
 
             Mail::to($to)->send(new Retention($user));
-        };
-
+        }
     }
 }

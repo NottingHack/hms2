@@ -263,8 +263,8 @@ class ContentBlockSeeder extends Seeder
         [
             'view' => 'emails.membership.retention',
             'block' => 'main',
-            'content' => ''
-        ]
+            'content' => '',
+        ],
     ];
 
     /**

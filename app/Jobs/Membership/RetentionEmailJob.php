@@ -11,6 +11,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\Middleware\RateLimited;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
 
@@ -51,5 +52,12 @@ class RetentionEmailJob implements ShouldQueue
 
             Mail::to($to)->send(new Retention($user));
         }
+    }
+
+    public function middleware()
+    {
+        return [
+            (new RateLimited('membership.retention'))->dontRelease(),
+        ];
     }
 }

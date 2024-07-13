@@ -28,6 +28,7 @@ return [
         'mw_auth_hms' => env('FEATURE_MW_AUTH_WIKI', true),
         'slack' => env('FEATURE_SLACK', false),
         'discord' => env('FEATURE_DISCORD', false),
+        'retention_email' => env('FEATURE_RETENTION_EMAIL', false),
     ],
 
     /*

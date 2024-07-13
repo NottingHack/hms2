@@ -45,7 +45,7 @@ class Retention extends Mailable implements ShouldQueue
         $membershipTeam = $roleRepository->findOneByName('team.membership');
         $membershipEmail = $membershipTeam->getEmail();
         $membershipMgEmail = preg_replace('/@/m', '@mg.', $membershipEmail);
-        $displayName = config('branding.space_name') . " - " . $membershipTeam->getDisplayName();
+        $displayName = config('branding.space_name') . ' - ' . $membershipTeam->getDisplayName();
 
         return $this
             ->replyTo($membershipEmail, $displayName)

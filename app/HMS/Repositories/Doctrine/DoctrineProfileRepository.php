@@ -145,7 +145,8 @@ class DoctrineProfileRepository extends EntityRepository implements ProfileRepos
      *
      * @return Profile|null
      */
-    public function findByJoinedOn(Carbon $joinDate) {
+    public function findByJoinedOn(Carbon $joinDate)
+    {
         $q = parent::createQueryBuilder('profile');
 
         $q->where('profile.joinDate >= :join_date_lower')

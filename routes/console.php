@@ -4,7 +4,9 @@ use App\Jobs\Banking\MembershipAuditJob;
 use App\Jobs\DiscordAuditJob;
 use App\Jobs\Gatekeeper\ZoneOccupantResetJob;
 use App\Jobs\Membership\AuditYoungHackersJob;
+use App\Jobs\Membership\RetentionEmailJob;
 use App\Jobs\PostGitDeployedJob;
+use HMS\Facades\Features;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 
@@ -42,3 +44,9 @@ Artisan::command('hms:members:youngHackerAudit', function () {
 Artisan::command('hms:discord:audit', function () {
     DiscordAuditJob::dispatchSync();
 })->describe('Audit Discord member roles');
+
+if (Features::isEnabled('retention_email')) {
+    Artisan::command('hms:members:retentionEmail', function () {
+        RetentionEmailJob::dispatchSync();
+    })->describe('Email members shortly after becoming members');
+}

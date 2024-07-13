@@ -2,6 +2,7 @@
 
 namespace HMS\Repositories;
 
+use Carbon\Carbon;
 use HMS\Entities\Profile;
 
 interface ProfileRepository
@@ -61,6 +62,13 @@ interface ProfileRepository
      * @return Profile|null
      */
     public function findOneByDiscordUserSnowflake(string $discordUserSnowflake);
+
+    /**
+     * @param Carbon join date
+     *
+     * @return Profile|null
+     */
+    public function findByJoinedOn(Carbon $joinDate);
 
     /**
      * Save Profile to the DB.

@@ -5,6 +5,7 @@ namespace App\Jobs\Membership;
 use App\Mail\Membership\Retention;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
+use HMS\Entities\Role;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\ProfileRepository;
 use Illuminate\Bus\Queueable;
@@ -46,6 +47,11 @@ class RetentionEmailJob implements ShouldQueue
         $profiles = $profileRepository->findByJoinedOn($targetJoinDate);
         foreach ($profiles as $profile) {
             $user = $profile->getUser();
+
+            if (! $user->hasRoleByName(Role::MEMBER_CURRENT)) {
+                continue;
+            }
+
             $to = [
                 ['email' => $user->getEmail()],
             ];

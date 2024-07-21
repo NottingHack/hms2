@@ -27,7 +27,8 @@ class ToolFactory
         int $pph,
         int $bookingLength,
         int $lengthMax,
-        int $bookingsMax = 1
+        int $bookingsMax = 1,
+        bool $hidden = false
     ) {
         $_tool = new Tool();
         $_tool->setName($name);
@@ -47,6 +48,7 @@ class ToolFactory
         $_tool->setBookingLength($bookingLength);
         $_tool->setLengthMax($lengthMax);
         $_tool->setBookingsMax($bookingsMax);
+        $_tool->setHidden($hidden);
 
         return $_tool;
     }

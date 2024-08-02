@@ -1,0 +1,24 @@
+# HMS.Entities.Instrumentation.BarometricPressure.dcm.yml
+HMS\Entities\Instrumentation\BarometricPressure:
+  type: entity
+  repositoryClass: HMS\Repositories\Instrumentation\Doctrine\DoctrineBarometricPressureRepository
+  table: barometric_pressures
+  id:
+    sensor:
+      type: string
+      length: 30
+      generator:
+        strategy: NONE
+  fields:
+    name:
+      type: string
+      length: 100
+      nullable: true
+    reading:
+      type: float
+      nullable: true
+    time:
+      column: "`time`"
+      type: datetime
+      options:
+        default: CURRENT_TIMESTAMP

@@ -1,0 +1,24 @@
+# HMS.Entities.Instrumentation.SensorBattery.dcm.yml
+HMS\Entities\Instrumentation\SensorBattery:
+  type: entity
+  repositoryClass: HMS\Repositories\Instrumentation\Doctrine\DoctrineSensorBatteryRepository
+  table: sensor_batteries
+  id:
+    sensor:
+      type: string
+      length: 30
+      generator:
+        strategy: NONE
+  fields:
+    name:
+      type: string
+      length: 100
+      nullable: true
+    reading:
+      type: float
+      nullable: true
+    time:
+      column: "`time`"
+      type: datetime
+      options:
+        default: CURRENT_TIMESTAMP

@@ -4,7 +4,6 @@ namespace HMS\Entities\Instrumentation;
 
 class Humidity
 {
-
     /**
      * @var string
      */

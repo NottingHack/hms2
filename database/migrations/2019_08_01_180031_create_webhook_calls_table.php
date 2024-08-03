@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateWebhookCallsTable extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Schema::create('webhook_calls', function (Blueprint $table) {
             $table->increments('id');
@@ -19,7 +19,7 @@ class CreateWebhookCallsTable extends Migration
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('webhook_calls');
     }

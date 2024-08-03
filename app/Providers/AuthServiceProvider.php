@@ -20,18 +20,14 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        //
     ];
 
     /**
      * Register any authentication / authorization services.
-     *
-     * @return void
      */
-    public function boot(EntityManagerInterface $em, PasswordStore $passwordStore)
+    public function boot(EntityManagerInterface $em, PasswordStore $passwordStore): void
     {
-        $this->registerPolicies();
-
         Auth::provider('hms', function ($app, array $config) use ($em, $passwordStore) {
             return new HmsUserProvider($app['hash'], $em, $config['model'], $passwordStore);
         });

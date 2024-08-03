@@ -11,10 +11,8 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
 {
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->app->bind(HorizonSafeQueueWorkCommand::class, function ($app) {
             return new HorizonSafeQueueWorkCommand($app['safeQueue.worker'], $app['cache.store']);

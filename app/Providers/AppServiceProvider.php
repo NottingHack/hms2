@@ -14,10 +14,8 @@ class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->app->singleton(PasswordStore::class, function ($app) {
             $passwordStoreManager = new PasswordStoreManager($app);
@@ -28,10 +26,8 @@ class AppServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         // Globally set the money format
         setlocale(LC_MONETARY, 'en_GB.UTF-8');

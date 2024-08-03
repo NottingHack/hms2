@@ -17,32 +17,34 @@ class BarometricPressureCollector implements Collector
             ->name('instrumentation_barometric_pressure')
             ->helpText('Barometric Pressure in millibars (hPa)')
             ->label('sensor')
-            ->value(function () {
-                $barometricPressureRepository = app(BarometricPressureRepository::class);
-                $values = [];
+            ->value(fn () => app()->call([$this, 'getValue']));
+    }
 
-                foreach ($barometricPressureRepository->findAll() as $sensor) {
-                    if (is_null($sensor->getName())) {
-                        continue;
-                    }
+    public function getValue(BarometricPressureRepository $barometricPressureRepository)
+    {
+        $values = [];
 
-                    if ($sensor->getTime()->isBefore(
-                        Carbon::now()->sub(
-                            CarbonInterval::create(
-                                Meta::get('prometheus_instrumentation_sensors_timeout', 'P30M')
-                            )
-                        )
-                    )) {
-                        continue;
-                    }
+        foreach ($barometricPressureRepository->findAll() as $sensor) {
+            if (is_null($sensor->getName())) {
+                continue;
+            }
 
-                    $values[] = [
-                        $sensor->getReading(),
-                        [$sensor->getName()],
-                    ];
-                }
+            if ($sensor->getTime()->isBefore(
+                Carbon::now()->sub(
+                    CarbonInterval::create(
+                        Meta::get('prometheus_instrumentation_sensors_timeout', 'P30M')
+                    )
+                )
+            )) {
+                continue;
+            }
 
-                return $values;
-            });
+            $values[] = [
+                $sensor->getReading(),
+                [$sensor->getName()],
+            ];
+        }
+
+        return $values;
     }
 }

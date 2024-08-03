@@ -11,24 +11,27 @@ class BoxUsageCollector implements Collector
 {
     public function register(): void
     {
-        $boxRepository = app(BoxRepository::class);
+        Prometheus::addGauge('Member Boxes count')
+            ->label('count_of')
+            ->helpText('Members Box usages')
+            ->value(fn () => app()->call([$this, 'getValue']));
+    }
 
+    public function getValue(BoxRepository $boxRepository)
+    {
         $total = $boxRepository->count();
         $inUse = $boxRepository->countAllInUse();
         $removed = $boxRepository->countAllRemoved();
         $abandoned = $boxRepository->countAllAbandoned();
         $totalSpaces = Meta::get('member_box_limit');
 
-        Prometheus::addGauge('Member Boxes count')
-            ->label('count_of')
-            ->helpText('Members Box usages')
-            ->value([
-                [$totalSpaces, ['Total Spaces']],
-                [$totalSpaces - $inUse, ['Available Spaces']],
-                [$inUse, ['In Use']],
-                [$removed, ['Removed']],
-                [$abandoned, ['Abandoned']],
-                [$total, ['Total Boxes']],
-            ]);
+        return [
+            [$totalSpaces, ['Total Spaces']],
+            [$totalSpaces - $inUse, ['Available Spaces']],
+            [$inUse, ['In Use']],
+            [$removed, ['Removed']],
+            [$abandoned, ['Abandoned']],
+            [$total, ['Total Boxes']],
+        ];
     }
 }

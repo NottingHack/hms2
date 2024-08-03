@@ -17,32 +17,34 @@ class SensorBatteryCollector implements Collector
             ->name('instrumentation_sensor_battery')
             ->helpText('Battery voltage (V)')
             ->label('sensor')
-            ->value(function () {
-                $sensorBatteryRepository = app(SensorBatteryRepository::class);
-                $values = [];
+            ->value(fn () => app()->call([$this, 'getValue']));
+    }
 
-                foreach ($sensorBatteryRepository->findAll() as $sensor) {
-                    if (is_null($sensor->getName())) {
-                        continue;
-                    }
+    public function getValue(SensorBatteryRepository $sensorBatteryRepository)
+    {
+        $values = [];
 
-                    if ($sensor->getTime()->isBefore(
-                        Carbon::now()->sub(
-                            CarbonInterval::create(
-                                Meta::get('prometheus_instrumentation_sensors_timeout', 'P30M')
-                            )
-                        )
-                    )) {
-                        continue;
-                    }
+        foreach ($sensorBatteryRepository->findAll() as $sensor) {
+            if (is_null($sensor->getName())) {
+                continue;
+            }
 
-                    $values[] = [
-                        $sensor->getReading(),
-                        [$sensor->getName()],
-                    ];
-                }
+            if ($sensor->getTime()->isBefore(
+                Carbon::now()->sub(
+                    CarbonInterval::create(
+                        Meta::get('prometheus_instrumentation_sensors_timeout', 'P30M')
+                    )
+                )
+            )) {
+                continue;
+            }
 
-                return $values;
-            });
+            $values[] = [
+                $sensor->getReading(),
+                [$sensor->getName()],
+            ];
+        }
+
+        return $values;
     }
 }

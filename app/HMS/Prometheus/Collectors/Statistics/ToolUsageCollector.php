@@ -12,31 +12,11 @@ class ToolUsageCollector implements Collector
 {
     public function register(): void
     {
-        $toolRepository = app(ToolRepository::class);
-        $tools = $toolRepository->findAll();
-        $generateToolStatisticsAction = app(GenerateToolStatistics::class);
-
-        $toolsStats = $generateToolStatisticsAction->execute();
-
         Prometheus::addGauge('Tool status')
             ->name('statistics_tool_state')
             ->label('tool')
             ->helpText('Tool status, Disabled: -1, Free: 0, In Use: 1')
-            ->value(function () use ($tools) {
-                $values = [];
-                foreach ($tools as $tool) {
-                    $values[] = [
-                        match ($tool->getStatus()) {
-                            ToolState::DISABLED => -1,
-                            ToolState::FREE => 0,
-                            ToolState::IN_USE => 1,
-                        },
-                        [$tool->getName()],
-                    ];
-                }
-
-                return $values;
-            });
+            ->value(fn () => app()->call([$this, 'getValueState']));
 
         Prometheus::addGauge('Tool user counts')
             ->name('statistics_tool_users')
@@ -45,24 +25,51 @@ class ToolUsageCollector implements Collector
                 'role',
             ])
             ->helpText('Tool status, Disabled: -1, Free: 0, In Use: 1')
-            ->value(function () use ($tools, $toolsStats) {
-                $values = [];
-                foreach ($tools as $tool) {
-                    $values[] = [
-                        $toolsStats[$tool->getDisplayName()]['userCount'],
-                        [$tool->getName(), 'user'],
-                    ];
-                    $values[] = [
-                        $toolsStats[$tool->getDisplayName()]['inductorCount'],
-                        [$tool->getName(), 'inductor'],
-                    ];
-                    $values[] = [
-                        $toolsStats[$tool->getDisplayName()]['maintainerCount'],
-                        [$tool->getName(), 'maintainer'],
-                    ];
-                }
+            ->value(fn () => app()->call([$this, 'getValueUsers']));
+    }
 
-                return $values;
-            });
+    public function getValueState(ToolRepository $toolRepository)
+    {
+        $tools = $toolRepository->findAll();
+        $values = [];
+
+        foreach ($tools as $tool) {
+            $values[] = [
+                match ($tool->getStatus()) {
+                    ToolState::DISABLED => -1,
+                    ToolState::FREE => 0,
+                    ToolState::IN_USE => 1,
+                },
+                [$tool->getName()],
+            ];
+        }
+
+        return $values;
+    }
+
+    public function getValueUsers(
+        ToolRepository $toolRepository,
+        GenerateToolStatistics $generateToolStatisticsAction,
+    ) {
+        $tools = $toolRepository->findAll();
+        $toolsStats = $generateToolStatisticsAction->execute();
+        $values = [];
+
+        foreach ($tools as $tool) {
+            $values[] = [
+                $toolsStats[$tool->getDisplayName()]['userCount'],
+                [$tool->getName(), 'user'],
+            ];
+            $values[] = [
+                $toolsStats[$tool->getDisplayName()]['inductorCount'],
+                [$tool->getName(), 'inductor'],
+            ];
+            $values[] = [
+                $toolsStats[$tool->getDisplayName()]['maintainerCount'],
+                [$tool->getName(), 'maintainer'],
+            ];
+        }
+
+        return $values;
     }
 }

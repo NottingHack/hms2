@@ -17,32 +17,34 @@ class TemperatureCollector implements Collector
             ->name('instrumentation_temperature')
             ->helpText('Temperature in degree celsius (°C)')
             ->label('sensor')
-            ->value(function () {
-                $temperatureRepository = app(TemperatureRepository::class);
-                $values = [];
+            ->value(fn () => app()->call([$this, 'getValue']));
+    }
 
-                foreach ($temperatureRepository->findAll() as $sensor) {
-                    if (is_null($sensor->getName())) {
-                        continue;
-                    }
+    public function getValue(TemperatureRepository $temperatureRepository)
+    {
+        $values = [];
 
-                    if ($sensor->getTime()->isBefore(
-                        Carbon::now()->sub(
-                            CarbonInterval::create(
-                                Meta::get('prometheus_instrumentation_sensors_timeout', 'P30M')
-                            )
-                        )
-                    )) {
-                        continue;
-                    }
+        foreach ($temperatureRepository->findAll() as $sensor) {
+            if (is_null($sensor->getName())) {
+                continue;
+            }
 
-                    $values[] = [
-                        $sensor->getReading(),
-                        [str($sensor->getName())->replace('-LLAP', '')],
-                    ];
-                }
+            if ($sensor->getTime()->isBefore(
+                Carbon::now()->sub(
+                    CarbonInterval::create(
+                        Meta::get('prometheus_instrumentation_sensors_timeout', 'P30M')
+                    )
+                )
+            )) {
+                continue;
+            }
 
-                return $values;
-            });
+            $values[] = [
+                $sensor->getReading(),
+                [str($sensor->getName())->replace('-LLAP', '')],
+            ];
+        }
+
+        return $values;
     }
 }

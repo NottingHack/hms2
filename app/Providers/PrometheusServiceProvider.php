@@ -26,30 +26,20 @@ class PrometheusServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        /*
-         * Here you can register all the exporters that you
-         * want to export to prometheus
-         */
-        // Prometheus::addGauge('My gauge')
-        //     ->value(function() {
-        //         return 123.45;
-        //     });
-
-        /*
-         * Uncomment this line if you want to export
-         * all Horizon metrics to prometheus
-         */
         $this->registerHorizonCollectors();
     }
 
     public function boot(): void
     {
-        $this->registerInstrumentaionCollectors();
-        $this->registerStatisticsCollectors();
-
+        /*
+         * Add HMS collectors here so that the RepositoryServiceProvider has done its thing
+         */
         Prometheus::registerCollectorClasses([
             SpaceOpenCollector::class,
         ]);
+
+        $this->registerInstrumentaionCollectors();
+        $this->registerStatisticsCollectors();
     }
 
     public function registerHorizonCollectors(): self

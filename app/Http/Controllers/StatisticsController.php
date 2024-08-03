@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use HMS\Actions\Statistics\GenerateToolStatistics;
 use HMS\Entities\Role;
 use HMS\Governance\VotingManager;
 use HMS\Repositories\EmailRepository;
@@ -12,9 +13,6 @@ use HMS\Repositories\Members\BoxRepository;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\RoleUpdateRepository;
-use HMS\Repositories\Tools\BookingRepository;
-use HMS\Repositories\Tools\ToolRepository;
-use HMS\Repositories\Tools\UsageRepository;
 use HMS\Views\LaserUsage;
 use HMS\Views\MemberStats;
 use HMS\Views\SnackspaceMonthly;
@@ -23,100 +21,19 @@ use Illuminate\Support\Facades\Cache;
 class StatisticsController extends Controller
 {
     /**
-     * @var ZoneRepository
-     */
-    protected $zoneRepository;
-
-    /**
-     * @var BoxRepository
-     */
-    protected $boxRepository;
-
-    /**
-     * @var MetaRepository
-     */
-    protected $metaRepository;
-
-    /**
-     * @var VotingManager
-     */
-    protected $votingManager;
-
-    /**
-     * @var ToolRepository
-     */
-    protected $toolRepository;
-
-    /**
-     * @var RoleRepository
-     */
-    protected $roleRepository;
-
-    /**
-     * @var BookingRepository
-     */
-    protected $bookingRepository;
-
-    /**
-     * @var UsageRepository
-     */
-    protected $usageRepository;
-
-    /**
-     * @var EmailRepository
-     */
-    protected $emailRepository;
-
-    /**
-     * @var InviteRepository
-     */
-    protected $inviteRepository;
-
-    /**
-     * @var RoleUpdateRepository
-     */
-    protected $roleUpdateRepository;
-
-    /**
      * Create a new controller instance.
-     *
-     * @param ZoneRepository $zoneRepository
-     * @param BoxRepository $boxRepository
-     * @param MetaRepository $metaRepository
-     * @param VotingManager $votingManager
-     * @param ToolRepository $toolRepository
-     * @param RoleRepository $roleRepository
-     * @param BookingRepository $bookingRepository
-     * @param UsageRepository $usageRepository
-     * @param EmailRepository $emailRepository
-     * @param InviteRepository $inviteRepository
-     * @param RoleUpdateRepository $roleUpdateRepository
      */
     public function __construct(
-        ZoneRepository $zoneRepository,
-        BoxRepository $boxRepository,
-        MetaRepository $metaRepository,
-        VotingManager $votingManager,
-        ToolRepository $toolRepository,
-        RoleRepository $roleRepository,
-        BookingRepository $bookingRepository,
-        UsageRepository $usageRepository,
-        EmailRepository $emailRepository,
-        InviteRepository $inviteRepository,
-        RoleUpdateRepository $roleUpdateRepository
+        protected ZoneRepository $zoneRepository,
+        protected BoxRepository $boxRepository,
+        protected MetaRepository $metaRepository,
+        protected VotingManager $votingManager,
+        protected RoleRepository $roleRepository,
+        protected EmailRepository $emailRepository,
+        protected InviteRepository $inviteRepository,
+        protected RoleUpdateRepository $roleUpdateRepository,
+        protected GenerateToolStatistics $generateToolStatisticsAction,
     ) {
-        $this->zoneRepository = $zoneRepository;
-        $this->boxRepository = $boxRepository;
-        $this->metaRepository = $metaRepository;
-        $this->votingManager = $votingManager;
-        $this->toolRepository = $toolRepository;
-        $this->roleRepository = $roleRepository;
-        $this->bookingRepository = $bookingRepository;
-        $this->usageRepository = $usageRepository;
-        $this->emailRepository = $emailRepository;
-        $this->inviteRepository = $inviteRepository;
-        $this->roleUpdateRepository = $roleUpdateRepository;
-
         $this->middleware('feature:boxes')->only(['boxUsage']);
         $this->middleware('feature:tools')->only(['laserUsage']);
         $this->middleware('feature:snackspace')->only(['snackspaceMonthly']);
@@ -251,104 +168,10 @@ class StatisticsController extends Controller
     public function tools()
     {
         // pull stats from the cache if they are there, if not store a fresh copy for 12 hours
-        $tools = Cache::remember('statistics.tools', 43200, function () {
-            return $this->generateToolStats();
-        });
+        $tools = $this->generateToolStatisticsAction->execute();
 
         return view('statistics.tools')
             ->with('tools', $tools);
-    }
-
-    /**
-     * Generate Statistics for Tool.
-     *
-     * @return array
-     */
-    protected function generateToolStats()
-    {
-        $tools = $this->toolRepository->findAll();
-        $stats = [];
-
-        foreach ($tools as $tool) {
-            $users = $this->roleRepository
-                ->findOneByName('tools.' . $tool->getPermissionName() . '.user')
-                ->getUsers();
-            $currentUsers = $users->filter(function ($user) {
-                return $user->hasRoleByName(Role::MEMBER_CURRENT);
-            });
-            $userCount = $currentUsers->count();
-
-            $inductorCount = $this->roleRepository
-                ->findOneByName('tools.' . $tool->getPermissionName() . '.inductor')
-                ->getUsers()
-                ->count();
-            $maintainerCount = $this->roleRepository
-                ->findOneByName('tools.' . $tool->getPermissionName() . '.maintainer')
-                ->getUsers()
-                ->count();
-
-            $bookingsForThisMonth = $this->bookingRepository->findByToolForMonth($tool, Carbon::now());
-            $bookingsForLastMonth = $this->bookingRepository->findByToolForMonth($tool, Carbon::now()->subMonthNoOverflow());
-
-            $bookedThisMonth = $this->countBookedDuration($bookingsForThisMonth);
-            $bookedLastMonth = $this->countBookedDuration($bookingsForLastMonth);
-
-            $usagesForThisMonth = $this->usageRepository->findByToolForMonth($tool, Carbon::now());
-            $usagesForLastMonth = $this->usageRepository->findByToolForMonth($tool, Carbon::now()->subMonthNoOverflow());
-
-            $usedThisMonth = $this->countUsedMinutes($usagesForThisMonth);
-            $usedLastMonth = $this->countUsedMinutes($usagesForLastMonth);
-
-            $stats[$tool->getDisplayName()] = [
-                'userCount' => $userCount,
-                'inductorCount' => $inductorCount,
-                'maintainerCount' => $maintainerCount,
-                'bookedThisMonth' => $bookedThisMonth,
-                'bookedLastMonth' => $bookedLastMonth,
-                'usedThisMonth' => $usedThisMonth,
-                'usedLastMonth' => $usedLastMonth,
-            ];
-        }
-
-        return $stats;
-    }
-
-    /**
-     * Sum Booking lengths.
-     *
-     * @param Booking[] $bookings
-     *
-     * @return string
-     */
-    protected function countBookedDuration($bookings)
-    {
-        $seconds = 0;
-
-        foreach ($bookings as $booking) {
-            $seconds += $booking->getStart()->diffInSeconds($booking->getEnd());
-        }
-
-        return sprintf('%02d:%02d:%02d', $seconds / 3600, $seconds / 60 % 60, $seconds % 60);
-    }
-
-    /**
-     * Sum Usage durations.
-     *
-     * @param Usage[] $usages
-     *
-     * @return string
-     */
-    protected function countUsedMinutes($usages)
-    {
-        $seconds = 0;
-
-        foreach ($usages as $usage) {
-            if ($usage->getDuration() > 0) {
-                $seconds += $usage->getDuration();
-            }
-        }
-
-        return sprintf('%02d:%02d:%02d', $seconds / 3600, $seconds / 60 % 60, $seconds % 60);
     }
 
     /**

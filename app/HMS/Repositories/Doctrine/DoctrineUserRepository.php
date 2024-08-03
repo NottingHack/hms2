@@ -151,6 +151,26 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     }
 
     /**
+     * Count Members By Role name.
+     *
+     * @param string $roleName
+     *
+     * @return int
+     */
+    public function countMembersByRoleName(string $roleName): int
+    {
+        $qb = parent::createQueryBuilder('user');
+
+        $qb->select('COUNT(user.id)')
+            ->innerJoin('user.roles', 'roles')
+            ->where('roles.name = :role_name');
+
+        $qb->setParameter('role_name', $roleName);
+
+        return (int) $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
      * @param string $searchQuery
      * @param bool $hasAccount limit to users with associated accounts
      * @param bool $currentOnly limit to only MEMBER_CURRENT users

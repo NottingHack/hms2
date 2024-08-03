@@ -39,6 +39,7 @@ return [
         'members_meeting_schedule' => 'first wednesday',
         'membership_minimum_amount' => 500,
         'membership_recommended_amount' => 1500,
+        'prometheus_instrumentation_sensors_timeout' => 'P30M',
         'purge_cutoff_interval' => 'P6M',
         'quorum_percent' => 20,
         'rules_html' => 'https://rules.nottinghack.org.uk',

@@ -51,6 +51,14 @@ class Temperature
     }
 
     /**
+     * @return float
+     */
+    public function getReading()
+    {
+        return $this->temperature;
+    }
+
+    /**
      * @return Carbon
      */
     public function getTime()

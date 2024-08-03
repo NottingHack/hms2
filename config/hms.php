@@ -53,8 +53,8 @@ return [
     | Slack team api hooks
     |--------------------------------------------------------------------------
     */
-    'team_slack_webhook' => env('TEAM_SLACK_WEBHOOK', null),
-    'trustees_slack_webhook' => env('TRUSTEE_SLACK_WEBHOOK', null),
+    'team_slack_webhook' => env('TEAM_SLACK_WEBHOOK', false),
+    'trustees_slack_webhook' => env('TRUSTEE_SLACK_WEBHOOK', false),
 
     /*
     |--------------------------------------------------------------------------

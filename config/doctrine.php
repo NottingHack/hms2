@@ -33,7 +33,7 @@ return [
             ],
             'repository' => Doctrine\ORM\EntityRepository::class,
             'proxies' => [
-                'namespace' => false,
+                'namespace' => 'DoctrineProxies',
                 'path' => storage_path('proxies'),
                 'auto_generate' => env('DOCTRINE_PROXY_AUTOGENERATE', false),
             ],
@@ -76,6 +76,14 @@ return [
             'mapping_types' => [
                 //'enum' => 'string'
             ],
+
+            /**
+             * References:
+             * https://www.doctrine-project.org/projects/doctrine-dbal/en/current/reference/architecture.html#middlewares
+             */
+            'middlewares' => [
+                // Doctrine\DBAL\Logging\Middleware::class
+            ],
         ],
     ],
     /*
@@ -110,7 +118,6 @@ return [
     |--------------------------------------------------------------------------
     */
     'custom_types' => [
-        'json' => LaravelDoctrine\ORM\Types\Json::class,
         'datetime' => HMS\Doctrine\CarbonType::class,
         'date' => HMS\Doctrine\CarbonDateType::class,
         'time' => HMS\Doctrine\CarbonTimeType::class,
@@ -147,19 +154,6 @@ return [
     ],
     /*
     |--------------------------------------------------------------------------
-    | Enable query logging with laravel file logging,
-    | debugbar, clockwork or an own implementation.
-    | Setting it to false, will disable logging
-    |
-    | Available:
-    | - LaravelDoctrine\ORM\Loggers\LaravelDebugbarLogger
-    | - LaravelDoctrine\ORM\Loggers\ClockworkLogger
-    | - LaravelDoctrine\ORM\Loggers\FileLogger
-    |--------------------------------------------------------------------------
-    */
-    'logger' => env('DOCTRINE_LOGGER', false),
-    /*
-    |--------------------------------------------------------------------------
     | Cache
     |--------------------------------------------------------------------------
     |
@@ -175,15 +169,15 @@ return [
         'namespace' => null,
         'metadata' => [
             'driver' => env('DOCTRINE_METADATA_CACHE', env('DOCTRINE_CACHE', 'array')),
-            'namespace' => null,
+            'namespace' => 'metadata',
         ],
         'query' => [
             'driver' => env('DOCTRINE_QUERY_CACHE', env('DOCTRINE_CACHE', 'array')),
-            'namespace' => null,
+            'namespace' => 'query',
         ],
         'result' => [
             'driver' => env('DOCTRINE_RESULT_CACHE', env('DOCTRINE_CACHE', 'array')),
-            'namespace' => null,
+            'namespace' => 'result',
         ],
     ],
     /*

@@ -52,6 +52,8 @@ Route::name('api.')->namespace('Api')->group(function () {
         // Users
         Route::post('can', 'Auth\CanCheckController')
             ->name('user.can');
+        Route::get('userinfo', 'UserController@showOpenId')
+            ->name('users.show.open-id');
         Route::apiResource('users', 'UserController')
             ->except(['store', 'destroy']);
 

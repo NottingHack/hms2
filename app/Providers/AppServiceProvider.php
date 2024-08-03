@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\Resources\OpenIdUserResource;
 use HMS\Auth\PasswordStore;
 use HMS\Auth\PasswordStoreManager;
 use HMS\Facades\Features;
@@ -52,5 +53,6 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Paginator::useBootstrap();
+        OpenIdUserResource::withoutWrapping();
     }
 }

@@ -16,7 +16,7 @@ class OpenIdUserResource extends JsonResource
     public function toArray($request)
     {
         $resource = [
-            'sub' => $this->getId(),
+            'sub' => str($this->getId()),
             'name' => $this->getFullname(),
             'given_name' => $this->getFirstname(),
             'family_name' => $this->getLastname(),

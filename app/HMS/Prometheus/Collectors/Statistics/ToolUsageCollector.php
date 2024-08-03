@@ -49,9 +49,16 @@ class ToolUsageCollector implements Collector
                 $values = [];
                 foreach ($tools as $tool) {
                     $values[] = [
-                        [$toolsStats[$tool->getDisplayName()]['userCount'], [$tool->getName(), 'user']],
-                        [$toolsStats[$tool->getDisplayName()]['inductorCount'], [$tool->getName(), 'inductor']],
-                        [$toolsStats[$tool->getDisplayName()]['maintainerCount'], [$tool->getName(), 'maintainer']],
+                        $toolsStats[$tool->getDisplayName()]['userCount'],
+                        [$tool->getName(), 'user']
+                    ];
+                    $values[] = [
+                        $toolsStats[$tool->getDisplayName()]['inductorCount'],
+                        [$tool->getName(), 'inductor']
+                    ];
+                    $values[] = [
+                        $toolsStats[$tool->getDisplayName()]['maintainerCount'],
+                        [$tool->getName(), 'maintainer']
                     ];
                 }
 

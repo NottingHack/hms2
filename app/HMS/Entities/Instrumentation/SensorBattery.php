@@ -41,7 +41,7 @@ class SensorBattery
     }
 
     /**
-     * @return int
+     * @return float
      */
     public function getReading()
     {

@@ -41,7 +41,7 @@ class BarometricPressure
     }
 
     /**
-     * @return int
+     * @return float
      */
     public function getReading()
     {

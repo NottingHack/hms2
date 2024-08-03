@@ -64,6 +64,15 @@ interface UserRepository
     public function countCurrentMembers(): int;
 
     /**
+     * Count Members By Role name.
+     *
+     * @param string $roleName
+     *
+     * @return int
+     */
+    public function countMembersByRoleName(string $roleName): int;
+
+    /**
      * @param string $searchQuery
      * @param bool $hasAccount limit to users with associated accounts
      * @param bool $currentOnly limit to only MEMBER_CURRENT users

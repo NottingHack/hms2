@@ -182,6 +182,7 @@ return [
         App\Providers\HmsHelperServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
         App\Providers\PassportServiceProvider::class,
+        App\Providers\PrometheusServiceProvider::class,
     ])->toArray(),
 
     /*

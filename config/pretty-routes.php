@@ -36,6 +36,7 @@ return [
         '#^oauth#',
         '#^log-viewer#',
         '#^livewire#',
+        '#^prometheus#',
     ],
 
 ];

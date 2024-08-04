@@ -8,6 +8,17 @@ use HMS\Repositories\Gatekeeper\DoorRepository;
 
 class DoctrineDoorRepository extends EntityRepository implements DoorRepository
 {
+
+    /**
+     * Finds all entities in the repository.
+     *
+     * @return array The entities.
+     */
+    public function findAll()
+    {
+        return parent::findAll();
+    }
+
     /**
      * Find by short name.
      *

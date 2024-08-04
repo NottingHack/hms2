@@ -52,6 +52,7 @@ class Door
      */
     public function __construct()
     {
+        $this->state = DoorState::UNKNOWN;
         $this->bells = new ArrayCollection();
     }
 
@@ -87,6 +88,16 @@ class Door
     public function getState()
     {
         return $this->state;
+    }
+
+    /**
+     * Gets the value of state.
+     *
+     * @return string
+     */
+    public function getStateString()
+    {
+        return DoorState::STATE_STRINGS[$this->state];
     }
 
     /**

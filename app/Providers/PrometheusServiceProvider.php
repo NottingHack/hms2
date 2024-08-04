@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use HMS\Prometheus\Collectors\Gatekeeper\DoorCollector;
 use HMS\Prometheus\Collectors\Instrumentation\BarometricPressureCollector;
 use HMS\Prometheus\Collectors\Instrumentation\HumidityCollector;
 use HMS\Prometheus\Collectors\Instrumentation\LightLevelCollector;
 use HMS\Prometheus\Collectors\Instrumentation\MacAddressCountCollector;
 use HMS\Prometheus\Collectors\Instrumentation\SensorBatteryCollector;
+use HMS\Prometheus\Collectors\Instrumentation\ServiceCollector;
 use HMS\Prometheus\Collectors\Instrumentation\TemperatureCollector;
 use HMS\Prometheus\Collectors\SpaceOpenCollector;
 use HMS\Prometheus\Collectors\Statistics\BoxUsageCollector;
@@ -36,6 +38,7 @@ class PrometheusServiceProvider extends ServiceProvider
          */
         Prometheus::registerCollectorClasses([
             SpaceOpenCollector::class,
+            DoorCollector::class,
         ]);
 
         $this->registerInstrumentaionCollectors();
@@ -65,6 +68,7 @@ class PrometheusServiceProvider extends ServiceProvider
             LightLevelCollector::class,
             MacAddressCountCollector::class,
             SensorBatteryCollector::class,
+            ServiceCollector::class,
             TemperatureCollector::class,
         ]);
 

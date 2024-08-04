@@ -8,7 +8,6 @@ use HMS\Repositories\Gatekeeper\DoorRepository;
 
 class DoctrineDoorRepository extends EntityRepository implements DoorRepository
 {
-
     /**
      * Finds all entities in the repository.
      *

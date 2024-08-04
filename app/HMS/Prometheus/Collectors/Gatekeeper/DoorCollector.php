@@ -2,10 +2,7 @@
 
 namespace HMS\Prometheus\Collectors\Gatekeeper;
 
-use Carbon\Carbon;
-use Carbon\CarbonInterval;
 use HMS\Entities\Gatekeeper\DoorState;
-use HMS\Facades\Meta;
 use HMS\Repositories\Gatekeeper\DoorRepository;
 use Spatie\Prometheus\Collectors\Collector;
 use Spatie\Prometheus\Facades\Prometheus;
@@ -16,7 +13,7 @@ class DoorCollector implements Collector
     {
         Prometheus::addGauge('Door State')
             ->name('gatekeeper_door_state')
-            ->helpText('Door state')
+            ->helpText('Door state, Unknown: 0, Open: 1, Closed: 2, Locked: 3, Fault: 4')
             ->label('door')
             ->value(fn () => app()->call([$this, 'getValue']));
     }

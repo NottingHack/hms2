@@ -5,19 +5,19 @@ namespace HMS\Entities\Gatekeeper;
 abstract class DoorState
 {
     /**
-     * Door state has never been reported
+     * Door state has never been reported.
      */
     public const UNKNOWN = 'UNKNOWN';
     /**
-     * Door is open
+     * Door is open.
      */
     public const OPEN = 'OPEN';
     /**
-     * Door is closed and not locked
+     * Door is closed and not locked.
      */
     public const CLOSED = 'CLOSED';
     /**
-     * Door is closed and (should be) locked
+     * Door is closed and (should be) locked.
      */
     public const LOCKED = 'LOCKED';
     /**

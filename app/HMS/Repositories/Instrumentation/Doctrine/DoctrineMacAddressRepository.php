@@ -12,16 +12,25 @@ class DoctrineMacAddressRepository extends EntityRepository implements MacAddres
     /**
      * Count of MacAddresses seen in the last 5 minutes.
      *
+     * @param boot $filterIgnores Default true
+     *
      * @return int
      */
-    public function countSeenLastFiveMinutes(): int
+    public function countSeenLastFiveMinutes(bool $filterIgnores = true): int
     {
-        $qb = parent::createQueryBuilder('addresses')
-            ->select('COUNT(addresses.id)')
-            ->where('addresses.lastSeen > :before');
+        $qb = parent::createQueryBuilder('addresses');
+
+        $expr = $qb->expr();
+        $qb->select('COUNT(addresses.id)')
+            ->where($expr->gt('addresses.lastSeen', ':before'));
+
+        if ($filterIgnores) {
+            $qb->andWhere($expr->eq('addresses.ignore', 0));
+        }
 
         $qb->setParameter('before', Carbon::now()->subMinutes(5));
 
+        ray($qb->getQuery()->getSql());
         return (int) $qb->getQuery()->getSingleScalarResult();
     }
 

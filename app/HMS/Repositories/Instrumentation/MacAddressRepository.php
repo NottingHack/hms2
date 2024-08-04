@@ -9,9 +9,11 @@ interface MacAddressRepository
     /**
      * Count of MacAddresses seen in the last 5 minutes.
      *
+     * @param boot $filterIgnores Default true
+     *
      * @return int
      */
-    public function countSeenLastFiveMinutes(): int;
+    public function countSeenLastFiveMinutes(bool $filterIgnores = true): int;
 
     /**
      * Save MacAddress to the DB.

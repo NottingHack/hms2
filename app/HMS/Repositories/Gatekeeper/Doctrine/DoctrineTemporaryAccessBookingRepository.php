@@ -162,7 +162,7 @@ class DoctrineTemporaryAccessBookingRepository extends EntityRepository implemen
         $expr = $qb->expr();
         $qb->innerJoin('temporaryAccessBooking.bookableArea', 'bookableArea')
             ->addCriteria($this->byUser($user))
-            ->andwhere($expr->lt('temporaryAccessBooking.start', ':before'))
+            ->andWhere($expr->lt('temporaryAccessBooking.start', ':before'))
             ->andWhere($expr->eq('bookableArea.building', ':building'))
             ->orderBy('temporaryAccessBooking.end', Criteria::DESC)
             ->setMaxResults(1);

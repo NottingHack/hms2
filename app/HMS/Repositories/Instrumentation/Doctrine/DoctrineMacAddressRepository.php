@@ -30,7 +30,6 @@ class DoctrineMacAddressRepository extends EntityRepository implements MacAddres
 
         $qb->setParameter('before', Carbon::now()->subMinutes(5));
 
-        ray($qb->getQuery()->getSql());
         return (int) $qb->getQuery()->getSingleScalarResult();
     }
 

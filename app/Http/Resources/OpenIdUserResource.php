@@ -29,7 +29,9 @@ class OpenIdUserResource extends JsonResource
             'grafanaRole' => 'Viewer', // 'No basic role',
         ];
 
-        if ($this->can('grafana.admin')) {
+        if ($this->can('grafana.grafanaAdmin')) {
+            $resource['grafanaRole'] = 'GrafanaAdmin';
+        } elseif ($this->can('grafana.admin')) {
             $resource['grafanaRole'] = 'Admin';
         } elseif ($this->can('grafana.editor')) {
             $resource['grafanaRole'] = 'Editor';

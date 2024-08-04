@@ -130,6 +130,7 @@ return [
         'governance.voting.canVote',            // is eligible to vote at AGM or trustee elections
         'governance.proxy.designateProxy',      // is eligible to pass on there vote to a proxy
         'governance.proxy.representPrincipal',  // is eligible to act as proxy for another
+        'grafana.grafanaAdmin',
         'grafana.admin',
         'grafana.editor',
         'grafana.viewer',

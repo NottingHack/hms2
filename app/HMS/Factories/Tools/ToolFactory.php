@@ -17,6 +17,7 @@ class ToolFactory
      * @param int    $bookingLength Default booking length for this tool, minutes
      * @param int    $lengthMax     Maximum amount of time a booking can be made for, minutes
      * @param int    $bookingsMax   Maximum number of bookings a user can have at any one time
+     * @param bool   $hidden        Should the Tool be hidden to regular members
      *
      * @return Tool
      */
@@ -27,7 +28,8 @@ class ToolFactory
         int $pph,
         int $bookingLength,
         int $lengthMax,
-        int $bookingsMax = 1
+        int $bookingsMax = 1,
+        bool $hidden = false
     ) {
         $_tool = new Tool();
         $_tool->setName($name);
@@ -47,6 +49,7 @@ class ToolFactory
         $_tool->setBookingLength($bookingLength);
         $_tool->setLengthMax($lengthMax);
         $_tool->setBookingsMax($bookingsMax);
+        $_tool->setHidden($hidden);
 
         return $_tool;
     }

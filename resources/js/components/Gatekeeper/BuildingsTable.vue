@@ -172,8 +172,7 @@
       fetchBuildings() {
         this.loading(true);
 
-        axios.get(this.route('api.gatekeeper.buildings.index')
-)
+        axios.get(this.route('api.gatekeeper.buildings.index'))
           .then((response) => {
             if (response.status == '200') { // HTTP_OK
               this.buildings = response.data.data; // axios data, then laravel api resource data

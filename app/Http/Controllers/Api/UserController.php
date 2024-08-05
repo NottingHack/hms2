@@ -96,6 +96,7 @@ class UserController extends Controller
     public function showOpenId()
     {
         $user = Auth::user();
+        OpenIdUserResource::withoutWrapping();
 
         return new OpenIdUserResource($user);
     }

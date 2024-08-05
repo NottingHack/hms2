@@ -11,13 +11,13 @@ class ToolFactory
      * Function to instantiate a new Tool from given params.
      *
      * @param string $name          Tool name (as used in mqtt topic and permisions)
-     * @param string $name          Tool display name
+     * @param string $displayName   Public title of the tool
      * @param bool   $restricted    Does this tool require an induction
      * @param int    $pph           Cost per hour in pence
      * @param int    $bookingLength Default booking length for this tool, minutes
      * @param int    $lengthMax     Maximum amount of time a booking can be made for, minutes
      * @param int    $bookingsMax   Maximum number of bookings a user can have at any one time
-     * @param bool   $hidden        Should the Tool be hidden to regular members
+     * @param bool   $hidden        Whether the tool is visible to regular users
      *
      * @return Tool
      */

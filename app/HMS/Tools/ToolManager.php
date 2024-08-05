@@ -130,7 +130,7 @@ class ToolManager
      * Function to create a new tool and setup the permissions.
      *
      * @param string $name          Tool name (as used in mqtt topic and permisions)
-     * @param string $name          Tool display name
+     * @param string $displayName   Public title of the tool
      * @param bool   $restricted    Does this tool require an induction
      * @param int    $pph           Cost per hour in pence
      * @param int    $bookingLength Default booking length for this tool, minutes

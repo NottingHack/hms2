@@ -45,7 +45,7 @@
         "symfony/http-client": "^6.3",
         "symfony/mailgun-mailer": "^6.2",
         "symfony/yaml": "^5.0|^6.0",
-        "tightenco/ziggy": "^1.0",
+        "tightenco/ziggy": "^2.0",
         "tremby/laravel-git-version": "^1.1"
     },
     "require-dev": {

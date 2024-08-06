@@ -30,7 +30,6 @@
     "jquery": "3.5.*",
     "laravel-echo": "^1.14.2",
     "laravel-mix": "^6.0.49",
-    "laravel-mix-bundle-analyzer": "^1.0.5",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "moment-locales-webpack-plugin": "^1.2.0",

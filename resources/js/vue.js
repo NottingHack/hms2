@@ -25,7 +25,7 @@ window.flash = function (message, level = 'success') {
 /**
  * Ziggy
  */
-import route from 'ziggy';
+import { ZiggyVue } from 'ziggy-js'
 import { Ziggy } from './ziggy';
 
 if (process.env.NODE_ENV != 'production') {
@@ -33,11 +33,7 @@ if (process.env.NODE_ENV != 'production') {
     Ziggy.url = location.protocol+'//'+location.hostname;
 }
 
-Vue.mixin({
-    methods: {
-        route: (name, params, absolute, config = Ziggy) => route(name, params, absolute, config),
-    },
-});
+Vue.use(ZiggyVue, Ziggy);
 
 /**
  * The following block of code may be used to automatically register your

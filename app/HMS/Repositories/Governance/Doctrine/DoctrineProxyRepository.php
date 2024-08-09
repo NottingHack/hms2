@@ -38,6 +38,25 @@ class DoctrineProxyRepository extends EntityRepository implements ProxyRepositor
     }
 
     /**
+     * For a given meeting count the proxies.
+     *
+     * @param Meeting $meeting
+     *
+     * @return int
+     */
+    public function countForMeeting(Meeting $meeting)
+    {
+        $q = parent::createQueryBuilder('proxies')
+            ->select('COUNT(proxies.id)')
+            ->innerJoin('proxies.meeting', 'meeting')
+            ->where('meeting.id = :meeting_id');
+
+        $q->setParameter('meeting_id', $meeting->getId());
+
+        return (int) $q->getQuery()->getSingleScalarResult();
+    }
+
+    /**
      * For a given meeting count the proxied represented by the Checked-in Attendees.
      *
      * @param Meeting $meeting

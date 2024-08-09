@@ -59,8 +59,11 @@ class AttendeeCheckIn implements ShouldBroadcast
      */
     public function broadcastWith()
     {
-        $representedProxies = resolve(ProxyRepository::class)->countRepresentedForMeeting($this->meeting);
-        $checkInCount = $this->meeting->getAttendees()->count() + $representedProxies;
+        $proxyRepository = resolve(ProxyRepository::class);
+        $proxies = $proxyRepository->countForMeeting($this->meeting);
+        $representedProxies = $proxyRepository->countRepresentedForMeeting($this->meeting);
+        $attendees = $this->meeting->getAttendees()->count();
+        $checkInCount = $attendees + $representedProxies;
 
         return [
             'id' => $this->meeting->getId(),
@@ -70,8 +73,8 @@ class AttendeeCheckIn implements ShouldBroadcast
             'currentMembers' => $this->meeting->getCurrentMembers(),
             'votingMembers' => $this->meeting->getVotingMembers(),
             'quorum' => $this->meeting->getQuorum(),
-            'attendees' => $this->meeting->getAttendees()->count(),
-            'proxies' => $this->meeting->getProxies()->count(),
+            'attendees' => $attendees,
+            'proxies' => $proxies,
             'representedProxies' => $representedProxies,
             'checkInCount' => $checkInCount,
             'checkInUser' => [

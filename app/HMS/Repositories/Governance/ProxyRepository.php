@@ -29,6 +29,15 @@ interface ProxyRepository
     public function findOneByPrincipal(Meeting $meeting, User $principal);
 
     /**
+     * For a given meeting count the proxies.
+     *
+     * @param Meeting $meeting
+     *
+     * @return int
+     */
+    public function countForMeeting(Meeting $meeting);
+
+    /**
      * For a given meeting count the proxied represented by the Checked-in Attendees.
      *
      * @param Meeting $meeting

@@ -56,7 +56,8 @@ class DoctrineRoleUpdateRepository extends EntityRepository implements RoleUpdat
     public function paginateByUser(User $user, $perPage = 15, $pageName = 'page')
     {
         $q = parent::createQueryBuilder('roleUpdate')
-            ->where('roleUpdate.user = :user_id');
+            ->where('roleUpdate.user = :user_id')
+            ->orderBy('roleUpdate.createdAt', 'ASC');
 
         $q = $q->setParameter('user_id', $user->getId())->getQuery();
 

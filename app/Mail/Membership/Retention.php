@@ -41,15 +41,10 @@ class Retention extends Mailable implements ShouldQueue
      */
     public function build(MetaRepository $metaRepository, RoleRepository $roleRepository)
     {
-        $subject = $metaRepository->get('membership_retention_email_subject', 'Hello from Nottingham Hackspace');
-        $membershipTeam = $roleRepository->findOneByName('team.membership');
-        $membershipEmail = $membershipTeam->getEmail();
-        $membershipMgEmail = preg_replace('/@/m', '@mg.', $membershipEmail);
-        $displayName = config('branding.space_name') . ' - ' . $membershipTeam->getDisplayName();
+        $subject = $metaRepository->get('membership_retention_email_subject', 'Need any help?');
 
         return $this
-            ->replyTo($membershipEmail, $displayName)
-            ->subject($subject)
+            ->subject(config('branding.space_name') . ': ' . $subject)
             ->markdown('emails.membership.retention');
     }
 }

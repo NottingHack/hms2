@@ -28,6 +28,13 @@ class RetentionEmailJob implements ShouldQueue
         // Nothing to do here
     }
 
+    public function middleware()
+    {
+        return [
+            (new RateLimited('membership.retention'))->dontRelease(),
+        ];
+    }
+
     /**
      * Execute the job.
      *
@@ -60,10 +67,5 @@ class RetentionEmailJob implements ShouldQueue
         }
     }
 
-    public function middleware()
-    {
-        return [
-            (new RateLimited('membership.retention'))->dontRelease(),
-        ];
-    }
+
 }

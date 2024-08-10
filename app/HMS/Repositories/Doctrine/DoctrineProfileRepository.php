@@ -149,11 +149,9 @@ class DoctrineProfileRepository extends EntityRepository implements ProfileRepos
     {
         $q = parent::createQueryBuilder('profile');
 
-        $q->where('profile.joinDate >= :join_date_lower')
-          ->andWhere('profile.joinDate < :join_date_upper');
+        $q->where('DATE(profile.joinDate) = :join_date');
+        $q = $q->setParameter('join_date', $joinDate->toDateString());
 
-        $q = $q->setParameter('join_date_lower', $joinDate)
-               ->setParameter('join_date_upper', $joinDate->copy()->addDays(1));
         $q = $q->getQuery();
 
         return $q->getResult();

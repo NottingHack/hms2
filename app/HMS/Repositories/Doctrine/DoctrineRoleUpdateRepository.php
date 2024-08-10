@@ -57,7 +57,8 @@ class DoctrineRoleUpdateRepository extends EntityRepository implements RoleUpdat
     {
         $q = parent::createQueryBuilder('roleUpdate')
             ->where('roleUpdate.user = :user_id')
-            ->orderBy('roleUpdate.createdAt', 'ASC');
+            ->orderBy('roleUpdate.createdAt')
+            ->addOrderBy('roleUpdate.id');
 
         $q = $q->setParameter('user_id', $user->getId())->getQuery();
 

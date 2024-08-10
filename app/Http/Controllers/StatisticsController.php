@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\MembershipChangeChart;
 use Carbon\Carbon;
 use HMS\Actions\Statistics\GenerateToolStatistics;
 use HMS\Entities\Role;
@@ -111,6 +112,12 @@ class StatisticsController extends Controller
             ->with('memberStats', $memberStats)
             ->with('votingMembers', $votingMembers)
             ->with($memberConversionStats);
+    }
+
+    public function membershipGraph()
+    {
+        return view('statistics.membership_graph')
+            ->with('chartAll', new MembershipChangeChart());
     }
 
     /**

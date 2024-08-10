@@ -87,6 +87,7 @@ Route::prefix('statistics')->name('statistics.')->group(function () {
     Route::get('box-usage', [StatisticsController::class, 'boxUsage'])->name('box-usage');
     Route::get('laser-usage', [StatisticsController::class, 'laserUsage'])->name('laser-usage');
     Route::get('membership', [StatisticsController::class, 'memberStats'])->name('membership');
+    Route::get('current-members-graph', [StatisticsController::class, 'membershipGraph'])->name('membership-graph');
     Route::get('snackspace-monthly', [StatisticsController::class, 'snackspaceMonthly'])->name('snackspace-monthly');
     Route::get('zone-occupants', [StatisticsController::class, 'zoneOccupancy'])->name('zone-occupants');
     Route::get('tools', [StatisticsController::class, 'tools'])->name('tools');

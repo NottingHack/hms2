@@ -59,6 +59,16 @@
     </div>
 
     <div class="form-group">
+      <label for="email-password" class="form-label">Email Password</label>
+      <input class="form-control" id="email-password" type="text" name="emailPassword" required>
+      @if ($errors->has('emailPassword'))
+      <p class="help-text">
+        <strong>{{ $errors->first('emailPassword') }}</strong>
+      </p>
+      @endif
+    </div>
+
+    <div class="form-group">
       <label for="slackChannel" class="form-label">Slack channel</label>
       <div class="input-group mb-2">
         <div class="input-group-prepend">
@@ -72,6 +82,27 @@
       </p>
       @endif
     </div>
+
+    <div class="form-group">
+      <label for="discordChannel" class="form-label">Discord channel</label>
+      <input class="form-control" id="discordChannel" type="text" name="discordChannel" value="{{ old('discordChannel') }}">
+      @if ($errors->has('discordChannel'))
+      <p class="help-text">
+        <strong>{{ $errors->first('discordChannel') }}</strong>
+      </p>
+      @endif
+    </div>
+
+    <div class="form-group">
+      <label for="discordPrivateChannel" class="form-label">Discord channel (Private)</label>
+      <input class="form-control" id="discordPrivateChannel" type="text" name="discordPrivateChannel" value="{{ old('discordPrivateChannel') }}">
+      @if ($errors->has('discordPrivateChannel'))
+      <p class="help-text">
+        <strong>{{ $errors->first('discordPrivateChannel') }}</strong>
+      </p>
+      @endif
+    </div>
+
 
     <button type="submit" class="btn btn-primary btn-block">Add Team</button>
   </form>

@@ -103,7 +103,10 @@ class RoleManager
      * @param string $displayName
      * @param string $description
      * @param null|string $email
+     * @param null|string $emailPassword
      * @param null|string $slackChannel
+     * @param null|string $discordChannel
+     * @param null|string $discordPrivateChannel
      *
      * @return Role new team role object
      */
@@ -112,6 +115,7 @@ class RoleManager
         string $displayName,
         string $description,
         ?string $email = null,
+        ?string $emailPassword = null,
         ?string $slackChannel = null,
         ?string $discordChannel = null,
         ?string $discordPrivateChannel = null
@@ -120,6 +124,9 @@ class RoleManager
 
         if (isset($email)) {
             $roleEntity->setEmail($email);
+        }
+        if (isset($emailPassword)) {
+            $roleEntity->setEmailPassword($emailPassword);
         }
         if (isset($slackChannel)) {
             $roleEntity->setSlackChannel($slackChannel);
@@ -164,6 +171,10 @@ class RoleManager
 
         if (isset($details['email'])) {
             $role->setEmail($details['email']);
+        }
+
+        if (isset($details['emailPassword'])) {
+            $role->setEmailPassword($details['emailPassword']);
         }
 
         if (isset($details['slackChannel'])) {

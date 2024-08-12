@@ -98,6 +98,7 @@ class TeamController extends Controller
             'displayName' => 'required|string',
             'description' => 'required|string',
             'email' => 'nullable|string',
+            'emailPassword' => 'nullable|string|min:8',
             'slackChannel' => 'nullable|string',
             'discordChannel' => 'nullable|string',
             'discordPrivateChannel' => 'nullable|string',
@@ -108,7 +109,10 @@ class TeamController extends Controller
             $validatedData['displayName'],
             $validatedData['description'],
             $validatedData['email'] . config('branding.email_domain'),
-            '#' . $validatedData['slackChannel']
+            $validatedData['emailPassword'],
+            '#' . $validatedData['slackChannel'],
+            $validatedData['discordChannel'],
+            $validatedData['discordPrivateChannel']
         );
 
         return redirect()->route('teams.index');

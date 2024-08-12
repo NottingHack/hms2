@@ -28,6 +28,9 @@ HMS\Entities\Role:
     email:
       type: string
       nullable: true
+    emailPassword:
+      type: string
+      nullable: true
     slackChannel:
       type: string
       nullable: true

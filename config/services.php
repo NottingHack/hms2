@@ -60,4 +60,8 @@ return [
         'guild_id' => (int) env('DISCORD_GUILD_ID'),
     ],
 
+    'roundcube_login_helper' => [
+        'url' => env('ROUNDCUBE_LOGIN_HELPER_URL'),
+    ],
+
 ];

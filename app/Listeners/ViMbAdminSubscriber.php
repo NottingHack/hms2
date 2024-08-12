@@ -83,6 +83,9 @@ class ViMbAdminSubscriber implements ShouldQueue
             }
 
             $mailbox = Mailbox::create($mailboxEmail, $event->role->getDisplayname(), $domain);
+            if ($role->getEmailPassword()) {
+                $mailbox->setPassword($role->getEmailPassword(true));
+            }
 
             $response = $this->client->createMailbox($mailbox);
             if (! $response instanceof Mailbox) {

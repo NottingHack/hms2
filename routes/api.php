@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\CanCheckController;
+use App\Http\Controllers\Api\Auth\CanTeamEmailLoginController;
 use App\Http\Controllers\Api\Auth\RfidAccessTokenController;
 use App\Http\Controllers\Api\Banking\StripeController;
 use App\Http\Controllers\Api\Banking\TransactionUploadController;
@@ -66,8 +67,10 @@ Route::name('api.')->group(function () {
             ->name('search.invites');
 
         // Users
-        Route::post('can', CanCheckController::class)
+        Route::post('user/can', CanCheckController::class)
             ->name('user.can');
+        Route::post('user/can-team-email-login', CanTeamEmailLoginController::class)
+            ->name('user.can-team-email-login');
         Route::get('userinfo', [UserController::class, 'showOpenId'])
             ->name('users.show.open-id');
         Route::apiResource('users', UserController::class)

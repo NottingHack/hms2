@@ -47,7 +47,7 @@ class MembershipChangeChart extends Chart
                         - ($membershipChangeCount->ex_removed
                             + $membershipChangeCount->temporarybanned_removed
                             + $membershipChangeCount->banned_removed),
-                  ];
+                ];
             });
 
         $this->labels($data->keys());

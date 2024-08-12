@@ -57,7 +57,7 @@ class ViMbAdminSubscriber implements ShouldQueue
     public function onRoleCreated(RoleCreated $event)
     {
         if ($event->role->getEmail()) {
-            // See if there is allrady an alias for this role
+            // See if there is already an alias for this role
             $alias = $this->getAliasForRole($event->role);
             if ($alias instanceof Alias) {
                 return;
@@ -116,16 +116,21 @@ class ViMbAdminSubscriber implements ShouldQueue
                 );
                 // TODO: check $email is now valid (utf8?)
 
-                // TODO: check if there is a mailbox with address $trusteeEmail
+                // check if there is a mailbox with address $trusteeEmail
                 // if not then create one
                 // need to email password to $user with link to change it
                 // https://vba.lwk.me/auth/change-password
                 // or add a new view to allow password change from hms
+                try {
+                    $this->createTrusteeMailbox($email, $event->user->getFullname());
+                } catch (Exception $e) {
+                    //
+                }
             }
 
             if (is_null($alias)) {
-                // did not find the alias, just quitely fail
-                // TODO: trow??
+                // did not find the alias, just quietly fail
+                // TODO: throw??
                 return;
             }
 
@@ -179,7 +184,7 @@ class ViMbAdminSubscriber implements ShouldQueue
     }
 
     /**
-     * Given a role update alias with a newly calculated set of goto addresses.
+     * Given a Role find the Alias.
      *
      * @param Role $role
      *
@@ -187,7 +192,7 @@ class ViMbAdminSubscriber implements ShouldQueue
      *
      * @throws Exception
      */
-    public function getAliasForRole(Role $role)
+    protected function getAliasForRole(Role $role)
     {
         $aliasEmail = $role->getEmail();
         if (! filter_var($aliasEmail, FILTER_VALIDATE_EMAIL)) {
@@ -208,6 +213,82 @@ class ViMbAdminSubscriber implements ShouldQueue
         }
 
         return $aliases[0];
+    }
+
+    /**
+     * Create Trustee Mailbox if needed.
+     *
+     * @param string $mailboxEmail
+     * @param string $displayName
+     *
+     * @return null|Mailbox
+     *
+     * @throws Exception
+     */
+    protected function createTrusteeMailbox(string $mailboxEmail, string $displayName)
+    {
+        try {
+            $mailbox = $this->getMailboxForEmail($mailboxEmail);
+        } catch (Exception $e) {
+            return null;
+        }
+
+        if ($mailbox) {
+            return $mailbox;
+        }
+
+        $domainName = explode('@', $mailboxEmail)[1];
+        $domains = $this->client->findDomains($domainName);
+        if ($domains instanceof Error) {
+            throw new Exception('Error trying to find Domain: ' . $domains);
+        }
+        if (! is_array($domains) || empty($domains)) {
+            throw new Exception('Domain for ' . $domainName . ' does not exist in ViMAdmin and we cant create it');
+        }
+        $domain = $domains[0];
+        if (! $domain instanceof Domain) {
+            throw new Exception('Domain for ' . $domainName . ' does not exist in ViMAdmin and we cant create it');
+        }
+
+        $mailbox = Mailbox::create($mailboxEmail, $displayName, $domain);
+
+        $response = $this->client->createMailbox($mailbox);
+        if (! $response instanceof Mailbox) {
+            throw new Exception('Failed to create Mailbox for Role: ' . $event->role->getName());
+        }
+
+        return $mailbox;
+    }
+
+    /**
+     * Given an email find its Mailbox.
+     *
+     * @param Role $role
+     *
+     * @return null|Mailbox
+     *
+     * @throws Exception
+     */
+    protected function getMailboxForEmail(string $email)
+    {
+        if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            // bugger this should not happen. throw an error??
+            throw new Exception('Email address ' . $email . ' is not valid');
+        }
+
+        $domainName = explode('@', $email)[1];
+
+        // now we have done our prep, time to grab the alias from the external API
+        $mailboxes = $this->client->findMailboxesForDomain($domainName, $email);
+        if ($mailboxes instanceof Error) {
+            throw new Exception('Unable to get Mailbox for ' . $email);
+        }
+
+        if (empty($mailboxes)) {
+            return null;
+        }
+
+        return $mailboxes[0];
     }
 
     /**

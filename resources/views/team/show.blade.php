@@ -38,17 +38,21 @@
       @can('team.edit.description')
       <a class="btn btn-primary" href="{{ route('teams.edit', $team->getId()) }}"><i class="fas fa-pencil" aria-hidden="true"></i> Edit Description</a>
       @endcan
+      @endif
       @feature('roundcube_login')
       @if ($team->getEmailPassword())
+      @if (Auth::user()->hasRole($team) || Gate::allows('team.login-email.all'))
+      @can('team.login-email')
       <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-primary">
         <form action="{{ str(config('services.roundcube_login_helper.url'))->trim('/') }}/login-team" method="POST" style="display: none">
           <input type="hidden" name="team-email" value="{{ $team->getEmail() }}">
         </form>
         <i class="fas fa-inbox" aria-hidden="true"></i> Login To Team Email
       </a>
+      @endcan
+      @endif
       @endif
       @endfeature
-      @endif
       @can('role.grant.team')
       <add-user-to-team-modal :role-id="{{ $team->getId() }}" role-name="{{ $team->getDisplayName() }}"></add-user-to-team-modal>
       @endcan

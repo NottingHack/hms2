@@ -11,10 +11,17 @@ use Illuminate\Support\Facades\Gate;
 
 class CanTeamEmailLoginController extends Controller
 {
+    public function __construct(
+        protected RoleRepository $roleRepository
+    ) {
+        $this->middleware('feature:roundcube_login');
+        $this->middleware('can:team.login-email');
+    }
+
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request, RoleRepository $roleRepository)
+    public function __invoke(Request $request)
     {
         $validatedData = $request->validate([
             'teamEmail' => [
@@ -24,10 +31,10 @@ class CanTeamEmailLoginController extends Controller
             ],
         ]);
 
-        $team = $roleRepository->findOneByEmail($validatedData['teamEmail']);
+        $team = $this->roleRepository->findOneByEmail($validatedData['teamEmail']);
 
         if (is_null($team)
-            || (! (Auth::user()->hasRole($team) || Gate::allows('role.edit.all')))
+            || (! (Auth::user()->hasRole($team) || Gate::allows('team.login-email.all')))
             || is_null($team->getEmailPassword())
         ) {
             return response()->json(null, Response::HTTP_UNAUTHORIZED);

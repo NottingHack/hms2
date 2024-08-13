@@ -7,6 +7,7 @@ use HMS\Repositories\RoleRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class CanTeamEmailLoginController extends Controller
 {
@@ -26,7 +27,7 @@ class CanTeamEmailLoginController extends Controller
         $team = $roleRepository->findOneByEmail($validatedData['teamEmail']);
 
         if (is_null($team)
-            || ! Auth::user()->hasRole($team)
+            || (! (Auth::user()->hasRole($team) || Gate::allows('role.edit.all')))
             || is_null($team->getEmailPassword())
         ) {
             return response()->json(null, Response::HTTP_UNAUTHORIZED);

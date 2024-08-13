@@ -205,7 +205,6 @@ return [
                 'login.shell',
                 'login.spacenet',
                 'team.view',
-                'team.login-email',
                 'grafana.viewer',
             ],
         ],
@@ -261,7 +260,6 @@ return [
                 'login.shell',
                 'login.spacenet',
                 'team.view',
-                'team.login-email',
                 'governance.voting.canVote',
                 'governance.proxy.designateProxy',
                 'governance.proxy.representPrincipal',
@@ -528,5 +526,6 @@ return [
     'defaultTeamPermissions' => [
         'gatekeeper.zoneEntry.teamStorage',
         'team.edit.description',
+        'team.login-email',
     ],
 ];

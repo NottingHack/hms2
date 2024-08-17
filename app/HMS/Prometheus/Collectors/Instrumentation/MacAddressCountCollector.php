@@ -10,11 +10,14 @@ class MacAddressCountCollector implements Collector
 {
     public function register(): void
     {
-        $macAddressRepository = app(MacAddressRepository::class);
-
         Prometheus::addGauge('Max Addresses Count')
             ->name('instrumentation_mac_address_count')
             ->helpText('Count of MacAddresses seen in the last 5 minutes')
-            ->value(fn () => $macAddressRepository->countSeenLastFiveMinutes());
+            ->value(fn () => app()->call([$this, 'getValue']));
+    }
+
+    public function getValue(MacAddressRepository $macAddressRepository)
+    {
+        return $macAddressRepository->countSeenLastFiveMinutes();
     }
 }

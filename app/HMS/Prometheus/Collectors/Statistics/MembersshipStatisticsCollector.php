@@ -13,34 +13,39 @@ class MembersshipStatisticsCollector implements Collector
 {
     public function register(): void
     {
-        $userRepository = app(UserRepository::class);
-        $roleRepository = app(RoleRepository::class);
-
         Prometheus::addGauge('Member count')
             ->name('statistics_member_count')
             ->label('status')
             ->helpText('Count of Members')
-            ->value(function () use ($userRepository, $roleRepository) {
-                $memberCounts = [];
-                foreach (Role::MEMBER_ROLES as $roleName) {
-                    if (in_array($roleName, [Role::MEMBER_TEMPORARYBANNED, Role::MEMBER_BANNED])) {
-                        continue;
-                    }
-
-                    $memberCounts[] = [
-                        $userRepository->countMembersByRoleName($roleName),
-                        [$roleRepository->findOneByName($roleName)->getDisplayName()],
-                    ];
-                }
-
-                return $memberCounts;
-            });
-
-        $votingManager = app(VotingManager::class);
+            ->value(fn () => app()->call([$this, 'getValueMemberCount']));
 
         Prometheus::addGauge('Voting Members')
             ->name('statistics_voting_member_count')
             ->helpText('Count Voting of Members')
-            ->value(fn () => $votingManager->countVotingMembers());
+            ->value(fn () => app()->call([$this, 'getValueVotingMemberCount']));
+    }
+
+    public function getValueMemberCount(
+        UserRepository $userRepository,
+        RoleRepository $roleRepository,
+    ) {
+        $memberCounts = [];
+        foreach (Role::MEMBER_ROLES as $roleName) {
+            if (in_array($roleName, [Role::MEMBER_TEMPORARYBANNED, Role::MEMBER_BANNED])) {
+                continue;
+            }
+
+            $memberCounts[] = [
+                $userRepository->countMembersByRoleName($roleName),
+                [$roleRepository->findOneByName($roleName)->getDisplayName()],
+            ];
+        }
+
+        return $memberCounts;
+    }
+
+    public function getValueVotingMemberCount(VotingManager $votingManager)
+    {
+        return $votingManager->countVotingMembers();
     }
 }

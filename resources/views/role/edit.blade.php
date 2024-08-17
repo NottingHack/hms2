@@ -44,6 +44,16 @@
     </div>
 
     <div class="form-group">
+      <label for="email-password" class="form-label">Email Password</label>
+      <input class="form-control" id="email-password" type="password" name="emailPassword" value="{{ old('emailPassword', $role->getEmailPassword() ? '**********' : '') }}">
+      @if ($errors->has('emailPassword'))
+      <p class="help-text">
+        <strong>{{ $errors->first('emailPassword') }}</strong>
+      </p>
+      @endif
+    </div>
+
+    <div class="form-group">
       <label for="slackChannel" class="form-label">Slack channel</label>
       <input class="form-control" id="slackChannel" type="text" name="slackChannel" value="{{ old('slackChannel', $role->getSlackChannel()) }}">
       @if ($errors->has('slackChannel'))

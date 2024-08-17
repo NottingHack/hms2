@@ -2,7 +2,6 @@ const mix = require('laravel-mix');
 const path = require('path');
 const {exec} = require('child_process');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
-require('laravel-mix-bundle-analyzer');
 
 /*
  |--------------------------------------------------------------------------
@@ -53,7 +52,7 @@ mix.sourceMaps()
         resolve: {
             alias: {
                 'sass': path.resolve(__dirname, 'resources/sass'),
-                ziggy: path.resolve('vendor/tightenco/ziggy/dist'),
+                'ziggy-js': path.resolve('vendor/tightenco/ziggy/dist'),
                 // https://github.com/brockpetrie/vue-moment/issues/117
                 'vue-moment': path.resolve(
                     __dirname,
@@ -80,10 +79,3 @@ mix.sourceMaps()
         additionalData: process.env.THEME ? `@import 'variables_${process.env.THEME}';` : "@import 'variables';",
     })
     .version();
-
-if (!mix.inProduction()) {
-    mix.bundleAnalyzer({
-        analyzerMode: 'static',
-        openAnalyzer: false,
-    });
-}

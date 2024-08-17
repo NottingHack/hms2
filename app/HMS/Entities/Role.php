@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use HMS\Helpers\Discord;
 use HMS\Traits\Entities\SoftDeletable;
 use HMS\Traits\Entities\Timestampable;
+use Illuminate\Support\Facades\Crypt;
 use LaravelDoctrine\ACL\Contracts\Permission;
 use LaravelDoctrine\ACL\Contracts\Role as RoleContract;
 use LaravelDoctrine\ACL\Permissions\HasPermissions;
@@ -89,6 +90,11 @@ class Role implements RoleContract
      * @var null|string Team email address
      */
     protected $email;
+
+    /**
+     * @var null|string Encrypted password for email address
+     */
+    protected $emailPassword;
 
     /**
      * @var null|string Team slack channel
@@ -272,6 +278,30 @@ class Role implements RoleContract
     public function setEmail($email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return null|string Encrypted password for email address
+     */
+    public function getEmailPassword(bool $decrypt = false): ?string
+    {
+        if ($decrypt && ! is_null($this->emailPassword)) {
+            return Crypt::decryptString($this->emailPassword);
+        }
+
+        return $this->emailPassword;
+    }
+
+    /**
+     * @param null|string Encrypted password for email address $emailPassword
+     *
+     * @return self
+     */
+    public function setEmailPassword($emailPassword): self
+    {
+        $this->emailPassword = Crypt::encryptString($emailPassword);
 
         return $this;
     }

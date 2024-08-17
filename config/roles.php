@@ -120,6 +120,8 @@ return [
         'team.view',
         'team.edit.description',
         'team.create',
+        'team.login-email',
+        'team.login-email.all',
         'email.allMembers',
         'instrumentation.electric.addReading',
         'governance.meeting.view',              // can view a meeting and its Attendees, Proxies, Absentees
@@ -130,6 +132,10 @@ return [
         'governance.voting.canVote',            // is eligible to vote at AGM or trustee elections
         'governance.proxy.designateProxy',      // is eligible to pass on there vote to a proxy
         'governance.proxy.representPrincipal',  // is eligible to act as proxy for another
+        'grafana.grafanaAdmin',
+        'grafana.admin',
+        'grafana.editor',
+        'grafana.viewer',
     ],
 
     /*
@@ -199,6 +205,7 @@ return [
                 'login.shell',
                 'login.spacenet',
                 'team.view',
+                'grafana.viewer',
             ],
         ],
         'member.ex' => [
@@ -257,6 +264,7 @@ return [
                 'governance.proxy.designateProxy',
                 'governance.proxy.representPrincipal',
                 'pins.view.self',
+                'grafana.viewer',
             ],
         ],
         'member.temporarybanned' => [
@@ -410,6 +418,8 @@ return [
                 'gatekeeper.zoneEntry.teamStorage',
                 'team.edit.description',
                 'team.create',
+                'team.login-email',
+                'team.login-email.all',
                 'search.invites',
                 'email.allMembers',
                 'snackspace.debt.view',
@@ -428,6 +438,7 @@ return [
                 'gatekeeper.zoneEntry.downstairsMembersStorage',
                 'gatekeeper.zoneEntry.outside',
                 'tools.addFreeTime',
+                'grafana.editor',
             ],
         ],
         'team.software' => [
@@ -499,6 +510,7 @@ return [
                 'telescope.view',
                 'logViewer.view',
                 'team.edit.description',
+                'grafana.admin',
             ],
         ],
     ],
@@ -514,5 +526,6 @@ return [
     'defaultTeamPermissions' => [
         'gatekeeper.zoneEntry.teamStorage',
         'team.edit.description',
+        'team.login-email',
     ],
 ];

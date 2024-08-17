@@ -71,6 +71,12 @@ return [
                     'match' => 'statistics.membership',
                     'permissions' => [],
                 ],
+                'membership-graph' => [
+                    'text' => 'Membership Graph',
+                    'route' => 'statistics.membership-graph',
+                    'match' => 'statistics.membership-graph',
+                    'permissions' => [],
+                ],
                 'electric' => [
                     'text' => 'Electric',
                     'route' => 'instrumentation.electric.index',

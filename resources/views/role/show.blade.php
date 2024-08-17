@@ -19,7 +19,12 @@
         </tr>
         <tr>
           <th>Email:</th>
-          <td>{{ $role->getEmail() }}</td>
+          <td>
+            {{ $role->getEmail() }}
+            @if ($role->getEmailPassword())
+            <small>(Password Set)</small>
+            @endif
+          </td>
         </tr>
         <tr>
           <th>Slack Channel:</th>

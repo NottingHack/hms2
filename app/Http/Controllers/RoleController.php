@@ -160,13 +160,24 @@ class RoleController extends Controller
      */
     public function update(Role $role, Request $request)
     {
-        $this->validate($request, [
+        $validatedData = $request->validate([
             'displayName' => 'required|string|max:255',
             'description' => 'required',
             'permissions' => 'required|array|nullable',
+            'email' => 'sometimes|nullable|string',
+            'emailPassword' => 'sometimes|nullable|string|min:8',
+            'slackChannel' => 'sometimes|nullable|string',
+            'discordChannel' => 'sometimes|nullable|string',
+            'discordPrivateChannel' => 'sometimes|nullable|string',
+            'retained' => 'sometimes|bool',
         ]);
 
-        $this->roleManager->updateRole($role, $request->all());
+        if (isset($validatedData['emailPassword'])
+            && $validatedData['emailPassword'] == '**********') {
+            unset($validatedData['emailPassword']);
+        }
+
+        $this->roleManager->updateRole($role, $validatedData);
 
         return redirect()->route('roles.show', ['role' => $role->getId()]);
     }

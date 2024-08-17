@@ -13,7 +13,7 @@ Editing {{ $meeting->getTitle() }}
     <div class="form-group">
       <label for="title" class="form-text">Title</label>
       <input class="form-control @error('title') is-invalid @enderror" id="title" type="text" name="title" value="{{ old('title', $meeting->getTitle()) }}" required autofocus>
-      @error('password')
+      @error('title')
       <span class="invalid-feedback" role="alert">
         <strong>{{ $errors->first('title') }}</strong>
       </span>
@@ -23,7 +23,7 @@ Editing {{ $meeting->getTitle() }}
     <div class="form-group">
       <label for="startTime" class="form-text">Start Time</label>
       <input class="form-control @error('startTime') is-invalid @enderror" id="startTime" type="datetime" name="startTime" value="{{ old('startTime', $meeting->getStartTime()->toDateTimeString()) }}" placeholder="YYYY-MM-DD HH:MM:SS" required>
-      @error('password')
+      @error('startTime')
       <span class="invalid-feedback" role="alert">
         <strong>{{ $errors->first('startTime') }}</strong>
       </span>

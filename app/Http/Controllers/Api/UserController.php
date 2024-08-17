@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\OpenIdUserResource;
 use App\Http\Resources\UserResource;
 use HMS\Entities\User;
 use HMS\Repositories\UserRepository;
@@ -45,7 +46,7 @@ class UserController extends Controller
         $this->userManager = $userManager;
         $this->profileManager = $profileManager;
 
-        $this->middleware('can:profile.view.self')->only(['index', 'show']);
+        $this->middleware('can:profile.view.self')->only(['index', 'show', 'showOpenId']);
         $this->middleware('can:profile.edit.self')->only(['update']);
     }
 
@@ -81,6 +82,23 @@ class UserController extends Controller
         }
 
         return new UserResource($user);
+    }
+
+    /**
+     * Show a specific user.
+     *
+     * @param User $user
+     *
+     * @return \Illuminate\Http\Response
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function showOpenId()
+    {
+        $user = Auth::user();
+        OpenIdUserResource::withoutWrapping();
+
+        return new OpenIdUserResource($user);
     }
 
     /**

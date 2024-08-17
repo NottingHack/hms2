@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use HMS\Prometheus\Collectors\Gatekeeper\DoorCollector;
 use HMS\Prometheus\Collectors\Instrumentation\BarometricPressureCollector;
 use HMS\Prometheus\Collectors\Instrumentation\HumidityCollector;
 use HMS\Prometheus\Collectors\Instrumentation\LightLevelCollector;
 use HMS\Prometheus\Collectors\Instrumentation\MacAddressCountCollector;
 use HMS\Prometheus\Collectors\Instrumentation\SensorBatteryCollector;
+use HMS\Prometheus\Collectors\Instrumentation\ServiceCollector;
 use HMS\Prometheus\Collectors\Instrumentation\TemperatureCollector;
 use HMS\Prometheus\Collectors\SpaceOpenCollector;
 use HMS\Prometheus\Collectors\Statistics\BoxUsageCollector;
@@ -26,30 +28,21 @@ class PrometheusServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        /*
-         * Here you can register all the exporters that you
-         * want to export to prometheus
-         */
-        // Prometheus::addGauge('My gauge')
-        //     ->value(function() {
-        //         return 123.45;
-        //     });
-
-        /*
-         * Uncomment this line if you want to export
-         * all Horizon metrics to prometheus
-         */
         $this->registerHorizonCollectors();
     }
 
     public function boot(): void
     {
-        $this->registerInstrumentaionCollectors();
-        $this->registerStatisticsCollectors();
-
+        /*
+         * Add HMS collectors here so that the RepositoryServiceProvider has done its thing
+         */
         Prometheus::registerCollectorClasses([
             SpaceOpenCollector::class,
+            DoorCollector::class,
         ]);
+
+        $this->registerInstrumentaionCollectors();
+        $this->registerStatisticsCollectors();
     }
 
     public function registerHorizonCollectors(): self
@@ -75,6 +68,7 @@ class PrometheusServiceProvider extends ServiceProvider
             LightLevelCollector::class,
             MacAddressCountCollector::class,
             SensorBatteryCollector::class,
+            ServiceCollector::class,
             TemperatureCollector::class,
         ]);
 

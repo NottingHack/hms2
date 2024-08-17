@@ -17,32 +17,34 @@ class LightLevelCollector implements Collector
             ->name('instrumentation_light_level')
             ->helpText('Light Level in Lux')
             ->label('sensor')
-            ->value(function () {
-                $lightLevelRepository = app(LightLevelRepository::class);
-                $values = [];
+            ->value(fn () => app()->call([$this, 'getValue']));
+    }
 
-                foreach ($lightLevelRepository->findAll() as $sensor) {
-                    if (is_null($sensor->getName())) {
-                        continue;
-                    }
+    public function getValue(LightLevelRepository $lightLevelRepository)
+    {
+        $values = [];
 
-                    if ($sensor->getTime()->isBefore(
-                        Carbon::now()->sub(
-                            CarbonInterval::create(
-                                Meta::get('prometheus_instrumentation_sensors_timeout', 'P30M')
-                            )
-                        )
-                    )) {
-                        continue;
-                    }
+        foreach ($lightLevelRepository->findAll() as $sensor) {
+            if (is_null($sensor->getName())) {
+                continue;
+            }
 
-                    $values[] = [
-                        $sensor->getReading(),
-                        [$sensor->getName()],
-                    ];
-                }
+            if ($sensor->getTime()->isBefore(
+                Carbon::now()->sub(
+                    CarbonInterval::create(
+                        Meta::get('prometheus_instrumentation_sensors_timeout', 'P30M')
+                    )
+                )
+            )) {
+                continue;
+            }
 
-                return $values;
-            });
+            $values[] = [
+                $sensor->getReading(),
+                [$sensor->getName()],
+            ];
+        }
+
+        return $values;
     }
 }

@@ -17,32 +17,34 @@ class HumidityCollector implements Collector
             ->name('instrumentation_humidity')
             ->helpText('Relative Humidity (%)')
             ->label('sensor')
-            ->value(function () {
-                $humidityRepository = app(HumidityRepository::class);
-                $values = [];
+            ->value(fn () => app()->call([$this, 'getValue']));
+    }
 
-                foreach ($humidityRepository->findAll() as $sensor) {
-                    if (is_null($sensor->getName())) {
-                        continue;
-                    }
+    public function getValue(HumidityRepository $humidityRepository)
+    {
+        $values = [];
 
-                    if ($sensor->getTime()->isBefore(
-                        Carbon::now()->sub(
-                            CarbonInterval::create(
-                                Meta::get('prometheus_instrumentation_sensors_timeout', 'P30M')
-                            )
-                        )
-                    )) {
-                        continue;
-                    }
+        foreach ($humidityRepository->findAll() as $sensor) {
+            if (is_null($sensor->getName())) {
+                continue;
+            }
 
-                    $values[] = [
-                        $sensor->getReading(),
-                        [$sensor->getName()],
-                    ];
-                }
+            if ($sensor->getTime()->isBefore(
+                Carbon::now()->sub(
+                    CarbonInterval::create(
+                        Meta::get('prometheus_instrumentation_sensors_timeout', 'P30M')
+                    )
+                )
+            )) {
+                continue;
+            }
 
-                return $values;
-            });
+            $values[] = [
+                $sensor->getReading(),
+                [$sensor->getName()],
+            ];
+        }
+
+        return $values;
     }
 }

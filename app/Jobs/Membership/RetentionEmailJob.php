@@ -59,11 +59,7 @@ class RetentionEmailJob implements ShouldQueue
                 continue;
             }
 
-            $to = [
-                ['email' => $user->getEmail()],
-            ];
-
-            Mail::to($to)->send(new Retention($user));
+            Mail::to($user)->send(new Retention($user));
         }
     }
 }

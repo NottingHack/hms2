@@ -2,6 +2,7 @@
 
 namespace HMS\Helpers;
 
+use Illuminate\Support\Facades\Log;
 use RestCord\DiscordClient;
 
 class Discord
@@ -43,7 +44,7 @@ class Discord
 
         $this->client = new DiscordClient([
             'token' => $token,
-            'logger' => \Log::getLogger(),
+            'logger' => Log::getLogger(),
         ]);
     }
 

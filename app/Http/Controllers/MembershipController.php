@@ -269,7 +269,7 @@ class MembershipController extends Controller
 
         $this->rejectedLogRepository->save($_rejectedLog);
 
-        \Mail::to($user)->send(new MembershipDetailsRejected($user, $request['reason']));
+        Mail::to($user)->send(new MembershipDetailsRejected($user, $request['reason']));
 
         flash('Member notified, thank you.')->success();
 

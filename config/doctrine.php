@@ -129,6 +129,7 @@ return [
     */
     'custom_datetime_functions' => [
         'SEC_TO_TIME' => DoctrineExtensions\Query\Mysql\SecToTime::class,
+        'DATE' => DoctrineExtensions\Query\Mysql\Date::class,
     ],
     /*
     |--------------------------------------------------------------------------

@@ -10,6 +10,7 @@ use App\Jobs\Gatekeeper\UpdateTemporaryAccessRoleJob;
 use App\Jobs\Gatekeeper\ZoneOccupantResetJob;
 use App\Jobs\Governance\RecalculateMeetingQuorumJob;
 use App\Jobs\Membership\AuditYoungHackersJob;
+use App\Jobs\Membership\RetentionEmailJob;
 use App\Jobs\Snackspace\LogDebtJob;
 use App\Jobs\Snackspace\MemberDebtNotificationJob;
 use HMS\Facades\Features;
@@ -69,6 +70,12 @@ class Kernel extends ConsoleKernel
         if (config('services.discord.token')) {
             $schedule->job(new DiscordAuditJob)
                      ->dailyAt('12:15');
+        }
+
+        if (Features::isEnabled('retention_email')) {
+            $schedule->job(new RetentionEmailJob)
+                     ->weekdays()
+                     ->dailyAt('11:00');
         }
     }
 

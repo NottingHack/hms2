@@ -2,6 +2,7 @@
 
 namespace HMS\Repositories\Doctrine;
 
+use Carbon\Carbon;
 use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Profile;
 use HMS\Entities\Role;
@@ -137,6 +138,23 @@ class DoctrineProfileRepository extends EntityRepository implements ProfileRepos
     public function findOneByDiscordUserSnowflake(string $discordUserSnowflake)
     {
         return parent::findOneByDiscordUserSnowflake($discordUserSnowflake);
+    }
+
+    /**
+     * @param Carbon join date
+     *
+     * @return Profile|null
+     */
+    public function findByJoinedOn(Carbon $joinDate)
+    {
+        $q = parent::createQueryBuilder('profile');
+
+        $q->where('DATE(profile.joinDate) = :join_date');
+        $q = $q->setParameter('join_date', $joinDate->toDateString());
+
+        $q = $q->getQuery();
+
+        return $q->getResult();
     }
 
     /**

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Listeners\Governance\RegisterOfDirectorsLogger;
+use App\Listeners\Governance\RegisterOfMembersLogger;
 use App\Listeners\PrintLabelSubscriber;
 use App\Listeners\RoleUpdateDiscordUpdater;
 use App\Listeners\RoleUpdateLogger;
@@ -36,6 +38,8 @@ class EventServiceProvider extends ServiceProvider
         PrintLabelSubscriber::class,
         NotifyNhToolsSubscriber::class,
         RoleUpdateDiscordUpdater::class,
+        RegisterOfDirectorsLogger::class,
+        RegisterOfMembersLogger::class,
     ];
 
     /**

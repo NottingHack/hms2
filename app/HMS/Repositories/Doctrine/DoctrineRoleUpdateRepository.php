@@ -34,6 +34,24 @@ class DoctrineRoleUpdateRepository extends EntityRepository implements RoleUpdat
     }
 
     /**
+     * @param Role $role
+     *
+     * @return RoleUpdate[]
+     */
+    public function findByRole(Role $role)
+    {
+        $q = parent::createQueryBuilder('roleUpdate')
+            ->where('roleUpdate.roleAdded = :role')
+            ->orWhere('roleUpdate.roleRemoved = :role')
+            ->orderBy('roleUpdate.createdAt')
+            ->addOrderBy('roleUpdate.id');
+
+        $q = $q->setParameter('role', $role)->getQuery();
+
+        return $q->getResult();
+    }
+
+    /**
      * Find the lastest roleUpdate when this User was give the Role.
      *
      * @param Role $role

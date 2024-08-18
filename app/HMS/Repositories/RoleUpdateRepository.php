@@ -23,6 +23,13 @@ interface RoleUpdateRepository
     public function findByUser(User $user);
 
     /**
+     * @param Role $role
+     *
+     * @return Role[]
+     */
+    public function findByRole(Role $role);
+
+    /**
      * Find the lastest roleUpdate when this User was give the Role.
      *
      * @param Role $role

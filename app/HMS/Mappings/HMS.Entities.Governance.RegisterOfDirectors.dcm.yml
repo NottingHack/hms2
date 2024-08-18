@@ -1,0 +1,65 @@
+# HMS.Entities.Governance.RegisterOfDirectors.dcm.yml
+HMS\Entities\Governance\RegisterOfDirectors:
+  type: entity
+  repositoryClass: HMS\Repositories\Governance\Doctrine\DoctrineRegisterOfDirectorsRepository
+  table: register_of_directors
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    firstname:
+      type: string
+    lastname:
+      type: string
+    address1:
+      type: string
+      column: address_1
+      length: 100
+      nullable: true
+    address2:
+      type: string
+      column: address_2
+      length: 100
+      nullable: true
+    address3:
+      type: string
+      column: address_3
+      length: 100
+      nullable: true
+    addressCity:
+      type: string
+      column: address_city
+      length: 100
+      nullable: true
+    addressCounty:
+      type: string
+      column: address_county
+      length: 100
+      nullable: true
+    addressPostcode:
+      type: string
+      column: address_postcode
+      length: 10
+      nullable: true
+    startedAt:
+      type: datetime
+    endedAt:
+      type: datetime
+      nullable: true
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+  manyToOne:
+    user:
+      targetEntity: \HMS\Entities\User

@@ -56,6 +56,8 @@ return [
         'Gatekeeper\TemporaryAccessBooking',
         'Governance\Meeting',
         'Governance\Proxy',
+        'Governance\RegisterOfMembers',
+        'Governance\RegisterOfDirectors',
         'Banking\Bank',
         'Banking\BankTransaction',
         'Banking\MembershipStatusNotification',

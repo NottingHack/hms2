@@ -1,0 +1,35 @@
+# HMS.Entities.Governance.RegisterOfMembers.dcm.yml
+HMS\Entities\Governance\RegisterOfMembers:
+  type: entity
+  repositoryClass: HMS\Repositories\Governance\Doctrine\DoctrineRegisterOfMembersRepository
+  table: register_of_members
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    firstname:
+      type: string
+    lastname:
+      type: string
+    startedAt:
+      type: datetime
+    endedAt:
+      type: datetime
+      nullable: true
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+  manyToOne:
+    user:
+      targetEntity: \HMS\Entities\User

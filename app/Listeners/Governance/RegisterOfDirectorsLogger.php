@@ -25,7 +25,8 @@ class RegisterOfDirectorsLogger implements ShouldQueue
         protected RegisterOfDirectorsRepository $registerOfDirectorsRepository,
         protected UserRepository $userRepository,
         protected RoleRepository $roleRepository,
-    ) { }
+    ) {
+    }
 
     /**
      * Handle user added to role events.

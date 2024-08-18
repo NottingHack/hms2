@@ -28,7 +28,7 @@ class DoctrineRegisterOfMembersRepository extends EntityRepository implements Re
     }
 
     /**
-     * Find the Current register entry for the given User
+     * Find the Current register entry for the given User.
      *
      * @param User $user
      *

@@ -56,11 +56,11 @@ class BuildRegisterOfDirectorsCommand extends Command
                 );
 
                 $registerOfDirectorsRepository->save($_registerOfDirector);
-            } else if ($roleUpdate->getRoleRemoved()) {
+            } elseif ($roleUpdate->getRoleRemoved()) {
                 $registerOfDirector = $registerOfDirectorsRepository->findCurrentByUser($user);
 
                 if (is_null($registerOfDirector)) {
-                    $this->error('Failed to find current Register Of Member for ' . $user->getFullname(). ' roleUpdate:' . $roleUpdate->getId());
+                    $this->error('Failed to find current Register Of Member for ' . $user->getFullname() . ' roleUpdate:' . $roleUpdate->getId());
                 }
 
                 $registerOfDirector->setEndedAt($roleUpdate->getCreatedAt());

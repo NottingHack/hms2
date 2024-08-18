@@ -60,7 +60,6 @@ class RegisterOfDirectors
      */
     protected $addressPostcode;
 
-
     /**
      * @var Carbon
      */

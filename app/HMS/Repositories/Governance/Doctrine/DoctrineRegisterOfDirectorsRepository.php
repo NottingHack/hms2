@@ -28,7 +28,7 @@ class DoctrineRegisterOfDirectorsRepository extends EntityRepository implements 
     }
 
     /**
-     * Find the Current register entry for the given User
+     * Find the Current register entry for the given User.
      *
      * @param User $user
      *

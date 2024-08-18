@@ -13,7 +13,7 @@ interface RegisterOfDirectorsRepository
     public function findAll();
 
     /**
-     * Find the Current register entry for the given User
+     * Find the Current register entry for the given User.
      *
      * @param User $user
      *

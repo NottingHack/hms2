@@ -25,7 +25,8 @@ class RegisterOfMembersLogger implements ShouldQueue
         protected RegisterOfMembersRepository $registerOfMembersRepository,
         protected UserRepository $userRepository,
         protected RoleRepository $roleRepository,
-    ) { }
+    ) {
+    }
 
     /**
      * Handle user added to role events.

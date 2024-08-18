@@ -50,7 +50,7 @@ class BuildRegisterOfMembersCommand extends Command
                 );
 
                 $registerOfMembersRepository->save($_registerOfMember);
-            } else if ($roleUpdate->getRoleRemoved()) {
+            } elseif ($roleUpdate->getRoleRemoved()) {
                 $registerOfMember = $registerOfMembersRepository->findCurrentByUser($user);
 
                 if (is_null($registerOfMember)) {

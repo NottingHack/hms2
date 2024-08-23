@@ -9,6 +9,7 @@ use App\Jobs\Gatekeeper\TemporaryAcccessCheckZoneOccupancyJob;
 use App\Jobs\Gatekeeper\UpdateTemporaryAccessRoleJob;
 use App\Jobs\Gatekeeper\ZoneOccupantResetJob;
 use App\Jobs\Governance\RecalculateMeetingQuorumJob;
+use App\Jobs\Governance\RemoveTempoarayRegisterOfAccessJob;
 use App\Jobs\Membership\AuditYoungHackersJob;
 use App\Jobs\Membership\RetentionEmailJob;
 use App\Jobs\Snackspace\LogDebtJob;
@@ -42,6 +43,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('telescope:prune --hours=48')->daily();
         $schedule->command('passport:purge')->daily();
 
+        $schedule->job(new RemoveTempoarayRegisterOfAccessJob)->daily();
         $schedule->job(new LogDebtJob)->daily();
         $schedule->job(new ZoneOccupantResetJob)->hourly();
 

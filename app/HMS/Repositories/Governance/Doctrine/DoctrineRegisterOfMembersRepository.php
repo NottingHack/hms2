@@ -20,9 +20,9 @@ class DoctrineRegisterOfMembersRepository extends EntityRepository implements Re
         return parent::findBy(
             [],
             [
-                'startedAt' => 'ASC',
                 'lastname' => 'ASC',
                 'firstname' => 'ASC',
+                'startedAt' => 'ASC',
             ]
         );
     }
@@ -56,9 +56,9 @@ class DoctrineRegisterOfMembersRepository extends EntityRepository implements Re
     public function paginateAll($perPage = 15, $pageName = 'page')
     {
         $query = $this->createQueryBuilder('rom')
-            ->orderBy('rom.startedAt', 'ASC')
-            ->addOrderBy('rom.lastname', 'ASC')
+            ->orderBy('rom.lastname', 'ASC')
             ->addOrderBy('rom.firstname', 'ASC')
+            ->addorderBy('rom.startedAt', 'ASC')
             ->getQuery();
 
         return $this->paginate($query, $perPage, $pageName, false);

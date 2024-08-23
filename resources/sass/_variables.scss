@@ -87,11 +87,14 @@ $theme-colors: (
 );
 
 $sizes: (
+  5: 5%,
   10: 10%,
   15: 15%,
   20: 20%,
+  30: 30%,
   35: 35%,
-  40: 40%
+  40: 40%,
+  45: 45%
 );
 
 // Override font family Oxygen + $font-family-sans-serif

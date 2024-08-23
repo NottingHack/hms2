@@ -241,6 +241,18 @@ return [
                     'match' => 'governance.meetings.index',
                     'permissions' => ['governance.meeting.view'],
                 ],
+                'registerOfMembers' => [
+                    'text' => 'Register Of Members',
+                    'route' => 'governance.registerOfMembers.index',
+                    'match' => 'governance.registerOfMembers.index',
+                    'permissions' => ['governance.registerOfMembers.view'],
+                ],
+                'registerOfDirectors' => [
+                    'text' => 'Register Of Directors',
+                    'route' => 'governance.registerOfDirectors.index',
+                    'match' => 'governance.registerOfDirectors.index',
+                    'permissions' => ['governance.registerOfDirectors.view'],
+                ],
             ],
         ],
         'gatekeeper' => [

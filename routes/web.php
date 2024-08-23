@@ -17,6 +17,8 @@ use App\Http\Controllers\Gatekeeper\BookableAreaController;
 use App\Http\Controllers\Gatekeeper\RfidTagsController;
 use App\Http\Controllers\Governance\MeetingController;
 use App\Http\Controllers\Governance\ProxyController;
+use App\Http\Controllers\Governance\RegisterOfDirectorsController;
+use App\Http\Controllers\Governance\RegisterOfMembersController;
 use App\Http\Controllers\Governance\VotingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Instrumentation\ElectricController;
@@ -399,5 +401,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Voting
         Route::get('voting', [VotingController::class, 'index'])->name('voting.index');
         Route::patch('voting', [VotingController::class, 'update'])->name('voting.update');
+
+        // Register Of
+        Route::get('register-of-members', [RegisterOfMembersController::class, 'index'])->name('registerOfMembers.index');
+        Route::get('register-of-members/pdf', [RegisterOfMembersController::class, 'pdf'])->name('registerOfMembers.pdf');
+        Route::get('register-of-directors', [RegisterOfDirectorsController::class, 'index'])->name('registerOfDirectors.index');
+        Route::get('register-of-directors/pdf', [RegisterOfDirectorsController::class, 'pdf'])->name('registerOfDirectors.pdf');
     });
 });

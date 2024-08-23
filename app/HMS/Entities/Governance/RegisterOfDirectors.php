@@ -141,6 +141,14 @@ class RegisterOfDirectors
     }
 
     /**
+     * @return string
+     */
+    public function getFullname(): string
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
+
+    /**
      * @return null|string
      */
     public function getAddress1(): ?string

@@ -111,6 +111,14 @@ class RegisterOfMembers
     }
 
     /**
+     * @return string
+     */
+    public function getFullname(): string
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
+
+    /**
      * @return Carbon
      */
     public function getStartedAt()

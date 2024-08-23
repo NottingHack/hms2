@@ -136,6 +136,10 @@ return [
         'grafana.admin',
         'grafana.editor',
         'grafana.viewer',
+        'governance.registerOfMembers.view',
+        'governance.registerOfMembers.view.grant',
+        'governance.register-of-directors.view',
+        'governance.register-of-directors.view.grant',
     ],
 
     /*
@@ -332,6 +336,20 @@ return [
                 'gatekeeper.zoneEntry.outside',
             ],
         ],
+        'user.temporaryViewRegisterOfMembers' => [
+            'name' => 'Temporary Register of Members View',
+            'description' => 'Allows temporary viewing of the Register of Members',
+            'permissions' => [
+                'governance.registerOfMembers.view',
+            ],
+        ],
+        'user.temporaryViewRegisterOfDirectors' => [
+            'name' => 'Temporary Register of Directors View',
+            'description' => 'Allows temporary viewing of the Register of Directors',
+            'permissions' => [
+                'governance.register-of-directors.view',
+            ],
+        ],
         'team.membership' => [
             'name' => 'Membership Team',
             'description' => 'Membership Team',
@@ -439,6 +457,10 @@ return [
                 'gatekeeper.zoneEntry.outside',
                 'tools.addFreeTime',
                 'grafana.editor',
+                'governance.registerOfMembers.view',
+                'governance.registerOfMembers.view.grant',
+                'governance.register-of-directors.view',
+                'governance.register-of-directors.view.grant',
             ],
         ],
         'team.software' => [

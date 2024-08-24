@@ -13,6 +13,11 @@ Register Of Directors
     </div>
   </div>
   @endcan --}}
+  <div class="row mb-2">
+    <div class="col">
+      <a href="{{ route('governance.registerOfDirectors.pdf') }}" class="btn btn-primary">View PDF</a>
+    </div>
+  </div>
   <div class="row">
     <div class="col">
       <div class="pagination-links">

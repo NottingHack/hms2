@@ -25,7 +25,7 @@
 
     #footer {
       position: fixed;
-      left: -50px; bottom: 0px; right: -50px; height: 50px;
+      left: -50px; bottom: -10px; right: -50px; height: 50px;
       /*background-color: orange;*/
     }
 
@@ -124,36 +124,22 @@
       @foreach ($registerOfDirectors as $record)
       <tr>
         <td>{{ $record->getFullname() }}</td>
+        <td><small>{!! $serviceAddress !!}</small></td>
         <td>
-          {{ config('branding.company_name') }}<br>
-          {{ config('branding.space_address_1') }}<br>
-          {{ config('branding.space_address_2') }}<br>
-
-          @if (config('branding.space_address_3'))
-          {{ config('branding.space_address_3') }}<br>
-          @endif
-
-          {{ config('branding.space_city') }}<br>
-
-          @if (config('branding.space_county'))
-          {{ config('branding.space_county') }}<br>
-          @endif
-
-          {{ config('branding.space_postcode') }}<br>
-        </td>
-        <td>
-          {{ $record->getAddress1() }}<br>
-          @if ($record->getAddress2())
-          {{ $record->getAddress2() }}<br>
-          @endif
-          @if ($record->getAddress3())
-          {{ $record->getAddress3() }}<br>
-          @endif
-          {{ $record->getAddressCity() }}<br>
-          @if ($record->getAddressCounty())
-          {{ $record->getAddressCounty() }}<br>
-          @endif
-          {{ $record->getAddressPostCode() }}
+          <small>
+            {{ $record->getAddress1() }}<br>
+            @if ($record->getAddress2())
+            {{ $record->getAddress2() }}<br>
+            @endif
+            @if ($record->getAddress3())
+            {{ $record->getAddress3() }}<br>
+            @endif
+            {{ $record->getAddressCity() }}<br>
+            @if ($record->getAddressCounty())
+            {{ $record->getAddressCounty() }}<br>
+            @endif
+            {{ $record->getAddressPostCode() }}
+          </small>
         </td>
         <td>{{ $record->getStartedAt()->toDateString() }}</td>
         <td>{{ $record->getEndedAt()?->toDateString() }}</td>

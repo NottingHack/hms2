@@ -25,7 +25,7 @@
 
     #footer {
       position: fixed;
-      left: -50px; bottom: 0px; right: -50px; height: 50px;
+      left: -50px; bottom: -10px; right: -50px; height: 50px;
       /*background-color: orange;*/
     }
 
@@ -123,27 +123,11 @@
     <tbody>
       @foreach ($registerOfMembers as $record)
       <tr>
-        <td>{{ $record->getFullname() }}</td>
-        <td>
-          {{ config('branding.company_name') }}<br>
-          {{ config('branding.space_address_1') }}<br>
-          {{ config('branding.space_address_2') }}<br>
-
-          @if (config('branding.space_address_3'))
-          {{ config('branding.space_address_3') }}<br>
-          @endif
-
-          {{ config('branding.space_city') }}<br>
-
-          @if (config('branding.space_county'))
-          {{ config('branding.space_county') }}<br>
-          @endif
-
-          {{ config('branding.space_postcode') }}<br>
-        </td>
+        <td>{{ $record['fullname'] }}</td>
+        <td><small>{!! $serviceAddress !!}</small></td>
         <td>£1</td>
-        <td>{{ $record->getStartedAt()->toDateString() }}</td>
-        <td>{{ $record->getEndedAt()?->toDateString() }}</td>
+        <td>{{ $record['startedAt'] }}</td>
+        <td>{{ $record['endedAt'] }}</td>
       </tr>
       @endforeach
     </tbody>

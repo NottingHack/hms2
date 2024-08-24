@@ -26,16 +26,42 @@ class RegisterOfMembersController extends Controller
     {
         $registerOfMembers = $this->registerOfMembersRepository->findAll();
 
+        $records = collect($registerOfMembers)->map(fn ($record) => [
+            'fullname' => $record->getFullname(),
+            'startedAt' => $record->getStartedAt()->toDateString(),
+            'endedAt' => $record->getEndedAt()?->toDateString(),
+        ]);
+
+        unset($registerOfMembers);
+        gc_collect_cycles();
+
+        $serviceAddress = str(config('branding.company_name'))->append('<br>')
+            ->append(config('branding.space_address_1'))->append('<br>')
+            ->append(config('branding.space_address_2'))->append('<br>');
+
+        if (config('branding.space_address_3')) {
+            $serviceAddress->append(config('branding.space_address_3'))->append('<br>');
+        }
+        $serviceAddress->append(config('branding.space_city'))->append('<br>');
+
+        if (config('branding.space_county')) {
+            $serviceAddress->append(config('branding.space_county'))->append('<br>');
+        }
+        $serviceAddress->append(config('branding.space_postcode'));
+
         $viewVars = [
-            'registerOfMembers' => $registerOfMembers,
+            'registerOfMembers' => $records,
             'numPagesTotal' => 999,
+            'serviceAddress' => $serviceAddress,
         ];
 
-        // ini_set('memory_limit', '-1');
+        ini_set('memory_limit', '-1');
         $pdf = Pdf::setPaper('a4')
             ->loadView('pdfs.governance.registerOfMembers', $viewVars);
         $pdf->render();
         $viewVars['numPagesTotal'] = $pdf->getCanvas()->get_page_count();
+        unset($pdf);
+        gc_collect_cycles();
 
         $pdf = Pdf::setPaper('a4')
             ->loadView('pdfs.governance.registerOfMembers', $viewVars);

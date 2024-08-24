@@ -138,8 +138,8 @@ return [
         'grafana.viewer',
         'governance.registerOfMembers.view',
         'governance.registerOfMembers.view.grant',
-        'governance.register-of-directors.view',
-        'governance.register-of-directors.view.grant',
+        'governance.registerOfDirectors.view',
+        'governance.registerOfDirectors.view.grant',
     ],
 
     /*
@@ -347,7 +347,7 @@ return [
             'name' => 'Temporary Register of Directors View',
             'description' => 'Allows temporary viewing of the Register of Directors',
             'permissions' => [
-                'governance.register-of-directors.view',
+                'governance.registerOfDirectors.view',
             ],
         ],
         'team.membership' => [
@@ -459,8 +459,8 @@ return [
                 'grafana.editor',
                 'governance.registerOfMembers.view',
                 'governance.registerOfMembers.view.grant',
-                'governance.register-of-directors.view',
-                'governance.register-of-directors.view.grant',
+                'governance.registerOfDirectors.view',
+                'governance.registerOfDirectors.view.grant',
             ],
         ],
         'team.software' => [

@@ -24,7 +24,7 @@ class ToolUsageCollector implements Collector
                 'tool',
                 'role',
             ])
-            ->helpText('Tool status, Disabled: -1, Free: 0, In Use: 1')
+            ->helpText('Tool Users by role')
             ->value(fn () => app()->call([$this, 'getValueUsers']));
     }
 

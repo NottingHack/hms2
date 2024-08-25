@@ -99,6 +99,11 @@ class Role implements RoleContract
     protected $emailPassword;
 
     /**
+     * @var bool Should we maintain email forwarding aliases
+     */
+    protected $emailSyncForwarding;
+
+    /**
      * @var null|string Team slack channel
      */
     protected $slackChannel;
@@ -132,6 +137,7 @@ class Role implements RoleContract
         $this->description = $description;
         $this->permissions = new ArrayCollection();
         $this->retained = false;
+        $this->emailSyncForwarding = false;
     }
 
     /**
@@ -304,6 +310,26 @@ class Role implements RoleContract
     public function setEmailPassword($emailPassword): self
     {
         $this->emailPassword = Crypt::encryptString($emailPassword);
+
+        return $this;
+    }
+
+    /**
+     * @return bool Should we maintain email forwarding aliases
+     */
+    public function isEmailSyncForwarding()
+    {
+        return $this->emailSyncForwarding;
+    }
+
+    /**
+     * @param bool Should we maintain email forwarding aliases $emailSyncForwarding
+     *
+     * @return self
+     */
+    public function setEmailSyncForwarding($emailSyncForwarding)
+    {
+        $this->emailSyncForwarding = $emailSyncForwarding;
 
         return $this;
     }

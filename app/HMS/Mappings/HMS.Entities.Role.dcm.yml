@@ -31,6 +31,10 @@ HMS\Entities\Role:
     emailPassword:
       type: string
       nullable: true
+    emailSyncForwarding:
+      type: boolean
+      options:
+        default: 0
     slackChannel:
       type: string
       nullable: true
@@ -45,7 +49,7 @@ HMS\Entities\Role:
     retained:
       type: boolean
       options:
-        default: 0 
+        default: 0
     deletedAt:
       type: datetime
       nullable: true

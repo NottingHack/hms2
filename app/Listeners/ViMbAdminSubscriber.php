@@ -56,41 +56,47 @@ class ViMbAdminSubscriber implements ShouldQueue
      */
     public function onRoleCreated(RoleCreated $event)
     {
-        if ($event->role->getEmail()) {
-            // See if there is already an alias for this role
-            $alias = $this->getAliasForRole($event->role);
-            if ($alias instanceof Alias) {
-                return;
-            }
+        if (! $event->role->isEmailSyncForwarding()) {
+            return;
+        }
 
-            $mailboxEmail = $event->role->getEmail();
-            if (! filter_var($mailboxEmail, FILTER_VALIDATE_EMAIL)) {
-                // bugger this should not happen. throw an error??
-                throw new Exception('Role email address ' . $mailboxEmail . ' is not valid');
-            }
+        if (empty($event->role->getEmail())) {
+            return;
+        }
 
-            $domainName = explode('@', $mailboxEmail)[1];
-            $domains = $this->client->findDomains($domainName);
-            if ($domains instanceof Error) {
-                throw new Exception('Error trying to find Domain: ' . $domains);
-            }
-            if (! is_array($domains) || empty($domains)) {
-                throw new Exception('Domain for ' . $domainName . ' does not exist in ViMAdmin and we cant create it');
-            }
-            $domain = $domains[0];
-            if (! $domain instanceof Domain) {
-                throw new Exception('Domain for ' . $domainName . ' does not exist in ViMAdmin and we cant create it');
-            }
+        // See if there is already an alias for this role
+        $alias = $this->getAliasForRole($event->role);
+        if ($alias instanceof Alias) {
+            return;
+        }
 
-            $mailbox = Mailbox::create($mailboxEmail, $event->role->getDisplayname(), $domain);
-            if ($role->getEmailPassword()) {
-                $mailbox->setPassword($role->getEmailPassword(true));
-            }
+        $mailboxEmail = $event->role->getEmail();
+        if (! filter_var($mailboxEmail, FILTER_VALIDATE_EMAIL)) {
+            // bugger this should not happen. throw an error??
+            throw new Exception('Role email address ' . $mailboxEmail . ' is not valid');
+        }
 
-            $response = $this->client->createMailbox($mailbox);
-            if (! $response instanceof Mailbox) {
-                throw new Exception('Failed to create Mailbox for Role: ' . $event->role->getName());
-            }
+        $domainName = explode('@', $mailboxEmail)[1];
+        $domains = $this->client->findDomains($domainName);
+        if ($domains instanceof Error) {
+            throw new Exception('Error trying to find Domain: ' . $domains);
+        }
+        if (! is_array($domains) || empty($domains)) {
+            throw new Exception('Domain for ' . $domainName . ' does not exist in ViMAdmin and we cant create it');
+        }
+        $domain = $domains[0];
+        if (! $domain instanceof Domain) {
+            throw new Exception('Domain for ' . $domainName . ' does not exist in ViMAdmin and we cant create it');
+        }
+
+        $mailbox = Mailbox::create($mailboxEmail, $event->role->getDisplayname(), $domain);
+        if ($role->getEmailPassword()) {
+            $mailbox->setPassword($role->getEmailPassword(true));
+        }
+
+        $response = $this->client->createMailbox($mailbox);
+        if (! $response instanceof Mailbox) {
+            throw new Exception('Failed to create Mailbox for Role: ' . $event->role->getName());
         }
     }
 
@@ -104,43 +110,49 @@ class ViMbAdminSubscriber implements ShouldQueue
      */
     public function onUserAddedToRole(UserAddedToRole $event)
     {
-        if ($event->role->getEmail()) {
-            $alias = $this->getAliasForRole($event->role);
-            $email = strtolower($event->user->getEmail());
+        if (! $event->role->isEmailSyncForwarding()) {
+            return;
+        }
 
-            if ($event->role->getName() == Role::TEAM_TRUSTEES) {
-                $email = strtolower(
-                    $event->user->getFirstname()
-                    . '.' . $event->user->getLastname()
-                    . config('branding.email_domain')
-                );
-                // TODO: check $email is now valid (utf8?)
+        if (empty($event->role->getEmail())) {
+            return;
+        }
 
-                // check if there is a mailbox with address $trusteeEmail
-                // if not then create one
-                // need to email password to $user with link to change it
-                // https://vba.lwk.me/auth/change-password
-                // or add a new view to allow password change from hms
-                try {
-                    $this->createTrusteeMailbox($email, $event->user->getFullname());
-                } catch (Exception $e) {
-                    //
-                }
+        $alias = $this->getAliasForRole($event->role);
+        $email = strtolower($event->user->getEmail());
+
+        if ($event->role->getName() == Role::TEAM_TRUSTEES) {
+            $email = strtolower(
+                $event->user->getFirstname()
+                . '.' . $event->user->getLastname()
+                . config('branding.email_domain')
+            );
+            // TODO: check $email is now valid (utf8?)
+
+            // check if there is a mailbox with address $trusteeEmail
+            // if not then create one
+            // need to email password to $user with link to change it
+            // https://vba.lwk.me/auth/change-password
+            // or add a new view to allow password change from hms
+            try {
+                $this->createTrusteeMailbox($email, $event->user->getFullname());
+            } catch (Exception $e) {
+                //
             }
+        }
 
-            if (is_null($alias)) {
-                // did not find the alias, just quietly fail
-                // TODO: throw??
-                return;
-            }
+        if (is_null($alias)) {
+            // did not find the alias, just quietly fail
+            // TODO: throw??
+            return;
+        }
 
-            $alias->addForwardAddress($email);
+        $alias->addForwardAddress($email);
 
-            // save the updated alias back to the external API
-            $response = $this->client->updateAlias($alias);
-            if (! $response instanceof Link) {
-                throw new Exception('Alias update failed with Error: ' . $response);
-            }
+        // save the updated alias back to the external API
+        $response = $this->client->updateAlias($alias);
+        if (! $response instanceof Link) {
+            throw new Exception('Alias update failed with Error: ' . $response);
         }
     }
 
@@ -154,32 +166,38 @@ class ViMbAdminSubscriber implements ShouldQueue
      */
     public function onUserRemovedFromRole(UserRemovedFromRole $event)
     {
-        if ($event->role->getEmail()) {
-            $alias = $this->getAliasForRole($event->role);
-            $email = strtolower($event->user->getEmail());
+        if (! $event->role->isEmailSyncForwarding()) {
+            return;
+        }
 
-            if ($event->role->getName() == Role::TEAM_TRUSTEES) {
-                $email = strtolower(
-                    $event->user->getFirstname()
-                    . '.' . $event->user->getLastname()
-                    . config('branding.email_domain')
-                );
-                // TODO: check $email is now valid (utf8?)
-            }
+        if (empty($event->role->getEmail())) {
+            return;
+        }
 
-            if (is_null($alias)) {
-                // did not find the alias, just quitely fail
-                // TODO: trow??
-                return;
-            }
+        $alias = $this->getAliasForRole($event->role);
+        $email = strtolower($event->user->getEmail());
 
-            $alias->removeForwardAddress($email);
+        if ($event->role->getName() == Role::TEAM_TRUSTEES) {
+            $email = strtolower(
+                $event->user->getFirstname()
+                . '.' . $event->user->getLastname()
+                . config('branding.email_domain')
+            );
+            // TODO: check $email is now valid (utf8?)
+        }
 
-            // save the updated alias back to the external API
-            $response = $this->client->updateAlias($alias);
-            if (! $response instanceof Link) {
-                throw new Exception('Alias update failed with Error: ' . $response);
-            }
+        if (is_null($alias)) {
+            // did not find the alias, just quitely fail
+            // TODO: trow??
+            return;
+        }
+
+        $alias->removeForwardAddress($email);
+
+        // save the updated alias back to the external API
+        $response = $this->client->updateAlias($alias);
+        if (! $response instanceof Link) {
+            throw new Exception('Alias update failed with Error: ' . $response);
         }
     }
 
@@ -310,16 +328,23 @@ class ViMbAdminSubscriber implements ShouldQueue
                 // skip as they have first.last email boxes
                 continue;
             }
-            if ($role->getEmail()) {
-                $alias = $this->getAliasForRole($role);
-                $alias->removeForwardAddress(strtolower($event->oldEmail));
-                $alias->addForwardAddress(strtolower($user->getEmail()));
 
-                // save the updated alias back to the external API
-                $response = $this->client->updateAlias($alias);
-                if (! $response instanceof Link) {
-                    throw new Exception('Alias update failed with Error: ' . $response);
-                }
+            if (! $event->role->isEmailSyncForwarding()) {
+                continue;
+            }
+
+            if (empty($event->role->getEmail())) {
+                continue;
+            }
+
+            $alias = $this->getAliasForRole($role);
+            $alias->removeForwardAddress(strtolower($event->oldEmail));
+            $alias->addForwardAddress(strtolower($user->getEmail()));
+
+            // save the updated alias back to the external API
+            $response = $this->client->updateAlias($alias);
+            if (! $response instanceof Link) {
+                throw new Exception('Alias update failed with Error: ' . $response);
             }
         }
     }

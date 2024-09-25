@@ -148,6 +148,16 @@
           @endif
         </div>
 
+        <div class="form-check">
+          <input id="agreeToRules" class="form-check-input{{  $errors->has('agreeToRules') ? ' is-invalid' : '' }}" type="checkbox" name="agreeToRules" value="1" required>
+          <label for="agreeToRules" class="form-check-label">I have read and agree to the <a href="{{ Meta::get('rules_html') }}">{{ config('branding.space_name') }} rules</a>.</label>
+          @if ($errors->has('agreeToRules'))
+          <span class="invalid-feedback">
+            <strong>{{ $errors->first('agreeToRules') }}</strong>
+          </span>
+          @endif
+        </div>
+
       </div>
       <div class="card-footer">
         <button type="submit" class="btn btn-success btn-block">Register</button>

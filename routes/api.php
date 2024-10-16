@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\Auth\CanTeamEmailLoginController;
 use App\Http\Controllers\Api\Auth\RfidAccessTokenController;
 use App\Http\Controllers\Api\Banking\StripeController;
 use App\Http\Controllers\Api\Banking\TransactionUploadController;
+use App\Http\Controllers\Api\DovecotPushController;
 use App\Http\Controllers\Api\Gatekeeper\BuildingController;
 use App\Http\Controllers\Api\Gatekeeper\RegisterRfidTagController;
 use App\Http\Controllers\Api\Gatekeeper\TemporaryAccessBookingController;
@@ -161,6 +162,9 @@ Route::name('client.')->prefix('cc')->middleware('client')->group(function () {
 
     Route::post('rfid-tags/register', RegisterRfidTagController::class)
         ->name('rfid-tags.register');
+
+    Route::post('dovecot-push', DovecotPushController::class)
+        ->name('dovecot-push');
 });
 
 Route::name('webhook.')->group(function () {

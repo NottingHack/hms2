@@ -11,6 +11,7 @@ use HMS\Prometheus\Collectors\Instrumentation\SensorBatteryCollector;
 use HMS\Prometheus\Collectors\Instrumentation\ServiceCollector;
 use HMS\Prometheus\Collectors\Instrumentation\TemperatureCollector;
 use HMS\Prometheus\Collectors\SpaceOpenCollector;
+use HMS\Prometheus\Collectors\Governance\MeetingCollector;
 use HMS\Prometheus\Collectors\Statistics\BoxUsageCollector;
 use HMS\Prometheus\Collectors\Statistics\MembersshipStatisticsCollector;
 use HMS\Prometheus\Collectors\Statistics\ToolUsageCollector;
@@ -79,6 +80,7 @@ class PrometheusServiceProvider extends ServiceProvider
     {
         Prometheus::registerCollectorClasses([
             BoxUsageCollector::class,
+            MeetingCollector::class,
             MembersshipStatisticsCollector::class,
             ToolUsageCollector::class,
         ]);

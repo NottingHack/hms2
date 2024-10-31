@@ -91,6 +91,9 @@ Projects for {{ $user->getFirstname() }}
         @endforeach
       </tbody>
     </table>
+    <div class="pagination-links">
+      {{ $projects->links() }}
+    </div>
   </div>
 </div>
 @endsection

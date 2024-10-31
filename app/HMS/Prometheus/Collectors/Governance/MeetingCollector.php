@@ -25,25 +25,25 @@ class MeetingCollector implements Collector
         $meetings = $meetingRepository->paginateAll();
         $meetingCounts = [];
 
-        foreach($meetings as $meeting) {
+        foreach ($meetings as $meeting) {
             $meetingCounts[] = [
                 $meeting->getProxies()->count(),
-                [$meeting->getTitle(), "attendees"]
+                [$meeting->getTitle(), 'attendees'],
             ];
 
             $meetingCounts[] = [
                 $meeting->getProxies()->count(),
-                [$meeting->getTitle(), "proxies"]
+                [$meeting->getTitle(), 'proxies'],
             ];
 
             $meetingCounts[] = [
                 $meeting->getAbsentees()->count(),
-                [$meeting->getTitle(), "absentees"]
+                [$meeting->getTitle(), 'absentees'],
             ];
 
             $meetingCounts[] = [
                 $meeting->getQuorum(),
-                [$meeting->getTitle(), "quorum"]
+                [$meeting->getTitle(), 'quorum'],
             ];
         }
 

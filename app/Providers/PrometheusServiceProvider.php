@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use HMS\Prometheus\Collectors\Gatekeeper\DoorCollector;
+use HMS\Prometheus\Collectors\Governance\MeetingCollector;
 use HMS\Prometheus\Collectors\Instrumentation\BarometricPressureCollector;
 use HMS\Prometheus\Collectors\Instrumentation\HumidityCollector;
 use HMS\Prometheus\Collectors\Instrumentation\LightLevelCollector;
@@ -79,6 +80,7 @@ class PrometheusServiceProvider extends ServiceProvider
     {
         Prometheus::registerCollectorClasses([
             BoxUsageCollector::class,
+            MeetingCollector::class,
             MembersshipStatisticsCollector::class,
             ToolUsageCollector::class,
         ]);

@@ -75,7 +75,7 @@ class RegisterOfDirectorsLogger implements ShouldQueue
 
         $registerOfDirector->setEndedAt(Carbon::now());
 
-        $registerOfDirectorsRepository->save($registerOfDirector);
+        $this->registerOfDirectorsRepository->save($registerOfDirector);
     }
 
     /**

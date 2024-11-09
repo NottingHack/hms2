@@ -27,7 +27,7 @@ class MeetingCollector implements Collector
 
         foreach ($meetings as $meeting) {
             $meetingCounts[] = [
-                $meeting->getProxies()->count(),
+                $meeting->getAttendees()->count(),
                 [$meeting->getTitle(), 'attendees'],
             ];
 

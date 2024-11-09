@@ -14,5 +14,7 @@ class DovecotPushController extends Controller
     public function __invoke(Request $request)
     {
         Log::debug($request);
+
+        return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }

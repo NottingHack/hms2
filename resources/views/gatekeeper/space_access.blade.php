@@ -45,6 +45,13 @@
             <dt class="h5">Roden House Ashley Street Door</dt>
             <h4><span class="badge badge-primary">{{  $ashley_street }}</span></h4>
             @endif
+            @can('gatekeeper.zoneEntry.teamStorage')
+            @if ($team_storage = Meta::get('access_team_storage'))
+            <hr>
+            <dt class="h5">Team Storage <span class="badge badge-success">Team Member</span></dt>
+            <h4><span class="badge badge-primary">{{  $team_storage }}</span></h4 >
+            @endif
+            @endcan
           </dl>
         </div>
         <div class="card-footer">

@@ -20,6 +20,12 @@
     @if ($ashley_street = Meta::get('access_roden_house_ashley_street'))
     <li class="list-group-item">Roden House Ashley Street Door: {{ $ashley_street }}</li>
     @endif
+    @can('gatekeeper.zoneEntry.teamStorage')
+    @if ($team_storage = Meta::get('access_team_storage'))
+    <li class="list-group-item">Team Storage: {{ $team_storage }}</li>
+    <h4><span class="badge badge-primary"></span></h4 >
+    @endif
+    @endcan
     <li class="list-group-item">{{ Auth::user() == $user ? 'You have' : $user->getFirstname() . ' has' }} {{ count($user->getRfidTags()) }} RFID cards.</li>
     @canany(['pins.view.all', 'pins.view.self'])
     @if ($user->getPin())

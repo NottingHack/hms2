@@ -5,6 +5,7 @@ namespace App\Jobs\Governance;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use HMS\Entities\Role;
+use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\RoleUpdateRepository;
 use HMS\User\Permissions\RoleManager;
@@ -32,7 +33,8 @@ class RemoveTempoarayRegisterOfAccessJob implements ShouldQueue
     public function handle(
         RoleRepository $roleRepository,
         RoleUpdateRepository $roleUpdateRepository,
-        RoleManager $roleManager
+        RoleManager $roleManager,
+        MetaRepository $metaRepository
     ): void {
         $roleNames = [
             Role::TEMPORARY_VIEW_REGISTER_OF_MEMBERS,

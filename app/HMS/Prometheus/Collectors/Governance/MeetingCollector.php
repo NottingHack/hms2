@@ -14,7 +14,7 @@ class MeetingCollector implements Collector
         Prometheus::addGauge('Meeting Counts')
             ->name('statistics_meeting_counts')
             ->labels(['meeting', 'type'])
-            ->helpText('Meeting stats: quorum, attendees, proxies and absentees')
+            ->helpText('Meeting stats: quorum, attendees, proxies, absentees, represented_proxies, checked_in')
             ->value(fn () => app()->call([$this, 'getValueAttendeeCount']));
     }
 
@@ -23,30 +23,44 @@ class MeetingCollector implements Collector
         ProxyRepository $proxyRepository
     ) {
         $meetings = $meetingRepository->paginateAll();
-        $meetingCounts = [];
+        $values = [];
 
         foreach ($meetings as $meeting) {
-            $meetingCounts[] = [
-                $meeting->getAttendees()->count(),
+            $representedProxies = $proxyRepository->countRepresentedForMeeting($meeting);
+            $attendees = $meeting->getAttendees()->count();
+            $checkInCount = $representedProxies + $attendees;
+
+            $values[] = [
+                $attendees,
                 [$meeting->getTitle(), 'attendees'],
             ];
 
-            $meetingCounts[] = [
+            $values[] = [
                 $meeting->getProxies()->count(),
                 [$meeting->getTitle(), 'proxies'],
             ];
 
-            $meetingCounts[] = [
+            $values[] = [
+                $representedProxies,
+                [$meeting->getTitle(), 'represented_proxies'],
+            ];
+
+            $values[] = [
                 $meeting->getAbsentees()->count(),
                 [$meeting->getTitle(), 'absentees'],
             ];
 
-            $meetingCounts[] = [
+            $values[] = [
                 $meeting->getQuorum(),
                 [$meeting->getTitle(), 'quorum'],
             ];
+
+            $values[] = [
+                $checkInCount,
+                [$meeting->getTitle(), 'checked_in'],
+            ];
         }
 
-        return $meetingCounts;
+        return $values;
     }
 }

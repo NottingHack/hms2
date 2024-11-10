@@ -23,7 +23,6 @@
     @can('gatekeeper.zoneEntry.teamStorage')
     @if ($team_storage = Meta::get('access_team_storage'))
     <li class="list-group-item">Team Storage: {{ $team_storage }}</li>
-    <h4><span class="badge badge-primary"></span></h4 >
     @endif
     @endcan
     <li class="list-group-item">{{ Auth::user() == $user ? 'You have' : $user->getFirstname() . ' has' }} {{ count($user->getRfidTags()) }} RFID cards.</li>

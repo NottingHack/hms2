@@ -69,7 +69,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'shortDescription' => 'required|string|max:255',
+            'shortDescription' => 'required|string|max:25',
             'longDescription' => 'sometimes|nullable|string',
             'barcode' => 'sometimes|nullable|string|max:255',
             'price' => 'required|integer|min:1',
@@ -129,7 +129,7 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $validatedData = $request->validate([
-            'shortDescription' => 'required|string|max:255',
+            'shortDescription' => 'required|string|max:25',
             'longDescription' => 'sometimes|nullable|string',
             'barcode' => 'sometimes|nullable|string|max255',
             'price' => 'required|integer|min:1',

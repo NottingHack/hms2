@@ -22,6 +22,7 @@ HMS\Entities\Snackspace\Product:
       nullable: true
     shortDescription:
       type: string
+      length: 25
     longDescription:
       type: text
       nullable: true

@@ -40,10 +40,10 @@ class DoctrineProjectRepository extends EntityRepository implements ProjectRepos
 
         if ($active) {
             $q->andWhere('project.state = :project_state')
-              ->orderBy('project.startDate', 'DESC')
               ->setParameter('project_state', ProjectState::ACTIVE);
         }
 
+        $q->orderBy('project.startDate', 'DESC');
         $q = $q->setParameter('user_id', $user->getId())->getQuery();
 
         return $this->paginate($q, $perPage, $pageName);

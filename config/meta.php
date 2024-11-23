@@ -19,6 +19,7 @@ return [
         'access_roden_house_toilet' => 1234,
         'access_roden_street_door' => 1234,
         'access_street_door' => 1234,
+        'access_team_storage' => 1234,
         'access_wifi_password' => 123456,
         'access_wifi_ssid' => 'HSNOTTS',
         'audit_revoke_interval' => 'P2M',

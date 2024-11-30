@@ -55,11 +55,11 @@ class NotifyTrusteesProxyRegistered extends Notification implements ShouldQueue
 
         return (new SlackMessage)
             ->to($notifiable->getSlackChannel())
-            ->attachment(function ($attachment) {
+            ->attachment(fn ($attachment) =>
                 $attachment->title($meeting->getTitle() . ': Proxy Registered')
                             ->content($content)
                             ->fallback($content)
-                            ->timestamp(Carbon::now());
-            });
+                            ->timestamp(Carbon::now())
+            );
     }
 }

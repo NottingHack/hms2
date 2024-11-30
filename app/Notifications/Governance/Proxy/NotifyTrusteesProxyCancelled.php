@@ -53,8 +53,7 @@ class NotifyTrusteesProxyCancelled extends Notification implements ShouldQueue
 
         return (new SlackMessage)
             ->to($notifiable->getSlackChannel())
-            ->attachment(fn ($attachment) =>
-                $attachment->title($this->meeting->getTitle() . ': Proxy Cancelled')
+            ->attachment(fn ($attachment) => $attachment->title($this->meeting->getTitle() . ': Proxy Cancelled')
                             ->content($content)
                             ->fallback($content)
                             ->timestamp(Carbon::now())

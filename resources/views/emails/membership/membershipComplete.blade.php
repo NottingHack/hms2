@@ -19,7 +19,7 @@ Pass: {{ $wifiPass }}
 Our Google Group is where a lot of online discussion takes place:  
 {{ $groupLink }}  
 
-@feature('teams_slack')
+@feature('team_slack')
 Slack is also used for team discussions. You can join NH teams slack at:  
 {{ $slackHTML }}  
 @endfeature

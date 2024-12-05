@@ -52,6 +52,7 @@ return [
         'self_book_max_length' => 180,
         'self_book_min_period_between_bookings' => 720,
         'slack_html' => 'http://slack.nottinghack.org.uk',
+        'discord_html' => 'http://wiki.nottinghack.org.uk/wiki/Discord',
         'so_bank_id' => 2,
         'temporary_access_email_link' => 'https://wiki.nottinghack.org.uk',
         'temporary_access_notification_delay' => 5,

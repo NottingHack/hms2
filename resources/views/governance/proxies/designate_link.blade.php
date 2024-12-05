@@ -27,7 +27,7 @@ Designate a Proxy for {{ $meeting->getTitle() }}
     <ol>
       <li>Find a fellow member going to the AGM.</li>
       <li>Ask them if they will be you Proxy.</li>
-      <li>Email, Slack or SMS them the link below. Hint click (<button type="button" class="btn btn-light btn-sm" onclick="copyToClipboard('#designate-link')"><i class="far fa-copy"></i></button>) to copy it to your clipboard.</li>
+      <li>Share the link below to your proxy. Hint click (<button type="button" class="btn btn-light btn-sm" onclick="copyToClipboard('#designate-link')"><i class="far fa-copy"></i></button>) to copy it to your clipboard.</li>
       <li>Once your Proxy follows the link and confirms their acceptance you will receive confirmation via email.</li>
     </ol>
   </p>

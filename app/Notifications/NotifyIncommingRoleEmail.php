@@ -3,8 +3,6 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
 class NotifyIncommingRoleEmail extends Notification
@@ -43,7 +41,6 @@ class NotifyIncommingRoleEmail extends Notification
      */
     public function via(object $notifiable): array
     {
-
         $channels = [];
         if (config('services.discord.token')) {
             $channels[] = DiscordChannel::class;
@@ -61,7 +58,7 @@ class NotifyIncommingRoleEmail extends Notification
      */
     public function toDiscord($notifiable)
     {
-        $message = <<<EOF
+        $message = <<<'EOF'
         A new email has arrived.
         EOF;
 

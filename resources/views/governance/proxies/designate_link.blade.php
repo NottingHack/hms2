@@ -9,7 +9,7 @@ Designate a Proxy for {{ $meeting->getTitle() }}
   @isset($proxy)
   <p>
     Currently <strong>{{ $proxy->getProxy()->getFullname() }}</strong> is acting as your Proxy for this meeting.<br>
-    If you wish to have someone else act as you proxy just follow the steps below.n And when a new Proxy is accepted the old one will be automaticly cancled.<br>
+    If you wish to have someone else act as you proxy just follow the steps below.n And when a new Proxy is accepted the old one will be automaticity cancelled.<br>
     Your Proxy can be cancelled by clicking below.
   </p>
   <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-danger btn-block">

@@ -18,7 +18,7 @@
 
       <div class="row text-muted">
         <div class="col-md-4">Email: {{ $team->getEmail() }}</div>
-        @feature('slack')
+        @feature('team_slack')
         <div class="col-md-4">Slack: {{ $team->getSlackChannel() }}</div>
         @endfeature
         @feature('discord')

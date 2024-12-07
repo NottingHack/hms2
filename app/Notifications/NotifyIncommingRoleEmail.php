@@ -62,10 +62,25 @@ class NotifyIncommingRoleEmail extends Notification implements ShouldQueue
      */
     public function toDiscord($notifiable)
     {
-        $message = <<<'EOF'
-        A new email has arrived.
-        EOF;
+        $url = route('teams.show', $this->role->getId());
 
-        return DiscordMessage::create($message);
+        $embed = [
+            'title' => '📬 New Team Email',
+            'url' => $url,
+            'fields' => [
+                [
+                    'name' => 'Subject',
+                    'value' => $this->subject,
+                    'inline' => false,
+                ],
+                [
+                    'name' => 'Message Count',
+                    'value' => $this->unseen . ' unread of ' . $this->messages,
+                    'inline' => false,
+                ]
+            ],
+        ];
+
+        return (new DiscordMessage())->embed($embed);
     }
 }

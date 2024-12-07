@@ -3,9 +3,15 @@
 namespace App\Listeners;
 
 use App\Events\DovecotPushReceived;
+use App\Notifications\NotifyIncommingRoleEmail;
+use HMS\Repositories\RoleRepository;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
 
-class DovecotPushListener
+class DovecotPushListener implements ShouldQueue
 {
+    use InteractsWithQueue;
+
     /**
      * Create the event listener.
      *

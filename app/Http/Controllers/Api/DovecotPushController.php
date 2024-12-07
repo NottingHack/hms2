@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\DovecotPushReceived;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -20,11 +21,11 @@ class DovecotPushController extends Controller
             'from' => 'sometimes|string',
             'subject' => 'sometimes|string',
             'snippet' => 'sometimes|string',
-            'messages' => 'sometimes|number',
-            'unseen' => 'sometimes|number',
+            'messages' => 'sometimes|numeric',
+            'unseen' => 'sometimes|numeric',
         ]);
 
-        broadcast(new DovecotPushEvent(
+        broadcast(new DovecotPushReceived(
             $validatedData['user'],
             $validatedData['folder'],
             $validatedData['event'],

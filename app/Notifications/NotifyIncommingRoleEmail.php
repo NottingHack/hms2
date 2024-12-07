@@ -2,10 +2,14 @@
 
 namespace App\Notifications;
 
+use HMS\Entities\Role;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
+use NotificationChannels\Discord\DiscordChannel;
+use NotificationChannels\Discord\DiscordMessage;
 
-class NotifyIncommingRoleEmail extends Notification
+class NotifyIncommingRoleEmail extends Notification implements ShouldQueue
 {
     use Queueable;
 

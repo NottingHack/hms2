@@ -77,7 +77,7 @@ class NotifyIncommingRoleEmail extends Notification implements ShouldQueue
                     'name' => 'Message Count',
                     'value' => $this->unseen . ' unread of ' . $this->messages,
                     'inline' => false,
-                ]
+                ],
             ],
         ];
 

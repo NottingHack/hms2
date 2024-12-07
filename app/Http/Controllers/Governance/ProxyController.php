@@ -114,6 +114,12 @@ class ProxyController extends Controller
      */
     public function designateLink(Meeting $meeting)
     {
+        if ($meeting->getStartTime()->copy()->endOfDay()->isPast()) {
+            flash('You can not designate a Proxy for a meeting in the past')->success();
+
+            return redirect()->route('home');
+        }
+
         $user = Auth::user();
         $proxy = $this->proxyRepository->findOneByPrincipal($meeting, $user);
 
@@ -133,6 +139,12 @@ class ProxyController extends Controller
      */
     public function designate(Meeting $meeting, User $principal)
     {
+        if ($meeting->getStartTime()->copy()->endOfDay()->isPast()) {
+            flash('You can not Proxy for a meeting in the past')->success();
+
+            return redirect()->route('home');
+        }
+
         if ($principal->cannot('governance.proxy.designateProxy')) {
             flash($principal->getFullname() . ' is not currently allowed to give away their Proxy')->error();
 

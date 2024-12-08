@@ -11,6 +11,8 @@ use LaravelDoctrine\ACL\Contracts\Permission;
 use LaravelDoctrine\ACL\Contracts\Role as RoleContract;
 use LaravelDoctrine\ACL\Permissions\HasPermissions;
 use LaravelDoctrine\ORM\Notifications\Notifiable;
+use App\Notifications\NotificationSensitivityInterface;
+use HMS\Entities\NotificationSensitivityType;
 
 class Role implements RoleContract
 {
@@ -447,11 +449,18 @@ class Role implements RoleContract
     /**
      * Route notifications to the Discord channel.
      *
+     * @param mixed $notification
+     *
      * @return null|string
      */
-    public function routeNotificationForDiscord(): ?string
+    public function routeNotificationForDiscord($notification): ?string
     {
         if (! config('services.discord.token')) {
+            return null;
+        }
+
+        // Trustees can see notifications routes to teams anyway.
+        if ($this->name == self::TEAM_TRUSTEES) {
             return null;
         }
 
@@ -460,17 +469,25 @@ class Role implements RoleContract
             config('services.discord.guild_id')
         );
 
-        if ($this->name == self::TEAM_TRUSTEES) {
-            // Trustee discord role has access to membership private channel.
-            // Returning null to avoid duplicate message on membership audit.
-            return null;
-        } else {
-            if ($this->getDiscordPrivateChannel()) {
-                return $discord->findChannelByName($this->getDiscordPrivateChannel())['id'];
-            } else {
-                return $discord->findChannelByName($this->getDiscordChannel())['id'];
+        $privateChannel = $discord->findChannelByName($this->getDiscordPrivateChannel())['id'];
+        $publicChannel = $discord->findChannelByName($this->getDiscordChannel())['id'];
+
+        // If they are null it'll cancel the notification, so it's ok
+        // to just return the whatever is returned from the ORM.
+        if ($notification instanceof NotificationSensitivityInterface) {
+            switch ($notification->getDiscordSensitivity()) {
+            case NotificationSensitivityType::PRIVATE:
+                return $privateChannel;
+
+            case NotificationSensitivityType::PUBLIC:
+                return $publicChannel;
+
+            case NotificationSensitivityType::ANY:
+                break;
             }
         }
+
+        return $privateChannel ? $privateChannel : $publicChannel;
     }
 
     /**

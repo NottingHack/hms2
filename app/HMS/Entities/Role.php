@@ -455,22 +455,28 @@ class Role implements RoleContract
             return null;
         }
 
-        $discord = new Discord(
-            config('services.discord.token'),
-            config('services.discord.guild_id')
-        );
+        if (is_null($this->getDiscordChannel())
+            && is_null($this->getDiscordPrivateChannel())) {
+            return null;
+        }
 
         if ($this->name == self::TEAM_TRUSTEES) {
             // Trustee discord role has access to membership private channel.
             // Returning null to avoid duplicate message on membership audit.
             return null;
-        } else {
-            if ($this->getDiscordPrivateChannel()) {
-                return $discord->findChannelByName($this->getDiscordPrivateChannel())['id'];
-            } else {
-                return $discord->findChannelByName($this->getDiscordChannel())['id'];
-            }
         }
+
+        $discord = app(Discord::class);
+
+        if ($this->getDiscordPrivateChannel()) {
+            return $discord->findChannelByName($this->getDiscordPrivateChannel())['id'];
+        }
+
+        if ($this->getDiscordChannel()) {
+            return $discord->findChannelByName($this->getDiscordChannel())['id'];
+        }
+
+        return null;
     }
 
     /**

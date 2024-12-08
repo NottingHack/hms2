@@ -468,10 +468,7 @@ class User implements
             return null;
         }
 
-        $discord = new Discord(
-            config('services.discord.token'),
-            config('services.discord.guild_id')
-        );
+        $discord = app(Discord::class);
 
         $discordMember = $discord->findMemberByProfile($this->getProfile());
 

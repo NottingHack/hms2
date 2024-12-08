@@ -69,10 +69,7 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
             return;
         }
 
-        $this->discord = new Discord(
-            config('services.discord.token'),
-            config('services.discord.guild_id')
-        );
+        $this->discord = app(Discord::class);
     }
 
     /**

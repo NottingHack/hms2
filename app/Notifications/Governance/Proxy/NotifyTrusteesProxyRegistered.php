@@ -4,6 +4,7 @@ namespace App\Notifications\Governance\Proxy;
 
 use Carbon\Carbon;
 use HMS\Entities\Governance\Proxy;
+use HMS\Repositories\Governance\ProxyRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\SlackMessage;
@@ -50,12 +51,15 @@ class NotifyTrusteesProxyRegistered extends Notification implements ShouldQueue
     public function toSlack($notifiable)
     {
         $meeting = $this->proxy->getMeeting();
+        $proxyRepository = resolve(ProxyRepository::class);
+        $proxies = $proxyRepository->countForMeeting($meeting);
 
-        $content = 'A new Proxy has been registered. There are now ' . $meeting->getProxies()->count() . ' proxies registered.';
+        $content = 'A new Proxy has been registered. There are now ' . $proxies . ' proxies registered.';
 
         return (new SlackMessage)
             ->to($notifiable->getSlackChannel())
-            ->attachment(fn ($attachment) => $attachment->title($meeting->getTitle() . ': Proxy Registered')
+            ->attachment(
+                fn ($attachment) => $attachment->title($meeting->getTitle() . ': Proxy Registered')
                             ->content($content)
                             ->fallback($content)
                             ->timestamp(Carbon::now())

@@ -4,6 +4,7 @@ namespace App\Notifications\Governance\Proxy;
 
 use Carbon\Carbon;
 use HMS\Entities\Governance\Meeting;
+use HMS\Repositories\Governance\ProxyRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\SlackMessage;
@@ -49,11 +50,15 @@ class NotifyTrusteesProxyCancelled extends Notification implements ShouldQueue
      */
     public function toSlack($notifiable)
     {
-        $content = 'A Proxy has been cancelled. There are now ' . $this->meeting->getProxies()->count() . ' proxies registered.';
+        $proxyRepository = resolve(ProxyRepository::class);
+        $proxies = $proxyRepository->countForMeeting($this->meeting);
+
+        $content = 'A Proxy has been cancelled. There are now ' . $proxies . ' proxies registered.';
 
         return (new SlackMessage)
             ->to($notifiable->getSlackChannel())
-            ->attachment(fn ($attachment) => $attachment->title($this->meeting->getTitle() . ': Proxy Cancelled')
+            ->attachment(
+                fn ($attachment) => $attachment->title($this->meeting->getTitle() . ': Proxy Cancelled')
                             ->content($content)
                             ->fallback($content)
                             ->timestamp(Carbon::now())

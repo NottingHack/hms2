@@ -56,6 +56,10 @@ class ToolUsageCollector implements Collector
         $values = [];
 
         foreach ($tools as $tool) {
+            if (! array_key_exists($tool->getDisplayName(), $toolsStats)) {
+                continue;
+            }
+
             $values[] = [
                 $toolsStats[$tool->getDisplayName()]['userCount'],
                 [$tool->getName(), 'user'],

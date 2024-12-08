@@ -31,7 +31,7 @@ class HmsHelperServiceProvider extends ServiceProvider
             return new SiteVisitor;
         });
 
-        $this->app->bind('Discord', function (Application $app) {
+        $this->app->bind(Discord::class, function (Application $app) {
             return new Discord(
                 $app->config->get('services.discord.token'),
                 $app->config->get('services.discord.guild_id')

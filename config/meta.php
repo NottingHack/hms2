@@ -58,7 +58,7 @@ return [
         'temporary_access_rfid_window' => 10,
         'temporary_access_trustee_notification' => 120,
         'temporary_access_uesr_notification' => 30,
-        'temporary_register_view_period' => 'P7d',
+        'temporary_register_view_period' => 'P7D',
         'wiki_html' => 'https://wiki.nottinghack.org.uk',
         'zone_occupant_reset_interval' => 'P1D',
     ],

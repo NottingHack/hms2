@@ -36,6 +36,14 @@ class DovecotPushListener implements ShouldQueue
             return;
         }
 
+        if (is_null($role->getDiscordPrivateChannel())) {
+            return;
+        }
+
+        if ($event->folder != 'INBOX') {
+            return;
+        }
+
         $role->notify(new NotifyIncommingRoleEmail(
             $role,
             $event->folder,

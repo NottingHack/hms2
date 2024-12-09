@@ -2,8 +2,6 @@
 
 namespace App\Notifications;
 
-use App\Notifications\NotificationSensitivityInterface;
-use App\Notifications\NotificationSensitivityType;
 use HMS\Entities\Role;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

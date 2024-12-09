@@ -2,6 +2,8 @@
 
 namespace HMS\Entities;
 
+use App\Notifications\NotificationSensitivityInterface;
+use App\Notifications\NotificationSensitivityType;
 use Doctrine\Common\Collections\ArrayCollection;
 use HMS\Helpers\Discord;
 use HMS\Traits\Entities\SoftDeletable;
@@ -11,8 +13,6 @@ use LaravelDoctrine\ACL\Contracts\Permission;
 use LaravelDoctrine\ACL\Contracts\Role as RoleContract;
 use LaravelDoctrine\ACL\Permissions\HasPermissions;
 use LaravelDoctrine\ORM\Notifications\Notifiable;
-use App\Notifications\NotificationSensitivityInterface;
-use App\Notifications\NotificationSensitivityType;
 
 class Role implements RoleContract
 {
@@ -491,7 +491,6 @@ class Role implements RoleContract
         }
 
         return $privateChannel ? $privateChannel : $publicChannel;
-
     }
 
     /**

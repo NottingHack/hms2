@@ -214,7 +214,6 @@ class AuditResult extends Notification implements ShouldQueue, NotificationSensi
         return (new DiscordMessage())->embed($embed);
     }
 
-
     /**
      * Returns the sensitivity for notification routing to
      * Discord. e.g. whether it should go to the private or public

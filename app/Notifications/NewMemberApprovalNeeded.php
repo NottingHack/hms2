@@ -2,8 +2,6 @@
 
 namespace App\Notifications;
 
-use App\Notifications\NotificationSensitivityInterface;
-use App\Notifications\NotificationSensitivityType;
 use Carbon\Carbon;
 use HMS\Entities\User;
 use Illuminate\Bus\Queueable;

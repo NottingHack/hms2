@@ -192,7 +192,8 @@ class Discord
      *
      * @return array
      */
-    private function getChannels() {
+    private function getChannels()
+    {
         // Avoid hitting redis if already in used for this instance of Discord
         if ($this->channels) {
             return $this->channels;

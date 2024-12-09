@@ -2,6 +2,7 @@
 
 namespace HMS\Helpers;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use RestCord\DiscordClient;
 
@@ -187,6 +188,25 @@ class Discord
     }
 
     /**
+     * Obtains an array of Discord channels.
+     *
+     * @return array
+     */
+    private function getChannels()
+    {
+        // Avoid hitting redis if already in used for this instance of Discord
+        if ($this->channels) {
+            return $this->channels;
+        }
+
+        $this->channels = Cache::remember('discord.channels', 3600, fn () => $this->client->guild->getGuildChannels([
+            'guild.id' => $this->guildId,
+        ]));
+
+        return $this->channels;
+    }
+
+    /**
      * Find a discord channel by name.
      *
      * @param string $channelName
@@ -195,13 +215,7 @@ class Discord
      */
     public function findChannelByName(string $channelName)
     {
-        if (! $this->channels) {
-            $this->channels = $this->client->guild->getGuildChannels([
-                'guild.id' => $this->guildId,
-            ]);
-        }
-
-        foreach ($this->channels as $channel) {
+        foreach ($this->getChannels() as $channel) {
             if ($channel['name'] == $channelName) {
                 return $channel;
             }

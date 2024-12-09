@@ -11,6 +11,8 @@ use LaravelDoctrine\ACL\Contracts\Permission;
 use LaravelDoctrine\ACL\Contracts\Role as RoleContract;
 use LaravelDoctrine\ACL\Permissions\HasPermissions;
 use LaravelDoctrine\ORM\Notifications\Notifiable;
+use App\Notifications\NotificationSensitivityInterface;
+use App\Notifications\NotificationSensitivityType;
 
 class Role implements RoleContract
 {
@@ -447,9 +449,11 @@ class Role implements RoleContract
     /**
      * Route notifications to the Discord channel.
      *
+     * @param mixed $notification
+     *
      * @return null|string
      */
-    public function routeNotificationForDiscord(): ?string
+    public function routeNotificationForDiscord($notification): ?string
     {
         if (! config('services.discord.token')) {
             return null;
@@ -468,15 +472,26 @@ class Role implements RoleContract
 
         $discord = app(Discord::class);
 
-        if ($this->getDiscordPrivateChannel()) {
-            return $discord->findChannelByName($this->getDiscordPrivateChannel())['id'];
+        $privateChannel = $discord->findChannelByName($this->getDiscordPrivateChannel())['id'];
+        $publicChannel = $discord->findChannelByName($this->getDiscordChannel())['id'];
+
+        // If they are null it'll cancel the notification, so it's ok
+        // to just return the whatever is returned from the ORM.
+        if ($notification instanceof NotificationSensitivityInterface) {
+            switch ($notification->getDiscordSensitivity()) {
+            case NotificationSensitivityType::PRIVATE:
+                return $privateChannel;
+
+            case NotificationSensitivityType::PUBLIC:
+                return $publicChannel;
+
+            case NotificationSensitivityType::ANY:
+                break;
+            }
         }
 
-        if ($this->getDiscordChannel()) {
-            return $discord->findChannelByName($this->getDiscordChannel())['id'];
-        }
+        return $privateChannel ? $privateChannel : $publicChannel;
 
-        return null;
     }
 
     /**

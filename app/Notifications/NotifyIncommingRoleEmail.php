@@ -2,6 +2,8 @@
 
 namespace App\Notifications;
 
+use App\Notifications\NotificationSensitivityInterface;
+use App\Notifications\NotificationSensitivityType;
 use HMS\Entities\Role;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -9,7 +11,7 @@ use Illuminate\Notifications\Notification;
 use NotificationChannels\Discord\DiscordChannel;
 use NotificationChannels\Discord\DiscordMessage;
 
-class NotifyIncommingRoleEmail extends Notification implements ShouldQueue
+class NotifyIncommingRoleEmail extends Notification implements ShouldQueue, NotificationSensitivityInterface
 {
     use Queueable;
 
@@ -82,5 +84,17 @@ class NotifyIncommingRoleEmail extends Notification implements ShouldQueue
         ];
 
         return (new DiscordMessage())->embed($embed);
+    }
+
+    /**
+     * Returns the sensitivity for notification routing to
+     * Discord. e.g. whether it should go to the private or public
+     * team channel.
+     *
+     * @return string
+     */
+    public function getDiscordSensitivity()
+    {
+        return NotificationSensitivityType::PRIVATE;
     }
 }

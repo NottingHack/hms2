@@ -11,8 +11,10 @@ use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Discord\DiscordChannel;
 use NotificationChannels\Discord\DiscordMessage;
+use App\Notifications\DiscordNotificationSensitivity;
+use App\Notifications\NotificationSensitivityType;
 
-class NewMemberApprovalNeeded extends Notification implements ShouldQueue
+class NewMemberApprovalNeeded extends Notification implements ShouldQueue, DiscordNotificationSensitivity
 {
     use Queueable;
 
@@ -153,5 +155,17 @@ class NewMemberApprovalNeeded extends Notification implements ShouldQueue
         EOF;
 
         return DiscordMessage::create($message);
+    }
+
+    /**
+     * Returns the sensitivity for notification routing to
+     * Discord. e.g. whether it should go to the private or public
+     * team channel.
+     *
+     * @return string
+     */
+    public function getDiscordSensitivity()
+    {
+        return NotificationSensitivityType::PRIVATE;
     }
 }

@@ -188,7 +188,7 @@ class Discord
     }
 
     /**
-     * Obtains an array of Discord channels
+     * Obtains an array of Discord channels.
      *
      * @return array
      */
@@ -199,7 +199,7 @@ class Discord
         }
 
         $this->channels = Cache::remember('discord.channels', 3600, fn () => $this->client->guild->getGuildChannels([
-            'guild.id' => $this->guildId
+            'guild.id' => $this->guildId,
         ]));
 
         return $this->channels;

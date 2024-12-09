@@ -2,7 +2,8 @@
 
 namespace App\Notifications;
 
-interface NotificationSensitivityInterface {
+interface NotificationSensitivityInterface
+{
     /**
      * Returns the sensitivity for notification routing to
      * Discord. e.g. whether it should go to the private or public

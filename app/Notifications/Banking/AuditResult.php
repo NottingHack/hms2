@@ -2,6 +2,8 @@
 
 namespace App\Notifications\Banking;
 
+use App\Notifications\NotificationSensitivityInterface;
+use App\Notifications\NotificationSensitivityType;
 use Carbon\Carbon;
 use HMS\Entities\Role;
 use HMS\Entities\User;
@@ -14,10 +16,8 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\View;
 use NotificationChannels\Discord\DiscordChannel;
 use NotificationChannels\Discord\DiscordMessage;
-use App\Notifications\DiscordNotificationSensitivity;
-use App\Notifications\NotificationSensitivityType;
 
-class AuditResult extends Notification implements ShouldQueue, DiscordNotificationSensitivity
+class AuditResult extends Notification implements ShouldQueue, NotificationSensitivityInterface
 {
     use Queueable;
 

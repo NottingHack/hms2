@@ -479,14 +479,14 @@ class Role implements RoleContract
         // to just return the whatever is returned from the ORM.
         if ($notification instanceof NotificationSensitivityInterface) {
             switch ($notification->getDiscordSensitivity()) {
-            case NotificationSensitivityType::PRIVATE:
-                return $privateChannel;
+                case NotificationSensitivityType::PRIVATE:
+                    return $privateChannel;
 
-            case NotificationSensitivityType::PUBLIC:
-                return $publicChannel;
+                case NotificationSensitivityType::PUBLIC:
+                    return $publicChannel;
 
-            case NotificationSensitivityType::ANY:
-                break;
+                case NotificationSensitivityType::ANY:
+                    break;
             }
         }
 

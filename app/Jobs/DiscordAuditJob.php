@@ -238,6 +238,7 @@ class DiscordAuditJob implements ShouldQueue
         ProfileRepository $profileRepository,
         RoleRepository $roleRepository
     ) {
+
         $discord = app(Discord::class);
 
         $this->forward($discord, $profileRepository);

@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
+use App\Events\DovecotPushReceived;
+
 class TeamController extends Controller
 {
     /**

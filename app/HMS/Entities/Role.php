@@ -12,7 +12,7 @@ use LaravelDoctrine\ACL\Contracts\Role as RoleContract;
 use LaravelDoctrine\ACL\Permissions\HasPermissions;
 use LaravelDoctrine\ORM\Notifications\Notifiable;
 use App\Notifications\NotificationSensitivityInterface;
-use HMS\Entities\NotificationSensitivityType;
+use App\Notifications\NotificationSensitivityType;
 
 class Role implements RoleContract
 {

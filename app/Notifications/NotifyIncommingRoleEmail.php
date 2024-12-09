@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notification;
 use NotificationChannels\Discord\DiscordChannel;
 use NotificationChannels\Discord\DiscordMessage;
 use App\Notifications\DiscordNotificationSensitivityInterface;
-use HMS\Entities\NotificationSensitivityType;
+use App\Notifications\NotificationSensitivityType;
 
 class NotifyIncommingRoleEmail extends Notification implements ShouldQueue, NotificationSensitivityInterface
 {
@@ -66,7 +66,7 @@ class NotifyIncommingRoleEmail extends Notification implements ShouldQueue, Noti
     public function toDiscord($notifiable)
     {
         $url = route('teams.show', $this->role->getId());
-
+        $url = "https://hms.nottinghack.org.uk";
         $embed = [
             'title' => '📬 New Team Email',
             'url' => $url,
@@ -96,6 +96,6 @@ class NotifyIncommingRoleEmail extends Notification implements ShouldQueue, Noti
      */
     public function getDiscordSensitivity()
     {
-        return NotificationSensitivityType::PUBLIC;
+        return NotificationSensitivityType::PRIVATE;
     }
 }

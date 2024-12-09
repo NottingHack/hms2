@@ -1,6 +1,6 @@
 <?php
 
-namespace HMS\Entities;
+namespace App\Notifications;
 
 abstract class NotificationSensitivityType
 {

@@ -43,6 +43,11 @@ HMS\Entities\Tools\Tool:
       type: boolean
       options:
         default: 0
+    transactionTypeOverride:
+      column: transaction_type_override
+      type: string
+      length: 255
+      nullable: true
   oneToMany:
     bookings:
       targetEntity: \HMS\Entities\Tools\Booking

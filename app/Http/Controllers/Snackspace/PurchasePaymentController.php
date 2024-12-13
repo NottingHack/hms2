@@ -66,6 +66,7 @@ class PurchasePaymentController extends Controller
         $forVendPurchases = Payment::whereBetween('transaction_datetime', [$startDate, $endDate])->sum('for_vend');
         $forToolPurchases = Payment::whereBetween('transaction_datetime', [$startDate, $endDate])->sum('for_tool');
         $forBoxPurchases = Payment::whereBetween('transaction_datetime', [$startDate, $endDate])->sum('for_box');
+        $forHeatPurchases = Payment::whereBetween('transaction_datetime', [$startDate, $endDate])->sum('for_heat');
         $forOtherPurchases = Payment::whereBetween('transaction_datetime', [$startDate, $endDate])->sum('for_other');
         // dump($forVendPurchases + $forToolPurchases + $forBoxPurchases + $forOtherPurchases);
 
@@ -81,6 +82,7 @@ class PurchasePaymentController extends Controller
                 'forVendPurchases' => $forVendPurchases,
                 'forToolPurchases' => $forToolPurchases,
                 'forBoxPurchases' => $forBoxPurchases,
+                'forHeatPurchases' => $forHeatPurchases,
                 'forOtherPurchases' => $forOtherPurchases,
             ]);
     }

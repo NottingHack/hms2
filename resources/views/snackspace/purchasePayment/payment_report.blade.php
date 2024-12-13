@@ -44,6 +44,10 @@
       <td>@money($forBoxPurchases, 'GBP')</td>
     </tr>
     <tr>
+      <th>For Heating:</th>
+      <td>@money($forHeatPurchases, 'GBP')</td>
+    </tr>
+    <tr>
       <th>For Other:</th>
       <td>@money($forOtherPurchases, 'GBP')</td>
     </tr>

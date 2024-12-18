@@ -68,6 +68,11 @@ class MembershipReinstated extends Mailable implements ShouldQueue
     /**
      * @var string
      */
+    public $discordHTML;
+
+    /**
+     * @var string
+     */
     public $wikiLink;
 
     /**
@@ -95,6 +100,7 @@ class MembershipReinstated extends Mailable implements ShouldQueue
         $this->groupLink = $metaRepository->get('google_group_html');
         $this->rulesHTML = $metaRepository->get('rules_html');
         $this->slackHTML = $metaRepository->get('slack_html');
+        $this->discordHTML = $metaRepository->get('discord_html');
         $this->wikiLink = $metaRepository->get('wiki_html');
 
         $this->membershipTeamEmail = $roleRepository->findOneByName(Role::TEAM_MEMBERSHIP)->getEmail();

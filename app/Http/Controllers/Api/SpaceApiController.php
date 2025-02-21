@@ -7,9 +7,9 @@ use HMS\Entities\Role;
 use HMS\Repositories\Instrumentation\BarometricPressureRepository;
 use HMS\Repositories\Instrumentation\HumidityRepository;
 use HMS\Repositories\Instrumentation\TemperatureRepository;
+use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
-use HMS\Repositories\MetaRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -29,8 +29,7 @@ class SpaceApiController extends Controller
         RoleRepository $roleRepository,
         UserRepository $userRepository,
         MetaRepository $metaRepository,
-    )
-    {
+    ) {
         $this->middleware('feature:space_api');
 
         $this->temperatureRepository = $temperatureRepository;
@@ -174,7 +173,7 @@ class SpaceApiController extends Controller
                     'currency' => 'GBP',
                     'description' => 'Recommended amount of £' . $recommendedMembershipFee . ' or more per month',
                     'billing_interval' => 'monthly',
-                ]
+                ],
             ],
         ];
 

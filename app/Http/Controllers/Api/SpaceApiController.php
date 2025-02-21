@@ -60,6 +60,7 @@ class SpaceApiController extends Controller
         }
         $address .= config('branding.space_postcode') . ', ';
 
+        DB::select('CALL sp_get_space_status(@space_open, @last_change)');
         $results = DB::select('SELECT @space_open AS space_open, @last_change AS last_change');
         $spaceOpen = $results[0]->space_open;
         $lastChange = $results[0]->last_change;

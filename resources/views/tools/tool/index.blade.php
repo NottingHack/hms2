@@ -42,6 +42,9 @@
             @endif
           </td>
           <td data-title="Status">
+            @if ($tool->isHidden())
+            <span style="color: #195905" title="This tool is hidden for general users."><i class="fa fa-eye-slash" aria-hidden="true"></i></span>
+            @endif
             {{ $tool->getStatusString() }}
             @if ($tool->getStatus() == \HMS\Entities\Tools\ToolState::DISABLED && ! is_null($tool->getStatusText()))
             <br>{{ $tool->getStatusText() }}

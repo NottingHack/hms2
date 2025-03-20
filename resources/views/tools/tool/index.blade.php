@@ -6,7 +6,7 @@
 <div class="container">
   @content('tools.tool.index', 'main')
   <p>
-    To book a tool click on the <span style="color: #195905"><i class="far fa-calendar-alt" aria-hidden="true"></i></span> or name.<br>
+    To book a tool click on the <span class="text-primary"><i class="far fa-calendar-alt" aria-hidden="true"></i></span> or name.<br>
     Use of some tools is restricted and needs an induction first.
   </p>
   @foreach ($tools as $tool)
@@ -28,22 +28,22 @@
   @endif
   @if (! $tool->isHidden() || \Auth::user()->can('tools.edit'))
         <tr>
-          <td class="d-none d-md-table-cell" style="width:25px"><a href="{{ route('tools.bookings.index', $tool->getId()) }}"><span style="color: #195905"><i class="far fa-calendar-alt" aria-hidden="true"></i></span></a></td>
-          <td data-title="Tool"><a href="{{ route('tools.bookings.index', $tool->getId()) }}"><span class="d-md-none" style="color: #195905"><i class="far fa-calendar-alt" aria-hidden="true"></i>&nbsp;</span>{{ $tool->getDisplayName() }}</a></td>
+          <td class="d-none d-md-table-cell" style="width:25px"><a href="{{ route('tools.bookings.index', $tool->getId()) }}"><span class="text-primary"><i class="far fa-calendar-alt" aria-hidden="true"></i></span></a></td>
+          <td data-title="Tool"><a href="{{ route('tools.bookings.index', $tool->getId()) }}"><span class="d-md-none" class="text-primary"><i class="far fa-calendar-alt" aria-hidden="true"></i>&nbsp;</span>{{ $tool->getDisplayName() }}</a></td>
           <td data-title="Inducted">
             @if ($tool->isRestricted())
             @can('tools.' . $tool->getPermissionName() . '.use')
-            <span style="color: #195905" title="You are inducted on this tool."><i class="far fa-check" aria-hidden="true"></i></span>
+            <span class="text-primary" title="You are inducted on this tool."><i class="far fa-check" aria-hidden="true"></i></span>
             @else
-            <span style="color: #195905" title="Request an induction to use this tool."><i class="far fa-times-circle" aria-hidden="true"></i></span>
+            <span class="text-primary" title="Request an induction to use this tool."><i class="far fa-times-circle" aria-hidden="true"></i></span>
             @endcan
             @else
-            <span style="color: #195905" title="No induction required."><i class="far fa-circle"aria-hidden="true"></i></span>
+            <span class="text-primary" title="No induction required."><i class="far fa-circle"aria-hidden="true"></i></span>
             @endif
           </td>
           <td data-title="Status">
             @if ($tool->isHidden())
-            <span style="color: #195905" title="This tool is hidden for general users."><i class="fa fa-eye-slash" aria-hidden="true"></i></span>
+            <span class="text-primary" title="This tool is hidden for general users."><i class="fa fa-eye-slash" aria-hidden="true"></i></span>
             @endif
             {{ $tool->getStatusString() }}
             @if ($tool->getStatus() == \HMS\Entities\Tools\ToolState::DISABLED && ! is_null($tool->getStatusText()))

@@ -329,7 +329,7 @@ class ViMbAdminSubscriber implements ShouldQueue
                 continue;
             }
 
-            if (! $event->role->isEmailSyncForwarding()) {
+            if (! $role->isEmailSyncForwarding()) {
                 continue;
             }
 

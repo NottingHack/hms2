@@ -71,6 +71,8 @@
   <p>
   @canany(['tools.' . $tool->getPermissionName() . '.maintain', 'tools.maintainer.grant'])
     <a href="{{ route('tools.users-for-grant', ['tool' => $tool->getId(), 'grantType' => HMS\Tools\ToolManager::MAINTAINER]) }}" class="btn btn-primary btn-block"><i class="far fa-eye"></i> View Maintainers</a>
+  @endcan
+  @canany(['tools.' . $tool->getPermissionName() . '.maintain', 'tools.edit'])
     <a href="{{ route('tools.usage', ['tool' => $tool->getId()]) }}" class="btn btn-primary btn-block"><i class="far fa-eye"></i> Show Recent Usage</a>
   @endcan
   @canany(['tools.' . $tool->getPermissionName() . '.maintain', 'tools.inductor.grant' , 'tools.' . $tool->getPermissionName() . '.induct'])

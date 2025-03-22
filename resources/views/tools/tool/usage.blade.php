@@ -5,7 +5,6 @@
 @section('content')
 <div class="container">
   <h1>Usage: {{ $tool->getName() }}</h1>
-  @canany(['tools.' . $tool->getPermissionName() . '.maintain', 'tools.inductor.grant'])
   @forelse ($usage as $use)
   @if ($loop->first)
   <div class="table-responsive no-more-tables">
@@ -34,7 +33,6 @@
     No usage for this period.
   </p>
   @endforelse
-  @endcan
 
   <h3>Change usage period</h3>
   <form role="form" method="GET" action="{{ route('tools.usage', $tool->getId()) }}">

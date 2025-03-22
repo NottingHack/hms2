@@ -95,7 +95,7 @@ class ToolController extends Controller
         $this->middleware('feature:tools');
         $this->middleware('can:tools.view')->only(['index', 'show']);
         $this->middleware('can:tools.create')->only(['create', 'store']);
-        $this->middleware('can:tools.edit')->only(['edit', 'update', 'showUsage']);
+        $this->middleware('can:tools.edit')->only(['edit', 'update']);
         $this->middleware('can:tools.destroy')->only(['destroy']);
         $this->middleware('can:tools.addFreeTime')->only(['addFreeTime']);
     }
@@ -177,6 +177,7 @@ class ToolController extends Controller
 
     /**
      * Show usage for a specific tool.
+     * Visible to those who can edit all tools, and the specific tool maintainer.
      *
      * @param Request $request
      * @param Tool $tool
@@ -185,6 +186,13 @@ class ToolController extends Controller
      */
     public function showUsage(Request $request, Tool $tool)
     {
+        if (Gate::none([
+            'tools.edit',
+            'tools.' . $tool->getPermissionName() . '.maintain',
+        ])) {
+            throw new AuthorizationException('This action is unauthorized.');
+        }
+
         $validatedData = $request->validate([
             'startDate' => 'required_with:endDate|date_format:Y-m-d',
             'endDate' => 'required_with:startDate|date_format:Y-m-d',

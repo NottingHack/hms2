@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Tools;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use HMS\Entities\Tools\Tool;
 use HMS\Entities\User;
 use HMS\Factories\Tools\UsageFactory;
@@ -94,7 +95,7 @@ class ToolController extends Controller
         $this->middleware('feature:tools');
         $this->middleware('can:tools.view')->only(['index', 'show']);
         $this->middleware('can:tools.create')->only(['create', 'store']);
-        $this->middleware('can:tools.edit')->only(['edit', 'update']);
+        $this->middleware('can:tools.edit')->only(['edit', 'update', 'showUsage']);
         $this->middleware('can:tools.destroy')->only(['destroy']);
         $this->middleware('can:tools.addFreeTime')->only(['addFreeTime']);
     }
@@ -172,6 +173,40 @@ class ToolController extends Controller
     public function show(Tool $tool)
     {
         return view('tools.tool.show')->with('tool', $tool);
+    }
+
+    /**
+     * Show usage for a specific tool.
+     *
+     * @param Request $request
+     * @param Tool $tool
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showUsage(Request $request, Tool $tool)
+    {
+        $validatedData = $request->validate([
+            'startDate' => 'required_with:endDate|date_format:Y-m-d',
+            'endDate' => 'required_with:startDate|date_format:Y-m-d',
+        ]);
+
+        if (array_key_exists('startDate', $validatedData)) {
+            $startDate = new Carbon($validatedData['startDate']);
+            $startDate->startOfDay();
+            $endDate = new Carbon($validatedData['endDate']);
+            $endDate->endOfDay();
+        } else {
+            $startDate = Carbon::now()->subDays(7);
+            $endDate = Carbon::now()->endOfDay();
+        }
+
+        $usage = $this->usageRepository->findByToolBetween($tool, $startDate, $endDate);
+
+        return view('tools.tool.usage')
+            ->with('tool', $tool)
+            ->with('usage', $usage)
+            ->with('startDate', $startDate)
+            ->with('endDate', $endDate);
     }
 
     /**

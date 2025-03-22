@@ -47,7 +47,7 @@
         <tr>
           <th>Hidden</th>
           <td>{{ $tool->isHidden() ? "Yes" : "No" }}</td>
-        </td>
+        </tr>
       </tbody>
     </table>
   </div>

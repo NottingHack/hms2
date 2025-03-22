@@ -50,7 +50,7 @@
   </table>
   <hr>
   <h3>Change report period</h3>
-  <form role="form" method="GET" actin="{{ route('snackspace.payment-report') }}">
+  <form role="form" method="GET" action="{{ route('snackspace.payment-report') }}">
     <div class="form-group">
       <label for="startDate" class="form-label">Date</label>
       <input class="form-control @error('startDate') is-invalid @enderror" id="startDate" type="date" name="startDate" value="{{ old('startDate', $startDate->toDateString()) }}" required>

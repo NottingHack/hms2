@@ -19,12 +19,8 @@ Pass: {{ $wifiPass }}
 Our Google Group is where a lot of online discussion takes place:  
 {{ $groupLink }}  
 
-@feature('team_slack')
-Slack is also used for team discussions. You can join NH teams slack at:  
-{{ $slackHTML }}  
-@endfeature
 @feature('discord')
-Discord is also used for members to chat online. You can join the NH Discord at:  
+Discord is used for members to chat online. You can join the hackspace Discord at:  
 {{ $discordHTML }}  
 @endfeature
 

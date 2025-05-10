@@ -34,7 +34,7 @@ class RegisterOfMembersLogger implements ShouldQueue
      */
     public function onUserAddedToRole(UserAddedToRole $event): void
     {
-        if ($event->role->getName() != Role::TEAM_TRUSTEES) {
+        if ($event->role->getName() != Role::MEMBER_CURRENT) {
             return;
         }
 
@@ -55,7 +55,7 @@ class RegisterOfMembersLogger implements ShouldQueue
      */
     public function onUserRemovedFromRole(UserRemovedFromRole $event): void
     {
-        if ($event->role->getName() != Role::TEAM_TRUSTEES) {
+        if ($event->role->getName() != Role::MEMBER_CURRENT) {
             return;
         }
 

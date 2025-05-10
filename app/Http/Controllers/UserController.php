@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\Users\NotifyTrusteesProfileUpdated;
 use HMS\Entities\Role;
 use HMS\Entities\User;
+use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
 use HMS\User\ProfileManager;
 use HMS\User\UserManager;
@@ -29,6 +31,11 @@ class UserController extends Controller
     protected $profileManager;
 
     /**
+     * @var RoleRepository
+     */
+    protected $roleRepository;
+
+    /**
      * Create a new controller instance.
      *
      * @param UserRepository $userRepository
@@ -38,11 +45,13 @@ class UserController extends Controller
     public function __construct(
         UserRepository $userRepository,
         UserManager $userManager,
-        ProfileManager $profileManager
+        ProfileManager $profileManager,
+        RoleRepository $roleRepository
     ) {
         $this->userRepository = $userRepository;
         $this->userManager = $userManager;
         $this->profileManager = $profileManager;
+        $this->roleRepository = $roleRepository;
 
         $this->middleware('can:profile.view.all')->only(['index', 'listUsersByRole']);
         $this->middleware('can:profile.view.self')->only(['show']);
@@ -128,6 +137,41 @@ class UserController extends Controller
     }
 
     /**
+     *
+     */
+    private function checkChanges(User $user, $validatedData)
+    {
+        $profile = $user->getProfile();
+        $notify = [];
+
+        if ($profile->getAddress1() != $validatedData['address1'])
+            $notify[] = "Address 1";
+
+        if (isset($validatedData['address2']) && $profile->getAddress2() != $validatedData['address2'])
+            $notify[] = "Address 2";
+
+        if (isset($validatedData['address3']) &&  $profile->getAddress3() != $validatedData['address3'])
+            $notify[] = "Address 3";
+
+        if ($profile->getAddressCity() != $validatedData['addressCity'])
+            $notify[] = "Adress City";
+
+        if ($profile->getAddressPostcode() != $validatedData['addressPostcode'])
+            $notify[] = "Address Post Code";
+
+        if ($user->getFirstname() != $validatedData['firstname'])
+            $notify[] = "First Name";
+
+        if ($user->getLastname() != $validatedData['lastname'])
+            $notify[] = "Last Name";
+
+        if ($notify) {
+            $trusteesTeamRole = $this->roleRepository->findOneByName(Role::TEAM_TRUSTEES);
+            $trusteesTeamRole->notify(new NotifyTrusteesProfileUpdated($user, $notify));
+        }
+    }
+
+    /**
      * Update the specified user in storage.
      *
      * @param \Illuminate\Http\Request $request
@@ -162,6 +206,8 @@ class UserController extends Controller
             ],
             'unlockText' => 'sometimes|nullable|max:95',
         ]);
+
+        $this->checkChanges($user, $validatedData);
 
         // Note:
         // Discord username validation - the username + discriminator

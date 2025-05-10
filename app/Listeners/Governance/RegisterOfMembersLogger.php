@@ -69,7 +69,7 @@ class RegisterOfMembersLogger implements ShouldQueue
 
         $registerOfMember->setEndedAt(Carbon::now());
 
-        $registerOfMembersRepository->save($registerOfMember);
+        $this->registerOfMembersRepository->save($registerOfMember);
     }
 
     /**

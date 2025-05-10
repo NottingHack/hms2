@@ -136,34 +136,38 @@ class UserController extends Controller
         return view('user.edit')->with('user', $user);
     }
 
-    /**
-     *
-     */
     private function checkChanges(User $user, $validatedData)
     {
         $profile = $user->getProfile();
         $notify = [];
 
-        if ($profile->getAddress1() != $validatedData['address1'])
-            $notify[] = "Address 1";
+        if ($profile->getAddress1() != $validatedData['address1']) {
+            $notify[] = 'Address 1';
+        }
 
-        if (isset($validatedData['address2']) && $profile->getAddress2() != $validatedData['address2'])
-            $notify[] = "Address 2";
+        if (isset($validatedData['address2']) && $profile->getAddress2() != $validatedData['address2']) {
+            $notify[] = 'Address 2';
+        }
 
-        if (isset($validatedData['address3']) &&  $profile->getAddress3() != $validatedData['address3'])
-            $notify[] = "Address 3";
+        if (isset($validatedData['address3']) && $profile->getAddress3() != $validatedData['address3']) {
+            $notify[] = 'Address 3';
+        }
 
-        if ($profile->getAddressCity() != $validatedData['addressCity'])
-            $notify[] = "Adress City";
+        if ($profile->getAddressCity() != $validatedData['addressCity']) {
+            $notify[] = 'Adress City';
+        }
 
-        if ($profile->getAddressPostcode() != $validatedData['addressPostcode'])
-            $notify[] = "Address Post Code";
+        if ($profile->getAddressPostcode() != $validatedData['addressPostcode']) {
+            $notify[] = 'Address Post Code';
+        }
 
-        if ($user->getFirstname() != $validatedData['firstname'])
-            $notify[] = "First Name";
+        if ($user->getFirstname() != $validatedData['firstname']) {
+            $notify[] = 'First Name';
+        }
 
-        if ($user->getLastname() != $validatedData['lastname'])
-            $notify[] = "Last Name";
+        if ($user->getLastname() != $validatedData['lastname']) {
+            $notify[] = 'Last Name';
+        }
 
         if ($notify) {
             $trusteesTeamRole = $this->roleRepository->findOneByName(Role::TEAM_TRUSTEES);

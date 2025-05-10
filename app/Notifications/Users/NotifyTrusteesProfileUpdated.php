@@ -58,7 +58,7 @@ class NotifyTrusteesProfileUpdated extends Notification implements ShouldQueue
      */
     public function toSlack($notifiable)
     {
-        $content = $this->user->getFullname() . " has updated their profile.\n\n" . implode(", ", $this->changes);
+        $content = $this->user->getFullname() . " has updated their profile.\n\n" . implode(', ', $this->changes);
 
         return (new SlackMessage)
            ->attachment(

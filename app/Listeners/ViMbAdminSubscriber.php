@@ -333,7 +333,7 @@ class ViMbAdminSubscriber implements ShouldQueue
                 continue;
             }
 
-            if (empty($event->role->getEmail())) {
+            if (empty($role->getEmail())) {
                 continue;
             }
 

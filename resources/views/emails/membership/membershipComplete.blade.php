@@ -22,11 +22,11 @@ Our Google Group is where a lot of online discussion takes place:
 @endif
 
 @feature('team_slack')
-Slack is also used for team discussions. You can join NH teams slack at:  
+Slack is also used for team discussions. You can join the {{ config('branding.space_type') }} teams slack at:  
 {{ $slackHTML }}  
 @endfeature
 @feature('discord')
-Discord is also used for members to chat online. You can join the NH Discord at:  
+Discord is also used for members to chat online. You can join the {{ config('branding.space_type') }} Discord at:  
 {{ $discordHTML }}  
 @endfeature
 

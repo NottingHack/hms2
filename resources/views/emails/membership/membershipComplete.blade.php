@@ -16,6 +16,11 @@ Wifi access:
 SSID: {{ $wifiSsid }}  
 Pass: {{ $wifiPass }}  
 
+@if ($groupLink)
+Our Google Group is where a lot of online discussion takes place: 
+{{ $groupLink }}
+@endif
+
 @feature('team_slack')
 Slack is also used for team discussions. You can join NH teams slack at:  
 {{ $slackHTML }}  

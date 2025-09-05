@@ -5,7 +5,7 @@
 
 
 @if ($boxCount > 0)
-Our records show that you have left a members box at the space please arrange to collect it on a Wednesday evening before the tour.
+Our records show that you have left a members box at the space. Please arrange to collect it on a Wednesday evening before the tour.
 @endif
 
 @if ($snackspaceBalance < 0)

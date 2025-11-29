@@ -3,14 +3,41 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use HMS\Entities\Role;
+use HMS\Repositories\Instrumentation\BarometricPressureRepository;
+use HMS\Repositories\Instrumentation\HumidityRepository;
+use HMS\Repositories\Instrumentation\TemperatureRepository;
+use HMS\Repositories\MetaRepository;
+use HMS\Repositories\RoleRepository;
+use HMS\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class SpaceApiController extends Controller
 {
-    public function __construct()
-    {
+    private $temperatureRepository;
+    private $humidityRepository;
+    private $barometricPressureRepository;
+    private $roleRepository;
+    private $userRepository;
+    private $metaRepository;
+
+    public function __construct(
+        TemperatureRepository $temperatureRepository,
+        HumidityRepository $humidityRepository,
+        BarometricPressureRepository $barometricPressureRepository,
+        RoleRepository $roleRepository,
+        UserRepository $userRepository,
+        MetaRepository $metaRepository,
+    ) {
         $this->middleware('feature:space_api');
+
+        $this->temperatureRepository = $temperatureRepository;
+        $this->humidityRepository = $humidityRepository;
+        $this->barometricPressureRepository = $barometricPressureRepository;
+        $this->roleRepository = $roleRepository;
+        $this->userRepository = $userRepository;
+        $this->metaRepository = $metaRepository;
     }
 
     /**
@@ -33,19 +60,50 @@ class SpaceApiController extends Controller
         }
         $address .= config('branding.space_postcode') . ', ';
 
-        $temps = DB::select('CALL sp_get_space_status(@space_open, @last_change)');
+        DB::select('CALL sp_get_space_status(@space_open, @last_change)');
         $results = DB::select('SELECT @space_open AS space_open, @last_change AS last_change');
         $spaceOpen = $results[0]->space_open;
         $lastChange = $results[0]->last_change;
 
         $spaceTemps = [];
-        foreach ($temps as $temp) {
+        foreach ($this->temperatureRepository->findAll() as $sensor) {
             $spaceTemps[] = [
-                'value' => floatval($temp->temp),
+                'value' => $sensor->getReading(),
                 'unit' => '°C',
-                'location' => $temp->sensor,
+                'location' => str($sensor->getName())->replace('-LLAP', ''),
             ];
         }
+        $spaceHumidities = [];
+        foreach ($this->humidityRepository->findAll() as $sensor) {
+            $spaceHumidities[] = [
+                'value' => $sensor->getReading(),
+                'unit' => '%',
+                'location' => $sensor->getName(),
+            ];
+        }
+        $spaceBarometricPressures = [];
+        foreach ($this->barometricPressureRepository->findAll() as $sensor) {
+            $spaceBarometricPressures[] = [
+                'value' => $sensor->getReading(),
+                'unit' => 'hPa',
+                'location' => $sensor->getName(),
+            ];
+        }
+
+        $memberCounts = [];
+        foreach (Role::MEMBER_ROLES as $roleName) {
+            if (in_array($roleName, [Role::MEMBER_TEMPORARYBANNED, Role::MEMBER_BANNED])) {
+                continue;
+            }
+
+            $memberCounts[] = [
+                'value' => $this->userRepository->countMembersByRoleName($roleName),
+                'name' => $this->roleRepository->findOneByName($roleName)->getDisplayName(),
+            ];
+        }
+
+        $minimumMembershipFee = $this->metaRepository->getInt('membership_minimum_amount', 500) / 100;
+        $recommendedMembershipFee = $this->metaRepository->getInt('membership_recommended_amount', 1500) / 100;
 
         DB::select('CALL sp_space_net_activity(@status_message)');
         $results = DB::select('SELECT @status_message AS status_message');
@@ -54,7 +112,7 @@ class SpaceApiController extends Controller
         $spaceApi = [
             'api' => '0.13',
             'api_compatibility' => [
-                '14',
+                '15',
             ],
 
             'space' => config('branding.community_name'),
@@ -98,6 +156,25 @@ class SpaceApiController extends Controller
 
             'sensors' => [
                 'temperature' => $spaceTemps,
+                'humidity' => $spaceHumidities,
+                'barometer' => $spaceBarometricPressures,
+                'total_member_count' => $memberCounts,
+            ],
+            'membership_plans' => [
+                [
+                    'name' => 'Minimum',
+                    'value' => $minimumMembershipFee,
+                    'currency' => 'GBP',
+                    'description' => 'Minimum required to grant membership',
+                    'billing_interval' => 'monthly',
+                ],
+                [
+                    'name' => 'Recommended',
+                    'value' => $recommendedMembershipFee,
+                    'currency' => 'GBP',
+                    'description' => 'Recommended amount of £' . $recommendedMembershipFee . ' or more per month',
+                    'billing_interval' => 'monthly',
+                ],
             ],
         ];
 

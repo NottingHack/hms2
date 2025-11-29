@@ -24,7 +24,7 @@ class DefaultsCommand extends BaseCommand
      * @var string
      */
     protected $description = 'Restores roles and permissions to the default set. '
-                             . 'You should probably run migrations beforehand and the seeder afterwards';
+        . 'You should probably run migrations beforehand and the seeder afterwards';
 
     /**
      * @var array

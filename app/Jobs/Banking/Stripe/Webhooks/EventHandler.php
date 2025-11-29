@@ -128,7 +128,7 @@ abstract class EventHandler implements ShouldQueue
 
                 return;
             }
-        // event is in the db but not handled yet, must have failed before :/
+            // event is in the db but not handled yet, must have failed before :/
         } else {
             // not seen this stripeEvent id before
             $event = new Event();

@@ -17,8 +17,7 @@ abstract class VendingMachineConnectionType
     /**
      * String representation of machine connection type for display.
      */
-    public const CONNECTION_STRINGS =
-    [
+    public const CONNECTION_STRINGS = [
         self::UDP => 'UDP',
         self::MQTT => 'MQTT',
     ];

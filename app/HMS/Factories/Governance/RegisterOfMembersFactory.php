@@ -38,7 +38,7 @@ class RegisterOfMembersFactory
         string $firstname,
         string $lastname,
         Carbon $startedAt,
-        Carbon $endedAt = null
+        ?Carbon $endedAt = null
     ) {
         $_registerOfMembers = new RegisterOfMembers();
 

@@ -27,8 +27,7 @@ abstract class PinState
     /**
      * String representation of states for display.
      */
-    public const STATE_STRINGS =
-    [
+    public const STATE_STRINGS = [
         self::ACTIVE => 'Active',
         self::EXPIRED => 'Expired',
         self::CANCELLED => 'Cancelled',

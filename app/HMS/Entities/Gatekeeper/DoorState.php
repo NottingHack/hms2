@@ -28,8 +28,7 @@ abstract class DoorState
     /**
      * String representation of states for display.
      */
-    public const STATE_STRINGS =
-    [
+    public const STATE_STRINGS = [
         self::UNKNOWN => 'Unknown',
         self::OPEN => 'Open',
         self::CLOSED => 'Closed',

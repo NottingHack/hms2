@@ -22,8 +22,7 @@ class VotingPreference
     /**
      * String representation of states for display.
      */
-    public const STATE_STRINGS =
-    [
+    public const STATE_STRINGS = [
         self::AUTOMATIC => 'Automatic',
         self::VOTING => 'Voting',
         self::NONVOTING => 'Non-voting',

@@ -11,8 +11,7 @@ abstract class UsageState
     /**
      * String representation of states for display.
      */
-    public const STATE_STRINGS =
-    [
+    public const STATE_STRINGS = [
         self::IN_PROGRESS => 'In Progress',
         self::COMPLETE => 'Complete',
         self::CHARGED => 'Carged',

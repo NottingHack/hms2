@@ -22,8 +22,7 @@ class ProjectState
     /**
      * String representation of states for display.
      */
-    public const STATE_STRINGS =
-    [
+    public const STATE_STRINGS = [
         self::ACTIVE => 'Active',
         self::COMPLETE => 'Complete',
         self::ABANDONED => 'Abandoned',

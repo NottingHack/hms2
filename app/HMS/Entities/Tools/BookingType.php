@@ -22,8 +22,7 @@ abstract class BookingType
     /**
      * String representation of types for display.
      */
-    public const TYPE_STRINGS =
-    [
+    public const TYPE_STRINGS = [
         self::NORMAL => 'Normal',
         self::INDUCTION => 'Induction',
         self::MAINTENANCE => 'Maintenance',

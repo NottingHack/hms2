@@ -22,8 +22,7 @@ abstract class RfidTagState
     /**
      * String representation of states for display.
      */
-    public const STATE_STRINGS =
-    [
+    public const STATE_STRINGS = [
         self::ACTIVE => 'Active',
         self::EXPIRED => 'Destroyed',
         self::LOST => 'Lost',

@@ -36,7 +36,7 @@ class DoctrineTemporaryAccessBookingRepository extends EntityRepository implemen
     public function countFutureForBuildingAndUser(
         Building $building,
         User $user,
-        TemporaryAccessBooking $ignoreBooking = null
+        ?TemporaryAccessBooking $ignoreBooking = null
     ): int {
         $now = Carbon::now();
         // can not use Criteria cause of the join :(

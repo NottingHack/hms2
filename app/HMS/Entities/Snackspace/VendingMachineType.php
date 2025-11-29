@@ -17,8 +17,7 @@ abstract class VendingMachineType
     /**
      * String representation of machine types for display.
      */
-    public const TYPE_STRINGS =
-    [
+    public const TYPE_STRINGS = [
         self::VEND => 'Vending Machine',
         self::NOTE => 'Cash Acceptor',
     ];

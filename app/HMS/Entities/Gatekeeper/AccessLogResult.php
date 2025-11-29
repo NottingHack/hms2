@@ -17,8 +17,7 @@ abstract class AccessLogResult
     /**
      * String representation of states for display.
      */
-    public const RESULT_STRINGS =
-    [
+    public const RESULT_STRINGS = [
         self::ACCESS_DENIED => 'Denied',
         self::ACCESS_GRANTED => 'Granted',
     ];

@@ -29,7 +29,7 @@ interface TemporaryAccessBookingRepository
     public function countFutureForBuildingAndUser(
         Building $building,
         User $user,
-        TemporaryAccessBooking $ignoreBooking = null
+        ?TemporaryAccessBooking $ignoreBooking = null
     ): int;
 
     /**

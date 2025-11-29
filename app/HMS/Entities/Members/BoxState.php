@@ -22,8 +22,7 @@ class BoxState
     /**
      * String representation of states for display.
      */
-    public const STATE_STRINGS =
-    [
+    public const STATE_STRINGS = [
         self::INUSE => 'In Use',
         self::REMOVED => 'Removed',
         self::ABANDONED => 'Abandoned',

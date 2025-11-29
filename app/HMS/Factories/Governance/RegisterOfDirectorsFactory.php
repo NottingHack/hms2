@@ -50,7 +50,7 @@ class RegisterOfDirectorsFactory
         ?string $addressCounty,
         ?string $addressPostcode,
         Carbon $startedAt,
-        Carbon $endedAt = null
+        ?Carbon $endedAt = null
     ) {
         $_registerOfDirectors = new RegisterOfDirectors();
 

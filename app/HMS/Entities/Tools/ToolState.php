@@ -22,8 +22,7 @@ abstract class ToolState
     /**
      * String representation of states for display.
      */
-    public const STATE_STRINGS =
-    [
+    public const STATE_STRINGS = [
         self::IN_USE => 'In Use',
         self::FREE => 'Free',
         self::DISABLED => 'Disabled',

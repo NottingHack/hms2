@@ -515,7 +515,7 @@ class TemporaryAccessBookingManager
         Carbon $end,
         User $user,
         Building $building,
-        TemporaryAccessBooking $ignoreBooking = null
+        ?TemporaryAccessBooking $ignoreBooking = null
     ) {
         // look for any bookings this user might already have in this time period
         $bookings = collect($this->temporaryAccessBookingRepository
@@ -549,7 +549,7 @@ class TemporaryAccessBookingManager
     protected function concurrentPerUserCheck(
         User $user,
         Building $building,
-        TemporaryAccessBooking $ignoreBooking = null
+        ?TemporaryAccessBooking $ignoreBooking = null
     ) {
         // TODO: should this be per building or over all buildings (if so we wont need $building)
         $maxConcurrentPerUser = $this->getSelfBookSettings()['maxConcurrentPerUser'];
@@ -586,7 +586,7 @@ class TemporaryAccessBookingManager
         Carbon $end,
         User $user,
         Building $building,
-        TemporaryAccessBooking $ignoreBooking = null
+        ?TemporaryAccessBooking $ignoreBooking = null
     ) {
         $minPeriodBetweenBookings = $this->getSelfBookSettings()['minPeriodBetweenBookings'];
 
@@ -629,7 +629,7 @@ class TemporaryAccessBookingManager
         Carbon $end,
         BookableArea $bookableArea,
         int $guests = 0,
-        TemporaryAccessBooking $ignoreBooking = null
+        ?TemporaryAccessBooking $ignoreBooking = null
     ) {
         $messages = [];
         $building = $bookableArea->getBuilding();

@@ -320,6 +320,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Tools
     Route::get('tools/{tool}/users/{grantType}', [ToolController::class, 'showUsersForGrant'])
         ->name('tools.users-for-grant');
+    Route::get('tools/{tool}/usage', [ToolController::class, 'showUsage'])
+        ->name('tools.usage');
     Route::patch('tools/{tool}/grant', [ToolController::class, 'grant'])->name('tools.grant');
     Route::delete('tools/{tool}/revoke/{grantType}/users/{user}', [ToolController::class, 'revoke'])
         ->name('tools.revoke.users');

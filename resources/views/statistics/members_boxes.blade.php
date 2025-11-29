@@ -12,7 +12,7 @@
     </tr>
     <tr>
       <th>Available Spaces:</th>
-      <td>{{ $totalSpaces - $inUse }}</td><td>This is the number of available shelf spaces we have across the two "Member's storage" rooms, this number needs to be above 0 for you to buy a box.</td>
+      <td>{{ $totalSpaces - $inUse }}</td><td>This is the number of available shelf spaces we have across the two "Member's storage" rooms. This number needs to be above 0 for you to buy a box.</td>
     </tr>
     <tr>
       <th>In Use:</th>
@@ -28,7 +28,7 @@
     </tr>
     <tr>
       <th>Total Boxes:</th>
-      <td>{{ $total }}</td><td>Total number of boxes registers in HMS.</td>
+      <td>{{ $total }}</td><td>Total number of boxes registered in HMS.</td>
     </tr>
   </table>
   @can('box.view.all')

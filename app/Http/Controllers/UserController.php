@@ -41,12 +41,13 @@ class UserController extends Controller
      * @param UserRepository $userRepository
      * @param UserManager $userManager
      * @param ProfileManager $profileManager
+     * @param RoleRepository $roleRepository
      */
     public function __construct(
         UserRepository $userRepository,
         UserManager $userManager,
         ProfileManager $profileManager,
-        RoleRepository $roleRepository
+        RoleRepository $roleRepository,
     ) {
         $this->userRepository = $userRepository;
         $this->userManager = $userManager;

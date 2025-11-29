@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-  <p>Summary of laser cuter usage time by month.</p>
+  <p>Summary of laser cutter usage time by month.</p>
 
   <div class="table-responsive">
     <table class="table">

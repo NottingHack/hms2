@@ -5,8 +5,8 @@
 @section('content')
 <div class="container">
   <p>
-    From here a limited set for page content chunks can be edited with out needing to PR changes to HMS.<br>
-    There are two types, <strong>Page</strong> & <strong>Email</strong>, this related to where this chuck is use and weather it should be written as pure HTML for display on a site page, or as markdown for email where it will be rendered to both text and HTML.
+    From here a limited set of page content chunks can be edited without needing to PR changes to HMS.<br>
+    There are two types, <strong>Page</strong> & <strong>Email</strong>, related to where the chunk is used and whether it should be written as pure HTML for display on a site page, or as markdown for email where it will be rendered to both text and HTML.
   </p>
   <div class="table-responsive no-more-tables">
     <table class="table table-bordered table-hover">

@@ -1,7 +1,7 @@
 @component('mail::message')
 # Hello {{ $fullname }},
 
-One of the member admins have indicated that there is an issue with the contact details you entered, they have sent you the following message:
+One of the member admins has indicated that there is an issue with the contact details you entered, they have sent you the following message:
 
 @component('mail::panel')
 {{ $reason }}

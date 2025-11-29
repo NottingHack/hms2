@@ -12,8 +12,15 @@ Also, please add "{{ $membershipEmail }}" and "{{ $trusteesEmail }}" to your add
 
 @content('emails.interestRegistered', 'main')  
 
+@if ($groupLink)
 Here's the URL for the public Google Group:  
-{{ $groupLink }}  
+{{ $groupLink }}
+@endif
+
+@feature('discord')
+Discord is used for members to chat online. You can join the {{ config('branding.space_type') }} Discord at:  
+{{ $discordHTML }}  
+@endfeature
 
 Here are the {{ config('branding.space_type') }} rules:  
 {{ $rulesLink }}  

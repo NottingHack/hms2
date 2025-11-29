@@ -94,6 +94,13 @@
       @enderror
     </div>
 
+    <div class="form-group form-check">
+      <input id="hidden" class="form-check-input" type="checkbox" name="hidden">
+      <label class="form-check-label" for="hidden">
+        Should the tool be hidden from regular users?
+      </label>
+    </div>
+
     <button type="submit" class="btn btn-primary btn-block">Add Tool</button>
   </form>
 </div>

@@ -16,6 +16,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 use Spatie\WebhookClient\Models\WebhookCall;
 use Stripe\Event as StripeEvent;
 
@@ -120,7 +121,7 @@ abstract class EventHandler implements ShouldQueue
             if (! is_null($event->getHandledAt())) {
                 // this stripeEvent id has already been handled before
                 // we should get out now
-                \Log::info(
+                Log::info(
                     'Stripe Event ' . $this->stripeEvent->id .
                     ' already handled at ' . $event->getHandledAt()->toDateTimeString()
                 );

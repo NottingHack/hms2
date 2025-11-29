@@ -11,6 +11,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
 
 class PostGitDeployedJob implements ShouldQueue
 {
@@ -24,7 +26,7 @@ class PostGitDeployedJob implements ShouldQueue
     public $timeout = 600;
 
     /**
-     * List of shell command to run pre Artisan.
+     * List of shell command to run preArtisan.
      *
      * @var array
      */
@@ -36,7 +38,7 @@ class PostGitDeployedJob implements ShouldQueue
     ];
 
     /**
-     * List of Artisan commands to run.
+     * List ofArtisan commands to run.
      *
      * @var array
      */
@@ -63,7 +65,7 @@ class PostGitDeployedJob implements ShouldQueue
     ];
 
     /**
-     * List of shell command to run post Artisan.
+     * List of shell command to run postArtisan.
      *
      * @var array
      */
@@ -101,19 +103,19 @@ class PostGitDeployedJob implements ShouldQueue
     public function handle(RoleRepository $roleRepository)
     {
         $this->startTime = Carbon::now();
-        \Artisan::call('down');
+        Artisan::call('down');
 
         foreach ($this->preShellCommands as $shellCommand) {
-            \Log::debug('PostGitDeployedJob: Running pre command:  ' . $shellCommand);
+            Log::debug('PostGitDeployedJob: Running pre command:  ' . $shellCommand);
             array_push($this->commandResults, $this->callShellCommand($shellCommand));
         }
 
         foreach ($this->artisanCommands as $artisanCommand) {
-            \Log::debug('PostGitDeployedJob: Running artisan command: ' . $artisanCommand);
+            Log::debug('PostGitDeployedJob: Running artisan command: ' . $artisanCommand);
             try {
-                $exitCode = \Artisan::call($artisanCommand);
-                $output = \Artisan::output();
-            } catch (\Exception $e) {
+                $exitCode = Artisan::call($artisanCommand);
+                $output = Artisan::output();
+            } catch (Exception $e) {
                 $output = $e->getMessage();
                 $exitCode = -1;
             }
@@ -126,11 +128,11 @@ class PostGitDeployedJob implements ShouldQueue
         }
 
         foreach ($this->postShellCommands as $shellCommand) {
-            \Log::debug('PostGitDeployedJob: Running post command:  ' . $shellCommand);
+            Log::debug('PostGitDeployedJob: Running post command:  ' . $shellCommand);
             array_push($this->commandResults, $this->callShellCommand($shellCommand));
         }
 
-        \Artisan::call('up');
+        Artisan::call('up');
         $stopTime = Carbon::now();
 
         $softwareTeamRole = $roleRepository->findOneByName(Role::TEAM_SOFTWARE);
@@ -173,8 +175,8 @@ class PostGitDeployedJob implements ShouldQueue
      */
     public function failed(Exception $exception)
     {
-        \Artisan::call('up');
-        \Log::warning('PostGitDeployedJob: Job failed');
+        Artisan::call('up');
+        Log::warning('PostGitDeployedJob: Job failed');
         // Send user notification of failure, etc...
     }
 }

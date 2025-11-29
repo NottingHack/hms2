@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Charts\MembershipChangeChart;
 use Carbon\Carbon;
+use DateInterval;
 use HMS\Actions\Statistics\GenerateToolStatistics;
 use HMS\Entities\Role;
 use HMS\Governance\VotingManager;
@@ -18,6 +19,7 @@ use HMS\Views\LaserUsage;
 use HMS\Views\MemberStats;
 use HMS\Views\SnackspaceMonthly;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class StatisticsController extends Controller
 {
@@ -76,12 +78,12 @@ class StatisticsController extends Controller
         // pull stats from the cache if they are there, if not store a fresh copy for 1 day
         $laserUsage = Cache::remember('statistics.laserUsage', 86400, function () {
             config(['database.connections.mysql.strict' => false]);
-            \DB::reconnect(); //important as the existing connection if any would be in strict mode
+            DB::reconnect(); //important as the existing connection if any would be in strict mode
             $laserUsage = LaserUsage::all();
 
             //now changing back the strict ON
             config(['database.connections.mysql.strict' => true]);
-            \DB::reconnect();
+            DB::reconnect();
 
             return $laserUsage;
         });
@@ -130,12 +132,12 @@ class StatisticsController extends Controller
         // pull stats from the cache if they are there, if not store a fresh copy for 1 day
         $snackspaceMonthly = Cache::remember('statistics.snackspace-monthly', 86400, function () {
             config(['database.connections.mysql.strict' => false]);
-            \DB::reconnect(); //important as the existing connection if any would be in strict mode
+            DB::reconnect(); //important as the existing connection if any would be in strict mode
             $snackspaceMonthly = SnackspaceMonthly::all();
 
             //now changing back the strict ON
             config(['database.connections.mysql.strict' => true]);
-            \DB::reconnect();
+            DB::reconnect();
 
             return $snackspaceMonthly;
         });
@@ -153,7 +155,7 @@ class StatisticsController extends Controller
     {
         $zones = $this->zoneRepository->findAll();
 
-        $resetPeriod = new \DateInterval($this->metaRepository->get('zone_occupant_reset_interval', 'P1D'));
+        $resetPeriod = new DateInterval($this->metaRepository->get('zone_occupant_reset_interval', 'P1D'));
 
         $days = $resetPeriod->format('%d');
         $hours = 0;

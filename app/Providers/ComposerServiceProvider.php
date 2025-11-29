@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Tremby\LaravelGitVersion\GitVersionHelper;
 
 class ComposerServiceProvider extends ServiceProvider
 {
@@ -25,7 +26,7 @@ class ComposerServiceProvider extends ServiceProvider
         );
 
         View::composer('layouts.footer', function ($view) {
-            $gitDescribe = \Tremby\LaravelGitVersion\GitVersionHelper::getVersion();
+            $gitDescribe = GitVersionHelper::getVersion();
             $parts = preg_match('/^(?:(.*)-(\d+)-g)?([a-fA-F0-9]{7,40})(-dirty)?$/', $gitDescribe, $matches);
 
             if ($parts == 0) {

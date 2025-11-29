@@ -13,7 +13,7 @@ use InvalidArgumentException;
 class CarbonType extends DateTimeType
 {
     /**
-     * @var null|\DateTimeZone
+     * @var null|DateTimeZone
      */
     private static $utc = null;
 
@@ -39,7 +39,7 @@ class CarbonType extends DateTimeType
         }
 
         if (is_null(self::$utc)) {
-            self::$utc = new \DateTimeZone('UTC');
+            self::$utc = new DateTimeZone('UTC');
         }
 
         if ($value instanceof DateTime) {
@@ -67,7 +67,7 @@ class CarbonType extends DateTimeType
         }
 
         if (is_null(self::$utc)) {
-            self::$utc = new \DateTimeZone('UTC');
+            self::$utc = new DateTimeZone('UTC');
         }
 
         if ($value instanceof DateTime) {

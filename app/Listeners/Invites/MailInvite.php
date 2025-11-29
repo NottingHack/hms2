@@ -7,6 +7,7 @@ use App\Mail\InterestRegistered;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\RoleRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Mail;
 
 class MailInvite implements ShouldQueue
 {
@@ -40,7 +41,7 @@ class MailInvite implements ShouldQueue
      */
     public function handle(MembershipInterestRegistered $event)
     {
-        \Mail::to($event->invite->getEmail())
+        Mail::to($event->invite->getEmail())
             ->queue(new InterestRegistered($event->invite, $this->metaRepository, $this->roleRepository));
     }
 }

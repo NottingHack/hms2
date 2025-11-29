@@ -8,6 +8,8 @@ use HMS\Entities\Banking\Stripe\Charge;
 use HMS\Entities\Banking\Stripe\ChargeType;
 use HMS\Entities\Role;
 use HMS\Entities\Snackspace\TransactionType;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
 use Stripe\Charge as StripeCharge;
 
 class HandleChargeSucceededJob extends EventHandler
@@ -35,7 +37,7 @@ class HandleChargeSucceededJob extends EventHandler
                 break;
 
             default:
-                \Log::warning('HandleChargeSucceededJob: UnknownChargeType');
+                Log::warning('HandleChargeSucceededJob: UnknownChargeType');
                 $ret = true;
                 break;
         }
@@ -106,7 +108,7 @@ class HandleChargeSucceededJob extends EventHandler
         if ($user) {
             $user->notify($donationPaymentNotification);
         } else {
-            \Notification::route('mail', $stripeCharge->receipt_email)
+            Notification::route('mail', $stripeCharge->receipt_email)
                 ->notify($donationPaymentNotification);
         }
 

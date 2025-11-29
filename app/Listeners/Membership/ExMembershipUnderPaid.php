@@ -11,6 +11,7 @@ use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Mail;
 
 class ExMembershipUnderPaid implements ShouldQueue
 {
@@ -23,6 +24,16 @@ class ExMembershipUnderPaid implements ShouldQueue
      * @var RoleManager
      */
     protected $roleManager;
+
+    /**
+     * @var MembershipStatusNotificationFactory
+     */
+    protected $membershipStatusNotificationFactory;
+
+    /**
+     * @var MembershipStatusNotificationRepository
+     */
+    protected $membershipStatusNotificationRepository;
 
     /**
      * @var MetaRepository
@@ -79,6 +90,6 @@ class ExMembershipUnderPaid implements ShouldQueue
         $this->membershipStatusNotificationRepository->save($membershipStatusNotification);
 
         // email user
-        \Mail::to($user)->send(new MembershipExUnderPaid($user, $this->metaRepository, $this->roleRepository));
+        Mail::to($user)->send(new MembershipExUnderPaid($user, $this->metaRepository, $this->roleRepository));
     }
 }

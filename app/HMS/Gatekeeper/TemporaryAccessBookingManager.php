@@ -9,6 +9,7 @@ use App\Events\Gatekeeper\BookingRejected;
 use App\Events\Gatekeeper\NewBooking;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
+use DateInterval;
 use HMS\Entities\Gatekeeper\BookableArea;
 use HMS\Entities\Gatekeeper\Building;
 use HMS\Entities\Gatekeeper\BuildingAccessState;
@@ -91,7 +92,7 @@ class TemporaryAccessBookingManager
 
         // BASIC CHECKS
         $maxLength = (int) CarbonInterval::instance(
-            new \DateInterval($this->metaRepository->get('temp_access_reset_interval', 'PT12H'))
+            new DateInterval($this->metaRepository->get('temp_access_reset_interval', 'PT12H'))
         )->totalMinutes;
         $basicChecks = $this->basicTimeChecks($start, $end, $maxLength);
         if (is_string($basicChecks)) {
@@ -217,7 +218,7 @@ class TemporaryAccessBookingManager
      *
      * @return string|TemporaryAccessBooking String with error message or a Booking
      */
-    public function update(TemporaryAccessBooking $booking, Carbon $start = null, Carbon $end = null)
+    public function update(TemporaryAccessBooking $booking, ?Carbon $start = null, ?Carbon $end = null)
     {
         $messages = collect(); // TODO: thinking of a way to pass over limit warnings back to grant.all
         // check isApproved
@@ -237,7 +238,7 @@ class TemporaryAccessBookingManager
         }
 
         $maxLength = (int) CarbonInterval::instance(
-            new \DateInterval($this->metaRepository->get('temp_access_reset_interval', 'PT12H'))
+            new DateInterval($this->metaRepository->get('temp_access_reset_interval', 'PT12H'))
         )->totalMinutes;
         $basicChecks = $this->basicTimeChecks($start, $end, $maxLength);
 

@@ -4,6 +4,7 @@ namespace App\Jobs\Gatekeeper;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
+use DateInterval;
 use HMS\Entities\Gatekeeper\Zone;
 use HMS\Entities\Gatekeeper\ZoneOccupancyLog;
 use HMS\Repositories\Gatekeeper\ZoneOccupancyLogRepository;
@@ -50,7 +51,7 @@ class ZoneOccupantResetJob implements ShouldQueue, Silenced
     ) {
         $resetUserCount = 0;
         $resetPeriod = CarbonInterval::instance(
-            new \DateInterval($metaRepository->get('zone_occupant_reset_interval', 'P1D'))
+            new DateInterval($metaRepository->get('zone_occupant_reset_interval', 'P1D'))
         );
         $resetIfBeforeDate = Carbon::now()->sub($resetPeriod);
         $zones = $zoneRepository->findAll();

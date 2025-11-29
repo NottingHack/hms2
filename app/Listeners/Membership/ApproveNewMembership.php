@@ -13,6 +13,7 @@ use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Mail;
 
 class ApproveNewMembership implements ShouldQueue
 {
@@ -113,6 +114,6 @@ class ApproveNewMembership implements ShouldQueue
         $this->userRepository->save($user);
 
         // email user
-        \Mail::to($user)->send(new MembershipComplete($user, $this->metaRepository, $this->roleRepository, $this->userRepository));
+        Mail::to($user)->send(new MembershipComplete($user, $this->metaRepository, $this->roleRepository, $this->userRepository));
     }
 }

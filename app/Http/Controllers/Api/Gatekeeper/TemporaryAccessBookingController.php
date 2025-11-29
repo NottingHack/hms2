@@ -147,7 +147,7 @@ class TemporaryAccessBookingController extends Controller
      */
     public function show(TemporaryAccessBooking $temporaryAccessBooking)
     {
-        return new TemporaryAccessBookingResource($response);
+        return new TemporaryAccessBookingResource($temporaryAccessBooking);
     }
 
     /**

@@ -12,6 +12,7 @@ use HMS\Repositories\MetaRepository;
 use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Mail;
 
 class WarnMembershipUnderMinimum implements ShouldQueue
 {
@@ -96,7 +97,7 @@ class WarnMembershipUnderMinimum implements ShouldQueue
         $this->membershipStatusNotificationRepository->save($membershipStatusNotification);
 
         // email user
-        \Mail::to($user)->send(
+        Mail::to($user)->send(
             new MembershipMayBeRevokedDueToUnderPayment($user, $this->metaRepository, $this->bankRepository, $this->boxRepository)
         );
     }

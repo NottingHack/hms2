@@ -8,6 +8,7 @@ use App\Notifications\Banking\Stripe\ProcessingIssue;
 use HMS\Entities\Banking\Stripe\ChargeType;
 use HMS\Entities\Role;
 use HMS\Entities\Snackspace\TransactionType;
+use Illuminate\Support\Facades\Log;
 
 class HandleChargeDisputeFundsWithdrawnJob extends EventHandler
 {
@@ -27,8 +28,8 @@ class HandleChargeDisputeFundsWithdrawnJob extends EventHandler
         if (is_null($charge)) {
             // TODO: bugger should we create one?
             // for now log it and tell software team
-            \Log::error('HandleChargeRefundedJob: Charge not found');
-            $softwareTeamRole = $this->roleRepository->findOneByName(Role::SOFTWARE_TEAM);
+            Log::error('HandleChargeRefundedJob: Charge not found');
+            $softwareTeamRole = $this->roleRepository->findOneByName(Role::TEAM_SOFTWARE);
             $softwareTeamRole->notify(new ProcessingIssue($this->webhookCall, 'Dispute Funds Withdrawn'));
 
             return true;

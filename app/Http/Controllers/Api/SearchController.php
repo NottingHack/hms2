@@ -45,7 +45,7 @@ class SearchController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function users(Request $request, string $searchQuery = null)
+    public function users(Request $request, ?string $searchQuery = null)
     {
         if ($request['q']) {
             $searchQuery = $request['q'];
@@ -101,7 +101,7 @@ class SearchController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function invites(Request $request, string $searchQuery = null)
+    public function invites(Request $request, ?string $searchQuery = null)
     {
         if ($request['q']) {
             $searchQuery = $request['q'];

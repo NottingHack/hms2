@@ -3,6 +3,7 @@
 namespace HMS\Entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Exception;
 use HMS\Entities\Banking\Account;
 use HMS\Entities\Gatekeeper\Pin;
 use HMS\Entities\Gatekeeper\RfidTag;
@@ -240,7 +241,7 @@ class User implements
         // TODO: when using Doctrine PasswordStore
         // return $this->getPassword();
         // else
-        throw new \Exception('Not Supported');
+        throw new Exception('Not Supported');
     }
 
     /**

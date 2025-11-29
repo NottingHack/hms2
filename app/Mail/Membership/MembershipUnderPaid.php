@@ -42,8 +42,11 @@ class MembershipUnderPaid extends Mailable implements ShouldQueue
      * @param MetaRepository $metaRepository
      * @param RoleRepository $roleRepository
      */
-    public function __construct(User $user, MetaRepository $metaRepository, RoleRepository $roleRepository)
-    {
+    public function __construct(
+        User $user,
+        MetaRepository $metaRepository,
+        RoleRepository $roleRepository,
+    ) {
         $this->fullname = $user->getFullname();
 
         $this->minimumAmount = $metaRepository->getInt('membership_minimum_amount', 500);

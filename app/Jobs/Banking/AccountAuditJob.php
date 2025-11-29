@@ -14,6 +14,7 @@ use App\HMS\Views\LowLastPaymentAmount;
 use App\Notifications\Banking\AuditIssues;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
+use DateInterval;
 use HMS\Entities\Banking\Account;
 use HMS\Entities\Banking\MembershipStatusNotification;
 use HMS\Entities\Role;
@@ -141,13 +142,13 @@ class AccountAuditJob implements ShouldQueue
         $warnDate = clone $dateNow;
         $warnDate->sub(
             CarbonInterval::instance(
-                new \DateInterval($metaRepository->get('audit_warn_interval', 'P1M14D'))
+                new DateInterval($metaRepository->get('audit_warn_interval', 'P1M14D'))
             )
         );
         $revokeDate = clone $dateNow;
         $revokeDate->sub(
             CarbonInterval::instance(
-                new \DateInterval($metaRepository->get('audit_revoke_interval', 'P2M'))
+                new DateInterval($metaRepository->get('audit_revoke_interval', 'P2M'))
             )
         );
         $notificationRevokeDate = clone $dateNow;
@@ -350,7 +351,7 @@ class AccountAuditJob implements ShouldQueue
         }
 
         foreach ($exUsersUnderMinimum as $user => $latestTransaction) {
-            event(new ExMemberPaymentUnderMinimum($details['user'], $details['latestTransaction']));
+            event(new ExMemberPaymentUnderMinimum($user, $latestTransaction));
         }
 
         if (count($ohCrapUsers) != 0) {

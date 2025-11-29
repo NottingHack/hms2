@@ -9,6 +9,7 @@ use HMS\Entities\User;
 use HMS\Repositories\UserRepository;
 use HMS\User\ProfileManager;
 use HMS\User\UserManager;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;

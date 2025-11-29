@@ -8,6 +8,7 @@ use HMS\Entities\Role;
 use HMS\Repositories\RoleRepository;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\HtmlString;
 use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
 
@@ -39,7 +40,7 @@ class EmailController extends Controller
      */
     public function draft()
     {
-        $draft = \Cache::get('emailMembers.draft', [
+        $draft = Cache::get('emailMembers.draft', [
             'subject' => '',
             'emailContent' => '',
         ]);
@@ -54,7 +55,7 @@ class EmailController extends Controller
      */
     public function forget()
     {
-        \Cache::forget('emailMembers.draft');
+        Cache::forget('emailMembers.draft');
 
         return redirect()->route('email-members.draft');
     }
@@ -68,7 +69,7 @@ class EmailController extends Controller
      */
     public function review(Request $request)
     {
-        \Cache::put('emailMembers.draft', [
+        Cache::put('emailMembers.draft', [
             'subject' => $request->subject,
             'emailContent' => $request->emailContent,
         ], now()->addMinutes(30));
@@ -96,7 +97,7 @@ class EmailController extends Controller
      */
     public function reviewHtml(ViewFactory $viewFactory, CssToInlineStyles $cssToInlineStyles)
     {
-        $draft = \Cache::get('emailMembers.draft', [
+        $draft = Cache::get('emailMembers.draft', [
             'subject' => '',
             'emailContent' => '',
         ]);
@@ -123,13 +124,13 @@ class EmailController extends Controller
      */
     public function send(Request $request)
     {
-        $draft = \Cache::get('emailMembers.draft');
+        $draft = Cache::get('emailMembers.draft');
 
         EmailCurrentMembersJob::dispatch($draft['subject'], $draft['emailContent'], $request->testSend);
 
         if (! $request->testSend) {
             flash('Email queued for sending', 'success');
-            \Cache::forget('emailMembers.draft');
+            Cache::forget('emailMembers.draft');
         } else {
             flash('Test email queued for sending', 'success');
         }

@@ -12,6 +12,7 @@ use HMS\Repositories\MetaRepository;
 use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Mail;
 
 class WarnMembershipMayExpire implements ShouldQueue
 {
@@ -96,6 +97,6 @@ class WarnMembershipMayExpire implements ShouldQueue
         $this->membershipStatusNotificationRepository->save($membershipStatusNotification);
 
         // email user
-        \Mail::to($user)->send(new MembershipMayBeRevoked($user, $this->metaRepository, $this->bankRepository, $this->boxRepository));
+        Mail::to($user)->send(new MembershipMayBeRevoked($user, $this->metaRepository, $this->bankRepository, $this->boxRepository));
     }
 }

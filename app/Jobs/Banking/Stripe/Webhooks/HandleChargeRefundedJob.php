@@ -9,6 +9,8 @@ use HMS\Entities\Banking\Stripe\Charge;
 use HMS\Entities\Banking\Stripe\ChargeType;
 use HMS\Entities\Role;
 use HMS\Entities\Snackspace\TransactionType;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
 use Stripe\Charge as StripeCharge;
 
 class HandleChargeRefundedJob extends EventHandler
@@ -24,7 +26,7 @@ class HandleChargeRefundedJob extends EventHandler
 
         if (! $stripeCharge->refunded) {
             // should not be here
-            \Log::error('HandleChargeRefundedJob: not refunded? :/');
+            Log::error('HandleChargeRefundedJob: not refunded? :/');
 
             return true;
         }
@@ -34,8 +36,8 @@ class HandleChargeRefundedJob extends EventHandler
         if (is_null($charge)) {
             // TODO: bugger should we create one?
             // for now log it and tell software team
-            \Log::error('HandleChargeRefundedJob: Charge not found');
-            $softwareTeamRole = $this->roleRepository->findOneByName(Role::SOFTWARE_TEAM);
+            Log::error('HandleChargeRefundedJob: Charge not found');
+            $softwareTeamRole = $this->roleRepository->findOneByName(Role::TEAM_SOFTWARE);
             $softwareTeamRole->notify(new ProcessingIssue($this->webhookCall, 'Charge Refunded'));
 
             return true;
@@ -54,7 +56,7 @@ class HandleChargeRefundedJob extends EventHandler
                 break;
 
             default:
-                \Log::warning('HandleChargeRefundedJob: UnknownChargeType');
+                Log::warning('HandleChargeRefundedJob: UnknownChargeType');
                 $ret = true;
                 break;
         }
@@ -126,7 +128,7 @@ class HandleChargeRefundedJob extends EventHandler
         if ($user) {
             $user->notify($donationRefundNotification);
         } else {
-            \Notification::route('mail', $stripeCharge->receipt_email)
+            Notification::route('mail', $stripeCharge->receipt_email)
                 ->notify($donationRefundNotification);
         }
 

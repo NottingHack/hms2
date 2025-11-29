@@ -12,12 +12,12 @@
     </button>
     @endif
     @unless($user->hasRoleByName(HMS\Entities\Role::MEMBER_TEMPORARYBANNED))
-    <button type="button" class="list-group-item list-group-item-action" data-toggle="confirmation" data-placement="bottom" aria-label="Temporay Ban Member">
+    <button type="button" class="list-group-item list-group-item-action" data-toggle="confirmation" data-placement="bottom" aria-label="Temporary Ban Member">
       <form action="{{ route('users.admin.temporaryBan', $user->getId()) }}" method="POST" style="display: inline">
         @method('PATCH')
         @csrf
       </form>
-      Temporay Ban Member
+      Temporary Ban Member
     </button>
     @endunless
     @unless($user->hasRoleByName(HMS\Entities\Role::MEMBER_BANNED))

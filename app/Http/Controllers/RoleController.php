@@ -8,6 +8,7 @@ use App\Notifications\Membership\MemberTemporarilyBanned;
 use App\Notifications\Membership\TemporarilyBannedMemberReinstated;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
+use DateInterval;
 use HMS\Entities\Role;
 use HMS\Entities\User;
 use HMS\Repositories\Banking\BankTransactionRepository;
@@ -364,7 +365,7 @@ class RoleController extends Controller
 
         $revokeDate = Carbon::now();
         $revokeDate->sub(
-            CarbonInterval::instance(new \DateInterval($this->metaRepository->get('audit_revoke_interval', 'P2M')))
+            CarbonInterval::instance(new DateInterval($this->metaRepository->get('audit_revoke_interval', 'P2M')))
         );
 
         if ($transactionDate > $revokeDate) {

@@ -45,7 +45,13 @@ class DisputeSnackspaceFundsWithdrawn extends Notification implements ShouldQueu
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        if ($notifiable instanceof User
+            || $notifiable instanceof Role
+        ) {
+            return ['mail'];
+        }
+
+        return [];
     }
 
     /**
@@ -53,7 +59,7 @@ class DisputeSnackspaceFundsWithdrawn extends Notification implements ShouldQueu
      *
      * @param mixed $notifiable
      *
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return \Illuminate\Notifications\Messages\MailMessage|void
      */
     public function toMail($notifiable)
     {

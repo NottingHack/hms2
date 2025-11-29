@@ -5,6 +5,7 @@ namespace App\Jobs\Membership;
 use App\Mail\Membership\Retention;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
+use DateInterval;
 use HMS\Entities\Role;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\ProfileRepository;
@@ -48,7 +49,7 @@ class RetentionEmailJob implements ShouldQueue
         MetaRepository $metaRepository
     ) {
         $targetJoinDate = Carbon::today()->sub(
-            CarbonInterval::instance(new \DateInterval($metaRepository->get('membership_retention_email_defer', 'P14D')))
+            CarbonInterval::instance(new DateInterval($metaRepository->get('membership_retention_email_defer', 'P14D')))
         );
 
         $profiles = $profileRepository->findByJoinedOn($targetJoinDate);

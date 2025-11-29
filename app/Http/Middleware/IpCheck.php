@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use HMS\Facades\SiteVisitor;
 
 /**
  * Middleware to check that the incoming request has a source IP form the hackspace network,
@@ -20,7 +21,7 @@ class IpCheck
      */
     public function handle($request, Closure $next)
     {
-        if (! \SiteVisitor::inTheSpace($request)) {
+        if (! SiteVisitor::inTheSpace($request)) {
             return redirect('/');
         }
 

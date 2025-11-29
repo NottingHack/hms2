@@ -12,6 +12,7 @@ use HMS\Repositories\MetaRepository;
 use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Mail;
 
 class RevokeMembership implements ShouldQueue
 {
@@ -107,7 +108,7 @@ class RevokeMembership implements ShouldQueue
         }
 
         // email user
-        \Mail::to($user)->send(
+        Mail::to($user)->send(
             new MembershipRevoked(
                 $user,
                 $this->metaRepository,

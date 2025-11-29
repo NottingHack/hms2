@@ -90,8 +90,8 @@ class ViMbAdminSubscriber implements ShouldQueue
         }
 
         $mailbox = Mailbox::create($mailboxEmail, $event->role->getDisplayname(), $domain);
-        if ($role->getEmailPassword()) {
-            $mailbox->setPassword($role->getEmailPassword(true));
+        if ($event->role->getEmailPassword()) {
+            $mailbox->setPassword($event->role->getEmailPassword(true));
         }
 
         $response = $this->client->createMailbox($mailbox);
@@ -272,7 +272,7 @@ class ViMbAdminSubscriber implements ShouldQueue
 
         $response = $this->client->createMailbox($mailbox);
         if (! $response instanceof Mailbox) {
-            throw new Exception('Failed to create Mailbox for Role: ' . $event->role->getName());
+            throw new Exception('Failed to create Mailbox for Trustee: ' . $mailboxEmail);
         }
 
         return $mailbox;

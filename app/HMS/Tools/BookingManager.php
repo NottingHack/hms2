@@ -50,7 +50,7 @@ class BookingManager
      *
      * @return string|Booking String with error message or a Booking
      */
-    public function bookNormal(Tool $tool, Carbon $start, Carbon $end, User $user = null)
+    public function bookNormal(Tool $tool, Carbon $start, Carbon $end, ?User $user = null)
     {
         if (is_null($user)) {
             $user = Auth::user();
@@ -100,7 +100,7 @@ class BookingManager
      *
      * @return string|Booking String with error message or a Booking
      */
-    public function bookInduction(Tool $tool, Carbon $start, Carbon $end, User $user = null)
+    public function bookInduction(Tool $tool, Carbon $start, Carbon $end, ?User $user = null)
     {
         if (is_null($user)) {
             $user = Auth::user();
@@ -143,7 +143,7 @@ class BookingManager
      *
      * @return string|Booking String with error message or a Booking
      */
-    public function bookMaintenance(Tool $tool, Carbon $start, Carbon $end, User $user = null)
+    public function bookMaintenance(Tool $tool, Carbon $start, Carbon $end, ?User $user = null)
     {
         if (is_null($user)) {
             $user = Auth::user();
@@ -190,7 +190,7 @@ class BookingManager
      *
      * @return string|Booking String with error message or a Booking
      */
-    public function update(Tool $tool, Booking $booking, Carbon $start = null, Carbon $end = null)
+    public function update(Tool $tool, Booking $booking, ?Carbon $start = null, ?Carbon $end = null)
     {
         $user = Auth::user();
 

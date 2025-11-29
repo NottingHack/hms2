@@ -3,6 +3,7 @@
 namespace App\Console\Commands\Database;
 
 use Carbon\Carbon;
+use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
 use HMS\Entities\Banking\BankType;
 use HMS\Entities\Gatekeeper\AccessLogResult;
@@ -113,12 +114,12 @@ class MigrateMembersAreaCommand extends Command
     protected $description = 'Migrate data form old members-area database';
 
     /**
-     * @var null|\DateTimeZone
+     * @var null|DateTimeZone
      */
     private static $utc = null;
 
     /**
-     * @var null|\DateTimeZone
+     * @var null|DateTimeZone
      */
     private static $gmt = null;
 
@@ -130,10 +131,10 @@ class MigrateMembersAreaCommand extends Command
     public function handle()
     {
         if (is_null(self::$utc)) {
-            self::$utc = new \DateTimeZone('UTC');
+            self::$utc = new DateTimeZone('UTC');
         }
         if (is_null(self::$gmt)) {
-            self::$gmt = new \DateTimeZone('Europe/London');
+            self::$gmt = new DateTimeZone('Europe/London');
         }
 
         $this->info('Please provide details for connecting to the members-area database.');

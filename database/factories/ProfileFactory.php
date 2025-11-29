@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use HMS\Facades\Meta;
 use HMS\Governance\VotingPreference;
 
 /*
@@ -19,7 +20,7 @@ $factory->define(HMS\Entities\Profile::class, function (Faker\Generator $faker, 
         'user' => isset($attributes['user']) ? $attributes['user'] : null,
         'joinDate' => Carbon::instance($faker->dateTimeBetween($startDate = '-10 years')),
         'unlockText' => 'Welcome ' . $attributes['user']->getFirstName(),
-        'creditLimit' => \Meta::get('member_credit_limit'),
+        'creditLimit' => Meta::get('member_credit_limit'),
         'address1' => $faker->streetAddress,
         'addressCity' => $faker->city,
         'addressCounty' => $faker->county,
@@ -36,7 +37,7 @@ $factory->defineAs(HMS\Entities\Profile::class, 'youngHacker', function (Faker\G
         'user' => isset($attributes['user']) ? $attributes['user'] : null,
         'joinDate' => Carbon::instance($faker->dateTimeBetween($startDate = '-2 years')),
         'unlockText' => 'Welcome ' . $attributes['user']->getFirstName(),
-        'creditLimit' => \Meta::get('member_credit_limit'),
+        'creditLimit' => Meta::get('member_credit_limit'),
         'address1' => $faker->streetAddress,
         'addressCity' => $faker->city,
         'addressCounty' => $faker->county,
@@ -52,7 +53,7 @@ $factory->defineAs(HMS\Entities\Profile::class, 'approval', function (Faker\Gene
     return [
         'user' => isset($attributes['user']) ? $attributes['user'] : null,
         'unlockText' => 'Welcome ' . $attributes['user']->getFirstName(),
-        'creditLimit' => \Meta::get('member_credit_limit'),
+        'creditLimit' => Meta::get('member_credit_limit'),
         'address1' => $faker->streetAddress,
         'addressCity' => $faker->city,
         'addressCounty' => $faker->county,
@@ -67,7 +68,7 @@ $factory->defineAs(HMS\Entities\Profile::class, 'approval', function (Faker\Gene
 $factory->defineAs(HMS\Entities\Profile::class, 'superuser', function (Faker\Generator $faker, array $attributes) {
     return [
         'user' => isset($attributes['user']) ? $attributes['user'] : null,
-        'creditLimit' => \Meta::get('member_credit_limit'),
+        'creditLimit' => Meta::get('member_credit_limit'),
         'balance' => 0,
         'votingPreference' => VotingPreference::AUTOMATIC,
     ];

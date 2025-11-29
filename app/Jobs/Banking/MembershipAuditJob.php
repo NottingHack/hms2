@@ -14,6 +14,7 @@ use App\HMS\Views\LowLastPaymentAmount;
 use App\Notifications\Banking\AuditIssues;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
+use DateInterval;
 use HMS\Entities\Banking\MembershipStatusNotification;
 use HMS\Entities\Role;
 use HMS\Repositories\Banking\BankTransactionRepository;
@@ -60,7 +61,7 @@ class MembershipAuditJob implements ShouldQueue
         $latestTransaction = $bankTransactionRepository->findLatestTransaction();
         $latestTransactionDate = $latestTransaction['latestTransactionDate'];
         $transactionThreshold = Carbon::now()->sub(
-            CarbonInterval::instance(new \DateInterval($metaRepository->get('audit_skip_interval', 'P3D')))
+            CarbonInterval::instance(new DateInterval($metaRepository->get('audit_skip_interval', 'P3D')))
         );
         if ($latestTransactionDate < $transactionThreshold) {
             return;
@@ -124,13 +125,13 @@ class MembershipAuditJob implements ShouldQueue
         $warnDate = clone $dateNow;
         $warnDate->sub(
             CarbonInterval::instance(
-                new \DateInterval($metaRepository->get('audit_warn_interval', 'P1M14D'))
+                new DateInterval($metaRepository->get('audit_warn_interval', 'P1M14D'))
             )
         );
         $revokeDate = clone $dateNow;
         $revokeDate->sub(
             CarbonInterval::instance(
-                new \DateInterval($metaRepository->get('audit_revoke_interval', 'P2M'))
+                new DateInterval($metaRepository->get('audit_revoke_interval', 'P2M'))
             )
         );
         $notificationRevokeDate = clone $dateNow;

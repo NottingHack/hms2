@@ -3,6 +3,7 @@
 namespace App\Console\Commands\Invites;
 
 use Carbon\Carbon;
+use DateInterval;
 use HMS\Repositories\InviteRepository;
 use HMS\Repositories\MetaRepository;
 use Illuminate\Console\Command;
@@ -59,7 +60,7 @@ class PurgeCommand extends Command
                 if ($this->metaRepository->has('purge_cutoff_interval')) {
                     $interval = $this->metaRepository->get('purge_cutoff_interval');
                     $date = Carbon::now()
-                        ->sub(new \DateInterval($interval));
+                        ->sub(new DateInterval($interval));
                 } else {
                     $date = Carbon::now()->subMonths(6);
                 }

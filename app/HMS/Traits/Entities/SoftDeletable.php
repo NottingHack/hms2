@@ -18,7 +18,7 @@ trait SoftDeletable
      *
      * @return $this
      */
-    public function setDeletedAt(Carbon $deletedAt = null)
+    public function setDeletedAt(?Carbon $deletedAt = null)
     {
         $this->deletedAt = $deletedAt;
 

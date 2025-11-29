@@ -15,6 +15,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class UserHasLeftTheBuildingJob implements ShouldQueue
 {
@@ -61,7 +62,7 @@ class UserHasLeftTheBuildingJob implements ShouldQueue
         $now = Carbon::now();
         $user = $zoneOccupant->getUser(); // get the fresh user off the ZoneOccupant
 
-        \Log::info(
+        Log::info(
             'UHLTBJ: User ' . $user->getId() . ' has told us they left Building ' . $this->building->getId()
         );
 
@@ -92,6 +93,6 @@ class UserHasLeftTheBuildingJob implements ShouldQueue
         $zoneOccupantRepository->save($zoneOccupant);
         $zoneOccupancyLogRepository->save($zoneOccupancyLog);
 
-        \Log::info('UHLTBJ: User ' . $user->getId() . ' set off site');
+        Log::info('UHLTBJ: User ' . $user->getId() . ' set off site');
     }
 }

@@ -3,10 +3,13 @@
 namespace App\Listeners;
 
 use App\Events\Labels\LabelPrintEventInterface;
+use Exception;
 use HMS\Repositories\LabelTemplateRepository;
 use HMS\Repositories\MetaRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Blade;
+use Throwable;
 
 class PrintLabelSubscriber implements ShouldQueue
 {
@@ -123,7 +126,7 @@ class PrintLabelSubscriber implements ShouldQueue
             }
 
             socket_write($socket, $label, strlen($label));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             //
         }
 
@@ -143,22 +146,22 @@ class PrintLabelSubscriber implements ShouldQueue
      */
     private function renderTemplate($template, $substitutions)
     {
-        $__php = \Blade::compileString($template);
+        $__php = Blade::compileString($template);
         $obLevel = ob_get_level();
         ob_start();
         extract($substitutions, EXTR_SKIP);
         try {
             eval('?' . '>' . $__php);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             while (ob_get_level() > $obLevel) {
                 ob_end_clean();
             }
             throw $e;
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             while (ob_get_level() > $obLevel) {
                 ob_end_clean();
             }
-            throw new FatalThrowableError($e);
+            throw $e;
         }
 
         return ob_get_clean();

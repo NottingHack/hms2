@@ -5,6 +5,7 @@ namespace App\Jobs\Banking\Stripe\Webhooks;
 use App\Notifications\Banking\Stripe\DisputeCreated;
 use App\Notifications\Banking\Stripe\ProcessingIssue;
 use HMS\Entities\Role;
+use Illuminate\Support\Facades\Log;
 
 class HandleChargeDisputeCreatedJob extends EventHandler
 {
@@ -24,8 +25,8 @@ class HandleChargeDisputeCreatedJob extends EventHandler
         if (is_null($charge)) {
             // TODO: bugger should we create one?
             // for now log it and tell software team
-            \Log::error('HandleChargeRefundedJob: Charge not found');
-            $softwareTeamRole = $this->roleRepository->findOneByName(Role::SOFTWARE_TEAM);
+            Log::error('HandleChargeRefundedJob: Charge not found');
+            $softwareTeamRole = $this->roleRepository->findOneByName(Role::TEAM_SOFTWARE);
             $softwareTeamRole->notify(new ProcessingIssue($this->webhookCall, 'Dispute Created'));
 
             return true;

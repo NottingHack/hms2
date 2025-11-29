@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Members\ProjectResource;
 use Doctrine\ORM\EntityNotFoundException;
 use HMS\Entities\Members\Project;
+use HMS\Entities\User;
 use HMS\Factories\Members\ProjectFactory;
 use HMS\Repositories\Members\ProjectRepository;
 use HMS\Repositories\UserRepository;

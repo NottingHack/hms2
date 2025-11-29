@@ -2,10 +2,12 @@
 
 namespace App\Notifications\Membership;
 
+use Carbon\Carbon;
 use HMS\Entities\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
 
 class YoungHackerTurnedEighteen extends Notification implements ShouldQueue

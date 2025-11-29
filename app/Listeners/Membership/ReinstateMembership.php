@@ -11,6 +11,7 @@ use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Mail;
 
 class ReinstateMembership implements ShouldQueue
 {
@@ -87,6 +88,6 @@ class ReinstateMembership implements ShouldQueue
         $this->roleManager->removeUserFromRoleByName($user, Role::MEMBER_EX);
 
         // email user
-        \Mail::to($user)->send(new MembershipReinstated($user, $this->metaRepository, $this->roleRepository));
+        Mail::to($user)->send(new MembershipReinstated($user, $this->metaRepository, $this->roleRepository));
     }
 }

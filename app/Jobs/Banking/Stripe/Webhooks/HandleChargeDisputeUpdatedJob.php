@@ -2,6 +2,8 @@
 
 namespace App\Jobs\Banking\Stripe\Webhooks;
 
+use Illuminate\Support\Facades\Log;
+
 class HandleChargeDisputeUpdatedJob extends EventHandler
 {
     /**
@@ -13,8 +15,8 @@ class HandleChargeDisputeUpdatedJob extends EventHandler
     {
         // We don't yet have any real need for this event so just log it out for now
         $stripeDispute = $this->stripeEvent->data->object;
-        \Log::info('HandleChargeDisputeUpdatedJob');
-        \Log::info($stripeDispute);
+        Log::info('HandleChargeDisputeUpdatedJob');
+        Log::info($stripeDispute);
 
         return true;
     }

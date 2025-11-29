@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands\Permissions;
 
-use Hms\Entities\Role;
+use HMS\Entities\Role;
 
 class ListCommand extends BaseCommand
 {

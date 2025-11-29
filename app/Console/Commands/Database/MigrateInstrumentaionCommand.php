@@ -3,6 +3,7 @@
 namespace App\Console\Commands\Database;
 
 use Carbon\Carbon;
+use DateTimeZone;
 use HMS\Tools\ToolManager;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -379,12 +380,12 @@ class MigrateInstrumentaionCommand extends Command
     protected $description = 'Migrate data form old instrumentation database';
 
     /**
-     * @var null|\DateTimeZone
+     * @var null|DateTimeZone
      */
     private static $utc = null;
 
     /**
-     * @var null|\DateTimeZone
+     * @var null|DateTimeZone
      */
     private static $gmt = null;
 
@@ -409,10 +410,10 @@ class MigrateInstrumentaionCommand extends Command
     public function handle()
     {
         if (is_null(self::$utc)) {
-            self::$utc = new \DateTimeZone('UTC');
+            self::$utc = new DateTimeZone('UTC');
         }
         if (is_null(self::$gmt)) {
-            self::$gmt = new \DateTimeZone('Europe/London');
+            self::$gmt = new DateTimeZone('Europe/London');
         }
 
         $this->info('Please provide details for connecting to the instrumentation database.');

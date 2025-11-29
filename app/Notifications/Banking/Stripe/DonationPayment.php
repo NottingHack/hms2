@@ -49,7 +49,14 @@ class DonationPayment extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        if ($notifiable instanceof User
+            || $notifiable instanceof AnonymousNotifiable
+            || $notifiable instanceof Role
+        ) {
+            return ['mail'];
+        }
+
+        return [];
     }
 
     /**
@@ -57,7 +64,7 @@ class DonationPayment extends Notification implements ShouldQueue
      *
      * @param mixed $notifiable
      *
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return \Illuminate\Notifications\Messages\MailMessage|void
      */
     public function toMail($notifiable)
     {

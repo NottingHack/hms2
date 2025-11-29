@@ -81,6 +81,11 @@ class Tool
     protected $hidden;
 
     /**
+     * @var string
+     */
+    protected $transactionTypeOverride;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection|Booking[]
      */
     protected $bookings;
@@ -307,6 +312,26 @@ class Tool
     public function setHidden(bool $hidden)
     {
         $this->hidden = $hidden;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTransactionTypeOverride()
+    {
+        return $this->transactionTypeOverride;
+    }
+
+    /**
+     * @param string $transactionTypeOverride
+     *
+     * @return self
+     */
+    public function setTransactionType($transactionTypeOverride)
+    {
+        $this->transactionTypeOverride = $transactionTypeOverride;
 
         return $this;
     }

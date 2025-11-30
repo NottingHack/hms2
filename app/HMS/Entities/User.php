@@ -12,6 +12,7 @@ use HMS\Traits\Entities\DoctrineMustVerifyEmail;
 use HMS\Traits\Entities\SoftDeletable;
 use HMS\Traits\Entities\Timestampable;
 use HMS\Traits\HasApiTokens;
+use HMS\Entities\EntityObfuscatableInterface;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -24,6 +25,7 @@ use LaravelDoctrine\ACL\Contracts\HasRoles as HasRoleContract;
 use LaravelDoctrine\ACL\Permissions\HasPermissions;
 use LaravelDoctrine\ACL\Roles\HasRoles;
 use LaravelDoctrine\ORM\Notifications\Notifiable;
+use Carbon\Carbon;
 
 class User implements
     AuthenticatableContract,
@@ -31,7 +33,8 @@ class User implements
     HasRoleContract,
     HasPermissionsContract,
     AuthorizableContract,
-    MustVerifyEmailContract
+    MustVerifyEmailContract,
+    EntityObfuscatableInterface
 {
     use CanResetPassword,
         Notifiable,
@@ -482,5 +485,15 @@ class User implements
             ->createDm([
                 'recipient_id' => (int) $discordMember['user']['id'],
             ])['id'];
+    }
+
+    /**
+     * Obfuscate personal information
+     */
+    public function obfuscate()
+    {
+        $this->email = 'deleted-account+' . $this->username . '@deleted-accounts.local';
+        $this->account = null;
+        return $this;
     }
 }

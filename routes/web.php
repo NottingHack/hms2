@@ -154,6 +154,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('change-password', [ChangePasswordController::class, 'edit'])->name('users.changePassword');
     Route::put('change-password', [ChangePasswordController::class, 'update'])->name('users.changePassword.update');
 
+    // User account deletion
+    Route::get('delete-account', 'Auth\DeleteAccountController@info')->name('users.deleteAccount');
+    Route::put('delete-account', 'Auth\DeleteAccountController@delete')->name('users.deleteAccount.deleted');
+
     // Meta area covers various setting for HMS
     Route::resource('metas', MetaController::class)
         ->except(['show', 'store', 'create', 'destroy']);

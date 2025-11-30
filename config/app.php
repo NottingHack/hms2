@@ -146,6 +146,7 @@ return [
         LaravelDoctrine\ACL\AclServiceProvider::class,
         Digbang\SafeQueue\DoctrineQueueProvider::class,
         LaravelDoctrine\Extensions\BeberleiExtensionsServiceProvider::class,
+        Akaunting\Money\Provider::class,
 
         /*
          * Application Service Providers...

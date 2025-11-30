@@ -81,6 +81,7 @@
     "extra": {
         "laravel": {
             "dont-discover": [
+                "akaunting/laravel-money",
                 "laravel/passport"
             ]
         }

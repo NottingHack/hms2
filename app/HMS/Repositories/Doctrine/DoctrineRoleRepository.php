@@ -27,13 +27,7 @@ class DoctrineRoleRepository extends EntityRepository implements RoleRepository
      */
     public function findAll()
     {
-        $entities = parent::findAll();
-        $roles = [];
-        foreach ($entities as $entity) {
-            $roles[$entity->getName()] = $entity;
-        }
-
-        return new ArrayCollection($roles);
+        return parent::findAll();
     }
 
     /**

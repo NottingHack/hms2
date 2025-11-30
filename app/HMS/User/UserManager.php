@@ -8,7 +8,6 @@ use HMS\Entities\Role;
 use HMS\Entities\User;
 use HMS\Repositories\UserRepository;
 use HMS\User\Permissions\RoleManager;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class UserManager
 {

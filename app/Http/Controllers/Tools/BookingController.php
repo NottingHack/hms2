@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use HMS\Entities\Tools\Tool;
 use HMS\Repositories\Tools\BookingRepository;
 use HMS\Tools\BookingManager;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller

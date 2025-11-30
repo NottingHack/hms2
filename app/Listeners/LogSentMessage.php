@@ -6,8 +6,6 @@ use HMS\Entities\Email;
 use HMS\Repositories\EmailRepository;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Mail\Events\MessageSending;
 use Illuminate\Mail\Events\MessageSent;
 use Symfony\Component\Mime\Email as MimeEmail;
 use Symfony\Component\Mime\Part\AbstractMultipartPart;

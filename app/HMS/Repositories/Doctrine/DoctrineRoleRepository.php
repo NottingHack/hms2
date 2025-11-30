@@ -2,7 +2,6 @@
 
 namespace HMS\Repositories\Doctrine;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Role;
 use HMS\Entities\User;

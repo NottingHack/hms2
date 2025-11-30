@@ -94,8 +94,8 @@ class RoleUpdateLogger implements ShouldQueue
     public function subscribe($events)
     {
         return [
-            UserAddedToRole::class =>'onUserAddedToRole',
-            UserRemovedFromRole::class =>'onUserRemovedFromRole',
+            UserAddedToRole::class => 'onUserAddedToRole',
+            UserRemovedFromRole::class => 'onUserRemovedFromRole',
         ];
     }
 }

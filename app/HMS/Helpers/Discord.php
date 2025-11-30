@@ -15,21 +15,21 @@ class Discord
     protected $client;
 
     /**
-     * \RestCord\Member[]
+     * \RestCord\Member[].
      *
      * @var array
      */
     protected $members;
 
     /**
-     * \RestCord\Channel[]
+     * \RestCord\Channel[].
      *
      * @var array
      */
     protected $channels;
 
     /**
-     * \RestCord\Role[]
+     * \RestCord\Role[].
      *
      * @var array
      */

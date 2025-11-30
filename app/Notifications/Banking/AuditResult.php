@@ -6,7 +6,6 @@ use App\Notifications\NotificationSensitivityInterface;
 use App\Notifications\NotificationSensitivityType;
 use Carbon\Carbon;
 use HMS\Entities\Role;
-use HMS\Entities\User;
 use HMS\Helpers\Discord;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

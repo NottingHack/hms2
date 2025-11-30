@@ -17,7 +17,7 @@ class NavComposer
     private $navigation = [];
 
     /**
-     * @var Illuminate\Http\Request
+     * @var Request
      */
     private $request;
 

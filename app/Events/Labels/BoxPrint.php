@@ -39,7 +39,7 @@ class BoxPrint implements LabelPrintEventInterface
         $this->copiesToPrint = $copiesToPrint;
 
         // hack to offset the ID printing and give the look of right justification
-        $idOffset = (5 - strlen($box->getId())) * 35;
+        $idOffset = (5 - strlen((string) $box->getId())) * 35;
 
         $this->substitutions = [
             'memberName' => $box->getUser()->getFullname(),

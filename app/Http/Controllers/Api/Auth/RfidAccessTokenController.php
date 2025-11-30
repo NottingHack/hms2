@@ -74,13 +74,14 @@ class RfidAccessTokenController extends Controller
         // revoke any old tokens
         $tokens = $user->tokens()->where('name', 'Rfid Authorized');
         foreach ($tokens as $token) {
+            // @phpstan-ignore method.notFound
             $token->revoke();
         }
 
         $token = $user->createToken('Rfid Authorized');
         $response = [
             'token_type' => 'Bearer',
-            'expires_in' => Carbon::now()->diffInSeconds($token->token->expires_at),
+            'expires_in' => (int) abs(Carbon::now()->diffInSeconds($token->token->expires_at)),
             'access_token' => $token->accessToken,
         ];
 

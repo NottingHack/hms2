@@ -49,7 +49,7 @@ class PurchasePaymentController extends Controller
             $endDate = new Carbon($validatedData['endDate']);
             $endDate->endOfDay();
         } else {
-            $startDate = Carbon::now()->subMonth(1)->startOfMonth();
+            $startDate = Carbon::now()->subMonth()->startOfMonth();
             $endDate = $startDate->copy()->endOfMonth();
         }
 

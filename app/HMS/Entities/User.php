@@ -4,6 +4,8 @@ namespace HMS\Entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Exception;
+use HMS\Auth\KerberosPasswordStore;
+use HMS\Auth\PasswordStore;
 use HMS\Entities\Banking\Account;
 use HMS\Entities\Gatekeeper\Pin;
 use HMS\Entities\Gatekeeper\RfidTag;
@@ -18,6 +20,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 use LaravelDoctrine\ACL\Contracts\HasPermissions as HasPermissionsContract;
 use LaravelDoctrine\ACL\Contracts\HasRoles as HasRoleContract;
@@ -84,7 +87,7 @@ class User implements
     protected $rememberToken;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection|\LaravelDoctrine\ACL\Contracts\Role[]
+     * @var \Doctrine\Common\Collections\Collection|Role[]
      */
     protected $roles;
 
@@ -238,10 +241,21 @@ class User implements
      */
     public function getAuthPassword()
     {
-        // TODO: when using Doctrine PasswordStore
-        // return $this->getPassword();
-        // else
-        throw new Exception('Not Supported');
+        if (App::make(PasswordStore::class) instanceof KerberosPasswordStore) {
+            throw new Exception('Not Supported');
+        }
+
+        return $this->getPassword();
+    }
+
+    /**
+     * Get the name of the password attribute for the user.
+     *
+     * @return string
+     */
+    public function getAuthPasswordName()
+    {
+        return 'password';
     }
 
     /**
@@ -292,7 +306,7 @@ class User implements
     public function getPermissions()
     {
         // user's don't directly have permissions, only via their roles
-        return [];
+        return new ArrayCollection();
     }
 
     /**
@@ -396,7 +410,7 @@ class User implements
     }
 
     /**
-     * @return null|HMS\Entities\Gatekeeper\Pin
+     * @return null|Pin
      */
     public function getPin()
     {
@@ -404,11 +418,11 @@ class User implements
     }
 
     /**
-     * @param null|HMS\Entities\Gatekeeper\Pin $pin
+     * @param null|Pin $pin
      *
      * @return self
      */
-    public function setPin(Pin $pin)
+    public function setPin(?Pin $pin)
     {
         $this->pin = $pin;
 

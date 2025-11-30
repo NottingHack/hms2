@@ -2,7 +2,6 @@
 
 namespace HMS\Repositories\Doctrine;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Role;
 use HMS\Entities\User;
@@ -23,17 +22,11 @@ class DoctrineRoleRepository extends EntityRepository implements RoleRepository
     /**
      * Finds all entities in the repository.
      *
-     * @return array The entities.
+     * @return Role[]
      */
     public function findAll()
     {
-        $entities = parent::findAll();
-        $roles = [];
-        foreach ($entities as $entity) {
-            $roles[$entity->getName()] = $entity;
-        }
-
-        return new ArrayCollection($roles);
+        return parent::findAll();
     }
 
     /**
@@ -63,6 +56,18 @@ class DoctrineRoleRepository extends EntityRepository implements RoleRepository
     public function findOneByName(string $roleName)
     {
         return parent::findOneByName($roleName);
+    }
+
+    /**
+     * Finds a role based on the role name.
+     *
+     * @param string $roleDisplayName name of the role we want
+     *
+     * @return Role|null
+     */
+    public function findOneByDisplayName(string $roleDisplayName)
+    {
+        return parent::findOneByDisplayName($roleDisplayName);
     }
 
     /**

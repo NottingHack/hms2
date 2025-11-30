@@ -58,7 +58,7 @@ class RegisterRfidTagController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Support\Responsable
      */
     public function __invoke(Request $request)
     {

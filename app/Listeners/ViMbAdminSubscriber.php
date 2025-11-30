@@ -281,7 +281,7 @@ class ViMbAdminSubscriber implements ShouldQueue
     /**
      * Given an email find its Mailbox.
      *
-     * @param Role $role
+     * @param string $email
      *
      * @return null|Mailbox
      *
@@ -352,7 +352,7 @@ class ViMbAdminSubscriber implements ShouldQueue
     /**
      * Register the listeners for the subscriber.
      *
-     * @param Illuminate\Events\Dispatcher $events
+     * @param \Illuminate\Events\Dispatcher $events
      */
     public function subscribe($events)
     {
@@ -360,25 +360,12 @@ class ViMbAdminSubscriber implements ShouldQueue
             return;
         }
 
-        $events->listen(
-            'App\Events\Roles\RoleCreated',
-            'App\Listeners\ViMbAdminSubscriber@onRoleCreated'
-        );
-
-        $events->listen(
-            'App\Events\Roles\UserAddedToRole',
-            'App\Listeners\ViMbAdminSubscriber@onUserAddedToRole'
-        );
-
-        $events->listen(
-            'App\Events\Roles\UserRemovedFromRole',
-            'App\Listeners\ViMbAdminSubscriber@onUserRemovedFromRole'
-        );
-
-        $events->listen(
-            'App\Events\Users\UserEmailChanged',
-            'App\Listeners\ViMbAdminSubscriber@onUserEmailChanged'
-        );
+        return [
+            RoleCreated::class => 'onRoleCreated',
+            UserAddedToRole::class => 'onUserAddedToRole',
+            UserRemovedFromRole::class => 'onUserRemovedFromRole',
+            UserEmailChanged::class => 'onUserEmailChanged',
+        ];
     }
 
     /*

@@ -12,12 +12,12 @@ class Temperature
     protected $dallasAddress;
 
     /**
-     * @var string
+     * @var ?string
      */
     protected $name;
 
     /**
-     * @var float
+     * @var ?float
      */
     protected $temperature;
 
@@ -35,7 +35,7 @@ class Temperature
     }
 
     /**
-     * @return string
+     * @return ?string
      */
     public function getName()
     {
@@ -43,7 +43,7 @@ class Temperature
     }
 
     /**
-     * @return float
+     * @return ?float
      */
     public function getTemperature()
     {

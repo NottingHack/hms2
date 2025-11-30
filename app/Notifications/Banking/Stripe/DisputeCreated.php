@@ -63,6 +63,7 @@ class DisputeCreated extends Notification implements ShouldQueue
         $reason = $this->stripeDispute->reason;
 
         // evidenceDueBy in our timezone
+        // @phpstan-ignore property.notFound
         $evidenceDueBy = Carbon::createFromTimestamp($this->stripeDispute->evidence_details->due_by)
             ->setTimezone(new DateTimeZone(date_default_timezone_get()));
 

@@ -5,6 +5,7 @@ namespace App\Notifications;
 use Carbon\Carbon;
 use HMS\Entities\User;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackMessage;
@@ -17,7 +18,7 @@ class NewMemberApprovalNeeded extends Notification implements ShouldQueue, Notif
     use Queueable;
 
     /**
-     * @var User
+     * @var Authenticatable|User
      */
     protected $user;
 
@@ -31,7 +32,7 @@ class NewMemberApprovalNeeded extends Notification implements ShouldQueue, Notif
      *
      * @return void
      */
-    public function __construct(User $user, bool $rerequest = false)
+    public function __construct(Authenticatable|User $user, bool $rerequest = false)
     {
         $this->user = $user;
         $this->rerequest = $rerequest;
@@ -125,7 +126,7 @@ class NewMemberApprovalNeeded extends Notification implements ShouldQueue, Notif
      *
      * @param mixed $notifiable
      *
-     * @return NotificationChannels\Discord\DiscordMessage
+     * @return DiscordMessage
      */
     public function toDiscord($notifiable)
     {

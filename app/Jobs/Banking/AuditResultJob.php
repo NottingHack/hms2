@@ -58,7 +58,7 @@ class AuditResultJob implements ShouldQueue
      */
     protected $revokeUsersMinimumAmount;
     /**
-     * @var User[]
+     * @var User[]|\Illuminate\Support\Collection
      */
     protected $exUsersUnderMinimum;
 
@@ -73,7 +73,7 @@ class AuditResultJob implements ShouldQueue
      * @param User[] $awaitingUsersUnderMinimum
      * @param User[] $warnUsersMinimumAmount
      * @param User[] $revokeUsersMinimumAmount
-     * @param User[] $exUsersUnderMinimum
+     * @param User[]|\Illuminate\Support\Collection $exUsersUnderMinimum
      *
      * @return void
      */

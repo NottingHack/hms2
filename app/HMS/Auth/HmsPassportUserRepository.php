@@ -46,11 +46,11 @@ final class HmsPassportUserRepository implements UserRepositoryInterface
         $field = filter_var($username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
         if (! $user = $this->userProvider->retrieveByCredentials([$field => $username])) {
-            return;
+            return null;
         }
 
         if (! $this->userProvider->validateCredentials($user, ['password' => $password])) {
-            return;
+            return null;
         }
 
         return new PassportUser($user->getAuthIdentifier());

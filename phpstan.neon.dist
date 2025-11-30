@@ -1,0 +1,25 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - vendor/nesbot/carbon/extension.neon
+
+parameters:
+
+    paths:
+        - app/
+
+    # Level 10 is the highest level
+    level: 5
+
+    ignoreErrors:
+        - '#Instanceof between HMS\\Auth\\FilePasswordStore and HMS\\Auth\\KerberosPasswordStore will always evaluate to false.#'
+        - '#Call to an undefined (?:static)? method Doctrine\\ORM\\EntityRepository<object>::find(?:One)?By[a-zA-Z0-9\\_]+\(\)#'
+        - '#Call to an undefined (?:static)? method Doctrine\\ORM\\EntityRepository<object>::countBy[a-zA-Z0-9\\_]+\(\)#'
+        - '#Parameter \#3 \$qos of method karpy47\\PhpMqttClient\\MQTTClient::sendPublish\(\) expects karpy47\\PhpMqttClient\\byte, [a-zA-Z0-9\\_]+ given.#'
+        - '#Access to an undefined property Stripe\\StripeObject[a-zA-Z0-9::a-zA-Z]#'
+        - '#Method App\\Http\\Controllers\\[A-Za-z0-9\\]+::[A-Za-z0-9_]+\(\) should return Illuminate\\Http\\Response but returns Illuminate\\.*\\.*#'
+
+#        - '#Call to an undefined (?:static)? method [a-zA-Z0-9\\_]+<object>::find(?:One)?By[a-zA-Z0-9\\_]+\(\)#'
+#        - '#PHPDoc tag @var#'
+#
+#    excludePaths:
+#        - ./*/*/FileToBeExcluded.php

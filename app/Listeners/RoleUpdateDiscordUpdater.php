@@ -161,7 +161,7 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
     /**
      * Removes roles from a Discord member, trying their snowflake first, then username.
      *
-     * @param Profile the HMS profile
+     * @param \HMS\Entities\Profile $profile
      */
     private function cleanupOldDiscordUserRoles($profile)
     {
@@ -253,7 +253,7 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
     /**
      * Register the listeners for the subscriber.
      *
-     * @param Illuminate\Events\Dispatcher $events
+     * @param \Illuminate\Events\Dispatcher $events
      */
     public function subscribe($events)
     {
@@ -261,19 +261,10 @@ class RoleUpdateDiscordUpdater implements ShouldQueue
             return;
         }
 
-        $events->listen(
-            'App\Events\Roles\UserAddedToRole',
-            'App\Listeners\RoleUpdateDiscordUpdater@onUserAddedToRole'
-        );
-
-        $events->listen(
-            'App\Events\Roles\UserRemovedFromRole',
-            'App\Listeners\RoleUpdateDiscordUpdater@onUserRemovedFromRole'
-        );
-
-        $events->listen(
-            'App\Events\Users\DiscordUsernameUpdated',
-            'App\Listeners\RoleUpdateDiscordUpdater@onDiscordUsernameUpdated'
-        );
+        return [
+            UserAddedToRole::class => 'onUserAddedToRole',
+            UserRemovedFromRole::class => 'onUserRemovedFromRole',
+            DiscordUsernameUpdated::class => 'onDiscordUsernameUpdated',
+        ];
     }
 }

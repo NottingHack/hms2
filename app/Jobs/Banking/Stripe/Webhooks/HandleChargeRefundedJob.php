@@ -68,7 +68,7 @@ class HandleChargeRefundedJob extends EventHandler
      * Handle Snackspace Payment.
      *
      * @param StripeCharge $stripeCharge Stripe/Charge instance
-     * @param Charge $chargen Our Banking instance
+     * @param Charge $charge Our Banking instance
      */
     protected function snackspacePayment(StripeCharge $stripeCharge, Charge $charge)
     {
@@ -109,7 +109,7 @@ class HandleChargeRefundedJob extends EventHandler
      * Handle Donation.
      *
      * @param StripeCharge $stripeCharge Stripe/Charge instance
-     * @param Charge $chargen Our Banking instance
+     * @param Charge $charge Our Banking instance
      */
     protected function donationPayment(StripeCharge $stripeCharge, Charge $charge)
     {

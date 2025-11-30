@@ -30,6 +30,7 @@ class DoorCollector implements Collector
                     DoorState::CLOSED => 2,
                     DoorState::LOCKED => 3,
                     DoorState::FAULT => 4,
+                    default => 0,
                 },
                 [$door->getShortName()],
             ];

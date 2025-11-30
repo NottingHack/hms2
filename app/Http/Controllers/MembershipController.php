@@ -125,7 +125,7 @@ class MembershipController extends Controller
     /**
      * Show a list of members awaiting approval.
      *
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -166,7 +166,7 @@ class MembershipController extends Controller
      *
      * @param User $user
      *
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\Response
      */
     public function showDetailsForApproval(User $user)
     {
@@ -189,9 +189,9 @@ class MembershipController extends Controller
      * (possible deal with young hacker stuff here).
      *
      * @param User $user
-     * @param Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\Response
      */
     public function approveDetails(User $user, Request $request)
     {
@@ -247,9 +247,9 @@ class MembershipController extends Controller
      * Email the member asking them to update Details as noted.
      *
      * @param User $user
-     * @param Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\Response
      */
     public function rejectDetails(User $user, Request $request)
     {
@@ -281,7 +281,7 @@ class MembershipController extends Controller
      *
      * @param User $user
      *
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\Response
      */
     public function editDetails(User $user)
     {
@@ -301,9 +301,9 @@ class MembershipController extends Controller
      * Store the updated users details and request another review from membership team.
      *
      * @param User $user
-     * @param Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\Response
      */
     public function updateDetails(User $user, Request $request)
     {
@@ -346,9 +346,9 @@ class MembershipController extends Controller
     /**
      * Resend an invite.
      *
-     * @param Request $request
+     * @param Invite $invite
      *
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\Response
      */
     public function invitesResend(Invite $invite)
     {

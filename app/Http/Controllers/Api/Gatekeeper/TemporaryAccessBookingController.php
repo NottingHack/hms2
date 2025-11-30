@@ -143,7 +143,7 @@ class TemporaryAccessBookingController extends Controller
      *
      * @param TemporaryAccessBooking $temporaryAccessBooking
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Support\Responsable
      */
     public function show(TemporaryAccessBooking $temporaryAccessBooking)
     {

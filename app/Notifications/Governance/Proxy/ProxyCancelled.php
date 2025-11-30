@@ -26,7 +26,8 @@ class ProxyCancelled extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      *
-     * @param Proxy $proxy
+     * @param Meeting $meeting
+     * @param User $proxy
      *
      * @return void
      */

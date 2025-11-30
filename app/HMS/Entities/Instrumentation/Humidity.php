@@ -10,17 +10,17 @@ class Humidity
     protected $sensor;
 
     /**
-     * @var string
+     * @var ?string
      */
     protected $name;
 
     /**
-     * @var int
+     * @var ?float
      */
     protected $reading;
 
     /**
-     * @var Carbon
+     * @var \Carbon\Carbon
      */
     protected $time;
 
@@ -33,7 +33,7 @@ class Humidity
     }
 
     /**
-     * @return string
+     * @return ?string
      */
     public function getName()
     {
@@ -41,7 +41,7 @@ class Humidity
     }
 
     /**
-     * @return float
+     * @return ?float
      */
     public function getReading()
     {
@@ -49,7 +49,7 @@ class Humidity
     }
 
     /**
-     * @return Carbon
+     * @return \Carbon\Carbon
      */
     public function getTime()
     {

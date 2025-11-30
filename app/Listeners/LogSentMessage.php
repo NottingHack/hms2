@@ -6,11 +6,12 @@ use HMS\Entities\Email;
 use HMS\Repositories\EmailRepository;
 use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Mail\Events\MessageSending;
 use Illuminate\Mail\Events\MessageSent;
+use Symfony\Component\Mime\Email as MimeEmail;
+use Symfony\Component\Mime\Part\AbstractMultipartPart;
+use Symfony\Component\Mime\Part\TextPart;
 
-class LogSentMessage implements ShouldQueue
+class LogSentMessage
 {
     /**
      * @var EmailRepository
@@ -49,25 +50,38 @@ class LogSentMessage implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param MessageSending $event
+     * @param MessageSent $event
      *
      * @return void
      */
     public function handle(MessageSent $event)
     {
+        $originalMessage = $event->sent->getOriginalMessage();
+        if (! $originalMessage instanceof MimeEmail) {
+            return;
+        }
+
         // grab the various bits of info from the Symfony Sent Message
         $messageId = $event->sent->getMessageId();
-        $toAddresses = collect($event->sent->getOriginalMessage()->getTo())
+
+        $toAddresses = collect($originalMessage->getTo())
             ->mapWithKeys(fn ($a, $k) => [$a->getAddress() => $a->getName() ?: null])
             ->toArray();
-        $subject = $event->sent->getOriginalMessage()->getSubject();
-        $body = collect(
-            $event->sent->getOriginalMessage()->getBody()->getParts()
-        )
+        $subject = $originalMessage->getSubject();
+
+        $originalBody = $originalMessage->getBody();
+        if (! $originalBody instanceof AbstractMultipartPart) {
+            return;
+        }
+        $part = collect($originalBody->getParts())
             ->filter(fn ($tp) => $tp->getMediaSubtype() == 'html')
-            ->first()
-            ->getBody();
-        $fullString = $event->sent->getOriginalMessage()->toString();
+            ->first();
+        if (! $part instanceof TextPart) {
+            return;
+        }
+        $body = $part->getBody();
+
+        $fullString = $originalMessage->toString();
 
         $email = new Email($toAddresses, $subject, $body, $fullString, $messageId);
 

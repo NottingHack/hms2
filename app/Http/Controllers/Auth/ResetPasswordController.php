@@ -99,8 +99,10 @@ class ResetPasswordController extends Controller
 
         $user->setRememberToken(Str::random(60));
 
+        // @phpstan-ignore argument.type
         event(new PasswordReset($user));
 
+        // @phpstan-ignore argument.type
         $this->guard()->login($user);
     }
 

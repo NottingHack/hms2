@@ -51,7 +51,7 @@ class CSVDownloadController extends Controller
     /**
      * Download a csv of current member email addresses.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\StreamedResponse
      */
     public function currentMembers()
     {
@@ -82,7 +82,7 @@ class CSVDownloadController extends Controller
     /**
      * Download a csv of current member email addresses.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\StreamedResponse
      */
     public function currentMemberEmails()
     {
@@ -113,7 +113,7 @@ class CSVDownloadController extends Controller
     /**
      * Download a csv of members payments.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\StreamedResponse
      */
     public function lowPayers()
     {
@@ -145,7 +145,7 @@ class CSVDownloadController extends Controller
     /**
      * Download a csv of members payments that have change.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\StreamedResponse
      */
     public function paymentChange()
     {
@@ -215,7 +215,7 @@ class CSVDownloadController extends Controller
     /**
      * Download a csv of members payments that have change.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\StreamedResponse
      */
     public function memberPayments()
     {
@@ -259,7 +259,7 @@ class CSVDownloadController extends Controller
     /**
      * Download a csv of member boxes.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\StreamedResponse
      */
     public function memberBoxes()
     {

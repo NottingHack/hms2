@@ -12,12 +12,12 @@ class LightLevel
     protected $sensor;
 
     /**
-     * @var string
+     * @var ?string
      */
     protected $name;
 
     /**
-     * @var int
+     * @var ?int
      */
     protected $reading;
 
@@ -35,7 +35,7 @@ class LightLevel
     }
 
     /**
-     * @return string
+     * @return ?string
      */
     public function getName()
     {
@@ -43,7 +43,7 @@ class LightLevel
     }
 
     /**
-     * @return int
+     * @return ?int
      */
     public function getReading()
     {

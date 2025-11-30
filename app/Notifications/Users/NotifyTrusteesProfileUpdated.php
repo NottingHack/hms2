@@ -19,19 +19,19 @@ class NotifyTrusteesProfileUpdated extends Notification implements ShouldQueue
     protected $user;
 
     /**
-     * @car string[]
+     * @var string[]
      */
     protected $changes;
 
     /**
      * Create a new notification instance.
      *
-     * @param Profile $profile
+     * @param User $user
      * @param string[] $changes
      *
      * @return void
      */
-    public function __construct(User $user, $changes)
+    public function __construct(User $user, array $changes)
     {
         $this->user = $user;
         $this->changes = $changes;

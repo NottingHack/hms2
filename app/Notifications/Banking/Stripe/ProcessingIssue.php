@@ -15,7 +15,7 @@ class ProcessingIssue extends Notification implements ShouldQueue
     /**
      * @var WebhookCall
      */
-    protected $webhookcall;
+    protected $webhookCall;
 
     /**
      * @var string
@@ -30,9 +30,9 @@ class ProcessingIssue extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(WebhookCall $webhookcall, string $description)
+    public function __construct(WebhookCall $webhookCall, string $description)
     {
-        $this->webhookcall = $webhookcall;
+        $this->webhookCall = $webhookCall;
         $this->description = $description;
     }
 
@@ -60,6 +60,6 @@ class ProcessingIssue extends Notification implements ShouldQueue
         return (new MailMessage)
             ->subject('Stripe webhook processing issue')
             ->line('There was an issue processing a stripe payment during ' . $this->description . '.')
-            ->line('WebhookCall ID is: ' . $this->webhookcall->id);
+            ->line('WebhookCall ID is: ' . $this->webhookCall->id);
     }
 }

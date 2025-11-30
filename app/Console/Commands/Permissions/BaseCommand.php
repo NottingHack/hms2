@@ -7,6 +7,7 @@ use HMS\Entities\Role;
 use HMS\Repositories\RoleRepository;
 use Illuminate\Console\Command;
 use LaravelDoctrine\ACL\Permissions\Permission;
+use LaravelDoctrine\ACL\Permissions\PermissionManager;
 
 abstract class BaseCommand extends Command
 {
@@ -26,7 +27,7 @@ abstract class BaseCommand extends Command
     protected $entityManager;
 
     /**
-     * @var \Doctrine\Common\Persistence\ObjectRepository
+     * @var \Doctrine\Persistence\ObjectRepository
      */
     protected $permissionsRepository;
 

@@ -43,7 +43,7 @@ class Door
     protected $sideBZone;
 
     /**
-     * @var Bell
+     * @var \Doctrine\Common\Collections\Collection|Bell[]
      */
     protected $bells;
 
@@ -125,7 +125,7 @@ class Door
     }
 
     /**
-     * @return Bell
+     * @return \Doctrine\Common\Collections\Collection|Bell[]
      */
     public function getBells()
     {

@@ -82,6 +82,7 @@ class DonationPayment extends Notification implements ShouldQueue
         } elseif ($notifiable instanceof AnonymousNotifiable) {
             return (new MailMessage)
                 ->subject('Donation received')
+                // @phpstan-ignore property.notFound
                 ->greeting('Hello ' . $this->stripeCharge->billing_details->name)
                 ->line(
                     'Thank you for your Donation of ' . $amountString
@@ -91,6 +92,7 @@ class DonationPayment extends Notification implements ShouldQueue
             if ($this->charge->getUser()) {
                 $fullname = $this->charge->getUser()->getFullname();
             } else {
+                // @phpstan-ignore property.notFound
                 $fullname = $this->stripeCharge->billing_details->name;
             }
 

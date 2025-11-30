@@ -28,14 +28,14 @@ class RfidTagFactory
      *
      * @param User $user
      * @param string $rfidSerial
-     * @param string $state
+     * @param int $state
      *
      * @return RfidTag
      */
     public function create(
         User $user,
         string $rfidSerial,
-        string $state = RfidTagState::ACTIVE
+        int $state = RfidTagState::ACTIVE
     ) {
         $_rfidTag = new RfidTag();
 

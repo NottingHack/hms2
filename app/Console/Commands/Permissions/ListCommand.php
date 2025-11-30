@@ -32,7 +32,7 @@ class ListCommand extends BaseCommand
         $roles = [];
 
         if (empty($requestedRoles)) {
-            $roles = $this->roleRepository->findAll()->toArray();
+            $roles = collect($this->roleRepository->findAll())->toArray();
         } else {
             foreach ($requestedRoles as $requestedRole) {
                 if (! $role = $this->getRole($requestedRole)) {

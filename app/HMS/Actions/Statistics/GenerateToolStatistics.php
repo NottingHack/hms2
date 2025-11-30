@@ -80,16 +80,16 @@ class GenerateToolStatistics
     /**
      * Sum Booking lengths.
      *
-     * @param Booking[] $bookings
+     * @param \HMS\Entities\Tools\Booking[] $bookings
      *
      * @return string
      */
-    protected function countBookedDuration($bookings)
+    protected function countBookedDuration(array $bookings)
     {
         $seconds = 0;
 
         foreach ($bookings as $booking) {
-            $seconds += $booking->getStart()->diffInSeconds($booking->getEnd());
+            $seconds += (int) abs($booking->getStart()->diffInSeconds($booking->getEnd()));
         }
 
         return sprintf('%02d:%02d:%02d', $seconds / 3600, $seconds / 60 % 60, $seconds % 60);
@@ -98,11 +98,11 @@ class GenerateToolStatistics
     /**
      * Sum Usage durations.
      *
-     * @param Usage[] $usages
+     * @param \HMS\Entities\Tools\Usage[] $usages
      *
      * @return string
      */
-    protected function countUsedMinutes($usages)
+    protected function countUsedMinutes(array $usages)
     {
         $seconds = 0;
 

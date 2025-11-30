@@ -18,7 +18,7 @@ class RemoveZonePermissionForBuilding implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
-     * @var Building
+     * @var int
      */
     protected $buildingId;
 

@@ -20,7 +20,7 @@ class CurrentMemberDebt extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      *
-     * @param DebtRepository $debtRepository
+     * @param int $latetsTotalDebt
      *
      * @return void
      */

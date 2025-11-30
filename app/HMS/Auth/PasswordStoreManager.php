@@ -9,7 +9,7 @@ class PasswordStoreManager extends Manager
     /**
      * Create an instance of the Kerberos driver.
      *
-     * @return KerberosPasswordStore
+     * @return \HMS\Auth\PasswordStore
      */
     protected function createKerberosDriver()
     {
@@ -19,7 +19,7 @@ class PasswordStoreManager extends Manager
     /**
      * Create an instance of the Doctrine driver.
      *
-     * @return DoctrinePasswordStore
+     * @return \HMS\Auth\PasswordStore
      */
     protected function createDoctrineDriver()
     {
@@ -27,13 +27,13 @@ class PasswordStoreManager extends Manager
     }
 
     /**
-     * Create an instance of the FileBased driver.
+     * Create an instance of the File driver.
      *
-     * @return FileBasedPasswordStore
+     * @return \HMS\Auth\PasswordStore
      */
-    protected function createFileBasedDriver()
+    protected function createFileDriver()
     {
-        return new FileBasedPasswordStore($this->config->get('passwordstore.fileBased', []));
+        return new FilePasswordStore($this->config->get('passwordstore.file', []));
     }
 
     /**

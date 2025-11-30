@@ -9,6 +9,7 @@ use Illuminate\Container\Container;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\HtmlString;
 use Soundasleep\Html2Text;
 
 class ToCurrentMembers extends Mailable implements ShouldQueue
@@ -78,9 +79,9 @@ class ToCurrentMembers extends Mailable implements ShouldQueue
     {
         Container::getInstance()->call([$this, 'build']);
 
-        return Container::getInstance()->make('mailer')->render(
+        return new HtmlString(Container::getInstance()->make('mailer')->render(
             'emails.emailMembers.toCurrentMembers_plain',
             $this->buildViewData()
-        );
+        ));
     }
 }

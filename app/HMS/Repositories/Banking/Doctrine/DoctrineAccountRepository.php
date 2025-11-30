@@ -40,7 +40,7 @@ class DoctrineAccountRepository extends EntityRepository implements AccountRepos
     }
 
     /**
-     * @param string $legacyRefRef
+     * @param string $legacyRef
      *
      * @return null|Account
      */

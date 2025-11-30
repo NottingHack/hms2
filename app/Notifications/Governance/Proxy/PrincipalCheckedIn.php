@@ -26,7 +26,8 @@ class PrincipalCheckedIn extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      *
-     * @param Proxy $proxy
+     * @param Meeting $meeting
+     * @param User $principal
      *
      * @return void
      */

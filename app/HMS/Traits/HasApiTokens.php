@@ -11,14 +11,14 @@ trait HasApiTokens
     /**
      * The current access token for the authentication user.
      *
-     * @var \Laravel\Passport\Token
+     * @var \Laravel\Passport\Token|\Laravel\Passport\TransientToken|null
      */
     protected $accessToken;
 
     /**
      * Get all of the user's registered OAuth clients.
      *
-     * @return Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function clients()
     {
@@ -29,7 +29,7 @@ trait HasApiTokens
     /**
      * Get all of the access tokens for the user.
      *
-     * @return Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function tokens()
     {
@@ -40,7 +40,7 @@ trait HasApiTokens
     /**
      * Get the current access token being used by the user.
      *
-     * @return \Laravel\Passport\Token|null
+     * @return \Laravel\Passport\Token|\Laravel\Passport\TransientToken|null
      */
     public function token()
     {
@@ -79,7 +79,7 @@ trait HasApiTokens
     /**
      * Set the current access token for the user.
      *
-     * @param \Laravel\Passport\Token  $accessToken
+     * @param \Laravel\Passport\Token|\Laravel\Passport\TransientToken|null  $accessToken
      *
      * @return $this
      */

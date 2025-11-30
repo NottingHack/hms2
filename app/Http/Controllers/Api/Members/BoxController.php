@@ -114,7 +114,7 @@ class BoxController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Support\Responsable
      *
      * @throws \Doctrine\ORM\EntityNotFoundException
      * @throws \Illuminate\Auth\Access\AuthorizationException
@@ -144,7 +144,7 @@ class BoxController extends Controller
      *
      * @param Box $box the Box
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Support\Responsable
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -283,7 +283,7 @@ class BoxController extends Controller
      *
      * @param Box $box
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Illuminate\Contracts\Support\Responsable
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -346,7 +346,7 @@ class BoxController extends Controller
      *
      * @param Box $box
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Support\Responsable
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -371,7 +371,7 @@ class BoxController extends Controller
      *
      * @param Box $box
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Support\Responsable
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -390,7 +390,7 @@ class BoxController extends Controller
     /**
      * View any boxes that are makred INUSE but owned by an Ex member.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Support\Responsable
      */
     public function audit()
     {

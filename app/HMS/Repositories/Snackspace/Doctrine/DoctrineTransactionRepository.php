@@ -16,6 +16,16 @@ class DoctrineTransactionRepository extends EntityRepository implements Transact
     use PaginatesFromRequest;
 
     /**
+     * @param int $id
+     *
+     * @return null|Transaction
+     */
+    public function findOneById(int $id)
+    {
+        return parent::findOneById($id);
+    }
+
+    /**
      * Generate Payment report between given dates.
      *
      * @param Carbon $startDate

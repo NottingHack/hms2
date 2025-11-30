@@ -363,7 +363,7 @@ class Profile
     }
 
     /**
-     * @param null|string
+     * @param null|string $discordUsername
      *
      * @return self
      */
@@ -383,7 +383,7 @@ class Profile
     }
 
     /**
-     * @param null|string
+     * @param null|string $discordUserSnowflake
      *
      * @return self
      */

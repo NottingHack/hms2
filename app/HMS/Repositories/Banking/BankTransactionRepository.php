@@ -19,8 +19,8 @@ interface BankTransactionRepository
     /**
      * Find One By TransactionDate And Description And Amount.
      *
-     * @param Bank $Bank
-     * @param Carbon $transactionDate
+     * @param Bank $bank
+     * @param Carbon $date
      * @param string $description
      * @param int $amount
      *

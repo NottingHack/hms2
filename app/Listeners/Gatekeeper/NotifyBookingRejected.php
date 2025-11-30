@@ -24,7 +24,7 @@ class NotifyBookingRejected implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param NewBooking  $event
+     * @param BookingRejected  $event
      *
      * @return void
      */

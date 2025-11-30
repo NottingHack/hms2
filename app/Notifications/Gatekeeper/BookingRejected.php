@@ -28,7 +28,7 @@ class BookingRejected extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      *
-     * @param TemporaryAccessBooking  $temporaryAccessBooking
+     * @param TemporaryAccessBooking  $booking
      * @param string $reason
      *
      * @return void

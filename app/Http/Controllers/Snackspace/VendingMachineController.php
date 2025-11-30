@@ -91,46 +91,9 @@ class VendingMachineController extends Controller
     }
 
     /**
-     * Display the specified vending machine.
-     *
-     * @param \App\Snackspace\VendingMachine $vendingMachine
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show(VendingMachine $vendingMachine)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified vending machine.
-     *
-     * @param \App\Snackspace\VendingMachine $vendingMachine
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(VendingMachine $vendingMachine)
-    {
-        //
-    }
-
-    /**
-     * Update the specified vending machine in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Snackspace\VendingMachine $vendingMachine
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, VendingMachine $vendingMachine)
-    {
-        //
-    }
-
-    /**
      * Display a listing of the vending machine locations.
      *
-     * @param \App\Snackspace\VendingMachine $vendingMachine
+     * @param VendingMachine $vendingMachine
      *
      * @return \Illuminate\Http\Response
      */
@@ -183,9 +146,9 @@ class VendingMachineController extends Controller
     /**
      * Update the specified vending machines location in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Snackspace\VendingMachine $vendingMachine
-     * @param \App\Snackspace\VendingLocation $vendingLocation
+     * @param Request $request
+     * @param VendingMachine $vendingMachine
+     * @param VendingLocation $vendingLocation
      *
      * @return \Illuminate\Http\Response
      */
@@ -288,6 +251,7 @@ class VendingMachineController extends Controller
                 // vending machine
                 $criteria = Criteria::create();
                 $criteria->where($criteria->expr()->eq('encoding', $vendLog->getPosition()));
+                // @phpstan-ignore method.notFound
                 $vendingLocations = $vendLog->getVendingMachine()->getVendingLocations()->matching($criteria);
 
                 if ($vendingLocations->isEmpty()) {

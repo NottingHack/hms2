@@ -15,6 +15,13 @@ interface BookableAreaRepository
     public function findAll();
 
     /**
+     * @param int $id
+     *
+     * @return null|BookableArea
+     */
+    public function findOneById(int $id);
+
+    /**
      * @param Building $building
      * @param int $perPage
      * @param string $pageName

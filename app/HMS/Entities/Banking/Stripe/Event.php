@@ -10,7 +10,7 @@ class Event
     use Timestampable;
 
     /**
-     * @var int
+     * @var string
      */
     protected $id;
 
@@ -22,7 +22,7 @@ class Event
     /**
      * Gets the value of id.
      *
-     * @return int
+     * @return string
      */
     public function getId()
     {
@@ -30,7 +30,7 @@ class Event
     }
 
     /**
-     * @param int $id
+     * @param string $id
      *
      * @return self
      */

@@ -28,7 +28,7 @@ class DoctrineBankTransactionRepository extends EntityRepository implements Bank
      * Find One By TransactionDate And Description And Amount.
      *
      * @param Bank $bank
-     * @param Carbon $transactionDate
+     * @param Carbon $date
      * @param string $description
      * @param int $amount
      *

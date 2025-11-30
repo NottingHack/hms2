@@ -140,7 +140,7 @@ class TeamController extends Controller
      * Update a specific team description.
      *
      * @param Role $team the Team Role
-     * @param Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
      */

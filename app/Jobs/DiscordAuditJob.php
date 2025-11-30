@@ -31,7 +31,7 @@ class DiscordAuditJob implements ShouldQueue
      * Sends a DM to the Discord user letting them know roles have been removed.
      *
      * @param Discord $discord
-     * @param DiscordUser $discordMember
+     * @param array $discordMember
      *
      * @return void
      */
@@ -62,7 +62,7 @@ class DiscordAuditJob implements ShouldQueue
      * Removes all roles from the discord user.
      *
      * @param Discord $discord
-     * @param DiscordUser $discordMember
+     * @param array $discordMember
      *
      * @return void
      */

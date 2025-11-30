@@ -39,6 +39,7 @@ class ToolUsageCollector implements Collector
                     ToolState::DISABLED => -1,
                     ToolState::FREE => 0,
                     ToolState::IN_USE => 1,
+                    default => -1,
                 },
                 [$tool->getName()],
             ];

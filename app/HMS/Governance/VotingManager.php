@@ -87,7 +87,7 @@ class VotingManager
     /**
      * Find all Current and Voting Members.
      *
-     * @return User[]|Illuminate\Support\Collection
+     * @return \Doctrine\Common\Collections\Collection|\Illuminate\Support\Collection
      */
     public function votingMembers()
     {
@@ -166,7 +166,7 @@ class VotingManager
         $quorumPercent = $this->metaRepository->get('quorum_percent', 20);
         $votingMembers = $this->countVotingMembers();
 
-        return ceil($votingMembers * ($quorumPercent / 100));
+        return (int) ceil($votingMembers * ($quorumPercent / 100));
     }
 
     /**

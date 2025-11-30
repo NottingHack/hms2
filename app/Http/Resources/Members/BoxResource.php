@@ -4,6 +4,9 @@ namespace App\Http\Resources\Members;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin \HMS\Entities\Members\Box
+ */
 class BoxResource extends JsonResource
 {
     /**
@@ -17,7 +20,7 @@ class BoxResource extends JsonResource
     {
         return [
             'id' => $this->getId(),
-            'boughtDate' => $this->getBoughtDate() ? $this->getBoughtDate()->toDateString() : null,
+            'boughtDate' => $this->getBoughtDate()->toDateString(),
             'removedDate' => $this->getRemovedDate() ? $this->getRemovedDate()->toDateString() : null,
             'state' => $this->getState(),
             'stateString' => $this->getStateString(),

@@ -6,6 +6,9 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
+/**
+ * @mixin \HMS\Entities\Gatekeeper\TemporaryAccessBooking
+ */
 class TemporaryAccessBookingResource extends JsonResource
 {
     /**

@@ -5,6 +5,9 @@ namespace App\Http\Resources\Gatekeeper;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin \HMS\Entities\Gatekeeper\RfidTag
+ */
 class RfidTagResource extends JsonResource
 {
     /**

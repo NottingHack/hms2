@@ -30,14 +30,14 @@ class CompareCommand extends BaseCommand
     protected $description = 'Compare permissions and roles to with the default config';
 
     /**
-     * @var array
+     * @var Collection
      */
-    private $permissions = [];
+    private $permissions;
 
     /**
-     * @var array
+     * @var Collection
      */
-    private $roles = [];
+    private $roles;
 
     /**
      * Construct CompareCommand.

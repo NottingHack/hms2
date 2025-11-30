@@ -132,7 +132,7 @@ class Zone
      *
      * @return self
      */
-    public function setBuilding(Building $building)
+    public function setBuilding(?Building $building)
     {
         $this->building = $building;
 

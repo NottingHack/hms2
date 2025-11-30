@@ -10,7 +10,7 @@ class BarometricPressure
     protected $sensor;
 
     /**
-     * @var string
+     * @var ?string
      */
     protected $name;
 
@@ -20,7 +20,7 @@ class BarometricPressure
     protected $reading;
 
     /**
-     * @var Carbon
+     * @var \Carbon\Carbon
      */
     protected $time;
 
@@ -33,7 +33,7 @@ class BarometricPressure
     }
 
     /**
-     * @return string
+     * @return ?string
      */
     public function getName()
     {
@@ -49,7 +49,7 @@ class BarometricPressure
     }
 
     /**
-     * @return Carbon
+     * @return \Carbon\Carbon
      */
     public function getTime()
     {

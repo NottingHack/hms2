@@ -5,14 +5,14 @@ namespace HMS\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
-class FileBasedPasswordStore implements PasswordStore
+class FilePasswordStore implements PasswordStore
 {
     protected $usersFile;
 
     protected $users;
 
     /**
-     * FileBasedPasswordStore constructor.
+     * FilePasswordStore constructor.
      *
      * @param array $config
      */

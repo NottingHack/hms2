@@ -491,7 +491,7 @@ class TemporaryAccessBookingManager
         }
 
         // check length <= max
-        $length = $end->diffInMinutes($start);
+        $length = (int) abs($end->diffInMinutes($start));
         if ($length > $maxLength) {
             return 'Maximum booking time is ' . $maxLength . ' minutes for this tool'; //422
         }

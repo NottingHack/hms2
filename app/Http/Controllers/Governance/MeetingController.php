@@ -256,6 +256,7 @@ class MeetingController extends Controller
 
             // If this user has communicated their absence, remove it since they are now present
             if ($meeting->getAbsentees()->contains($user)) {
+                // @phpstan-ignore argument.type
                 $meeting->getAbsentees()->remove($_proxy);
             }
 

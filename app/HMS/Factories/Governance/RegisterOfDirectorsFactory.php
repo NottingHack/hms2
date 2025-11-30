@@ -25,7 +25,7 @@ class RegisterOfDirectorsFactory
     /**
      * Function to instantiate a new RegisterOfDirectors from given params.
      *
-     * @param User $uswer
+     * @param User $user
      * @param string $firstname
      * @param string $lastname
      * @param string $address1

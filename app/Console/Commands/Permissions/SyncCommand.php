@@ -117,7 +117,7 @@ class SyncCommand extends BaseCommand
                             && $this->permissions[$permission]) {
                             $roleEntity->addPermission($this->permissions[$permission]);
                         } else {
-                            $this->warning($roleName . ' has unknown permission: ' . $permission);
+                            $this->warn($roleName . ' has unknown permission: ' . $permission);
                         }
                     }
                 }

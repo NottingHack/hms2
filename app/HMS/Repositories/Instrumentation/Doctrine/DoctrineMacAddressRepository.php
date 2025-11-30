@@ -12,7 +12,7 @@ class DoctrineMacAddressRepository extends EntityRepository implements MacAddres
     /**
      * Count of MacAddresses seen in the last 5 minutes.
      *
-     * @param boot $filterIgnores Default true
+     * @param bool $filterIgnores Default true
      *
      * @return int
      */

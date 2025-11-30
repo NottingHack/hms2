@@ -35,7 +35,7 @@ class DonationRefund extends Notification implements ShouldQueue
      * Create a new notification instance.
      *
      * @param Charge $charge
-     * @param StripeCharge $stripeCharge Stripe/Charge instance
+     * @param StripeCharge $stripeCharge
      * @param int $refundAmount
      *
      * @return void
@@ -85,12 +85,14 @@ class DonationRefund extends Notification implements ShouldQueue
         } elseif ($notifiable instanceof AnonymousNotifiable) {
             return (new MailMessage)
                 ->subject('Donation refunded')
+                // @phpstan-ignore property.notFound
                 ->greeting('Hello ' . $this->stripeCharge->billing_details->name)
                 ->line('Your donation has been refunded by ' . $amountString);
         } elseif ($notifiable instanceof Role) {
             if ($this->charge->getUser()) {
                 $fullname = $this->charge->getUser()->getFullname();
             } else {
+                // @phpstan-ignore property.notFound
                 $fullname = $this->stripeCharge->billing_details->name;
             }
 

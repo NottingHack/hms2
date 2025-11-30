@@ -2,6 +2,7 @@
 
 namespace HMS\Helpers;
 
+use HMS\Entities\Profile;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use RestCord\DiscordClient;
@@ -9,22 +10,28 @@ use RestCord\DiscordClient;
 class Discord
 {
     /**
-     * @var RestCord\DiscordClient
+     * @var DiscordClient
      */
     protected $client;
 
     /**
-     * @var RestCord\Member[]
+     * \RestCord\Member[].
+     *
+     * @var array
      */
     protected $members;
 
     /**
-     * @var RestCord\Channel[]
+     * \RestCord\Channel[].
+     *
+     * @var array
      */
     protected $channels;
 
     /**
-     * @var RestCord\Role[]
+     * \RestCord\Role[].
+     *
+     * @var array
      */
     protected $roles;
 
@@ -62,9 +69,9 @@ class Discord
     /**
      * Find a Discord role by its name.
      *
-     * @var string  The role name
+     * @param string $name The role name
      *
-     * @return null|DiscordRole
+     * @return null|array
      */
     public function findRoleByName(string $name)
     {
@@ -86,9 +93,9 @@ class Discord
     /**
      * Find a Discord member by their username.
      *
-     * @var string  The full username (with discriminator)
+     * @param string $username The full username (with discriminator)
      *
-     * @return null|DiscordMember
+     * @return null|array
      */
     public function findMemberByUsername(string $username)
     {
@@ -130,9 +137,9 @@ class Discord
     /**
      * Get a member by their snowflake.
      *
-     * @param string  Discord user snowflake
+     * @param string $snowflake Discord user snowflake
      *
-     * @return null|DiscordMember
+     * @return null|array
      */
     public function findMemberBySnowflake(string $snowflake)
     {
@@ -150,11 +157,11 @@ class Discord
     /**
      * Find a Discord member from a HMS Profile.
      *
-     * @param Profile A HMS User Profile object
+     * @param Profile $profile A HMS User Profile object
      *
-     * @return null|DiscordMember
+     * @return null|array
      */
-    public function findMemberByProfile($profile)
+    public function findMemberByProfile(Profile $profile)
     {
         if ($profile->getDiscordUserSnowflake()) {
             return $this->findMemberBySnowflake($profile->getDiscordUserSnowflake());
@@ -211,7 +218,7 @@ class Discord
      *
      * @param string $channelName
      *
-     * @return null|DiscordChannel
+     * @return null|array
      */
     public function findChannelByName(string $channelName)
     {

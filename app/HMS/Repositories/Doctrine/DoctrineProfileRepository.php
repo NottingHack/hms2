@@ -22,7 +22,7 @@ class DoctrineProfileRepository extends EntityRepository implements ProfileRepos
         $q->where('profile.balance < 0')
             ->select('SUM(profile.balance) as total_debt');
 
-        return (int) $q->getQuery()->getSingleScalarResult() ?? 0;
+        return (int) ($q->getQuery()->getSingleScalarResult() ?? 0);
     }
 
     /**
@@ -42,7 +42,7 @@ class DoctrineProfileRepository extends EntityRepository implements ProfileRepos
 
         $q = $q->setParameter('role_name', Role::MEMBER_CURRENT);
 
-        return (int) $q->getQuery()->getSingleScalarResult() ?? 0;
+        return (int) ($q->getQuery()->getSingleScalarResult() ?? 0);
     }
 
     /**
@@ -62,7 +62,7 @@ class DoctrineProfileRepository extends EntityRepository implements ProfileRepos
 
         $q = $q->setParameter('role_name', Role::MEMBER_EX);
 
-        return (int) $q->getQuery()->getSingleScalarResult() ?? 0;
+        return (int) ($q->getQuery()->getSingleScalarResult() ?? 0);
     }
 
     /**
@@ -77,7 +77,7 @@ class DoctrineProfileRepository extends EntityRepository implements ProfileRepos
         $q->where('profile.balance > 0')
             ->select('SUM(profile.balance) as total_debt');
 
-        return (int) $q->getQuery()->getSingleScalarResult() ?? 0;
+        return (int) ($q->getQuery()->getSingleScalarResult() ?? 0);
     }
 
     /**
@@ -97,7 +97,7 @@ class DoctrineProfileRepository extends EntityRepository implements ProfileRepos
 
         $q = $q->setParameter('role_name', Role::MEMBER_CURRENT);
 
-        return (int) $q->getQuery()->getSingleScalarResult() ?? 0;
+        return (int) ($q->getQuery()->getSingleScalarResult() ?? 0);
     }
 
     /**
@@ -117,7 +117,7 @@ class DoctrineProfileRepository extends EntityRepository implements ProfileRepos
 
         $q = $q->setParameter('role_name', Role::MEMBER_EX);
 
-        return (int) $q->getQuery()->getSingleScalarResult() ?? 0;
+        return (int) ($q->getQuery()->getSingleScalarResult() ?? 0);
     }
 
     /**
@@ -141,9 +141,9 @@ class DoctrineProfileRepository extends EntityRepository implements ProfileRepos
     }
 
     /**
-     * @param Carbon join date
+     * @param Carbon $joinDate
      *
-     * @return Profile|null
+     * @return Profile[]|null
      */
     public function findByJoinedOn(Carbon $joinDate)
     {

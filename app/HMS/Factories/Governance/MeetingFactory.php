@@ -36,7 +36,7 @@ class MeetingFactory
      *
      * @param string $title
      * @param Carbon $startTime
-     * @param bool $extrordinary
+     * @param bool $extraordinary
      */
     public function create(
         string $title,

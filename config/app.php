@@ -135,6 +135,7 @@ return [
 
     'providers' => ServiceProvider::defaultProviders()->except([
         Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
+        Illuminate\Validation\ValidationServiceProvider::class,
     ])->merge([
 
         /*

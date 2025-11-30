@@ -89,7 +89,7 @@ class GenerateToolStatistics
         $seconds = 0;
 
         foreach ($bookings as $booking) {
-            $seconds += $booking->getStart()->diffInSeconds($booking->getEnd());
+            $seconds += (int) abs($booking->getStart()->diffInSeconds($booking->getEnd()));
         }
 
         return sprintf('%02d:%02d:%02d', $seconds / 3600, $seconds / 60 % 60, $seconds % 60);

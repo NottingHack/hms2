@@ -6,17 +6,17 @@ return [
     | Default PasswordStore Driver
     |--------------------------------------------------------------------------
     |
-    | Supported: "fileBased", "kerberos", "doctrine"
+    | Supported: "file", "kerberos", "doctrine"
     |
     */
-    'driver' => env('PASSWORDSTORE', 'fileBased'),
+    'driver' => env('PASSWORDSTORE', 'file'),
 
     /*
     |--------------------------------------------------------------------------
     | PasswordStore Drivers
     |--------------------------------------------------------------------------
     */
-    'fileBased' => [
+    'file' => [
         'name' => env('PASSWORDSTORE_FILE', 'users.json'),
     ],
 

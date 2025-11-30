@@ -80,7 +80,7 @@ class RfidAccessTokenController extends Controller
         $token = $user->createToken('Rfid Authorized');
         $response = [
             'token_type' => 'Bearer',
-            'expires_in' => Carbon::now()->diffInSeconds($token->token->expires_at),
+            'expires_in' => (int) abs(Carbon::now()->diffInSeconds($token->token->expires_at)),
             'access_token' => $token->accessToken,
         ];
 

@@ -99,6 +99,6 @@ class Handler extends ExceptionHandler
             return response()->json($data, IlluminateResponse::HTTP_UNAUTHORIZED);
         }
 
-        return redirect()->guest($exception->redirectTo() ?? route('login'));
+        return redirect()->guest($exception->redirectTo($request) ?? route('login'));
     }
 }

@@ -16,3 +16,5 @@ finder:
     not-path:
         - "public/index.php"
         - "server.php"
+    not-name:
+      - index.php

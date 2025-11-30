@@ -71,7 +71,7 @@ class CarbonType extends DateTimeType
         }
 
         if ($value instanceof DateTime) {
-            $converted = Carbon::create($value, self::$utc);
+            $converted = Carbon::create($value, timezone: self::$utc);
         } else {
             $converted = Carbon::createFromFormat(
                 $platform->{$this->getFormatString}(),

@@ -4,6 +4,9 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin \HMS\Entities\Profile
+ */
 class ProfileResource extends JsonResource
 {
     /**

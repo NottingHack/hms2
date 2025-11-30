@@ -32,7 +32,7 @@ class NotifyBookingApproved implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param NewBooking  $event
+     * @param BookingApproved  $event
      *
      * @return void
      */

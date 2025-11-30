@@ -66,7 +66,7 @@ class PasswordChanged extends Notification implements ShouldQueue
      *
      * @param mixed $notifiable
      *
-     * @return NotificationChannels\Discord\DiscordMessage
+     * @return DiscordMessage
      */
     public function toDiscord($notifiable)
     {

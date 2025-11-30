@@ -47,7 +47,7 @@ class MemberDebtNotificationJob implements ShouldQueue
         MetaRepository $metaRepository,
         BankRepository $bankRepository
     ) {
-        $bank = $bankRepository->find($metaRepository->get('so_bank_id'));
+        $bank = $bankRepository->findOneById($metaRepository->getInt('so_bank_id'));
         $accountNo = $bank->getAccountNumber();
         $sortCode = $bank->getSortCode();
         $accountName = $bank->getAccountName();

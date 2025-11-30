@@ -49,8 +49,8 @@ class UpdateTemporaryAccessRoleJob implements ShouldQueue, Silenced
         $temporaryAccessRole = $roleRepository->findOneByName(Role::TEMPORARY_ACCESS);
 
         $currentTemporaryAccessBookings = collect($temporaryAccessBookingRepository->findBetween(
-            Carbon::now()->subMinutes($metaRepository->get('temporary_access_rfid_window', 10)),
-            Carbon::now()->addMinutes($metaRepository->get('temporary_access_rfid_window', 10))
+            Carbon::now()->subMinutes($metaRepository->getInt('temporary_access_rfid_window', 10)),
+            Carbon::now()->addMinutes($metaRepository->getInt('temporary_access_rfid_window', 10))
         ));
 
         // filter not approved

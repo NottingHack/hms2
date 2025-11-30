@@ -95,7 +95,7 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\HMS\Entities\Snackspace\Product $product
+     * @param \HMS\Entities\Snackspace\Product $product
      *
      * @return \Illuminate\Http\Response
      */
@@ -108,7 +108,7 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\HMS\Entities\Snackspace\Product $product
+     * @param \HMS\Entities\Snackspace\Product $product
      *
      * @return \Illuminate\Http\Response
      */
@@ -122,7 +122,7 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\HMS\Entities\Snackspace\Product $product
+     * @param \HMS\Entities\Snackspace\Product $product
      *
      * @return \Illuminate\Http\Response
      */

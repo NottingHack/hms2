@@ -26,7 +26,7 @@ interface AccountRepository
     public function findOneByPaymentRef(string $paymentRef);
 
     /**
-     * @param string $legacyRefRef
+     * @param string $legacyRef
      *
      * @return null|Account
      */

@@ -30,9 +30,9 @@ class Handler extends ExceptionHandler
      * @param \Illuminate\Http\Request $request
      * @param \Throwable $exception
      *
-     * @return \Illuminate\Http\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Throwable
      */
     public function render($request, Throwable $exception)
     {
@@ -49,9 +49,9 @@ class Handler extends ExceptionHandler
      * Convert an unauthorized exception into an unauthorized response.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Illuminate\Auth\AuthorizationException $exception
+     * @param \Illuminate\Auth\Access\AuthorizationException $exception
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     protected function unauthorized($request, AuthorizationException $exception)
     {
@@ -81,7 +81,7 @@ class Handler extends ExceptionHandler
      * @param \Illuminate\Http\Request  $request
      * @param \Illuminate\Auth\AuthenticationException  $exception
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     protected function unauthenticated($request, AuthenticationException $exception)
     {

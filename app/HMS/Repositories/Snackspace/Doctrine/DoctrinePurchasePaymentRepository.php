@@ -36,7 +36,7 @@ class DoctrinePurchasePaymentRepository extends EntityRepository implements Purc
         }
         $q->setParameter('transaction_id', $transaction->getId());
 
-        return (int) $q->getQuery()->getSingleScalarResult() ?? 0;
+        return (int) ($q->getQuery()->getSingleScalarResult() ?? 0);
     }
 
     /**
@@ -67,7 +67,7 @@ class DoctrinePurchasePaymentRepository extends EntityRepository implements Purc
         $q->setParameter('transaction_id', $transaction->getId());
         $q->setParameter('user_id', $transaction->getUser()->getId());
 
-        return (int) $q->getQuery()->getSingleScalarResult() ?? 0;
+        return (int) ($q->getQuery()->getSingleScalarResult() ?? 0);
     }
 
     /**
@@ -98,7 +98,7 @@ class DoctrinePurchasePaymentRepository extends EntityRepository implements Purc
         $q->setParameter('transaction_id', $transaction->getId());
         $q->setParameter('user_id', $transaction->getUser()->getId());
 
-        return (int) $q->getQuery()->getSingleScalarResult() ?? 0;
+        return (int) ($q->getQuery()->getSingleScalarResult() ?? 0);
     }
 
     /**

@@ -66,17 +66,23 @@ class Role implements RoleContract
     protected $id;
 
     /**
-     * @var string Name of Role
+     * Name of Role.
+     *
+     * @var string
      */
     protected $name;
 
     /**
-     * @var string Display Name of the Role
+     * Display Name of the Role.
+     *
+     * @var string
      */
     protected $displayName;
 
     /**
-     * @var string Description of the Role
+     * Description of the Role.
+     *
+     * @var string
      */
     protected $description;
 
@@ -91,37 +97,51 @@ class Role implements RoleContract
     protected $users;
 
     /**
-     * @var null|string Team email address
+     * Team email address.
+     *
+     * @var null|string
      */
     protected $email;
 
     /**
-     * @var null|string Encrypted password for email address
+     * Encrypted password for email address.
+     *
+     * @var null|string
      */
     protected $emailPassword;
 
     /**
-     * @var bool Should we maintain email forwarding aliases
+     * Should we maintain email forwarding aliases.
+     *
+     * @var bool
      */
     protected $emailSyncForwarding;
 
     /**
-     * @var null|string Team slack channel
+     * Team slack channel.
+     *
+     * @var null|string
      */
     protected $slackChannel;
 
     /**
-     * @var null|string Public Discord channel for the team
+     * Public Discord channel for the team.
+     *
+     * @var null|string
      */
     protected $discordChannel;
 
     /**
-     * @var null|string Private Discord channel (if needed) for the team
+     * Private Discord channel (if needed) for the team.
+     *
+     * @var null|string
      */
     protected $discordPrivateChannel;
 
     /**
-     * @var bool Should this role be retained by ex members
+     * Should this role be retained by ex members.
+     *
+     * @var bool
      */
     protected $retained;
 
@@ -143,7 +163,7 @@ class Role implements RoleContract
     }
 
     /**
-     * @return string
+     * @return int
      */
     public function getId()
     {
@@ -271,7 +291,7 @@ class Role implements RoleContract
     /**
      * Gets the value of email.
      *
-     * @return string Team email address
+     * @return null|string
      */
     public function getEmail(): ?string
     {
@@ -281,11 +301,11 @@ class Role implements RoleContract
     /**
      * Sets the value of email.
      *
-     * @param string Team email address $email the email
+     * @param null|string $email
      *
      * @return self
      */
-    public function setEmail($email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
 
@@ -293,7 +313,7 @@ class Role implements RoleContract
     }
 
     /**
-     * @return null|string Encrypted password for email address
+     * @return null|string
      */
     public function getEmailPassword(bool $decrypt = false): ?string
     {
@@ -305,7 +325,7 @@ class Role implements RoleContract
     }
 
     /**
-     * @param null|string Encrypted password for email address $emailPassword
+     * @param null|string $emailPassword
      *
      * @return self
      */
@@ -317,7 +337,7 @@ class Role implements RoleContract
     }
 
     /**
-     * @return bool Should we maintain email forwarding aliases
+     * @return bool
      */
     public function isEmailSyncForwarding()
     {
@@ -325,7 +345,7 @@ class Role implements RoleContract
     }
 
     /**
-     * @param bool Should we maintain email forwarding aliases $emailSyncForwarding
+     * @param bool $emailSyncForwarding
      *
      * @return self
      */
@@ -339,7 +359,7 @@ class Role implements RoleContract
     /**
      * Gets the value of slackChannel.
      *
-     * @return string team slack channel
+     * @return string
      */
     public function getSlackChannel(): ?string
     {
@@ -349,7 +369,7 @@ class Role implements RoleContract
     /**
      * Sets the value of slackChannel.
      *
-     * @param string team slack channel $slackChannel the slack channel
+     * @param string $slackChannel
      *
      * @return self
      */
@@ -363,7 +383,7 @@ class Role implements RoleContract
     /**
      * Gets the value of discordChannel.
      *
-     * @return string team's discord channel
+     * @return string
      */
     public function getDiscordChannel(): ?string
     {
@@ -373,7 +393,7 @@ class Role implements RoleContract
     /**
      * Sets the value of slackChannel.
      *
-     * @param string team's discord channel
+     * @param string $discordChannel
      *
      * @return self
      */
@@ -387,7 +407,7 @@ class Role implements RoleContract
     /**
      * Gets the value of discordPrivateChannel.
      *
-     * @return string team's private discord channel
+     * @return string
      */
     public function getDiscordPrivateChannel(): ?string
     {
@@ -397,7 +417,7 @@ class Role implements RoleContract
     /**
      * Sets the value of discordPrivateChannel.
      *
-     * @param string team's private discord channel
+     * @param string $discordPrivateChannel
      *
      * @return self
      */
@@ -411,7 +431,7 @@ class Role implements RoleContract
     /**
      * Gets the value of retained.
      *
-     * @return bool Should this role be retained by ex members
+     * @return bool
      */
     public function getRetained(): bool
     {
@@ -421,7 +441,7 @@ class Role implements RoleContract
     /**
      * Sets the value of retained.
      *
-     * @param bool Should this role be retained by ex members $retained the retained
+     * @param bool $retained
      *
      * @return self
      */

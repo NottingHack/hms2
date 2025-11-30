@@ -23,6 +23,16 @@ class DoctrineBookableAreaRepository extends EntityRepository implements Bookabl
     }
 
     /**
+     * @param int $id
+     *
+     * @return null|BookableArea
+     */
+    public function findOneById(int $id)
+    {
+        return parent::findOneById($id);
+    }
+
+    /**
      * @param Building $building
      * @param int $perPage
      * @param string $pageName

@@ -14,7 +14,7 @@ class DoctrineZoneOccupantRepository extends EntityRepository implements ZoneOcc
      *
      * @param User$user
      *
-     * @return null|User
+     * @return null|ZoneOccupant
      */
     public function findOneByUser(User $user)
     {

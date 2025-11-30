@@ -166,8 +166,9 @@ class ProxyController extends Controller
 
         $proxy = $this->proxyRepository->findOneByPrincipal($meeting, Auth::user());
 
-        if (isset($proxy)) {
-            flash('You have already given your proxy to ' . $proxy->getProxy()->getFullname() . '. You can not accept someone else\'s Proxy')->error();
+        if (! is_null($proxy)) {
+            flash('You have already given your proxy to ' . $proxy->getProxy()->getFullname()
+                . '. You can not accept someone else\'s Proxy')->error();
 
             return redirect()->route('governance.proxies.link', ['meeting' => $meeting->getId()]);
         }
@@ -201,18 +202,18 @@ class ProxyController extends Controller
         ]);
 
         $user = Auth::user();
-        $principal = $this->userRepository->find($validatedData['principal_id']);
+        $principal = $this->userRepository->findOneById($validatedData['principal_id']);
 
         // See if a Proxy for this principal all ready exists?
         $_proxy = $this->proxyRepository->findOneByPrincipal($meeting, $principal);
 
-        if (empty($_proxy)) {
+        if (is_null($_proxy)) {
             // if no Proxy registers for this Principal, register the new Proxy and notify
             $_proxy = $this->proxyFactory->create($meeting, $user, $principal);
             $this->proxyRepository->save($_proxy);
 
             event(new ProxyRegistered($_proxy));
-        } elseif (isset($_proxy) && $_proxy->getProxy() != $user) {
+        } elseif ($_proxy->getProxy() != $user) {
             // if Proxy.Proxy is for a different User than currently logged in, update it and notify
             $oldProxy = $_proxy->getProxy();
             $_proxy->setProxy($user);
@@ -244,7 +245,7 @@ class ProxyController extends Controller
         ]);
 
         if (array_key_exists('principal_id', $validatedData)) {
-            $principal = $this->userRepository->find($validatedData['principal_id']);
+            $principal = $this->userRepository->findOneById($validatedData['principal_id']);
         } else {
             $principal = Auth::user();
         }

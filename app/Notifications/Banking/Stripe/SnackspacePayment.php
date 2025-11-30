@@ -39,6 +39,15 @@ class SnackspacePayment extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
+        if (! $notifiable instanceof User) {
+            return [];
+        }
+
+        if (! $notifiable->getProfile()) {
+            // Should really not be here
+            return [];
+        }
+
         return ['mail'];
     }
 
@@ -51,15 +60,6 @@ class SnackspacePayment extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        if (! $notifiable instanceof User) {
-            return;
-        }
-
-        if (! $notifiable->getProfile()) {
-            // Should really not be here
-            return;
-        }
-
         $amount = $this->charge->getAmount();
         $amountString = money($amount, 'GBP');
 

@@ -42,4 +42,16 @@ interface VendLogRepository
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
     public function paginateByVendingMachine(VendingMachine $vendingMachine, $perPage = 15, $pageName = 'page');
+
+    /**
+     * Paginate logs for a Machine where the transaction is pending.
+     * Ordered by id DESC.
+     *
+     * @param VendingMachine $vendingMachine
+     * @param int $perPage
+     * @param string $pageName
+     *
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function paginatePeningByVendingMachine(VendingMachine $vendingMachine, $perPage = 15, $pageName = 'page');
 }

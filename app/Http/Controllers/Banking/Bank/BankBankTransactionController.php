@@ -62,7 +62,7 @@ class BankBankTransactionController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param  \App\Bank  $bank
+     * @param  Bank  $bank
      *
      * @return \Illuminate\Http\Response
      */
@@ -83,7 +83,7 @@ class BankBankTransactionController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Bank  $bank
+     * @param  Bank  $bank
      *
      * @return \Illuminate\Http\Response
      */
@@ -120,7 +120,7 @@ class BankBankTransactionController extends Controller
     /**
      * Show the form for uploading an OFX file.
      *
-     * @param  \App\Bank  $bank
+     * @param  Bank  $bank
      *
      * @return \Illuminate\Http\Response
      */
@@ -149,7 +149,7 @@ class BankBankTransactionController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Bank  $bank
+     * @param  Bank  $bank
      *
      * @return \Illuminate\Http\Response
      */

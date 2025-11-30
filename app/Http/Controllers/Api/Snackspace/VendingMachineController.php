@@ -42,8 +42,7 @@ class VendingMachineController extends Controller
      * Update the specified vending machines location in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Snackspace\VendingMachine $vendingMachine
-     * @param \App\Snackspace\VendingLocation $vendingLocation
+     * @param VendingMachine $vendingMachine
      *
      * @return \Illuminate\Http\Response
      */

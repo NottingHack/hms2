@@ -4,6 +4,9 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin \HMS\Entities\User
+ */
 class OpenIdUserResource extends JsonResource
 {
     /**
@@ -16,7 +19,7 @@ class OpenIdUserResource extends JsonResource
     public function toArray($request)
     {
         $resource = [
-            'sub' => str($this->getId()),
+            'sub' => str((string) $this->getId()),
             'name' => $this->getFullname(),
             'given_name' => $this->getFirstname(),
             'family_name' => $this->getLastname(),

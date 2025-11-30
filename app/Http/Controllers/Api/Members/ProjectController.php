@@ -63,7 +63,7 @@ class ProjectController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Support\Responsable
      *
      * @throws \Doctrine\ORM\EntityNotFoundException
      * @throws \Illuminate\Auth\Access\AuthorizationException
@@ -113,7 +113,7 @@ class ProjectController extends Controller
      *
      * @param Project $project
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Support\Responsable
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -132,7 +132,7 @@ class ProjectController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param Project $project
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Support\Responsable
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -179,7 +179,7 @@ class ProjectController extends Controller
      *
      * @param Project $project
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Support\Responsable
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -200,7 +200,7 @@ class ProjectController extends Controller
      *
      * @param Project $project
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Support\Responsable
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -221,7 +221,7 @@ class ProjectController extends Controller
      *
      * @param Project $project
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Support\Responsable
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */

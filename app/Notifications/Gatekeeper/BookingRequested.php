@@ -21,17 +21,17 @@ class BookingRequested extends Notification implements ShouldQueue
     protected $booking;
 
     /**
-     * @var HMS\Entities\User
+     * @var \HMS\Entities\User
      */
     protected $user;
 
     /**
-     * @var HMS\Entities\Gatekeeper\BookableArea
+     * @var \HMS\Entities\Gatekeeper\BookableArea
      */
     protected $bookableArea;
 
     /**
-     * @var HMS\Entities\Gatekeeper\Building
+     * @var \HMS\Entities\Gatekeeper\Building
      */
     protected $building;
 

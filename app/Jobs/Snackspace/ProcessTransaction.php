@@ -60,7 +60,7 @@ class ProcessTransaction implements ShouldQueue
         $this->purchasePaymentRepository = $purchasePaymentRepository;
 
         // refresh the transaction
-        $this->transaction = $transactionRepository->find($this->transaction->getID());
+        $this->transaction = $transactionRepository->findOneById($this->transaction->getID());
         $this->user = $this->transaction->getUser();
 
         if ($this->transaction->getAmount() == 0) {

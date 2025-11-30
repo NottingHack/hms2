@@ -86,6 +86,7 @@ class BookingController extends Controller
         $start = new Carbon($request->start);
         $end = new Carbon($request->end);
 
+        $response = '';
         switch ($request->type) {
             case BookingType::NORMAL:
                 $response = $this->bookingManager->bookNormal($tool, $start, $end);
@@ -105,18 +106,6 @@ class BookingController extends Controller
             // response is the new booking object
             return response()->json($response, IlluminateResponse::HTTP_CREATED);
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**

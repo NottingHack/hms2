@@ -74,6 +74,7 @@ class RfidAccessTokenController extends Controller
         // revoke any old tokens
         $tokens = $user->tokens()->where('name', 'Rfid Authorized');
         foreach ($tokens as $token) {
+            // @phpstan-ignore method.notFound
             $token->revoke();
         }
 

@@ -35,8 +35,10 @@ class MembershipStatusNotificationFactory
     /**
      * Function to instantiate a new non payment MembershipStatusNotification from given params.
      *
-     * @param Uaer $user
+     * @param User $user
      * @param Account $account
+     *
+     * @return MembershipStatusNotification
      */
     public function createForNonPayment(User $user, Account $account)
     {
@@ -51,8 +53,10 @@ class MembershipStatusNotificationFactory
     /**
      * Function to instantiate a new under minimum payment MembershipStatusNotification from given params.
      *
-     * @param Uaer $user
+     * @param User $user
      * @param Account $account
+     *
+     * @return MembershipStatusNotification
      */
     public function createForUnderPayment(User $user, Account $account)
     {

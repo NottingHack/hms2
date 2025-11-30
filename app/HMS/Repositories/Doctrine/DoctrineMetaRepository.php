@@ -20,7 +20,7 @@ class DoctrineMetaRepository extends EntityRepository implements MetaRepository
      */
     public function has($key)
     {
-        return $this->findOneByKey($key) ? true : false;
+        return parent::findOneByKey($key) ? true : false;
     }
 
     /**
@@ -33,7 +33,7 @@ class DoctrineMetaRepository extends EntityRepository implements MetaRepository
      */
     public function get($key, $default = null)
     {
-        $meta = $this->findOneByKey($key);
+        $meta = parent::findOneByKey($key);
 
         return is_null($meta) ? $default : $meta->getValue();
     }
@@ -48,7 +48,7 @@ class DoctrineMetaRepository extends EntityRepository implements MetaRepository
      */
     public function getInt($key, ?int $default = null)
     {
-        $meta = $this->findOneByKey($key);
+        $meta = parent::findOneByKey($key);
 
         return is_null($meta) ? $default : (int) $meta->getValue();
     }
@@ -63,7 +63,7 @@ class DoctrineMetaRepository extends EntityRepository implements MetaRepository
      */
     public function set($key, $value = null)
     {
-        $meta = $this->findOneByKey($key);
+        $meta = parent::findOneByKey($key);
         if (! $meta) {
             $meta = new Meta;
             $meta->create($key);
@@ -82,7 +82,7 @@ class DoctrineMetaRepository extends EntityRepository implements MetaRepository
      */
     public function forget($key)
     {
-        $meta = $this->findOneByKey($key);
+        $meta = parent::findOneByKey($key);
         if ($meta) {
             $this->_em->remove($meta);
             $this->_em->flush();

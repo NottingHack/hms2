@@ -4,6 +4,19 @@ namespace HMS\Views;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property string $date
+ * @property int $current_added
+ * @property int $current_removed
+ * @property int $young_added
+ * @property int $young_removed
+ * @property int $ex_added
+ * @property int $ex_removed
+ * @property int $temporarybanned_added
+ * @property int $temporarybanned_removed
+ * @property int $banned_added
+ * @property int $banned_removed
+ */
 class MembershipChangeCounts extends Model
 {
     /**

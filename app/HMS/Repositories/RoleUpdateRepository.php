@@ -25,7 +25,7 @@ interface RoleUpdateRepository
     /**
      * @param Role $role
      *
-     * @return Role[]
+     * @return RoleUpdate[]
      */
     public function findByRole(Role $role);
 

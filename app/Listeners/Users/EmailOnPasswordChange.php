@@ -21,7 +21,7 @@ class EmailOnPasswordChange implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param object $event
+     * @param UserPasswordChanged $event
      *
      * @return void
      */

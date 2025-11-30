@@ -39,7 +39,7 @@ class ProjectPrint implements LabelPrintEventInterface
         $this->copiesToPrint = $copiesToPrint;
 
         // hack to offset the ID printing and give the look of right justification
-        $idOffset = (5 - strlen($project->getId())) * 35;
+        $idOffset = (5 - strlen((string) $project->getId())) * 35;
 
         $this->substitutions = [
             'projectName' => $project->getProjectName(),

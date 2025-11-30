@@ -63,7 +63,7 @@ class EmailController extends Controller
     /**
      * Store the draft email and return a preview.
      *
-     * @param Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -118,7 +118,7 @@ class EmailController extends Controller
     /**
      * Send the email.
      *
-     * @param Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */

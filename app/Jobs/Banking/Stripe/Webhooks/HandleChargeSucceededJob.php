@@ -49,7 +49,7 @@ class HandleChargeSucceededJob extends EventHandler
      * Handle Snackspace Payment.
      *
      * @param StripeCharge $stripeCharge Stripe/Charge instance
-     * @param Charge $chargen Our Banking instance
+     * @param Charge $charge Our Banking instance
      *
      * @return bool
      */
@@ -82,7 +82,7 @@ class HandleChargeSucceededJob extends EventHandler
      * Handle Donation.
      *
      * @param StripeCharge $stripeCharge Stripe/Charge instance
-     * @param Charge $chargen Our Banking instance
+     * @param Charge $charge Our Banking instance
      *
      * @return bool
      */

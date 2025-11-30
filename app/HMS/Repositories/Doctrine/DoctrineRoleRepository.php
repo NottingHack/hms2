@@ -23,7 +23,7 @@ class DoctrineRoleRepository extends EntityRepository implements RoleRepository
     /**
      * Finds all entities in the repository.
      *
-     * @return array The entities.
+     * @return Role[]
      */
     public function findAll()
     {
@@ -63,6 +63,18 @@ class DoctrineRoleRepository extends EntityRepository implements RoleRepository
     public function findOneByName(string $roleName)
     {
         return parent::findOneByName($roleName);
+    }
+
+    /**
+     * Finds a role based on the role name.
+     *
+     * @param string $roleDisplayName name of the role we want
+     *
+     * @return Role|null
+     */
+    public function findOneByDisplayName(string $roleDisplayName)
+    {
+        return parent::findOneByDisplayName($roleDisplayName);
     }
 
     /**

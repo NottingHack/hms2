@@ -64,9 +64,9 @@ interface ProfileRepository
     public function findOneByDiscordUserSnowflake(string $discordUserSnowflake);
 
     /**
-     * @param Carbon join date
+     * @param Carbon $joinDate
      *
-     * @return Profile|null
+     * @return Profile[]|null
      */
     public function findByJoinedOn(Carbon $joinDate);
 

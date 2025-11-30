@@ -9,7 +9,9 @@ use LaravelDoctrine\ORM\Facades\EntityManager;
 trait DoctrineMustVerifyEmail
 {
     /**
-     * @var null|Carbon Has the email address be verified
+     * Has the email address be verified.
+     *
+     * @var null|Carbon
      */
     protected $emailVerifiedAt;
 
@@ -32,6 +34,7 @@ trait DoctrineMustVerifyEmail
     {
         $repository = EntityManager::getRepository(get_class($this));
         $this->emailVerifiedAt = new Carbon;
+        // @phpstan-ignore method.notFound
         $repository->save($this);
 
         return true;
@@ -48,7 +51,7 @@ trait DoctrineMustVerifyEmail
     }
 
     /**
-     * @return null|Carbon Has the email address be verified
+     * @return null|Carbon
      */
     public function getEmailVerifiedAt()
     {
@@ -56,7 +59,7 @@ trait DoctrineMustVerifyEmail
     }
 
     /**
-     * @param null|Carbon Has the email address be verified $emailVerifiedAt
+     * @param null|Carbon $emailVerifiedAt
      *
      * @return self
      */

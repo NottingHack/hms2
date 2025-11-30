@@ -12,7 +12,7 @@ interface ZoneOccupantRepository
      *
      * @param User $user
      *
-     * @return null|User
+     * @return null|ZoneOccupant
      */
     public function findOneByUser(User $user);
 

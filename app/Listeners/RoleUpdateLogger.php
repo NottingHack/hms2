@@ -89,18 +89,13 @@ class RoleUpdateLogger implements ShouldQueue
     /**
      * Register the listeners for the subscriber.
      *
-     * @param Illuminate\Events\Dispatcher $events
+     * @param \Illuminate\Events\Dispatcher $events
      */
     public function subscribe($events)
     {
-        $events->listen(
-            'App\Events\Roles\UserAddedToRole',
-            'App\Listeners\RoleUpdateLogger@onUserAddedToRole'
-        );
-
-        $events->listen(
-            'App\Events\Roles\UserRemovedFromRole',
-            'App\Listeners\RoleUpdateLogger@onUserRemovedFromRole'
-        );
+        return [
+            UserAddedToRole::class =>'onUserAddedToRole',
+            UserRemovedFromRole::class =>'onUserRemovedFromRole',
+        ];
     }
 }

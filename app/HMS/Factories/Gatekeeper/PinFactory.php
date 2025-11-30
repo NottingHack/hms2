@@ -31,7 +31,7 @@ class PinFactory
      */
     public function createNewEnrollPinForUser(User $user)
     {
-        $pin = new Pin((string) $this->generateUniquePin(), PinState::ENROLL);
+        $pin = new Pin($this->generateUniquePin(), PinState::ENROLL);
         $pin->setUser($user);
 
         return $pin;
@@ -40,18 +40,18 @@ class PinFactory
     /**
      * Generate a random pin.
      *
-     * @return int A random pin.
+     * @return string A random pin.
      */
     protected function generatePin()
     {
         // Currently a PIN is a 4 digit number between 1000 and 9999
-        return rand(1000, 9999);
+        return (string) rand(1000, 9999);
     }
 
     /**
      * Generate a unique (at the time this function was called) pin.
      *
-     * @return int A random pin that was not in the database at the time this function was called.
+     * @return string A random pin that was not in the database at the time this function was called.
      */
     protected function generateUniquePin()
     {

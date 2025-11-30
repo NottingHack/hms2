@@ -4,6 +4,9 @@ namespace App\Http\Resources\Members;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin \HMS\Entities\Members\Project
+ */
 class ProjectResource extends JsonResource
 {
     /**

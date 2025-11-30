@@ -10,16 +10,13 @@ use HMS\Repositories\UserRepository;
 use HMS\User\ProfileManager;
 use HMS\User\UserManager;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
-    /**
-     * @var UserRepository
-     */
-    private $userRepository;
 
     /**
      * @var UserManager
@@ -34,16 +31,13 @@ class UserController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @param UserRepository $userRepository
      * @param UserManager $userManager
      * @param ProfileManager $profileManager
      */
     public function __construct(
-        UserRepository $userRepository,
         UserManager $userManager,
         ProfileManager $profileManager
     ) {
-        $this->userRepository = $userRepository;
         $this->userManager = $userManager;
         $this->profileManager = $profileManager;
 
@@ -54,9 +48,7 @@ class UserController extends Controller
     /**
      * Show the current user.
      *
-     * @param User $user
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Support\Responsable
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -72,7 +64,7 @@ class UserController extends Controller
      *
      * @param User $user
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Support\Responsable
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -88,9 +80,7 @@ class UserController extends Controller
     /**
      * Show a specific user.
      *
-     * @param User $user
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Support\Responsable
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -108,7 +98,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param User $user
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Support\Responsable
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */

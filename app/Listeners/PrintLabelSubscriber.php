@@ -2,7 +2,10 @@
 
 namespace App\Listeners;
 
+use App\Events\Labels\BoxPrint;
 use App\Events\Labels\LabelPrintEventInterface;
+use App\Events\Labels\ManualPrint;
+use App\Events\Labels\ProjectPrint;
 use Exception;
 use HMS\Repositories\LabelTemplateRepository;
 use HMS\Repositories\MetaRepository;
@@ -21,11 +24,6 @@ class PrintLabelSubscriber implements ShouldQueue
      * @var int
      */
     private $port = 9100;
-
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $em;
 
     /**
      * @var MetaRepository
@@ -75,24 +73,15 @@ class PrintLabelSubscriber implements ShouldQueue
     /**
      * Register the listeners for the subscriber.
      *
-     * @param Illuminate\Events\Dispatcher $events
+     * @param \Illuminate\Events\Dispatcher $events
      */
     public function subscribe($events)
     {
-        $events->listen(
-            'App\Events\Labels\ManualPrint',
-            'App\Listeners\PrintLabelSubscriber@printEvent'
-        );
-
-        $events->listen(
-            'App\Events\Labels\ProjectPrint',
-            'App\Listeners\PrintLabelSubscriber@printEvent'
-        );
-
-        $events->listen(
-            'App\Events\Labels\BoxPrint',
-            'App\Listeners\PrintLabelSubscriber@printEvent'
-        );
+        return [
+            ManualPrint::class => 'printEvent',
+            ProjectPrint::class => 'printEvent',
+            BoxPrint::class => 'printEvent',
+        ];
     }
 
     /**

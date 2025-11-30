@@ -55,7 +55,7 @@ class AccountAuditJob implements ShouldQueue
     /**
      * Execute the job.
      *
-     * @param AccountRepository                      $AccountRepository
+     * @param AccountRepository                      $accountRepository
      * @param BankTransactionRepository              $bankTransactionRepository
      * @param MembershipStatusNotificationRepository $membershipStatusNotificationRepository
      * @param MetaRepository                         $metaRepository
@@ -183,6 +183,7 @@ class AccountAuditJob implements ShouldQueue
                 $notificationRevokeUsers[] = $user;
             } elseif ($transactionDate < $warnDate) { // transaction date is older than warning date
                 // if not already warned
+                // @phpstan-ignore method.notFound
                 if ($memberIdsForCurrentNonPaymentNotifications->keys()->dosentContain($user->getId())) {
                     // warn membership may be terminated if we don't see one soon
                     $warnUsersNotPaid[] = $user;
@@ -190,6 +191,7 @@ class AccountAuditJob implements ShouldQueue
             } elseif ($latestTransactionForAccount->amount_joint_adjusted < $minimumAmount) {
                 // date diff should be less than 1.5 months
                 // but have not paid enough
+                // @phpstan-ignore method.notFound
                 if ($memberIdsForCurrentUnderPaymentNotifications->keys()->dosentContain($user->getId())) {
                     // first time processing at under minimum so
                     // warn them about under payment
@@ -232,6 +234,7 @@ class AccountAuditJob implements ShouldQueue
                 $notificationRevokeUsers[] = $user;
             } elseif ($transactionDate < $warnDate) { // transaction date is older than warning date
                 // if not already warned
+                // @phpstan-ignore method.notFound
                 if ($memberIdsForCurrentNonPaymentNotifications->keys()->dosentContain($user->getId())) {
                     // warn membership may be terminated if we don't see one soon
                     $warnUsersNotPaid[] = $user;
@@ -239,6 +242,7 @@ class AccountAuditJob implements ShouldQueue
             } elseif ($latestTransactionForAccount->amount_joint_adjusted < $minimumAmount) {
                 // date diff should be less than 1.5 months
                 // but have not paid enough
+                // @phpstan-ignore method.notFound
                 if ($memberIdsForCurrentUnderPaymentNotifications->keys()->dosentContain($user->getId())) {
                     // warn them about under payment
                     $warnUsersMinimumAmount[] = $user;
@@ -350,8 +354,8 @@ class AccountAuditJob implements ShouldQueue
             event(new NonPaymentOfMinimumMembership($user));
         }
 
-        foreach ($exUsersUnderMinimum as $user => $latestTransaction) {
-            event(new ExMemberPaymentUnderMinimum($user, $latestTransaction));
+        foreach ($exUsersUnderMinimum as $userId => $details) {
+            event(new ExMemberPaymentUnderMinimum($details['user'], $details['latestTransaction']));
         }
 
         if (count($ohCrapUsers) != 0) {

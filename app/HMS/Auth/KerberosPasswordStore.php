@@ -15,6 +15,7 @@ class KerberosPasswordStore implements PasswordStore
      *
      * @var KADM5
      */
+    // @phpstan-ignore class.notFound
     private $krbConn;
 
     /**
@@ -63,9 +64,8 @@ class KerberosPasswordStore implements PasswordStore
      */
     protected function initAdmin()
     {
-        if (is_null($this->krbConn)) {
-            $this->krbConn = new KADM5($this->username, $this->keytab, true); // use keytab=true
-        }
+        // @phpstan-ignore class.notFound
+        $this->krbConn = new KADM5($this->username, $this->keytab, true); // use keytab=true
     }
 
     /**
@@ -84,7 +84,9 @@ class KerberosPasswordStore implements PasswordStore
         * in an attempt to become a krb admin... */
         if (stristr($username, '/admin') === false) {
             try {
+                // @phpstan-ignore class.notFound
                 $princ = new KADM5Principal(strtolower($username));
+                // @phpstan-ignore class.notFound
                 $this->krbConn->createPrincipal($princ, $password);
             } catch (Exception $e) {
                 if ($this->debug) {
@@ -118,6 +120,7 @@ class KerberosPasswordStore implements PasswordStore
         $this->initAdmin();
 
         try {
+            // @phpstan-ignore class.notFound
             $princ = $this->krbConn->getPrincipal(strtolower($username));
             $princ->delete();
         } catch (Exception $e) {
@@ -142,6 +145,7 @@ class KerberosPasswordStore implements PasswordStore
         $this->initAdmin();
 
         try {
+            // @phpstan-ignore class.notFound
             $this->krbConn->getPrincipal(strtolower($username));
         } catch (Exception $e) {
             if ($e->getMessage() == 'Principal does not exist') {
@@ -168,6 +172,7 @@ class KerberosPasswordStore implements PasswordStore
         $this->initAdmin();
 
         try {
+            // @phpstan-ignore class.notFound
             $princ = $this->krbConn->getPrincipal(strtolower($username));
             $princ->changePassword($password);
         } catch (Exception $e) {
@@ -190,9 +195,11 @@ class KerberosPasswordStore implements PasswordStore
      */
     public function checkPassword($username, $password)
     {
+        // @phpstan-ignore class.notFound
         $ticket = new KRB5CCache();
 
         try {
+            // @phpstan-ignore class.notFound
             $ticket->initPassword(strtolower($username) . '@' . $this->realm, $password);
         } catch (Exception $e) {
             if ($this->debug) {

@@ -74,7 +74,7 @@ class MembershipMayBeRevokedDueToUnderPayment extends Mailable implements Should
         BankRepository $bankRepository,
         BoxRepository $boxRepository
     ) {
-        $bank = $bankRepository->find($metaRepository->get('so_bank_id'));
+        $bank = $bankRepository->findOneById($metaRepository->getInt('so_bank_id'));
         $this->accountNo = $bank->getAccountNumber();
         $this->sortCode = $bank->getSortCode();
         $this->accountName = $bank->getAccountName();

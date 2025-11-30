@@ -5,7 +5,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": "^8.2",
+        "php": "^8.4",
         "ext-redis": "^5.0|^6.0",
         "agenciasys/ofxparser": "^1.5",
         "akaunting/laravel-money": "^6.0",
@@ -52,6 +52,7 @@
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
         "fakerphp/faker": "^1.23",
+        "larastan/larastan": "^3.0",
         "laravel/pail": "^1.1",
         "laravel/pint": "^1.13",
         "mockery/mockery": "^1.6",

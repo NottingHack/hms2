@@ -44,20 +44,11 @@ class NotifyNhToolsSubscriber implements ShouldQueue
      */
     public function subscribe($events)
     {
-        $events->listen(
-            'App\Events\Tools\NewBooking',
-            'App\Listeners\Tools\NotifyNhToolsSubscriber@newBooking'
-        );
-
-        $events->listen(
-            'App\Events\Tools\BookingChanged',
-            'App\Listeners\Tools\NotifyNhToolsSubscriber@bookingChanged'
-        );
-
-        $events->listen(
-            'App\Events\Tools\BookingCancelled',
-            'App\Listeners\Tools\NotifyNhToolsSubscriber@bookingCancelled'
-        );
+        return [
+            NewBooking::class => 'newBooking',
+            BookingChanged::class => 'bookingChanged',
+            BookingCancelled::class => 'bookingCancelled',
+        ];
     }
 
     /**

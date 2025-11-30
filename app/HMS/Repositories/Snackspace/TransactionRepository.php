@@ -9,6 +9,13 @@ use HMS\Entities\User;
 interface TransactionRepository
 {
     /**
+     * @param int $id
+     *
+     * @return null|Transaction
+     */
+    public function findOneById(int $id);
+
+    /**
      * Generate Payment report between given dates.
      *
      * @param Carbon $startDate

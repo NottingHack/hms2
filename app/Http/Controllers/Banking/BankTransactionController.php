@@ -102,7 +102,7 @@ class BankTransactionController extends Controller
         $this->snackspaceTransactionRepository = $snackspaceTransactionRepository;
         $this->features = $features;
 
-        $bank = $bankRepository->find($metaRepository->get('so_bank_id'));
+        $bank = $bankRepository->findOneById($metaRepository->getInt('so_bank_id'));
         $this->accountNo = $bank->getAccountNumber();
         $this->sortCode = $bank->getSortCode();
         $this->accountName = $bank->getAccountName();

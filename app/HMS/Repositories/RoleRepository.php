@@ -17,7 +17,7 @@ interface RoleRepository
     /**
      * Finds all entities in the repository.
      *
-     * @return array The entities.
+     * @return Role[]
      */
     public function findAll();
 
@@ -36,6 +36,15 @@ interface RoleRepository
      * @return Role|null
      */
     public function findOneByName(string $roleName);
+
+    /**
+     * Finds a role based on the role name.
+     *
+     * @param string $roleDisplayName name of the role we want
+     *
+     * @return Role|null
+     */
+    public function findOneByDisplayName(string $roleDisplayName);
 
     /**
      * @param string $email

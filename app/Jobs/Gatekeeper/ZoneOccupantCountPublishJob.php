@@ -28,7 +28,7 @@ class ZoneOccupantCountPublishJob implements ShouldQueue, Silenced
     /**
      * Create a new job instance.
      *
-     * @param sting $zone
+     * @param Zone $zone
      * @param int $occupantCount
      *
      * @return void
@@ -51,7 +51,7 @@ class ZoneOccupantCountPublishJob implements ShouldQueue, Silenced
         if ($success) {
             $client->sendPublish(
                 'nh/zone/' . $this->zone->getId() . '/occupantCount',
-                $this->occupantCount,
+                (string) $this->occupantCount,
                 MQTTClient::MQTT_QOS1,
                 1
             );

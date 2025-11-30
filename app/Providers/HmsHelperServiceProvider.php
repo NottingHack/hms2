@@ -5,6 +5,7 @@ namespace App\Providers;
 use HMS\Helpers\Discord;
 use HMS\Helpers\Features;
 use HMS\Helpers\SiteVisitor;
+use Illuminate\Config\Repository as Config;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 
@@ -33,8 +34,8 @@ class HmsHelperServiceProvider extends ServiceProvider
 
         $this->app->bind(Discord::class, function (Application $app) {
             return new Discord(
-                $app->config->get('services.discord.token'),
-                $app->config->get('services.discord.guild_id')
+                $app->make(Config::class)->get('services.discord.token'),
+                $app->make(Config::class)->get('services.discord.guild_id')
             );
         });
     }

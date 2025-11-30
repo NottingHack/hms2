@@ -66,15 +66,15 @@ class AuditResult extends Notification implements ShouldQueue, NotificationSensi
     /**
      * Create a new notification instance.
      *
-     * @param User[] $formatedApproveUsers
-     * @param User[] $formatedWarnUsers
-     * @param User[] $formatedRevokeUsers
-     * @param User[] $formatedReinstateUsers
+     * @param array $formatedApproveUsers
+     * @param array $formatedWarnUsers
+     * @param array $formatedRevokeUsers
+     * @param array $formatedReinstateUsers
      * @param int    $paymentNotificationsClearCount
-     * @param User[] $formattedAwaitingUsersUnderMinimum
-     * @param User[] $formattedWarnUsersMinimumAmount
-     * @param User[] $formattedRevokeUsersMinimumAmount
-     * @param User[] $formattedExUsersUnderMinimum
+     * @param array $formattedAwaitingUsersUnderMinimum
+     * @param array $formattedWarnUsersMinimumAmount
+     * @param array $formattedRevokeUsersMinimumAmount
+     * @param array $formattedExUsersUnderMinimum
      */
     public function __construct(
         $formatedApproveUsers,
@@ -180,7 +180,7 @@ class AuditResult extends Notification implements ShouldQueue, NotificationSensi
      *
      * @param mixed $notifiable
      *
-     * @return NotificationChannels\Discord\DiscordMessage
+     * @return DiscordMessage
      */
     public function toDiscord($notifiable)
     {

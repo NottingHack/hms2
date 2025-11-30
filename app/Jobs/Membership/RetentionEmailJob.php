@@ -40,7 +40,7 @@ class RetentionEmailJob implements ShouldQueue
      * Execute the job.
      *
      * @param ProfileRepository $profileRepository
-     * @param RoleRepository $roleRepository
+     * @param MetaRepository $metaRepository
      *
      * @return void
      */

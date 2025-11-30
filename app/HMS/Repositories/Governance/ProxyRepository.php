@@ -26,7 +26,7 @@ interface ProxyRepository
      *
      * @return Proxy|null
      */
-    public function findOneByPrincipal(Meeting $meeting, User $principal);
+    public function findOneByPrincipal(Meeting $meeting, User $principal): ?Proxy;
 
     /**
      * For a given meeting count the proxies.

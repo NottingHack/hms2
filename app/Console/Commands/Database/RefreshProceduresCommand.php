@@ -61,8 +61,8 @@ class RefreshProceduresCommand extends Command
             if (substr($spname, 0, 3) == 'fn_') {
                 $this->info('Skipping FUNCTION');
                 continue; // Bail on functions as they need SUPER
-                $dropQuery = "DROP FUNCTION IF EXISTS $spname";
-                $grantQuery = "GRANT EXECUTE ON FUNCTION $spname TO '$databaseUsername'@'$hostname'";
+                // $dropQuery = "DROP FUNCTION IF EXISTS $spname";
+                // $grantQuery = "GRANT EXECUTE ON FUNCTION $spname TO '$databaseUsername'@'$hostname'";
             } else {
                 $dropQuery = "DROP PROCEDURE IF EXISTS $spname";
                 $grantQuery = "GRANT EXECUTE ON PROCEDURE $spname TO '$databaseUsername'@'$hostname'";

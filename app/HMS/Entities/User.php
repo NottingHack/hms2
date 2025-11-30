@@ -87,7 +87,7 @@ class User implements
     protected $rememberToken;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection|\LaravelDoctrine\ACL\Contracts\Role[]
+     * @var \Doctrine\Common\Collections\Collection|Role[]
      */
     protected $roles;
 
@@ -306,7 +306,7 @@ class User implements
     public function getPermissions()
     {
         // user's don't directly have permissions, only via their roles
-        return [];
+        return new ArrayCollection();
     }
 
     /**
@@ -410,7 +410,7 @@ class User implements
     }
 
     /**
-     * @return null|HMS\Entities\Gatekeeper\Pin
+     * @return null|Pin
      */
     public function getPin()
     {
@@ -418,11 +418,11 @@ class User implements
     }
 
     /**
-     * @param null|HMS\Entities\Gatekeeper\Pin $pin
+     * @param null|Pin $pin
      *
      * @return self
      */
-    public function setPin(Pin $pin)
+    public function setPin(?Pin $pin)
     {
         $this->pin = $pin;
 

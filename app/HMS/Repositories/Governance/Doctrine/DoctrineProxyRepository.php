@@ -32,7 +32,7 @@ class DoctrineProxyRepository extends EntityRepository implements ProxyRepositor
      *
      * @return Proxy|null
      */
-    public function findOneByPrincipal(Meeting $meeting, User $principal)
+    public function findOneByPrincipal(Meeting $meeting, User $principal): ?Proxy
     {
         return parent::findOneBy(['meeting' => $meeting, 'principal' => $principal]);
     }

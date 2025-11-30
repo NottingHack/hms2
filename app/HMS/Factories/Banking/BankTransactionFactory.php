@@ -79,7 +79,7 @@ class BankTransactionFactory
      * @param int $amount
      * @param null|Account $account
      *
-     * @return BankTrasnaction
+     * @return BankTransaction
      */
     public function matchOrCreate(
         Bank $bank,
@@ -121,7 +121,7 @@ class BankTransactionFactory
 
         if (preg_match('/SNACK(?>SPACE)?-?(?>CU|EX)(\d+)([a-zA-Z]{1,2})/', $description, $matches) == 1) {
             // do we have a user for this id?
-            $user = $this->userRepository->findOneById($matches[1]);
+            $user = $this->userRepository->findOneById((int) $matches[1]);
 
             if ($user) {
                 // double check initials

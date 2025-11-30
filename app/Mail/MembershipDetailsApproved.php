@@ -48,7 +48,7 @@ class MembershipDetailsApproved extends Mailable implements ShouldQueue
      * Create a new notification instance.
      *
      * @param User $user
-     * @param MetaRepostiory $metaRepository
+     * @param MetaRepository $metaRepository
      * @param BankRepository $bankRepository
      */
     public function __construct(
@@ -56,7 +56,7 @@ class MembershipDetailsApproved extends Mailable implements ShouldQueue
         MetaRepository $metaRepository,
         BankRepository $bankRepository
     ) {
-        $bank = $bankRepository->find($metaRepository->get('so_bank_id'));
+        $bank = $bankRepository->findOneById($metaRepository->getInt('so_bank_id'));
         $this->accountNo = $bank->getAccountNumber();
         $this->sortCode = $bank->getSortCode();
         $this->accountName = $bank->getAccountName();

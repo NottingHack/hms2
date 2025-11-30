@@ -58,7 +58,7 @@ class NotifyIncommingRoleEmail extends Notification implements ShouldQueue, Noti
      *
      * @param mixed $notifiable
      *
-     * @return NotificationChannels\Discord\DiscordMessage
+     * @return DiscordMessage
      */
     public function toDiscord($notifiable)
     {

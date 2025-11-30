@@ -80,11 +80,11 @@ class GenerateToolStatistics
     /**
      * Sum Booking lengths.
      *
-     * @param Booking[] $bookings
+     * @param \HMS\Entities\Tools\Booking[] $bookings
      *
      * @return string
      */
-    protected function countBookedDuration($bookings)
+    protected function countBookedDuration(array $bookings)
     {
         $seconds = 0;
 
@@ -98,11 +98,11 @@ class GenerateToolStatistics
     /**
      * Sum Usage durations.
      *
-     * @param Usage[] $usages
+     * @param \HMS\Entities\Tools\Usage[] $usages
      *
      * @return string
      */
-    protected function countUsedMinutes($usages)
+    protected function countUsedMinutes(array $usages)
     {
         $seconds = 0;
 

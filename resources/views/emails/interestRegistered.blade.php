@@ -17,10 +17,10 @@ Here's the URL for the public Google Group:
 {{ $groupLink }}
 @endif
 
-@feature('discord')
+@if ($discordHTML) 
 Discord is used for members to chat online. You can join the {{ config('branding.space_type') }} Discord at:  
 {{ $discordHTML }}  
-@endfeature
+@endif
 
 Here are the {{ config('branding.space_type') }} rules:  
 {{ $rulesLink }}  

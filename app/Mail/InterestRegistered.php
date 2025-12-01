@@ -41,6 +41,11 @@ class InterestRegistered extends Mailable implements ShouldQueue
     public $rulesLink;
 
     /**
+     * @var string
+     */
+    public $discordHTML;
+
+    /**
      * Create a new message instance.
      *
      * @param Invite $invite
@@ -57,6 +62,7 @@ class InterestRegistered extends Mailable implements ShouldQueue
         $this->trusteesEmail = $roleRepository->findOneByName(Role::TEAM_TRUSTEES)->getEmail();
         $this->groupLink = $metaRepository->get('google_group_html');
         $this->rulesLink = $metaRepository->get('rules_html');
+        $this->discordHTML = $metaRepository->get('discord_html');
     }
 
     /**

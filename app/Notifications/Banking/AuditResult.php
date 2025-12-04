@@ -195,7 +195,7 @@ class AuditResult extends Notification implements ShouldQueue, NotificationSensi
                 [
                     // Adding text to the value rather than the name, because Discord always renders the name in bold and that would look horrible.
                     'name' => 'New Members',
-                    'value' => 'We have seen a payment from ' . $approveCount . ' new members.', 
+                    'value' => 'We have seen a payment from ' . $approveCount . ' new members.',
                 ],
                 [
                     'name' => 'Notified Members',

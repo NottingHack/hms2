@@ -190,7 +190,7 @@ class AuditResult extends Notification implements ShouldQueue, NotificationSensi
 
         $embed = [
             'title' => 'Membership Audit Results',
-            'description' => 'Each day, HMS produces an update of changes in the membership. This is a summary.',
+            'description' => 'Produced each weekday, this is a sumamry of changes in membership.',
             'fields' => [
                 [
                     // Adding text to the value rather than the name, because Discord always renders the name in bold and that would look horrible.

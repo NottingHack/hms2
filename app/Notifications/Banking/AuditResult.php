@@ -190,22 +190,24 @@ class AuditResult extends Notification implements ShouldQueue, NotificationSensi
 
         $embed = [
             'title' => 'Membership Audit Results',
+            'description' => 'Produced each weekday, this is a sumamry of changes in membership.',
             'fields' => [
                 [
+                    // Adding text to the value rather than the name, because Discord always renders the name in bold and that would look horrible.
                     'name' => 'New Members',
-                    'value' => $approveCount,
+                    'value' => 'We have seen a payment from ' . $approveCount . ' new members.',
                 ],
                 [
                     'name' => 'Notified Members',
-                    'value' => $warnCount,
+                    'value' => 'We have not seen a payment from ' . $warnCount . ' members recently, so they may soon have their membership revoked.',
                 ],
                 [
                     'name' => 'Revoked Members',
-                    'value' => $revokeCount,
+                    'value' => 'The last payment from ' . $revokeCount . ' members was too long ago, so their membership has been revoked.',
                 ],
                 [
                     'name' => 'Reinstated Members',
-                    'value' => $reinstateCount,
+                    'value' => $reinstateCount . ' members have started paying again, so their membership has been reinstated.',
                 ],
             ],
         ];

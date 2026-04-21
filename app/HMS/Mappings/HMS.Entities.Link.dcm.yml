@@ -22,6 +22,9 @@ HMS\Entities\Link:
     description:
       type: string
       nullable: true
+    slug:
+      type: string
+      nullable: true
     deletedAt:
       type: datetime
       nullable: true

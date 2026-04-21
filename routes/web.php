@@ -76,6 +76,9 @@ Route::view('donate', 'pages.donate')->name('donate');
 
 // Unrestricted pages
 Route::get('links', [LinksController::class, 'index'])->name('links.index');
+Route::get('redirect/{slug}', [LinksController::class, 'redirect'])
+     ->name('links.redirect');
+
 // Instrumentation/Electric
 Route::prefix('instrumentation')->name('instrumentation.')->group(function () {
     Route::get('status', [ServiceController::class, 'status'])

@@ -43,6 +43,7 @@ class LinkFactory
         $_link->setName($request['name']);
         $_link->setLink($request['link']);
         $_link->setDescription($request['description']);
+        $_link->setSlug($request['slug']);
         $now = Carbon::now();
         $_link->setCreatedAt($now);
         $_link->setUpdatedAt(clone $now);

@@ -28,6 +28,16 @@
   @endif
 </div>
 
+<div class="form-group">
+  <label for="slug" class="form-label">Slug (a fixed URL which can be accessed via "hms.nottinghack.org.uk/redirect/{slug}")</label>
+  <input class="form-control" id="slug" type="text" name="slug" value="{{ old('slug', $link->getSlug()) }}" >
+  @if ($errors->has('slug'))
+  <p class="help-text">
+    <strong>{{ $errors->first('slug') }}</strong>
+  </p>
+  @endif
+</div>
+
 <hr>
 
 <div class="form-group">

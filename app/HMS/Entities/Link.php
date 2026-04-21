@@ -30,6 +30,11 @@ class Link
     protected $description;
 
     /**
+     * @var null|string
+     */
+    protected $slug;
+
+    /**
      * Gets the value of id.
      *
      * @return int
@@ -107,6 +112,30 @@ class Link
     public function setDescription($description)
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of slug.
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Sets the value of slug.
+     *
+     * @param string $slug the slug
+     *
+     * @return self
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
 
         return $this;
     }

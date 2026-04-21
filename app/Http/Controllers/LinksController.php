@@ -47,6 +47,22 @@ class LinksController extends Controller
     }
 
     /**
+     * Redirects to a specific Link by slug.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirect($slug)
+    {
+        $links = $this->linkRepository->findBySlug($slug);
+
+        if ($links) {
+            return redirect($links[0]->getLink());
+        }
+
+        return redirect()->route('links.index');
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -70,6 +86,7 @@ class LinksController extends Controller
         $this->validate($request, [
             'name' => 'required|unique:HMS\Entities\Link',
             'link' => 'required|url',
+            'slug' => 'sometimes|nullable|max:255',
         ]);
 
         $link = $this->linkFactory->createFromRequest($request);
@@ -104,11 +121,13 @@ class LinksController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'link' => 'required|url',
+            'slug' => 'sometimes|nullable|max:255',
         ]);
 
         $link->setName($request['name']);
         $link->setLink($request['link']);
         $link->setDescription($request['description']);
+        $link->setSlug($request['slug']);
 
         $this->linkRepository->save($link);
         flash()->success('Link \'' . $link->getName() . '\' updated.');

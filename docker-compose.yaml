@@ -5,7 +5,17 @@ networks:
 
 volumes:
   hms-shared:
-  mariadb:
+  hms-mariadb:
+
+x-hms-environment: &hms-environment
+  DB_HOST: hms-mysql
+  DB_USERNAME: root
+  DB_PASSWORD: ""
+  REDIS_HOST: hms-redis
+  KRB_USERNAME: hms/admin
+  KRB_REALM: NOTTINGHACK
+  KRB_KEYTAB: /shared/hms.keytab
+  KRB5_CONFIG: /shared/krb5.conf
 
 services:
   hms-web:
@@ -23,14 +33,7 @@ services:
       - ./public:/var/www/html
       - hms-shared:/shared
     environment:
-      DB_HOST: hms-mysql
-      DB_USERNAME: root
-      DB_PASSWORD: ""
-      REDIS_HOST: hms-redis
-      KRB_USERNAME: hms/admin
-      KRB_REALM: NOTTINGHACK
-      KRB_KEYTAB: /shared/hms.keytab
-      KRB5_CONFIG: /shared/krb5.conf
+      <<: *hms-environment
 
   hms-mysql:
     image: mariadb:latest
@@ -39,7 +42,7 @@ services:
     networks:
       - hms
     volumes:
-      - mariadb:/var/lib/mysql:Z
+      - hms-mariadb:/var/lib/mysql:Z
       - ./dev/docker-init.sql:/docker-init.sql
     command: --init-file /docker-init.sql
     environment:
@@ -70,14 +73,7 @@ services:
     networks:
       - hms
     environment:
-      DB_HOST: hms-mysql
-      DB_USERNAME: root
-      DB_PASSWORD: ""
-      REDIS_HOST: hms-redis
-      KRB_USERNAME: hms/admin
-      KRB_REALM: NOTTINGHACK
-      KRB_KEYTAB: /shared/hms.keytab
-      KRB5_CONFIG: /shared/krb5.conf
+      <<: *hms-environment
     volumes:
       - ./dev/docker-hms-init.sh:/docker-init.sh
       - ./:/hms
@@ -95,7 +91,6 @@ services:
       - hms
     volumes:
       - ./dev/docker-krb5-init.sh:/docker-init.sh
-      - ./:/hms
       - hms-shared:/shared
     depends_on:
       hms-krb5:

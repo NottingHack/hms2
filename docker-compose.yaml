@@ -1,0 +1,102 @@
+networks:
+    hms:
+        driver:  bridge
+        enable_ipv6: false
+
+volumes:
+  hms-shared:
+  mariadb:
+
+services:
+  hms-web:
+    image: hms-php-nginx
+    pull_policy: never
+    build:
+      dockerfile: dev/Dockerfile.nginx
+    ports:
+      - "8080:8080"
+    networks:
+      - hms
+    user: nobody
+    volumes:
+      - ./:/var/www
+      - ./public:/var/www/html
+      - hms-shared:/shared
+    environment:
+      DB_HOST: hms-mysql
+      DB_USERNAME: root
+      DB_PASSWORD: ""
+      REDIS_HOST: hms-redis
+      KRB_USERNAME: hms/admin
+      KRB_REALM: NOTTINGHACK
+      KRB_KEYTAB: /shared/hms.keytab
+      KRB5_CONFIG: /shared/krb5.conf
+
+  hms-mysql:
+    image: mariadb:latest
+    ports:
+      - "3306:3306"
+    networks:
+      - hms
+    volumes:
+      - mariadb:/var/lib/mysql:Z
+      - ./dev/docker-init.sql:/docker-init.sql
+    command: --init-file /docker-init.sql
+    environment:
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1
+
+  hms-redis:
+    image: redis:latest
+    networks:
+      - hms
+
+  hms-krb5:
+    image: gcavalcante8808/krb5-server
+    networks:
+      - hms
+    volumes:
+      - hms-shared:/shared:rw
+    environment:
+      KRB5_REALM: NOTTINGHACK
+      KRB5_KDC: localhost
+      KRB5_ADMINSERVER: localhost
+      KRB5_PASS: very-secure-passwords
+
+  hms-db-init:
+    image: hms-php-nginx
+    pull_policy: never
+    command: /docker-init.sh
+    user: nobody
+    networks:
+      - hms
+    environment:
+      DB_HOST: hms-mysql
+      DB_USERNAME: root
+      DB_PASSWORD: ""
+      REDIS_HOST: hms-redis
+      KRB_USERNAME: hms/admin
+      KRB_REALM: NOTTINGHACK
+      KRB_KEYTAB: /shared/hms.keytab
+      KRB5_CONFIG: /shared/krb5.conf
+    volumes:
+      - ./dev/docker-hms-init.sh:/docker-init.sh
+      - ./:/hms
+      - hms-shared:/shared
+    depends_on:
+      hms-mysql:
+        condition: service_started
+      hms-web:
+        condition: service_healthy
+
+  hms-krb5-init:
+    image: gcavalcante8808/krb5-server
+    command: /docker-init.sh
+    networks:
+      - hms
+    volumes:
+      - ./dev/docker-krb5-init.sh:/docker-init.sh
+      - ./:/hms
+      - hms-shared:/shared
+    depends_on:
+      hms-krb5:
+        condition: service_started

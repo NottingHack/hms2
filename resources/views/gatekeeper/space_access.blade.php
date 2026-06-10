@@ -22,7 +22,7 @@
             @endif
             @if (Meta::get('access_inner_door'))
             <hr>
-            <dt class="h5">Inner Door</dt>
+            <dt class="h5">Inner Door / Members' Storage</dt>
             <h4><span class="badge badge-primary">{{  Meta::get('access_inner_door') }}</span></h4>
             @endif
             @if ($roden = Meta::get('access_roden_street_door'))

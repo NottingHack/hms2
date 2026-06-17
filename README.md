@@ -6,7 +6,7 @@ Version 2 of our Hackspace Management System
 
 ## Production
 ### Setup
-https://github.com/NottingHack/hms2/wiki/Installation
+https://github.com/NottingHack/hms2/wiki/Installation-in-Production
 ### Deployment
 https://github.com/NottingHack/hms2/wiki/Deployment
 

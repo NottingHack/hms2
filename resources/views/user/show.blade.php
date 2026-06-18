@@ -82,6 +82,8 @@
   <a href="{{ route('membership.edit', Auth::user()->getId()) }}" class="btn btn-primary btn-block" >Update Details</a>
   @elseif (($user == Auth::user() && Auth::user()->can('profile.edit.self')) || ($user->getId() != Auth::user()->getId() && Auth::user()->can('profile.edit.all')))
   <a href="{{ route('users.edit', $user->getID()) }}" class="btn btn-info btn-block"><i class="fas fa-pencil" aria-hidden="true"></i> Edit</a>
+  <br />
+  <a href="{{ route('users.deleteAccount') }}" class="btn btn-danger btn-block"><i class="fas fa-trash" aria-hidden="true"></i> Remove Account</a>
   @endif
 </div>
 @endsection

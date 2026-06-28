@@ -95,3 +95,12 @@ services:
     depends_on:
       hms-krb5:
         condition: service_started
+
+  hms-pma:
+    image: phpmyadmin
+    ports:
+      - 8081:80
+    networks:
+      - hms
+    environment:
+      - PMA_HOST=hms-mysql

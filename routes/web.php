@@ -223,6 +223,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('projects.markAbandoned');
     Route::patch('projects/{project}/markComplete', [ProjectController::class, 'markComplete'])
         ->name('projects.markComplete');
+    Route::get('projects/{project}/tort', [ProjectController::class, 'tort'])
+        ->name('projects.tort');
+    Route::post('projects/{project}/tort', [ProjectController::class, 'performTort'])
+         ->name('projects.tort');
+    Route::patch('projects/{project}/clear-tort', [ProjectController::class, 'clearTort'])
+        ->name('projects.clearTort');
     Route::get('projects/{project}/print', [ProjectController::class, 'printLabel'])->name('projects.print');
     Route::resource('projects', ProjectController::class)
         ->except(['destroy']);

@@ -19,6 +19,9 @@ or after
 
 ### Development with docker-compose
 
+The docker-compose stuff is not suitable for production. It probably
+could be made to be production ready, but for now it's only for dev.
+
 1. Set the `FONTAWSEOME_TOKEN` in your local shell
    `export FONTAWESOME_TOKEN=<obtain from software team>`
 2. Make read/write to the containers `chmod a+rw -R .`

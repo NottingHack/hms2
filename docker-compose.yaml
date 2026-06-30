@@ -29,7 +29,6 @@ services:
       - "8080:8080"
     networks:
       - hms
-    user: nobody
     volumes:
       - ./:/var/www
       - ./public:/var/www/html
@@ -85,7 +84,6 @@ services:
     image: hms-php-nginx
     pull_policy: never
     command: /docker-init.sh
-    user: nobody
     networks:
       - hms
     environment:

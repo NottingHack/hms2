@@ -1,7 +1,7 @@
 #!/bin/sh
 
 HOME=/tmp/hms
-mkdir $HOME
+mkdir -p $HOME
 
 cd /hms
 
@@ -11,10 +11,10 @@ cd /hms
     sed -i '/MAIL_HOST/cMAIL_HOST=hms-mailpit/' .env
     sed -i '/REDIS_HOST/cREDIS_HOST=hms-redis/' .env
     sed -i '/MEMCACHED_HOST/cMEMCACHED_HOST=hms-memcached/' .env
-    php artisan key:generate
 
     composer install --no-security-blocking
 
+    php artisan key:generate
     php artisan migrate
     php artisan doctrine:migration:refresh -n
     php artisan hms:database:refresh-views

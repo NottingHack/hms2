@@ -35,6 +35,14 @@ services:
     environment:
       <<: *hms-environment
 
+  hms-mailpit:
+    image: ghcr.io/axllent/mailpit:v1.30.3
+    networks:
+      - hms
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
   hms-mysql:
     image: mariadb:latest
     ports:

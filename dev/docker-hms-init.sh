@@ -4,6 +4,11 @@ cd /hms
 
 composer upgrade --no-security-blocking
 
+[ -f .env ] || (
+    cp .env.example .env
+    php artisan key:generate
+)
+
 php artisan make:cache-table || true
 php artisan key:generate
 php artisan migrate

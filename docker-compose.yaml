@@ -16,6 +16,7 @@ x-hms-environment: &hms-environment
   KRB_REALM: NOTTINGHACK
   KRB_KEYTAB: /shared/hms.keytab
   KRB5_CONFIG: /shared/krb5.conf
+  FONTAWESOME_TOKEN: ${FONTAWESOME_TOKEN}
 
 services:
   hms-web:

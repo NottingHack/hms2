@@ -1,6 +1,7 @@
 #!/bin/sh
 
-HOME=/tmp
+HOME=/tmp/hms
+mkdir $HOME
 
 cd /hms
 
@@ -8,10 +9,10 @@ composer upgrade --no-security-blocking
 
 [ -f .env ] || (
     cp .env.example .env
+    sed -i '/MAIL_HOST/s/hmsdev/hms-mailpit/' .env
     php artisan key:generate
 )
 
-php artisan make:cache-table || true
 php artisan key:generate
 php artisan migrate
 php artisan doctrine:migration:refresh -n

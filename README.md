@@ -19,7 +19,8 @@ or after
 
 ### Development with docker-compose
 
-1. Modify `.npmrc` to include the font awesome API key
+1. Set the `FONTAWSEOME_TOKEN` in your local shell
+   `export FONTAWESOME_TOKEN=<obtain from software team>`
 2. Make read/write to the containers `chmod a+rw -R .`
 3. Start everything with `docker compose up`
 

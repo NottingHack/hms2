@@ -9,7 +9,9 @@ composer upgrade --no-security-blocking
 
 [ -f .env ] || (
     cp .env.example .env
-    sed -i '/MAIL_HOST/s/hmsdev/hms-mailpit/' .env
+    sed -i '/MAIL_HOST/cMAIL_HOST=hms-mailpit/' .env
+    sed -i '/REDIS_HOST/cREDIS_HOST=hms-redis/' .env
+    sed -i '/MEMCACHED_HOST/cMEMCACHED_HOST=hms-memcached/' .env
     php artisan key:generate
 )
 

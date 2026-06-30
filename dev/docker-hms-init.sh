@@ -1,5 +1,7 @@
 #!/bin/sh
 
+HOME=/tmp
+
 cd /hms
 
 composer upgrade --no-security-blocking
@@ -20,3 +22,6 @@ php artisan meta:sync
 php artisan db:seed
 yes | php artisan passport:install
 yes | php artisan ziggy:generate
+
+npm install
+npm run dev

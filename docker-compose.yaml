@@ -6,6 +6,7 @@ networks:
 volumes:
   hms-shared:
   hms-mariadb:
+  hms-krb5:
 
 x-hms-environment: &hms-environment
   DB_HOST: hms-mysql
@@ -73,6 +74,7 @@ services:
       - hms
     volumes:
       - hms-shared:/shared:rw
+      - hms-krb5:/var/lib/krb5kdc:rw
     environment:
       KRB5_REALM: NOTTINGHACK
       KRB5_KDC: localhost

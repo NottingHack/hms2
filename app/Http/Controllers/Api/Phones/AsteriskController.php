@@ -105,7 +105,7 @@ class AsteriskController extends Controller
             ], 409);
         }
 
-        if ($extension->getType() == ExtensionType::DECT || $extension->getType() == ExtensionType::POTS) {
+        if ($extension->getType() != ExtensionType::DECT && $extension->getType() != ExtensionType::POTS) {
             return response()->json([
                 'error' => 'Target number is not acceptable',
             ], 406);

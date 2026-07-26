@@ -62,5 +62,8 @@ return [
         'temporary_register_view_period' => 'P7D',
         'wiki_html' => 'https://wiki.nottinghack.org.uk',
         'zone_occupant_reset_interval' => 'P1D',
+        'phones_sip_server' => 'nottinghack.org.uk',
+        'phones_dect_registration_pin' => '1234',
+        'phones_link_dial_prefix' => '10',
     ],
 ];

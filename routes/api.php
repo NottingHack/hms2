@@ -18,6 +18,7 @@ use App\Http\Controllers\Api\Snackspace\VendingMachineController;
 use App\Http\Controllers\Api\SpaceApiController;
 use App\Http\Controllers\Api\Tools\BookingController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\Phones\AsteriskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -165,6 +166,13 @@ Route::name('client.')->prefix('cc')->middleware('client')->group(function () {
 
     Route::post('dovecot-push', DovecotPushController::class)
         ->name('dovecot-push');
+
+    Route::post('phones/extensions/map', [AsteriskController::class, 'mapExtension'])
+         ->name('phones.map-extension');
+    Route::get('phones/extensions/sip', [AsteriskController::class, 'sipExtensions'])
+         ->name('phones.sip-extensions');
+    Route::get('phones/dialplan', [AsteriskController::class, 'dialplan'])
+        ->name('phones.dialplan');
 });
 
 Route::name('webhook.')->group(function () {

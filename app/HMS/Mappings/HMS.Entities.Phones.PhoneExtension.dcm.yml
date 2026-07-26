@@ -1,0 +1,34 @@
+# HMS.Entities.Phones.PhoneExtension.dcm.yml
+HMS\Entities\Phones\PhoneExtension:
+  type: entity
+  repositoryClass: HMS\Repositories\Phones\Doctrine\DoctrinePhoneExtensionRepository
+  table: phone_extensions
+  uniqueConstraints:
+    duplicate_idx:
+      columns: [ extension ]
+  id:
+    extension:
+      type: string
+      length: 8
+      options:
+        unsigned: true
+  fields:
+    phoneword:
+      type: string
+      length: 8
+      nullable: true
+    description:
+      type: string
+    type:
+      type: string
+    sipPassword:
+      type: string
+      length: 32
+      nullable: true
+    mappedNumber:
+      type: string
+      length: 12
+      nullable: true
+  manyToOne:
+    user:
+      targetEntity: \HMS\Entities\User

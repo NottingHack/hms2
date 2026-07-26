@@ -86,5 +86,6 @@ return [
         'Instrumentation\SensorBattery',
         'Instrumentation\Service',
         'Instrumentation\Temperature',
+        'Phones\PhoneExtension',
     ],
 ];

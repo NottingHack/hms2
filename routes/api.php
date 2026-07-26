@@ -13,12 +13,12 @@ use App\Http\Controllers\Api\Governance\CheckInController;
 use App\Http\Controllers\Api\Members\BoxController;
 use App\Http\Controllers\Api\Members\ProjectController;
 use App\Http\Controllers\Api\MwAuthHmsController;
+use App\Http\Controllers\Api\Phones\AsteriskController;
 use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Api\Snackspace\VendingMachineController;
 use App\Http\Controllers\Api\SpaceApiController;
 use App\Http\Controllers\Api\Tools\BookingController;
 use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Api\Phones\AsteriskController;
 use Illuminate\Support\Facades\Route;
 
 /*

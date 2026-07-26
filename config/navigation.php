@@ -51,23 +51,23 @@ return [
             'permissions' => ['team.view'],
         ],
         'phones' => [
-          'text' => 'Phones',
-          'permissions' => [],
-          'feature' => 'phones',
-          'links' => [
-            'directory' => [
-              'text' => 'Directory',
-              'route' => 'phones.directory',
-              'match' => 'phones.directory',
-              'permissions' => [],
+            'text' => 'Phones',
+            'permissions' => [],
+            'feature' => 'phones',
+            'links' => [
+                'directory' => [
+                    'text' => 'Directory',
+                    'route' => 'phones.directory',
+                    'match' => 'phones.directory',
+                    'permissions' => [],
+                ],
+                'numbers' => [
+                    'text' => 'Your Numbers',
+                    'route' => 'phones.extensions',
+                    'match' => 'phones.extensions',
+                    'permissions' => [],
+                ],
             ],
-            'numbers' => [
-              'text' => 'Your Numbers',
-              'route' => 'phones.extensions',
-              'match' => 'phones.extensions',
-              'permissions' => [],
-            ],
-          ],
         ],
         'codes' => [
             'text' => 'Space Access',

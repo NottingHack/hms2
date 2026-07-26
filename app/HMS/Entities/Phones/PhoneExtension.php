@@ -3,11 +3,9 @@
 namespace HMS\Entities\Phones;
 
 use HMS\Entities\User;
-use HMS\Entities\Phones\ExtensionType;
 
 class PhoneExtension
 {
-
     /**
      * The phone number for the extension.
      *
@@ -68,7 +66,7 @@ class PhoneExtension
     }
 
     /**
-     * Set the extension number
+     * Set the extension number.
      *
      * @param string $extension
      *
@@ -92,7 +90,7 @@ class PhoneExtension
     }
 
     /**
-     * Set the extension number
+     * Set the extension number.
      *
      * @param string $extension
      *
@@ -116,7 +114,7 @@ class PhoneExtension
     }
 
     /**
-     * Set the extension number
+     * Set the extension number.
      *
      * @param string $extension
      *
@@ -174,7 +172,7 @@ class PhoneExtension
     }
 
     /**
-     * Set the extension type (e.g. DECT, SIP, POTS)
+     * Set the extension type (e.g. DECT, SIP, POTS).
      *
      * @param string $type
      *
@@ -244,5 +242,4 @@ class PhoneExtension
     {
         $this->mappedNumber = $mappedNumber;
     }
-
 }

@@ -25,7 +25,7 @@ abstract class ExtensionType
     public const CUSTOM = 'CUSTOM';
 
     /**
-     * String representations of each type
+     * String representations of each type.
      */
     public const TYPE_STRINGS = [
         self::SIP => 'SIP (VoIP)',

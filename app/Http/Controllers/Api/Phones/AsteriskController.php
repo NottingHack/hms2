@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api\Phones;
 
 use App\Http\Controllers\Controller;
 use HMS\Entities\Phones\ExtensionType;
+use HMS\Repositories\Phones\PhoneExtensionRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use HMS\Repositories\Phones\PhoneExtensionRepository;
 
 class AsteriskController extends Controller
 {
@@ -39,12 +39,13 @@ class AsteriskController extends Controller
 
         $simplified = [];
         foreach ($extensions as $extension) {
-            if (! $extension->getMappedNumber())
+            if (! $extension->getMappedNumber()) {
                 continue;
+            }
 
             $simplified[] = [
                 'extension' => $extension->getExtension(),
-                'target' => $extension->getMappedNumber()
+                'target' => $extension->getMappedNumber(),
             ];
         }
 
@@ -64,12 +65,13 @@ class AsteriskController extends Controller
 
         $simplified = [];
         foreach ($extensions as $extension) {
-            if ($extension->getType() !== ExtensionType::SIP)
+            if ($extension->getType() !== ExtensionType::SIP) {
                 continue;
+            }
 
             $simplified[] = [
                 'extension' => $extension->getExtension(),
-                'password' => $extension->getSipPassword()
+                'password' => $extension->getSipPassword(),
             ];
         }
 
@@ -87,25 +89,25 @@ class AsteriskController extends Controller
     {
         $validated = $request->validate([
             'extension' => 'required|numeric',
-            'target' => 'required|numeric'
+            'target' => 'required|numeric',
         ]);
 
         $extension = $this->phoneExtensionRepository->findOneByExtension($validated['extension']);
         if (! $extension) {
             return response()->json([
-                'error' => 'Extension not found'
+                'error' => 'Extension not found',
             ], 404);
         }
 
         if ($extension->getMappedNumber()) {
             return response()->json([
-                'error' => 'Extension already mapped to handset or line'
+                'error' => 'Extension already mapped to handset or line',
             ], 409);
         }
 
         if ($extension->getType() == ExtensionType::DECT || $extension->getType() == ExtensionType::POTS) {
             return response()->json([
-                'error' => 'Target number is not acceptable'
+                'error' => 'Target number is not acceptable',
             ], 406);
         }
 

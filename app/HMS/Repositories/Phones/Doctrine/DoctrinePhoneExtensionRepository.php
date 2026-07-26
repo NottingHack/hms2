@@ -4,7 +4,6 @@ namespace HMS\Repositories\Phones\Doctrine;
 
 use Doctrine\ORM\EntityRepository;
 use HMS\Entities\Phones\PhoneExtension;
-use HMS\Entities\Phones\ExtensionType;
 use HMS\Entities\User;
 use HMS\Repositories\Phones\PhoneExtensionRepository;
 use LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
@@ -14,7 +13,7 @@ class DoctrinePhoneExtensionRepository extends EntityRepository implements Phone
     use PaginatesFromRequest;
 
     /**
-     * Paginate all extensions
+     * Paginate all extensions.
      *
      * @param int $perPage
      * @param string $pageName
@@ -30,7 +29,7 @@ class DoctrinePhoneExtensionRepository extends EntityRepository implements Phone
     }
 
     /**
-     * Paginate extensions of a specific user
+     * Paginate extensions of a specific user.
      *
      * @param int $perPage
      * @param string $pageName
@@ -48,10 +47,9 @@ class DoctrinePhoneExtensionRepository extends EntityRepository implements Phone
     }
 
     /**
-     * Save an extension
+     * Save an extension.
      *
      * @param PhoneExtension $extension
-     *
      */
     public function save(PhoneExtension $extension)
     {

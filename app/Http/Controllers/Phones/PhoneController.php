@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers\Phones;
 
-use Closure;
-use HMS\Repositories\Phones\PhoneExtensionRepository;
-use HMS\Repositories\MetaRepository;
-use HMS\Entities\User;
+use App\Http\Controllers\Controller;
 use HMS\Entities\Phones\ExtensionType;
 use HMS\Entities\Phones\PhoneExtension;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use HMS\Repositories\MetaRepository;
+use HMS\Repositories\Phones\PhoneExtensionRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class PhoneController extends Controller
 {
@@ -38,7 +34,7 @@ class PhoneController extends Controller
     }
 
     /**
-     * Phonebook
+     * Phonebook.
      *
      * @return \Illuminate\Http\Response
      */
@@ -51,7 +47,7 @@ class PhoneController extends Controller
     }
 
     /**
-     * Users extensions
+     * Users extensions.
      *
      * @return \Illuminate\Http\Response
      */
@@ -66,7 +62,7 @@ class PhoneController extends Controller
     }
 
     /**
-     * Page to register a new extension
+     * Page to register a new extension.
      *
      * @return \Illuminate\Http\Response
      */
@@ -77,7 +73,7 @@ class PhoneController extends Controller
     }
 
     /**
-     * Handler for extension creation
+     * Handler for extension creation.
      *
      * @param Request $request
      *
@@ -113,7 +109,7 @@ class PhoneController extends Controller
     }
 
     /**
-     * Extension setup guide
+     * Extension setup guide.
      *
      * @param PhoneExtension $extension
      *

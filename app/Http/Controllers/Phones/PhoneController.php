@@ -129,4 +129,15 @@ class PhoneController extends Controller
                 'link_prefix' => $this->metaRepository->get('phones_link_dial_prefix'),
             ]);
     }
+
+    public function deleteExtension(PhoneExtension $extension)
+    {
+        if ($extension->getUser() != Auth::user()) {
+            flash('Unauthorized')->error();
+        }
+
+        $this->phoneExtensionRepository->delete($extension);
+
+        return redirect()->route('phones.extensions');
+    }
 }

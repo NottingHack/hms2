@@ -33,7 +33,12 @@
             {{ $extension->getDescription() }}
           </td>
           <td>
-            <a class="btn btn-danger btn-sm" href="{{ route('phones.extensions.setup', $extension->getExtension()) }}" role="button">Delete</a>
+            <a class="btn btn-danger btn-sm" href="javascript:void(0);" onclick="$(this).find('form').submit();" role="button">
+            <form action="{{ route('phones.extensions.delete', $extension->getExtension()) }}" method="POST" style="display: inline">
+              @method('DELETE')
+              @csrf
+            </form>
+            Delete</a>
             @if ($extension->getType() !== 'CUSTOM')
             <a class="btn btn-primary btn-sm" href="{{ route('phones.extensions.setup', $extension->getExtension()) }}" role="button">Setup</a>
             @endif

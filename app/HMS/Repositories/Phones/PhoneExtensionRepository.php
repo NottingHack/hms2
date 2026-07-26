@@ -33,4 +33,11 @@ interface PhoneExtensionRepository
      * @param PhoneExtension $extension
      */
     public function save(PhoneExtension $extension);
+
+    /**
+     * Delete an extension.
+     *
+     * @param PhoneExtension $extension
+     */
+    public function delete(PhoneExtension $extension);
 }

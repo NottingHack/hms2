@@ -56,4 +56,15 @@ class DoctrinePhoneExtensionRepository extends EntityRepository implements Phone
         $this->_em->persist($extension);
         $this->_em->flush();
     }
+
+    /**
+     * Delete an extension.
+     *
+     * @param PhoneExtension $extension
+     */
+    public function delete(PhoneExtension $extension)
+    {
+        $this->_em->remove($extension);
+        $this->_em->flush();
+    }
 }

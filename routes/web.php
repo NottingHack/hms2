@@ -249,6 +249,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('phones/setup/{extension}', [PhoneController::class, 'setup'])->name('phones.extensions.setup');
     Route::get('phones/register', [PhoneController::class, 'registerExtension'])->name('phones.extensions.register');
     Route::post('phones/extensions', [PhoneController::class, 'createExtension'])->name('phones.extensions.doRegister');
+    Route::delete('phones/delete/{extension}', [PhoneController::class, 'deleteExtension'])->name('phones.extensions.delete');
 
     // Banking
     Route::name('banking.')->group(function () {

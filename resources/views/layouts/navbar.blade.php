@@ -37,7 +37,7 @@
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopups="true" aria-expanded="false" href="{{ $link['url'] }}">{!! $link['text'] !!}</a>
         <div class="dropdown-menu">
           @foreach ($link['links'] as $subLink)
-          <a class="dropdown-item {!! $subLink['active'] ? 'active' : '' !!}" href="{{ $subLink['url'] }}">{{ $subLink['text'] }}</a>
+          <a class="dropdown-item {!! $subLink['active'] ? 'active' : '' !!}" href="{{ $subLink['url'] }}">{!! $subLink['text'] !!}</a>
           @endforeach
         </div>
       </li>

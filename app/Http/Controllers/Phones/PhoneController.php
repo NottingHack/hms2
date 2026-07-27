@@ -53,8 +53,10 @@ class PhoneController extends Controller
         }
 
         $extensions = [];
+        $categoryFilter = null;
         if (isset($request->category) && isset(ExtensionCategory::TYPE_STRINGS[$request->category])) {
             $extensions = $this->phoneExtensionRepository->paginateByCategory($request->category, 100);
+            $categoryFilter = $request->category;
         } else {
             $extensions = $this->phoneExtensionRepository->paginateAll(100);
         }
@@ -63,6 +65,7 @@ class PhoneController extends Controller
             ->with([
                 'extensions' => $extensions,
                 'categories' => ExtensionCategory::TYPE_STRINGS,
+                'categoryFilter' => $categoryFilter,
             ]);
     }
 

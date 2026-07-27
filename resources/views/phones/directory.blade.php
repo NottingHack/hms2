@@ -10,9 +10,22 @@
     </a>
 
     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-      <a class="dropdown-item" href="{{ route('phones.directory') }}">All Extensions</a>
+      <a class="dropdown-item @if (!$categoryFilter) active @endif" href="{{ route('phones.directory') }}">
+        <i class="fas fa-asterisk fa-fw"></i>
+        All Extensions
+      </a>
+      <div class="dropdown-divider"></div>
       @foreach ($categories as $category => $description)
-      <a class="dropdown-item" href="{{ route('phones.directory') }}?category={{ $category }}">{{ $description }}</a>
+      <a class="dropdown-item @if ($categoryFilter === $category) active @endif" href="{{ route('phones.directory') }}?category={{ $category }}">
+        @if ($category === 'MEMBER')
+        <i class="fa fa-user fa-fw"></i>
+        @elseif ($category === 'AREA')
+        <i class="fa fa-building fa-fw"></i>
+        @elseif ($category === 'SERVICE')
+        <i class="fa fa-robot fa-fw"></i>
+        @endif
+        {{ $description }}
+      </a>
       @endforeach
     </div>
   </div><br>

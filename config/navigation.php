@@ -56,13 +56,13 @@ return [
             'feature' => 'phones',
             'links' => [
                 'directory' => [
-                    'text' => 'Directory',
+                    'text' => '<i class="far fa-address-book fa-fw"></i> Directory',
                     'route' => 'phones.directory',
                     'match' => 'phones.directory',
                     'permissions' => ['phones.view.directory.all', 'phones.view.directory.limited'],
                 ],
                 'numbers' => [
-                    'text' => 'Your Numbers',
+                    'text' => '<i class="fas fa-phone fa-fw"></i> Your Numbers',
                     'route' => 'phones.extensions',
                     'match' => 'phones.extensions',
                     'permissions' => ['phones.view.self', 'phones.view.all'],

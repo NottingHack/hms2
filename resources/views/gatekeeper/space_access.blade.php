@@ -3,6 +3,13 @@
 @section('pageTitle', 'Space Access')
 
 @section('content')
+@if ($building->getAccessState() == HMS\Entities\Gatekeeper\BuildingAccessState::SELF_BOOK || $building->getAccessState() == HMS\Entities\Gatekeeper\BuildingAccessState::REQUESTED_BOOK)
+<div class="container d-block d-md-none">
+  <div class="alert alert-info" role="alert">
+    Scroll down for access bookings.
+  </div>
+</div>
+@endif
 <div class="container">
   <div class="row">
     @if (Meta::get('access_street_door') || Meta::get('access_inner_door'))

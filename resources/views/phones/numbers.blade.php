@@ -8,6 +8,7 @@
   <br>
 
   <div class="table-responsive">
+    @if (count($extensions))
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
@@ -52,6 +53,11 @@
         @endforeach
       </tbody>
     </table>
+    @else
+    <div class="alert alert-light" role="alert">
+      Oh no! You don't have any extensions yet. Click the big button above to register one.
+    </div>
+    @endif
   </div>
 
   <div classs="pagination-links center">

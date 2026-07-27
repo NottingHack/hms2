@@ -31,6 +31,7 @@
   </div><br>
 
   <div class="table-responsive">
+    @if (count($extensions))
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
@@ -81,6 +82,11 @@
         @endforeach
       </tbody>
     </table>
+    @else
+    <div class="alert alert-light" role="alert">
+      Well, this is embarrassing. There aren't any extensions in the phone book currently. Why not be the first?
+    </div>
+    @endif
   </div>
 
   <div classs="pagination-links center">

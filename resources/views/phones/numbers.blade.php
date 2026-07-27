@@ -42,6 +42,7 @@
             @if ($extension->getType() !== 'CUSTOM')
             <a class="btn btn-primary btn-sm" href="{{ route('phones.extensions.setup', $extension->getExtension()) }}" role="button">Setup</a>
             @endif
+            <a class="btn btn-primary btn-sm" href="{{ route('phones.extensions.edit', $extension->getExtension()) }}" role="button">Edit</a>
           </td>
         </tr>
         @endforeach

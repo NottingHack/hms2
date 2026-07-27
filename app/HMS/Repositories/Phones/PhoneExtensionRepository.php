@@ -28,6 +28,17 @@ interface PhoneExtensionRepository
     public function paginateByUser(User $user, $perPage = 10, $pageName = 'page');
 
     /**
+     * Paginate extensions for a specific category.
+     *
+     * @param string $category
+     * @param int $perPage
+     * @param string $pageName
+     *
+     * @return null|PhoneExtension[]
+     */
+    public function paginateByCategory($category, $perPage = 10, $pageName = 'page');
+
+    /**
      * Save an extension.
      *
      * @param PhoneExtension $extension

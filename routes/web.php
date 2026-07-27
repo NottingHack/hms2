@@ -250,6 +250,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('phones/register', [PhoneController::class, 'registerExtension'])->name('phones.extensions.register');
     Route::post('phones/extensions', [PhoneController::class, 'createExtension'])->name('phones.extensions.doRegister');
     Route::delete('phones/delete/{extension}', [PhoneController::class, 'deleteExtension'])->name('phones.extensions.delete');
+    Route::get('phones/edit/{extension}', [PhoneController::class, 'editExtension'])->name('phones.extensions.edit');
+    Route::post('phones/edit/{extension}', [PhoneController::class, 'updateExtension'])->name('phones.extensions.update');
 
     // Banking
     Route::name('banking.')->group(function () {

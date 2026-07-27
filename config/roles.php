@@ -140,6 +140,12 @@ return [
         'governance.registerOfMembers.view.grant',
         'governance.registerOfDirectors.view',
         'governance.registerOfDirectors.view.grant',
+        'phones.view.self',
+        'phones.view.all',
+        'phones.edit.self',
+        'phones.edit.all',
+        'phones.view.directory.limited',
+        'phones.view.directory.all'
     ],
 
     /*
@@ -269,6 +275,9 @@ return [
                 'governance.proxy.representPrincipal',
                 'pins.view.self',
                 'grafana.viewer',
+                'phones.view.self',
+                'phones.edit.self',
+                'phones.view.directory.limited',
             ],
         ],
         'member.temporarybanned' => [
@@ -461,6 +470,9 @@ return [
                 'governance.registerOfMembers.view.grant',
                 'governance.registerOfDirectors.view',
                 'governance.registerOfDirectors.view.grant',
+                'phones.edit.all',
+                'phones.view.all',
+                'phones.view.directory.all',
             ],
         ],
         'team.software' => [
@@ -533,6 +545,9 @@ return [
                 'logViewer.view',
                 'team.edit.description',
                 'grafana.admin',
+                'phones.edit.all',
+                'phones.view.all',
+                'phones.view.directory.all'
             ],
         ],
     ],

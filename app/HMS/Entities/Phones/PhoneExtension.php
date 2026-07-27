@@ -3,6 +3,8 @@
 namespace HMS\Entities\Phones;
 
 use HMS\Entities\User;
+use HMS\Entities\Phones\ExtensionCategory;
+use HMS\Entities\Phones\ExtensionType;
 
 class PhoneExtension
 {
@@ -42,6 +44,13 @@ class PhoneExtension
     protected $type;
 
     /**
+     * The category of extension (e.g. Individual, Area, Service)
+     *
+     * @var string|ExtensionCategory
+     */
+    protected $category;
+
+    /**
      * For SIP extensions, the password for SIP registration.
      *
      * @var string
@@ -54,6 +63,13 @@ class PhoneExtension
      * @var string
      */
     protected $mappedNumber;
+
+    /**
+     * Whether to hide this extension from the directory to all members.
+     *
+     * @var bool
+     */
+    protected $hidden;
 
     /**
      * Get the extension number.
@@ -185,6 +201,41 @@ class PhoneExtension
         return $this;
     }
 
+
+    /**
+     * Get the extension type.
+     *
+     * @return string
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Get a descriptive version of the extension category.
+     *
+     * @return string
+     */
+    public function getCategoryString()
+    {
+        return ExtensionCategory::TYPE_STRINGS[$this->category];
+    }
+
+    /**
+     * Set the extension type (e.g. DECT, SIP, POTS).
+     *
+     * @param string $category
+     *
+     * @return PhoneExtension
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
     /**
      * Get the SIP registration for this extension.
      *
@@ -241,5 +292,31 @@ class PhoneExtension
     public function setMappedNumber($mappedNumber)
     {
         $this->mappedNumber = $mappedNumber;
+
+        return $this;
+    }
+
+    /**
+     * Whether this extension is hidden from the directory.
+     *
+     * @return string
+     */
+    public function getHidden()
+    {
+        return $this->hidden;
+    }
+
+    /**
+     * Set to true to hide this extension from the directory.
+     *
+     * @param bool $hidden
+     *
+     * @return PhoneExtension
+     */
+    public function setHidden($hidden)
+    {
+        $this->hidden = $hidden;
+
+        return $this;
     }
 }

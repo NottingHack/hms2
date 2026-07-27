@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Phones;
 
 use App\Http\Controllers\Controller;
+use HMS\Entities\Phones\ExtensionCategory;
 use HMS\Entities\Phones\ExtensionType;
 use HMS\Entities\Phones\PhoneExtension;
 use HMS\Repositories\MetaRepository;
 use HMS\Repositories\Phones\PhoneExtensionRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class PhoneController extends Controller
 {
@@ -31,6 +33,8 @@ class PhoneController extends Controller
     ) {
         $this->phoneExtensionRepository = $phoneExtensionRepository;
         $this->metaRepository = $metaRepository;
+
+        $this->middleware('feature:phones');
     }
 
     /**
@@ -38,12 +42,25 @@ class PhoneController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function directory()
+    public function directory(Request $request)
     {
-        $extensions = $this->phoneExtensionRepository->paginateAll();
+        if (! Gate::allows('phones.view.directory.all') && ! Gate::allows('phones.view.directory.limited')) {
+            flash('Unauthorized')->error();
+            return redirect()->route('home');
+        }
+
+        $extensions = [];
+        if (isset($request->category) && isset(ExtensionCategory::TYPE_STRINGS[$request->category])) {
+            $extensions = $this->phoneExtensionRepository->paginateByCategory($request->category, 100);
+        } else {
+            $extensions = $this->phoneExtensionRepository->paginateAll(100);
+        }
 
         return view('phones.directory')
-            ->with(['extensions' => $extensions]);
+            ->with([
+                'extensions' => $extensions,
+                'categories' => ExtensionCategory::TYPE_STRINGS,
+            ]);
     }
 
     /**
@@ -53,6 +70,10 @@ class PhoneController extends Controller
      */
     public function extensions()
     {
+        if (! Gate::allows('phones.view.self')) {
+            flash('Unauthorized')->error();
+            return redirect()->route('home');
+        }
         $user = Auth::user();
 
         $extensions = $this->phoneExtensionRepository->paginateByUser($user);
@@ -68,8 +89,38 @@ class PhoneController extends Controller
      */
     public function registerExtension()
     {
+        if (! Gate::allows('phones.edit.self') && ! Gate::allows('phones.edit.all')) {
+            flash('Unauthorized')->error();
+            return redirect()->route('phones.extensions');
+        }
+
         return view('phones.register')
-            ->with(['types' => ExtensionType::TYPE_STRINGS]);
+            ->with([
+                'types' => ExtensionType::TYPE_STRINGS,
+                'categories' => ExtensionCategory::TYPE_STRINGS,
+                'extension' => new PhoneExtension(),
+            ]);
+    }
+
+    /**
+     * Page to edit an existing extension.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function editExtension(PhoneExtension $extension)
+    {
+        if (! ($extension->getUser() == Auth::user() && Gate::allows('phones.edit.self')) &&
+            ! Gate::allows('phones.edit.all')) {
+            flash('Unauthorized')->error();
+            return redirect()->route('phones.extensions');
+        }
+
+        return view('phones.edit')
+            ->with([
+                'types' => ExtensionType::TYPE_STRINGS,
+                'categories' => ExtensionCategory::TYPE_STRINGS,
+                'extension' => $extension,
+            ]);
     }
 
     /**
@@ -81,11 +132,17 @@ class PhoneController extends Controller
      */
     public function createExtension(Request $request)
     {
+        if (! Gate::allows('phones.edit.self') && ! Gate::allows('phones.edit.all')) {
+            flash('Unauthorized')->error();
+            return redirect()->route('phones.extensions');
+        }
+
         $this->validate($request, [
             'extension' => 'required|numeric|unique:HMS\Entities\Phones\PhoneExtension,extension|notin:999,112,111,101',
             'phoneword' => 'sometimes|max:6',
             'type' => 'required|in:SIP,DECT,POTS,CUSTOM',
             'description' => 'required|max:200',
+            'category' => 'required|in:MEMBER,AREA,SERVICE',
         ], [
             'extension.notin' => 'Registering emergency service numbers is not a good idea, and not allowed here.',
             'extension.unique' => 'The number you are trying to register is already in use.',
@@ -98,10 +155,43 @@ class PhoneController extends Controller
         $extension->setUser(Auth::user());
         $extension->setDescription($request->description);
         $extension->setType($request->type);
+        $extension->setCategory($request->category);
+        $extension->setHidden(isset($request->hidden));
 
         if ($extension->getType() === 'SIP') {
             $extension->generateSipPassword();
         }
+
+        $this->phoneExtensionRepository->save($extension);
+
+        return redirect()->route('phones.extensions');
+    }
+
+    /**
+     * Handler for extension updates.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function updateExtension(Request $request, PhoneExtension $extension)
+    {
+        if (! ($extension->getUser() == Auth::user() && Gate::allows('phones.edit.self')) &&
+            ! Gate::allows('phones.edit.all')) {
+            flash('Unauthorized')->error();
+            return redirect()->route('phones.extensions');
+        }
+
+        $this->validate($request, [
+            'phoneword' => 'sometimes|max:6',
+            'description' => 'required|max:200',
+            'category' => 'required|in:MEMBER,AREA,SERVICE',
+        ]);
+
+        $extension->setPhoneword($request->phoneword);
+        $extension->setDescription($request->description);
+        $extension->setCategory($request->category);
+        $extension->setHidden(isset($request->hidden));
 
         $this->phoneExtensionRepository->save($extension);
 
@@ -117,8 +207,9 @@ class PhoneController extends Controller
      */
     public function setup(PhoneExtension $extension)
     {
-        if ($extension->getUser() != Auth::user()) {
+        if (! ($extension->getUser() == Auth::user() && Gate::allows('phones.edit.self'))) {
             flash('Unauthorized')->error();
+            return redirect()->route('phones.extensions');
         }
 
         return view('phones.setup')
@@ -132,8 +223,10 @@ class PhoneController extends Controller
 
     public function deleteExtension(PhoneExtension $extension)
     {
-        if ($extension->getUser() != Auth::user()) {
+        if (! ($extension->getUser() == Auth::user() && Gate::allows('phones.edit.self')) &&
+            ! Gate::allows('phones.edit.all') ) {
             flash('Unauthorized')->error();
+            return redirect()->route('phones.extensions');
         }
 
         $this->phoneExtensionRepository->delete($extension);

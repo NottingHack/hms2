@@ -24,6 +24,8 @@ class AsteriskController extends Controller
         PhoneExtensionRepository $phoneExtensionRepository
     ) {
         $this->phoneExtensionRepository = $phoneExtensionRepository;
+
+        $this->middleware('feature:phones');
     }
 
     /**
@@ -49,7 +51,7 @@ class AsteriskController extends Controller
             ];
         }
 
-        return response()->json($simplified, 200);
+        return response()->json($simplified, Response::HTTP_OK);
     }
 
     /**
@@ -75,7 +77,7 @@ class AsteriskController extends Controller
             ];
         }
 
-        return response()->json($simplified, 200);
+        return response()->json($simplified, Response::HTTP_OK);
     }
 
     /**
@@ -96,13 +98,13 @@ class AsteriskController extends Controller
         if (! $extension) {
             return response()->json([
                 'error' => 'Extension not found',
-            ], 404);
+            ], Response::HTTP_NOT_FOUND);
         }
 
         if ($extension->getMappedNumber()) {
             return response()->json([
                 'error' => 'Extension already mapped to handset or line',
-            ], 409);
+            ], Response::HTTP_NOT_ACCEPTABLE);
         }
 
         if ($extension->getType() != ExtensionType::DECT && $extension->getType() != ExtensionType::POTS) {

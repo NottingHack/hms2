@@ -47,6 +47,25 @@ class DoctrinePhoneExtensionRepository extends EntityRepository implements Phone
     }
 
     /**
+     * Paginate extensions for a specific category.
+     *
+     * @param string $category
+     * @param int $perPage
+     * @param string $pageName
+     *
+     * @return null|PhoneExtension[]
+     */
+    public function paginateByCategory($category, $perPage = 10, $pageName = 'page')
+    {
+        $q = parent::createQueryBuilder('phone_extensions')
+                   ->where('phone_extensions.category = :category');
+
+        $q = $q->setParameter('category', $category)->getQuery();
+
+        return $this->paginate($q, $perPage, $pageName);
+    }
+
+    /**
      * Save an extension.
      *
      * @param PhoneExtension $extension

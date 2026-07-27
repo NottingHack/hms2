@@ -30,8 +30,9 @@
     </div>
   </div><br>
 
+  @forelse ($extensions as $extension)
+  @if ($loop->first)
   <div class="table-responsive">
-    @if (count($extensions))
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
@@ -45,8 +46,8 @@
         </tr>
       </thead>
       <tbody>
-        @foreach ($extensions as $extension)
-        @if (! $extension->getHidden() || Auth::user()->can('phones.view.directory.all'))
+  @endif
+        @continue($extension->getHidden() && Auth::user()->cannot('phones.view.directory.all'))
         <tr>
           <td>
             @if ($extension->getCategory() === 'MEMBER')
@@ -78,19 +79,20 @@
           </td>
           @endcan
         </tr>
-        @endif
-        @endforeach
+  @if ($loop->last)
       </tbody>
     </table>
-    @else
-    <div class="alert alert-light" role="alert">
-      Well, this is embarrassing. There aren't any extensions in the phone book currently. Why not be the first?
-    </div>
-    @endif
   </div>
 
   <div classs="pagination-links center">
     {{ $extensions->links() }}
   </div>
+  @endif
+  @empty
+  <div class="alert alert-light" role="alert">
+    Well, this is embarrassing. There aren't any extensions in the phone book currently. Why not be the first?
+  </div>
+  @endforelse
+  
 </div>
 @endsection

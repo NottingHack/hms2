@@ -3,11 +3,6 @@
 @section('pageTitle', 'Space Access')
 
 @section('content')
-<div class="container d-block d-md-none">
-  <div class="alert alert-info" role="alert">
-    Scroll down for access bookings.
-  </div>
-</div>
 <div class="container">
   <div class="row">
     @if (Meta::get('access_street_door') || Meta::get('access_inner_door'))

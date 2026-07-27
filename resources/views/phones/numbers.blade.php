@@ -11,10 +11,10 @@
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
-          <th>Extension</th>
-          <th>Type</th>
+          <th class="w-15">Extension</th>
+          <th class="w-25">Type</th>
           <th>Description</th>
-          <th>Actions</th>
+          <th class="w-25">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -23,7 +23,7 @@
           <td>
             {{ $extension->getExtension() }}
             @if ($extension->getPhoneword())
-              ({{ $extension->getPhoneword() }})
+            <span class="badge badge-success">{{ $extension->getPhoneword() }}</span>
             @endif
           </td>
           <td>
@@ -34,15 +34,19 @@
           </td>
           <td>
             <a class="btn btn-danger btn-sm" href="javascript:void(0);" onclick="$(this).find('form').submit();" role="button">
-            <form action="{{ route('phones.extensions.delete', $extension->getExtension()) }}" method="POST" style="display: inline">
-              @method('DELETE')
-              @csrf
-            </form>
-            Delete</a>
-            @if ($extension->getType() !== 'CUSTOM')
-            <a class="btn btn-primary btn-sm" href="{{ route('phones.extensions.setup', $extension->getExtension()) }}" role="button">Setup</a>
-            @endif
+              <form action="{{ route('phones.extensions.delete', $extension->getExtension()) }}" method="POST" style="display: inline">
+                @method('DELETE')
+                @csrf
+              </form>
+              Delete
+            </a>
             <a class="btn btn-primary btn-sm" href="{{ route('phones.extensions.edit', $extension->getExtension()) }}" role="button">Edit</a>
+            @if ($extension->getType() !== 'CUSTOM')
+            <a class="btn btn-success btn-sm" href="{{ route('phones.extensions.setup', $extension->getExtension()) }}" role="button">Setup</a>
+            @endif
+            @if ($extension->getHidden())
+            <span class="text-primary" title="This number is ex-directory."><i class="fa fa-eye-slash" aria-hidden="true"></i></span>
+            @endif
           </td>
         </tr>
         @endforeach

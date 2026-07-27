@@ -65,5 +65,6 @@ return [
         'phones_sip_server' => 'nottinghack.org.uk',
         'phones_dect_registration_pin' => '1234',
         'phones_link_dial_prefix' => '10',
+        'phones_help_link' => 'https://wiki.nottinghack.org.uk/wiki/Nottinghack_Telecom_plc',
     ],
 ];

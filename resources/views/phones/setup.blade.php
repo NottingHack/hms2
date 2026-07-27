@@ -42,7 +42,9 @@
 
   <h3>Step 3: Wait a bit</h3>
   <p>It can take some time for the configuration on the phone system to be reloaded</p>
+  <hr />
   @endif
   @endif
+  Need more help? See <a href="{{ Meta::get('phones_help_link') }}">the documentation.</a>
 </div>
 @endsection

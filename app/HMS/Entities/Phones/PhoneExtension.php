@@ -3,8 +3,6 @@
 namespace HMS\Entities\Phones;
 
 use HMS\Entities\User;
-use HMS\Entities\Phones\ExtensionCategory;
-use HMS\Entities\Phones\ExtensionType;
 
 class PhoneExtension
 {
@@ -44,7 +42,7 @@ class PhoneExtension
     protected $type;
 
     /**
-     * The category of extension (e.g. Individual, Area, Service)
+     * The category of extension (e.g. Individual, Area, Service).
      *
      * @var string|ExtensionCategory
      */
@@ -200,7 +198,6 @@ class PhoneExtension
 
         return $this;
     }
-
 
     /**
      * Get the extension type.

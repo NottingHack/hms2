@@ -145,7 +145,7 @@ return [
         'phones.edit.self',
         'phones.edit.all',
         'phones.view.directory.limited',
-        'phones.view.directory.all'
+        'phones.view.directory.all',
     ],
 
     /*
@@ -547,7 +547,7 @@ return [
                 'grafana.admin',
                 'phones.edit.all',
                 'phones.view.all',
-                'phones.view.directory.all'
+                'phones.view.directory.all',
             ],
         ],
     ],

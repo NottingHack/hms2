@@ -46,6 +46,7 @@ class PhoneController extends Controller
     {
         if (! Gate::allows('phones.view.directory.all') && ! Gate::allows('phones.view.directory.limited')) {
             flash('Unauthorized')->error();
+
             return redirect()->route('home');
         }
 
@@ -72,6 +73,7 @@ class PhoneController extends Controller
     {
         if (! Gate::allows('phones.view.self')) {
             flash('Unauthorized')->error();
+
             return redirect()->route('home');
         }
         $user = Auth::user();
@@ -91,6 +93,7 @@ class PhoneController extends Controller
     {
         if (! Gate::allows('phones.edit.self') && ! Gate::allows('phones.edit.all')) {
             flash('Unauthorized')->error();
+
             return redirect()->route('phones.extensions');
         }
 
@@ -112,6 +115,7 @@ class PhoneController extends Controller
         if (! ($extension->getUser() == Auth::user() && Gate::allows('phones.edit.self')) &&
             ! Gate::allows('phones.edit.all')) {
             flash('Unauthorized')->error();
+
             return redirect()->route('phones.extensions');
         }
 
@@ -134,6 +138,7 @@ class PhoneController extends Controller
     {
         if (! Gate::allows('phones.edit.self') && ! Gate::allows('phones.edit.all')) {
             flash('Unauthorized')->error();
+
             return redirect()->route('phones.extensions');
         }
 
@@ -179,6 +184,7 @@ class PhoneController extends Controller
         if (! ($extension->getUser() == Auth::user() && Gate::allows('phones.edit.self')) &&
             ! Gate::allows('phones.edit.all')) {
             flash('Unauthorized')->error();
+
             return redirect()->route('phones.extensions');
         }
 
@@ -209,6 +215,7 @@ class PhoneController extends Controller
     {
         if (! ($extension->getUser() == Auth::user() && Gate::allows('phones.edit.self'))) {
             flash('Unauthorized')->error();
+
             return redirect()->route('phones.extensions');
         }
 
@@ -224,8 +231,9 @@ class PhoneController extends Controller
     public function deleteExtension(PhoneExtension $extension)
     {
         if (! ($extension->getUser() == Auth::user() && Gate::allows('phones.edit.self')) &&
-            ! Gate::allows('phones.edit.all') ) {
+            ! Gate::allows('phones.edit.all')) {
             flash('Unauthorized')->error();
+
             return redirect()->route('phones.extensions');
         }
 

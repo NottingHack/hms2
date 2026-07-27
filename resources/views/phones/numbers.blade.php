@@ -6,9 +6,10 @@
 <div class="container">
   <a class="btn btn-primary btn-block" href="{{ route('phones.extensions.register') }}" role="button">Register a Number</a>
   <br>
-
+  
+  @forelse ($extensions as $extension)
+  @if ($loop->first)
   <div class="table-responsive">
-    @if (count($extensions))
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
@@ -19,7 +20,7 @@
         </tr>
       </thead>
       <tbody>
-        @foreach ($extensions as $extension)
+  @endif
         <tr>
           <td>
             {{ $extension->getExtension() }}
@@ -50,18 +51,20 @@
             @endif
           </td>
         </tr>
-        @endforeach
+  @if ($loop->last)
       </tbody>
     </table>
-    @else
-    <div class="alert alert-light" role="alert">
-      Oh no! You don't have any extensions yet. Click the big button above to register one.
-    </div>
-    @endif
   </div>
-
+  
   <div classs="pagination-links center">
     {{ $extensions->links() }}
+  </div>    
+  @endif
+  @empty
+  <div class="alert alert-light" role="alert">
+    Oh no! You don't have any extensions yet. Click the big button above to register one.
   </div>
+  @endforelse
+
 </div>
 @endsection

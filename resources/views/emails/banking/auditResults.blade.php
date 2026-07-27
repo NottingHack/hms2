@@ -39,7 +39,7 @@ We have not seen a payment from these members in a while, they may soon have the
 @endforelse
 @endcomponent
 
-We have seen a payment from these members but is it below the minimum, they may soon have their membership revoked.
+We have seen a payment from these members but it is below the minimum, they may soon have their membership revoked.
 @component('mail::table')
 | Name                                       | Joint Account | Balance | Last payment date | Last visit date |
 | ------------------------------------------ | ------------- | ------- | ----------------- | --------------- |

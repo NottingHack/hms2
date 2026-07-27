@@ -35,6 +35,8 @@ class PhoneController extends Controller
         $this->metaRepository = $metaRepository;
 
         $this->middleware('feature:phones');
+        $this->middleware('can:phones.view.self')->only(['extensions']);
+        $this->middleware('can:phones.edit.self')->only(['setup']);
     }
 
     /**
@@ -44,7 +46,7 @@ class PhoneController extends Controller
      */
     public function directory(Request $request)
     {
-        if (! Gate::allows('phones.view.directory.all') && ! Gate::allows('phones.view.directory.limited')) {
+        if (Gate::none(['phones.view.directory.all', 'phones.view.directory.limited'])) {
             flash('Unauthorized')->error();
 
             return redirect()->route('home');
@@ -71,11 +73,6 @@ class PhoneController extends Controller
      */
     public function extensions()
     {
-        if (! Gate::allows('phones.view.self')) {
-            flash('Unauthorized')->error();
-
-            return redirect()->route('home');
-        }
         $user = Auth::user();
 
         $extensions = $this->phoneExtensionRepository->paginateByUser($user);
@@ -91,7 +88,7 @@ class PhoneController extends Controller
      */
     public function registerExtension()
     {
-        if (! Gate::allows('phones.edit.self') && ! Gate::allows('phones.edit.all')) {
+        if (Gate::none(['phones.edit.self', 'phones.edit.all'])) {
             flash('Unauthorized')->error();
 
             return redirect()->route('phones.extensions');
@@ -113,7 +110,7 @@ class PhoneController extends Controller
     public function editExtension(PhoneExtension $extension)
     {
         if (! ($extension->getUser() == Auth::user() && Gate::allows('phones.edit.self')) &&
-            ! Gate::allows('phones.edit.all')) {
+            Gate::denies('phones.edit.all')) {
             flash('Unauthorized')->error();
 
             return redirect()->route('phones.extensions');
@@ -136,7 +133,7 @@ class PhoneController extends Controller
      */
     public function createExtension(Request $request)
     {
-        if (! Gate::allows('phones.edit.self') && ! Gate::allows('phones.edit.all')) {
+        if (Gate::none(['phones.edit.self', 'phones.edit.all'])) {
             flash('Unauthorized')->error();
 
             return redirect()->route('phones.extensions');
@@ -182,7 +179,7 @@ class PhoneController extends Controller
     public function updateExtension(Request $request, PhoneExtension $extension)
     {
         if (! ($extension->getUser() == Auth::user() && Gate::allows('phones.edit.self')) &&
-            ! Gate::allows('phones.edit.all')) {
+            Gate::denies('phones.edit.all')) {
             flash('Unauthorized')->error();
 
             return redirect()->route('phones.extensions');
@@ -213,7 +210,7 @@ class PhoneController extends Controller
      */
     public function setup(PhoneExtension $extension)
     {
-        if (! ($extension->getUser() == Auth::user() && Gate::allows('phones.edit.self'))) {
+        if ($extension->getUser() != Auth::user()) {
             flash('Unauthorized')->error();
 
             return redirect()->route('phones.extensions');
@@ -231,7 +228,7 @@ class PhoneController extends Controller
     public function deleteExtension(PhoneExtension $extension)
     {
         if (! ($extension->getUser() == Auth::user() && Gate::allows('phones.edit.self')) &&
-            ! Gate::allows('phones.edit.all')) {
+            Gate::denies('phones.edit.all')) {
             flash('Unauthorized')->error();
 
             return redirect()->route('phones.extensions');

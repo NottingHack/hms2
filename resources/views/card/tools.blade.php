@@ -3,7 +3,7 @@
 <div class="card">
   <div class="card-header">Tool Bookings</div>
   <booking-calendar-list
-    classs="card-body"
+    class="card-body"
     :user-id="{{ $user->getId() }}"
     :initial-bookings='@json($bookings)'
     :tool-ids='@json($toolIds)'

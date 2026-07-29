@@ -61,7 +61,7 @@
       </tbody>
     </table>
   </div>
-  <div classs="pagination-links center">
+  <div class="pagination-links center">
     {{ $meetings->links() }}
   </div>
 </div>

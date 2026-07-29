@@ -3,7 +3,7 @@
 <div class="card">
   <div class="card-header">Tool Bookings</div>
   <booking-calendar-list
-    classs="card-body"
+    class="card-body"
     :initial-bookings='@json($bookings)'
     :tool-ids='@json($toolIds)'
     :remove-card-class="true"

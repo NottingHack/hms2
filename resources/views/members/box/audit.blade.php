@@ -56,7 +56,7 @@ Box Audit
       </tbody>
     </table>
   </div>
-  <div classs="pagination-links">
+  <div class="pagination-links">
     {{ $boxes->links() }}
   </div>
   @endif

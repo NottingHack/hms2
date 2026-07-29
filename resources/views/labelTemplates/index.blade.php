@@ -47,7 +47,7 @@
   @can('labelTemplate.create')
   <a class="btn btn-primary btn-block" href="{{ route('labels.create') }}"><i class="fas fa-plus" aria-hidden="true"></i> Add new template</a>
   @endcan
-  <div classs="pagination-links">
+  <div class="pagination-links">
     {{ $labelTemplates->links() }}
   </div>
 </div>

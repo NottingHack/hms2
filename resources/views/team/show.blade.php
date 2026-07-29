@@ -82,7 +82,7 @@
     </li>
     @endforeach
   </ul>
-  <div classs="pagination-links center">
+  <div class="pagination-links center">
     {{ $users->links() }}
   </div>
 </div>

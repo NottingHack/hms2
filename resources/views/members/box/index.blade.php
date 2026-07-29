@@ -100,7 +100,7 @@ Boxes for {{ $user->getFirstname() }}
       </tbody>
     </table>
   </div>
-  <div classs="pagination-links">
+  <div class="pagination-links">
     {{ $boxes->links() }}
   </div>
   @endif

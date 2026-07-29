@@ -62,7 +62,7 @@ Bank - {{ $bank->getName() }}
 
   <p>Latest first</p>
 
-  <div classs="pagination-links">
+  <div class="pagination-links">
     {{ $bankTransactions->links() }}
   </div>
   <div class="table-responsive no-more-tables">
@@ -120,7 +120,7 @@ Bank - {{ $bank->getName() }}
       </tbody>
     </table>
   </div>
-  <div classs="pagination-links">
+  <div class="pagination-links">
     {{ $bankTransactions->links() }}
   </div>
 </div>

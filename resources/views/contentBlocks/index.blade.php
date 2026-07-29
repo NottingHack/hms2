@@ -35,7 +35,7 @@
       </tbody>
     </table>
   </div>
-  <div classs="pagination">
+  <div class="pagination">
     {{ $contentBlocks->links() }}
   </div>
   <hr>

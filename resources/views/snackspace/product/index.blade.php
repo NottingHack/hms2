@@ -32,7 +32,7 @@
       </tbody>
     </table>
   </div>
-  <div classs="pagination-links">
+  <div class="pagination-links">
     {{ $products->links() }}
   </div>
 </div>

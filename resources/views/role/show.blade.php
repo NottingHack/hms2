@@ -88,7 +88,7 @@
      </tbody>
     </table>
   </div>
-  <div classs="pagination-links center">
+  <div class="pagination-links center">
       {{ $users->links() }}
   </div>
   @if ($role->getCategory() != "Member")

@@ -37,7 +37,7 @@
       </tbody>
     </table>
   </div>
-  <div classs="pagination-links">
+  <div class="pagination-links">
     {{ $bankTransactions->links() }}
   </div>
   @else

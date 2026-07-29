@@ -85,7 +85,7 @@
     </table>
   </div>
 
-  <div classs="pagination-links center">
+  <div class="pagination-links center">
     {{ $extensions->links() }}
   </div>
   @endif

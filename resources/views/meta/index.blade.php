@@ -32,7 +32,7 @@
       </tbody>
     </table>
   </div>
-  <div classs="pagination">
+  <div class="pagination">
     {{ $metas->links() }}
   </div>
 </div>

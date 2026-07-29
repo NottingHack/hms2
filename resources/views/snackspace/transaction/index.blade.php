@@ -68,7 +68,7 @@ Snackspace account for {{ $user->getFirstname() }}
     </table>
   </div>
 
-  <div classs="pagination-links">
+  <div class="pagination-links">
     {{ $transactions->links() }}
   </div>
 </div>

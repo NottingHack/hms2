@@ -59,7 +59,7 @@
             @endif
           </td>
           <td>
-            {{ $extension->getExtension() }}
+            <span class="text-monospace">{{ $extension->getExtension() }}</span>
             @if ($extension->getPhoneword())
             <span class="badge badge-success">{{ $extension->getPhoneword() }}</span>
             @endif

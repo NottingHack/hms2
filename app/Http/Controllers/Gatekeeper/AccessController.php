@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Gatekeeper;
 use App\Http\Controllers\Controller;
 use App\Jobs\Gatekeeper\UserHasLeftTheBuildingJob;
 use HMS\Entities\Gatekeeper\Building;
+use HMS\Entities\Gatekeeper\BuildingAccessState;
 use HMS\Entities\User;
 use HMS\Gatekeeper\TemporaryAccessBookingManager;
 use HMS\Repositories\Gatekeeper\BuildingRepository;
@@ -126,6 +127,13 @@ class AccessController extends Controller
     {
         $buildings = $this->buildingRepository->findAll();
 
+        $hasBookAccess = collect($buildings)->contains(function ($building) {
+            return in_array($building->getAccessState(), [
+                BuildingAccessState::SELF_BOOK,
+                BuildingAccessState::REQUESTED_BOOK,
+            ], true);
+        });
+
         // build settings for TemporarAccess vue
         $settings = $this->temporaryAccessBookingManager->getTemporaryAccessSettings();
         // fudge down grant from all to self
@@ -138,6 +146,7 @@ class AccessController extends Controller
 
         return view('gatekeeper.space_access')
             ->with('buildings', $buildings)
+            ->with('hasBookAccess', $hasBookAccess)
             ->with('settings', $settings);
     }
 

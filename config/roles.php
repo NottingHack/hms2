@@ -387,6 +387,7 @@ return [
                 'bankTransactions.view.limited',
                 'gatekeeper.zoneEntry.teamStorage',
                 'team.edit.description',
+                'team.login-email',
                 'search.invites',
                 'governance.meeting.view',
                 'governance.meeting.checkIn',

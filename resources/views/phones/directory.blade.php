@@ -47,7 +47,7 @@
       </thead>
       <tbody>
   @endif
-        @continue($extension->getHidden() && Auth::user()->cannot('phones.view.directory.all'))
+        @if (! $extension->getHidden() || Auth::user()->can('phones.view.directory.all'))
         <tr>
           <td>
             @if ($extension->getCategory() === 'MEMBER')
@@ -79,6 +79,7 @@
           </td>
           @endcan
         </tr>
+        @endif
   @if ($loop->last)
       </tbody>
     </table>

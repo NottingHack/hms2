@@ -29,6 +29,7 @@ use App\Http\Controllers\Members\BoxController;
 use App\Http\Controllers\Members\ProjectController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\MetaController;
+use App\Http\Controllers\Phones\PhoneController;
 use App\Http\Controllers\RegisterInterestController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Snackspace\DebtController;
@@ -241,6 +242,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->except(['edit', 'update', 'destroy']);
     // hms1 link
     Route::get('memberBoxes/view/{box}', [BoxController::class, 'show']);
+
+    // Phones
+    Route::get('phones/directory', [PhoneController::class, 'directory'])->name('phones.directory');
+    Route::get('phones/extensions', [PhoneController::class, 'extensions'])->name('phones.extensions');
+    Route::get('phones/setup/{extension}', [PhoneController::class, 'setup'])->name('phones.extensions.setup');
+    Route::get('phones/register', [PhoneController::class, 'registerExtension'])->name('phones.extensions.register');
+    Route::post('phones/extensions', [PhoneController::class, 'createExtension'])->name('phones.extensions.doRegister');
+    Route::delete('phones/delete/{extension}', [PhoneController::class, 'deleteExtension'])->name('phones.extensions.delete');
+    Route::get('phones/edit/{extension}', [PhoneController::class, 'editExtension'])->name('phones.extensions.edit');
+    Route::post('phones/edit/{extension}', [PhoneController::class, 'updateExtension'])->name('phones.extensions.update');
 
     // Banking
     Route::name('banking.')->group(function () {

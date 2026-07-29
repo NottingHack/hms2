@@ -50,6 +50,25 @@ return [
             'route' => 'teams.index',
             'permissions' => ['team.view'],
         ],
+        'phones' => [
+            'text' => 'Phones',
+            'permissions' => [],
+            'feature' => 'phones',
+            'links' => [
+                'directory' => [
+                    'text' => '<i class="far fa-address-book fa-fw"></i> Directory',
+                    'route' => 'phones.directory',
+                    'match' => 'phones.directory',
+                    'permissions' => ['phones.view.directory.all', 'phones.view.directory.limited'],
+                ],
+                'numbers' => [
+                    'text' => '<i class="fas fa-phone fa-fw"></i> Your Numbers',
+                    'route' => 'phones.extensions',
+                    'match' => 'phones.extensions',
+                    'permissions' => ['phones.view.self', 'phones.view.all'],
+                ],
+            ],
+        ],
         'codes' => [
             'text' => 'Space Access',
             'route' => 'gatekeeper.accessCodes',

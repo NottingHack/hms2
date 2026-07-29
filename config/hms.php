@@ -31,6 +31,7 @@ return [
         'discord' => env('FEATURE_DISCORD', false),
         'roundcube_login' => env('FEATURE_ROUNDCUBE_LOGIN', false) && env('ROUNDCUBE_LOGIN_HELPER_URL', false),
         'retention_email' => env('FEATURE_RETENTION_EMAIL', false),
+        'phones' => env('FEATURE_PHONES', false),
     ],
 
     /*

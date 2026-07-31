@@ -265,6 +265,16 @@ class ContentBlockSeeder extends Seeder
             'block' => 'main',
             'content' => '',
         ],
+        [
+            'view' => 'emails.project.tort',
+            'block' => 'main',
+            'content' => 'In accordance with the Torts (Interference with Goods) Act 1977 we are obligated to inform you that if your goods have not been collected from Nottingham Hackspace at the address below within 14 days of the date of this email, they will be disposed of',
+        ],
+        [
+            'view' => 'emails.project.tort',
+            'block' => 'additional',
+            'content' => 'Should you wish to collect these items at any point, you can do so by getting in touch with a trustee, who can let you into Nottingham hackspace. A friend can also collect your items for you if you wish - please inform us by email that you are happy for someone else to collect the items.',
+        ],
     ];
 
     /**

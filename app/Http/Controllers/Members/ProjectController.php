@@ -4,11 +4,15 @@ namespace App\Http\Controllers\Members;
 
 use App\Events\Labels\ProjectPrint;
 use App\Http\Controllers\Controller;
+use App\Notifications\ProjectRemovalRequest;
+use Carbon\Carbon;
 use Doctrine\ORM\EntityNotFoundException;
 use HMS\Entities\Members\Project;
+use HMS\Entities\Role;
 use HMS\Entities\User;
 use HMS\Factories\Members\ProjectFactory;
 use HMS\Repositories\Members\ProjectRepository;
+use HMS\Repositories\RoleRepository;
 use HMS\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,20 +36,28 @@ class ProjectController extends Controller
     protected $userRepository;
 
     /**
+     * @var RoleRepository
+     */
+    protected $roleRepository;
+
+    /**
      * Create a new controller instance.
      *
      * @param ProjectRepository $projectRepository
      * @param ProjectFactory $projectFactory
      * @param UserRepository $userRepository
+     * @param RoleRepository $roleRepository
      */
     public function __construct(
         ProjectRepository $projectRepository,
         ProjectFactory $projectFactory,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        RoleRepository $roleRepository,
     ) {
         $this->projectRepository = $projectRepository;
         $this->projectFactory = $projectFactory;
         $this->userRepository = $userRepository;
+        $this->roleRepository = $roleRepository;
 
         $this->middleware('feature:projects');
         $this->middleware('can:project.view.self')->only(['index', 'show']);
@@ -53,6 +65,7 @@ class ProjectController extends Controller
         $this->middleware('can:project.edit.self')->only(['edit', 'update', 'markActive', 'markComplete']);
         $this->middleware('can:project.edit.all')->only(['markAbandoned']);
         $this->middleware(['can:project.printLabel.self', 'feature:label_printer'])->only(['printLabel']);
+        $this->middleware('can:project.tort')->only(['tort', 'clearTort']);
     }
 
     /**
@@ -273,5 +286,58 @@ class ProjectController extends Controller
         flash('Project \'' . $project->getProjectName() . '\' marked complete.')->success();
 
         return back();
+    }
+
+    /**
+     * Tort a project (request removal).
+     *
+     * @param Project $project
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function tort(Project $project)
+    {
+        return view('members.project.tort')
+            ->with(['project' => $project]);
+    }
+
+    /**
+     * Perform a tort a project (request removal).
+     *
+     * @param Project $project
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function performTort(Request $request, Project $project)
+    {
+        $this->validate($request, [
+            'tortReason' => 'required|string',
+        ]);
+
+        $project->setTortReason($request->tortReason);
+        $project->setTortDate(Carbon::now());
+        $this->projectRepository->save($project);
+
+        $trusteesTeamRole = $this->roleRepository->findOneByName(Role::TEAM_TRUSTEES);
+        $trusteesTeamRole->notify(new ProjectRemovalRequest($project));
+        $project->getUser()->notify(new ProjectRemovalRequest($project));
+
+        return redirect()->route('projects.show', ['project' => $project->getId()]);
+    }
+
+    /**
+     * Clear an earlier tort request.
+     *
+     * @param Project $project
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function clearTort(Project $project)
+    {
+        $project->setTortReason(null);
+        $project->setTortDate(null);
+        $this->projectRepository->save($project);
+
+        return redirect()->route('projects.show', ['project' => $project->getId()]);
     }
 }

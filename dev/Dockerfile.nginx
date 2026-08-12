@@ -1,0 +1,26 @@
+FROM trafex/php-nginx:3.10.0 AS build
+
+USER root
+
+RUN cd / && \
+    apk add --no-cache php84-pear php84-dev gcc musl-dev make krb5-dev && \
+    wget https://pecl.php.net/get/krb5-1.2.4.tgz && \
+    tar zxf krb5-1.2.4.tgz && cd krb5-1.2.4 && \
+    phpize84 && \
+    ./configure --with-krb5kadm=S && \
+    make -j8 && make install
+
+FROM trafex/php-nginx:3.10.0 AS final
+
+COPY --from=build /usr/lib/php84/modules/krb5.so /usr/lib/php84/modules/krb5.so
+
+USER root
+
+RUN apk add --no-cache php84-pdo_mysql php84-redis krb5 krb5-pkinit \
+    php84-pcntl php84-posix php84-sodium php84-simplexml git npm && \
+    echo 'extension=krb5.so' > /etc/php84/conf.d/krb5.ini && \
+    echo -e '[safe]\ndirectory = *' > /.gitconfig && \
+    wget https://getcomposer.org/download/2.9.7/composer.phar -O /usr/bin/composer && \
+    chmod a+x /usr/bin/composer
+
+USER nobody

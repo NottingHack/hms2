@@ -17,7 +17,25 @@ We use submodules, either clone them with this repo
 or after
 `git submodule update --init`
 
-### Hosts File
+### Development with docker-compose
+
+The docker-compose stuff is not suitable for production. It probably
+could be made to be production ready, but for now it's only for dev.
+
+1. Set the `FONTAWSEOME_TOKEN` in your local shell
+   `export FONTAWESOME_TOKEN=<obtain from software team>`
+2. Make read/write to the containers `chmod a+rw -R .`
+3. Start everything with `docker compose up`
+
+After a minute or two you should be able to access:
+
+* HMS at http://localhost:8080
+* phpMyAdmin at http://localhost:8081
+* mailpit at http://localhost:8025
+
+### Development with Vagrant
+
+#### Hosts File
 
 Most of the development environment is taken care of by vagrant, you just need to `vagrant up` to load it.
 
@@ -31,9 +49,9 @@ You can find your file in the following location:
 * Mac: /private/etc/hosts
 * Linux: /etc/hosts
 
-### Running commands on the Virtual Machine
+#### Running commands on the Virtual Machine
 
-#### Artisan
+##### Artisan
 
 To run an artisan command on the VM, (for example if you don't have PHP installed on your local machine) use the ```php-artisan``` script that you can find in the dev/ folder.
 
@@ -41,13 +59,13 @@ Simply pass it the artisan command you want to run, e.g:
 
 ```./dev/php-artisan make:controller```
 
-### Vagrant re-provisioning notes
+#### Vagrant re-provisioning notes
 
 When re-provisioning the box (`vagrnat up`) you must make sure that the `.env` file has `QUEUE_CONNECTION=sync` in order the to the `db:seed` to correctly populate the `mailserver` database entries.
 
 If the `mailserver.mailbox` tables it empty you can do a datebase reset and reseed with `dev/reseed.sh`
 
-### Vagrant suspend notes
+#### Vagrant suspend notes
 
 When bringing up vagrant box after a suspend or halt some of the service my not start correctly due to the shared folder, run this script to restart them
 

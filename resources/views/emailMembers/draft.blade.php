@@ -10,6 +10,18 @@
     @csrf
 
     <div class="form-group">
+      <label for="recipients">Recipients</label>
+      <select class="js-permission-select custom-select" style="width: 100%" name="recipients[]" multiple="multiple">
+        @foreach ($roles as $role)
+          <option value="{{ $role->getName() }}" {{ in_array($role->getName(), old('recipients', $recipients)) ? 'selected' : '' }}>
+            {{ $role->getDisplayName() }} ({{ $role->getUsers()->count() }})
+          </option>
+        @endforeach
+      </select>
+    </div>
+
+
+    <div class="form-group">
       <label for="subject" class="form-label">Subject</label>
       <input id="subject" class="form-control" type="text" name="subject" value="{{ old('subject', $subject) }}" required autofocus>
       @if ($errors->has('subject'))

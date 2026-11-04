@@ -38,6 +38,13 @@ class EmailCurrentMembersJob implements ShouldQueue
     public $htmlContent;
 
     /**
+     * The list of role names which an email should be sent to.
+     *
+     * @var array
+     */
+    public $roleNames;
+
+    /**
      * Should this only sent as a test.
      *
      * @var bool
@@ -49,15 +56,18 @@ class EmailCurrentMembersJob implements ShouldQueue
      *
      * @param string $subject The email subject.
      * @param string $htmlContent The email content as text/html.
+     * @param array $roleNames An array of applicable role names.
      * @param bool $testSend Should this only sent as a test.
      */
     public function __construct(
         string $subject,
         string $htmlContent,
+        array $roleNames,
         bool $testSend = true
     ) {
         $this->subject = $subject;
         $this->htmlContent = $htmlContent;
+        $this->roleNames = $roleNames;
         $this->testSend = $testSend;
     }
 
@@ -79,7 +89,23 @@ class EmailCurrentMembersJob implements ShouldQueue
         $trusteesEmail = $trusteesRole->getEmail();
         $trusteesDisplayName = $trusteesRole->getDisplayName();
 
-        $currentMembers = $roleRepository->findOneByName(Role::MEMBER_CURRENT)->getUsers();
+        $currentMemberRole = $roleRepository->findOneByName(Role::MEMBER_CURRENT);
+        $currentMembers = [];
+        foreach ($this->roleNames as $roleName) {
+            // Get a fresh copy since it's been serialised.
+            $role = $roleRepository->findOneByName($roleName);
+
+            $roleMembers = $role->getUsers();
+
+            // We should check that they are a current member, for cases where a role is retained.
+            foreach ($roleMembers as $roleMember) {
+                if ($roleMember->getRoles()->contains($currentMemberRole)) {
+                    $currentMembers[] = $roleMember;
+                }
+            }
+        }
+
+        $currentMembers = array_unique($currentMembers, SORT_REGULAR);
 
         // Send using Mailgun
         $views = [

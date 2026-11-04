@@ -1,3 +1,7 @@
+<template>
+  <input class="form-control" :value="comment" @focusout="updateComment" />
+</template>
+
 <script>
   export default {
     props: {
@@ -11,24 +15,18 @@
 
     methods: {
       updateComment(sender, options) {
-        $.ajax({
-          method: 'PUT',
-          url: `/api/forms/responses/${this.formResponseId}/comment`,
-          data: {
-            comment: sender.target.value
-          },
-          success: () => {
-            sender.target.classList.add('is-valid');
-            setTimeout(() => {
-              sender.target.classList.remove('is-valid');
-            }, 1000);
-          }
-        });
+        let body = {
+          comment: sender.target.value
+        };
+
+        axios.put(this.route('api.forms.comment', {'formResponse': this.formResponseId}), body)
+             .then(() => {
+               sender.target.classList.add('is-valid');
+               setTimeout(() => {
+                 sender.target.classList.remove('is-valid');
+               }, 1000);
+             });
       },
     },
   };
 </script>
-
-<template>
-  <input class="form-control" :value="comment" @focusout="updateComment" />
-</template>

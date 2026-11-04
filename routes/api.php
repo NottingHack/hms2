@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Auth\RfidAccessTokenController;
 use App\Http\Controllers\Api\Banking\StripeController;
 use App\Http\Controllers\Api\Banking\TransactionUploadController;
 use App\Http\Controllers\Api\DovecotPushController;
+use App\Http\Controllers\Api\Forms\FormController;
 use App\Http\Controllers\Api\Gatekeeper\BuildingController;
 use App\Http\Controllers\Api\Gatekeeper\RegisterRfidTagController;
 use App\Http\Controllers\Api\Gatekeeper\TemporaryAccessBookingController;
@@ -138,6 +139,12 @@ Route::name('api.')->group(function () {
             ->name('boxes.print');
         Route::apiResource('boxes', BoxController::class)
             ->except(['store', 'update', 'destroy']);
+
+        // Forms
+        Route::get('forms/{form}/model', [FormController::class, 'getModel'])->name('forms.model');
+        Route::put('forms/{form}/response', [FormController::class, 'putResponse'])->name('forms.respond');
+        Route::put('forms/responses/{formResponse}/comment', [FormController::class, 'putComment'])->name('forms.comment');
+        Route::put('forms/responses/{formResponse}/hide', [FormController::class, 'hideResponse'])->name('forms.hide');
     });
 });
 

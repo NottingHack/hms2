@@ -1,0 +1,38 @@
+# HMS.Entities.Forms.FormResponse.dcm.yml
+HMS\Entities\Forms\FormResponse:
+  type: entity
+  repositoryClass: HMS\Repositories\Forms\Doctrine\DoctrineFormResponseRepository
+  table: forms_response
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    responseJson:
+      type: json
+    comment:
+      type: string
+      length: 255
+      nullable: true
+    hidden:
+      type: boolean
+      options:
+        default: 0
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+  manyToOne:
+    form:
+      targetEntity: Form
+    responder:
+      targetEntity: \HMS\Entities\User

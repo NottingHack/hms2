@@ -146,6 +146,10 @@ return [
         'phones.edit.all',
         'phones.view.directory.limited',
         'phones.view.directory.all',
+        'forms.respond',
+        'forms.edit',
+        'forms.viewResponses',
+        'forms.index',
     ],
 
     /*
@@ -278,6 +282,7 @@ return [
                 'phones.view.self',
                 'phones.edit.self',
                 'phones.view.directory.limited',
+                'forms.index',
             ],
         ],
         'member.temporarybanned' => [
@@ -474,6 +479,8 @@ return [
                 'phones.edit.all',
                 'phones.view.all',
                 'phones.view.directory.all',
+                'forms.edit',
+                'forms.viewResponses',
             ],
         ],
         'team.software' => [

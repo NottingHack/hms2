@@ -11,6 +11,7 @@ use App\Http\Controllers\Banking\BankTransactionController;
 use App\Http\Controllers\ContentBlockController;
 use App\Http\Controllers\CSVDownloadController;
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\Forms\FormController;
 use App\Http\Controllers\Gatekeeper\AccessController;
 use App\Http\Controllers\Gatekeeper\AccessLogController;
 use App\Http\Controllers\Gatekeeper\BookableAreaController;
@@ -423,5 +424,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('register-of-members/pdf', [RegisterOfMembersController::class, 'pdf'])->name('registerOfMembers.pdf');
         Route::get('register-of-directors', [RegisterOfDirectorsController::class, 'index'])->name('registerOfDirectors.index');
         Route::get('register-of-directors/pdf', [RegisterOfDirectorsController::class, 'pdf'])->name('registerOfDirectors.pdf');
+    });
+
+    // Forms
+    Route::prefix('forms')->name('forms.')->group(function () {
+        Route::get('/', [FormController::class, 'index'])->name('index');
+        Route::get('new', [FormController::class, 'newForm'])->name('new');
+        Route::post('new', [FormController::class, 'createForm'])->name('createForm');
+        Route::get('{form}/edit', [FormController::class, 'editForm'])->name('edit');
+        Route::post('{form}/edit', [FormController::class, 'updateForm'])->name('update');
+        Route::get('{form}', [FormController::class, 'view'])->name('view');
+        Route::get('{form}/responses', [FormController::class, 'responses'])->name('responses');
+        Route::get('{form}/responses', [FormController::class, 'responses'])->name('responses');
+        Route::get('{form}/permissions', [FormController::class, 'permissions'])->name('permissions');
+        Route::post('{form}/permissions', [FormController::class, 'updatePermissions'])->name('updatePermissions');
     });
 });

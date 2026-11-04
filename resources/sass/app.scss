@@ -71,3 +71,12 @@
   background-color: #fff !important;
   opacity: 1;
 }
+
+
+/*
+ * Survey.js
+ */
+.sv-container-modern {
+  --main-color: #{$hackspace-green};
+  --answer-background-color: color-mix(in srgb, #{$hackspace-green}, white 75%);
+}

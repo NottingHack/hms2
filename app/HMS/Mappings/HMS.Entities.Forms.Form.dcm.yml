@@ -1,0 +1,29 @@
+# HMS.Entities.Forms.Form.dcm.yml
+HMS\Entities\Forms\Form:
+  type: entity
+  repositoryClass: HMS\Repositories\Forms\Doctrine\DoctrineFormRepository
+  table: forms
+  id:
+    id:
+      type: integer
+      options:
+        unsigned: true
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+      length: 100
+    jsonDefinition:
+      type: json
+    maxResponses:
+      type: integer
+      options:
+        default: 0
+        unsigned: true
+    notificationKey:
+      type: string
+      nullable: true
+    permissionName:
+      type: string
+      length: 32

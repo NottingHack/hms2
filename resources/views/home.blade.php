@@ -26,6 +26,10 @@
     @endcomponent
     @component('card.commonTasks', ['user' => $user])
     @endcomponent
+    @feature('forms')
+    @component('card.forms', ['forms' => $forms, 'formResponseCounts' => $formResponseCounts])
+    @endcomponent
+    @endfeature
     @component('card.access', ['user' => $user])
     @endcomponent
     @if (null != config('services.stripe.key'))

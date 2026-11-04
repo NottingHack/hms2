@@ -74,6 +74,12 @@ return [
             'route' => 'gatekeeper.accessCodes',
             'permissions' => ['accessCodes.view'],
         ],
+        'forms' => [
+            'text' => 'Forms',
+            'route' => 'forms.index',
+            'permissions' => ['forms.index'],
+            'feature' => 'forms',
+        ],
         'links' => [
             'text' => 'Links',
             'route' => 'links.index',

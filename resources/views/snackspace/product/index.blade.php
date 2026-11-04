@@ -5,9 +5,15 @@
 @section('content')
 <div class="container">
   <p>You can add a new Snackspace product by clicking on the Add New Product button. Or you can edit the existing products below.</p>
-  <a href="{{ route('snackspace.products.create') }}" class="btn btn-primary btn-block"><i class="fas fa-plus" aria-hidden="true"></i> Add new product</a>
-  <hr>
-  <div class="table-responsive no-more-tables">
+  <form method="GET" class="form-inline float-right">
+    <label for="searchQuery" class="sr-only">Search</label>
+    <input type="text" class="form-control" id="searchQuery" name="query" placeholder="Search..." />
+    <button type="submit" class="btn btn-primary ml-2">Search</button>
+  </form>
+
+  <a href="{{ route('snackspace.products.create') }}" class="btn btn-primary"><i class="fas fa-plus" aria-hidden="true"></i> Add new product</a>
+
+  <div class="table-responsive no-more-tables mt-3">
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
@@ -33,7 +39,7 @@
     </table>
   </div>
   <div class="pagination-links">
-    {{ $products->links() }}
+    {{ $products->withQueryString()->links() }}
   </div>
 </div>
 @endsection

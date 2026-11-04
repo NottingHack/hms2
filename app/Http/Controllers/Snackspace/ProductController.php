@@ -39,11 +39,22 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = $this->productRepository->paginateAll();
+        $validatedData = $request->validate([
+            'query' => 'required|sometimes|string|max:64',
+        ]);
+
+        $products = [];
+        if (array_key_exists('query', $validatedData)) {
+            $products = $this->productRepository->paginateQuery($validatedData['query']);
+        } else {
+            $products = $this->productRepository->paginateAll();
+        }
 
         return view('snackspace.product.index')
             ->with('products', $products);

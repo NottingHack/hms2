@@ -34,6 +34,24 @@ class DoctrineProductRepository extends EntityRepository implements ProductRepos
     }
 
     /**
+     * @param string $queryString
+     * @param int $perPage
+     * @param string $pageName
+     *
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function paginateQuery($queryString, $perPage = 15, $pageName = 'page')
+    {
+        $queryBuilder = $this->createQueryBuilder('products');
+
+        $queryBuilder->where('products.shortDescription like :query');
+        $queryBuilder->setParameter('query', '%' . $queryString . '%');
+        $query = $queryBuilder->getQuery();
+
+        return $this->paginate($query, $perPage, $pageName);
+    }
+
+    /**
      * Save Product to the DB.
      *
      * @param Product $product

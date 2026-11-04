@@ -10,7 +10,7 @@ Voting Status
   <h2>Current Status</h2>
   <p>
     Your current calculated voting status is <strong>{{ $votingStatus }}</strong><br>
-    This is made up of the result (Voting / Non-Voting) and a reason (Stated, Physical, ...) for how HSM arrived at that outcome. The definitions for the reasons are explained at the bottom of this page and the wiki includes a flow chart of the HMS process.
+    This is made up of the result (Voting / Non-Voting) and a reason (Stated, Physical, ...) for how HMS arrived at that outcome. The definitions for the reasons are explained at the bottom of this page and the wiki includes a flow chart of the HMS process.
   </p>
   <hr>
   <h2>Stated Voting Preference</h2>

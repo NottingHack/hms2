@@ -39,7 +39,7 @@
     </table>
   </div>
   <div class="pagination-links">
-    {{ $products->appends($_GET)->links() }}
+    {{ $products->withQueryString()->links() }}
   </div>
 </div>
 @endsection

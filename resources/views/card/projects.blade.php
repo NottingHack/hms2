@@ -7,6 +7,9 @@
     <li class="list-group-item">
       <span class="align-middle">
         {{ $project->getProjectName() }}&nbsp;
+        @if ($project->getTortReason())
+        <span class="badge badge-warning" title="Removal has been requested and may be disposed of"><i class="far fa-siren"></i></span>
+        @endif
         <div class="btn-group float-right" role="group" aria-label="Manage Project">
           <a href="{{ route('projects.show', $project->getId()) }}" class="btn btn-primary btn-sm"><i class="far fa-eye" aria-hidden="true"></i></a>
           @feature('label_printer')

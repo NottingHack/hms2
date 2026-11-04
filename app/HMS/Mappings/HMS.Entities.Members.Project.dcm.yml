@@ -26,6 +26,12 @@ HMS\Entities\Members\Project:
       nullable: true
     state:
       type: integer
+    tortReason:
+      type: text
+      nullable: true
+    tortDate:
+      type: date
+      nullable: true
   manyToOne:
     user:
       targetEntity: \HMS\Entities\User
@@ -33,4 +39,4 @@ HMS\Entities\Members\Project:
         name: user_id
         referencedColumnName: id
         nullable: false
-     
+

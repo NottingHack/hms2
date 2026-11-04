@@ -4,6 +4,16 @@
 
 @section('content')
 <div class="container">
+
+  @if ($project->getTortReason())
+  <div class="alert alert-warning" role="alert">
+    <h5 class="alert-heading">Removal Requested</h5>
+    Removal of this project was requested on {{ $project->getTortDate()->toDateString() }}. Any items for this project may be disposed of after the date provided in the email.
+    <hr>
+    <strong>Reason:</strong> {{ $project->getTortReason() }}
+  </div>
+  @endif
+
   <div class="table-responsive">
     <table class="table table-bordered">
       <tbody>
@@ -90,5 +100,25 @@
     @endif
     @endif
   </div>
+
+  @if (\Auth::user()->can('project.tort'))
+  @if ($project->getTortReason())
+  <div class="card border-light">
+    <a href="javascript:void(0);" onclick="$(this).find('form').submit();" class="btn btn-sm btn-primary mb-1">
+      <form action="{{ route('projects.clearTort', $project->getId()) }}" method="POST" style="display: none">
+        @method('PATCH')
+        @csrf
+      </form>
+      <i class="fas fa-trash fa-lg" aria-hidden="true"></i> Clear Removal Request
+    </a>
+  </div>
+  @else
+  <div class="card border-light">
+    <a href="{{ route('projects.tort', $project->getId()) }}" class="btn btn-sm btn-warning mb-1">
+      <i class="fas fa-trash fa-lg" aria-hidden="true"></i> Request Removal (Tort)
+    </a>
+  </div>
+  @endif
+  @endif
 </div>
 @endsection

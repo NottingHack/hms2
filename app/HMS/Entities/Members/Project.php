@@ -48,6 +48,16 @@ class Project
     protected $user;
 
     /**
+     * @var null|string
+     */
+    protected $tortReason;
+
+    /**
+     * @var null|Carbon
+     */
+    protected $tortDate;
+
+    /**
      * Gets the value of id.
      *
      * @return int
@@ -230,6 +240,46 @@ class Project
     public function setUser(User $user)
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getTortReason()
+    {
+        return $this->tortReason;
+    }
+
+    /**
+     * @param null|string $tortReason
+     *
+     * @return self
+     */
+    public function setTortReason(?string $tortReason)
+    {
+        $this->tortReason = $tortReason;
+
+        return $this;
+    }
+
+    /**
+     * @return null|Carbon
+     */
+    public function getTortDate()
+    {
+        return $this->tortDate;
+    }
+
+    /**
+     * @param null|Carbon $tortDate
+     *
+     * @return self
+     */
+    public function setTortDate(?Carbon $tortDate)
+    {
+        $this->tortDate = $tortDate;
 
         return $this;
     }

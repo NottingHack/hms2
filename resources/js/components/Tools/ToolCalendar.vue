@@ -226,6 +226,11 @@
         if (info.event.extendedProps.userId == this.userCanBook.userId && moment().diff(info.event.end) < 0) {
           this.setupCancelConfirmation(info);
         }
+
+        // does it end in the future and are we a maintainer
+        if (moment().diff(info.event.end) < 0 && this.userCanBook.maintenance) {
+          this.setupMaintainerCancelConfirmation(info);
+        }
       },
 
       eventAllow(dropInfo, draggedEvent) {
@@ -620,6 +625,38 @@
           container: 'body',
           rootSelector: '.booking-selected',
           title: 'Would you like to cancel this booking?',
+          popout: true,
+          singleton: true,
+          btnOkClass: 'btn btn-sm btn-danger',
+          btnCancelClass: 'btn btn-sm btn-outline-dark',
+          onConfirm(type) {
+            $(info.el).removeClass('booking-selected');
+            self.cancelBooking(info.event);
+          },
+          onCancel() {
+            $(info.el).removeClass('booking-selected');
+          },
+        };
+
+        $('.booking-selected').confirmation(options);
+
+        $('.booking-selected').confirmation('show');
+      },
+
+      /**
+       * Display bootstrap confirmation popover for a new selection.
+       */
+      setupMaintainerCancelConfirmation(info) {
+        const self = this;
+
+        // info.el attach booking-selected class to the <a>
+        $(info.el).addClass('booking-selected');
+
+        let options = {
+          container: 'body',
+          rootSelector: '.booking-selected',
+          title: 'Are you sure you want to cancel this booking?',
+          content: 'The member will be notified that there is an issue with the tool, and that their booking has been cancelled.',
           popout: true,
           singleton: true,
           btnOkClass: 'btn btn-sm btn-danger',

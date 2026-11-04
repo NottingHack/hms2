@@ -20,12 +20,12 @@
         };
 
         axios.put(this.route('api.forms.comment', {'formResponse': this.formResponseId}), body)
-             .then(() => {
-               sender.target.classList.add('is-valid');
-               setTimeout(() => {
-                 sender.target.classList.remove('is-valid');
-               }, 1000);
-             });
+         .then(() => {
+           sender.target.classList.add('is-valid');
+           setTimeout(() => {
+             sender.target.classList.remove('is-valid');
+           }, 1000);
+         });
       },
     },
   };

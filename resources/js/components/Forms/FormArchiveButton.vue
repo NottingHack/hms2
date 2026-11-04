@@ -12,10 +12,14 @@
 
     methods: {
       archive(sender, options) {
+        const row = this.$el.closest('tr');
+
         axios.put(this.route('api.forms.hide', {'formResponse': this.formResponseId}))
-             .then(() => {
-               $(sender.target).parent().parent().remove();
-             });
+          .then(() => {
+            if (row) {
+              row.remove();
+            }
+          });
       }
     },
   };
